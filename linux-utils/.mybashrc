@@ -1,0 +1,6 @@
+alias ll='ls -alhFo --group-directories-first --time-style=long-iso --color=auto'
+alias grep='grep --color'
+alias cdproj='cd $PROJECTS_DIR'
+
+PROMPT_DIRTRIM=2
+
