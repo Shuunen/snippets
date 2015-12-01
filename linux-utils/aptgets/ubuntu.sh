@@ -11,4 +11,4 @@ git config --global user.email "romain.racamier@gmail.com"
 git config --global user.name "Romain Racamier Lafon"
 git config --global push.default simple
 git config --global credential.helper cache
-
+git config --global credential.helper 'cache --timeout=360000'
