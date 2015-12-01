@@ -26,7 +26,13 @@ alias today='date +"Today is %A %d %B %Y (%Y-%m-%d) and it is %H:%M %p"'
 alias gitll='git log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative'
 
 # thanks http://haacked.com/archive/2014/07/28/github-flow-aliases/
-alias gitcm='git add -A && git commit -m'
+alias gitac='git add -A && git commit -m'
+
+# thanks http://stackoverflow.com/questions/7131670/make-bash-alias-that-takes-parameter
+gitAddCommitPush() {
+    git add -A && git commit -m '$1' && git push
+}
+alias gitacp=gitAddCommitPush
 
 # thanks http://askubuntu.com/
 PROMPT_DIRTRIM=2

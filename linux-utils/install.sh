@@ -1,5 +1,7 @@
 #!/bin/bash
 #
+# Thanks https://github.com/gto76/standard-aliases
+#
 # Usage: chmod +x ./install.sh && ./install.sh
 
 # Stops execution if any command fails.
@@ -26,6 +28,9 @@ main() {
 	echo "install custom utils..."
 	sudo cp -R mybins/* /usr/local/bin/ --force --verbose
 	sudo chmod +x /usr/local/bin/*
+	
+	# 4. Refresh current bash instance
+	bash
 }
 
 main "$@"
