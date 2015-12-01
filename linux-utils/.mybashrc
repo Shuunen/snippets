@@ -1,6 +1,33 @@
+
+# thanks manual
 alias ll='ls -alhFo --group-directories-first --time-style=long-iso --color=auto'
 alias grep='grep --color'
 alias cdproj='cd $PROJECTS_DIR'
 
+# thanks http://www.digitalocean.com/community/tutorials/an-introduction-to-useful-bash-aliases-and-functions
+alias ..='cd ..'
+alias psg='ps aux | grep -v grep | grep -i -e VSZ -e'
+alias mkdir='mkdir -pv'
+alias wget='wget -c'
+alias histgrep='history | grep'
+alias top='htop'
+alias treesizes='ncdu'
+alias diskusage='pydf'
+alias whatsmyip='curl http://ipecho.net/plain; echo'
+
+# thanks http://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html
+alias apt-get='sudo apt-get'
+alias reboot='sudo reboot'
+alias update='sudo apt-get update'
+alias upgrade='sudo apt-get upgrade'
+alias today='date +"Today is %A %d %B %Y (%Y-%m-%d) and it is %H:%M %p"'
+
+# thanks http://durdn.com/blog/2012/11/22/must-have-git-aliases-advanced-examples/
+alias gitll='git log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative'
+
+# thanks http://haacked.com/archive/2014/07/28/github-flow-aliases/
+alias gitcm='git add -A && git commit -m'
+
+# thanks http://askubuntu.com/
 PROMPT_DIRTRIM=2
 
