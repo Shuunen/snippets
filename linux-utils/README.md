@@ -21,14 +21,3 @@ git clone https://github.com/Shuunen/snippets
 cd snippets/linux-utils
 ./install.sh
 ````
-
-````bash````
-````bash````
-````bash````
-````bash````
-````bash````
-````bash````
-````bash````
-````bash````
-````bash````
-````bash````
