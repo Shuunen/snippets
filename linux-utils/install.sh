@@ -17,8 +17,7 @@ main() {
 
     # 2. Install custom bashrc
     if [[ -z $(grep ". ~/.mybashrc" ~/.bashrc) ]]; then              
-        echo "source ~/.mybashrc" >> ~/.bashrc     
-        echo "PROJECTS_DIR=/media/romain/BigStock/_Devellopement/Projects/" >> ~/.bashrc
+        echo "source ~/.mybashrc" >> ~/.bashrc
     fi	
     echo "install custom bashrc..."
     sudo cp .mybashrc ~/.mybashrc --force --verbose
