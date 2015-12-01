@@ -33,7 +33,7 @@ alias gitst='git status'
 
 # thanks http://stackoverflow.com/questions/7131670/make-bash-alias-that-takes-parameter
 gitAddCommitPush() {
-    git add -A && git commit -m '$1' && git push
+    git add -A && git commit -m "$1" && git push
 }
 alias gitacp=gitAddCommitPush
 
