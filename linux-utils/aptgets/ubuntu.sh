@@ -2,6 +2,9 @@
 #
 # Usage: chmod +x ./ubuntu.sh && ./ubuntu.sh
 
+# remove useless stuff
+sudo apt-get remove thunderbir* firefo* gnome-conta* libreoffice* xul-ext-ubufo* xul-ext-uni* xul-ext-webaccoun* transmission-gt* unity-scope-gdriv* brasero-cd* rhythmbo* landscape-clien* unity-webapps-commo*
+
 # mini softs
 sudo apt-get install nano htop ncdu pydf -y
 
