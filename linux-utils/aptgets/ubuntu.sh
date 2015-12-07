@@ -5,6 +5,22 @@
 # remove useless stuff
 sudo apt-get remove thunderbir* firefo* gnome-conta* libreoffice* xul-ext-ubufo* xul-ext-uni* xul-ext-webaccoun* transmission-gt* unity-scope-gdriv* brasero-cd* rhythmbo* landscape-clien* unity-webapps-commo*
 
+##################
+# 1. Add repos  ##
+##################
+
+# flux for eye care
+# sudo add-apt-repository ppa:kilian/f.lux -y
+
+##################
+# 2. Update     ##
+##################
+sudo apt-get update
+
+##################
+# 3. Install    ##
+##################
+
 # mini softs
 sudo apt-get install nano htop ncdu pydf -y
 
