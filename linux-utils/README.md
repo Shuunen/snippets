@@ -1,20 +1,33 @@
 
 # Linux utils
 
-To install these utils, bash this :
+If under Debian, do this as root :
 
 ````bash
-sudo -s
+apt-get install sudo
 ````
+
+Add a user :
+
+````bash
+adduser MYUSER
+usermod -a -G sudo MYUSER
+````
+
+Ìnstall git :
 
 ````bash
 apt-get update
 apt-get install -y git
 ````
 
+Logout from root :
+
 ````bash
 exit
 ````
+
+Get snippets :
 
 ````bash
 git clone https://github.com/Shuunen/snippets
