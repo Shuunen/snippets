@@ -76,6 +76,8 @@ function is_desktop {
 #  ╚██████╗╚██████╔╝███████║   ██║   ╚██████╔╝██║ ╚═╝ ██║██║███████╗███████╗
 #   ╚═════╝ ╚═════╝ ╚══════╝   ╚═╝    ╚═════╝ ╚═╝     ╚═╝╚═╝╚══════╝╚══════╝
 
+
+
 # creates ~/.bashrc if it doesn't exist.
 if [[ ! -f ~/.bashrc ]]; then
     consoleSuccess "create .bashrc file because none was found"
@@ -98,7 +100,14 @@ consoleLog "install custom utils"
 sudo cp -R mybins/* /usr/local/bin/ --force --verbose >> $logfile 2>&1
 sudo chmod +x /usr/local/bin/*
 	
-
+# remove useless aptitude translations
+file="/etc/apt/apt.conf.d/99translations"
+if [[ ! -f "$file" ]]; then
+    consoleSuccess "remove useless aptitude translations"
+    sudo touch "$file"
+    echo 'Acquire::Languages "none";' | sudo tee -a $file >> $logfile 2>&1 # allow to append line to a root file
+    sudo rm -r /var/lib/apt/lists/*Translation* >> $logfile 2>&1
+fi
 
 
 #  ██████╗ ███████╗███╗   ███╗ ██████╗ ██╗   ██╗███████╗     ██████╗██████╗  █████╗ ██████╗ 
