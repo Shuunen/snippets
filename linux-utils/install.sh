@@ -2,6 +2,11 @@
 #
 # Usage: chmod +x ./install.sh && ./install.sh
 
+# prepare logfile
+logfile=install.log
+cat /dev/null > $logfile
+
+# clean console
 reset
 
 #  ███████╗██╗   ██╗███╗   ██╗ ██████╗████████╗██╗ ██████╗ ███╗   ██╗███████╗
@@ -23,39 +28,33 @@ function not_installed {
 
 function check_install {
     if not_installed $1 ; then    
-        echo_fail $1
+        consoleError "$1 has not been installed"
     else
-        echo_pass $1
+        consoleSuccess "$1 has been installed"
     fi
 }
 
-function echo_fail {
-    # echo first argument in red
-    printf "\n \e[31m✘ ${1} has not been installed"
-    # reset colours back to normal
-    echo -e "\033[0m"
+function consoleError {
+    printf "\n \e[31m✘ ${1}" # echo first argument in red   
+    echo -e "\033[0m" # reset colours back to normal
 }
 
-function echo_pass {
-    # echo first argument in green
-    printf "\n  \e[32m✔ ${1} has been installed"
-    # reset colours back to normal
-    echo -e "\033[0m"
+function consoleLog {    
+    printf "\n  \e[34m✔  ${1}" # echo first argument in blue
+    echo -e "\033[0m" # reset colours back to normal
 }
 
-function echo_good {
-    # echo first argument in blue
-    printf "\n  \e[34m✔ ${1} was already installed"
-    # reset colours back to normal
-    echo -e "\033[0m"
+function consoleSuccess {
+    printf "\n  \e[32m✔ ${1}" # echo first argument in green
+    echo -e "\033[0m" # reset colours back to normal
 }
 
 function install_if_needed {
     if not_installed $1 ; then
-        sudo apt-get install $1 -y
+        sudo apt-get install $1 -y >> $logfile 2>&1
         check_install $1
     else
-        echo_good $1
+        consoleLog "$1 was already installed"
     fi
 }
 
@@ -79,22 +78,24 @@ function is_desktop {
 
 # creates ~/.bashrc if it doesn't exist.
 if [[ ! -f ~/.bashrc ]]; then
-    echo "  create bashrc file"
+    consoleSuccess "create .bashrc file because none was found"
     touch ~/.bashrc
 fi
 
-# install custom bashrc
-if [[ -z $(grep ". ~/.mybashrc" ~/.bashrc) ]]; then              
-    echo "source ~/.mybashrc" >> ~/.bashrc
-    echo "  auto-source custom bashrc..."
-fi	
-echo "  install custom bashrc..."
-sudo cp .mybashrc ~/.mybashrc --force --verbose
+# install custom mybashrc
+consoleLog "install custom ~/.mybashrc"
+sudo cp .mybashrc ~/.mybashrc --force --verbose >> $logfile 2>&1
 source ~/.bashrc
 
+# prepare auto source at login
+if [[ -z $(grep ". ~/.mybashrc" ~/.bashrc) ]]; then    
+    echo "source ~/.mybashrc" >> ~/.bashrc
+    consoleSuccess "auto-source custom mybashrc at login"
+fi	
+
 # install custom utils
-echo "  install custom utils..."
-sudo cp -R mybins/* /usr/local/bin/ --force --verbose
+consoleLog "install custom utils"
+sudo cp -R mybins/* /usr/local/bin/ --force --verbose >> $logfile 2>&1
 sudo chmod +x /usr/local/bin/*
 	
 
@@ -108,9 +109,15 @@ sudo chmod +x /usr/local/bin/*
 #  ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝ ╚═════╝   ╚═══╝  ╚══════╝     ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     
 
 if is_desktop ; then
-
+    
+    consoleLog "desktop detected"
+    
     # remove useless stuff
-    sudo apt-get -qq remove thunderbir* firefo* gnome-conta* libreoffice* xul-ext-ubufo* xul-ext-uni* xul-ext-webaccoun* transmission-gt* unity-scope-gdriv* brasero-cd* rhythmbo* landscape-clien* unity-webapps-commo*
+    sudo apt-get remove -y thunderbir* gnome-conta* libreoffice* xul-ext-ubufo* xul-ext-uni* xul-ext-webaccoun* transmission* unity-scope-gdriv* brasero-cd* rhythmbo* landscape-clien* unity-webapps-commo* >> $logfile 2>&1
+
+else
+
+    consoleLog "headless server detected"    
 
 fi
 
@@ -127,14 +134,14 @@ if is_desktop ; then
 
     # flux for eye care
     if [[ ! -f /etc/apt/sources.list.d/kilian-f_lux-trusty.list ]]; then
-        echo "  install ppa:kilian/f.lux..."
-        sudo add-apt-repository ppa:kilian/f.lux -y
+        consoleSuccess "install ppa:kilian/f.lux"
+        sudo add-apt-repository ppa:kilian/f.lux -y >> $logfile 2>&1
     fi
     
     # H.265 / HEVC codec
     if [[ ! -f /etc/apt/sources.list.d/strukturag-libde265-trusty.list ]]; then
-        echo "  install ppa:strukturag/libde265..."
-        sudo apt-add-repository ppa:strukturag/libde265 -y
+        consoleSuccess "install ppa:strukturag/libde265"
+        sudo apt-add-repository ppa:strukturag/libde265 -y >> $logfile 2>&1
     fi
 fi
 
@@ -147,7 +154,7 @@ fi
 #  ╚██████╔╝██║     ██████╔╝██║  ██║   ██║   ███████╗
 #   ╚═════╝ ╚═╝     ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝
 
-sudo apt-get -qq update
+sudo apt-get update >> $logfile 2>&1
 
 
 
@@ -174,41 +181,41 @@ install_if_needed "pydf"
 # git
 app="git"
 if not_installed $app ; then
-    sudo apt-get install git -y
+    sudo apt-get install git -y >> $logfile 2>&1
     git config --global push.default simple
     git config --global credential.helper cache
     git config --global credential.helper 'cache --timeout=360000'
     check_install $app
 else
-    echo_good $app
+    consoleLog "$app was already installed"
 fi
 
 # nvm, node & npm
-app="nvm"
-path="$NVM_DIR"
-pathsize=$(echo ${#path})
-if [ $pathsize -gt 1 ] ; then
-    echo_good $app
-else
-    sudo apt-get install build-essential libssl-dev -y
-    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh | bash
-    source ~/.profile
-    nvm ls-remote # list availables version downloadable
-    nvm install node # install more recent
-    nvm use node # use it
-    echo "nvm use node" >> ~/.bashrc # use it at each login
-    nvm ls # list availables version locally installed
-    node -v # show node version
-    npm -v # show npm version
+#app="nvm"
+#path="$NVM_DIR"
+#pathsize=$(echo ${#path})
+#if [ $pathsize -gt 1 ] ; then
+#    consoleSuccess "$app was already installed"
+#else
+#    sudo apt-get install build-essential libssl-dev -y
+#    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh | bash
+#    source ~/.profile
+#    nvm ls-remote # list availables version downloadable
+#    nvm install node # install more recent
+#    nvm use node # use it
+#    echo "nvm use node" >> ~/.bashrc # use it at each login
+#    nvm ls # list availables version locally installed
+#    node -v # show node version
+#    npm -v # show npm version
     
-    path="$NVM_DIR"
-    pathsize=$(echo ${#path})
-    if [ $pathsize -gt 1 ] ; then
-        echo_pass $app
-    else
-        echo_fail $app
-    fi
-fi
+#    path="$NVM_DIR"
+#    pathsize=$(echo ${#path})
+#    if [ $pathsize -gt 1 ] ; then
+#        consoleLog $app
+#    else
+#        consoleError $app
+#    fi
+#fi
 
 
 
