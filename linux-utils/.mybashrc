@@ -46,6 +46,8 @@ export LC_ALL=en_US.UTF-8
 # thanks http://askubuntu.com/
 PROMPT_DIRTRIM=2
 
-# show ubuntu version
-lsb_release -a
+# show linux distrib/release/codename
+echo "Welcome ${USER}"
+echo "All Hail the Flying Spaghetti Monster!"
+lsb_release -dc
 

@@ -178,6 +178,9 @@ sudo apt-get update >> $logfile 2>&1
 #  ██║██║ ╚████║███████║   ██║   ██║  ██║███████╗███████╗
 #  ╚═╝╚═╝  ╚═══╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚══════╝╚══════╝
 
+# lsb-release to show current system
+install_if_needed "lsb-release"
+
 # mini editor
 install_if_needed "nano"
 
