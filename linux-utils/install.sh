@@ -145,16 +145,25 @@ fi
 if is_desktop ; then
 
     # flux for eye care
-    if [[ ! -f /etc/apt/sources.list.d/kilian-f_lux-trusty.list ]]; then
-        consoleSuccess "install ppa:kilian/f.lux"
+    app="fluxgui"
+    if not_installed $app ; then
+        consoleSuccess "installing repo for $app : ppa:kilian/f.lux"
         sudo add-apt-repository ppa:kilian/f.lux -y >> $logfile 2>&1
     fi
     
     # H.265 / HEVC codec
-    if [[ ! -f /etc/apt/sources.list.d/strukturag-libde265-trusty.list ]]; then
-        consoleSuccess "install ppa:strukturag/libde265"
-        sudo apt-add-repository ppa:strukturag/libde265 -y >> $logfile 2>&1
+    app="vlc-plugin-libde265"
+    if not_installed $app ; then
+        consoleSuccess "installing repo for $app : ppa:strukturag/libde265"
+        sudo add-apt-repository ppa:strukturag/libde265 -y >> $logfile 2>&1
     fi
+fi
+
+# screenfetch is a kikoo login ascii art
+app="screenfetch"
+if not_installed $app ; then
+    consoleSuccess "installing repo for $app : ppa:djcj/screenfetch"
+    sudo add-apt-repository ppa:djcj/screenfetch -y >> $logfile 2>&1
 fi
 
 
@@ -192,6 +201,9 @@ install_if_needed "ncdu"
 
 # TODO : describe
 install_if_needed "pydf"
+
+# screenfetch is a kikoo login ascii art
+install_if_needed "screenfetch"
 
 # git
 app="git"
