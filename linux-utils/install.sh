@@ -40,7 +40,7 @@ function consoleError {
 }
 
 function consoleLog {    
-    printf "\n  \e[34m✔  ${1}" # echo first argument in blue
+    printf "\n  \e[34m✔ ${1}" # echo first argument in blue
     echo -e "\033[0m" # reset colours back to normal
 }
 
@@ -59,10 +59,13 @@ function install_if_needed {
 }
 
 function is_desktop {
-     # set to 1 initially
-    local return_=0
-    # set to 0 if not found
-    dpkg -l ubuntu-desktop | grep 'desktop system' >/dev/null 2>&1 || { local return_=1; }
+    
+    if not_installed "ubuntu-desktop" ; then
+        local return_=1
+    else
+        local return_=0
+    fi
+    
     # return value
     return "$return_"
 }
