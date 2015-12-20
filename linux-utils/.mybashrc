@@ -46,8 +46,10 @@ export LC_ALL=en_US.UTF-8
 # thanks http://askubuntu.com/
 PROMPT_DIRTRIM=2
 
-# show linux distrib/release/codename
-echo "Welcome ${USER}"
-echo "All Hail the Flying Spaghetti Monster!"
-lsb_release -dc
+# Welcome screen
+printf "\n"
+screenfetch
+printf "\n  Welcome ${USER}\n"
+printf "\n  All Hail the Flying Spaghetti Monster! \n\n"
+# lsb_release -dc # show linux distrib/release/codename
 
