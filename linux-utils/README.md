@@ -18,6 +18,7 @@ usermod -a -G sudo MYUSER
 
 ````bash
 apt-get update
+apt-get upgrade
 apt-get install -y git
 ````
 
