@@ -22,10 +22,11 @@ apt-get upgrade
 apt-get install -y git
 ````
 
-Logout from root :
+Logout from root & restart :
 
 ````bash
 exit
+shutdown -r now
 ````
 
 Get snippets :
