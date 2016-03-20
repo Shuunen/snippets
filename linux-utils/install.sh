@@ -202,6 +202,9 @@ install_if_needed "ncdu"
 # TODO : describe
 install_if_needed "pydf"
 
+# Great downloader
+install_if_needed "aria2"
+
 # screenfetch is a kikoo login ascii art
 install_if_needed "screenfetch"
 
