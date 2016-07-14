@@ -4,7 +4,7 @@
 
 # prepare logfile
 logfile=install.log
-cat /dev/null > $logfile
+cat /dev/null > ${logfile}
 
 # clean console
 reset
@@ -27,7 +27,7 @@ function not_installed {
 }
 
 function check_install {
-    if not_installed $1 ; then    
+    if not_installed "$1" ; then    
         consoleError "$1 has not been installed"
     else
         consoleSuccess "$1 has been installed"
@@ -50,31 +50,31 @@ function consoleSuccess {
 }
 
 function install_if_needed {
-    if not_installed $1 ; then
-        sudo apt-get install $1 -y >> $logfile 2>&1
-        check_install $1
+    if not_installed "$1"; then
+        sudo apt-get install "$1" -y >> ${logfile} 2>&1
+        check_install "$1"
     else
         consoleLog "$1 was already installed"
     fi
 }
 
 function is_desktop {
-	# set to 1 (false) initially
+    # set to 1 (false) initially
     local return_=1
-	# array of desktop packages 
-	packages=("ubuntu-desktop" "mate-desktop")
+    # array of desktop packages 
+    packages=("ubuntu-desktop" "mate-desktop")
     # check for one of them
-	for package in "${package[@]}"; do
-		if not_installed $package ; then
-			consoleLog "dektop package \"$package\" not detected"
-		else
-			consoleSuccess "dektop package \"$package\" detected"
-			# found ! set to 0 (true)
-			local return_=0
-			# stop iterations
-			break
-		fi
-	done     
+    for package in "${packages[@]}"; do
+        if not_installed "$package" ; then
+            consoleLog "dektop package \"$package\" not detected"
+        else
+            consoleSuccess "dektop package \"$package\" detected"
+            # found ! set to 0 (true)
+            local return_=0
+            # stop iterations
+            break
+        fi
+    done 
     # return value
     return "$return_"
 }
@@ -98,27 +98,27 @@ fi
 
 # install custom mybashrc
 consoleLog "install custom ~/.mybashrc"
-sudo cp .mybashrc ~/.mybashrc --force --verbose >> $logfile 2>&1
+sudo cp .mybashrc ~/.mybashrc --force --verbose >> ${logfile} 2>&1
 source ~/.bashrc
 
 # prepare auto source at login
 if [[ -z $(grep ". ~/.mybashrc" ~/.bashrc) ]]; then    
     echo "source ~/.mybashrc" >> ~/.bashrc
     consoleSuccess "auto-source custom mybashrc at login"
-fi	
+fi
 
 # install custom utils
 consoleLog "install custom utils"
-sudo cp -R mybins/* /usr/local/bin/ --force --verbose >> $logfile 2>&1
+sudo cp -R mybins/* /usr/local/bin/ --force --verbose >> ${logfile} 2>&1
 sudo chmod +x /usr/local/bin/*
-	
+
 # remove useless aptitude translations
 file="/etc/apt/apt.conf.d/99translations"
 if [[ ! -f "$file" ]]; then
     consoleSuccess "remove useless aptitude translations"
     sudo touch "$file"
-    echo 'Acquire::Languages "none";' | sudo tee -a $file >> $logfile 2>&1 # allow to append line to a root file
-    sudo rm -r /var/lib/apt/lists/*Translation* >> $logfile 2>&1
+    echo 'Acquire::Languages "none";' | sudo tee -a ${file} >> ${logfile} 2>&1 # allow to append line to a root file
+    sudo rm -r /var/lib/apt/lists/*Translation* >> ${logfile} 2>&1
 fi
 
 
@@ -134,7 +134,7 @@ if is_desktop ; then
     consoleLog "desktop detected"
     
     # remove useless stuff
-    sudo apt-get remove -y thunderbir* gnome-conta* libreoffice* xul-ext-ubufo* xul-ext-uni* xul-ext-webaccoun* transmission* unity-scope-gdriv* brasero-cd* rhythmbo* landscape-clien* unity-webapps-commo* >> $logfile 2>&1
+    sudo apt-get remove -y thunderbir* gnome-conta* libreoffice* xul-ext-ubufo* xul-ext-uni* xul-ext-webaccoun* transmission* unity-scope-gdriv* brasero-cd* rhythmbo* landscape-clien* unity-webapps-commo* >> ${logfile} 2>&1
 
 else
 
@@ -155,24 +155,24 @@ if is_desktop ; then
 
     # flux for eye care
     app="fluxgui"
-    if not_installed $app ; then
-        consoleSuccess "installing repo for $app : ppa:kilian/f.lux"
-        sudo add-apt-repository ppa:kilian/f.lux -y >> $logfile 2>&1
+    if not_installed ${app} ; then
+        consoleSuccess "installing repo for ${app} : ppa:kilian/f.lux"
+        sudo add-apt-repository ppa:kilian/f.lux -y >> ${logfile} 2>&1
     fi
     
     # H.265 / HEVC codec
     app="vlc-plugin-libde265"
-    if not_installed $app ; then
-        consoleSuccess "installing repo for $app : ppa:strukturag/libde265"
-        sudo add-apt-repository ppa:strukturag/libde265 -y >> $logfile 2>&1
+    if not_installed ${app} ; then
+        consoleSuccess "installing repo for ${app} : ppa:strukturag/libde265"
+        sudo add-apt-repository ppa:strukturag/libde265 -y >> ${logfile} 2>&1
     fi
 fi
 
 # screenfetch is a kikoo login ascii art
 app="screenfetch"
-if not_installed $app ; then
-    consoleSuccess "installing repo for $app : ppa:djcj/screenfetch"
-    sudo add-apt-repository ppa:djcj/screenfetch -y >> $logfile 2>&1
+if not_installed ${app} ; then
+    consoleSuccess "installing repo for ${app} : ppa:djcj/screenfetch"
+    sudo add-apt-repository ppa:djcj/screenfetch -y >> ${logfile} 2>&1
 fi
 
 
@@ -184,7 +184,7 @@ fi
 #  ╚██████╔╝██║     ██████╔╝██║  ██║   ██║   ███████╗
 #   ╚═════╝ ╚═╝     ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝
 
-sudo apt-get update >> $logfile 2>&1
+sudo apt-get update >> ${logfile} 2>&1
 
 
 
@@ -222,14 +222,14 @@ install_if_needed "pm-utils"
 
 # git
 app="git"
-if not_installed $app ; then
-    sudo apt-get install git -y >> $logfile 2>&1
+if not_installed "${app}" ; then
+    sudo apt-get install git -y >> ${logfile} 2>&1
     git config --global push.default simple
     git config --global credential.helper cache
     git config --global credential.helper 'cache --timeout=360000'
-    check_install $app
+    check_install ${app}
 else
-    consoleLog "$app was already installed"
+    consoleLog "${app} was already installed"
 fi
 
 # nvm, node & npm
@@ -237,7 +237,7 @@ fi
 #path="$NVM_DIR"
 #pathsize=$(echo ${#path})
 #if [ $pathsize -gt 1 ] ; then
-#    consoleSuccess "$app was already installed"
+#    consoleSuccess "${app} was already installed"
 #else
 #    sudo apt-get install build-essential libssl-dev -y
 #    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh | bash
@@ -253,9 +253,9 @@ fi
 #    path="$NVM_DIR"
 #    pathsize=$(echo ${#path})
 #    if [ $pathsize -gt 1 ] ; then
-#        consoleLog $app
+#        consoleLog ${app}
 #    else
-#        consoleError $app
+#        consoleError ${app}
 #    fi
 #fi
 
@@ -305,7 +305,7 @@ exit 1;
 #     ██║   ██╔══██║██╔══██║██║╚██╗██║██╔═██╗ ╚════██║
 #     ██║   ██║  ██║██║  ██║██║ ╚████║██║  ██╗███████║
 #     ╚═╝   ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝  ╚═══╝╚═╝  ╚═╝╚══════╝
-  
+
 # For ascii art                                                     
 # http://patorjk.com/software/taag/#p=display&h=0&v=0&c=bash&f=ANSI%20Shadow&t=THANKS
 
@@ -323,5 +323,4 @@ exit 1;
 #     ██║   ██╔══██║██╔══╝      ██╔══╝  ██║╚██╗██║██║  ██║
 #     ██║   ██║  ██║███████╗    ███████╗██║ ╚████║██████╔╝
 #     ╚═╝   ╚═╝  ╚═╝╚══════╝    ╚══════╝╚═╝  ╚═══╝╚═════╝ 
-#                                                                                                                                        
-
+# 
