@@ -3,6 +3,8 @@
 alias ll='ls -alhFo --group-directories-first --time-style=long-iso --color=auto'
 alias grep='grep --color'
 alias cdproj='cd $PROJECTS_DIR'
+alias service='sudo /usr/sbin/service'
+alias reloadMyBashRc='source .mybashrc'
 
 # thanks http://www.digitalocean.com/community/tutorials/an-introduction-to-useful-bash-aliases-and-functions
 alias ..='cd ..'
@@ -18,6 +20,7 @@ alias whatsmyip='curl http://ipecho.net/plain; echo'
 # thanks http://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html
 alias apt-get='sudo apt-get'
 alias reboot='sudo reboot'
+alias restart='sudo reboot'
 alias update='sudo apt-get update'
 alias upgrade='sudo apt-get upgrade'
 alias today='date +"Today is %A %d %B %Y (%Y-%m-%d) and it is %H:%M %p"'
