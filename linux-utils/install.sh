@@ -17,9 +17,9 @@ reset
 #  ╚═╝      ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝
                                                                                                                                                     
 function not_installed {
-    # set to 1 initially
+    # set to 1 (false) initially
     local return_=1
-    # set to 0 if not found
+    # set to 0 (true) if not found
     # type $1 >/dev/null 2>&1 || { local return_=0; }
     dpkg -s "$1" >/dev/null 2>&1 || { local return_=0; }
     # return value
@@ -59,15 +59,22 @@ function install_if_needed {
 }
 
 function is_desktop {
-    
-    if not_installed "ubuntu-desktop" ; then
-        local return_=1
-	elif not_installed "mate-desktop" ; then
-        local return_=1	
-    else
-        local return_=0
-    fi
-    
+	# set to 1 (false) initially
+    local return_=1
+	# array of desktop packages 
+	packages=("ubuntu-desktop" "mate-desktop")
+    # check for one of them
+	for package in "${package[@]}"; do
+		if not_installed $package ; then
+			consoleLog "dektop package \"$package\" not detected"
+		else
+			consoleSuccess "dektop package \"$package\" detected"
+			# found ! set to 0 (true)
+			local return_=0
+			# stop iterations
+			break
+		fi
+	done     
     # return value
     return "$return_"
 }
