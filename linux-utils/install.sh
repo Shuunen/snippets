@@ -130,16 +130,11 @@ fi
 #  ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝ ╚═════╝   ╚═══╝  ╚══════╝     ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     
 
 if is_desktop ; then
-    
     consoleLog "desktop detected"
-    
     # remove useless stuff
-    sudo apt-get remove -y thunderbir* gnome-conta* libreoffice* xul-ext-ubufo* xul-ext-uni* xul-ext-webaccoun* transmission* unity-scope-gdriv* brasero-cd* rhythmbo* landscape-clien* unity-webapps-commo* >> ${logfile} 2>&1
-
+    sudo apt-get remove -y thunderbir* gnome-conta* libreoffice* xul-ext-ubufo* xul-ext-uni* xul-ext-webaccoun* unity-scope-gdriv* brasero-cd* rhythmbo* landscape-clien* unity-webapps-commo* >> ${logfile} 2>&1
 else
-
     consoleLog "headless server detected"    
-
 fi
 
 
@@ -150,6 +145,11 @@ fi
 #  ██╔══██║██║  ██║██║  ██║    ██╔══██╗██╔══╝  ██╔═══╝ ██║   ██║╚════██║
 #  ██║  ██║██████╔╝██████╔╝    ██║  ██║███████╗██║     ╚██████╔╝███████║
 #  ╚═╝  ╚═╝╚═════╝ ╚═════╝     ╚═╝  ╚═╝╚══════╝╚═╝      ╚═════╝ ╚══════╝
+
+
+# packages needed to have "add-apt-repository" command
+install_if_needed "software-properties-common"
+
 
 if is_desktop ; then
 
@@ -222,7 +222,7 @@ install_if_needed "pm-utils"
 
 # git
 app="git"
-if not_installed "${app}" ; then
+if not_installed ${app} ; then
     sudo apt-get install git -y >> ${logfile} 2>&1
     git config --global push.default simple
     git config --global credential.helper cache
