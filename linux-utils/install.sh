@@ -62,6 +62,8 @@ function is_desktop {
     
     if not_installed "ubuntu-desktop" ; then
         local return_=1
+	elif not_installed "mate-desktop" ; then
+        local return_=1	
     else
         local return_=0
     fi
@@ -202,11 +204,14 @@ install_if_needed "ncdu"
 # TODO : describe
 install_if_needed "pydf"
 
-# Great downloader
+# great downloader
 install_if_needed "aria2"
 
 # screenfetch is a kikoo login ascii art
 install_if_needed "screenfetch"
+
+# allow easy access to suspend, hibernate etc..
+install_if_needed "pm-utils"
 
 # git
 app="git"
