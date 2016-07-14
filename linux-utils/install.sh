@@ -150,24 +150,6 @@ fi
 # packages needed to have "add-apt-repository" command
 install_if_needed "software-properties-common"
 
-
-if is_desktop ; then
-
-    # flux for eye care
-    app="fluxgui"
-    if not_installed ${app} ; then
-        consoleSuccess "installing repo for ${app} : ppa:kilian/f.lux"
-        sudo add-apt-repository ppa:kilian/f.lux -y >> ${logfile} 2>&1
-    fi
-    
-    # H.265 / HEVC codec
-    app="vlc-plugin-libde265"
-    if not_installed ${app} ; then
-        consoleSuccess "installing repo for ${app} : ppa:strukturag/libde265"
-        sudo add-apt-repository ppa:strukturag/libde265 -y >> ${logfile} 2>&1
-    fi
-fi
-
 # screenfetch is a kikoo login ascii art
 app="screenfetch"
 if not_installed ${app} ; then
@@ -285,12 +267,8 @@ install_if_needed "gedit-source-code-browser-plugin"
 # handy debian conf
 install_if_needed "dconf-editor"
 
-# flux for eye care
-install_if_needed "fluxgui"
-
 # vlc
 install_if_needed "vlc"
-install_if_needed "vlc-plugin-libde265"
 
 # partition manager
 install_if_needed "gparted"
