@@ -12,6 +12,7 @@ Add a user :
 ````bash
 adduser MYUSER
 usermod -a -G sudo MYUSER
+usermod -a -G sshusers MYUSER (if needed)
 ````
 
 Ìnstall git :
