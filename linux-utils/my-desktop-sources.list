@@ -1,0 +1,6 @@
+
+# contains gedit-developer-plugins
+deb http://ppa.launchpad.net/sinzui/ppa/ubuntu trusty main
+
+# contains f.lux
+deb http://ppa.launchpad.net/kilian/f.lux/ubuntu trusty main 

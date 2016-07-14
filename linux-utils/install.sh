@@ -150,6 +150,11 @@ fi
 # packages needed to have "add-apt-repository" command
 install_if_needed "software-properties-common"
 
+if is_desktop ; then
+    consoleLog "install custom desktop repos"
+    sudo cp my-desktop-sources.list /etc/apt/sources.list.d/ --force --verbose >> ${logfile} 2>&1 
+fi
+
 # screenfetch is a kikoo login ascii art
 app="screenfetch"
 if not_installed ${app} ; then
