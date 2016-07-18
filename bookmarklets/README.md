@@ -12,7 +12,7 @@ javascript:(function(){
 var avoid = "Star Wars, Justin Bieber";
 var script=document.createElement('script');
 script.type='text/javascript';
-script.src='https://cdn.rawgit.com/Shuunen/snippets/master/bookmarklets/feedly-filter.js';
+script.src='https://rawgit.com/Shuunen/snippets/master/bookmarklets/feedly-filter.js';
 document.body.appendChild(script);})()
 ```
 
