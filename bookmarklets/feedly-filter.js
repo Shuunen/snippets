@@ -1,5 +1,5 @@
-var avoid = "Dark Vador, Pokemon Go";
-avoid = avoid.toLowerCase().replace(/,/g, '|');
+var avoid = avoid ? avoid : "Dark Vador, Pokemon Go";
+avoid = avoid.toLowerCase().replace(/\s*,\s*/g, '|');
 console.info('will remove rows with one of these words');
 console.info(avoid.replace(/\|/g, ' | '));
 var escapeRegExp = function (str) {
@@ -34,16 +34,16 @@ var forEach = function (array, callback, scope) {
 };
 var elements = document.querySelectorAll('.entryList .title');
 forEach(elements, function (index, element) {
-    var str = accentsTidy(element.text).replace(/_/g, ' ');
-    str = str.replace(/[^\w&]+/g, ' ').trim();
+    var str = accentsTidy(element.text);
+    str = str.replace(/[\W_0-9]+/g, ' ').trim();
     var match = str.match(new RegExp(escapeRegExp(avoid), 'g'));
     if (match) {
         match = match.filter(uniqueValues);
         if (match[0]) {
-            console.warn('detected : ' + match.join(', ') + ' in title : ' + str);
+            console.warn(index + ' - detected "' + match.join(', ') + '" in title %c' + str, "color:black;font-style: bold");
             element.parentElement.parentElement.firstElementChild.lastElementChild.click();
         }
     } else {
-        console.log('nothing special in title : ' + str);
+        console.log(index + ' - nothing in title %c' + str, "color:darkgrey;font-style: italic");
     }
 });
