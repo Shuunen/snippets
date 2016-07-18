@@ -9,10 +9,10 @@ It will allow you to mark as read articles that match a banned list of words.
 
 ```javascript
 javascript:(function(){
-window.avoid = "Star Wars, Justin Bieber";
-var script=document.createElement('script');
-script.type='text/javascript';
+var script=document.createElement('script'); script.type='text/javascript';
 script.src='https://rawgit.com/Shuunen/snippets/master/bookmarklets/feedly-filter.js';
-document.body.appendChild(script);})()
+document.body.appendChild(script);
+window.avoid = "Star Wars, Justin Bieber";
+})()
 ```
 
