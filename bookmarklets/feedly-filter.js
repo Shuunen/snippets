@@ -38,6 +38,37 @@ var forEach = function (array, callback, scope) {
         callback.call(scope, i, array[i]);
     }
 };
+// debounce function from underscore
+var now = Date.now || function () {
+        return new Date().getTime();
+    };
+var debounce = function (func, wait, immediate) {
+    var timeout, args, context, timestamp, result;
+    var later = function () {
+        var last = now() - timestamp;
+        if (last < wait && last >= 0) {
+            timeout = setTimeout(later, wait - last);
+        } else {
+            timeout = null;
+            if (!immediate) {
+                result = func.apply(context, args);
+                if (!timeout) context = args = null;
+            }
+        }
+    };
+    return function () {
+        context = this;
+        args = arguments;
+        timestamp = now();
+        var callNow = immediate && !timeout;
+        if (!timeout) timeout = setTimeout(later, wait);
+        if (callNow) {
+            result = func.apply(context, args);
+            context = args = null;
+        }
+        return result;
+    };
+};
 // the main job of this script
 var markExcludedAsRead = function () {
     var feeds = document.querySelectorAll('.entryList .title');
@@ -66,7 +97,7 @@ var listenForAjaxRequest = function (callback) {
     XMLHttpRequest.prototype.send = function () {
         var original = this.onreadystatechange;
         this.onreadystatechange = function () {
-            if (this.readyState == 4) {
+            if (this.readyState === 4) {
                 // delay a bit the callback execution
                 setTimeout(callback, 200);
             }
@@ -76,5 +107,6 @@ var listenForAjaxRequest = function (callback) {
     }
 };
 // init stack
-markExcludedAsRead();
-listenForAjaxRequest(markExcludedAsRead);
+var work = debounce(markExcludedAsRead, 500); // avoid calling markExcludedAsRead multiple times in 500ms interval
+work();
+listenForAjaxRequest(work);
