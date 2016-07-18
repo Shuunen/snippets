@@ -41,7 +41,9 @@ forEach(elements, function (index, element) {
         match = match.filter(uniqueValues);
         if (match[0]) {
             console.warn('detected : ' + match.join(', ') + ' in title : ' + str);
+            element.parentElement.parentElement.firstElementChild.lastElementChild.click();
         }
+    } else {
+        console.log('nothing special in title : ' + str);
     }
-    element.text = str;
 });
