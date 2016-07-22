@@ -83,7 +83,19 @@ var markExcludedAsRead = function () {
             if (match[0]) {
                 console.warn(index + ' - detected "' + match.join(', ') + '" in title %c' + str, "color:black;font-style: bold");
                 // will click on mark as read & hide button on that feed
-                feed.parentElement.parentElement.firstElementChild.lastElementChild.click();
+                var container = feed.parentElement.parentElement;
+                if (container.firstElementChild.classList.contains('condensedTools')) {
+                    container = container.firstElementChild;
+                } else if (container.parentElement.firstElementChild.classList.contains('condensedTools')) {
+                    container = container.parentElement.firstElementChild;
+                } else {
+                    console.error('cannot find condensed tools');
+                }
+                if (container.lastElementChild.tagName === 'IMG') {
+                    container.lastElementChild.click();
+                } else {
+                    console.error('cannot find mark as read button');
+                }
             }
         } else {
             console.log(index + ' - nothing in title %c' + str, "color:darkgrey;font-style: italic");
