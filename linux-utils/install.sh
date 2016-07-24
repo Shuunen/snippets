@@ -151,15 +151,38 @@ fi
 install_if_needed "software-properties-common"
 
 if is_desktop ; then
-    consoleLog "install custom desktop repos"
-    sudo cp my-desktop-sources.list /etc/apt/sources.list.d/ --force --verbose >> ${logfile} 2>&1 
+
+    app="seafile-gui"
+    if not_installed ${app} ; then
+        consoleSuccess "installing repo for ${app}"
+        sudo apt-add-repository 'deb http://ppa.launchpad.net/m.eik/seafile/ubuntu trusty main' -y >> ${logfile} 2>&1
+    fi
+
+    app="gedit-developer-plugins"
+    if not_installed ${app} ; then
+        consoleSuccess "installing repo for ${app}"
+        sudo apt-add-repository 'deb http://ppa.launchpad.net/sinzui/ppa/ubuntu trusty main' -y >> ${logfile} 2>&1
+    fi
+     
+    app="fluxgui"
+    if not_installed ${app} ; then
+        consoleSuccess "installing repo for ${app}"
+        sudo apt-add-repository 'deb http://ppa.launchpad.net/kilian/f.lux/ubuntu trusty main' -y >> ${logfile} 2>&1
+    fi
+
+    app="dockbarx"
+    if not_installed ${app} ; then
+        consoleSuccess "installing repo for ${app}"
+        sudo apt-add-repository 'deb http://ppa.launchpad.net/dockbar-main/ppa/ubuntu trusty main' -y >> ${logfile} 2>&1
+    fi
+
 fi
 
 # screenfetch is a kikoo login ascii art
 app="screenfetch"
 if not_installed ${app} ; then
-    consoleSuccess "installing repo for ${app} : ppa:djcj/screenfetch"
-    sudo add-apt-repository ppa:djcj/screenfetch -y >> ${logfile} 2>&1
+    consoleSuccess "installing repo for ${app}"
+    sudo apt-add-repository 'deb http://ppa.launchpad.net/djcj/screenfetch/ubuntu vivid main' -y >> ${logfile} 2>&1
 fi
 
 
@@ -277,6 +300,22 @@ install_if_needed "vlc"
 
 # partition manager
 install_if_needed "gparted"
+
+# seafile
+install_if_needed "seafile-gui"
+
+# flux
+install_if_needed "fluxgui"
+
+# dockbarx
+app="dockbarx"
+if not_installed ${app} ; then
+    consoleSuccess "installing ${app}"
+    install_if_needed "dockbarx"
+    install_if_needed "dockbarx-themes-extra"
+    install_if_needed "xfce4-dockbarx-plugin"
+fi
+
 
 # reload bash
 bash

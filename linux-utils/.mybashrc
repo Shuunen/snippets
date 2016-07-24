@@ -5,6 +5,8 @@ alias grep='grep --color'
 alias cdproj='cd $PROJECTS_DIR'
 alias service='sudo /usr/sbin/service'
 alias reloadMyBashRc='source .mybashrc'
+alias install='sudo apt-get install'
+alias search='sudo apt-cache search'
 
 # thanks http://www.digitalocean.com/community/tutorials/an-introduction-to-useful-bash-aliases-and-functions
 alias ..='cd ..'
@@ -19,7 +21,6 @@ alias whatsmyip='curl http://ipecho.net/plain; echo'
 
 # thanks http://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html
 alias apt-get='sudo apt-get'
-alias install='sudo apt-get install'
 alias reboot='sudo reboot'
 alias restart='sudo reboot'
 alias update='sudo apt-get update'
