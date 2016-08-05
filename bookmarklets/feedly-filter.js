@@ -72,10 +72,20 @@ var debounce = function (func, wait, immediate) {
 // the main job of this script
 var markExcludedAsRead = function () {
     // mark current feed title to see that feedly filter is active
-    var title = document.querySelector('h1 a');
+    var title = document.querySelector('h1');
+    var subtitle = title.querySelector('a');
+    if (subtitle) {
+        title = subtitle;
+    }
     var suffix = '(filtered)';
-    if (title.text.indexOf(suffix) === -1) {
-        title.text += suffix;
+    if (title.firstChild.textContent.trim().length !== 0) {
+        if (title.firstChild.textContent.indexOf(suffix) === -1) {
+            title.firstChild.textContent += suffix;
+        } else {
+            console.log('title already contains "' + suffix + '"');
+        }
+    } else {
+        console.error('title is empty');
     }
     // find all feeds
     var feeds = document.querySelectorAll('.entryList .title');
