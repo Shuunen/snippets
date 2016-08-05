@@ -71,6 +71,13 @@ var debounce = function (func, wait, immediate) {
 };
 // the main job of this script
 var markExcludedAsRead = function () {
+    // mark current feed title to see that feedly filter is active
+    var title = document.querySelector('h1 a');
+    var suffix = '(filtered)';
+    if (title.text.indexOf(suffix) === -1) {
+        title.text += suffix;
+    }
+    // find all feeds
     var feeds = document.querySelectorAll('.entryList .title');
     forEach(feeds, function (index, feed) {
         // to lower to avoid being case sensitive + remove accents
