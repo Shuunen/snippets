@@ -209,6 +209,9 @@ sudo apt-get update >> ${logfile} 2>&1
 # lsb-release to show current system
 install_if_needed "lsb-release"
 
+# to dl stuff
+install_if_needed "curl"
+
 # mini editor
 install_if_needed "nano"
 
