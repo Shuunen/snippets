@@ -26,6 +26,7 @@ window.avoid += ', 4K Converter, Tipard Blu, Adobe After Effects, XviD4PSP, Aqua
 window.avoid += ', MXF Converter, GOM Media Player, Softwares PhotoToFilm, XRecode II';
 window.avoid += ', oCam, Adobe Premiere Pro, CloneBD, Any Video Converter, XMedia Recode, Screen GIF v2016, Screen GIF 2016';
 window.avoid += ', Media Player Classic, DVD Converter, TEncoder Video, Zoom Player, Magix Movie';
+window.avoid += ', Movie Editor';
 window.avoid += '';
 
 /* Unwanted softwares - Photo */
@@ -37,7 +38,7 @@ window.avoid += ', CyberLink MakeupDirector, Blackmagic Design, ImageMagick, Cor
 window.avoid += ', QuarkXPress, Shotcut, Image Resizer, Digital Photo Suite, Photo SlideShow, PicPick';
 window.avoid += ', Photo Pos Pro, Topaz Impression 2, Topaz Impression v2, Sad Cat Software, CollageIt';
 window.avoid += ', Smith Micro Moho , Anime Studio, DxO ViewPoint 2, ScreenGif, ConverSeen, Picture Collage Maker';
-window.avoid += ', Dynamic Auto Painter PRO 5, Dynamic Auto Painter PRO v5';
+window.avoid += ', Dynamic Auto Painter PRO 5, Dynamic Auto Painter PRO v5, ACDSee';
 window.avoid += '';
 
 /* Unwanted softwares - Browser */
@@ -53,7 +54,7 @@ window.avoid += ', Auslogics Browser Care, Auslogics Duplicate, FileOptimizer, R
 window.avoid += ', Total Uninstall Pro, Abelssoft GoogleClean, CCleaner 5, Wise Disk Cleaner';
 window.avoid += ', Chrome Cleanup Tool, Uninstall Tool 3, Uninstall Tool 4, Windows Repair Toolbox';
 window.avoid += ', wise care 365 pro v4, RegistryWizard, DLL Suite, DLL Care, Long Path Tool, Smart Driver Updater';
-window.avoid += ', Destroy Windows, Solid State Doctor v3';
+window.avoid += ', Destroy Windows, Solid State Doctor v3, WinUtilities, PGWare';
 window.avoid += '';
 
 /* Unwanted softwares - Editor */
@@ -74,10 +75,11 @@ window.avoid += ', Zer0 0, UnHackMe v8, Angry IP Scanner';
 window.avoid += '';
 
 /* Unwanted softwares - Recovery */
-window.avoid += ', Data Recovery, Photo Recovery, Video Recovery, Audio Recovery';
+window.avoid += ', Data Recovery, Photo Recovery, Video Recovery, Audio Recovery, RecoverBits';
 
 /* Unwanted softwares - Backup */
 window.avoid += ', CloneZilla, CloneApp, Personal Backup, BestSync, Backup and Recovery, SyncBackPro, Syncovery';
+window.avoid += ', BurnAware';
 window.avoid += '';
 
 /* Unwanted softwares - TeamViewer */
@@ -87,6 +89,15 @@ window.avoid += ', TeamViewer premium, TeamViewer corporate, TeamViewer server, 
 window.avoid += ', FrostWire, Universal Windows Downloader, StreamWriter, file and image uploader, uTorrent Pro';
 window.avoid += ', JDownloader 2, YouTube Downloader, Free Download Manager, USDownloader 1 3';
 window.avoid += ', RetroShare 0, Download Accelerator Manager, torrent v3, torrent v4, JDownloader v2';
+window.avoid += ', save2pc Ultimate';
+window.avoid += '';
+
+/* Unwanted softwares - eBook */
+window.avoid += ', Anthemion Jutoh';
+window.avoid += '';
+
+/* Unwanted softwares - SEO */
+window.avoid += ', Rank Tracker';
 window.avoid += '';
 
 /* Unwanted softwares - Office */
@@ -96,13 +107,18 @@ window.avoid += ', Atlantis Word Processor, Cimaware OfficeFIX, SMath Studio, Pa
 window.avoid += ', Advanced Renamer, Efficient Notes 5, Efficient Notes 6, Efficient Notes 7, FastKeys';
 window.avoid += ', Calendarscope, Efficient Password Manager, Balabolka, ScanPapyrus, Flip PDF Corporate';
 window.avoid += ', OpenOffice v4, OpenOffice 4, Alternate Timer 3, Alternate Timer v3, Rapid Typing Tutor';
-window.avoid += ', Alternate Splitter, TheSage, Simple Sticky Notes, Money Manager Ex, List and Print';
+window.avoid += ', Alternate Splitter, TheSage, Simple Sticky Notes, Money Manager Ex, List and Print, PDF to';
+window.avoid += ', ReNamer Pro, To PDF';
+window.avoid += '';
+
+/* Unwanted softwares - Mail clients */
+window.avoid += ', Postbox';
 window.avoid += '';
 
 /* Unwanted softwares - System infos, managers */
 window.avoid += ', wintools net, Task Manager Deluxe, HWiNFO, StressMyPC, Driver Talent Pro, AIDA64, HDD Guardian';
 window.avoid += ', DiskTuna, EaseUS Partition, Winaero, ShareMouse, Kaspersky Get System Info';
-window.avoid += ', GPU Caps Viewer';
+window.avoid += ', GPU Caps Viewer, ShutDown Pro, Systimizer, Directory Monitor';
 window.avoid += '';
 
 /* Unwanted softwares - Others */
