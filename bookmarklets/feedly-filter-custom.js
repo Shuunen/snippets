@@ -26,7 +26,7 @@ window.avoid += ', 4K Converter, Tipard Blu, Adobe After Effects, XviD4PSP, Aqua
 window.avoid += ', MXF Converter, GOM Media Player, Softwares PhotoToFilm, XRecode II';
 window.avoid += ', oCam, Adobe Premiere Pro, CloneBD, Any Video Converter, XMedia Recode, Screen GIF v2016, Screen GIF 2016';
 window.avoid += ', Media Player Classic, DVD Converter, TEncoder Video, Zoom Player, Magix Movie';
-window.avoid += ', Movie Editor';
+window.avoid += ', Movie Editor, KMPlayer, Blu ray player, Blu ray rip, BdTo, Gom Player';
 window.avoid += '';
 
 /* Unwanted softwares - Photo */
@@ -39,6 +39,7 @@ window.avoid += ', QuarkXPress, Shotcut, Image Resizer, Digital Photo Suite, Pho
 window.avoid += ', Photo Pos Pro, Topaz Impression 2, Topaz Impression v2, Sad Cat Software, CollageIt';
 window.avoid += ', Smith Micro Moho , Anime Studio, DxO ViewPoint 2, ScreenGif, ConverSeen, Picture Collage Maker';
 window.avoid += ', Dynamic Auto Painter PRO 5, Dynamic Auto Painter PRO v5, ACDSee';
+window.avoid += ', PhotoDirector, Watermark Image, Photoshop Elements';
 window.avoid += '';
 
 /* Unwanted softwares - Browser */
@@ -54,7 +55,8 @@ window.avoid += ', Auslogics Browser Care, Auslogics Duplicate, FileOptimizer, R
 window.avoid += ', Total Uninstall Pro, Abelssoft GoogleClean, CCleaner 5, Wise Disk Cleaner';
 window.avoid += ', Chrome Cleanup Tool, Uninstall Tool 3, Uninstall Tool 4, Windows Repair Toolbox';
 window.avoid += ', wise care 365 pro v4, RegistryWizard, DLL Suite, DLL Care, Long Path Tool, Smart Driver Updater';
-window.avoid += ', Destroy Windows, Solid State Doctor v3, WinUtilities, PGWare';
+window.avoid += ', Destroy Windows, Solid State Doctor v3, WinUtilities, PGWare, Wipe v1, wipe 1';
+window.avoid += ', Registry First Aid, wise care 365 pro 4';
 window.avoid += '';
 
 /* Unwanted softwares - Editor */
@@ -71,7 +73,9 @@ window.avoid += ', Product Key Decryptor, Router Password Decryptor, skype ad re
 window.avoid += ', pdf password remover, dr web cureit, Soft4Boost Toolbar, 1Password, Network Password Recovery';
 window.avoid += ', WireShark 2, Alternate File Shredder, WifiHistoryView, Chistilka 2';
 window.avoid += ', Nexus Root Toolkit, NewFileTime, Malware Hunter, Network Scanner 6, RegRun, dot11Expert';
-window.avoid += ', Zer0 0, UnHackMe v8, Angry IP Scanner';
+window.avoid += ', Zer0 0, UnHackMe v8, Angry IP Scanner, Secure Hunter, Batchpatch, Junkware Removal';
+window.avoid += ', Surf Anonymous Free, Loaris Trojan Remover';
+window.avoid += '';
 window.avoid += '';
 
 /* Unwanted softwares - Recovery */
@@ -79,7 +83,7 @@ window.avoid += ', Data Recovery, Photo Recovery, Video Recovery, Audio Recovery
 
 /* Unwanted softwares - Backup */
 window.avoid += ', CloneZilla, CloneApp, Personal Backup, BestSync, Backup and Recovery, SyncBackPro, Syncovery';
-window.avoid += ', BurnAware';
+window.avoid += ', BurnAware, XXCLONE, AnyToISO';
 window.avoid += '';
 
 /* Unwanted softwares - TeamViewer */
@@ -89,7 +93,7 @@ window.avoid += ', TeamViewer premium, TeamViewer corporate, TeamViewer server, 
 window.avoid += ', FrostWire, Universal Windows Downloader, StreamWriter, file and image uploader, uTorrent Pro';
 window.avoid += ', JDownloader 2, YouTube Downloader, Free Download Manager, USDownloader 1 3';
 window.avoid += ', RetroShare 0, Download Accelerator Manager, torrent v3, torrent v4, JDownloader v2';
-window.avoid += ', save2pc Ultimate';
+window.avoid += ', save2pc Ultimate, Offline Explorer';
 window.avoid += '';
 
 /* Unwanted softwares - eBook */
@@ -108,22 +112,23 @@ window.avoid += ', Advanced Renamer, Efficient Notes 5, Efficient Notes 6, Effic
 window.avoid += ', Calendarscope, Efficient Password Manager, Balabolka, ScanPapyrus, Flip PDF Corporate';
 window.avoid += ', OpenOffice v4, OpenOffice 4, Alternate Timer 3, Alternate Timer v3, Rapid Typing Tutor';
 window.avoid += ', Alternate Splitter, TheSage, Simple Sticky Notes, Money Manager Ex, List and Print, PDF to';
-window.avoid += ', ReNamer Pro, To PDF';
+window.avoid += ', ReNamer Pro, To PDF, Mp3tag, PDF XChange';
 window.avoid += '';
 
 /* Unwanted softwares - Mail clients */
-window.avoid += ', Postbox';
+window.avoid += ', Postbox, Mailbird Pro';
 window.avoid += '';
 
 /* Unwanted softwares - System infos, managers */
 window.avoid += ', wintools net, Task Manager Deluxe, HWiNFO, StressMyPC, Driver Talent Pro, AIDA64, HDD Guardian';
 window.avoid += ', DiskTuna, EaseUS Partition, Winaero, ShareMouse, Kaspersky Get System Info';
 window.avoid += ', GPU Caps Viewer, ShutDown Pro, Systimizer, Directory Monitor';
+window.avoid += ', oMega Commander, Folder2List, Actual Window Manager, Windows Performance Indicator';
 window.avoid += '';
 
 /* Unwanted softwares - Others */
-window.avoid += ', Xeoma, Vectric Aspire, Listen N Write';
-window.avoid += ', FireAlpaca, energyXT, AnyToISO, VirtualBox 5';
+window.avoid += ', Xeoma, Vectric Aspire, Listen N Write, DialogBlocks';
+window.avoid += ', FireAlpaca, energyXT, VirtualBox 5';
 window.avoid += ', PeaZip, RazorSQL';
 window.avoid += ', AutoDWG, Edraw Max, EdrawSoft, Checksum Verifier';
 window.avoid += ', jPortable';
