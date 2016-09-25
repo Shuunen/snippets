@@ -7,12 +7,6 @@ My personal - useful or not - bookmarklets to make a better web
 
 It will allow you to mark as read articles that match a banned list of words.
 
-```javascript
-javascript:(function(){
-var script=document.createElement('script'); script.type='text/javascript';
-script.src='https://rawgit.com/Shuunen/snippets/master/bookmarklets/feedly-filter.js';
-document.body.appendChild(script);
-window.avoid = "Star Wars, Justin Bieber";
-})()
-```
+Just copy paste the content of feedly-filter-bookmark into a bookmark url & customize the word list.
 
+An alternative is to fork and customize feedly-filter-custom & use feedly-filter-custom-bookmark.
