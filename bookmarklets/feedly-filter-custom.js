@@ -26,7 +26,9 @@ window.avoid += ', 4K Converter, Tipard Blu, Adobe After Effects, XviD4PSP, Aqua
 window.avoid += ', MXF Converter, GOM Media Player, Softwares PhotoToFilm, XRecode II';
 window.avoid += ', oCam, Adobe Premiere Pro, CloneBD, Any Video Converter, XMedia Recode, Screen GIF v2016, Screen GIF 2016';
 window.avoid += ', Media Player Classic, DVD Converter, TEncoder Video, Zoom Player, Magix Movie';
-window.avoid += ', Movie Editor, KMPlayer, Blu ray player, Blu ray rip, BdTo, Gom Player';
+window.avoid += ', Movie Editor, KMPlayer, Blu ray player, Blu ray rip, BdTo, Gom Player, VEGAS Pro, Avidemux';
+window.avoid += ', Blu ray Copy, Leawo Blu, Blu ray Creator, Blu ray Ripper, PowerDirector';
+window.avoid += ', Leawo Video';
 window.avoid += '';
 
 /* Unwanted softwares - Photo */
@@ -38,13 +40,22 @@ window.avoid += ', CyberLink MakeupDirector, Blackmagic Design, ImageMagick, Cor
 window.avoid += ', QuarkXPress, Shotcut, Image Resizer, Digital Photo Suite, Photo SlideShow, PicPick';
 window.avoid += ', Photo Pos Pro, Topaz Impression 2, Topaz Impression v2, Sad Cat Software, CollageIt';
 window.avoid += ', Smith Micro Moho , Anime Studio, DxO ViewPoint 2, ScreenGif, ConverSeen, Picture Collage Maker';
-window.avoid += ', Dynamic Auto Painter PRO 5, Dynamic Auto Painter PRO v5, ACDSee';
-window.avoid += ', PhotoDirector, Watermark Image, Photoshop Elements';
+window.avoid += ', Dynamic Auto Painter PRO 5, Dynamic Auto Painter PRO v5, ACDSee, LogoSmartz';
+window.avoid += ', PhotoDirector, Watermark Image, Photoshop Elements, digiKam, PhotoDeduper, Franzis HDR, Franzis Pure';
+window.avoid += ', SmartAlbums, PixPlant 3';
 window.avoid += '';
 
 /* Unwanted softwares - Browser */
 window.avoid += ', Firefox, total commander, speedyfox, WinSCP, filezilla, AhaView, Polarity Browser, MultiCommander';
 window.avoid += ', Alt Launch Band, Chromium 54, Chromium 55, Chromium 56, Chromium 57, Opera v39, Opera v40, Opera v41';
+window.avoid += '';
+
+/* Unwanted softwares - Driver */
+window.avoid += ', DriverEasy Professional 5, DriverPack, SnailDriver, Smart Driver Updater, Driver Talent Pro';
+window.avoid += '';
+
+/* Unwanted softwares - Wiper */
+window.avoid += ', Macrorit Data Wiper, Secure Eraser Pro, Wipe v1, wipe 1, Alternate File Shredder';
 window.avoid += '';
 
 /* Unwanted softwares - Optimizer */
@@ -54,15 +65,20 @@ window.avoid += ', Supercopier, MiTeC System, Reg Organizer, windows repair pro,
 window.avoid += ', Auslogics Browser Care, Auslogics Duplicate, FileOptimizer, Revo Uninstaller, ReviverSoft Registry';
 window.avoid += ', Total Uninstall Pro, Abelssoft GoogleClean, CCleaner 5, Wise Disk Cleaner';
 window.avoid += ', Chrome Cleanup Tool, Uninstall Tool 3, Uninstall Tool 4, Windows Repair Toolbox';
-window.avoid += ', wise care 365 pro v4, RegistryWizard, DLL Suite, DLL Care, Long Path Tool, Smart Driver Updater';
-window.avoid += ', Destroy Windows, Solid State Doctor v3, WinUtilities, PGWare, Wipe v1, wipe 1';
+window.avoid += ', wise care 365 pro v4, RegistryWizard, DLL Suite, DLL Care, Long Path Tool';
+window.avoid += ', Destroy Windows, Solid State Doctor v3, WinUtilities, PGWare';
 window.avoid += ', Registry First Aid, wise care 365 pro 4';
 window.avoid += '';
 
 /* Unwanted softwares - Editor */
 window.avoid += ', FocusWriter, Computing editplus, Print2Cad, Emurasoft EmEditor, Blumentals Rapid, Blumentals HTMLPad';
 window.avoid += ', WinPDFEditor, FreeCAD, EditPlus, Sublime Text 3, Sublime Text 2, SynWrite';
-window.avoid += ', Poedit Pro 1, Poedit Pro v1, Sublime Text v3, Sublime Text v2';
+window.avoid += ', Poedit Pro 1, Poedit Pro v1, Sublime Text v3, Sublime Text v2, Incomedia WebSite';
+window.avoid += ', WYSIWYG Web Builder, WYSIWYG Builder, HTML Compiler 2016, FileMaker Pro';
+window.avoid += '';
+
+/* Unwanted softwares - Anonymizer */
+window.avoid += ', Mask Surf Pro, Hide ALL IP 2016, Surf Anonymous Free';
 window.avoid += '';
 
 /* Unwanted softwares - Security */
@@ -71,15 +87,15 @@ window.avoid += ', PDF Decrypter, Avast Clear, Pdf eraser pro, Product Key Finde
 window.avoid += ', licensecrawler, GridinSoft Anti, Kaspersky Lab Products, McAfee Stinger';
 window.avoid += ', Product Key Decryptor, Router Password Decryptor, skype ad remover, Kaspersky Virus Removal';
 window.avoid += ', pdf password remover, dr web cureit, Soft4Boost Toolbar, 1Password, Network Password Recovery';
-window.avoid += ', WireShark 2, Alternate File Shredder, WifiHistoryView, Chistilka 2';
+window.avoid += ', WireShark 2, WifiHistoryView, Chistilka 2';
 window.avoid += ', Nexus Root Toolkit, NewFileTime, Malware Hunter, Network Scanner 6, RegRun, dot11Expert';
 window.avoid += ', Zer0 0, UnHackMe v8, Angry IP Scanner, Secure Hunter, Batchpatch, Junkware Removal';
-window.avoid += ', Surf Anonymous Free, Loaris Trojan Remover';
-window.avoid += '';
+window.avoid += ', Loaris Trojan Remover, Omnipeek, L0phtCrack, Secure Eraser';
+window.avoid += ', KMSAuto Net, W10Privacy';
 window.avoid += '';
 
 /* Unwanted softwares - Recovery */
-window.avoid += ', Data Recovery, Photo Recovery, Video Recovery, Audio Recovery, RecoverBits';
+window.avoid += ', Data Recovery, Photo Recovery, Video Recovery, Audio Recovery, RecoverBits, Ultimate Boot CD';
 
 /* Unwanted softwares - Backup */
 window.avoid += ', CloneZilla, CloneApp, Personal Backup, BestSync, Backup and Recovery, SyncBackPro, Syncovery';
@@ -112,7 +128,8 @@ window.avoid += ', Advanced Renamer, Efficient Notes 5, Efficient Notes 6, Effic
 window.avoid += ', Calendarscope, Efficient Password Manager, Balabolka, ScanPapyrus, Flip PDF Corporate';
 window.avoid += ', OpenOffice v4, OpenOffice 4, Alternate Timer 3, Alternate Timer v3, Rapid Typing Tutor';
 window.avoid += ', Alternate Splitter, TheSage, Simple Sticky Notes, Money Manager Ex, List and Print, PDF to';
-window.avoid += ', ReNamer Pro, To PDF, Mp3tag, PDF XChange';
+window.avoid += ', ReNamer Pro, To PDF, Mp3tag, PDF XChange, Rename Expert, FileLocator';
+window.avoid += ', SoftMaker Office, EssentialPIM Pro 7, EveryLang Pro 2';
 window.avoid += '';
 
 /* Unwanted softwares - Mail clients */
@@ -120,10 +137,11 @@ window.avoid += ', Postbox, Mailbird Pro';
 window.avoid += '';
 
 /* Unwanted softwares - System infos, managers */
-window.avoid += ', wintools net, Task Manager Deluxe, HWiNFO, StressMyPC, Driver Talent Pro, AIDA64, HDD Guardian';
+window.avoid += ', wintools net, Task Manager Deluxe, HWiNFO, StressMyPC, AIDA64, HDD Guardian';
 window.avoid += ', DiskTuna, EaseUS Partition, Winaero, ShareMouse, Kaspersky Get System Info';
 window.avoid += ', GPU Caps Viewer, ShutDown Pro, Systimizer, Directory Monitor';
 window.avoid += ', oMega Commander, Folder2List, Actual Window Manager, Windows Performance Indicator';
+window.avoid += ', Proxy Switcher, PartitionGuru';
 window.avoid += '';
 
 /* Unwanted softwares - Others */
@@ -144,7 +162,7 @@ window.avoid += ', Ghostpress, Database NET, mIRC, Weather Pro';
 window.avoid += ', BATExpert';
 window.avoid += ', Dr Folder';
 window.avoid += ', LeaderTask, RemoveIT Pro, Software Mix Collection';
-window.avoid += ', DriverPack, Scanitto, SUMo Pro, GPU Shark, Duplicate Cleaner, PilotEdit, PDF Reducer';
+window.avoid += ', Scanitto, SUMo Pro, GPU Shark, Duplicate Cleaner, PilotEdit, PDF Reducer';
 window.avoid += ', VueScan, KCleaner, MailWasher, Password Cracker, Colors Pro, Master PDF, Yamicsoft Windows, Resizer Pro';
 window.avoid += ', IIIUploader, VueMinder, Better JPEG, My Suite Pro, Stellar File, GrandVJ, fx Calc, Web Builder, WSUS Offline';
 window.avoid += ', Update Monitor, CrystalDiskInfo, Soft Organizer, IsMyLcdOK, Email Password Recovery, PortExpert, Coolutils Total';
