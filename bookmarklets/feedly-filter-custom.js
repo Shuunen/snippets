@@ -17,6 +17,7 @@ window.avoid += ', Overwatch, Hearthstone, Warhammer';
 window.avoid += ', Foobar2000, DSpeech, Faasoft audio converter, zortam mp3, MP3 Skype Recorder, Atomix VirtualDJ';
 window.avoid += ', gom audio, Pazera Audio Video, AudioGrail, Daum PotPlayer, Zulu DJ, Wave Editor';
 window.avoid += ', Sound Forge Pro, VLC Media Player 3, Virtual DJ, MAGIX Sound Forge Pro, MediaMonkey Gold';
+window.avoid += ', Audacious 3, Audacious 4, Audacious v3, Audacious v4';
 window.avoid += '';
 
 /* Unwanted softwares - Video */
@@ -28,7 +29,7 @@ window.avoid += ', oCam, Adobe Premiere Pro, CloneBD, Any Video Converter, XMedi
 window.avoid += ', Media Player Classic, DVD Converter, TEncoder Video, Zoom Player, Magix Movie';
 window.avoid += ', Movie Editor, KMPlayer, Blu ray player, Blu ray rip, BdTo, Gom Player, VEGAS Pro, Avidemux';
 window.avoid += ', Blu ray Copy, Leawo Blu, Blu ray Creator, Blu ray Ripper, PowerDirector';
-window.avoid += ', Leawo Video';
+window.avoid += ', Leawo Video, MPC BE, MediaCoder';
 window.avoid += '';
 
 /* Unwanted softwares - Photo */
@@ -42,12 +43,13 @@ window.avoid += ', Photo Pos Pro, Topaz Impression 2, Topaz Impression v2, Sad C
 window.avoid += ', Smith Micro Moho , Anime Studio, DxO ViewPoint 2, ScreenGif, ConverSeen, Picture Collage Maker';
 window.avoid += ', Dynamic Auto Painter PRO 5, Dynamic Auto Painter PRO v5, ACDSee, LogoSmartz';
 window.avoid += ', PhotoDirector, Watermark Image, Photoshop Elements, digiKam, PhotoDeduper, Franzis HDR, Franzis Pure';
-window.avoid += ', SmartAlbums, PixPlant 3';
+window.avoid += ', SmartAlbums, PixPlant 3, PixPlant v3, Alien Skin Exposure, Magic Particles 3D';
 window.avoid += '';
 
 /* Unwanted softwares - Browser */
 window.avoid += ', Firefox, total commander, speedyfox, WinSCP, filezilla, AhaView, Polarity Browser, MultiCommander';
 window.avoid += ', Alt Launch Band, Chromium 54, Chromium 55, Chromium 56, Chromium 57, Opera v39, Opera v40, Opera v41';
+window.avoid += ', FlashPeak Slimjet, Maxthon Cloud Browser, Maxthon Browser';
 window.avoid += '';
 
 /* Unwanted softwares - Driver */
@@ -67,7 +69,8 @@ window.avoid += ', Total Uninstall Pro, Abelssoft GoogleClean, CCleaner 5, Wise 
 window.avoid += ', Chrome Cleanup Tool, Uninstall Tool 3, Uninstall Tool 4, Windows Repair Toolbox';
 window.avoid += ', wise care 365 pro v4, RegistryWizard, DLL Suite, DLL Care, Long Path Tool';
 window.avoid += ', Destroy Windows, Solid State Doctor v3, WinUtilities, PGWare';
-window.avoid += ', Registry First Aid, wise care 365 pro 4';
+window.avoid += ', Registry First Aid, wise care 365 pro 4, TCP Optimizer, Ace Utilities';
+window.avoid += ', Uninstall Tool v3, Uninstall Tool v4';
 window.avoid += '';
 
 /* Unwanted softwares - Editor */
@@ -75,10 +78,15 @@ window.avoid += ', FocusWriter, Computing editplus, Print2Cad, Emurasoft EmEdito
 window.avoid += ', WinPDFEditor, FreeCAD, EditPlus, Sublime Text 3, Sublime Text 2, SynWrite';
 window.avoid += ', Poedit Pro 1, Poedit Pro v1, Sublime Text v3, Sublime Text v2, Incomedia WebSite';
 window.avoid += ', WYSIWYG Web Builder, WYSIWYG Builder, HTML Compiler 2016, FileMaker Pro';
+window.avoid += ', EditRocket, ReGen KeyCode, IconEdit2, Notepad 7, Notepad v7';
 window.avoid += '';
 
 /* Unwanted softwares - Anonymizer */
 window.avoid += ', Mask Surf Pro, Hide ALL IP 2016, Surf Anonymous Free';
+window.avoid += '';
+
+/* Unwanted softwares - Communication */
+window.avoid += ', PhonerLite, Phoner 3, Phoner 4, Phoner 5, Phoner v3, Phoner v4, Phoner v5, MobaXterm';
 window.avoid += '';
 
 /* Unwanted softwares - Security */
@@ -87,11 +95,16 @@ window.avoid += ', PDF Decrypter, Avast Clear, Pdf eraser pro, Product Key Finde
 window.avoid += ', licensecrawler, GridinSoft Anti, Kaspersky Lab Products, McAfee Stinger';
 window.avoid += ', Product Key Decryptor, Router Password Decryptor, skype ad remover, Kaspersky Virus Removal';
 window.avoid += ', pdf password remover, dr web cureit, Soft4Boost Toolbar, 1Password, Network Password Recovery';
-window.avoid += ', WireShark 2, WifiHistoryView, Chistilka 2';
+window.avoid += ', WireShark 2, WireShark v2, WifiHistoryView, Chistilka 2, Chistilka v2';
 window.avoid += ', Nexus Root Toolkit, NewFileTime, Malware Hunter, Network Scanner 6, RegRun, dot11Expert';
 window.avoid += ', Zer0 0, UnHackMe v8, Angry IP Scanner, Secure Hunter, Batchpatch, Junkware Removal';
 window.avoid += ', Loaris Trojan Remover, Omnipeek, L0phtCrack, Secure Eraser';
-window.avoid += ', KMSAuto Net, W10Privacy';
+window.avoid += ', KMSAuto Net, W10Privacy, Password Security Scanner, Nsauditor, Password Safe';
+window.avoid += ', Wfp Tool, Windows Filtering Platform Tool';
+window.avoid += '';
+
+/* Unwanted softwares - Network */
+window.avoid += ', NetWorx 5, NetWorx v5';
 window.avoid += '';
 
 /* Unwanted softwares - Recovery */
@@ -99,7 +112,7 @@ window.avoid += ', Data Recovery, Photo Recovery, Video Recovery, Audio Recovery
 
 /* Unwanted softwares - Backup */
 window.avoid += ', CloneZilla, CloneApp, Personal Backup, BestSync, Backup and Recovery, SyncBackPro, Syncovery';
-window.avoid += ', BurnAware, XXCLONE, AnyToISO';
+window.avoid += ', BurnAware, XXCLONE, AnyToISO, WinToHDD';
 window.avoid += '';
 
 /* Unwanted softwares - TeamViewer */
@@ -109,7 +122,8 @@ window.avoid += ', TeamViewer premium, TeamViewer corporate, TeamViewer server, 
 window.avoid += ', FrostWire, Universal Windows Downloader, StreamWriter, file and image uploader, uTorrent Pro';
 window.avoid += ', JDownloader 2, YouTube Downloader, Free Download Manager, USDownloader 1 3';
 window.avoid += ', RetroShare 0, Download Accelerator Manager, torrent v3, torrent v4, JDownloader v2';
-window.avoid += ', save2pc Ultimate, Offline Explorer';
+window.avoid += ', save2pc Ultimate, Offline Explorer, Tixati v2, Tixati 2, Visual Web Ripper';
+window.avoid += ', Internet Download Manager 6, Internet Download Manager v6';
 window.avoid += '';
 
 /* Unwanted softwares - eBook */
@@ -129,7 +143,10 @@ window.avoid += ', Calendarscope, Efficient Password Manager, Balabolka, ScanPap
 window.avoid += ', OpenOffice v4, OpenOffice 4, Alternate Timer 3, Alternate Timer v3, Rapid Typing Tutor';
 window.avoid += ', Alternate Splitter, TheSage, Simple Sticky Notes, Money Manager Ex, List and Print, PDF to';
 window.avoid += ', ReNamer Pro, To PDF, Mp3tag, PDF XChange, Rename Expert, FileLocator';
-window.avoid += ', SoftMaker Office, EssentialPIM Pro 7, EveryLang Pro 2';
+window.avoid += ', SoftMaker Office, EssentialPIM Pro 7, EveryLang Pro 2, PDF Creator Pro';
+window.avoid += ', Foxit Reader, Ashampoo Snap, SimpleMind, Desktop Calendar, InDesign';
+window.avoid += ', Quick Access Popup, Password Vault Manager, Altium Designer';
+window.avoid += ', Save Me 2, Save Me v2, Save Me 3, Save Me v3';
 window.avoid += '';
 
 /* Unwanted softwares - Mail clients */
@@ -141,7 +158,9 @@ window.avoid += ', wintools net, Task Manager Deluxe, HWiNFO, StressMyPC, AIDA64
 window.avoid += ', DiskTuna, EaseUS Partition, Winaero, ShareMouse, Kaspersky Get System Info';
 window.avoid += ', GPU Caps Viewer, ShutDown Pro, Systimizer, Directory Monitor';
 window.avoid += ', oMega Commander, Folder2List, Actual Window Manager, Windows Performance Indicator';
-window.avoid += ', Proxy Switcher, PartitionGuru';
+window.avoid += ', Proxy Switcher, PartitionGuru, dism 10, dism v10, dism 11, dism v11, HDDLife';
+window.avoid += ', Win10 Wizard, RMPrepUSB, System Information Viewer, SUMo 5, SUMo 6, SUMo v5, SUMo v6';
+window.avoid += ', AUMBI, Absolute USB MultiBoot Installer, EF Commander';
 window.avoid += '';
 
 /* Unwanted softwares - Others */
@@ -149,8 +168,8 @@ window.avoid += ', Xeoma, Vectric Aspire, Listen N Write, DialogBlocks';
 window.avoid += ', FireAlpaca, energyXT, VirtualBox 5';
 window.avoid += ', PeaZip, RazorSQL';
 window.avoid += ', AutoDWG, Edraw Max, EdrawSoft, Checksum Verifier';
-window.avoid += ', jPortable';
-window.avoid += ', Supremo';
+window.avoid += ', jPortable, GenoPro';
+window.avoid += ', Supremo, git x86';
 window.avoid += ', Burning Studio, WinRAR, PdfGrabber';
 window.avoid += ', nanDECK, Agelong Tree, Delcam PowerSHAPE';
 window.avoid += ', MicroSIP, winreducer ex 100 v0 9';
