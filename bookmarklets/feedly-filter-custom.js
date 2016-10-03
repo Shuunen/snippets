@@ -65,7 +65,7 @@ window.avoid += ', Firefox, total commander, speedyfox, WinSCP, filezilla, AhaVi
 window.avoid += ', Alt Launch Band, Chromium 54, Chromium 55, Chromium 56, Chromium 57, Opera v39, Opera v40, Opera v41';
 window.avoid += ', FlashPeak Slimjet, Maxthon Cloud Browser, Maxthon Browser';
 window.avoid += ', Air Explorer Pro, Pale Moon 2, Cyberfox, Google Chrome v, Google Chrome 5';
-window.avoid += ', Chrome Software Removal Tool';
+window.avoid += ', Chrome Software Removal Tool, SlimJet, FlashFXP';
 window.avoid += '';
 
 /*
@@ -150,6 +150,10 @@ window.avoid += '';
 window.avoid += ', Postbox v, Mailbird Pro, Aid4Mail, FoxMail, TheBat';
 window.avoid += '';
 
+/* Unwanted softwares - Mind map */
+window.avoid += ', Freeplane';
+window.avoid += '';
+
 /*
  ███╗   ██╗
  ████╗  ██║
@@ -193,7 +197,7 @@ window.avoid += ', YoWindow, Ultimate Calendar, SpaceSniffer, Duplicate File Det
 window.avoid += ', Converter PDF, Adobe Flash Player v23, Evernote v, Windows Update MiniTool';
 window.avoid += ', MOBILedit, Rufus 2, Rufus v2, Scribus, Xetranslator, LibreOffice v, LibreOffice 5';
 window.avoid += ', CintaNotes, RedCrab, Efficient Calendar v, Efficient Calendar 5, Efficient Calendar 6';
-window.avoid += ', MuPDF, Replace Genius, PDF Shaper';
+window.avoid += ', MuPDF, Replace Genius, PDF Shaper, Norton Removal Tool';
 window.avoid += '';
 
 /* Unwanted softwares - Optimizer */
@@ -211,7 +215,7 @@ window.avoid += ', Registry Life 3, Registry Life 4, Registry Life 5, Registry L
 window.avoid += ', DLL Analyzer, ThrottleStop, Registry Manager, Ashampoo Uninstaller';
 window.avoid += ', Ultimate Windows Tweaker v4, ccleaner professional business technician 5';
 window.avoid += ', Argente Uninstall Programs, 7 taskbar tweaker, Argente Autorun';
-window.avoid += ', ClearType Switch, Duplicate Finder';
+window.avoid += ', ClearType Switch, Duplicate Finder, IObit Uninstaller 6, IObit Uninstaller v6';
 window.avoid += '';
 
 /*
@@ -238,8 +242,8 @@ window.avoid += ', SmartAlbums, PixPlant 3, PixPlant v3, Alien Skin Exposure, Ma
 window.avoid += ', Just Color Picker, Artweaver, IrfanView 4, IrfanView v4';
 window.avoid += ', Paint Net 4, Paint Net v4, Krita v, Krita 3, FastStone Image Viewer';
 window.avoid += ', Topaz Glow 2, Topaz Glow v2, TwistedBrush Pro, ViewCompanion';
-window.avoid += ', Paint Pro v, Indigo Renderer, iStripper, Helicon Filter';
-window.avoid += ', DiaShow Studio, Sketch Drawer, JPEG Repair';
+window.avoid += ', Paint Pro v, Paint Pro, Indigo Renderer, iStripper, Helicon Filter';
+window.avoid += ', DiaShow Studio, Sketch Drawer, JPEG Repair, XnRetro';
 window.avoid += '';
 
 /*
@@ -283,7 +287,7 @@ window.avoid += ', Loaris Trojan Remover, Omnipeek, L0phtCrack, Secure Eraser';
 window.avoid += ', KMSAuto Net, W10Privacy, Password Security Scanner, Nsauditor, Password Safe';
 window.avoid += ', Wfp Tool, Windows Filtering Platform Tool, Multi OEM Retail, KMS Tools';
 window.avoid += ', Secret Disk, Folder Lock, WebBrowserPassView, Panda Cloud Cleaner';
-window.avoid += ', RannohDecryptor, PWGen, KMS Server';
+window.avoid += ', RannohDecryptor, PWGen, KMS Server, KMSAuto Lite';
 window.avoid += '';
 
 /* Unwanted softwares - SEO */
@@ -301,7 +305,7 @@ window.avoid += ', AUMBI, Absolute USB MultiBoot Installer, EF Commander, FastCo
 window.avoid += ', System Tools for Windows, Q Dir, MyPC, Wise System Monitor, 3DP Chip';
 window.avoid += ', Ultimate Settings Panel, xplorer2, xplorerv2, MemInfo, Solid State Doctor';
 window.avoid += ', SpaceMan, Wise Folder Hider, CoreTemp, Process Monitor 3, Process Monitor v3';
-window.avoid += ', SSD Z, CPU Z, HDD Z, Take Command 2, Take Command v';
+window.avoid += ', SSD Z, CPU Z, HDD Z, Take Command 2, Take Command v, LookDisk, ExperienceIndexOK';
 window.avoid += '';
 
 /*
@@ -312,6 +316,9 @@ window.avoid += '';
  .. ██║
  .. ╚═╝
  */
+
+/* Unwanted softwares - Translators */
+window.avoid += ', dictionary net';
 
 /* Unwanted softwares - TeamViewer */
 window.avoid += ', TeamViewer premium, TeamViewer corporate, TeamViewer server, TeamViewer QuickJoin, Remote Desktop Manager';
