@@ -101,6 +101,7 @@ window.avoid += ', TorrentRover 1 1, TorrentRover v1 1,TorrentRover v1 0, Torren
 window.avoid += ', USDownloader b, Zona 1, Zona v1, ISO Download Tool, Torrent 3';
 window.avoid += ', Zero Install 2, Zero Install v2, Manga Downloader, Shareaza, Save2PC Light';
 window.avoid += ', HTTrack 3, HTTrack v3, MediaGet 2, MediaGet v2, internet manager 6';
+window.avoid += ', EagleGet 2, EagleGet v2';
 window.avoid += '';
 
 /* Unwanted softwares - Driver */
@@ -137,7 +138,7 @@ window.avoid += ', Hosts File Editor v1, Hosts File Editor 1, Cameyo 3, RJ TextE
 window.avoid += ', Google Web Designer 1, Google Web Designer v1, Hexinator, IDM UltraEdit';
 window.avoid += ', Small Editor 2, EditBone, Hex Editor, Mobirise 3, Mobirise v3';
 window.avoid += ', Notepad3, Araxis Merge Professional 2016, MassCert, SDL Passolo, LogFusion';
-window.avoid += ', JetBrains WebStorm 2016, Atom 1, Atom 2, Atom v';
+window.avoid += ', JetBrains WebStorm 2016, Atom 1, Atom 2, Atom v, Resource Hacker 4, Resource Hacker v4';
 
 /*
 . ██████╗
@@ -153,7 +154,7 @@ window.avoid += ', JetBrains WebStorm 2016, Atom 1, Atom 2, Atom v';
  |__] |  | |  | |___ ___]
 
  */
-window.avoid += ', Overwatch, Hearthstone, Warhammer';
+window.avoid += ', Overwatch, Hearthstone, Warhammer, Lucas Chess';
 
 /*
  ███╗   ███╗
@@ -218,6 +219,7 @@ window.avoid += ', CintaNotes, RedCrab, Efficient Calendar v, Efficient Calendar
 window.avoid += ', MuPDF, Replace Genius, PDF Shaper, Norton Removal Tool, Efficient To Do List';
 window.avoid += ', LimagitoX File, File Mover Lite, PointerStick, Win Experience Index, English Trainer';
 window.avoid += ', QuickAccessPopup, FreeFileSync 8, FreeFileSync v8, Rename Us, HomeBank, High Logic Font';
+window.avoid += ', Clipboard Master';
 window.avoid += '';
 
 /* Unwanted softwares - Office pdf stuff */
@@ -253,7 +255,7 @@ window.avoid += ', Ultimate Windows Tweaker v4, ccleaner professional business t
 window.avoid += ', 7 taskbar tweaker, Argente Autorun';
 window.avoid += ', ClearType Switch, UltraCopier, Registry Cleaner';
 window.avoid += ', BatteryCare, Startup Sentinel, Windows 10 Virtual Desktop Enhancer';
-window.avoid += ', Windows Cleaner, CCEnhancer';
+window.avoid += ', Windows Cleaner, CCEnhancer, winreducer ex 7, winreducer ex 8';
 window.avoid += '';
 
 /* Unwanted softwares - Duplicate Finder */
@@ -357,13 +359,13 @@ window.avoid += ', ShutDown Pro, Systimizer, Directory Monitor, Universal USB In
 window.avoid += ', oMega Commander, Folder2List, Actual Window Manager, Windows Performance Indicator';
 window.avoid += ', Proxy Switcher, PartitionGuru, dism 10, dism v10, dism 11, dism v11, HDDLife';
 window.avoid += ', Win10 Wizard, RMPrepUSB, System Information Viewer, SUMo 5, SUMo 6, SUMo v5, SUMo v6';
-window.avoid += ', AUMBI, Absolute USB MultiBoot Installer, EF Commander, FastCopy';
+window.avoid += ', AUMBI, Absolute USB MultiBoot Installer, EF Commander, FastCopy, Multiboot USB';
 window.avoid += ', System Tools for Windows, Q Dir, MyPC, Wise System Monitor, 3DP Chip';
 window.avoid += ', Ultimate Settings Panel, xplorer2, xplorerv2, MemInfo, Solid State Doctor';
 window.avoid += ', SpaceMan, Wise Folder Hider, CoreTemp, Process Monitor 3, Process Monitor v3';
 window.avoid += ', SSD Z, CPU Z, HDD Z, Take Command 2, Take Command v, LookDisk, ExperienceIndexOK';
 window.avoid += ', AeroAdmin, Hidden Data Detector, CurrPorts v2, CurrPorts 2, Universal Extractor Gora';
-window.avoid += ', Golden Bow 9, Golden Bow 1, Golden Bow v';
+window.avoid += ', Golden Bow 9, Golden Bow 1, Golden Bow v, Universal Multiboot Installer, Wise Auto Shutdown';
 window.avoid += '';
 
 /* Unwanted softwares - System GPU tuning */
@@ -412,7 +414,7 @@ window.avoid += ', MPC HC, CyberLink Media, Nero Video, vlc media player portabl
 window.avoid += '';
 
 /* Unwanted softwares - Video makers */
-window.avoid += ', Video Booth, Tweak Software RV, x265 launcher';
+window.avoid += ', Video Booth, Tweak Software RV, x265 launcher, MakeMKV';
 window.avoid += '';
 
 /*
