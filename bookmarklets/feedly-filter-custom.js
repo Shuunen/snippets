@@ -137,8 +137,11 @@ window.avoid += ', EditRocket, ReGen KeyCode, IconEdit2, Notepad 7, Notepad v7';
 window.avoid += ', Hosts File Editor v1, Hosts File Editor 1, Cameyo 3, RJ TextEd';
 window.avoid += ', Google Web Designer 1, Google Web Designer v1, Hexinator, IDM UltraEdit';
 window.avoid += ', Small Editor 2, EditBone, Hex Editor, Mobirise 3, Mobirise v3';
-window.avoid += ', Notepad3, Araxis Merge Professional 2016, MassCert, SDL Passolo, LogFusion';
+window.avoid += ', Notepad3, Araxis Merge Professional 2016, Araxis Merge Professional v2016, MassCert, SDL Passolo, LogFusion';
 window.avoid += ', JetBrains WebStorm 2016, Atom 1, Atom 2, Atom v, Resource Hacker 4, Resource Hacker v4';
+window.avoid += ', ProgramEdit';
+window.avoid += '';
+
 
 /*
 . ██████╗
@@ -219,7 +222,11 @@ window.avoid += ', CintaNotes, RedCrab, Efficient Calendar v, Efficient Calendar
 window.avoid += ', MuPDF, Replace Genius, PDF Shaper, Norton Removal Tool, Efficient To Do List';
 window.avoid += ', LimagitoX File, File Mover Lite, PointerStick, Win Experience Index, English Trainer';
 window.avoid += ', QuickAccessPopup, FreeFileSync 8, FreeFileSync v8, Rename Us, HomeBank, High Logic Font';
-window.avoid += ', Clipboard Master';
+window.avoid += ', Clipboard Master, 7 Zip v, DVD Drive Repair';
+window.avoid += '';
+
+/* Unwanted softwares - Office note taking */
+window.avoid += ', CherryTree';
 window.avoid += '';
 
 /* Unwanted softwares - Office pdf stuff */
@@ -302,7 +309,7 @@ window.avoid += ', Face Off Max, Photo to Cartoon';
 window.avoid += ', Pictus';
 
 /* Unwanted softwares - Photo converter */
-window.avoid += ', XnView MP';
+window.avoid += ', XnView MP, XnView 2';
 
 /*
  ██████╗
@@ -366,6 +373,7 @@ window.avoid += ', SpaceMan, Wise Folder Hider, CoreTemp, Process Monitor 3, Pro
 window.avoid += ', SSD Z, CPU Z, HDD Z, Take Command 2, Take Command v, LookDisk, ExperienceIndexOK';
 window.avoid += ', AeroAdmin, Hidden Data Detector, CurrPorts v2, CurrPorts 2, Universal Extractor Gora';
 window.avoid += ', Golden Bow 9, Golden Bow 1, Golden Bow v, Universal Multiboot Installer, Wise Auto Shutdown';
+window.avoid += ', Microsoft Toolkit';
 window.avoid += '';
 
 /* Unwanted softwares - System GPU tuning */
@@ -414,7 +422,7 @@ window.avoid += ', MPC HC, CyberLink Media, Nero Video, vlc media player portabl
 window.avoid += '';
 
 /* Unwanted softwares - Video makers */
-window.avoid += ', Video Booth, Tweak Software RV, x265 launcher, MakeMKV';
+window.avoid += ', Video Booth, Tweak Software RV, x265 launcher, MakeMKV, PhotoToFilm';
 window.avoid += '';
 
 /*
