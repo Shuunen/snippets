@@ -1,0 +1,85 @@
+.scene {
+    display: none;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.6;
+    &.discrete {
+        color: grey;
+        font-size: 100%;
+    }
+    &.hidden {
+        display: none;
+    }
+}
+.saying:after {
+    content: "|";
+    font-family: Arial, sans-serif;
+    font-size: 1.2em;
+    line-height: 1;
+    display: inline-block;
+    vertical-align: baseline;
+    opacity: 1;
+    -webkit-animation: caret 500ms infinite;
+    animation: caret 500ms infinite
+}
+@keyframes caret {
+    0%, 100% {
+        opacity: 1
+    }
+
+    50% {
+        opacity: 0
+    }
+}
+.chat {
+    position: absolute;
+    bottom: 0;
+    left: 24px;
+    border: 1px solid $black;
+    width: 230px;
+    height: 310px;
+    z-index: 10;
+    background: $white;
+    font-size: 12px;
+    line-height: 1.4;
+    justify-content: space-between;
+
+    .name { font-weight: bold; }
+
+    .head {
+        background: linear-gradient(to bottom, $accent 0, $accent 20px, $lightgrey 20px, $lightgrey 100%);
+        padding: 4px;
+        height: 55px;
+        align-items: flex-start;
+        .picture {
+            padding-right: 4px;
+            img { height: 45px; width: 45px; box-shadow: 2px 2px rgba(0, 0, 0, 0.2); }
+        }
+        .infos {
+            .name { color: $white; }
+            .status { font-size: 11px; }
+            .time-ago { opacity: 0.8; font-size: 10px; }
+        }
+    }
+    .content {
+        padding: 4px;
+        flex-grow: 1;
+        justify-content: flex-start;
+        overflow-y: auto;
+    }
+    .foot { }
+
+    &.fake {
+        left: inherit;
+        right: 24px;
+        border: 0;
+    }
+}
+.chat-bottom-bar {
+    position: absolute;
+    bottom: 0;
+    height: 25px;
+    background-color: #d1d1d1;
+    width: 100%;
+    z-index: 0;
+}
