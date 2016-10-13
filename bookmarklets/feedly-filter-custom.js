@@ -67,7 +67,7 @@ window.avoid += ', Alt Launch Band, Chromium 54, Chromium 55, Chromium 56, Chrom
 window.avoid += ', FlashPeak Slimjet, Maxthon Cloud Browser, Maxthon Browser';
 window.avoid += ', Air Explorer Pro, Pale Moon 2, Cyberfox, Google Chrome v, Google Chrome 5';
 window.avoid += ', Chrome Software Removal Tool, SlimJet, FlashFXP';
-window.avoid += ', FoneTrans, Dooble Web Browser, Waterfox';
+window.avoid += ', FoneTrans, Dooble Web Browser, Waterfox, Comodo IceDragon';
 window.avoid += '';
 
 /*
@@ -143,7 +143,7 @@ window.avoid += ', Google Web Designer 1, Google Web Designer v1, Hexinator, IDM
 window.avoid += ', Small Editor 2, EditBone, Hex Editor, Mobirise 3, Mobirise v3';
 window.avoid += ', Notepad3, Araxis Merge Professional 2016, Araxis Merge Professional v2016, MassCert, SDL Passolo, LogFusion';
 window.avoid += ', JetBrains WebStorm 2016, Atom 1, Atom 2, Atom v, Resource Hacker 4, Resource Hacker v4';
-window.avoid += ', ProgramEdit, TextCrawler';
+window.avoid += ', ProgramEdit, TextCrawler, Word Text Replacer';
 window.avoid += '';
 
 
@@ -226,7 +226,8 @@ window.avoid += ', CintaNotes, RedCrab, Efficient Calendar v, Efficient Calendar
 window.avoid += ', MuPDF, Replace Genius, PDF Shaper, Norton Removal Tool, Efficient To Do List';
 window.avoid += ', LimagitoX File, File Mover Lite, PointerStick, Win Experience Index, English Trainer';
 window.avoid += ', QuickAccessPopup, FreeFileSync 8, FreeFileSync v8, Rename Us, HomeBank, High Logic Font';
-window.avoid += ', Clipboard Master, 7 Zip v, DVD Drive Repair';
+window.avoid += ', Clipboard Master, 7 Zip v, DVD Drive Repair, Google Drive v, Google Drive 1, Google Drive 2';
+window.avoid += ', PopChar';
 window.avoid += '';
 
 /* Unwanted softwares - Office note taking */
@@ -234,7 +235,7 @@ window.avoid += ', CherryTree';
 window.avoid += '';
 
 /* Unwanted softwares - Office pdf stuff */
-window.avoid += ', WinScan2PDF, PDF MultiTool, Sumatra PDF 3, Sumatra PDF v3';
+window.avoid += ', WinScan2PDF, PDF MultiTool, Sumatra PDF 3, Sumatra PDF v3, Adobe Acrobat XI';
 window.avoid += '';
 
 /* Unwanted softwares - Office file fix */
@@ -299,7 +300,7 @@ window.avoid += ', CyberLink MakeupDirector, Blackmagic Design, ImageMagick, Cor
 window.avoid += ', QuarkXPress, Shotcut, Image Resizer, Digital Photo Suite, Photo SlideShow, PicPick';
 window.avoid += ', Photo Pos Pro, Sad Cat Software, CollageIt';
 window.avoid += ', Smith Micro Moho , Anime Studio, DxO ViewPoint 2, ScreenGif, ConverSeen, Picture Collage Maker';
-window.avoid += ', LogoSmartz';
+window.avoid += ', LogoSmartz, Retouch Pilot';
 window.avoid += ', PhotoDirector, Watermark Image, Photoshop Elements, digiKam, PhotoDeduper, Franzis HDR, Franzis Pure';
 window.avoid += ', SmartAlbums, PixPlant 3, PixPlant v3, Alien Skin Exposure, Magic Particles 3D';
 window.avoid += ', Just Color Picker, Artweaver';
@@ -334,7 +335,7 @@ window.avoid += '';
 
 /* Unwanted softwares - Recovery */
 window.avoid += ', Data Recovery, Photo Recovery, Video Recovery, Audio Recovery, RecoverBits, Ultimate Boot CD';
-window.avoid += ', EasyRecovery, ShowKeyPlus';
+window.avoid += ', EasyRecovery, ShowKeyPlus, Disk Drill Professional';
 window.avoid += '';
 
 /*
@@ -347,7 +348,7 @@ window.avoid += '';
  */
 
 /* Unwanted softwares - Screenshot */
-window.avoid += ', ShareX, Screenshot Studio, Ashampoo Snap, ScreenToGif';
+window.avoid += ', ShareX, Screenshot Studio, Ashampoo Snap, ScreenToGif, ZD Soft Screen Recorder';
 window.avoid += '';
 window.avoid += '';
 
@@ -385,7 +386,7 @@ window.avoid += ', SpaceMan, Wise Folder Hider, CoreTemp, Process Monitor 3, Pro
 window.avoid += ', SSD Z, CPU Z, HDD Z, Take Command 2, Take Command v, LookDisk, ExperienceIndexOK';
 window.avoid += ', AeroAdmin, Hidden Data Detector, CurrPorts v2, CurrPorts 2, Universal Extractor Gora';
 window.avoid += ', Golden Bow 9, Golden Bow 1, Golden Bow v, Universal Multiboot Installer, Wise Auto Shutdown';
-window.avoid += ', Microsoft Toolkit, Hardware Identify';
+window.avoid += ', Microsoft Toolkit, Hardware Identify, PassMark MonitorTest';
 window.avoid += '';
 
 /* Unwanted softwares - System GPU tuning */
@@ -430,7 +431,8 @@ window.avoid += ', YTD Video, DVDInfo, Xilisoft iphone, AVI Toolbox, AVIToolbox,
 window.avoid += ', Xilisoft HD, Xilisoft Video, Video Converter v, Video Converter Deluxe';
 window.avoid += ', MediaInfo v0 7, MediaInfo 0 7, VidCoder, Aquasoft Stages, VidMasta';
 window.avoid += ', Adobe Prelude CC, ALLPlayer, Windows Player, HandBrake v, HandBrake 0 1';
-window.avoid += ', MPC HC, CyberLink Media, Nero Video, vlc media player portable';
+window.avoid += ', MPC HC, CyberLink Media, Nero Video, vlc media player portable, moviejaySX';
+window.avoid += ', DVD Audio Extractor';
 window.avoid += '';
 
 /* Unwanted softwares - Video editors */
@@ -439,6 +441,7 @@ window.avoid += '';
 
 /* Unwanted softwares - Video makers */
 window.avoid += ', Video Booth, Tweak Software RV, x265 launcher, MakeMKV, PhotoToFilm';
+window.avoid += ', Movavi Video Converter, Tanida Demo Builder';
 window.avoid += '';
 
 /*
