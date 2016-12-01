@@ -88,34 +88,28 @@ var markExcludedAsRead = function () {
         console.error('title is empty');
     }
     // find all feeds
-    var feeds = document.querySelectorAll('.entryList .title');
+    var feeds = document.querySelectorAll('.list-entries > div[data-title]');
     forEach(feeds, function (index, feed) {
+        var feedTitle = feed.getAttribute('data-title');
         // to lower to avoid being case sensitive + remove accents
-        var str = accentsTidy(feed.text);
+        var str = accentsTidy(feed.textContent);
         // remove non letter/numeric characters & underscores
         str = str.replace(/[\W_]+/g, ' ').trim();
         var match = str.match(new RegExp(escapeRegExp(avoid), 'g'));
         if (match) {
             match = match.filter(uniqueValues);
             if (match[0]) {
-                console.warn(index + ' - detected "' + match.join(', ') + '" in title %c' + str, "color:black;font-style: bold");
+                console.warn(index + ' - detected "' + match.join(', ') + '" in title %c' + feedTitle, "color:black;font-style: bold");
                 // will click on mark as read & hide button on that feed
-                var container = feed.parentElement.parentElement;
-                if (container.firstElementChild.classList.contains('condensedTools')) {
-                    container = container.firstElementChild;
-                } else if (container.parentElement.firstElementChild.classList.contains('condensedTools')) {
-                    container = container.parentElement.firstElementChild;
-                } else {
-                    console.error('cannot find condensed tools');
-                }
-                if (container.lastElementChild.tagName === 'IMG') {
-                    container.lastElementChild.click();
+                var btn = feed.querySelector('[title="Mark as read and hide"]');
+                if (btn) {
+                    btn.click();
                 } else {
                     console.error('cannot find mark as read button');
                 }
             }
         } else {
-            console.log(index + ' - nothing in title %c' + str, "color:darkgrey;font-style: italic");
+            console.log(index + ' - nothing in title %c' + feedTitle, "color:darkgrey;font-style: italic");
         }
     });
 };
