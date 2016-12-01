@@ -72,7 +72,7 @@ var debounce = function (func, wait, immediate) {
 // the main job of this script
 var markExcludedAsRead = function () {
     // mark current feed title to see that feedly filter is active
-    var title = document.querySelector('h1');
+    var title = document.querySelector('#feedlyPageFX h1');
     var subtitle = title.querySelector('a');
     if (subtitle) {
         title = subtitle;
