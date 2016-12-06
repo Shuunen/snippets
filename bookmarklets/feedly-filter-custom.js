@@ -32,7 +32,7 @@ window.avoid += ', Sound Forge Pro, VLC Media Player 3, Virtual DJ, MAGIX Sound 
 window.avoid += ', Audacious 3, Audacious 4, Audacious v3, Audacious v4, MAGIX Sound, Helium Music Manager';
 window.avoid += ', Capella Software, Tonica Fugata, Album Player, TagScanner, Composer System v';
 window.avoid += ', AIMP v, AIMP 4, AIMP 5, AIMP 6, Music Studio v, ACID Music Studio, Magix Music Studio, Adobe Audition CC';
-window.avoid += ', Exact Audio Copy, Helium Music Manager, LameXP';
+window.avoid += ', Exact Audio Copy, Helium Music Manager, LameXP, TapinRadio';
 window.avoid += '';
 
 /* Unwanted softwares - Audio iPhone Apple */
@@ -57,8 +57,9 @@ window.avoid += '';
 
 /* Unwanted softwares - Backup */
 window.avoid += ', CloneZilla, CloneApp, Personal Backup, BestSync, Backup and Recovery, SyncBackPro, Syncovery';
-window.avoid += ', BurnAware, XXCLONE, AnyToISO, WinToHDD, Registry Backup, BackUp Maker';
-window.avoid += ', Any Burn v, Any Burn 3, Any Burn 4, TeamDrive, Easy Disc Burner, Burn4Free';
+window.avoid += ', BurnAware, XXCLONE, AnyToISO, WinToHDD, Registry Backup, BackUp Maker, Iperius Backup';
+window.avoid += ', Any Burn v, Any Burn 3, Any Burn 4, TeamDrive, Easy Disc Burner, Burn4Free, Iperius Backup';
+window.avoid += '';
 window.avoid += '';
 
 /* Unwanted softwares - Browser */
@@ -110,7 +111,7 @@ window.avoid += '';
 
 /* Unwanted softwares - Driver */
 window.avoid += ', DriverEasy Professional 5, DriverPack, SnailDriver, Smart Driver Updater, Driver Talent Pro';
-window.avoid += ', Driver Booster Pro 4, Driver Booster Pro v4, Snail Driver';
+window.avoid += ', Driver Booster Pro 4, Driver Booster Pro v4, Snail Driver, Driver Magician';
 window.avoid += '';
 window.avoid += '';
 
@@ -129,7 +130,7 @@ window.avoid += '';
 
 /* Unwanted softwares - eBook */
 window.avoid += ', Anthemion Jutoh, Kobo Converter, Calibre v2, Calibre 2, EPUB Checker';
-window.avoid += ', Asciidoc, ExtraChm';
+window.avoid += ', Asciidoc, ExtraChm, Flip PDF';
 window.avoid += '';
 
 /* Unwanted softwares - Editor */
@@ -143,7 +144,7 @@ window.avoid += ', Google Web Designer 1, Google Web Designer v1, Hexinator, IDM
 window.avoid += ', Small Editor 2, EditBone, Hex Editor, Mobirise 3, Mobirise v3';
 window.avoid += ', Notepad3, Araxis Merge Professional 2016, Araxis Merge Professional v2016, MassCert, SDL Passolo, LogFusion';
 window.avoid += ', JetBrains WebStorm 2016, Atom 1, Atom 2, Atom v, Resource Hacker 4, Resource Hacker v4';
-window.avoid += ', ProgramEdit, TextCrawler, Word Text Replacer';
+window.avoid += ', ProgramEdit, TextCrawler, Word Text Replacer, IDM UEStudio';
 window.avoid += '';
 
 
@@ -191,8 +192,8 @@ window.avoid += '';
 
 /* Unwanted softwares - Network */
 window.avoid += ', NetWorx 5, NetWorx v5, ChrisPC DNS Switch, NeoRouter 2, NeoRouter v2';
-window.avoid += ', NetSetMan, MyLanViewer 4, MyLanViewer v4, NxFilter';
-window.avoid += '';
+window.avoid += ', NetSetMan, MyLanViewer 4, MyLanViewer v4, NxFilter, PortForward Network Utilities';
+window.avoid += ', Forward Network Utilities';
 window.avoid += '';
 
 /*
@@ -234,8 +235,13 @@ window.avoid += '';
 window.avoid += ', CherryTree';
 window.avoid += '';
 
+/* Unwanted softwares - Office OCR */
+window.avoid += ', Readiris Corporate, Speech2Go';
+window.avoid += '';
+
 /* Unwanted softwares - Office pdf stuff */
-window.avoid += ', WinScan2PDF, PDF MultiTool, Sumatra PDF 3, Sumatra PDF v3, Adobe Acrobat XI';
+window.avoid += ', WinScan2PDF, PDF MultiTool, Sumatra PDF 3, Sumatra PDF v3, Adobe Acrobat XI, FlexiPDF, DiffPDF';
+window.avoid += '';
 window.avoid += '';
 
 /* Unwanted softwares - Office file fix */
@@ -295,20 +301,23 @@ window.avoid += '';
 window.avoid += ', PhotoInstrument, Process Lasso, STOIK Stitch Creator, Ashampoo Photo';
 window.avoid += ', JixiPix Pastello, Photoshop Lightroom, Luxion KeyShot, PDF To Image, Photodex ProShow';
 window.avoid += ', Aha soft articons, Home Photo Studio, IDPhotoStudio, DxO FilmPack, Icon Software Collection';
-window.avoid += ', apowersoft screen capture, jixipix rip studio, Adobe Plugins, Any to icon, Aha Soft Icon';
+window.avoid += ', jixipix rip studio, Adobe Plugins, Any to icon, Aha Soft Icon';
 window.avoid += ', CyberLink MakeupDirector, Blackmagic Design, ImageMagick, Corel PaintShop Pro';
 window.avoid += ', QuarkXPress, Shotcut, Image Resizer, Digital Photo Suite, Photo SlideShow, PicPick';
-window.avoid += ', Photo Pos Pro, Sad Cat Software, CollageIt';
-window.avoid += ', Smith Micro Moho , Anime Studio, DxO ViewPoint 2, ScreenGif, ConverSeen, Picture Collage Maker';
-window.avoid += ', LogoSmartz, Retouch Pilot';
+window.avoid += ', Photo Pos Pro, Sad Cat Software, CollageIt, Photo Makeup';
+window.avoid += ', Smith Micro Moho , Anime Studio, DxO ViewPoint 2, ConverSeen, Picture Collage Maker';
+window.avoid += ', LogoSmartz, Retouch Pilot, Screensaver Maker, Photo Date Changer';
 window.avoid += ', PhotoDirector, Watermark Image, Photoshop Elements, digiKam, PhotoDeduper, Franzis HDR, Franzis Pure';
 window.avoid += ', SmartAlbums, PixPlant 3, PixPlant v3, Alien Skin Exposure, Magic Particles 3D';
-window.avoid += ', Just Color Picker, Artweaver';
+window.avoid += ', Just Color Picker, Artweaver, OpenCanvas, PT Photo Editor, SoftDigi Easy GIF';
 window.avoid += ', Paint Net 4, Paint Net v4, Krita v, Krita 3, FastStone Image Viewer';
-window.avoid += ', Topaz Glow 2, Topaz Glow v2, TwistedBrush Pro';
-window.avoid += ', Paint Pro v, Paint Pro, Indigo Renderer, iStripper';
+window.avoid += ', Topaz Glow 2, Topaz Glow v2, TwistedBrush Pro, Serif PagePlus, Business Card Designer, Capture One Pro';
+window.avoid += ', Paint Pro v, Paint Pro, Indigo Renderer, iStripper, Autopano';
 window.avoid += ', DiaShow Studio, Sketch Drawer, JPEG Repair, XnRetro, OpenCanvas';
 window.avoid += '';
+
+/* Unwanted softwares - Photoshop likes */
+window.avoid += ', Affinity Photo';
 window.avoid += '';
 
 /* Unwanted softwares - Photo effects */
@@ -317,11 +326,11 @@ window.avoid += ', Topaz Impression 2, Topaz Impression v2, dxo optics pro';
 window.avoid += '';
 
 /* Unwanted softwares - Photo viewer */
-window.avoid += ', Pictus, ViewCompanion, IrfanView 4, IrfanView v4, ACDSee';
+window.avoid += ', Pictus, ViewCompanion, IrfanView 4, IrfanView v4, ACDSee, Desktop Ruler';
 window.avoid += '';
 
 /* Unwanted softwares - Photo converter */
-window.avoid += ', XnView MP, XnView 2, XnConvert';
+window.avoid += ', XnView MP, XnView 2, XnConvert, Img Converter, PCL To Image';
 window.avoid += '';
 
 /*
@@ -335,7 +344,7 @@ window.avoid += '';
 
 /* Unwanted softwares - Recovery */
 window.avoid += ', Data Recovery, Photo Recovery, Video Recovery, Audio Recovery, RecoverBits, Ultimate Boot CD';
-window.avoid += ', EasyRecovery, ShowKeyPlus, Disk Drill Professional';
+window.avoid += ', EasyRecovery, ShowKeyPlus, Disk Drill Professional, recALL, KeyLock, KeyLock USB Locker';
 window.avoid += '';
 
 /*
@@ -348,8 +357,8 @@ window.avoid += '';
  */
 
 /* Unwanted softwares - Screenshot */
-window.avoid += ', ShareX, Screenshot Studio, Ashampoo Snap, ScreenToGif, ZD Soft Screen Recorder';
-window.avoid += '';
+window.avoid += ', ShareX, Screenshot Studio, Ashampoo Snap, ScreenToGif, ZD Soft Screen Recorder, CaptureWizPro';
+window.avoid += ', apowersoft screen capture, ScreenGif';
 window.avoid += '';
 
 /* Unwanted softwares - Security */
@@ -386,7 +395,7 @@ window.avoid += ', SpaceMan, Wise Folder Hider, CoreTemp, Process Monitor 3, Pro
 window.avoid += ', SSD Z, CPU Z, HDD Z, Take Command 2, Take Command v, LookDisk, ExperienceIndexOK';
 window.avoid += ', AeroAdmin, Hidden Data Detector, CurrPorts v2, CurrPorts 2, Universal Extractor Gora';
 window.avoid += ', Golden Bow 9, Golden Bow 1, Golden Bow v, Universal Multiboot Installer, Wise Auto Shutdown';
-window.avoid += ', Microsoft Toolkit, Hardware Identify, PassMark MonitorTest';
+window.avoid += ', Microsoft Toolkit, Hardware Identify, PassMark MonitorTest, WinUSB, Unreal Commander';
 window.avoid += '';
 
 /* Unwanted softwares - System GPU tuning */
@@ -406,7 +415,7 @@ window.avoid += '';
 window.avoid += ', dictionary net';
 
 /* Unwanted softwares - TeamViewer */
-window.avoid += ', TeamViewer premium, TeamViewer corporate, TeamViewer server, TeamViewer QuickJoin, Remote Desktop Manager';
+window.avoid += ', TeamViewer premium, TeamViewer corporate, TeamViewer Enterprise, TeamViewer server, TeamViewer QuickJoin, Remote Desktop Manager';
 
 /*
  ██╗   ██╗
@@ -429,19 +438,20 @@ window.avoid += ', Blu ray Copy, Leawo Blu, Blu ray Creator, Blu ray Ripper, Pow
 window.avoid += ', Leawo Video, MPC BE, MediaCoder, WonderFox HD Video, Leawo Prof, ImTOO Video Converter';
 window.avoid += ', YTD Video, DVDInfo, Xilisoft iphone, AVI Toolbox, AVIToolbox, VideoInspector, 4Media Video';
 window.avoid += ', Xilisoft HD, Xilisoft Video, Video Converter v, Video Converter Deluxe';
-window.avoid += ', MediaInfo v0 7, MediaInfo 0 7, VidCoder, Aquasoft Stages, VidMasta';
+window.avoid += ', MediaInfo v0 7, MediaInfo 0 7, VidCoder, Aquasoft Stages, VidMasta, Video Downloader Pro';
 window.avoid += ', Adobe Prelude CC, ALLPlayer, Windows Player, HandBrake v, HandBrake 0 1';
 window.avoid += ', MPC HC, CyberLink Media, Nero Video, vlc media player portable, moviejaySX';
-window.avoid += ', DVD Audio Extractor';
+window.avoid += ', DVD Audio Extractor, DVD Creator, Video Converter Ultimate, ActivePresenter';
+window.avoid += '';
 window.avoid += '';
 
 /* Unwanted softwares - Video editors */
-window.avoid += ', VideoPad Video Editor';
+window.avoid += ', VideoPad Video Editor, VSDC Video Editor';
 window.avoid += '';
 
 /* Unwanted softwares - Video makers */
 window.avoid += ', Video Booth, Tweak Software RV, x265 launcher, MakeMKV, PhotoToFilm';
-window.avoid += ', Movavi Video Converter, Tanida Demo Builder';
+window.avoid += ', Movavi Video Converter, Tanida Demo Builder, BluffTitler, CrazyTalk Animator';
 window.avoid += '';
 
 /*
@@ -469,9 +479,9 @@ window.avoid += '';
 /* Unwanted softwares - Others */
 window.avoid += ', Xeoma, Vectric Aspire, Listen N Write, DialogBlocks';
 window.avoid += ', FireAlpaca, energyXT, VirtualBox 5, dbMigration';
-window.avoid += ', PeaZip, RazorSQL, Global Mapper, MAPC2MAPC';
+window.avoid += ', PeaZip, RazorSQL, Global Mapper, MAPC2MAPC, RadBuilder';
 window.avoid += ', AutoDWG, Edraw Max, EdrawSoft, Checksum Verifier';
-window.avoid += ', jPortable, GenoPro, Blender Foundation 3D, Blender 3D';
+window.avoid += ', jPortable, GenoPro, Blender Foundation 3D, Blender 3D, SketchUp Pro';
 window.avoid += ', Supremo, git x86';
 window.avoid += ', Burning Studio, WinRAR, PdfGrabber';
 window.avoid += ', nanDECK, Agelong Tree, Delcam PowerSHAPE';
