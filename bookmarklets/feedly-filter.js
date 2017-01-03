@@ -113,6 +113,12 @@ var markExcludedAsRead = function () {
             }
         } else {
             console.log(index + ' - nothing in title %c' + feedTitle, "color:darkgrey;font-style: italic");
+            // get title
+            var title = feed.querySelector('a.title');
+            // color in darkgreen
+            title.style.color = '#005f17';
+            // add checkmark
+            title.innerHTML = '&#9989;&nbsp;' + title.innerHTML ;
         }
     });
 };
