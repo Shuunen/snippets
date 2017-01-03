@@ -88,8 +88,11 @@ var markExcludedAsRead = function () {
         console.error('title is empty');
     }
     // find all feeds
-    var feeds = document.querySelectorAll('.list-entries > div[data-title]');
+    var feeds = document.querySelectorAll('.list-entries > div[data-title]:not(.handled)');
     forEach(feeds, function (index, feed) {
+        // mark as handled to avoid recheck
+        feed.classList.add('handled');
+        // get title
         var feedTitle = feed.getAttribute('data-title');
         // to lower to avoid being case sensitive + remove accents
         var str = accentsTidy(feed.textContent);
