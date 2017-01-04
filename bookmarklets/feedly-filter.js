@@ -54,9 +54,9 @@ var throttle = function(func, wait, options) {
       if (!timeout) context = args = null;
     };
     return function() {
-      var now = now();
-      if (!previous && options.leading === false) previous = now;
-      var remaining = wait - (now - previous);
+      var timestamp = now();
+      if (!previous && options.leading === false) previous = timestamp;
+      var remaining = wait - (timestamp - previous);
       context = this;
       args = arguments;
       if (remaining <= 0 || remaining > wait) {
@@ -64,7 +64,7 @@ var throttle = function(func, wait, options) {
           clearTimeout(timeout);
           timeout = null;
         }
-        previous = now;
+        previous = timestamp;
         result = func.apply(context, args);
         if (!timeout) context = args = null;
       } else if (!timeout && options.trailing !== false) {
