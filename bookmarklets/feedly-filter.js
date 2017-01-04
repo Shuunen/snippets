@@ -48,13 +48,13 @@ var throttle = function(func, wait, options) {
     var previous = 0;
     if (!options) options = {};
     var later = function() {
-      previous = options.leading === false ? 0 : _.now();
+      previous = options.leading === false ? 0 : now();
       timeout = null;
       result = func.apply(context, args);
       if (!timeout) context = args = null;
     };
     return function() {
-      var now = _.now();
+      var now = now();
       if (!previous && options.leading === false) previous = now;
       var remaining = wait - (now - previous);
       context = this;
