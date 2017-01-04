@@ -42,33 +42,37 @@ var forEach = function (array, callback, scope) {
 var now = Date.now || function () {
         return new Date().getTime();
     };
-var debounce = function (func, wait, immediate) {
-    var timeout, args, context, timestamp, result;
-    var later = function () {
-        var last = now() - timestamp;
-        if (last < wait && last >= 0) {
-            timeout = setTimeout(later, wait - last);
-        } else {
-            timeout = null;
-            if (!immediate) {
-                result = func.apply(context, args);
-                if (!timeout) context = args = null;
-            }
-        }
+var throttle = function(func, wait, options) {
+    var context, args, result;
+    var timeout = null;
+    var previous = 0;
+    if (!options) options = {};
+    var later = function() {
+      previous = options.leading === false ? 0 : now();
+      timeout = null;
+      result = func.apply(context, args);
+      if (!timeout) context = args = null;
     };
-    return function () {
-        context = this;
-        args = arguments;
-        timestamp = now();
-        var callNow = immediate && !timeout;
-        if (!timeout) timeout = setTimeout(later, wait);
-        if (callNow) {
-            result = func.apply(context, args);
-            context = args = null;
+    return function() {
+      var timestamp = now();
+      if (!previous && options.leading === false) previous = timestamp;
+      var remaining = wait - (timestamp - previous);
+      context = this;
+      args = arguments;
+      if (remaining <= 0 || remaining > wait) {
+        if (timeout) {
+          clearTimeout(timeout);
+          timeout = null;
         }
-        return result;
+        previous = timestamp;
+        result = func.apply(context, args);
+        if (!timeout) context = args = null;
+      } else if (!timeout && options.trailing !== false) {
+        timeout = setTimeout(later, remaining);
+      }
+      return result;
     };
-};
+  };
 // the main job of this script
 var markExcludedAsRead = function () {
     // mark current feed title to see that feedly filter is active
@@ -116,9 +120,9 @@ var markExcludedAsRead = function () {
             // get title
             var title = feed.querySelector('a.title');
             // color in darkgreen
-            title.style.color = '#005f17';
+            title.style.color = '#555';
             // add checkmark
-            title.innerHTML = '&#9989;&nbsp;' + title.innerHTML ;
+            title.innerHTML = '&#10003;&nbsp;' + title.innerHTML ;
         }
     });
 };
@@ -138,7 +142,7 @@ var listenForAjaxRequest = function (callback) {
         _send.apply(this, arguments);
     }
 };
-// init stack
-var work = debounce(markExcludedAsRead, 500); // avoid calling markExcludedAsRead multiple times in 500ms interval
+// init
+var work = throttle(markExcludedAsRead, 500); // avoid calling markExcludedAsRead more than once in 500ms interval
 work();
 listenForAjaxRequest(work);
