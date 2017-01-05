@@ -26,9 +26,9 @@ window.avoid += ', Super Hide IP, Hide IP Easy, DoNotSpy10, Free Anonymous Proxy
 window.avoid += '';
 
 /* Unwanted softwares - Audio */
-window.avoid += ', Foobar2000, DSpeech, Faasoft audio converter, zortam mp3, MP3 Skype Recorder, Atomix VirtualDJ';
+window.avoid += ', Foobar2000, DSpeech, Faasoft audio converter, zortam mp3, MP3 Skype Recorder, Atomix VirtualDJ, Easy Audio Mixer';
 window.avoid += ', gom audio, Pazera Audio Video, AudioGrail, Daum PotPlayer, Zulu DJ, Wave Editor, WavePad Sound';
-window.avoid += ', Sound Forge Pro, VLC Media Player 3, Virtual DJ, MAGIX Sound Forge Pro, MediaMonkey Gold';
+window.avoid += ', Sound Forge Pro, VLC Media Player 3, Virtual DJ, MAGIX Sound Forge Pro, MediaMonkey Gold, RadioSure';
 window.avoid += ', Audacious 3, Audacious 4, Audacious v3, Audacious v4, MAGIX Sound, Helium Music Manager, Tracktion';
 window.avoid += ', Capella Software, Tonica Fugata, Album Player, TagScanner, Composer System v, PlayTime 1, PlayTime 2, PlayTime v';
 window.avoid += ', AIMP v, AIMP 4, AIMP 5, AIMP 6, Music Studio v, ACID Music Studio, Magix Music Studio, Adobe Audition CC';
@@ -107,7 +107,7 @@ window.avoid += ', TorrentRover 1 1, TorrentRover v1 1,TorrentRover v1 0, Torren
 window.avoid += ', USDownloader b, Zona 1, Zona v1, ISO Download Tool, Torrent 3';
 window.avoid += ', Zero Install 2, Zero Install v2, Manga Downloader, Shareaza, Save2PC Light';
 window.avoid += ', HTTrack 3, HTTrack v3, MediaGet 2, MediaGet v2, internet manager 6';
-window.avoid += ', EagleGet 2, EagleGet v2, Extreme Picture Finder, Download Master';
+window.avoid += ', EagleGet 2, EagleGet v2, Extreme Picture Finder, Download Master, 4K Stogram';
 window.avoid += '';
 
 /* Unwanted softwares - Driver */
@@ -136,12 +136,12 @@ window.avoid += '';
 
 /* Unwanted softwares - Editor */
 window.avoid += ', FocusWriter, Computing editplus, Print2Cad, Emurasoft EmEditor, Blumentals Rapid, Blumentals HTMLPad';
-window.avoid += ', WinPDFEditor, FreeCAD, EditPlus, Sublime Text 3, Sublime Text 2, SynWrite';
+window.avoid += ', WinPDFEditor, FreeCAD, EditPlus, Sublime Text 3, Sublime Text 2, SynWrite, iMapBuilder, Adobe InCopy';
 window.avoid += ', Poedit Pro 1, Poedit Pro v1, Sublime Text v3, Sublime Text v2, Incomedia WebSite';
 window.avoid += ', WYSIWYG Web Builder, WYSIWYG Builder, HTML Compiler 2016, FileMaker Pro, Adobe Dreamweaver';
 window.avoid += ', EditRocket, ReGen KeyCode, IconEdit2, Notepad 7, Notepad v7, Final Draft';
 window.avoid += ', Hosts File Editor v1, Hosts File Editor 1, Cameyo 3, RJ TextEd, EndNote X';
-window.avoid += ', Google Web Designer 1, Google Web Designer v1, Hexinator, IDM UltraEdit';
+window.avoid += ', Google Web Designer 1, Google Web Designer v1, Hexinator, IDM UltraEdit, DataExpress';
 window.avoid += ', Small Editor 2, EditBone, Hex Editor, Mobirise 3, Mobirise v3, Web Creator Pro';
 window.avoid += ', Notepad3, Araxis Merge Professional 2016, Araxis Merge Professional v2016, MassCert, SDL Passolo, LogFusion';
 window.avoid += ', JetBrains WebStorm 2016, Atom 1, Atom 2, Atom v, Resource Hacker 4, Resource Hacker v4';
@@ -167,7 +167,7 @@ window.avoid += ', Overwatch, Hearthstone, Warhammer, Lucas Chess, Power Equilab
 window.avoid += '';
 
 /* Health */
-window.avoid += ', Auriculo 3D';
+window.avoid += ', Auriculo 3D, Maia Mechanics';
 window.avoid += '';
 
 /*
@@ -232,7 +232,7 @@ window.avoid += ', MOBILedit, Rufus 2, Rufus v2, Scribus, Xetranslator, LibreOff
 window.avoid += ', CintaNotes, RedCrab, Efficient Calendar v, Efficient Calendar 5, Efficient Calendar 6';
 window.avoid += ', MuPDF, Replace Genius, PDF Shaper, Norton Removal Tool, Efficient To Do List';
 window.avoid += ', LimagitoX File, File Mover Lite, PointerStick, Win Experience Index, English Trainer';
-window.avoid += ', QuickAccessPopup, FreeFileSync 8, FreeFileSync v8, Rename Us, HomeBank';
+window.avoid += ', QuickAccessPopup, FreeFileSync 8, FreeFileSync v8, Rename Us, HomeBank, Log Viewer';
 window.avoid += ', Clipboard Master, 7 Zip v, DVD Drive Repair, Google Drive v, Google Drive 1, Google Drive 2';
 window.avoid += ', Mindjet MindManager, Help And Manual, Express Invoice, Babylon Pro, WindowsWord';
 window.avoid += '';
@@ -264,7 +264,7 @@ window.avoid += '';
 
 /* Unwanted softwares - Office desktop sht */
 window.avoid += ', Digital Clock, Animated Wallpaper Maker, FolderIco, AnyDesk, OneLoupe, Stickies, DeskCalc';
-window.avoid += ', Quick Macros, FileMenu Tools, DisplayFusion, MaxLauncher';
+window.avoid += ', Quick Macros, FileMenu Tools, DisplayFusion, MaxLauncher, BetterDesktopTool';
 window.avoid += '';
 
 /* Unwanted softwares - Optimizer */
@@ -272,12 +272,12 @@ window.avoid += ', Easy Pc Optimizer, Auslogics Disk Defrag, Ashampoo HDD Contro
 window.avoid += ', Glary Disk Cleaner, Glary Utilities Pro, Glarysoft Registry, Glary Tracks Eraser';
 window.avoid += ', Supercopier, MiTeC System, Reg Organizer, windows repair pro, MPC Cleaner, MPC AdCleaner';
 window.avoid += ', Auslogics Browser Care, FileOptimizer, ReviverSoft Registry';
-window.avoid += ', Abelssoft GoogleClean, CCleaner 5, Wise Disk Cleaner';
-window.avoid += ', Chrome Cleanup Tool, Windows Repair Toolbox';
+window.avoid += ', Abelssoft GoogleClean, CCleaner 5, CCleaner Professional Plus 5, CCleaner Professional Plus v5, Wise Disk Cleaner';
+window.avoid += ', Chrome Cleanup Tool, Windows Repair Toolbox, Registry Recovery';
 window.avoid += ', wise care 365 pro v4, RegistryWizard, DLL Suite, DLL Care, Long Path Tool';
 window.avoid += ', Destroy Windows, Solid State Doctor v3, WinUtilities, PGWare, System Mechanic';
 window.avoid += ', Registry First Aid, wise care 365 pro 4, TCP Optimizer, Ace Utilities';
-window.avoid += ', Wise Memory Optimizer, Autorun Organizer, PC Decrapifier';
+window.avoid += ', Wise Memory Optimizer, Autorun Organizer, PC Decrapifier, Registry Utility';
 window.avoid += ', Registry Life 3, Registry Life 4, Registry Life 5, Registry Life v';
 window.avoid += ', DLL Analyzer, ThrottleStop, Registry Manager, Hibernate Enable';
 window.avoid += ', Ultimate Windows Tweaker v4, ccleaner professional business technician 5';
@@ -302,7 +302,7 @@ window.avoid += '';
  */
 
 /* Unwanted softwares - Photo */
-window.avoid += ', PhotoInstrument, Process Lasso, STOIK Stitch Creator, Ashampoo Photo';
+window.avoid += ', PhotoInstrument, Process Lasso, STOIK Stitch Creator, Ashampoo Photo, ArtRage, Drawpile';
 window.avoid += ', JixiPix Pastello, Photoshop Lightroom, Luxion KeyShot, PDF To Image, Photodex ProShow';
 window.avoid += ', Aha soft articons, Home Photo Studio, IDPhotoStudio, DxO FilmPack, Icon Software Collection';
 window.avoid += ', jixipix rip studio, Adobe Plugins, Any to icon, Aha Soft Icon, PicturesToExe';
@@ -370,21 +370,21 @@ window.avoid += '';
 /* Unwanted softwares - Security */
 window.avoid += ', OESIS Endpoint, Emsisoft Emergency Kit, PrivaZer, AntiVir Rescue System, ChromePass, Zero Assumption Recovery';
 window.avoid += ', PDF Decrypter, Avast Clear, Pdf eraser pro, Product Key Finder, Wireless network watcher';
-window.avoid += ', licensecrawler, GridinSoft Anti, Kaspersky Lab Products, McAfee Stinger';
+window.avoid += ', licensecrawler, GridinSoft Anti, Kaspersky Lab Products, McAfee Stinger, USB Raptor';
 window.avoid += ', Product Key Decryptor, Router Password Decryptor, skype ad remover, Kaspersky Virus Removal';
 window.avoid += ', pdf password remover, dr web cureit, Soft4Boost Toolbar, 1Password, Network Password Recovery';
 window.avoid += ', WireShark 2, WireShark v2, WifiHistoryView, Chistilka 2, Chistilka v2, SterJo Wireless';
-window.avoid += ', Nexus Root Toolkit, NewFileTime, Network Scanner, RegRun, dot11Expert, CryptoPrevent';
+window.avoid += ', Nexus Root Toolkit, NewFileTime, Network Scanner, RegRun, dot11Expert, CryptoPrevent, Defender Control';
 window.avoid += ', Zer0 0, UnHackMe v8, Angry IP Scanner, Secure Hunter, Batchpatch, Junkware Removal';
 window.avoid += ', Loaris Trojan Remover, Omnipeek, L0phtCrack, Secure Eraser, Privacy Drive, Jade Encryption';
-window.avoid += ', KMSAuto Net, W10Privacy, Password Security Scanner, Nsauditor, Password Safe';
+window.avoid += ', KMSAuto Net, W10Privacy, Password Security Scanner, Nsauditor, Password Safe, Password Recovery';
 window.avoid += ', Wfp Tool, Windows Filtering Platform Tool, Multi OEM Retail, KMS Tools, VaultPasswordView';
 window.avoid += ', Secret Disk, Folder Lock, WebBrowserPassView, Panda Cloud Cleaner, KeePass Classic';
 window.avoid += ', RannohDecryptor, PWGen, KMS Server, KMSAuto Lite, PowerRun, Microsoft Safety Scanner, SX Antivirus';
 window.avoid += '';
 
 /* Unwanted softwares - SEO */
-window.avoid += ', Rank Tracker';
+window.avoid += ', Rank Tracker, Screaming Frog, SEO Spider';
 window.avoid += '';
 
 /* Unwanted softwares - System infos, managers */
@@ -396,7 +396,7 @@ window.avoid += ', Proxy Switcher, PartitionGuru, dism 10, dism v10, dism 11, di
 window.avoid += ', Win10 Wizard, RMPrepUSB, System Information Viewer, SUMo 5, SUMo 6, SUMo v5, SUMo v6';
 window.avoid += ', AUMBI, Absolute USB MultiBoot Installer, EF Commander, FastCopy, Multiboot USB';
 window.avoid += ', System Tools for Windows, Q Dir, MyPC, Wise System Monitor, 3DP Chip, File Splitter';
-window.avoid += ', Ultimate Settings Panel, xplorer2, xplorerv2, MemInfo, Solid State Doctor';
+window.avoid += ', Ultimate Settings Panel, xplorer2, xplorerv2, MemInfo, Solid State Doctor, WhySoSlow';
 window.avoid += ', SpaceMan, Wise Folder Hider, CoreTemp, Process Monitor 3, Process Monitor v3';
 window.avoid += ', SSD Z, CPU Z, HDD Z, Take Command 2, Take Command v, LookDisk, ExperienceIndexOK';
 window.avoid += ', AeroAdmin, Hidden Data Detector, CurrPorts v2, CurrPorts 2, Universal Extractor Gora';
@@ -420,7 +420,7 @@ window.avoid += '';
  */
 
 /* Unwanted softwares - Translators */
-window.avoid += ', dictionary net';
+window.avoid += ', dictionary net, Sisulizer';
 
 /* Unwanted softwares - TeamViewer */
 window.avoid += ', TeamViewer premium, TeamViewer corporate, TeamViewer Enterprise, TeamViewer server, TeamViewer QuickJoin, Remote Desktop Manager';
@@ -464,11 +464,11 @@ window.avoid += ', Total Media Converter, AVStoDVD';
 window.avoid += '';
 
 /* Unwanted softwares - Video editors */
-window.avoid += ', VideoPad Video Editor, VSDC Video Editor, Movavi Video Editor, Watermark Video Maker';
+window.avoid += ', VideoPad Video Editor, VSDC Video Editor, Movavi Video Editor, Watermark Video Maker, Media Splitter';
 window.avoid += '';
 
 /* Unwanted softwares - Video repair */
-window.avoid += ', HD Video Repair';
+window.avoid += ', Video Repair';
 window.avoid += '';
 
 /* Unwanted softwares - Video makers */
@@ -500,7 +500,7 @@ window.avoid += '';
  */
 
 /* Unwanted softwares - Others */
-window.avoid += ', Xeoma, Vectric Aspire, Listen N Write, DialogBlocks, OriginLab OriginPro, VBto Converter';
+window.avoid += ', Xeoma, Vectric Aspire, Listen N Write, DialogBlocks, OriginLab OriginPro, VBto Converter, WinUAE';
 window.avoid += ', FireAlpaca, energyXT, VirtualBox 5, dbMigration, Tools Package';
 window.avoid += ', PeaZip, RazorSQL, Global Mapper, MAPC2MAPC, RadBuilder';
 window.avoid += ', AutoDWG, Edraw Max, EdrawSoft, Checksum Verifier';
