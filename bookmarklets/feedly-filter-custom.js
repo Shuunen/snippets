@@ -12,10 +12,15 @@ window.avoid = 'Star Wars, Dark Vador, Pokemon Go, Twerk, Game of Thrones, Drago
 /* Unwanted sports */
 window.avoid += ', NBA League, UEFA, Euro 2016, footballeur, supporters de foot, jeux olympiques';
 
-// ASCII Texts thanks to
-// http://patorjk.com/software/taag/#p=display&v=0&f=ANSI%20Shadow&t=Thanks%0A
-// & http://patorjk.com/software/taag/#p=display&v=0&f=Ivrit&t=Thanks
-/* Accounting */
+// ASCII Texts thanks to http://patorjk.com/software/taag/#p=display&v=0&f=ANSI%20Shadow&t=Thanks%0A
+/*____    __    __   ___   __ __  ____   ______  ____  ____    ____ 
+ /    |  /  ]  /  ] /   \ |  |  ||    \ |      ||    ||    \  /    |
+|  o  | /  /  /  / |     ||  |  ||  _  ||      | |  | |  _  ||   __|
+|     |/  /  /  /  |  O  ||  |  ||  |  ||_|  |_| |  | |  |  ||  |  |
+|  _  /   \_/   \_ |     ||  :  ||  |  |  |  |   |  | |  |  ||  |_ |
+|  |  \     \     ||     ||     ||  |  |  |  |   |  | |  |  ||     |
+|__|__|\____|\____| \___/  \__,_||__|__|  |__|  |____||__|__||___,_|
+                                                                    */
 window.avoid += ', QuickBooks';
 window.avoid += '';
 /*   _                                      _              
@@ -27,6 +32,21 @@ window.avoid += '';
 window.avoid += ', Mask Surf Pro, Hide ALL IP 2016, Surf Anonymous Free, Mask My IP';
 window.avoid += ', Tor Browser Bundle, IP Hider Pro, Real Hide IP, Platinum Hide IP';
 window.avoid += ', Super Hide IP, Hide IP Easy, DoNotSpy10, Free Anonymous Proxy, Gather Proxy';
+window.avoid += '';
+/*    ___           ___           ___     
+     /\  \         /\  \         /\  \    
+    /::\  \       /::\  \        \:\  \   
+   /:/\:\  \     /:/\:\  \        \:\  \  
+  /::\~\:\  \   /::\~\:\  \       /::\  \ 
+ /:/\:\ \:\__\ /:/\:\ \:\__\     /:/\:\__\
+ \/__\:\/:/  / \/_|::\/:/  /    /:/  \/__/
+      \::/  /     |:|::/  /    /:/  /     
+      /:/  /      |:|\/__/     \/__/      
+     /:/  /       |:|  |                  
+     \/__/         \|__|                  */
+window.avoid += ', Pop Art Studio, Face Off Max, Photo to Cartoon, Helicon Filter, Dynamic Auto Painter PRO 5, Dynamic Auto Painter PRO v5';
+window.avoid += ', Topaz Impression 2, Topaz Impression v2, dxo optics pro, Style for Windows, Style App for Windows';
+window.avoid += ', JixiPix Pastello';
 window.avoid += '';
 /*   _             _ _       
     / \  _   _  __| (_) ___  
@@ -49,7 +69,7 @@ window.avoid += '';
   / ___ \| |_) | |_) | |  __/
  /_/   \_\ .__/| .__/|_|\___|
          |_|   |_|           */
-window.avoid += ', AnyTrans, SynciOS, iTunesFusion, iMazing, iOS Transfer, iPhone Backup';
+window.avoid += ', AnyTrans, SynciOS, iTunesFusion, iMazing, iOS Transfer, iPhone Backup, iPhone Transfer, iOS Backup';
 window.avoid += '';
 /*   _          _   _   __  __       _                        
     / \   _ __ | |_(_) |  \/  | __ _| |_      ____ _ _ __ ___ 
@@ -60,15 +80,15 @@ window.avoid += ', Zemana AntiMalware, Zemana Anti Malware, Malware Hunter, EMCO
 window.avoid += ', Ultra Virus Killer, UnHackMe, ComboFix, Malicious Software Removal Tool';
 window.avoid += ', Sophos Clean';
 window.avoid += '';
-/*____             _                
- | __ )  __ _  ___| | ___   _ _ __  
- |  _ \ / _` |/ __| |/ / | | | '_ \ 
- | |_) | (_| | (__|   <| |_| | |_) |
- |____/ \__,_|\___|_|\_\\__,_| .__/ 
-                             |_|     */
+/* ___            _                
+  / __\ __ _  ___| | ___   _ _ __  
+ /__\/// _` |/ __| |/ / | | | '_ \ 
+/ \/  \ (_| | (__|   <| |_| | |_) |
+\_____/\__,_|\___|_|\_\\__,_| .__/ 
+                            |_|    */
 window.avoid += ', CloneZilla, CloneApp, Personal Backup, BestSync, Backup and Recovery, SyncBackPro, Syncovery';
 window.avoid += ', XXCLONE, AnyToISO, WinToHDD, Registry Backup, BackUp Maker, Iperius Backup';
-window.avoid += ', TeamDrive, Iperius Backup';
+window.avoid += ', TeamDrive, Iperius Backup, Drive Image Backup';
 window.avoid += ', R-Drive Image, SyncFolders';
 window.avoid += ', AOMEI Backupper, Backupper Technician, KLS Backup, Restorer Ultimate, IsoBuster';
 window.avoid += '';
@@ -108,6 +128,18 @@ window.avoid += '';
 window.avoid += ', PhonerLite, Phoner 3, Phoner 4, Phoner 5, Phoner v3, Phoner v4, Phoner v5, MobaXterm';
 window.avoid += ', Miranda IM, Skype 7, Viber 6, Viber v';
 window.avoid += '';
+/*  ___                          _        _                        
+   F __".    ____      ____     FJ __    FJ_      ____     _ ___   
+  J |--\ L  F __ J    F ___J   J |/ /L  J  _|    F __ J   J '__ J  
+  | |  J | | _____J  | '----_  |    \   | |-'   | |--| |  | |--| | 
+  F L__J | F L___--. )-____  L F L:\ J  F |__-. F L__J J  F L__J J 
+ J______/FJ\______/FJ\______/FJ__L \\_J.\_____/J\______/FJ  _____/L
+ |______F  J______F  J______F |__L  \L_|J_____F J______F |_J_____F 
+                                                         L_J       */
+window.avoid += ', Digital Clock, Animated Wallpaper Maker, FolderIco, AnyDesk, OneLoupe, Stickies, DeskCalc, AquaSnap, Ultra File Opener';
+window.avoid += ', Quick Macros, FileMenu Tools, DisplayFusion, MaxLauncher, BetterDesktopTool, Trigonometry Calculator, Start Menu';
+window.avoid += ', GTD Timer, Efofex';
+window.avoid += '';
 /*____                      _                 _               
  |  _ \  _____      ___ __ | | ___   __ _  __| | ___ _ __ ___ 
  | | | |/ _ \ \ /\ / / '_ \| |/ _ \ / _` |/ _` |/ _ \ '__/ __|
@@ -133,11 +165,15 @@ window.avoid += ', DriverEasy Professional 5, DriverPack, SnailDriver, Smart Dri
 window.avoid += ', Driver Booster Pro 4, Driver Booster Pro v4, Snail Driver, Driver Magician, TweakBit Driver';
 window.avoid += ', DriverMax, Ashampoo Driver Updater, Driver Navigator, Driver Updater, Driver Easy Professional 5';
 window.avoid += '';
-/*____              _ _           _            
- |  _ \ _   _ _ __ | (_) ___ __ _| |_ ___  ___ 
- | | | | | | | '_ \| | |/ __/ _` | __/ _ \/ __|
- | |_| | |_| | |_) | | | (_| (_| | ||  __/\__ \
- |____/ \__,_| .__/|_|_|\___\__,_|\__\___||___/ */
+/*______             _ _           _          __ _           _           
+  |  _  \           | (_)         | |        / _(_)         | |          
+  | | | |_   _ _ __ | |_  ___ __ _| |_ ___  | |_ _ _ __   __| | ___ _ __ 
+  | | | | | | | '_ \| | |/ __/ _` | __/ _ \ |  _| | '_ \ / _` |/ _ \ '__|
+  | |/ /| |_| | |_) | | | (_| (_| | ||  __/ | | | | | | | (_| |  __/ |   
+  |___/  \__,_| .__/|_|_|\___\__,_|\__\___| |_| |_|_| |_|\__,_|\___|_|   
+              | |                                                        
+              |_|                                                        */
+window.avoid += ', Duplicate Finder, Auslogics Duplicate, Duplicate File Detective';
 window.avoid += ', Dup File Finder';
 window.avoid += '';
 /*     ____              _        
@@ -159,9 +195,9 @@ window.avoid += ', FreeCAD, EditPlus, Sublime Text 3, Sublime Text 2, SynWrite, 
 window.avoid += ', Poedit Pro 1, Poedit Pro v1, Sublime Text v3, Sublime Text v2, Incomedia WebSite';
 window.avoid += ', WYSIWYG Web Builder, WYSIWYG Builder, HTML Compiler 2016, FileMaker Pro, Adobe Dreamweaver';
 window.avoid += ', EditRocket, ReGen KeyCode, IconEdit2, Notepad 7, Notepad v7, Final Draft, CodeLobster';
-window.avoid += ', Hosts File Editor v1, Hosts File Editor 1, Cameyo 3, RJ TextEd, EndNote X, AutoHotkey';
+window.avoid += ', Hosts File Editor v1, Hosts File Editor 1, Cameyo 3, RJ TextEd, EndNote X, AutoHotkey, Multilizer';
 window.avoid += ', Google Web Designer 1, Google Web Designer v1, Hexinator, IDM UltraEdit, DataExpress';
-window.avoid += ', Small Editor 2, EditBone, Hex Editor, Mobirise 3, Mobirise v3, Web Creator Pro';
+window.avoid += ', Small Editor 2, EditBone, Hex Editor, Mobirise 3, Mobirise v3, Web Creator Pro, Binary Viewer';
 window.avoid += ', Notepad3, Araxis Merge Professional 2016, Araxis Merge Professional v2016, MassCert, SDL Passolo, LogFusion';
 window.avoid += ', JetBrains WebStorm 2016, Atom 1, Atom 2, Atom v, Resource Hacker 4, Resource Hacker v4';
 window.avoid += ', ProgramEdit, TextCrawler, Word Text Replacer, IDM UEStudio, CudaText, Sothink SWF, SWF Quicker';
@@ -201,8 +237,8 @@ window.avoid += '';
  |  \| |/ _ \ __\ \ /\ / / _ \| '__| |/ /
  | |\  |  __/ |_ \ V  V / (_) | |  |   < 
  |_| \_|\___|\__| \_/\_/ \___/|_|  |_|\_\ */
-window.avoid += ', NetWorx 5, NetWorx v5, ChrisPC DNS Switch, NeoRouter 2, NeoRouter v2, Wake On LAN';
-window.avoid += ', NetSetMan, MyLanViewer 4, MyLanViewer v4, NxFilter, PortForward Network Utilities';
+window.avoid += ', NetWorx 5, NetWorx v5, ChrisPC DNS Switch, NeoRouter 2, NeoRouter v2, Wake On LAN, Speed Test';
+window.avoid += ', NetSetMan, MyLanViewer 4, MyLanViewer v4, NxFilter, PortForward Network Utilities, Download Speed';
 window.avoid += ', Forward Network Utilities, NetStat Professional, x NetStat, Network Meter, The Dude';
 window.avoid += '';
 
@@ -257,7 +293,7 @@ window.avoid += '';
 /* Unwanted softwares - Office pdf stuff */
 window.avoid += ', WinScan2PDF, PDF MultiTool, Sumatra PDF 3, Sumatra PDF v3, Adobe Acrobat XI, FlexiPDF, DiffPDF, Converter PDF, WinPDFEditor';
 window.avoid += ', PDF Convert to, Foxit PhantomPDF, PDF Software, PDF Studio, PDF Recovery, To PDF, PDF Shaper, MuPDF, PDF Layout Changer';
-window.avoid += ', PDF Creator Pro, PDF XChange, Flip PDF Corporate, PDF to, PDF Annotator, Infix Pdf, PDFelement, FlipBuilder Flip PDF';
+window.avoid += ', PDF Creator, PDF XChange, Flip PDF Corporate, PDF to, PDF Annotator, Infix Pdf, PDFelement, FlipBuilder Flip PDF';
 window.avoid += '';
 
 /* Unwanted softwares - Office file fix */
@@ -268,13 +304,14 @@ window.avoid += '';
 window.avoid += ', Document Converter, DBF Converter';
 window.avoid += '';
 
-/* Unwanted softwares - Office desktop sht */
-window.avoid += ', Digital Clock, Animated Wallpaper Maker, FolderIco, AnyDesk, OneLoupe, Stickies, DeskCalc, AquaSnap, Ultra File Opener';
-window.avoid += ', Quick Macros, FileMenu Tools, DisplayFusion, MaxLauncher, BetterDesktopTool, Trigonometry Calculator, Start Menu';
-window.avoid += '';
-window.avoid += '';
 
-/* Unwanted softwares - Optimizer */
+
+/*______   .______   .___________. __  .___  ___.  __   ________   _______ .______      
+ /  __  \  |   _  \  |           ||  | |   \/   | |  | |       /  |   ____||   _  \     
+|  |  |  | |  |_)  | `---|  |----`|  | |  \  /  | |  | `---/  /   |  |__   |  |_)  |    
+|  |  |  | |   ___/      |  |     |  | |  |\/|  | |  |    /  /    |   __|  |      /     
+|  `--'  | |  |          |  |     |  | |  |  |  | |  |   /  /----.|  |____ |  |\  \----.
+ \______/  | _|          |__|     |__| |__|  |__| |__|  /________||_______|| _| `._____| */
 window.avoid += ', Easy Pc Optimizer, Auslogics Disk Defrag, Ashampoo HDD Control, IObit Smart Defrag';
 window.avoid += ', Glary Disk Cleaner, Glary Utilities Pro, Glarysoft Registry, Glary Tracks Eraser';
 window.avoid += ', Supercopier, MiTeC System, Reg Organizer, windows repair pro, MPC Cleaner, MPC AdCleaner';
@@ -285,32 +322,25 @@ window.avoid += ', wise care 365 pro v4, RegistryWizard, DLL Suite, DLL Care, Lo
 window.avoid += ', Destroy Windows, Solid State Doctor v3, WinUtilities, PGWare, System Mechanic';
 window.avoid += ', Registry First Aid, wise care 365 pro 4, TCP Optimizer, Ace Utilities';
 window.avoid += ', Wise Memory Optimizer, Autorun Organizer, PC Decrapifier, Registry Utility';
-window.avoid += ', Registry Life 3, Registry Life 4, Registry Life 5, Registry Life v';
+window.avoid += ', Registry Life 3, Registry Life 4, Registry Life 5, Registry Life v, Smart PC';
 window.avoid += ', DLL Analyzer, ThrottleStop, Registry Manager, Hibernate Enable, Soft Cleaner';
 window.avoid += ', Ultimate Windows Tweaker v4, ccleaner professional business technician 5';
 window.avoid += ', 7 taskbar tweaker, Argente Autorun, Kerish Doctor, ScanMyReg, Auslogics BoostSpeed 9, Auslogics BoostSpeed v9';
-window.avoid += ', ClearType Switch, UltraCopier, Registry Cleaner, TweakBit PC';
+window.avoid += ', ClearType Switch, UltraCopier, Registry Cleaner, TweakBit PC, Clean Space';
 window.avoid += ', BatteryCare, Startup Sentinel, Windows 10 Virtual Desktop Enhancer, Registry Winner';
 window.avoid += ', Windows Cleaner, CCEnhancer, winreducer ex 7, winreducer ex 8, Windows Repair';
 window.avoid += '';
-
-/* Unwanted softwares - Duplicate Finder */
-window.avoid += ', Duplicate Finder, Auslogics Duplicate, Duplicate File Detective';
 window.avoid += '';
-window.avoid += '';
-
-/*
- ██████╗
- ██╔══██╗
- ██████╔╝
- ██╔═══╝
- ██║
- ╚═╝
- */
-
-/* Unwanted softwares - Photo */
+/*/$$$$$$$  /$$                   /$$              
+  | $$__  $$| $$                  | $$              
+  | $$  \ $$| $$$$$$$   /$$$$$$  /$$$$$$    /$$$$$$ 
+  | $$$$$$$/| $$__  $$ /$$__  $$|_  $$_/   /$$__  $$
+  | $$____/ | $$  \ $$| $$  \ $$  | $$    | $$  \ $$
+  | $$      | $$  | $$| $$  | $$  | $$ /$$| $$  | $$
+  | $$      | $$  | $$|  $$$$$$/  |  $$$$/|  $$$$$$/
+  |__/      |__/  |__/ \______/    \___/   \______/ */
 window.avoid += ', PhotoInstrument, Process Lasso, STOIK Stitch Creator, Ashampoo Photo, ArtRage, Drawpile';
-window.avoid += ', JixiPix Pastello, Photoshop Lightroom, Luxion KeyShot, PDF To Image, Photodex ProShow';
+window.avoid += ', Photoshop Lightroom, Luxion KeyShot, PDF To Image, Photodex ProShow';
 window.avoid += ', Aha soft articons, Home Photo Studio, IDPhotoStudio, DxO FilmPack, Icon Software Collection';
 window.avoid += ', jixipix rip studio, Adobe Plugins, Any to icon, Aha Soft Icon, PicturesToExe, StPaint';
 window.avoid += ', CyberLink MakeupDirector, Blackmagic Design, ImageMagick, Corel PaintShop Pro';
@@ -326,16 +356,9 @@ window.avoid += ', Topaz Glow 2, Topaz Glow v2, TwistedBrush Pro, Serif PagePlus
 window.avoid += ', Paint Pro v, Paint Pro, Indigo Renderer, iStripper, Autopano, Scarab Darkroom';
 window.avoid += ', DiaShow Studio, Sketch Drawer, JPEG Repair, XnRetro, OpenCanvas, Photo Studio, AKVIS';
 window.avoid += ', Smart Photo Import, Reallusion FaceFilter, Reallusion, Flash Gallery, Gallery creator';
+window.avoid += ', Adobe Photoshop, Affinity Photo';
 window.avoid += '';
 
-/* Unwanted softwares - Photoshop likes */
-window.avoid += ', Affinity Photo';
-window.avoid += '';
-
-/* Unwanted softwares - Photo effects */
-window.avoid += ', Pop Art Studio, Face Off Max, Photo to Cartoon, Helicon Filter, Dynamic Auto Painter PRO 5, Dynamic Auto Painter PRO v5';
-window.avoid += ', Topaz Impression 2, Topaz Impression v2, dxo optics pro';
-window.avoid += '';
 
 /* Unwanted softwares - Photo viewer */
 window.avoid += ', Pictus, ViewCompanion, IrfanView 4, IrfanView v4, ACDSee, Desktop Ruler';
@@ -383,11 +406,12 @@ window.avoid += ', pdf password remover, dr web cureit, Soft4Boost Toolbar, 1Pas
 window.avoid += ', WireShark 2, WireShark v2, WifiHistoryView, Chistilka 2, Chistilka v2, SterJo Wireless, PIDKey';
 window.avoid += ', Nexus Root Toolkit, NewFileTime, Network Scanner, RegRun, dot11Expert, CryptoPrevent, Defender Control';
 window.avoid += ', Zer0 0, UnHackMe v8, Angry IP Scanner, Secure Hunter, Batchpatch, Junkware Removal, Password Dump';
-window.avoid += ', Loaris Trojan Remover, Omnipeek, L0phtCrack, Secure Eraser, Privacy Drive, Jade Encryption';
+window.avoid += ', Loaris Trojan Remover, Omnipeek, L0phtCrack, Secure Eraser, Privacy Drive, Jade Encryption, Kaspersky System';
 window.avoid += ', KMSAuto Net, W10Privacy, Password Security Scanner, Nsauditor, Password Safe, Password Recovery';
-window.avoid += ', Wfp Tool, Windows Filtering Platform Tool, Multi OEM Retail, KMS Tools, VaultPasswordView';
+window.avoid += ', Wfp Tool, Windows Filtering Platform Tool, Multi OEM Retail, KMS Tools, VaultPasswordView, Fi Security';
 window.avoid += ', Secret Disk, Folder Lock, WebBrowserPassView, Panda Cloud Cleaner, KeePass Classic, AAct, Windows License, Key Dump';
 window.avoid += ', RannohDecryptor, PWGen, KMS Server, KMSAuto Lite, PowerRun, Microsoft Safety Scanner, SX Antivirus';
+window.avoid += '';
 window.avoid += '';
 
 /* Unwanted softwares - SEO */
@@ -411,6 +435,7 @@ window.avoid += ', Golden Bow 9, Golden Bow 1, Golden Bow v, Universal Multiboot
 window.avoid += ', Microsoft Toolkit, Hardware Identify, PassMark MonitorTest, WinUSB, Unreal Commander';
 window.avoid += ', NTLite, SysInfo Detector, FileVoyager, Clover 3, Autorun Angel, AIO Boot, DocFetcher, Core Temp';
 window.avoid += ', Complete Internet Repair, Memtest, CPUBalance, ProcessThreadsView, nuePanel, HDDExpert';
+window.avoid += '';
 window.avoid += '';
 
 /* Unwanted softwares - System GPU tuning */
@@ -452,7 +477,7 @@ window.avoid += '';
  */
 
 /* Various */
-window.avoid += ', MKV Buddy, OhSoft oCam, iFun Video';
+window.avoid += ', MKV Buddy, OhSoft oCam, iFun Video, madVR';
 window.avoid += ', 4videosoft mxf, Tipard Video, MKVToolNix';
 window.avoid += ', Tipard Blu, Adobe After Effects, XviD4PSP, AquaSoft SlideShow';
 window.avoid += ', GOM Media Player, Softwares PhotoToFilm, XRecode II, Pavtube ByteCopy';
@@ -472,7 +497,7 @@ window.avoid += '';
 /* Converters */
 window.avoid += ', Video Converter, Movavi Video Converter, Wondershare Video Converter, 4K Converter, MXF Converter, Any Video Converter';
 window.avoid += ', Xilisoft HD, Xilisoft Video, Video Converter v, Video Converter Deluxe, ImTOO Video Converter, Total Media Converter, MTS Converter';
-window.avoid += ', FormatFactory, Media Converter';
+window.avoid += ', FormatFactory, Media Converter, Video to GIF';
 window.avoid += '';
 
 /* Editors */
@@ -486,25 +511,30 @@ window.avoid += '';
 
 /* Makers */
 window.avoid += ', Video Booth, Tweak Software RV, x265 launcher, MakeMKV, PhotoToFilm';
-window.avoid += ', Tanida Demo Builder, BluffTitler, CrazyTalk Animator';
+window.avoid += ', Tanida Demo Builder, BluffTitler, CrazyTalk Animator, GIF Movie Gear';
 window.avoid += ', Wondershare Filmora, ActivePresenter, Light Alloy';
 window.avoid += '';
 
-/* Dvd related */
+/* BD & Dvd related */
 window.avoid += ', DVD Copy, VSO ConvertXtoDVD, DVD Audio Extractor, DVD Creator, AVStoDVD, DVDInfo, DVD Converter, CloneDVD';
-window.avoid += ', DVDFab, DVDStyler, DVD Cloner, DVD Drive Repair, Dvd Ripper, Dvd video';
+window.avoid += ', DVDFab, DVDStyler, DVD Cloner, DVD Drive Repair, Dvd Ripper, Dvd video, Autoplay, BDMagic';
 window.avoid += '';
 
-/*
- ██╗    ██╗
- ██║    ██║
- ██║ █╗ ██║
- ██║███╗██║
- ╚███╔███╔╝
- .╚══╝╚══╝
- */
+/*__      __         __                                     __    
+/  \    /  \_____ _/  |_  ___________  _____ _____ _______|  | __
+\   \/\/   /\__  \\   __\/ __ \_  __ \/     \\__  \\_  __ \  |/ /
+ \        /  / __ \|  | \  ___/|  | \/  Y Y  \/ __ \|  | \/    < 
+  \__/\  /  (____  /__|  \___  >__|  |__|_|  (____  /__|  |__|_ \
+       \/        \/          \/            \/     \/           \/ */
+window.avoid += ', uMark';
+window.avoid += '';
 
-/* Unwanted softwares - Wiper */
+/*db   d8b   db d888888b d8888b. d88888b d8888b. 
+  88   I8I   88   `88'   88  `8D 88'     88  `8D 
+  88   I8I   88    88    88oodD' 88ooooo 88oobY' 
+  Y8   I8I   88    88    88~~~   88~~~~~ 88`8b   
+  `8b d8'8b d8'   .88.   88      88.     88 `88. 
+   `8b8' `8d8'  Y888888P 88      Y88888P 88   YD  */
 window.avoid += ', Macrorit Data Wiper, Secure Eraser Pro, Wipe v1, wipe 1, Alternate File Shredder';
 window.avoid += '';
 window.avoid += '';
