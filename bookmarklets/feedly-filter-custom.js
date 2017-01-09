@@ -61,7 +61,7 @@ window.avoid += ', Capella Software, Tonica Fugata, Album Player, TagScanner, Co
 window.avoid += ', AIMP v, AIMP 4, AIMP 5, AIMP 6, Music Studio v, ACID Music Studio, Magix Music Studio, Adobe Audition CC';
 window.avoid += ', Exact Audio Copy, Helium Music Manager, LameXP, TapinRadio, WavePurity, Guitar Pro, MPV 0, MPV v, Pocket Radio Player';
 window.avoid += ', MixPad Master, NCH MixPad, Mp3 Stream Editor, Winlive, Mixcraft, Realstrat, Sound Recorder, Stream Recorder';
-window.avoid += ', Audio Restoration, Cool Record';
+window.avoid += ', Audio Restoration, Cool Record, Dopamine';
 window.avoid += '';
 /*   _                _      
     / \   _ __  _ __ | | ___ 
@@ -138,7 +138,7 @@ window.avoid += '';
                                                          L_J       */
 window.avoid += ', Digital Clock, Animated Wallpaper Maker, FolderIco, AnyDesk, OneLoupe, Stickies, DeskCalc, AquaSnap, Ultra File Opener';
 window.avoid += ', Quick Macros, FileMenu Tools, DisplayFusion, MaxLauncher, BetterDesktopTool, Trigonometry Calculator, Start Menu';
-window.avoid += ', GTD Timer, Efofex';
+window.avoid += ', GTD Timer, Efofex, GetFolderSize, Family Tree Builder, Password Manager, TeamViewer, Remote Desktop Manager';
 window.avoid += '';
 /*____                      _                 _               
  |  _ \  _____      ___ __ | | ___   __ _  __| | ___ _ __ ___ 
@@ -174,14 +174,14 @@ window.avoid += '';
               | |                                                        
               |_|                                                        */
 window.avoid += ', Duplicate Finder, Auslogics Duplicate, Duplicate File Detective';
-window.avoid += ', Dup File Finder';
+window.avoid += ', Dup File Finder, CloneSpy';
 window.avoid += '';
 /*     ____              _        
    ___| __ )  ___   ___ | | _____ 
   / _ \  _ \ / _ \ / _ \| |/ / __|
  |  __/ |_) | (_) | (_) |   <\__ \
   \___|____/ \___/ \___/|_|\_\___/ */
-window.avoid += ', Anthemion Jutoh, Kobo Converter, Calibre v2, Calibre 2, EPUB Checker';
+window.avoid += ', Anthemion Jutoh, Kobo Converter, Calibre v2, Calibre 2, EPUB Checker, Anthemion';
 window.avoid += ', Asciidoc, ExtraChm, Flip PDF, K2pdfopt, ePub Designer, Adobe Digital Editions';
 window.avoid += '';
 
@@ -317,10 +317,10 @@ window.avoid += ', Glary Disk Cleaner, Glary Utilities Pro, Glarysoft Registry, 
 window.avoid += ', Supercopier, MiTeC System, Reg Organizer, windows repair pro, MPC Cleaner, MPC AdCleaner';
 window.avoid += ', Auslogics Browser Care, FileOptimizer, ReviverSoft Registry, System Ninja';
 window.avoid += ', Abelssoft GoogleClean, CCleaner 5, CCleaner Professional Plus 5, CCleaner Professional Plus v5, Wise Disk Cleaner';
-window.avoid += ', Chrome Cleanup Tool, Windows Repair Toolbox, Registry Recovery';
+window.avoid += ', Chrome Cleanup Tool, Windows Repair Toolbox, Registry Recovery, Safe Startup';
 window.avoid += ', wise care 365 pro v4, RegistryWizard, DLL Suite, DLL Care, Long Path Tool';
 window.avoid += ', Destroy Windows, Solid State Doctor v3, WinUtilities, PGWare, System Mechanic';
-window.avoid += ', Registry First Aid, wise care 365 pro 4, TCP Optimizer, Ace Utilities';
+window.avoid += ', Registry First Aid, wise care 365 pro 4, TCP Optimizer, Ace Utilities, Free Disk Cleaner';
 window.avoid += ', Wise Memory Optimizer, Autorun Organizer, PC Decrapifier, Registry Utility';
 window.avoid += ', Registry Life 3, Registry Life 4, Registry Life 5, Registry Life v, Smart PC';
 window.avoid += ', DLL Analyzer, ThrottleStop, Registry Manager, Hibernate Enable, Soft Cleaner';
@@ -331,7 +331,8 @@ window.avoid += ', BatteryCare, Startup Sentinel, Windows 10 Virtual Desktop Enh
 window.avoid += ', Windows Cleaner, CCEnhancer, winreducer ex 7, winreducer ex 8, Windows Repair';
 window.avoid += '';
 window.avoid += '';
-/*/$$$$$$$  /$$                   /$$              
+/*
+  /$$$$$$$  /$$                   /$$              
   | $$__  $$| $$                  | $$              
   | $$  \ $$| $$$$$$$   /$$$$$$  /$$$$$$    /$$$$$$ 
   | $$$$$$$/| $$__  $$ /$$__  $$|_  $$_/   /$$__  $$
@@ -356,7 +357,7 @@ window.avoid += ', Topaz Glow 2, Topaz Glow v2, TwistedBrush Pro, Serif PagePlus
 window.avoid += ', Paint Pro v, Paint Pro, Indigo Renderer, iStripper, Autopano, Scarab Darkroom';
 window.avoid += ', DiaShow Studio, Sketch Drawer, JPEG Repair, XnRetro, OpenCanvas, Photo Studio, AKVIS';
 window.avoid += ', Smart Photo Import, Reallusion FaceFilter, Reallusion, Flash Gallery, Gallery creator';
-window.avoid += ', Adobe Photoshop, Affinity Photo';
+window.avoid += ', Adobe Photoshop, Affinity Photo, AutoCollage, Laughingbird Software';
 window.avoid += '';
 
 
@@ -365,21 +366,15 @@ window.avoid += ', Pictus, ViewCompanion, IrfanView 4, IrfanView v4, ACDSee, Des
 window.avoid += '';
 
 /* Unwanted softwares - Photo converter */
-window.avoid += ', XnView MP, XnView 2, XnConvert, Img Converter, PCL To Image';
+window.avoid += ', XnView MP, XnView 2, XnConvert, Img Converter, PCL To Image, Photo Resizer';
 window.avoid += '';
 
-/*
- ██████╗
- ██╔══██╗
- ██████╔╝
- ██╔══██╗
- ██║  ██║
- ╚═╝  ╚═╝
- */
-
-/* Unwanted softwares - Recovery */
-window.avoid += ', Data Recovery, Photo Recovery, Video Recovery, Audio Recovery, RecoverBits, Ultimate Boot CD';
+/* __   ___  __   __        ___  __      
+  |__) |__  /  ` /  \ \  / |__  |__) \ / 
+  |  \ |___ \__, \__/  \/  |___ |  \  |  */
+window.avoid += ', Data Recovery, Photo Recovery, Video Recovery, Audio Recovery, RecoverBits, Ultimate Boot CD, Dr  Recovery';
 window.avoid += ', EasyRecovery, ShowKeyPlus, Disk Drill Professional, recALL, KeyLock, KeyLock USB Locker, Farbar Recovery, RescuePRO';
+window.avoid += '';
 window.avoid += '';
 
 /*
@@ -423,12 +418,12 @@ window.avoid += ', wintools net, Task Manager Deluxe, HWiNFO, StressMyPC, AIDA64
 window.avoid += ', DiskTuna, EaseUS Partition, Winaero, ShareMouse, Kaspersky Get System Info, Software Informer';
 window.avoid += ', ShutDown Pro, Systimizer, Directory Monitor, Universal USB Installer, Amazing Partition Manager';
 window.avoid += ', oMega Commander, Folder2List, Actual Window Manager, Windows Performance Indicator, NTFS Analysis';
-window.avoid += ', Proxy Switcher, PartitionGuru, dism 10, dism v10, dism 11, dism v11, HDDLife';
+window.avoid += ', Proxy Switcher, PartitionGuru, dism 10, dism v10, dism 11, dism v11, HDDLife, Look my hardware';
 window.avoid += ', Win10 Wizard, RMPrepUSB, System Information Viewer, SUMo 5, SUMo 6, SUMo v5, SUMo v6';
 window.avoid += ', AUMBI, Absolute USB MultiBoot Installer, EF Commander, FastCopy, Multiboot USB';
 window.avoid += ', System Tools for Windows, Q Dir, MyPC, Wise System Monitor, 3DP Chip, File Splitter';
 window.avoid += ', Ultimate Settings Panel, xplorer2, xplorerv2, MemInfo, Solid State Doctor, WhySoSlow';
-window.avoid += ', SpaceMan, Wise Folder Hider, CoreTemp, Process Monitor 3, Process Monitor v3';
+window.avoid += ', SpaceMan, Wise Folder Hider, CoreTemp, Process Monitor 3, Process Monitor v3, Partition Expert 4';
 window.avoid += ', SSD Z, CPU Z, HDD Z, Take Command 2, Take Command v, LookDisk, ExperienceIndexOK';
 window.avoid += ', AeroAdmin, Hidden Data Detector, CurrPorts v2, CurrPorts 2, Universal Extractor Gora';
 window.avoid += ', Golden Bow 9, Golden Bow 1, Golden Bow v, Universal Multiboot Installer, Wise Auto Shutdown';
@@ -441,27 +436,12 @@ window.avoid += '';
 /* Unwanted softwares - System GPU tuning */
 window.avoid += ', nvFlash, NVIDIA Inspector, GPU Caps Viewer, GPU Shark, GPU Z';
 window.avoid += '';
-
-/*
- ████████╗
- ╚══██╔══╝
- .. ██║
- .. ██║
- .. ██║
- .. ╚═╝
- */
-
-/* Unwanted softwares - Translators */
-window.avoid += ', dictionary net, Sisulizer';
-
-/* Unwanted softwares - TeamViewer */
-window.avoid += ', TeamViewer premium, TeamViewer corporate, TeamViewer Enterprise, TeamViewer server, TeamViewer QuickJoin, Remote Desktop Manager';
-
-/* 
-U 
-*/
-/* Unwanted softwares - Uninstaller */
-window.avoid += ', IObit Uninstaller Pro 6, IObit Uninstaller Pro v6, Uninstall Tool v3, Uninstall Tool v4';
+/*                                                   
+.   .     o          |         |    |              
+|   |,---..,---.,---.|--- ,---.|    |    ,---.,---.
+|   ||   |||   |`---.|    ,---||    |    |---'|    
+`---'`   '``   '`---'`---'`---^`---'`---'`---'`     */
+window.avoid += ', IObit Uninstaller Pro 6, IObit Uninstaller Pro v6, Uninstall Tool v3, Uninstall Tool v4, Perfect Uninstaller';
 window.avoid += ', IObit Uninstaller 6, IObit Uninstaller v6, Argente Uninstall Programs, Special Uninstaller';
 window.avoid += ', Ashampoo Uninstaller, Total Uninstall Pro, Uninstall Tool 3, Uninstall Tool 4, BCUninstaller';
 window.avoid += ', Geek Uninstaller, Revo Uninstaller, GeekUninstaller, DoYourData Uninstaller, Max Uninstaller';
@@ -550,7 +530,7 @@ window.avoid += '';
 /* Unwanted softwares - Others */
 window.avoid += ', Xeoma, Vectric Aspire, Listen N Write, DialogBlocks, OriginLab OriginPro, VBto Converter, WinUAE';
 window.avoid += ', FireAlpaca, Amira, energyXT, VirtualBox 5, dbMigration, Tools Package, dwgConvert';
-window.avoid += ', PeaZip, RazorSQL, Global Mapper, MAPC2MAPC, RadBuilder';
+window.avoid += ', PeaZip, RazorSQL, Global Mapper, MAPC2MAPC, RadBuilder, dictionary net, Sisulizer';
 window.avoid += ', AutoDWG, Edraw Max, EdrawSoft, Checksum Verifier, WinZip, Update Switch';
 window.avoid += ', jPortable, GenoPro, Blender Foundation 3D, Blender 3D, SketchUp Pro, VariCAD, Corelcad';
 window.avoid += ', Supremo, git x86, SpeedCrunch, AutoCAD';
