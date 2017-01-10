@@ -61,7 +61,7 @@ window.avoid += ', Capella Software, Tonica Fugata, Album Player, TagScanner, Co
 window.avoid += ', AIMP v, AIMP 4, AIMP 5, AIMP 6, Music Studio v, ACID Music Studio, Magix Music Studio, Adobe Audition CC';
 window.avoid += ', Exact Audio Copy, Helium Music Manager, LameXP, TapinRadio, WavePurity, Guitar Pro, MPV 0, MPV v, Pocket Radio Player';
 window.avoid += ', MixPad Master, NCH MixPad, Mp3 Stream Editor, Winlive, Mixcraft, Realstrat, Sound Recorder, Stream Recorder';
-window.avoid += ', Audio Restoration, Cool Record, Dopamine';
+window.avoid += ', Audio Restoration, Cool Record, Dopamine, EarMaster, PCDJ';
 window.avoid += '';
 /*   _                _      
     / \   _ __  _ __ | | ___ 
@@ -99,7 +99,7 @@ window.avoid += '';
  |____/|_|  \___/ \_/\_/ |___/\___|_|  |___/ */
 window.avoid += ', Firefox, total commander, speedyfox, WinSCP, filezilla, AhaView, Polarity Browser, MultiCommander';
 window.avoid += ', Alt Launch Band, Chromium 54, Chromium 55, Chromium 56, Chromium 57, Opera v39, Opera v40, Opera v41';
-window.avoid += ', FlashPeak Slimjet, Maxthon Cloud Browser, Maxthon Browser';
+window.avoid += ', FlashPeak Slimjet, Maxthon Cloud Browser, Maxthon Browser, MyPhoneExplorer';
 window.avoid += ', Air Explorer Pro, Pale Moon 2, Cyberfox, Google Chrome v, Google Chrome 5';
 window.avoid += ', Chrome Software Removal Tool, SlimJet, FlashFXP, WinCatalog';
 window.avoid += ', FoneTrans, Dooble Web Browser, Waterfox, Comodo IceDragon, Firemin';
@@ -121,7 +121,7 @@ window.avoid += '';
  ╚═════╝ */
 
 /* Camera surveillance */
-window.avoid += ', go1984';
+window.avoid += ', go1984, Camera Viewer';
 window.avoid += '';
 
 /* Communication */
@@ -192,7 +192,7 @@ window.avoid += '';
  |_____\__,_|_|\__\___/|_|  |___/ */
 window.avoid += ', FocusWriter, Computing editplus, Print2Cad, Emurasoft EmEditor, Blumentals Rapid, Blumentals HTMLPad';
 window.avoid += ', FreeCAD, EditPlus, Sublime Text 3, Sublime Text 2, SynWrite, iMapBuilder, Adobe InCopy';
-window.avoid += ', Poedit Pro 1, Poedit Pro v1, Sublime Text v3, Sublime Text v2, Incomedia WebSite';
+window.avoid += ', Poedit Pro 1, Poedit Pro v1, Sublime Text v3, Sublime Text v2, Incomedia WebSite, LopeEdit';
 window.avoid += ', WYSIWYG Web Builder, WYSIWYG Builder, HTML Compiler 2016, FileMaker Pro, Adobe Dreamweaver';
 window.avoid += ', EditRocket, ReGen KeyCode, IconEdit2, Notepad 7, Notepad v7, Final Draft, CodeLobster';
 window.avoid += ', Hosts File Editor v1, Hosts File Editor 1, Cameyo 3, RJ TextEd, EndNote X, AutoHotkey, Multilizer';
@@ -315,10 +315,10 @@ window.avoid += '';
 window.avoid += ', Easy Pc Optimizer, Auslogics Disk Defrag, Ashampoo HDD Control, IObit Smart Defrag';
 window.avoid += ', Glary Disk Cleaner, Glary Utilities Pro, Glarysoft Registry, Glary Tracks Eraser';
 window.avoid += ', Supercopier, MiTeC System, Reg Organizer, windows repair pro, MPC Cleaner, MPC AdCleaner';
-window.avoid += ', Auslogics Browser Care, FileOptimizer, ReviverSoft Registry, System Ninja';
+window.avoid += ', Auslogics Browser Care, FileOptimizer, ReviverSoft Registry, System Ninja, CheckDrive';
 window.avoid += ', Abelssoft GoogleClean, CCleaner 5, CCleaner Professional Plus 5, CCleaner Professional Plus v5, Wise Disk Cleaner';
 window.avoid += ', Chrome Cleanup Tool, Windows Repair Toolbox, Registry Recovery, Safe Startup';
-window.avoid += ', wise care 365 pro v4, RegistryWizard, DLL Suite, DLL Care, Long Path Tool';
+window.avoid += ', wise care 365 pro v4, RegistryWizard, DLL Suite, DLL Care, Long Path Tool, jv16';
 window.avoid += ', Destroy Windows, Solid State Doctor v3, WinUtilities, PGWare, System Mechanic';
 window.avoid += ', Registry First Aid, wise care 365 pro 4, TCP Optimizer, Ace Utilities, Free Disk Cleaner';
 window.avoid += ', Wise Memory Optimizer, Autorun Organizer, PC Decrapifier, Registry Utility';
@@ -340,8 +340,8 @@ window.avoid += '';
   | $$      | $$  | $$| $$  | $$  | $$ /$$| $$  | $$
   | $$      | $$  | $$|  $$$$$$/  |  $$$$/|  $$$$$$/
   |__/      |__/  |__/ \______/    \___/   \______/ */
-window.avoid += ', PhotoInstrument, Process Lasso, STOIK Stitch Creator, Ashampoo Photo, ArtRage, Drawpile';
-window.avoid += ', Photoshop Lightroom, Luxion KeyShot, PDF To Image, Photodex ProShow';
+window.avoid += ', PhotoInstrument, Process Lasso, STOIK Stitch Creator, Ashampoo Photo, ArtRage, Drawpile, QuickImageComment';
+window.avoid += ', Photoshop Lightroom, Luxion KeyShot, PDF To Image, Photodex ProShow, DxO ViewPoint';
 window.avoid += ', Aha soft articons, Home Photo Studio, IDPhotoStudio, DxO FilmPack, Icon Software Collection';
 window.avoid += ', jixipix rip studio, Adobe Plugins, Any to icon, Aha Soft Icon, PicturesToExe, StPaint';
 window.avoid += ', CyberLink MakeupDirector, Blackmagic Design, ImageMagick, Corel PaintShop Pro';
@@ -349,7 +349,7 @@ window.avoid += ', QuarkXPress, Shotcut, Image Resizer, Digital Photo Suite, Pho
 window.avoid += ', Photo Pos Pro, Sad Cat Software, CollageIt, Photo Makeup, Movavi Slideshow Creator, Slideshow Creator';
 window.avoid += ', Smith Micro Moho , Anime Studio, DxO ViewPoint 2, ConverSeen, Picture Collage Maker';
 window.avoid += ', LogoSmartz, Retouch Pilot, Screensaver Maker, Photo Date Changer, Daminion';
-window.avoid += ', PhotoDirector, Watermark Image, Photoshop Elements, digiKam, PhotoDeduper, Franzis HDR, Franzis Pure';
+window.avoid += ', PhotoDirector, Photoshop Elements, digiKam, PhotoDeduper, Franzis HDR, Franzis Pure';
 window.avoid += ', SmartAlbums, PixPlant 3, PixPlant v3, Alien Skin Exposure, Magic Particles 3D, PhotoLine';
 window.avoid += ', Just Color Picker, Artweaver, OpenCanvas, PT Photo Editor, SoftDigi Easy GIF, InPixio Photo eRaser';
 window.avoid += ', Paint Net 4, Paint Net v4, Krita v, Krita 3, FastStone Image Viewer, Slideshow Maker';
@@ -366,7 +366,7 @@ window.avoid += ', Pictus, ViewCompanion, IrfanView 4, IrfanView v4, ACDSee, Des
 window.avoid += '';
 
 /* Unwanted softwares - Photo converter */
-window.avoid += ', XnView MP, XnView 2, XnConvert, Img Converter, PCL To Image, Photo Resizer';
+window.avoid += ', XnView MP, XnView 2, XnConvert, Img Converter, PCL To Image, Photo Resizer, Any2Ico';
 window.avoid += '';
 
 /* __   ___  __   __        ___  __      
@@ -389,7 +389,7 @@ window.avoid += '';
 /* Unwanted softwares - Screenshot & Screen recorder */
 window.avoid += ', ShareX, Screenshot Studio, Ashampoo Snap, ScreenToGif, ZD Soft Screen Recorder, CaptureWizPro';
 window.avoid += ', apowersoft screen capture, ScreenGif, Screen Recorder Pro, StepShot';
-window.avoid += ', ScreenShooter, Gilisoft Screen, Screen GIF v2016, Screen GIF 2016';
+window.avoid += ', ScreenShooter, Gilisoft Screen, Screen GIF v2016, Screen GIF 2016, Honeycam 1';
 window.avoid += '';
 
 /* Unwanted softwares - Security */
@@ -397,8 +397,8 @@ window.avoid += ', OESIS Endpoint, Emsisoft Emergency Kit, PrivaZer, AntiVir Res
 window.avoid += ', PDF Decrypter, Avast Clear, Pdf eraser pro, Product Key Finder, Wireless network watcher, Windows Spy Blocker';
 window.avoid += ', licensecrawler, GridinSoft Anti, Kaspersky Lab Products, McAfee Stinger, USB Raptor, USB Security';
 window.avoid += ', Product Key Decryptor, Router Password Decryptor, skype ad remover, Kaspersky Virus Removal, Ad Blocker';
-window.avoid += ', pdf password remover, dr web cureit, Soft4Boost Toolbar, 1Password, Network Password Recovery';
-window.avoid += ', WireShark 2, WireShark v2, WifiHistoryView, Chistilka 2, Chistilka v2, SterJo Wireless, PIDKey';
+window.avoid += ', pdf password remover, dr web cureit, Soft4Boost Toolbar, 1Password, Network Password Recovery, RootkitBuster';
+window.avoid += ', WireShark 2, WireShark v2, WifiHistoryView, Chistilka 2, Chistilka v2, SterJo Wireless, PIDKey, Spybot';
 window.avoid += ', Nexus Root Toolkit, NewFileTime, Network Scanner, RegRun, dot11Expert, CryptoPrevent, Defender Control';
 window.avoid += ', Zer0 0, UnHackMe v8, Angry IP Scanner, Secure Hunter, Batchpatch, Junkware Removal, Password Dump';
 window.avoid += ', Loaris Trojan Remover, Omnipeek, L0phtCrack, Secure Eraser, Privacy Drive, Jade Encryption, Kaspersky System';
@@ -420,7 +420,7 @@ window.avoid += ', ShutDown Pro, Systimizer, Directory Monitor, Universal USB In
 window.avoid += ', oMega Commander, Folder2List, Actual Window Manager, Windows Performance Indicator, NTFS Analysis';
 window.avoid += ', Proxy Switcher, PartitionGuru, dism 10, dism v10, dism 11, dism v11, HDDLife, Look my hardware';
 window.avoid += ', Win10 Wizard, RMPrepUSB, System Information Viewer, SUMo 5, SUMo 6, SUMo v5, SUMo v6';
-window.avoid += ', AUMBI, Absolute USB MultiBoot Installer, EF Commander, FastCopy, Multiboot USB';
+window.avoid += ', AUMBI, Absolute USB MultiBoot Installer, EF Commander, FastCopy, Multiboot USB, Partition Assistant';
 window.avoid += ', System Tools for Windows, Q Dir, MyPC, Wise System Monitor, 3DP Chip, File Splitter';
 window.avoid += ', Ultimate Settings Panel, xplorer2, xplorerv2, MemInfo, Solid State Doctor, WhySoSlow';
 window.avoid += ', SpaceMan, Wise Folder Hider, CoreTemp, Process Monitor 3, Process Monitor v3, Partition Expert 4';
@@ -467,7 +467,7 @@ window.avoid += ', Movie Editor, KMPlayer, Blu ray player, Blu ray rip, BdTo, Go
 window.avoid += ', Blu ray Copy, Leawo Blu, Blu ray Creator, Blu ray Ripper, PowerDirector';
 window.avoid += ', Leawo Video, MPC BE, MediaCoder, WonderFox HD Video, Leawo Prof';
 window.avoid += ', YTD Video, Xilisoft iphone, AVI Toolbox, AVIToolbox, VideoInspector, 4Media Video';
-window.avoid += ', Subtitle Edit, Video Watermark';
+window.avoid += ', Subtitle Edit, MediaInfoXP';
 window.avoid += ', MediaInfo v0 7, MediaInfo 0 7, VidCoder, Aquasoft Stages, VidMasta, Video Downloader, MassTube';
 window.avoid += ', Adobe Prelude CC, ALLPlayer, Windows Player, HandBrake v, HandBrake 0 1, BOX4';
 window.avoid += ', MPC HC, CyberLink Media, Nero Video, vlc media player portable, moviejaySX';
@@ -481,7 +481,7 @@ window.avoid += ', FormatFactory, Media Converter, Video to GIF';
 window.avoid += '';
 
 /* Editors */
-window.avoid += ', VideoPad Video Editor, VSDC Video Editor, Movavi Video Editor, Watermark Video Maker, Media Splitter';
+window.avoid += ', VideoPad Video Editor, VSDC Video Editor, Movavi Video Editor, Media Splitter';
 window.avoid += ', Video Enhancer, LosslessCut';
 window.avoid += '';
 
@@ -506,7 +506,7 @@ window.avoid += '';
  \        /  / __ \|  | \  ___/|  | \/  Y Y  \/ __ \|  | \/    < 
   \__/\  /  (____  /__|  \___  >__|  |__|_|  (____  /__|  |__|_ \
        \/        \/          \/            \/     \/           \/ */
-window.avoid += ', uMark';
+window.avoid += ', uMark, Photo Watermark, Video Watermark, Watermark Video Maker, Watermark Image';
 window.avoid += '';
 
 /*db   d8b   db d888888b d8888b. d88888b d8888b. 
