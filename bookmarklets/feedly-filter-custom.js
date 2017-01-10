@@ -78,7 +78,7 @@ window.avoid += '';
  /_/   \_\_| |_|\__|_| |_|  |_|\__,_|_| \_/\_/ \__,_|_|  \___| */
 window.avoid += ', Zemana AntiMalware, Zemana Anti Malware, Malware Hunter, EMCO Malware, Malwarebytes Anti, RogueKiller';
 window.avoid += ', Ultra Virus Killer, UnHackMe, ComboFix, Malicious Software Removal Tool';
-window.avoid += ', Sophos Clean';
+window.avoid += ', Sophos Clean, AntiRansomware';
 window.avoid += '';
 /* ___            _                
   / __\ __ _  ___| | ___   _ _ __  
@@ -101,7 +101,7 @@ window.avoid += ', Firefox, total commander, speedyfox, WinSCP, filezilla, AhaVi
 window.avoid += ', Alt Launch Band, Chromium 54, Chromium 55, Chromium 56, Chromium 57, Opera v39, Opera v40, Opera v41';
 window.avoid += ', FlashPeak Slimjet, Maxthon Cloud Browser, Maxthon Browser, MyPhoneExplorer';
 window.avoid += ', Air Explorer Pro, Pale Moon 2, Cyberfox, Google Chrome v, Google Chrome 5';
-window.avoid += ', Chrome Software Removal Tool, SlimJet, FlashFXP, WinCatalog';
+window.avoid += ', Chrome Software Removal Tool, SlimJet, FlashFXP, WinCatalog, Storage Manager, Detwinner';
 window.avoid += ', FoneTrans, Dooble Web Browser, Waterfox, Comodo IceDragon, Firemin';
 window.avoid += '';
 /*____                                 
@@ -126,7 +126,7 @@ window.avoid += '';
 
 /* Communication */
 window.avoid += ', PhonerLite, Phoner 3, Phoner 4, Phoner 5, Phoner v3, Phoner v4, Phoner v5, MobaXterm';
-window.avoid += ', Miranda IM, Skype 7, Viber 6, Viber v';
+window.avoid += ', Miranda IM, Skype 7, Viber 6, Viber v, HyperCam';
 window.avoid += '';
 /*  ___                          _        _                        
    F __".    ____      ____     FJ __    FJ_      ____     _ ___   
@@ -139,6 +139,7 @@ window.avoid += '';
 window.avoid += ', Digital Clock, Animated Wallpaper Maker, FolderIco, AnyDesk, OneLoupe, Stickies, DeskCalc, AquaSnap, Ultra File Opener';
 window.avoid += ', Quick Macros, FileMenu Tools, DisplayFusion, MaxLauncher, BetterDesktopTool, Trigonometry Calculator, Start Menu';
 window.avoid += ', GTD Timer, Efofex, GetFolderSize, Family Tree Builder, Password Manager, TeamViewer, Remote Desktop Manager';
+window.avoid += ', Rename Master, Keyfinder, DeskSoft, Bandizip, WindowManager, WinBubble, Privacy Repairer, Win Toolkit';
 window.avoid += '';
 /*____                      _                 _               
  |  _ \  _____      ___ __ | | ___   __ _  __| | ___ _ __ ___ 
@@ -151,7 +152,7 @@ window.avoid += ', RetroShare 0, Download Accelerator Manager, torrent v3, torre
 window.avoid += ', save2pc Ultimate, Offline Explorer, Tixati v2, Tixati 2, Visual Web Ripper';
 window.avoid += ', Internet Download Manager 6, Internet Download Manager v6, CyberArticle';
 window.avoid += ', TorrentRover 1 1, TorrentRover v1 1,TorrentRover v1 0, TorrentRover 1 0, USDownloader v1 3, USDownloader 1 3';
-window.avoid += ', USDownloader b, Zona 1, Zona v1, ISO Download Tool, Torrent 3';
+window.avoid += ', USDownloader b, Zona 1, Zona v1, ISO Download Tool, Torrent 3, HiDownload';
 window.avoid += ', Zero Install 2, Zero Install v2, Manga Downloader, Shareaza, Save2PC Light';
 window.avoid += ', HTTrack 3, HTTrack v3, MediaGet 2, MediaGet v2, internet manager 6';
 window.avoid += ', EagleGet 2, EagleGet v2, Extreme Picture Finder, Download Master, 4K Stogram';
@@ -164,6 +165,7 @@ window.avoid += '';
 window.avoid += ', DriverEasy Professional 5, DriverPack, SnailDriver, Smart Driver Updater, Driver Talent Pro';
 window.avoid += ', Driver Booster Pro 4, Driver Booster Pro v4, Snail Driver, Driver Magician, TweakBit Driver';
 window.avoid += ', DriverMax, Ashampoo Driver Updater, Driver Navigator, Driver Updater, Driver Easy Professional 5';
+window.avoid += ', Driver Reviver';
 window.avoid += '';
 /*______             _ _           _          __ _           _           
   |  _  \           | (_)         | |        / _(_)         | |          
@@ -199,7 +201,7 @@ window.avoid += ', Hosts File Editor v1, Hosts File Editor 1, Cameyo 3, RJ TextE
 window.avoid += ', Google Web Designer 1, Google Web Designer v1, Hexinator, IDM UltraEdit, DataExpress';
 window.avoid += ', Small Editor 2, EditBone, Hex Editor, Mobirise 3, Mobirise v3, Web Creator Pro, Binary Viewer';
 window.avoid += ', Notepad3, Araxis Merge Professional 2016, Araxis Merge Professional v2016, MassCert, SDL Passolo, LogFusion';
-window.avoid += ', JetBrains WebStorm 2016, Atom 1, Atom 2, Atom v, Resource Hacker 4, Resource Hacker v4';
+window.avoid += ', JetBrains WebStorm 2016, Atom 1, Atom 2, Atom v, Resource Hacker 4, Resource Hacker v4, PeStudio, Poedit';
 window.avoid += ', ProgramEdit, TextCrawler, Word Text Replacer, IDM UEStudio, CudaText, Sothink SWF, SWF Quicker';
 window.avoid += '';
 /* ____                           
@@ -214,7 +216,7 @@ window.avoid += '';
  | |_| |/ _ \/ _` | | __| '_ \ 
  |  _  |  __/ (_| | | |_| | | |
  |_| |_|\___|\__,_|_|\__|_| |_| */
-window.avoid += ', Auriculo 3D, Maia Mechanics, TimePassages, VeBest MoonLight, Astrology';
+window.avoid += ', Auriculo 3D, Maia Mechanics, TimePassages, VeBest MoonLight, Astrology, SiDiary';
 window.avoid += '';
 
 /*__  __       _ _ 
@@ -239,7 +241,8 @@ window.avoid += '';
  |_| \_|\___|\__| \_/\_/ \___/|_|  |_|\_\ */
 window.avoid += ', NetWorx 5, NetWorx v5, ChrisPC DNS Switch, NeoRouter 2, NeoRouter v2, Wake On LAN, Speed Test';
 window.avoid += ', NetSetMan, MyLanViewer 4, MyLanViewer v4, NxFilter, PortForward Network Utilities, Download Speed';
-window.avoid += ', Forward Network Utilities, NetStat Professional, x NetStat, Network Meter, The Dude';
+window.avoid += ', Forward Network Utilities, NetStat Professional, x NetStat, Network Meter, The Dude, DNSCrypt, Firewall Notifier';
+window.avoid += '';
 window.avoid += '';
 
 /*
@@ -253,7 +256,7 @@ window.avoid += '';
 
 /* Unwanted softwares - Office */
 window.avoid += ', Microsoft Office, AVS Document Converter, OneDrive, PhraseExpress';
-window.avoid += ', Directory Opus Pro, OpalCalc, WPS Office, Nitro Pro';
+window.avoid += ', Directory Opus Pro, OpalCalc, WPS Office, Prezi';
 window.avoid += ', Atlantis Word Processor, Cimaware OfficeFIX, SMath Studio, PaperScan Scanner';
 window.avoid += ', Advanced Renamer, Efficient Notes 5, Efficient Notes 6, Efficient Notes 7, FastKeys';
 window.avoid += ', Calendarscope, Efficient Password Manager, Balabolka, ScanPapyrus';
@@ -294,6 +297,7 @@ window.avoid += '';
 window.avoid += ', WinScan2PDF, PDF MultiTool, Sumatra PDF 3, Sumatra PDF v3, Adobe Acrobat XI, FlexiPDF, DiffPDF, Converter PDF, WinPDFEditor';
 window.avoid += ', PDF Convert to, Foxit PhantomPDF, PDF Software, PDF Studio, PDF Recovery, To PDF, PDF Shaper, MuPDF, PDF Layout Changer';
 window.avoid += ', PDF Creator, PDF XChange, Flip PDF Corporate, PDF to, PDF Annotator, Infix Pdf, PDFelement, FlipBuilder Flip PDF';
+window.avoid += ', Nitro Pro, Remove PDF File Password';
 window.avoid += '';
 
 /* Unwanted softwares - Office file fix */
@@ -312,12 +316,12 @@ window.avoid += '';
 |  |  |  | |   ___/      |  |     |  | |  |\/|  | |  |    /  /    |   __|  |      /     
 |  `--'  | |  |          |  |     |  | |  |  |  | |  |   /  /----.|  |____ |  |\  \----.
  \______/  | _|          |__|     |__| |__|  |__| |__|  /________||_______|| _| `._____| */
-window.avoid += ', Easy Pc Optimizer, Auslogics Disk Defrag, Ashampoo HDD Control, IObit Smart Defrag';
+window.avoid += ', Easy Pc Optimizer, Auslogics Disk Defrag, Ashampoo HDD Control, IObit Smart Defrag, Registry Defrag';
 window.avoid += ', Glary Disk Cleaner, Glary Utilities Pro, Glarysoft Registry, Glary Tracks Eraser';
 window.avoid += ', Supercopier, MiTeC System, Reg Organizer, windows repair pro, MPC Cleaner, MPC AdCleaner';
 window.avoid += ', Auslogics Browser Care, FileOptimizer, ReviverSoft Registry, System Ninja, CheckDrive';
 window.avoid += ', Abelssoft GoogleClean, CCleaner 5, CCleaner Professional Plus 5, CCleaner Professional Plus v5, Wise Disk Cleaner';
-window.avoid += ', Chrome Cleanup Tool, Windows Repair Toolbox, Registry Recovery, Safe Startup';
+window.avoid += ', Chrome Cleanup Tool, Windows Repair Toolbox, Registry Recovery, Safe Startup, PC Fresh, StartupStar';
 window.avoid += ', wise care 365 pro v4, RegistryWizard, DLL Suite, DLL Care, Long Path Tool, jv16';
 window.avoid += ', Destroy Windows, Solid State Doctor v3, WinUtilities, PGWare, System Mechanic';
 window.avoid += ', Registry First Aid, wise care 365 pro 4, TCP Optimizer, Ace Utilities, Free Disk Cleaner';
@@ -357,7 +361,7 @@ window.avoid += ', Topaz Glow 2, Topaz Glow v2, TwistedBrush Pro, Serif PagePlus
 window.avoid += ', Paint Pro v, Paint Pro, Indigo Renderer, iStripper, Autopano, Scarab Darkroom';
 window.avoid += ', DiaShow Studio, Sketch Drawer, JPEG Repair, XnRetro, OpenCanvas, Photo Studio, AKVIS';
 window.avoid += ', Smart Photo Import, Reallusion FaceFilter, Reallusion, Flash Gallery, Gallery creator';
-window.avoid += ', Adobe Photoshop, Affinity Photo, AutoCollage, Laughingbird Software';
+window.avoid += ', Adobe Photoshop, Affinity Photo, AutoCollage, Laughingbird Software, PhotoZoom Pro 7';
 window.avoid += '';
 
 
@@ -404,9 +408,9 @@ window.avoid += ', Zer0 0, UnHackMe v8, Angry IP Scanner, Secure Hunter, Batchpa
 window.avoid += ', Loaris Trojan Remover, Omnipeek, L0phtCrack, Secure Eraser, Privacy Drive, Jade Encryption, Kaspersky System';
 window.avoid += ', KMSAuto Net, W10Privacy, Password Security Scanner, Nsauditor, Password Safe, Password Recovery';
 window.avoid += ', Wfp Tool, Windows Filtering Platform Tool, Multi OEM Retail, KMS Tools, VaultPasswordView, Fi Security';
-window.avoid += ', Secret Disk, Folder Lock, WebBrowserPassView, Panda Cloud Cleaner, KeePass Classic, AAct, Windows License, Key Dump';
+window.avoid += ', Secret Disk, Folder Lock, WebBrowserPassView, Panda Cloud Cleaner, KeePass, AAct, Windows License, Key Dump';
 window.avoid += ', RannohDecryptor, PWGen, KMS Server, KMSAuto Lite, PowerRun, Microsoft Safety Scanner, SX Antivirus';
-window.avoid += '';
+window.avoid += ', Recover Passwords';
 window.avoid += '';
 
 /* Unwanted softwares - SEO */
@@ -419,9 +423,9 @@ window.avoid += ', DiskTuna, EaseUS Partition, Winaero, ShareMouse, Kaspersky Ge
 window.avoid += ', ShutDown Pro, Systimizer, Directory Monitor, Universal USB Installer, Amazing Partition Manager';
 window.avoid += ', oMega Commander, Folder2List, Actual Window Manager, Windows Performance Indicator, NTFS Analysis';
 window.avoid += ', Proxy Switcher, PartitionGuru, dism 10, dism v10, dism 11, dism v11, HDDLife, Look my hardware';
-window.avoid += ', Win10 Wizard, RMPrepUSB, System Information Viewer, SUMo 5, SUMo 6, SUMo v5, SUMo v6';
+window.avoid += ', Win10 Wizard, RMPrepUSB, System Information Viewer, SUMo 5, SUMo 6, SUMo v5, SUMo v6, TestDisk';
 window.avoid += ', AUMBI, Absolute USB MultiBoot Installer, EF Commander, FastCopy, Multiboot USB, Partition Assistant';
-window.avoid += ', System Tools for Windows, Q Dir, MyPC, Wise System Monitor, 3DP Chip, File Splitter';
+window.avoid += ', System Tools for Windows, Q Dir, MyPC, Wise System Monitor, 3DP Chip, File Splitter, CrystalDiskMark';
 window.avoid += ', Ultimate Settings Panel, xplorer2, xplorerv2, MemInfo, Solid State Doctor, WhySoSlow';
 window.avoid += ', SpaceMan, Wise Folder Hider, CoreTemp, Process Monitor 3, Process Monitor v3, Partition Expert 4';
 window.avoid += ', SSD Z, CPU Z, HDD Z, Take Command 2, Take Command v, LookDisk, ExperienceIndexOK';
@@ -467,7 +471,7 @@ window.avoid += ', Movie Editor, KMPlayer, Blu ray player, Blu ray rip, BdTo, Go
 window.avoid += ', Blu ray Copy, Leawo Blu, Blu ray Creator, Blu ray Ripper, PowerDirector';
 window.avoid += ', Leawo Video, MPC BE, MediaCoder, WonderFox HD Video, Leawo Prof';
 window.avoid += ', YTD Video, Xilisoft iphone, AVI Toolbox, AVIToolbox, VideoInspector, 4Media Video';
-window.avoid += ', Subtitle Edit, MediaInfoXP';
+window.avoid += ', Subtitle Edit, MediaInfoXP, Adobe Character Animator, Photo Denoise';
 window.avoid += ', MediaInfo v0 7, MediaInfo 0 7, VidCoder, Aquasoft Stages, VidMasta, Video Downloader, MassTube';
 window.avoid += ', Adobe Prelude CC, ALLPlayer, Windows Player, HandBrake v, HandBrake 0 1, BOX4';
 window.avoid += ', MPC HC, CyberLink Media, Nero Video, vlc media player portable, moviejaySX';
