@@ -13,7 +13,7 @@ window.avoid = 'Star Wars, Dark Vador, Pokemon Go, Twerk, Game of Thrones, Drago
 window.avoid += ', NBA League, UEFA, Euro 2016, footballeur, supporters de foot, jeux olympiques';
 
 // ASCII Texts thanks to http://patorjk.com/software/taag/#p=display&v=0&f=ANSI%20Shadow&t=Thanks%0A
-/*____    __    __   ___   __ __  ____   ______  ____  ____    ____ 
+/*A___    __    __   ___   __ __  ____   ______  ____  ____    ____ 
  /    |  /  ]  /  ] /   \ |  |  ||    \ |      ||    ||    \  /    |
 |  o  | /  /  /  / |     ||  |  ||  _  ||      | |  | |  _  ||   __|
 |     |/  /  /  /  |  O  ||  |  ||  |  ||_|  |_| |  | |  |  ||  |  |
@@ -61,7 +61,8 @@ window.avoid += ', Capella Software, Tonica Fugata, Album Player, TagScanner, Co
 window.avoid += ', AIMP v, AIMP 4, AIMP 5, AIMP 6, Music Studio v, ACID Music Studio, Magix Music Studio, Adobe Audition CC';
 window.avoid += ', Exact Audio Copy, Helium Music Manager, LameXP, TapinRadio, WavePurity, Guitar Pro, MPV 0, MPV v, Pocket Radio Player';
 window.avoid += ', MixPad Master, NCH MixPad, Mp3 Stream Editor, Winlive, Mixcraft, Realstrat, Sound Recorder, Stream Recorder';
-window.avoid += ', Audio Restoration, Cool Record, Dopamine, EarMaster, PCDJ';
+window.avoid += ', Audio Restoration, Cool Record, Dopamine, EarMaster, PCDJ, CDex, Ringtone Maker, IRCAM Lab';
+window.avoid += '';
 window.avoid += '';
 /*   _                _      
     / \   _ __  _ __ | | ___ 
@@ -70,6 +71,7 @@ window.avoid += '';
  /_/   \_\ .__/| .__/|_|\___|
          |_|   |_|           */
 window.avoid += ', AnyTrans, SynciOS, iTunesFusion, iMazing, iOS Transfer, iPhone Backup, iPhone Transfer, iOS Backup';
+window.avoid += '';
 window.avoid += '';
 /*   _          _   _   __  __       _                        
     / \   _ __ | |_(_) |  \/  | __ _| |_      ____ _ _ __ ___ 
@@ -80,7 +82,7 @@ window.avoid += ', Zemana AntiMalware, Zemana Anti Malware, Malware Hunter, EMCO
 window.avoid += ', Ultra Virus Killer, UnHackMe, ComboFix, Malicious Software Removal Tool';
 window.avoid += ', Sophos Clean, AntiRansomware';
 window.avoid += '';
-/* ___            _                
+/*B___            _                
   / __\ __ _  ___| | ___   _ _ __  
  /__\/// _` |/ __| |/ / | | | '_ \ 
 / \/  \ (_| | (__|   <| |_| | |_) |
@@ -89,7 +91,7 @@ window.avoid += '';
 window.avoid += ', CloneZilla, CloneApp, Personal Backup, BestSync, Backup and Recovery, SyncBackPro, Syncovery';
 window.avoid += ', XXCLONE, AnyToISO, WinToHDD, Registry Backup, BackUp Maker, Iperius Backup';
 window.avoid += ', TeamDrive, Iperius Backup, Drive Image Backup';
-window.avoid += ', R-Drive Image, SyncFolders';
+window.avoid += ', R-Drive Image, SyncFolders, Backupper';
 window.avoid += ', AOMEI Backupper, Backupper Technician, KLS Backup, Restorer Ultimate, IsoBuster';
 window.avoid += '';
 /*____                                      
@@ -99,10 +101,11 @@ window.avoid += '';
  |____/|_|  \___/ \_/\_/ |___/\___|_|  |___/ */
 window.avoid += ', Firefox, total commander, speedyfox, WinSCP, filezilla, AhaView, Polarity Browser, MultiCommander';
 window.avoid += ', Alt Launch Band, Chromium 54, Chromium 55, Chromium 56, Chromium 57, Opera v39, Opera v40, Opera v41';
-window.avoid += ', FlashPeak Slimjet, Maxthon Cloud Browser, Maxthon Browser, MyPhoneExplorer';
+window.avoid += ', FlashPeak Slimjet, Maxthon Cloud Browser, Maxthon Browser, MyPhoneExplorer, Directory Lister';
 window.avoid += ', Air Explorer Pro, Pale Moon 2, Cyberfox, Google Chrome v, Google Chrome 5';
 window.avoid += ', Chrome Software Removal Tool, SlimJet, FlashFXP, WinCatalog, Storage Manager, Detwinner';
 window.avoid += ', FoneTrans, Dooble Web Browser, Waterfox, Comodo IceDragon, Firemin';
+window.avoid += '';
 window.avoid += '';
 /*____                                 
  | __ ) _   _ _ __ _ __   ___ _ __ ___ 
@@ -111,24 +114,22 @@ window.avoid += '';
  |____/ \__,_|_|  |_| |_|\___|_|  |___/ */
 window.avoid += ', Burning Studio, BurnAware, Any Burn, Easy Disc Burner, Burn4Free, Nero Burning ROM, Nero Express';
 window.avoid += '';
-
-/*
- .██████╗
- ██╔════╝
- ██║
- ██║
- ╚██████╗
- ╚═════╝ */
-
-/* Camera surveillance */
-window.avoid += ', go1984, Camera Viewer';
 window.avoid += '';
-
-/* Communication */
+/*C__   __   _  _  ____  ____   __  
+ / __) / _\ ( \/ )(  __)(  _ \ / _\ 
+( (__ /    \/ \/ \ ) _)  )   //    \
+ \___)\_/\_/\_)(_/(____)(__\_)\_/\_/ */
+window.avoid += ', go1984, Camera Viewer, Security Eye';
+window.avoid += '';
+/* ______                                      _            __  _           
+  / ____/___  ____ ___  ____ ___  __  ______  (_)________ _/ /_(_)___  ____ 
+ / /   / __ \/ __ `__ \/ __ `__ \/ / / / __ \/ / ___/ __ `/ __/ / __ \/ __ \
+/ /___/ /_/ / / / / / / / / / / / /_/ / / / / / /__/ /_/ / /_/ / /_/ / / / /
+\____/\____/_/ /_/ /_/_/ /_/ /_/\__,_/_/ /_/_/\___/\__,_/\__/_/\____/_/ /_/ */
 window.avoid += ', PhonerLite, Phoner 3, Phoner 4, Phoner 5, Phoner v3, Phoner v4, Phoner v5, MobaXterm';
 window.avoid += ', Miranda IM, Skype 7, Viber 6, Viber v, HyperCam';
 window.avoid += '';
-/*  ___                          _        _                        
+/*D ___                          _        _                        
    F __".    ____      ____     FJ __    FJ_      ____     _ ___   
   J |--\ L  F __ J    F ___J   J |/ /L  J  _|    F __ J   J '__ J  
   | |  J | | _____J  | '----_  |    \   | |-'   | |--| |  | |--| | 
@@ -140,6 +141,8 @@ window.avoid += ', Digital Clock, Animated Wallpaper Maker, FolderIco, AnyDesk, 
 window.avoid += ', Quick Macros, FileMenu Tools, DisplayFusion, MaxLauncher, BetterDesktopTool, Trigonometry Calculator, Start Menu';
 window.avoid += ', GTD Timer, Efofex, GetFolderSize, Family Tree Builder, Password Manager, TeamViewer, Remote Desktop Manager';
 window.avoid += ', Rename Master, Keyfinder, DeskSoft, Bandizip, WindowManager, WinBubble, Privacy Repairer, Win Toolkit';
+window.avoid += ', GetWindowText';
+window.avoid += '';
 window.avoid += '';
 /*____                      _                 _               
  |  _ \  _____      ___ __ | | ___   __ _  __| | ___ _ __ ___ 
@@ -156,6 +159,7 @@ window.avoid += ', USDownloader b, Zona 1, Zona v1, ISO Download Tool, Torrent 3
 window.avoid += ', Zero Install 2, Zero Install v2, Manga Downloader, Shareaza, Save2PC Light';
 window.avoid += ', HTTrack 3, HTTrack v3, MediaGet 2, MediaGet v2, internet manager 6';
 window.avoid += ', EagleGet 2, EagleGet v2, Extreme Picture Finder, Download Master, 4K Stogram';
+window.avoid += '';
 window.avoid += '';
 /*____       _                    
  |  _ \ _ __(_)_   _____ _ __ ___ 
@@ -178,7 +182,8 @@ window.avoid += '';
 window.avoid += ', Duplicate Finder, Auslogics Duplicate, Duplicate File Detective';
 window.avoid += ', Dup File Finder, CloneSpy';
 window.avoid += '';
-/*     ____              _        
+window.avoid += '';
+/*E    ____              _        
    ___| __ )  ___   ___ | | _____ 
   / _ \  _ \ / _ \ / _ \| |/ / __|
  |  __/ |_) | (_) | (_) |   <\__ \
@@ -186,7 +191,7 @@ window.avoid += '';
 window.avoid += ', Anthemion Jutoh, Kobo Converter, Calibre v2, Calibre 2, EPUB Checker, Anthemion';
 window.avoid += ', Asciidoc, ExtraChm, Flip PDF, K2pdfopt, ePub Designer, Adobe Digital Editions';
 window.avoid += '';
-
+window.avoid += '';
 /*_____    _ _ _                 
  | ____|__| (_) |_ ___  _ __ ___ 
  |  _| / _` | | __/ _ \| '__/ __|
@@ -196,7 +201,7 @@ window.avoid += ', FocusWriter, Computing editplus, Print2Cad, Emurasoft EmEdito
 window.avoid += ', FreeCAD, EditPlus, Sublime Text 3, Sublime Text 2, SynWrite, iMapBuilder, Adobe InCopy';
 window.avoid += ', Poedit Pro 1, Poedit Pro v1, Sublime Text v3, Sublime Text v2, Incomedia WebSite, LopeEdit';
 window.avoid += ', WYSIWYG Web Builder, WYSIWYG Builder, HTML Compiler 2016, FileMaker Pro, Adobe Dreamweaver';
-window.avoid += ', EditRocket, ReGen KeyCode, IconEdit2, Notepad 7, Notepad v7, Final Draft, CodeLobster';
+window.avoid += ', EditRocket, ReGen KeyCode, IconEdit2, Notepad 7, Notepad v7, Final Draft, CodeLobster, Markdown Edit';
 window.avoid += ', Hosts File Editor v1, Hosts File Editor 1, Cameyo 3, RJ TextEd, EndNote X, AutoHotkey, Multilizer';
 window.avoid += ', Google Web Designer 1, Google Web Designer v1, Hexinator, IDM UltraEdit, DataExpress';
 window.avoid += ', Small Editor 2, EditBone, Hex Editor, Mobirise 3, Mobirise v3, Web Creator Pro, Binary Viewer';
@@ -204,26 +209,40 @@ window.avoid += ', Notepad3, Araxis Merge Professional 2016, Araxis Merge Profes
 window.avoid += ', JetBrains WebStorm 2016, Atom 1, Atom 2, Atom v, Resource Hacker 4, Resource Hacker v4, PeStudio, Poedit';
 window.avoid += ', ProgramEdit, TextCrawler, Word Text Replacer, IDM UEStudio, CudaText, Sothink SWF, SWF Quicker';
 window.avoid += '';
-/* ____                           
+window.avoid += '';
+/*F ___                    _                _                        _            
+   | __|   ___    _ _     | |_      o O O  | |_     ___     ___     | |     ___   
+   | _|   / _ \  | ' \    |  _|    o       |  _|   / _ \   / _ \    | |    (_-<   
+  _|_|_   \___/  |_||_|   _\__|   TS__[O]  _\__|   \___/   \___/   _|_|_   /__/_  
+_| """ |_|"""""|_|"""""|_|"""""| {======|_|"""""|_|"""""|_|"""""|_|"""""|_|"""""| 
+"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'./o--000'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-'"`-0-0-' */
+window.avoid += ', Extensis Suitcase Fusion, High Logic Font, FontViewOK, PopChar, Suitcase Fusion, Printer s Apprentice';
+window.avoid += ', BirdFont';
+window.avoid += '';
+/*G____                           
   / ___| __ _ _ __ ___   ___  ___ 
  | |  _ / _` | '_ ` _ \ / _ \/ __|
  | |_| | (_| | | | | | |  __/\__ \
   \____|\__,_|_| |_| |_|\___||___/ */
 window.avoid += ', Overwatch, Hearthstone, Warhammer, Lucas Chess, Power Equilab, SolSuite';
 window.avoid += '';
-/*_   _            _ _   _     
+window.avoid += '';
+/*H   _            _ _   _     
  | | | | ___  __ _| | |_| |__  
  | |_| |/ _ \/ _` | | __| '_ \ 
  |  _  |  __/ (_| | | |_| | | |
  |_| |_|\___|\__,_|_|\__|_| |_| */
 window.avoid += ', Auriculo 3D, Maia Mechanics, TimePassages, VeBest MoonLight, Astrology, SiDiary';
 window.avoid += '';
-
-/*__  __       _ _ 
- |  \/  | __ _(_) |
- | |\/| |/ _` | | |
- | |  | | (_| | | |
- |_|  |_|\__,_|_|_| */
+window.avoid += '';
+/*M                        ,,    ,,  
+`7MMM.     ,MMF'           db  `7MM  
+  MMMb    dPMM                   MM  
+  M YM   ,M MM   ,6"Yb.  `7MM    MM  
+  M  Mb  M' MM  8)   MM    MM    MM  
+  M  YM.P'  MM   ,pm9MM    MM    MM  
+  M  `YM'   MM  8M   MM    MM    MM  
+.JML. `'  .JMML.`Moo9^Yo..JMML..JMML. */
 window.avoid += ', Postbox v, Mailbird Pro, Aid4Mail, FoxMail, TheBat';
 window.avoid += '';
 /*__  __ _           _                       
@@ -234,7 +253,7 @@ window.avoid += '';
                                       |_|    */
 window.avoid += ', Freeplane';
 window.avoid += '';
-/*_   _      _                      _    
+/*N   _      _                      _    
  | \ | | ___| |___      _____  _ __| | __
  |  \| |/ _ \ __\ \ /\ / / _ \| '__| |/ /
  | |\  |  __/ |_ \ V  V / (_) | |  |   < 
@@ -244,17 +263,35 @@ window.avoid += ', NetSetMan, MyLanViewer 4, MyLanViewer v4, NxFilter, PortForwa
 window.avoid += ', Forward Network Utilities, NetStat Professional, x NetStat, Network Meter, The Dude, DNSCrypt, Firewall Notifier';
 window.avoid += '';
 window.avoid += '';
-
-/*
- .██████╗
- ██╔═══██╗
- ██║   ██║
- ██║   ██║
- ╚██████╔╝
- ╚═════╝
- */
-
-/* Unwanted softwares - Office */
+/*O      _______                   _____                    _____          
+        /::\    \                 /\    \                  /\    \         
+       /::::\    \               /::\    \                /::\    \        
+      /::::::\    \             /::::\    \              /::::\    \       
+     /::::::::\    \           /::::::\    \            /::::::\    \      
+    /:::/~~\:::\    \         /:::/\:::\    \          /:::/\:::\    \     
+   /:::/    \:::\    \       /:::/  \:::\    \        /:::/__\:::\    \    
+  /:::/    / \:::\    \     /:::/    \:::\    \      /::::\   \:::\    \   
+ /:::/____/   \:::\____\   /:::/    / \:::\    \    /::::::\   \:::\    \  
+|:::|    |     |:::|    | /:::/    /   \:::\    \  /:::/\:::\   \:::\____\ 
+|:::|____|     |:::|    |/:::/____/     \:::\____\/:::/  \:::\   \:::|    |
+ \:::\    \   /:::/    / \:::\    \      \::/    /\::/   |::::\  /:::|____|
+  \:::\    \ /:::/    /   \:::\    \      \/____/  \/____|:::::\/:::/    / 
+   \:::\    /:::/    /     \:::\    \                    |:::::::::/    /  
+    \:::\__/:::/    /       \:::\    \                   |::|\::::/    /   
+     \::::::::/    /         \:::\    \                  |::| \::/____/    
+      \::::::/    /           \:::\    \                 |::|  ~|          
+       \::::/    /             \:::\    \                |::|   |          
+        \::/____/               \:::\____\               \::|   |          
+         ~~                      \::/    /                \:|   |          
+                                  \/____/                  \|___| */
+window.avoid += ', Readiris Corporate, Speech2Go';
+window.avoid += '';
+/*______    _______  _______  __    ______  _______ 
+ /  __  \  |   ____||   ____||  |  /      ||   ____|
+|  |  |  | |  |__   |  |__   |  | |  ,----'|  |__   
+|  |  |  | |   __|  |   __|  |  | |  |     |   __|  
+|  `--'  | |  |     |  |     |  | |  `----.|  |____ 
+ \______/  |__|     |__|     |__|  \______||_______| */
 window.avoid += ', Microsoft Office, AVS Document Converter, OneDrive, PhraseExpress';
 window.avoid += ', Directory Opus Pro, OpalCalc, WPS Office, Prezi';
 window.avoid += ', Atlantis Word Processor, Cimaware OfficeFIX, SMath Studio, PaperScan Scanner';
@@ -278,38 +315,11 @@ window.avoid += ', LimagitoX File, File Mover Lite, PointerStick, Win Experience
 window.avoid += ', QuickAccessPopup, FreeFileSync 8, FreeFileSync v8, Rename Us, HomeBank, Log Viewer';
 window.avoid += ', Clipboard Master, 7 Zip v, Google Drive v, Google Drive 1, Google Drive 2';
 window.avoid += ', Mindjet MindManager, Help And Manual, Express Invoice, Babylon Pro, WindowsWord';
-window.avoid += '';
-
-/* Unwanted softwares - Office font tools */
-window.avoid += ', Extensis Suitcase Fusion, High Logic Font, FontViewOK, PopChar, Suitcase Fusion, Printer s Apprentice';
-window.avoid += ', BirdFont';
-window.avoid += '';
-
-/* Unwanted softwares - Office note taking */
 window.avoid += ', CherryTree, Aml Pages';
-window.avoid += '';
-
-/* Unwanted softwares - Office OCR */
-window.avoid += ', Readiris Corporate, Speech2Go';
-window.avoid += '';
-
-/* Unwanted softwares - Office pdf stuff */
-window.avoid += ', WinScan2PDF, PDF MultiTool, Sumatra PDF 3, Sumatra PDF v3, Adobe Acrobat XI, FlexiPDF, DiffPDF, Converter PDF, WinPDFEditor';
-window.avoid += ', PDF Convert to, Foxit PhantomPDF, PDF Software, PDF Studio, PDF Recovery, To PDF, PDF Shaper, MuPDF, PDF Layout Changer';
-window.avoid += ', PDF Creator, PDF XChange, Flip PDF Corporate, PDF to, PDF Annotator, Infix Pdf, PDFelement, FlipBuilder Flip PDF';
-window.avoid += ', Nitro Pro, Remove PDF File Password';
-window.avoid += '';
-
-/* Unwanted softwares - Office file fix */
 window.avoid += ', Phoenix Repair, Wise Force Deleter';
-window.avoid += '';
-
-/* Unwanted softwares - Office converter */
 window.avoid += ', Document Converter, DBF Converter';
 window.avoid += '';
-
-
-
+window.avoid += '';
 /*______   .______   .___________. __  .___  ___.  __   ________   _______ .______      
  /  __  \  |   _  \  |           ||  | |   \/   | |  | |       /  |   ____||   _  \     
 |  |  |  | |  |_)  | `---|  |----`|  | |  \  /  | |  | `---/  /   |  |__   |  |_)  |    
@@ -325,7 +335,7 @@ window.avoid += ', Chrome Cleanup Tool, Windows Repair Toolbox, Registry Recover
 window.avoid += ', wise care 365 pro v4, RegistryWizard, DLL Suite, DLL Care, Long Path Tool, jv16';
 window.avoid += ', Destroy Windows, Solid State Doctor v3, WinUtilities, PGWare, System Mechanic';
 window.avoid += ', Registry First Aid, wise care 365 pro 4, TCP Optimizer, Ace Utilities, Free Disk Cleaner';
-window.avoid += ', Wise Memory Optimizer, Autorun Organizer, PC Decrapifier, Registry Utility';
+window.avoid += ', Wise Memory Optimizer, Autorun Organizer, PC Decrapifier, Registry Utility, WSCC';
 window.avoid += ', Registry Life 3, Registry Life 4, Registry Life 5, Registry Life v, Smart PC';
 window.avoid += ', DLL Analyzer, ThrottleStop, Registry Manager, Hibernate Enable, Soft Cleaner';
 window.avoid += ', Ultimate Windows Tweaker v4, ccleaner professional business technician 5';
@@ -334,6 +344,19 @@ window.avoid += ', ClearType Switch, UltraCopier, Registry Cleaner, TweakBit PC,
 window.avoid += ', BatteryCare, Startup Sentinel, Windows 10 Virtual Desktop Enhancer, Registry Winner';
 window.avoid += ', Windows Cleaner, CCEnhancer, winreducer ex 7, winreducer ex 8, Windows Repair';
 window.avoid += '';
+window.avoid += '';
+/*P888888b.  8888888b.  8888888888       .d8888b.  888              .d888  .d888 
+888   Y88b 888  "Y88b 888             d88P  Y88b 888             d88P"  d88P"  
+888    888 888    888 888             Y88b.      888             888    888    
+888   d88P 888    888 8888888          "Y888b.   888888 888  888 888888 888888 
+8888888P"  888    888 888                 "Y88b. 888    888  888 888    888    
+888        888    888 888                   "888 888    888  888 888    888    
+888        888  .d88P 888             Y88b  d88P Y88b.  Y88b 888 888    888    
+888        8888888P"  888              "Y8888P"   "Y888  "Y88888 888    888   */
+window.avoid += ', WinScan2PDF, PDF MultiTool, Sumatra PDF 3, Sumatra PDF v3, Adobe Acrobat XI, FlexiPDF, DiffPDF, Converter PDF, WinPDFEditor';
+window.avoid += ', PDF Convert to, Foxit PhantomPDF, PDF Software, PDF Studio, PDF Recovery, To PDF, PDF Shaper, MuPDF, PDF Layout Changer';
+window.avoid += ', PDF Creator, PDF XChange, Flip PDF Corporate, PDF to, PDF Annotator, Infix Pdf, PDFelement, FlipBuilder Flip PDF';
+window.avoid += ', Nitro Pro, Remove PDF File Password';
 window.avoid += '';
 /*
   /$$$$$$$  /$$                   /$$              
@@ -345,7 +368,7 @@ window.avoid += '';
   | $$      | $$  | $$|  $$$$$$/  |  $$$$/|  $$$$$$/
   |__/      |__/  |__/ \______/    \___/   \______/ */
 window.avoid += ', PhotoInstrument, Process Lasso, STOIK Stitch Creator, Ashampoo Photo, ArtRage, Drawpile, QuickImageComment';
-window.avoid += ', Photoshop Lightroom, Luxion KeyShot, PDF To Image, Photodex ProShow, DxO ViewPoint';
+window.avoid += ', Photoshop Lightroom, Luxion KeyShot, PDF To Image, Photodex ProShow, DxO ViewPoint, SoftColor, PhotoEQ';
 window.avoid += ', Aha soft articons, Home Photo Studio, IDPhotoStudio, DxO FilmPack, Icon Software Collection';
 window.avoid += ', jixipix rip studio, Adobe Plugins, Any to icon, Aha Soft Icon, PicturesToExe, StPaint';
 window.avoid += ', CyberLink MakeupDirector, Blackmagic Design, ImageMagick, Corel PaintShop Pro';
@@ -362,41 +385,34 @@ window.avoid += ', Paint Pro v, Paint Pro, Indigo Renderer, iStripper, Autopano,
 window.avoid += ', DiaShow Studio, Sketch Drawer, JPEG Repair, XnRetro, OpenCanvas, Photo Studio, AKVIS';
 window.avoid += ', Smart Photo Import, Reallusion FaceFilter, Reallusion, Flash Gallery, Gallery creator';
 window.avoid += ', Adobe Photoshop, Affinity Photo, AutoCollage, Laughingbird Software, PhotoZoom Pro 7';
-window.avoid += '';
-
-
-/* Unwanted softwares - Photo viewer */
 window.avoid += ', Pictus, ViewCompanion, IrfanView 4, IrfanView v4, ACDSee, Desktop Ruler';
-window.avoid += '';
-
-/* Unwanted softwares - Photo converter */
 window.avoid += ', XnView MP, XnView 2, XnConvert, Img Converter, PCL To Image, Photo Resizer, Any2Ico';
 window.avoid += '';
-
-/* __   ___  __   __        ___  __      
+/*R__   ___  __   __        ___  __      
   |__) |__  /  ` /  \ \  / |__  |__) \ / 
   |  \ |___ \__, \__/  \/  |___ |  \  |  */
 window.avoid += ', Data Recovery, Photo Recovery, Video Recovery, Audio Recovery, RecoverBits, Ultimate Boot CD, Dr  Recovery';
 window.avoid += ', EasyRecovery, ShowKeyPlus, Disk Drill Professional, recALL, KeyLock, KeyLock USB Locker, Farbar Recovery, RescuePRO';
+window.avoid += ', File Recovery';
 window.avoid += '';
-window.avoid += '';
-
-/*
- ███████╗
- ██╔════╝
- ███████╗
- ╚════██║
- ███████║
- ╚══════╝
- */
-
-/* Unwanted softwares - Screenshot & Screen recorder */
+/*S___                                                                               __                  
+/\  _`\                                                                            /\ \                 
+\ \,\L\_\    ___   _ __    __     __    ___       _ __    __    ___    ___   _ __  \_\ \     __   _ __  
+ \/_\__ \   /'___\/\`'__\/'__`\ /'__`\/' _ `\    /\`'__\/'__`\ /'___\ / __`\/\`'__\/'_` \  /'__`\/\`'__\
+   /\ \L\ \/\ \__/\ \ \//\  __//\  __//\ \/\ \   \ \ \//\  __//\ \__//\ \L\ \ \ \//\ \L\ \/\  __/\ \ \/ 
+   \ `\____\ \____\\ \_\\ \____\ \____\ \_\ \_\   \ \_\\ \____\ \____\ \____/\ \_\\ \___,_\ \____\\ \_\ 
+    \/_____/\/____/ \/_/ \/____/\/____/\/_/\/_/    \/_/ \/____/\/____/\/___/  \/_/ \/__,_ /\/____/ \/_/  */
 window.avoid += ', ShareX, Screenshot Studio, Ashampoo Snap, ScreenToGif, ZD Soft Screen Recorder, CaptureWizPro';
 window.avoid += ', apowersoft screen capture, ScreenGif, Screen Recorder Pro, StepShot';
 window.avoid += ', ScreenShooter, Gilisoft Screen, Screen GIF v2016, Screen GIF 2016, Honeycam 1';
 window.avoid += '';
-
-/* Unwanted softwares - Security */
+/*
+8""""8                                       
+8      eeee eeee e   e eeeee  e eeeee e    e 
+8eeeee 8    8  8 8   8 8   8  8   8   8    8 
+    88 8eee 8e   8e  8 8eee8e 8e  8e  8eeee8 
+e   88 88   88   88  8 88   8 88  88    88   
+8eee88 88ee 88e8 88ee8 88   8 88  88    88   */
 window.avoid += ', OESIS Endpoint, Emsisoft Emergency Kit, PrivaZer, AntiVir Rescue System, ChromePass, Zero Assumption Recovery';
 window.avoid += ', PDF Decrypter, Avast Clear, Pdf eraser pro, Product Key Finder, Wireless network watcher, Windows Spy Blocker';
 window.avoid += ', licensecrawler, GridinSoft Anti, Kaspersky Lab Products, McAfee Stinger, USB Raptor, USB Security';
@@ -404,13 +420,13 @@ window.avoid += ', Product Key Decryptor, Router Password Decryptor, skype ad re
 window.avoid += ', pdf password remover, dr web cureit, Soft4Boost Toolbar, 1Password, Network Password Recovery, RootkitBuster';
 window.avoid += ', WireShark 2, WireShark v2, WifiHistoryView, Chistilka 2, Chistilka v2, SterJo Wireless, PIDKey, Spybot';
 window.avoid += ', Nexus Root Toolkit, NewFileTime, Network Scanner, RegRun, dot11Expert, CryptoPrevent, Defender Control';
-window.avoid += ', Zer0 0, UnHackMe v8, Angry IP Scanner, Secure Hunter, Batchpatch, Junkware Removal, Password Dump';
+window.avoid += ', Zer0 0, UnHackMe v8, Angry IP Scanner, Secure Hunter, Batchpatch, Junkware Removal, Password Dump, FireMasterCracker';
 window.avoid += ', Loaris Trojan Remover, Omnipeek, L0phtCrack, Secure Eraser, Privacy Drive, Jade Encryption, Kaspersky System';
 window.avoid += ', KMSAuto Net, W10Privacy, Password Security Scanner, Nsauditor, Password Safe, Password Recovery';
 window.avoid += ', Wfp Tool, Windows Filtering Platform Tool, Multi OEM Retail, KMS Tools, VaultPasswordView, Fi Security';
 window.avoid += ', Secret Disk, Folder Lock, WebBrowserPassView, Panda Cloud Cleaner, KeePass, AAct, Windows License, Key Dump';
 window.avoid += ', RannohDecryptor, PWGen, KMS Server, KMSAuto Lite, PowerRun, Microsoft Safety Scanner, SX Antivirus';
-window.avoid += ', Recover Passwords';
+window.avoid += ', Recover Passwords, HostsMan';
 window.avoid += '';
 
 /* Unwanted softwares - SEO */
@@ -440,7 +456,7 @@ window.avoid += '';
 /* Unwanted softwares - System GPU tuning */
 window.avoid += ', nvFlash, NVIDIA Inspector, GPU Caps Viewer, GPU Shark, GPU Z';
 window.avoid += '';
-/*                                                   
+/*U                                                  
 .   .     o          |         |    |              
 |   |,---..,---.,---.|--- ,---.|    |    ,---.,---.
 |   ||   |||   |`---.|    ,---||    |    |---'|    
@@ -451,7 +467,7 @@ window.avoid += ', Ashampoo Uninstaller, Total Uninstall Pro, Uninstall Tool 3, 
 window.avoid += ', Geek Uninstaller, Revo Uninstaller, GeekUninstaller, DoYourData Uninstaller, Max Uninstaller';
 window.avoid += '';
 
-/*
+/*V
 ██╗   ██╗██╗██████╗ ███████╗ ██████╗ 
 ██║   ██║██║██╔══██╗██╔════╝██╔═══██╗
 ██║   ██║██║██║  ██║█████╗  ██║   ██║
@@ -461,7 +477,7 @@ window.avoid += '';
  */
 
 /* Various */
-window.avoid += ', MKV Buddy, OhSoft oCam, iFun Video, madVR';
+window.avoid += ', MKV Buddy, OhSoft oCam, iFun Video, madVR, HUPlayer, Codec Tweak';
 window.avoid += ', 4videosoft mxf, Tipard Video, MKVToolNix';
 window.avoid += ', Tipard Blu, Adobe After Effects, XviD4PSP, AquaSoft SlideShow';
 window.avoid += ', GOM Media Player, Softwares PhotoToFilm, XRecode II, Pavtube ByteCopy';
@@ -479,13 +495,13 @@ window.avoid += '';
 window.avoid += '';
 
 /* Converters */
-window.avoid += ', Video Converter, Movavi Video Converter, Wondershare Video Converter, 4K Converter, MXF Converter, Any Video Converter';
-window.avoid += ', Xilisoft HD, Xilisoft Video, Video Converter v, Video Converter Deluxe, ImTOO Video Converter, Total Media Converter, MTS Converter';
+window.avoid += ', Video Converter, 4K Converter, MXF Converter';
+window.avoid += ', Xilisoft HD, Xilisoft Video, Total Media Converter, MTS Converter';
 window.avoid += ', FormatFactory, Media Converter, Video to GIF';
 window.avoid += '';
 
 /* Editors */
-window.avoid += ', VideoPad Video Editor, VSDC Video Editor, Movavi Video Editor, Media Splitter';
+window.avoid += ', Video Editor, Media Splitter';
 window.avoid += ', Video Enhancer, LosslessCut';
 window.avoid += '';
 
@@ -504,7 +520,7 @@ window.avoid += ', DVD Copy, VSO ConvertXtoDVD, DVD Audio Extractor, DVD Creator
 window.avoid += ', DVDFab, DVDStyler, DVD Cloner, DVD Drive Repair, Dvd Ripper, Dvd video, Autoplay, BDMagic';
 window.avoid += '';
 
-/*__      __         __                                     __    
+/*W_      __         __                                     __    
 /  \    /  \_____ _/  |_  ___________  _____ _____ _______|  | __
 \   \/\/   /\__  \\   __\/ __ \_  __ \/     \\__  \\_  __ \  |/ /
  \        /  / __ \|  | \  ___/|  | \/  Y Y  \/ __ \|  | \/    < 
