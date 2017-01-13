@@ -157,7 +157,7 @@ window.avoid += ', Internet Download Manager 6, Internet Download Manager v6, Cy
 window.avoid += ', TorrentRover 1 1, TorrentRover v1 1,TorrentRover v1 0, TorrentRover 1 0, USDownloader v1 3, USDownloader 1 3';
 window.avoid += ', USDownloader b, Zona 1, Zona v1, ISO Download Tool, Torrent 3, HiDownload';
 window.avoid += ', Zero Install 2, Zero Install v2, Manga Downloader, Shareaza, Save2PC Light';
-window.avoid += ', HTTrack 3, HTTrack v3, MediaGet 2, MediaGet v2, internet manager 6';
+window.avoid += ', HTTrack 3, HTTrack v3, MediaGet 2, MediaGet v2, internet manager 6, MSDN Downloader';
 window.avoid += ', EagleGet 2, EagleGet v2, Extreme Picture Finder, Download Master, 4K Stogram';
 window.avoid += '';
 window.avoid += '';
@@ -263,27 +263,8 @@ window.avoid += ', NetSetMan, MyLanViewer 4, MyLanViewer v4, NxFilter, PortForwa
 window.avoid += ', Forward Network Utilities, NetStat Professional, x NetStat, Network Meter, The Dude, DNSCrypt, Firewall Notifier';
 window.avoid += ', Network Drive Control';
 window.avoid += '';
-/*O      _______                   _____                    _____          
-        /::\    \                 /\    \                  /\    \         
-       /::::\    \               /::\    \                /::\    \        
-      /::::::\    \             /::::\    \              /::::\    \       
-     /::::::::\    \           /::::::\    \            /::::::\    \      
-    /:::/~~\:::\    \         /:::/\:::\    \          /:::/\:::\    \     
-   /:::/    \:::\    \       /:::/  \:::\    \        /:::/__\:::\    \    
-  /:::/    / \:::\    \     /:::/    \:::\    \      /::::\   \:::\    \   
- /:::/____/   \:::\____\   /:::/    / \:::\    \    /::::::\   \:::\    \  
-|:::|    |     |:::|    | /:::/    /   \:::\    \  /:::/\:::\   \:::\____\ 
-|:::|____|     |:::|    |/:::/____/     \:::\____\/:::/  \:::\   \:::|    |
- \:::\    \   /:::/    / \:::\    \      \::/    /\::/   |::::\  /:::|____|
-  \:::\    \ /:::/    /   \:::\    \      \/____/  \/____|:::::\/:::/    / 
-   \:::\    /:::/    /     \:::\    \                    |:::::::::/    /  
-    \:::\__/:::/    /       \:::\    \                   |::|\::::/    /   
-     \::::::::/    /         \:::\    \                  |::| \::/____/    
-      \::::::/    /           \:::\    \                 |::|  ~|          
-       \::::/    /             \:::\    \                |::|   |          
-        \::/____/               \:::\____\               \::|   |          
-         ~~                      \::/    /                \:|   |          
-                                  \/____/                  \|___| */
+/*O
+OCR*/
 window.avoid += ', Readiris Corporate, Speech2Go';
 window.avoid += '';
 /*______    _______  _______  __    ______  _______ 
@@ -345,7 +326,8 @@ window.avoid += ', BatteryCare, Startup Sentinel, Windows 10 Virtual Desktop Enh
 window.avoid += ', Windows Cleaner, CCEnhancer, winreducer ex 7, winreducer ex 8, Windows Repair';
 window.avoid += '';
 window.avoid += '';
-/*P888888b.  8888888b.  8888888888       .d8888b.  888              .d888  .d888 
+/*P
+888888b.  8888888b.  8888888888       .d8888b.  888              .d888  .d888 
 888   Y88b 888  "Y88b 888             d88P  Y88b 888             d88P"  d88P"  
 888    888 888    888 888             Y88b.      888             888    888    
 888   d88P 888    888 8888888          "Y888b.   888888 888  888 888888 888888 
@@ -356,7 +338,7 @@ window.avoid += '';
 window.avoid += ', WinScan2PDF, PDF MultiTool, Sumatra PDF 3, Sumatra PDF v3, Adobe Acrobat XI, FlexiPDF, DiffPDF, Converter PDF, WinPDFEditor';
 window.avoid += ', PDF Convert to, Foxit PhantomPDF, PDF Software, PDF Studio, PDF Recovery, To PDF, PDF Shaper, MuPDF, PDF Layout Changer';
 window.avoid += ', PDF Creator, PDF XChange, Flip PDF Corporate, PDF to, PDF Annotator, Infix Pdf, PDFelement, FlipBuilder Flip PDF';
-window.avoid += ', Nitro Pro, Remove PDF File Password';
+window.avoid += ', Nitro Pro, Remove PDF File Password, PdfEditor';
 window.avoid += '';
 /*
   /$$$$$$$  /$$                   /$$              
@@ -370,7 +352,7 @@ window.avoid += '';
 window.avoid += ', PhotoInstrument, Process Lasso, STOIK Stitch Creator, Ashampoo Photo, ArtRage, Drawpile, QuickImageComment';
 window.avoid += ', Photoshop Lightroom, Luxion KeyShot, PDF To Image, Photodex ProShow, DxO ViewPoint, SoftColor, PhotoEQ';
 window.avoid += ', Aha soft articons, Home Photo Studio, IDPhotoStudio, DxO FilmPack, Icon Software Collection';
-window.avoid += ', jixipix rip studio, Adobe Plugins, Any to icon, Aha Soft Icon, PicturesToExe, StPaint';
+window.avoid += ', jixipix rip studio, Adobe Plugins, Any to icon, Aha Soft Icon, PicturesToExe, StPaint, FantaMorph';
 window.avoid += ', CyberLink MakeupDirector, Blackmagic Design, ImageMagick, Corel PaintShop Pro, Icons8';
 window.avoid += ', QuarkXPress, Shotcut, Image Resizer, Digital Photo Suite, Photo SlideShow, PicPick, Slideshow Producer';
 window.avoid += ', Photo Pos Pro, Sad Cat Software, CollageIt, Photo Makeup, Movavi Slideshow Creator, Slideshow Creator';
@@ -444,7 +426,7 @@ window.avoid += ', AUMBI, Absolute USB MultiBoot Installer, EF Commander, FastCo
 window.avoid += ', System Tools for Windows, Q Dir, MyPC, Wise System Monitor, 3DP Chip, File Splitter, CrystalDiskMark';
 window.avoid += ', Ultimate Settings Panel, xplorer2, xplorerv2, MemInfo, Solid State Doctor, WhySoSlow';
 window.avoid += ', SpaceMan, Wise Folder Hider, CoreTemp, Process Monitor 3, Process Monitor v3, Partition Expert 4';
-window.avoid += ', SSD Z, CPU Z, HDD Z, Take Command 2, Take Command v, LookDisk, ExperienceIndexOK';
+window.avoid += ', SSD Z, CPU Z, HDD Z, Take Command 2, Take Command v, LookDisk, ExperienceIndexOK, easy2boot 1 8';
 window.avoid += ', AeroAdmin, Hidden Data Detector, CurrPorts v2, CurrPorts 2, Universal Extractor Gora';
 window.avoid += ', Golden Bow 9, Golden Bow 1, Golden Bow v, Universal Multiboot Installer, Wise Auto Shutdown';
 window.avoid += ', Microsoft Toolkit, Hardware Identify, PassMark MonitorTest, WinUSB, Unreal Commander';
@@ -452,7 +434,9 @@ window.avoid += ', NTLite, SysInfo Detector, FileVoyager, Clover 3, Autorun Ange
 window.avoid += ', Complete Internet Repair, Memtest, CPUBalance, ProcessThreadsView, nuePanel, HDDExpert';
 window.avoid += '';
 window.avoid += '';
-
+/* Unwanted softwares - BIOS */
+window.avoid += ', bios updater 1 65';
+window.avoid += '';
 /* Unwanted softwares - System GPU tuning */
 window.avoid += ', nvFlash, NVIDIA Inspector, GPU Caps Viewer, GPU Shark, GPU Z';
 window.avoid += '';
