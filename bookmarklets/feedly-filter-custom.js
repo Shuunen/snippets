@@ -29,7 +29,7 @@ window.avoid += '';
   / ___ \| | | | (_) | | | | |_| | | | | | | |/ /  __/ |   
  /_/   \_\_| |_|\___/|_| |_|\__, |_| |_| |_|_/___\___|_|   
                             |___/                          */
-window.avoid += ', Mask Surf Pro, Hide ALL IP 2016, Surf Anonymous Free, Mask My IP';
+window.avoid += ', Mask Surf Pro, Hide ALL IP 2016, Surf Anonymous Free, Mask My IP, Anon Proxy';
 window.avoid += ', Tor Browser Bundle, IP Hider Pro, Real Hide IP, Platinum Hide IP';
 window.avoid += ', Super Hide IP, Hide IP Easy, DoNotSpy10, Free Anonymous Proxy, Gather Proxy';
 window.avoid += '';
@@ -79,7 +79,7 @@ window.avoid += '';
   / ___ \| | | | |_| | | |  | | (_| | |\ V  V / (_| | | |  __/
  /_/   \_\_| |_|\__|_| |_|  |_|\__,_|_| \_/\_/ \__,_|_|  \___| */
 window.avoid += ', Zemana AntiMalware, Zemana Anti Malware, Malware Hunter, EMCO Malware, Malwarebytes Anti, RogueKiller';
-window.avoid += ', Ultra Virus Killer, UnHackMe, ComboFix, Malicious Software Removal Tool';
+window.avoid += ', Ultra Virus Killer, UnHackMe, ComboFix, Malicious Software Removal Tool, Spy Emergency';
 window.avoid += ', Sophos Clean, AntiRansomware';
 window.avoid += '';
 /*B___            _                
@@ -113,7 +113,7 @@ window.avoid += '';
  | |_) | |_| | |  | | | |  __/ |  \__ \
  |____/ \__,_|_|  |_| |_|\___|_|  |___/ */
 window.avoid += ', Burning Studio, BurnAware, Any Burn, Easy Disc Burner, Burn4Free, Nero Burning ROM, Nero Express';
-window.avoid += '';
+window.avoid += ', gBurner';
 window.avoid += '';
 /*C__   __   _  _  ____  ____   __  
  / __) / _\ ( \/ )(  __)(  _ \ / _\ 
@@ -141,7 +141,7 @@ window.avoid += ', Digital Clock, Animated Wallpaper Maker, FolderIco, AnyDesk, 
 window.avoid += ', Quick Macros, FileMenu Tools, DisplayFusion, MaxLauncher, BetterDesktopTool, Trigonometry Calculator, Start Menu';
 window.avoid += ', GTD Timer, Efofex, GetFolderSize, Family Tree Builder, Password Manager, TeamViewer, Remote Desktop Manager';
 window.avoid += ', Rename Master, Keyfinder, DeskSoft, Bandizip, WindowManager, WinBubble, Privacy Repairer, Win Toolkit';
-window.avoid += ', GetWindowText';
+window.avoid += ', GetWindowText, Bulk Rename, Comic Collector, grepWin, Parkdale, Registry Finder';
 window.avoid += '';
 window.avoid += '';
 /*____                      _                 _               
@@ -169,7 +169,7 @@ window.avoid += '';
 window.avoid += ', DriverEasy Professional 5, DriverPack, SnailDriver, Smart Driver Updater, Driver Talent Pro';
 window.avoid += ', Driver Booster Pro 4, Driver Booster Pro v4, Snail Driver, Driver Magician, TweakBit Driver';
 window.avoid += ', DriverMax, Ashampoo Driver Updater, Driver Navigator, Driver Updater, Driver Easy Professional 5';
-window.avoid += ', Driver Reviver';
+window.avoid += ', Driver Reviver, Driver Talent';
 window.avoid += '';
 /*______             _ _           _          __ _           _           
   |  _  \           | (_)         | |        / _(_)         | |          
@@ -180,7 +180,7 @@ window.avoid += '';
               | |                                                        
               |_|                                                        */
 window.avoid += ', Duplicate Finder, Auslogics Duplicate, Duplicate File Detective';
-window.avoid += ', Dup File Finder, CloneSpy';
+window.avoid += ', Dup File Finder, CloneSpy, AllDup';
 window.avoid += '';
 window.avoid += '';
 /*E    ____              _        
@@ -243,7 +243,7 @@ window.avoid += '';
   M  YM.P'  MM   ,pm9MM    MM    MM  
   M  `YM'   MM  8M   MM    MM    MM  
 .JML. `'  .JMML.`Moo9^Yo..JMML..JMML. */
-window.avoid += ', Postbox v, Mailbird Pro, Aid4Mail, FoxMail, TheBat';
+window.avoid += ', Postbox v, Mailbird Pro, Aid4Mail, FoxMail, TheBat, E Mail client, ForwardMail';
 window.avoid += '';
 /*__  __ _           _                       
  |  \/  (_)_ __   __| |_ __ ___   __ _ _ __  
@@ -258,10 +258,10 @@ window.avoid += '';
  |  \| |/ _ \ __\ \ /\ / / _ \| '__| |/ /
  | |\  |  __/ |_ \ V  V / (_) | |  |   < 
  |_| \_|\___|\__| \_/\_/ \___/|_|  |_|\_\ */
-window.avoid += ', NetWorx 5, NetWorx v5, ChrisPC DNS Switch, NeoRouter 2, NeoRouter v2, Wake On LAN, Speed Test';
+window.avoid += ', NetWorx 5, NetWorx v5, ChrisPC DNS Switch, NeoRouter 2, NeoRouter v2, Wake On LAN, Speed Test, Traffic Spy';
 window.avoid += ', NetSetMan, MyLanViewer 4, MyLanViewer v4, NxFilter, PortForward Network Utilities, Download Speed';
 window.avoid += ', Forward Network Utilities, NetStat Professional, x NetStat, Network Meter, The Dude, DNSCrypt, Firewall Notifier';
-window.avoid += '';
+window.avoid += ', Network Drive Control';
 window.avoid += '';
 /*O      _______                   _____                    _____          
         /::\    \                 /\    \                  /\    \         
@@ -336,7 +336,7 @@ window.avoid += ', wise care 365 pro v4, RegistryWizard, DLL Suite, DLL Care, Lo
 window.avoid += ', Destroy Windows, Solid State Doctor v3, WinUtilities, PGWare, System Mechanic';
 window.avoid += ', Registry First Aid, wise care 365 pro 4, TCP Optimizer, Ace Utilities, Free Disk Cleaner';
 window.avoid += ', Wise Memory Optimizer, Autorun Organizer, PC Decrapifier, Registry Utility, WSCC';
-window.avoid += ', Registry Life 3, Registry Life 4, Registry Life 5, Registry Life v, Smart PC';
+window.avoid += ', Registry Life 3, Registry Life 4, Registry Life 5, Registry Life v, Smart PC, Advanced SystemCare Ultimate';
 window.avoid += ', DLL Analyzer, ThrottleStop, Registry Manager, Hibernate Enable, Soft Cleaner';
 window.avoid += ', Ultimate Windows Tweaker v4, ccleaner professional business technician 5';
 window.avoid += ', 7 taskbar tweaker, Argente Autorun, Kerish Doctor, ScanMyReg, Auslogics BoostSpeed 9, Auslogics BoostSpeed v9';
@@ -371,21 +371,21 @@ window.avoid += ', PhotoInstrument, Process Lasso, STOIK Stitch Creator, Ashampo
 window.avoid += ', Photoshop Lightroom, Luxion KeyShot, PDF To Image, Photodex ProShow, DxO ViewPoint, SoftColor, PhotoEQ';
 window.avoid += ', Aha soft articons, Home Photo Studio, IDPhotoStudio, DxO FilmPack, Icon Software Collection';
 window.avoid += ', jixipix rip studio, Adobe Plugins, Any to icon, Aha Soft Icon, PicturesToExe, StPaint';
-window.avoid += ', CyberLink MakeupDirector, Blackmagic Design, ImageMagick, Corel PaintShop Pro';
+window.avoid += ', CyberLink MakeupDirector, Blackmagic Design, ImageMagick, Corel PaintShop Pro, Icons8';
 window.avoid += ', QuarkXPress, Shotcut, Image Resizer, Digital Photo Suite, Photo SlideShow, PicPick, Slideshow Producer';
 window.avoid += ', Photo Pos Pro, Sad Cat Software, CollageIt, Photo Makeup, Movavi Slideshow Creator, Slideshow Creator';
 window.avoid += ', Smith Micro Moho , Anime Studio, DxO ViewPoint 2, ConverSeen, Picture Collage Maker';
-window.avoid += ', LogoSmartz, Retouch Pilot, Screensaver Maker, Photo Date Changer, Daminion';
+window.avoid += ', LogoSmartz, Retouch Pilot, Screensaver Maker, Photo Date Changer, Daminion, ImBatch';
 window.avoid += ', PhotoDirector, Photoshop Elements, digiKam, PhotoDeduper, Franzis HDR, Franzis Pure';
 window.avoid += ', SmartAlbums, PixPlant 3, PixPlant v3, Alien Skin Exposure, Magic Particles 3D, PhotoLine';
 window.avoid += ', Just Color Picker, Artweaver, OpenCanvas, PT Photo Editor, SoftDigi Easy GIF, InPixio Photo eRaser';
 window.avoid += ', Paint Net 4, Paint Net v4, Krita v, Krita 3, FastStone Image Viewer, Slideshow Maker';
 window.avoid += ', Topaz Glow 2, Topaz Glow v2, TwistedBrush Pro, Serif PagePlus, Business Card Designer, Capture One Pro';
-window.avoid += ', Paint Pro v, Paint Pro, Indigo Renderer, iStripper, Autopano, Scarab Darkroom';
+window.avoid += ', Paint Pro v, Paint Pro, Indigo Renderer, iStripper, Autopano, Scarab Darkroom, WinTopo';
 window.avoid += ', DiaShow Studio, Sketch Drawer, JPEG Repair, XnRetro, OpenCanvas, Photo Studio, AKVIS';
 window.avoid += ', Smart Photo Import, Reallusion FaceFilter, Reallusion, Flash Gallery, Gallery creator';
 window.avoid += ', Adobe Photoshop, Affinity Photo, AutoCollage, Laughingbird Software, PhotoZoom Pro 7';
-window.avoid += ', Pictus, ViewCompanion, IrfanView 4, IrfanView v4, ACDSee, Desktop Ruler';
+window.avoid += ', Pictus, ViewCompanion, IrfanView 4, IrfanView v4, ACDSee, Desktop Ruler, GraphicsGale, Adobe Animate';
 window.avoid += ', XnView MP, XnView 2, XnConvert, Img Converter, PCL To Image, Photo Resizer, Any2Ico';
 window.avoid += '';
 /*R__   ___  __   __        ___  __      
@@ -404,7 +404,7 @@ window.avoid += '';
     \/_____/\/____/ \/_/ \/____/\/____/\/_/\/_/    \/_/ \/____/\/____/\/___/  \/_/ \/__,_ /\/____/ \/_/  */
 window.avoid += ', ShareX, Screenshot Studio, Ashampoo Snap, ScreenToGif, ZD Soft Screen Recorder, CaptureWizPro';
 window.avoid += ', apowersoft screen capture, ScreenGif, Screen Recorder Pro, StepShot';
-window.avoid += ', ScreenShooter, Gilisoft Screen, Screen GIF v2016, Screen GIF 2016, Honeycam 1';
+window.avoid += ', ScreenShooter, Gilisoft Screen, Screen GIF v2016, Screen GIF 2016, Honeycam 1, Android Recorder';
 window.avoid += '';
 /*
 8""""8                                       
@@ -426,7 +426,7 @@ window.avoid += ', KMSAuto Net, W10Privacy, Password Security Scanner, Nsauditor
 window.avoid += ', Wfp Tool, Windows Filtering Platform Tool, Multi OEM Retail, KMS Tools, VaultPasswordView, Fi Security';
 window.avoid += ', Secret Disk, Folder Lock, WebBrowserPassView, Panda Cloud Cleaner, KeePass, AAct, Windows License, Key Dump';
 window.avoid += ', RannohDecryptor, PWGen, KMS Server, KMSAuto Lite, PowerRun, Microsoft Safety Scanner, SX Antivirus';
-window.avoid += ', Recover Passwords, HostsMan';
+window.avoid += ', Recover Passwords, HostsMan, Checksum Control';
 window.avoid += '';
 
 /* Unwanted softwares - SEO */
@@ -462,7 +462,7 @@ window.avoid += '';
 |   ||   |||   |`---.|    ,---||    |    |---'|    
 `---'`   '``   '`---'`---'`---^`---'`---'`---'`     */
 window.avoid += ', IObit Uninstaller Pro 6, IObit Uninstaller Pro v6, Uninstall Tool v3, Uninstall Tool v4, Perfect Uninstaller';
-window.avoid += ', IObit Uninstaller 6, IObit Uninstaller v6, Argente Uninstall Programs, Special Uninstaller';
+window.avoid += ', IObit Uninstaller 6, IObit Uninstaller v6, Argente Uninstall Programs, Special Uninstaller, AppFalcon';
 window.avoid += ', Ashampoo Uninstaller, Total Uninstall Pro, Uninstall Tool 3, Uninstall Tool 4, BCUninstaller';
 window.avoid += ', Geek Uninstaller, Revo Uninstaller, GeekUninstaller, DoYourData Uninstaller, Max Uninstaller';
 window.avoid += '';
@@ -517,9 +517,9 @@ window.avoid += '';
 
 /* BD & Dvd related */
 window.avoid += ', DVD Copy, VSO ConvertXtoDVD, DVD Audio Extractor, DVD Creator, AVStoDVD, DVDInfo, DVD Converter, CloneDVD';
-window.avoid += ', DVDFab, DVDStyler, DVD Cloner, DVD Drive Repair, Dvd Ripper, Dvd video, Autoplay, BDMagic';
+window.avoid += ', DVDFab, DVDStyler, DVD Cloner, DVD Drive Repair, Dvd Ripper, Dvd video, Autoplay, BDMagic, DVD Slim, StaxRip';
 window.avoid += '';
-
+window.avoid += '';
 /*W_      __         __                                     __    
 /  \    /  \_____ _/  |_  ___________  _____ _____ _______|  | __
 \   \/\/   /\__  \\   __\/ __ \_  __ \/     \\__  \\_  __ \  |/ /
@@ -554,7 +554,7 @@ window.avoid += ', PeaZip, RazorSQL, Global Mapper, MAPC2MAPC, RadBuilder, dicti
 window.avoid += ', AutoDWG, Edraw Max, EdrawSoft, Checksum Verifier, WinZip, Update Switch';
 window.avoid += ', jPortable, GenoPro, Blender Foundation 3D, Blender 3D, SketchUp Pro, VariCAD, Corelcad';
 window.avoid += ', Supremo, git x86, SpeedCrunch, AutoCAD';
-window.avoid += ', WinRAR, PdfGrabber, QSetup';
+window.avoid += ', WinRAR, PdfGrabber, QSetup, SWF';
 window.avoid += ', nanDECK, Agelong Tree, Delcam PowerSHAPE';
 window.avoid += ', MicroSIP, winreducer ex 100 v0 9';
 window.avoid += ', Adobe AIR, JetAudio MediaCenter';
