@@ -152,39 +152,25 @@ install_if_needed "software-properties-common"
 
 if is_desktop ; then
 
-    app="seafile-gui"
-    if not_installed ${app} ; then
-        consoleSuccess "installing repo for ${app}"
-        sudo apt-add-repository 'deb http://ppa.launchpad.net/m.eik/seafile/ubuntu trusty main' -y >> ${logfile} 2>&1
-    fi
+    # app="seafile-gui"
+    # if not_installed ${app} ; then
+    #     consoleSuccess "installing repo for ${app}"
+    #     sudo apt-add-repository 'deb http://ppa.launchpad.net/m.eik/seafile/ubuntu trusty main' -y >> ${logfile} 2>&1
+    # fi
 
     app="gedit-developer-plugins"
     if not_installed ${app} ; then
         consoleSuccess "installing repo for ${app}"
-        sudo apt-add-repository 'deb http://ppa.launchpad.net/sinzui/ppa/ubuntu trusty main' -y >> ${logfile} 2>&1
+        sudo add-apt-repository ppa:sinzui/ppa -y >> ${logfile} 2>&1
     fi
      
     app="fluxgui"
     if not_installed ${app} ; then
         consoleSuccess "installing repo for ${app}"
-        sudo apt-add-repository 'deb http://ppa.launchpad.net/kilian/f.lux/ubuntu trusty main' -y >> ${logfile} 2>&1
-    fi
-
-    app="dockbarx"
-    if not_installed ${app} ; then
-        consoleSuccess "installing repo for ${app}"
-        sudo apt-add-repository 'deb http://ppa.launchpad.net/dockbar-main/ppa/ubuntu trusty main' -y >> ${logfile} 2>&1
+        sudo add-apt-repository ppa:nathan-renniewaldock/flux -y >> ${logfile} 2>&1
     fi
 
 fi
-
-# screenfetch is a kikoo login ascii art
-app="screenfetch"
-if not_installed ${app} ; then
-    consoleSuccess "installing repo for ${app}"
-    sudo apt-add-repository 'deb http://ppa.launchpad.net/djcj/screenfetch/ubuntu vivid main' -y >> ${logfile} 2>&1
-fi
-
 
 
 #  ██╗   ██╗██████╗ ██████╗  █████╗ ████████╗███████╗
@@ -247,32 +233,6 @@ fi
 
 # nvm, node & npm
 #app="nvm"
-#path="$NVM_DIR"
-#pathsize=$(echo ${#path})
-#if [ $pathsize -gt 1 ] ; then
-#    consoleSuccess "${app} was already installed"
-#else
-#    sudo apt-get install build-essential libssl-dev -y
-#    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.29.0/install.sh | bash
-#    source ~/.profile
-#    nvm ls-remote # list availables version downloadable
-#    nvm install node # install more recent
-#    nvm use node # use it
-#    echo "nvm use node" >> ~/.bashrc # use it at each login
-#    nvm ls # list availables version locally installed
-#    node -v # show node version
-#    npm -v # show npm version
-    
-#    path="$NVM_DIR"
-#    pathsize=$(echo ${#path})
-#    if [ $pathsize -gt 1 ] ; then
-#        consoleLog ${app}
-#    else
-#        consoleError ${app}
-#    fi
-#fi
-
-
 
 #  ██████╗ ███████╗███████╗██╗  ██╗████████╗ ██████╗ ██████╗ 
 #  ██╔══██╗██╔════╝██╔════╝██║ ██╔╝╚══██╔══╝██╔═══██╗██╔══██╗
@@ -305,20 +265,10 @@ install_if_needed "vlc"
 install_if_needed "gparted"
 
 # seafile
-install_if_needed "seafile-gui"
+# install_if_needed "seafile-gui"
 
 # flux
 install_if_needed "fluxgui"
-
-# dockbarx
-app="dockbarx"
-if not_installed ${app} ; then
-    consoleSuccess "installing ${app}"
-    install_if_needed "dockbarx"
-    install_if_needed "dockbarx-themes-extra"
-    install_if_needed "xfce4-dockbarx-plugin"
-fi
-
 
 # reload bash
 bash
