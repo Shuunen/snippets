@@ -91,7 +91,7 @@ window.avoid += '';
 window.avoid += ', CloneZilla, CloneApp, Personal Backup, BestSync, Backup and Recovery, SyncBackPro, Syncovery';
 window.avoid += ', XXCLONE, AnyToISO, WinToHDD, Registry Backup, BackUp Maker, Iperius Backup';
 window.avoid += ', TeamDrive, Iperius Backup, Drive Image Backup';
-window.avoid += ', R-Drive Image, SyncFolders, Backupper';
+window.avoid += ', R-Drive Image, SyncFolders, Backupper, ISOburn';
 window.avoid += ', AOMEI Backupper, Backupper Technician, KLS Backup, Restorer Ultimate, IsoBuster';
 window.avoid += '';
 /*____                                      
@@ -142,7 +142,8 @@ window.avoid += ', Quick Macros, FileMenu Tools, DisplayFusion, MaxLauncher, Bet
 window.avoid += ', GTD Timer, Efofex, GetFolderSize, Family Tree Builder, Password Manager, TeamViewer, Remote Desktop Manager';
 window.avoid += ', Rename Master, Keyfinder, DeskSoft, Bandizip, WindowManager, WinBubble, Privacy Repairer, Win Toolkit';
 window.avoid += ', GetWindowText, Bulk Rename, Comic Collector, grepWin, Parkdale, Registry Finder, Aura 2, Aura 3, Aura v';
-window.avoid += ', Sicyon, Calculator, ConvertAll, rpCalc, SearchMyFiles, File Attribute Changer';
+window.avoid += ', Sicyon, Calculator, ConvertAll, rpCalc, SearchMyFiles, File Attribute Changer, TeraCopy';
+window.avoid += ', Total HTML Converter, Interactive Calendar, Winstep Nexus Ultimate';
 window.avoid += '';
 /*____                      _                 _               
  |  _ \  _____      ___ __ | | ___   __ _  __| | ___ _ __ ___ 
@@ -461,7 +462,7 @@ window.avoid += '';
  */
 
 /* Various */
-window.avoid += ', MKV Buddy, OhSoft oCam, iFun Video, madVR, HUPlayer, Codec Tweak';
+window.avoid += ', MKV Buddy, OhSoft oCam, iFun Video, madVR, HUPlayer, Codec Tweak, Video Enhancement';
 window.avoid += ', 4videosoft mxf, Tipard Video, MKVToolNix';
 window.avoid += ', Tipard Blu, Adobe After Effects, XviD4PSP, AquaSoft SlideShow';
 window.avoid += ', GOM Media Player, Softwares PhotoToFilm, XRecode II, Pavtube ByteCopy';
