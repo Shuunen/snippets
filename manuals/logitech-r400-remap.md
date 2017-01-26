@@ -51,19 +51,27 @@ Now that we have input codes let's have a look at udev conf :
 ```
 sudo gedit /lib/udev/hwdb.d/60-keyboard.hwdb
 ```
-Search for "R400" and replace *presentation* & *displaytoggle* by what you want, here *up* & *down* arrow keys :
+Search for "R400" and replace *presentation* & *displaytoggle* by what you want, here *save* & *eject* arrow keys :
 ```
 # Logitech Presenter R400
 evdev:input:b0003v046DpC52D*
- KEYBOARD_KEY_07003e=up      # was "presentation"
- KEYBOARD_KEY_070029=up      # was "presentation"
- KEYBOARD_KEY_070037=down    # was "displaytoggle"
+ KEYBOARD_KEY_070029=save      # bottom  left [>] was "presentation"
+ KEYBOARD_KEY_07003e=save      # bottom  left [>] was "presentation"
+ KEYBOARD_KEY_070037=eject     # bottom right [ ] was "displaytoggle"
 ```
 As previously noted, because 07003e & 070029 are the same button, I gaved them the same output *up* key.
 The 7004b & 7004e does not appears here by default, maybe because they are native PAGEUP & PAGEDOWN inputs and not related to "Logitech Presenter R400". Let's add them :
 ```
- KEYBOARD_KEY_07004b=left   # freshly added
- KEYBOARD_KEY_07004e=right  # freshly added
+ KEYBOARD_KEY_07004b=playpause #    top  left  <
+ KEYBOARD_KEY_07004e=nextsong  #    top right  >
+```
+Here is my final conf : 
+```
+ KEYBOARD_KEY_07004b=playpause #    top  left  <
+ KEYBOARD_KEY_07004e=nextsong  #    top right  >
+ KEYBOARD_KEY_070029=save      # bottom  left [>] was "presentation"
+ KEYBOARD_KEY_07003e=save      # bottom  left [>] was "presentation"
+ KEYBOARD_KEY_070037=eject     # bottom right [ ] was "displaytoggle"
 ```
 
 ## 3. Reloading *(new)* rules
