@@ -31,11 +31,11 @@ Input driver version is 1.0.1
 Input device ID: bus 0x3 vendor 0x46d product 0xc52d version 0x111
 Input device name: "Logitech USB Receiver"
 ```
-Took the first "Logitech USB Receiver", here he has **event id 9**.
+Took the first "Logitech USB Receiver", here it has **event id 9**.
 ```
 Testing ... (interrupt to exit)
 ```
-Ok now evtest wants inputs, just click on the logitech remote buttons, I got this (simplyfied) :
+Ok now evtest wants inputs, just click on the Logitech remote buttons, I got this (simplified) :
 ```
 [>] value 7003e (KEY_PRESENTATION)
 [>] value 70029 (KEY_PRESENTATION)
@@ -51,7 +51,7 @@ Now that we have input codes let's have a look at udev conf :
 ```
 sudo gedit /lib/udev/hwdb.d/60-keyboard.hwdb
 ```
-Search for "R400" and replace *presentation* & *displaytoggle* by what you want, here *up* & *down* arrow key :
+Search for "R400" and replace *presentation* & *displaytoggle* by what you want, here *up* & *down* arrow keys :
 ```
 # Logitech Presenter R400
 evdev:input:b0003v046DpC52D*
@@ -59,18 +59,18 @@ evdev:input:b0003v046DpC52D*
  KEYBOARD_KEY_070029=up      # was "presentation"
  KEYBOARD_KEY_070037=down    # was "displaytoggle"
 ```
-As previous note, because 07003e & 070029 are the same button, I gaved them the same output *up* key.
+As previously noted, because 07003e & 070029 are the same button, I gaved them the same output *up* key.
 The 7004b & 7004e does not appears here by default, maybe because they are native PAGEUP & PAGEDOWN inputs and not related to "Logitech Presenter R400". Let's add them :
 ```
  KEYBOARD_KEY_07004b=left   # freshly added
  KEYBOARD_KEY_07004e=right  # freshly added
 ```
 
-## 3. Re-loading *(new)* rules
+## 3. Reloading *(new)* rules
 ```
 sudo udevadm hwdb --update
 ```
-Then by using the same event id we choosed before, here **event id 9** :
+Then by using the same event id we chose before, here **event id 9** :
 ```
 sudo udevadm trigger /dev/input/event9
 ```
@@ -80,7 +80,7 @@ You can check this new mapping in browser for example :
 ```
 $('body').on('keydown', function(e){ console.log(e.key) })
 ```
-That gaved me :
+That gave me :
 ```
 [>] ArrowUp
 [ ] ArrowDown
