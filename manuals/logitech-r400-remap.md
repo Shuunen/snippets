@@ -43,7 +43,7 @@ Ok now evtest wants inputs, just click on the logitech remote buttons, I got thi
  <  value 7004b (KEY_PAGEUP)
  >  value 7004e (KEY_PAGEDOWN)
 ```
-Note 1 : I discovered after that clicking multiple times on [>] was giving 7003e then 70029 then 7003e etc...
+Note : I discovered after that clicking multiple times on [>] was giving 7003e then 70029 then 7003e etc... Don't know why.
 
 
 ## 2. Modifying udev conf
@@ -51,7 +51,7 @@ Now that we have input codes let's have a look at udev conf :
 ```
 sudo gedit /lib/udev/hwdb.d/60-keyboard.hwdb
 ```
-Search for "R400" and replace presentation & displaytoggle by what you want, here up & down arrow key :
+Search for "R400" and replace *presentation* & *displaytoggle* by what you want, here *up* & *down* arrow key :
 ```
 # Logitech Presenter R400
 evdev:input:b0003v046DpC52D*
@@ -59,10 +59,14 @@ evdev:input:b0003v046DpC52D*
  KEYBOARD_KEY_070029=up      # was "presentation"
  KEYBOARD_KEY_070037=down    # was "displaytoggle"
 ```
-Note 2 : Because 07003e & 070029 are the same button, I gaved them the same up key
-Note 3 : 7004b & 7004e does not appears here, maybe because they are native PAGEUP & PAGEDOWN inputs and not related to "Logitech Presenter R400"
+As previous note, because 07003e & 070029 are the same button, I gaved them the same output *up* key.
+The 7004b & 7004e does not appears here by default, maybe because they are native PAGEUP & PAGEDOWN inputs and not related to "Logitech Presenter R400". Let's add them :
+```
+ KEYBOARD_KEY_07004b=left   # freshly added
+ KEYBOARD_KEY_07004e=right  # freshly added
+```
 
-## 3. Loading new rules
+## 3. Re-loading *(new)* rules
 ```
 sudo udevadm hwdb --update
 ```
@@ -70,10 +74,18 @@ Then by using the same event id we choosed before, here **event id 9** :
 ```
 sudo udevadm trigger /dev/input/event9
 ```
-Here you go :)
+The end :)
+
 You can check this new mapping in browser for example :
 ```
 $('body').on('keydown', function(e){ console.log(e.key) })
+```
+That gaved me :
+```
+[>] ArrowUp
+[ ] ArrowDown
+ <  ArrowLeft
+ >  ArrowRight
 ```
 
 # TODO
@@ -101,9 +113,5 @@ We can see here that xev don't get keycode that are too high.
 xmodmap -e "keycode 112 = Left"
 xmodmap -e "keycode 117 = Right"
 ```
+I prefered setting this with udev to avoid using udev & xmodmap conf.
 
-## Failed temp changes with xmodmap
-```
-xmodmap -e "keycode 425 = Up"
-xmodmap -e "keycode 431 = Down"
-```
