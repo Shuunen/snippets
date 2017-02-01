@@ -21,7 +21,7 @@ window.avoid += ', NBA League, UEFA, Euro 2016, footballeur, supporters de foot,
 |  |  \     \     ||     ||     ||  |  |  |  |   |  | |  |  ||     |
 |__|__|\____|\____| \___/  \__,_||__|__|  |__|  |____||__|__||___,_|
                                                                     */
-window.avoid += ', QuickBooks';
+window.avoid += ', QuickBooks, PIA Professional';
 window.avoid += '';
 /*   _                                      _              
     / \   _ __   ___  _ __  _   _ _ __ ___ (_)_______ _ __ 
@@ -54,7 +54,7 @@ window.avoid += '';
   / ___ \ |_| | (_| | | (_) |
  /_/   \_\__,_|\__,_|_|\___/  */
 window.avoid += ', Foobar2000, DSpeech, Faasoft audio converter, zortam mp3, MP3 Skype Recorder, Atomix VirtualDJ, Easy Audio Mixer';
-window.avoid += ', gom audio, Pazera Audio Video, AudioGrail, Daum PotPlayer, Zulu DJ, Wave Editor, WavePad Sound';
+window.avoid += ', gom audio, Pazera Audio Video, AudioGrail, Daum PotPlayer, Zulu DJ, Wave Editor, WavePad Sound, Aria Maestosa';
 window.avoid += ', Sound Forge Pro, VLC Media Player 3, Virtual DJ, MAGIX Sound Forge Pro, MediaMonkey Gold, RadioSure';
 window.avoid += ', Audacious 3, Audacious 4, Audacious v3, Audacious v4, MAGIX Sound, Helium Music Manager, Tracktion';
 window.avoid += ', Capella Software, Tonica Fugata, Album Player, TagScanner, Composer System v, PlayTime 1, PlayTime 2, PlayTime v';
@@ -62,7 +62,8 @@ window.avoid += ', AIMP v, AIMP 4, AIMP 5, AIMP 6, Music Studio v, ACID Music St
 window.avoid += ', Exact Audio Copy, Helium Music Manager, LameXP, TapinRadio, WavePurity, Guitar Pro, MPV 0, MPV v, Pocket Radio Player';
 window.avoid += ', MixPad Master, NCH MixPad, Mp3 Stream Editor, Winlive, Mixcraft, Realstrat, Sound Recorder, Stream Recorder';
 window.avoid += ', Audio Restoration, Cool Record, Dopamine, EarMaster, PCDJ, CDex, Ringtone Maker, IRCAM Lab, CherryPlayer';
-window.avoid += '';
+window.avoid += ', RadioMaximus, Native Instruments, Traktor, DJ software, DJ feature, Sonic Visualiser, Deckadance';
+window.avoid += ', DJ mixing, VST compliant, Audials One, Audio Editor';
 window.avoid += '';
 /*   _                _      
     / \   _ __  _ __ | | ___ 
@@ -113,7 +114,7 @@ window.avoid += '';
  | |_) | |_| | |  | | | |  __/ |  \__ \
  |____/ \__,_|_|  |_| |_|\___|_|  |___/ */
 window.avoid += ', Burning Studio, BurnAware, Any Burn, Easy Disc Burner, Burn4Free, Nero Burning ROM, Nero Express';
-window.avoid += ', gBurner';
+window.avoid += ', gBurner, AVS Disc Creator';
 window.avoid += '';
 /*C__   __   _  _  ____  ____   __  
  / __) / _\ ( \/ )(  __)(  _ \ / _\ 
@@ -144,7 +145,7 @@ window.avoid += ', Rename Master, Keyfinder, DeskSoft, Bandizip, WindowManager, 
 window.avoid += ', GetWindowText, Bulk Rename, Comic Collector, grepWin, Parkdale, Registry Finder, Aura 2, Aura 3, Aura v';
 window.avoid += ', Sicyon, Calculator, ConvertAll, rpCalc, SearchMyFiles, File Attribute Changer, TeraCopy, Tag and Rename 3, Tag and Rename v3';
 window.avoid += ', Total HTML Converter, Interactive Calendar, Winstep Nexus Ultimate, MultiHasher, Bat To Exe Converter 2, Bat To Exe Converter v2';
-window.avoid += '';
+window.avoid += ', Library Manager, Clipdiary, WhatsMate';
 window.avoid += '';
 /*____                      _                 _               
  |  _ \  _____      ___ __ | | ___   __ _  __| | ___ _ __ ___ 
@@ -192,7 +193,7 @@ window.avoid += '';
   \___|____/ \___/ \___/|_|\_\___/ */
 window.avoid += ', Anthemion Jutoh, Kobo Converter, Calibre v2, Calibre 2, EPUB Checker, Anthemion';
 window.avoid += ', Asciidoc, ExtraChm, Flip PDF, K2pdfopt, ePub Designer, Adobe Digital Editions';
-window.avoid += '';
+window.avoid += ', FictionBook, Book Editor, eBook Editor';
 window.avoid += '';
 /*_____    _ _ _                 
  | ____|__| (_) |_ ___  _ __ ___ 
@@ -226,7 +227,7 @@ window.avoid += '';
  | |  _ / _` | '_ ` _ \ / _ \/ __|
  | |_| | (_| | | | | | |  __/\__ \
   \____|\__,_|_| |_| |_|\___||___/ */
-window.avoid += ', Overwatch, Hearthstone, Warhammer, Lucas Chess, Power Equilab, SolSuite';
+window.avoid += ', Overwatch, Hearthstone, Warhammer, Lucas Chess, Power Equilab, SolSuite, chevaliers de baphomet';
 window.avoid += '';
 window.avoid += '';
 /*H   _            _ _   _     
@@ -263,7 +264,7 @@ window.avoid += '';
 window.avoid += ', NetWorx 5, NetWorx v5, ChrisPC DNS Switch, NeoRouter 2, NeoRouter v2, Wake On LAN, Speed Test, Traffic Spy';
 window.avoid += ', NetSetMan, MyLanViewer 4, MyLanViewer v4, NxFilter, PortForward Network Utilities, Download Speed';
 window.avoid += ', Forward Network Utilities, NetStat Professional, x NetStat, Network Meter, The Dude, DNSCrypt, Firewall Notifier';
-window.avoid += ', Network Drive Control, MAC Address Changer, Who Is On My WiFi, Wifi Key View';
+window.avoid += ', Network Drive Control, MAC Address Changer, Who Is On My WiFi, Wifi Key View, Wireless Wizard';
 window.avoid += '';
 /*O
 OCR*/
@@ -299,8 +300,8 @@ window.avoid += ', QuickAccessPopup, FreeFileSync 8, FreeFileSync v8, Rename Us,
 window.avoid += ', Clipboard Master, 7 Zip v, Google Drive v, Google Drive 1, Google Drive 2';
 window.avoid += ', Mindjet MindManager, Help And Manual, Express Invoice, Babylon Pro, WindowsWord';
 window.avoid += ', CherryTree, Aml Pages, MyLifeOrganized, XPS To, PCL To';
-window.avoid += ', Phoenix Repair, Wise Force Deleter, Ron s Renamer';
-window.avoid += ', Document Converter, DBF Converter';
+window.avoid += ', Phoenix Repair, Wise Force Deleter, Ron s Renamer, Excel Files Converter';
+window.avoid += ', Document Converter, DBF Converter, PaperScan';
 window.avoid += '';
 window.avoid += '';
 /*______   .______   .___________. __  .___  ___.  __   ________   _______ .______      
@@ -310,7 +311,7 @@ window.avoid += '';
 |  `--'  | |  |          |  |     |  | |  |  |  | |  |   /  /----.|  |____ |  |\  \----.
  \______/  | _|          |__|     |__| |__|  |__| |__|  /________||_______|| _| `._____| */
 window.avoid += ', Easy Pc Optimizer, Auslogics Disk Defrag, Ashampoo HDD Control, IObit Smart Defrag, Registry Defrag';
-window.avoid += ', Glary Disk Cleaner, Glary Utilities Pro, Glarysoft Registry, Glary Tracks Eraser';
+window.avoid += ', Glary Disk Cleaner, Glary Utilities Pro, Glarysoft Registry, Glary Tracks Eraser, Browsers Memory';
 window.avoid += ', Supercopier, MiTeC System, Reg Organizer, windows repair pro, MPC Cleaner, MPC AdCleaner';
 window.avoid += ', Auslogics Browser Care, FileOptimizer, ReviverSoft Registry, System Ninja, CheckDrive';
 window.avoid += ', Abelssoft GoogleClean, CCleaner 5, CCleaner Professional Plus 5, CCleaner Professional Plus v5, Wise Disk Cleaner';
@@ -340,7 +341,7 @@ window.avoid += '';
 window.avoid += ', WinScan2PDF, PDF MultiTool, Sumatra PDF 3, Sumatra PDF v3, Adobe Acrobat XI, FlexiPDF, DiffPDF, Converter PDF, WinPDFEditor';
 window.avoid += ', PDF Convert to, Foxit PhantomPDF, PDF Software, PDF Studio, PDF Recovery, To PDF, PDF Shaper, MuPDF, PDF Layout Changer';
 window.avoid += ', PDF Creator, PDF XChange, Flip PDF Corporate, PDF to, PDF Annotator, Infix Pdf, PDFelement, FlipBuilder Flip PDF';
-window.avoid += ', Nitro Pro, Remove PDF File Password, PdfEditor, PDF Stamper';
+window.avoid += ', Nitro Pro, Remove PDF File Password, PdfEditor, PDF Stamper, PDF Encryption, PDF Reader, Adobe Acrobat, Acrobat Pro';
 window.avoid += '';
 /*
   /$$$$$$$  /$$                   /$$              
@@ -359,25 +360,25 @@ window.avoid += ', CyberLink MakeupDirector, Blackmagic Design, ImageMagick, Cor
 window.avoid += ', QuarkXPress, Shotcut, Image Resizer, Digital Photo Suite, Photo SlideShow, PicPick, Slideshow Producer';
 window.avoid += ', Photo Pos Pro, Sad Cat Software, CollageIt, Photo Makeup, Movavi Slideshow Creator, Slideshow Creator';
 window.avoid += ', Smith Micro Moho , Anime Studio, DxO ViewPoint 2, ConverSeen, Picture Collage Maker, Wordaizer';
-window.avoid += ', LogoSmartz, Retouch Pilot, Screensaver Maker, Photo Date Changer, Daminion, ImBatch';
+window.avoid += ', LogoSmartz, Retouch Pilot, Screensaver Maker, Photo Date Changer, Daminion, ImBatch, Photo Unblur';
 window.avoid += ', PhotoDirector, Photoshop Elements, digiKam, PhotoDeduper, Franzis HDR, Franzis Pure';
 window.avoid += ', SmartAlbums, PixPlant 3, PixPlant v3, Alien Skin Exposure, Magic Particles 3D, PhotoLine';
 window.avoid += ', Just Color Picker, Artweaver, OpenCanvas, PT Photo Editor, SoftDigi Easy GIF, InPixio Photo eRaser';
 window.avoid += ', Paint Net 4, Paint Net v4, Krita v, Krita 3, FastStone Image Viewer, Slideshow Maker';
 window.avoid += ', Topaz Glow 2, Topaz Glow v2, TwistedBrush Pro, Serif PagePlus, Business Card Designer, Capture One Pro';
 window.avoid += ', Paint Pro v, Paint Pro, Indigo Renderer, iStripper, Autopano, Scarab Darkroom, WinTopo';
-window.avoid += ', DiaShow Studio, Sketch Drawer, JPEG Repair, XnRetro, OpenCanvas, Photo Studio, AKVIS';
-window.avoid += ', Smart Photo Import, Reallusion FaceFilter, Reallusion, Flash Gallery, Gallery creator';
-window.avoid += ', Adobe Photoshop, Affinity Photo, AutoCollage, Laughingbird Software, PhotoZoom Pro 7';
+window.avoid += ', DiaShow Studio, Sketch Drawer, JPEG Repair, XnRetro, OpenCanvas, Photo Studio, AKVIS, Image Converter';
+window.avoid += ', Smart Photo Import, Reallusion FaceFilter, Reallusion, Flash Gallery, Gallery creator, FastStone MaxView';
+window.avoid += ', Adobe Photoshop, Affinity Photo, AutoCollage, Laughingbird Software, PhotoZoom Pro 7, NCH PhotoPad, Image Editor';
 window.avoid += ', Pictus, ViewCompanion, IrfanView 4, IrfanView v4, ACDSee, Desktop Ruler, GraphicsGale, Adobe Animate';
-window.avoid += ', XnView MP, XnView 2, XnConvert, Img Converter, PCL To Image, Photo Resizer, Any2Ico';
+window.avoid += ', XnView MP, XnView 2, XnConvert, Img Converter, PCL To Image, Photo Resizer, Any2Ico, Photo Editor';
 window.avoid += '';
 /*R__   ___  __   __        ___  __      
   |__) |__  /  ` /  \ \  / |__  |__) \ / 
   |  \ |___ \__, \__/  \/  |___ |  \  |  */
 window.avoid += ', Data Recovery, Photo Recovery, Video Recovery, Audio Recovery, RecoverBits, Ultimate Boot CD, Dr  Recovery';
 window.avoid += ', EasyRecovery, ShowKeyPlus, Disk Drill Professional, recALL, KeyLock, KeyLock USB Locker, Farbar Recovery, RescuePRO';
-window.avoid += ', File Recovery';
+window.avoid += ', File Recovery, Recovery Suite';
 window.avoid += '';
 /*S___                                                                               __                  
 /\  _`\                                                                            /\ \                 
@@ -410,7 +411,7 @@ window.avoid += ', KMSAuto Net, W10Privacy, Password Security Scanner, Nsauditor
 window.avoid += ', Wfp Tool, Windows Filtering Platform Tool, Multi OEM Retail, KMS Tools, VaultPasswordView, Fi Security';
 window.avoid += ', Secret Disk, Folder Lock, WebBrowserPassView, Panda Cloud Cleaner, KeePass, AAct, Windows License, Key Dump';
 window.avoid += ', RannohDecryptor, PWGen, KMS Server, KMSAuto Lite, PowerRun, Microsoft Safety Scanner, SX Antivirus';
-window.avoid += ', Recover Passwords, HostsMan, Checksum Control, Smadav';
+window.avoid += ', Recover Passwords, HostsMan, Checksum Control, Smadav, Wireless Protector';
 window.avoid += '';
 
 /* Unwanted softwares - SEO */
@@ -433,7 +434,7 @@ window.avoid += ', AeroAdmin, Hidden Data Detector, CurrPorts v2, CurrPorts 2, U
 window.avoid += ', Golden Bow 9, Golden Bow 1, Golden Bow v, Universal Multiboot Installer, Wise Auto Shutdown';
 window.avoid += ', Microsoft Toolkit, Hardware Identify, PassMark MonitorTest, WinUSB, Unreal Commander';
 window.avoid += ', NTLite, SysInfo Detector, FileVoyager, Clover 3, Autorun Angel, AIO Boot, DocFetcher, Core Temp';
-window.avoid += ', Complete Internet Repair, Memtest, CPUBalance, ProcessThreadsView, nuePanel, HDDExpert';
+window.avoid += ', Complete Internet Repair, Memtest, CPUBalance, ProcessThreadsView, nuePanel, HDDExpert, HardInfo';
 window.avoid += '';
 window.avoid += '';
 /* Unwanted softwares - BIOS */
@@ -464,8 +465,8 @@ window.avoid += '';
 
 /* Various */
 window.avoid += ', MKV Buddy, OhSoft oCam, iFun Video, madVR, HUPlayer, Codec Tweak, Video Enhancement';
-window.avoid += ', 4videosoft mxf, Tipard Video, MKVToolNix';
-window.avoid += ', Tipard Blu, Adobe After Effects, XviD4PSP, AquaSoft SlideShow';
+window.avoid += ', 4videosoft mxf, Tipard Video, MKVToolNix, Video Updater, Videonizer';
+window.avoid += ', Tipard Blu, Adobe After Effects, XviD4PSP, AquaSoft SlideShow, MediaInfo';
 window.avoid += ', GOM Media Player, Softwares PhotoToFilm, XRecode II, Pavtube ByteCopy';
 window.avoid += ', oCam, Adobe Premiere Pro, CloneBD, XMedia Recode';
 window.avoid += ', Media Player Classic, TEncoder Video, Zoom Player, Magix Movie';
@@ -483,7 +484,7 @@ window.avoid += '';
 /* Converters */
 window.avoid += ', Video Converter, 4K Converter, MXF Converter';
 window.avoid += ', Xilisoft HD, Xilisoft Video, Total Media Converter, MTS Converter';
-window.avoid += ', FormatFactory, Media Converter, Video to GIF';
+window.avoid += ', FormatFactory, Media Converter, Video to GIF, Frame Rate Converter';
 window.avoid += '';
 
 /* Editors */
@@ -492,19 +493,19 @@ window.avoid += ', Video Enhancer, LosslessCut';
 window.avoid += '';
 
 /* Repair */
-window.avoid += ', Video Repair';
+window.avoid += ', Video Repair, Media Doctor';
 window.avoid += '';
 
 /* Makers */
 window.avoid += ', Video Booth, Tweak Software RV, x265 launcher, MakeMKV, PhotoToFilm';
 window.avoid += ', Tanida Demo Builder, BluffTitler, CrazyTalk Animator, GIF Movie Gear';
-window.avoid += ', Wondershare Filmora, ActivePresenter, Light Alloy';
+window.avoid += ', Wondershare Filmora, ActivePresenter, Light Alloy, Video Image Master';
 window.avoid += '';
 
 /* BD & Dvd related */
 window.avoid += ', DVD Copy, VSO ConvertXtoDVD, DVD Audio Extractor, DVD Creator, AVStoDVD, DVDInfo, DVD Converter, CloneDVD';
 window.avoid += ', DVDFab, DVDStyler, DVD Cloner, DVD Drive Repair, Dvd Ripper, Dvd video, Autoplay, BDMagic, DVD Slim, StaxRip';
-window.avoid += ', Cover Editor';
+window.avoid += ', Cover Editor, DVD Maker';
 window.avoid += '';
 /*W_      __         __                                     __    
 /  \    /  \_____ _/  |_  ___________  _____ _____ _______|  | __
@@ -539,12 +540,12 @@ window.avoid += ', FireAlpaca, Amira, energyXT, VirtualBox 5, dbMigration, Tools
 window.avoid += ', PeaZip, RazorSQL, Global Mapper, MAPC2MAPC, RadBuilder, dictionary net, Sisulizer';
 window.avoid += ', AutoDWG, Edraw Max, EdrawSoft, Checksum Verifier, WinZip, Update Switch';
 window.avoid += ', jPortable, GenoPro, Blender Foundation 3D, Blender 3D, SketchUp Pro, VariCAD, Corelcad';
-window.avoid += ', Supremo, git x86, SpeedCrunch, AutoCAD';
-window.avoid += ', WinRAR, PdfGrabber, QSetup, SWF';
+window.avoid += ', Supremo, git x86, SpeedCrunch, AutoCAD, Proteus';
+window.avoid += ', WinRAR, PdfGrabber, QSetup, SWF, SSE Setup';
 window.avoid += ', nanDECK, Agelong Tree, Delcam PowerSHAPE';
-window.avoid += ', MicroSIP, winreducer ex 100 v0 9';
+window.avoid += ', MicroSIP, winreducer ex 100 v0 9, New Utilities';
 window.avoid += ', Adobe AIR, JetAudio MediaCenter, GPSMapEdit';
-window.avoid += ', Stellarium, Materialise Magics';
+window.avoid += ', Stellarium, Materialise Magics, DXF Converter, DWG Converter';
 window.avoid += ', Project Dogwaffle, YL Mail Man';
 window.avoid += ', Articulate Storyline, Outertech Linkman';
 window.avoid += ', Ghostpress, Database NET, mIRC, Weather Pro';
@@ -587,7 +588,7 @@ window.avoid += '';
 window.avoid += ', batterie externe, xbox one, CDiscount, Certification, Smartphone 5, Chaussures Adidas, Zalando';
 window.avoid += ', Console Sony PS4, Cable Lightning, Chaussures Reebok, Ghacks Deals, Enceinte bluetooth';
 window.avoid += ', glace au choix, sur PS4, Console Nintendo, Ecouteurs intra auriculaires';
-window.avoid += ', coffret blu ray, coffret dvd, sur Xbox 360, chaussures nike';
+window.avoid += ', coffret blu ray, coffret dvd, sur Xbox 360, chaussures nike, echantillon de parfum';
 window.avoid += ', League Pass';
 window.avoid += '';
 window.avoid += '';
