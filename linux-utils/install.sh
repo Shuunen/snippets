@@ -180,8 +180,9 @@ fi
 #  ╚██████╔╝██║     ██████╔╝██║  ██║   ██║   ███████╗
 #   ╚═════╝ ╚═╝     ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝
 
+consoleLog "updating apt repositories..."
 sudo apt update >> ${logfile} 2>&1
-
+consoleLog "update apt complete !"
 
 
 
