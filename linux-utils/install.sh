@@ -51,7 +51,7 @@ function consoleSuccess {
 
 function install_if_needed {
     if not_installed "$1"; then
-        sudo apt-get install "$1" -y >> ${logfile} 2>&1
+        sudo apt install "$1" -y >> ${logfile} 2>&1
         check_install "$1"
     else
         consoleLog "$1 was already installed"
@@ -132,7 +132,7 @@ fi
 if is_desktop ; then
     consoleLog "desktop detected"
     # remove useless stuff
-    sudo apt-get remove -y thunderbir* gnome-conta* libreoffice* xul-ext-ubufo* xul-ext-uni* xul-ext-webaccoun* unity-scope-gdriv* brasero-cd* rhythmbo* landscape-clien* unity-webapps-commo* >> ${logfile} 2>&1
+    sudo apt remove -y thunderbir* gnome-conta* libreoffice* xul-ext-ubufo* xul-ext-uni* xul-ext-webaccoun* unity-scope-gdriv* brasero-cd* rhythmbo* landscape-clien* unity-webapps-commo* >> ${logfile} 2>&1
 else
     consoleLog "headless server detected"    
 fi
@@ -180,7 +180,7 @@ fi
 #  ╚██████╔╝██║     ██████╔╝██║  ██║   ██║   ███████╗
 #   ╚═════╝ ╚═╝     ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝
 
-sudo apt-get update >> ${logfile} 2>&1
+sudo apt update >> ${logfile} 2>&1
 
 
 
@@ -213,6 +213,9 @@ install_if_needed "pydf"
 # great downloader
 install_if_needed "aria2"
 
+# good for measuring disk speed
+install_if_needed "hdparm"
+
 # screenfetch is a kikoo login ascii art
 install_if_needed "screenfetch"
 
@@ -222,7 +225,7 @@ install_if_needed "pm-utils"
 # git
 app="git"
 if not_installed ${app} ; then
-    sudo apt-get install git -y >> ${logfile} 2>&1
+    sudo apt install git -y >> ${logfile} 2>&1
     git config --global push.default simple
     git config --global credential.helper cache
     git config --global credential.helper 'cache --timeout=360000'
