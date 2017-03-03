@@ -81,7 +81,7 @@ var markExcludedAsRead = function () {
     if (subtitle) {
         title = subtitle;
     }
-    var suffix = '(filtered)';
+    var suffix = ' (filtered)';
     if (title.firstChild.textContent.trim().length !== 0) {
         if (title.firstChild.textContent.indexOf(suffix) === -1) {
             title.firstChild.textContent += suffix;
@@ -133,7 +133,7 @@ var listenForAjaxRequest = function (callback) {
     XMLHttpRequest.prototype.send = function () {
         var original = this.onreadystatechange;
         this.onreadystatechange = function () {
-            if (this.readyState === 4) {
+            if (this.readyState === 4 && this.response && this.response[0] === '{') {
                 // delay a bit the callback execution
                 setTimeout(callback, 200);
             }

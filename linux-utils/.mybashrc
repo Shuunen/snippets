@@ -5,7 +5,7 @@ alias grep='grep --color'
 alias cdproj='cd $PROJECTS_DIR'
 alias service='sudo /usr/sbin/service'
 alias reloadMyBashRc='source .mybashrc'
-alias install='sudo apt-get install'
+alias install='sudo apt install'
 alias search='sudo apt-cache search'
 
 # thanks http://www.digitalocean.com/community/tutorials/an-introduction-to-useful-bash-aliases-and-functions
@@ -20,11 +20,11 @@ alias diskusage='pydf'
 alias whatsmyip='curl http://ipecho.net/plain; echo'
 
 # thanks http://www.cyberciti.biz/tips/bash-aliases-mac-centos-linux-unix.html
-alias apt-get='sudo apt-get'
+alias apt='sudo apt'
 alias reboot='sudo reboot'
 alias restart='sudo reboot'
-alias update='sudo apt-get update'
-alias upgrade='sudo apt-get upgrade'
+alias update='sudo apt update'
+alias upgrade='sudo apt upgrade'
 alias today='date +"Today is %A %d %B %Y (%Y-%m-%d) and it is %H:%M %p"'
 
 # thanks http://durdn.com/blog/2012/11/22/must-have-git-aliases-advanced-examples/
