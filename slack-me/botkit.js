@@ -2,6 +2,13 @@ var Botkit = require('botkit');
 var _ = require('underscore');
 var Chance = require('chance');
 var chance = new Chance();
+var fs = require('fs');
+var token = fs.readFileSync('./token.conf', 'utf8');
+
+if(!token){
+console.log('please set a slack token in a token.conf file');
+return;
+}
 
 var controller = Botkit.slackbot({
   debug: false
@@ -11,7 +18,7 @@ var controller = Botkit.slackbot({
 
 // connect the bot to a stream of messages
 controller.spawn({
-  token: 'xoxb-149292450722-G1qd04bgAdhDqewtDPlKYgM6',
+  token: token,
 }).startRTM()
 
 var pick = function(arr){

@@ -1,7 +1,7 @@
 const BroidSlack = require('broid-slack');
 
 const slack = new BroidSlack({
-  token: 'xoxb-149292450722-G1qd04bgAdhDqewtDPlKYgM6'
+  token: 'MY-TOKEN'
 });
 
 slack.connect()
