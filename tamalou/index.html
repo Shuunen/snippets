@@ -1,0 +1,113 @@
+<html>
+
+<head></head>
+
+<body>
+
+    <style>
+        html * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            text-align: center;
+            padding-top: 20px;
+            font-family: sans-serif;
+        }
+        
+        .banner {
+            width: 100%;
+            padding: 10px;
+            background-color: cadetblue;
+        }
+        
+        .banner svg {
+            fill: cadetblue;
+            background-color: snow;
+        }
+        
+        .active {
+            background-color: lightblue;
+        }
+        
+        button {
+            border-radius: 3px;
+            border: none;
+            padding: 5px 10px;
+            box-shadow: 2px 2px 1px;
+            cursor: pointer;
+            transition: .3s all;
+            outline: none;
+        }
+        
+        button:hover {
+            background-color: snow;
+            box-shadow: 1px 1px 1px;
+        }
+        
+        button+button {
+            margin-left: 10px;
+        }
+        
+        hr {
+            margin-top: 20px;
+            margin-bottom: 20px;
+            width: 100px;
+        }
+        
+        pre {
+            text-align: left;
+            width: 50%;
+            float: left;
+            padding-left: 10%;
+        }
+    </style>
+
+    <div id="app">
+        <div class="banner">
+            <svg height="150" viewbox="0 0 8130 3990">
+                <use xlink:href="logo.svg#logo"></use>
+            </svg>
+        </div>
+        <hr>
+        <button v-for="(profile, key) in profiles" v-on:click="activeProfile = key" v-bind:class="{ active: activeProfile === key }">{{ profile.name }}</button>
+        <hr>
+        <button v-for="counter in counters" v-on:click="profiles[activeProfile].counters[counter] += 1">{{ counter }}</button>
+        <hr>
+        <pre v-for="profile in profiles">{{ profile }}</pre>
+    </div>
+
+    <script src="https://unpkg.com/vue"></script>
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                profiles: {
+                    romain: {
+                        name: 'Romain Racamier-Lafon',
+                        counters: {
+                            head: 0,
+                            body: 0,
+                            foot: 0
+                        }
+                    },
+                    juliane: {
+                        name: 'Juliane Christen',
+                        counters: {
+                            head: 0,
+                            body: 0,
+                            foot: 0
+                        }
+                    },
+                },
+                counters: ['head', 'body', 'foot'],
+                activeProfile: 'romain'
+            }
+        })
+    </script>
+
+
+
+</body>
+
+</html>
