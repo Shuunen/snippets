@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "http-server -p 80"
+    "start": "json-server --watch db.json  --static . --port 80"
   },
   "author": "",
   "license": "AGPL-3.0"
