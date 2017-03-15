@@ -1,0 +1,11 @@
+{
+  "name": "tamalou",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "json-server --watch db.json  --static . --port 80"
+  },
+  "author": "",
+  "license": "AGPL-3.0"
+}
