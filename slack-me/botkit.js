@@ -24,7 +24,7 @@ controller.spawn({
     token: token,
 }).startRTM()
 
-var pick = function(arr) {
+var pick = function (arr) {
     //    return chance.pickone(arr);
     return shuffle(arr)[0];
 };
@@ -32,13 +32,15 @@ var pick = function(arr) {
 var userIdToName = {
     'U0760C9CL': ['romain', 'rom1', 'rominou'],
     'U21PGPWE9': ['romain 1'],
+    'U0YBJJB0B': ['léo', 'lé0', 'lEyyO'],
+    'U0AMSTYCB': ['bertrand', 'bertr@nd', 'b€rtraN'],
     'U23HBPVB2': ['floris', 'fl0r1s'],
     'U1Y7HMH1Q': ['popo', 'pauline', 'p0l1ne', 'popoPO', 'paulAYYine'],
     'U0EQPACE6': ['flo', 'gouy gouy', 'florian', 'fl0 le chaud'],
     'U0YCZU9MY': ['benJ', 'ben', 'benjam1', 'ben le ouf']
 };
 
-var userFromId = function(userId) {
+var userFromId = function (userId) {
     if (_.has(userIdToName, userId)) {
         return pick(userIdToName[userId]);
     } else {
@@ -50,17 +52,17 @@ var userFromId = function(userId) {
 var endToArr = ['bro', 'bro\'', 'broow', '', 'broo', 'broOo', 'br0', '', 'ma couille', 'soss\'', 'mon ami', 'la véritayy', 'zbraaa'];
 var endPuncArr = ['!', '\\o/', '!', '', ''];
 var endSmileyyArr = [':stuck_out_tongue:', ':p', ':)', ' ', ' ', ':smile:', ':sunglasses:', ':grin:', ':clap:'];
-var end = function() {
+var end = function () {
     lastReply = timestamp();
     return ' ' + pick(endToArr) + ' ' + pick(endPuncArr) + ' ' + pick(endSmileyyArr);
 }
 
 var speakDude = ['lache ton flow _N_', 'aller on écoute _N_', 'attention _N_ va parleyy', '', '_N_ la sainte parole', 'chut on écoute _N_ !', '_N_ est en train de tapayyy', '_N_ le grand frêre', 'encore _N_ qui nous déballe sa vie', '3615 la vie de _N_', '_N_ est tro inspirayy'];
 var goDude = ['allay', 'trop bon', 'haa-ha', 'go', 'fait pas ton timide', ' ', 'c\'mon dude !'];
-var dudeWillSpeak = function(userName) {
+var dudeWillSpeak = function (userName) {
     return pick(speakDude).replace('_N_', userName) + ' ' + pick(goDude) + ' ' + pick(endSmileyyArr);
 };
-var timestamp = function() {
+var timestamp = function () {
     return Math.round(Date.now() / 1000);
 };
 
@@ -71,28 +73,28 @@ var lastReply = timestamp();
 var lastUserId = '';
 var validUserName = null;
 
-var firstCap = function(str) {
+var firstCap = function (str) {
     return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 // reply to any incoming message
-controller.on('message_received', function(bot, msg) {
-    	
-    if(['presence_change','reconnect_url','hello'].indexOf(msg.type) !== -1){
-	return;
+controller.on('message_received', function (bot, msg) {
+
+    if (['presence_change', 'reconnect_url', 'hello'].indexOf(msg.type) !== -1) {
+        return;
     } else {
-	console.log('entendu "' + JSON.stringify(msg) + '"');
+        console.log('entendu "' + JSON.stringify(msg) + '"');
     }
 
     var userId = msg.user;
     var userName = userFromId(userId);
     var content = msg.content;
-	
+
     console.log('AZY userId "' + userId + '"');
     console.log('AZY validUserName "' + validUserName + '"');
 
     if (!userName) {
-	if(userId !== 'undefined' && userId !== undefined){
+        if (userId !== 'undefined' && userId !== undefined) {
             console.log('AZY je connais pas "' + userId + '" encore !');
         }
         // validUserName = null; // we need to avoid reseting it
@@ -101,6 +103,7 @@ controller.on('message_received', function(bot, msg) {
     }
 
     if (!content) {
+        return; // to avoid annoying ppl :p
         console.log('AZY pas de content et type "' + msg.type + '"');
         if (msg.type === 'user_typing') {
             console.log('AZY dans user_typing');
@@ -118,7 +121,7 @@ controller.on('message_received', function(bot, msg) {
         }
     } else {
 
-	console.log('AZY avec content et validUserName "' + validUserName + '"');
+        console.log('AZY avec content et validUserName "' + validUserName + '"');
 
         if (content.indexOf('billet') !== -1) {
             bot.reply(msg, 'j\'kiff les billayy' + end());
@@ -136,7 +139,7 @@ controller.on('message_received', function(bot, msg) {
             bot.reply(msg, 'c\'toi le nazi' + end());
         } else if (content.indexOf('yo') !== -1) {
             bot.reply(msg, 'yo' + end());
-        } else if (content.indexOf('va') !== -1) {
+        } else if (content.indexOf('ça va') !== -1) {
             bot.reply(msg, 'ca roule et toi' + end());
         } else if (content.indexOf('préféré') !== -1) {
             var m = 'c\'est toi ma couille !';
@@ -148,6 +151,26 @@ controller.on('message_received', function(bot, msg) {
             }
             m += end();
             bot.reply(msg, m);
+        } else if (content.indexOf('te revoir') !== -1) {
+            var secs = Math.round(timestamp() - lastReply) + ' secondes';
+            bot.reply(msg, 'cay clair! c\'étaay les ' + secs + ' les plus longues de ma life' + end());
+        } else if (content.indexOf('longue') !== -1) {
+            bot.reply(msg, 'comme ma trompe' + end());
+        } else if (content.indexOf('manges où') !== -1) {
+            var p = pick(['au stéréo lux', 'dans ma Bentleyy']);
+            bot.reply(msg, p + end());
+        } else if (content.indexOf('quelle heure') !== -1) {
+            var p = pick(['de sortir les billaayy', 'd\'allay mangeayy', 'd\'allay se posayy']);
+            bot.reply(msg, 'l\'heure ' + p + end());
+        } else if (content.indexOf('où') !== -1) {
+            var p = pick(['dans ma villa de luxe', 'à un congrayy', 'au KFCayyy']);
+            bot.reply(msg, p + end());
+        } else if (content.indexOf('on va') !== -1) {
+            var p = pick(['yes', 'carreyment', 'nan jammayy']);
+            bot.reply(msg, p + end());
+        } else {
+            var p = pick(['yes', 'ça dépend des fois', 'carreyment', 'nan jammayy', 'seulement le dimanche', 'ouais t\'as cru quoi', 'plutôw ouayy', 'pas troww']);
+            bot.reply(msg, p + end());
         }
     }
 });
