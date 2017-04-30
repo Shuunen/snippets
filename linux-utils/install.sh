@@ -205,10 +205,10 @@ install_if_needed "nano"
 # better than top
 install_if_needed "htop"
 
-# TODO : describe
+# tree size browsable
 install_if_needed "ncdu"
 
-# TODO : describe
+# show every disks sizes
 install_if_needed "pydf"
 
 # great downloader
