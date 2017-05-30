@@ -132,7 +132,7 @@ fi
 if is_desktop ; then
     consoleLog "desktop detected"
     # remove useless stuff
-    sudo apt remove -y thunderbir* gnome-conta* libreoffice* xul-ext-ubufo* xul-ext-uni* xul-ext-webaccoun* unity-scope-gdriv* brasero-cd* rhythmbo* landscape-clien* unity-webapps-commo* >> ${logfile} 2>&1
+    sudo apt remove -y thunderbir* >> ${logfile} 2>&1
 else
     consoleLog "headless server detected"    
 fi
@@ -150,7 +150,7 @@ fi
 # packages needed to have "add-apt-repository" command
 install_if_needed "software-properties-common"
 
-if is_desktop ; then
+# if is_desktop ; then
 
     # app="seafile-gui"
     # if not_installed ${app} ; then
@@ -158,19 +158,19 @@ if is_desktop ; then
     #     sudo apt-add-repository 'deb http://ppa.launchpad.net/m.eik/seafile/ubuntu trusty main' -y >> ${logfile} 2>&1
     # fi
 
-    app="gedit-developer-plugins"
-    if not_installed ${app} ; then
-        consoleSuccess "installing repo for ${app}"
-        sudo add-apt-repository ppa:sinzui/ppa -y >> ${logfile} 2>&1
-    fi
+    # app="gedit-developer-plugins"
+    # if not_installed ${app} ; then
+    #     consoleSuccess "installing repo for ${app}"
+    #     sudo add-apt-repository ppa:sinzui/ppa -y >> ${logfile} 2>&1
+    # fi
      
-    app="fluxgui"
-    if not_installed ${app} ; then
-        consoleSuccess "installing repo for ${app}"
-        sudo add-apt-repository ppa:nathan-renniewaldock/flux -y >> ${logfile} 2>&1
-    fi
+    # app="fluxgui"
+    # if not_installed ${app} ; then
+    #     consoleSuccess "installing repo for ${app}"
+    #     sudo add-apt-repository ppa:nathan-renniewaldock/flux -y >> ${logfile} 2>&1
+    # fi
 
-fi
+# fi
 
 
 #  ██╗   ██╗██████╗ ██████╗  █████╗ ████████╗███████╗
@@ -272,7 +272,7 @@ install_if_needed "gparted"
 # install_if_needed "seafile-gui"
 
 # flux
-install_if_needed "fluxgui"
+# install_if_needed "fluxgui"
 
 # reload bash
 bash
