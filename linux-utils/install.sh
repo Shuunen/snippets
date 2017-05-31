@@ -268,6 +268,9 @@ install_if_needed "vlc"
 # partition manager
 install_if_needed "gparted"
 
+# to compare files & dir
+install_if_needed "meld"
+
 # seafile
 # install_if_needed "seafile-gui"
 

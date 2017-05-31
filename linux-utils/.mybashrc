@@ -7,6 +7,7 @@ alias service='sudo /usr/sbin/service'
 alias reloadMyBashRc='source .mybashrc'
 alias install='sudo apt install'
 alias search='sudo apt-cache search'
+alias edithosts='sudo nano /etc/hosts'
 
 # thanks http://www.digitalocean.com/community/tutorials/an-introduction-to-useful-bash-aliases-and-functions
 alias ..='cd ..'
