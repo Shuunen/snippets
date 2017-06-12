@@ -226,6 +226,9 @@ install_if_needed "screenfetch"
 # allow easy access to suspend, hibernate etc..
 install_if_needed "pm-utils"
 
+# allow stream playing into vlc
+install_if_needed "livestreamer"
+
 # git
 app="git"
 if not_installed ${app} ; then
@@ -273,6 +276,9 @@ install_if_needed "gparted"
 
 # to compare files & dir
 install_if_needed "meld"
+
+# allow getting and setting clipboard
+install_if_needed "xsel"
 
 # seafile
 # install_if_needed "seafile-gui"
