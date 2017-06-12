@@ -199,6 +199,9 @@ install_if_needed "lsb-release"
 # to dl stuff
 install_if_needed "curl"
 
+# to build stuff
+install_if_needed "build-essential"
+
 # mini editor
 install_if_needed "nano"
 
@@ -251,7 +254,7 @@ if ! is_desktop ; then
 fi
 
 # nautilus plugins
-install_if_needed "nautilus-open-terminal"
+# install_if_needed "nautilus-open-terminal"
 
 # gedit complete
 install_if_needed "gedit"
