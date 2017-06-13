@@ -88,8 +88,6 @@ function is_desktop {
 #  ╚██████╗╚██████╔╝███████║   ██║   ╚██████╔╝██║ ╚═╝ ██║██║███████╗███████╗
 #   ╚═════╝ ╚═════╝ ╚══════╝   ╚═╝    ╚═════╝ ╚═╝     ╚═╝╚═╝╚══════╝╚══════╝
 
-
-
 # creates ~/.bashrc if it doesn't exist.
 if [[ ! -f ~/.bashrc ]]; then
     consoleSuccess "create .bashrc file because none was found"
@@ -113,64 +111,20 @@ sudo cp -R mybins/* /usr/local/bin/ --force --verbose >> ${logfile} 2>&1
 sudo chmod +x /usr/local/bin/*
 
 # remove useless aptitude translations
-file="/etc/apt/apt.conf.d/99translations"
-if [[ ! -f "$file" ]]; then
-    consoleSuccess "remove useless aptitude translations"
-    sudo touch "$file"
-    echo 'Acquire::Languages "none";' | sudo tee -a ${file} >> ${logfile} 2>&1 # allow to append line to a root file
-    sudo rm -r /var/lib/apt/lists/*Translation* >> ${logfile} 2>&1
-fi
+# file="/etc/apt/apt.conf.d/99translations"
+# if [[ ! -f "$file" ]]; then
+#     consoleSuccess "remove useless aptitude translations"
+#     sudo touch "$file"
+#     echo 'Acquire::Languages "none";' | sudo tee -a ${file} >> ${logfile} 2>&1 # allow to append line to a root file
+#     sudo rm -r /var/lib/apt/lists/*Translation* >> ${logfile} 2>&1
+# fi
 
-
-#  ██████╗ ███████╗███╗   ███╗ ██████╗ ██╗   ██╗███████╗     ██████╗██████╗  █████╗ ██████╗ 
-#  ██╔══██╗██╔════╝████╗ ████║██╔═══██╗██║   ██║██╔════╝    ██╔════╝██╔══██╗██╔══██╗██╔══██╗
-#  ██████╔╝█████╗  ██╔████╔██║██║   ██║██║   ██║█████╗      ██║     ██████╔╝███████║██████╔╝
-#  ██╔══██╗██╔══╝  ██║╚██╔╝██║██║   ██║╚██╗ ██╔╝██╔══╝      ██║     ██╔══██╗██╔══██║██╔═══╝ 
-#  ██║  ██║███████╗██║ ╚═╝ ██║╚██████╔╝ ╚████╔╝ ███████╗    ╚██████╗██║  ██║██║  ██║██║     
-#  ╚═╝  ╚═╝╚══════╝╚═╝     ╚═╝ ╚═════╝   ╚═══╝  ╚══════╝     ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     
-
+# show env detected
 if is_desktop ; then
     consoleLog "desktop detected"
-    # remove useless stuff
-    sudo apt remove -y thunderbir* >> ${logfile} 2>&1
 else
     consoleLog "headless server detected"    
 fi
-
-
-
-#   █████╗ ██████╗ ██████╗     ██████╗ ███████╗██████╗  ██████╗ ███████╗
-#  ██╔══██╗██╔══██╗██╔══██╗    ██╔══██╗██╔════╝██╔══██╗██╔═══██╗██╔════╝
-#  ███████║██║  ██║██║  ██║    ██████╔╝█████╗  ██████╔╝██║   ██║███████╗
-#  ██╔══██║██║  ██║██║  ██║    ██╔══██╗██╔══╝  ██╔═══╝ ██║   ██║╚════██║
-#  ██║  ██║██████╔╝██████╔╝    ██║  ██║███████╗██║     ╚██████╔╝███████║
-#  ╚═╝  ╚═╝╚═════╝ ╚═════╝     ╚═╝  ╚═╝╚══════╝╚═╝      ╚═════╝ ╚══════╝
-
-
-# packages needed to have "add-apt-repository" command
-install_if_needed "software-properties-common"
-
-# if is_desktop ; then
-
-    # app="seafile-gui"
-    # if not_installed ${app} ; then
-    #     consoleSuccess "installing repo for ${app}"
-    #     sudo apt-add-repository 'deb http://ppa.launchpad.net/m.eik/seafile/ubuntu trusty main' -y >> ${logfile} 2>&1
-    # fi
-
-    # app="gedit-developer-plugins"
-    # if not_installed ${app} ; then
-    #     consoleSuccess "installing repo for ${app}"
-    #     sudo add-apt-repository ppa:sinzui/ppa -y >> ${logfile} 2>&1
-    # fi
-     
-    # app="fluxgui"
-    # if not_installed ${app} ; then
-    #     consoleSuccess "installing repo for ${app}"
-    #     sudo add-apt-repository ppa:nathan-renniewaldock/flux -y >> ${logfile} 2>&1
-    # fi
-
-# fi
 
 
 #  ██╗   ██╗██████╗ ██████╗  █████╗ ████████╗███████╗
@@ -185,13 +139,16 @@ sudo apt update >> ${logfile} 2>&1
 consoleLog "update apt complete !"
 
 
-
 #  ██╗███╗   ██╗███████╗████████╗ █████╗ ██╗     ██╗     
 #  ██║████╗  ██║██╔════╝╚══██╔══╝██╔══██╗██║     ██║     
 #  ██║██╔██╗ ██║███████╗   ██║   ███████║██║     ██║     
 #  ██║██║╚██╗██║╚════██║   ██║   ██╔══██║██║     ██║     
 #  ██║██║ ╚████║███████║   ██║   ██║  ██║███████╗███████╗
 #  ╚═╝╚═╝  ╚═══╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚══════╝╚══════╝
+
+
+# packages needed to have "add-apt-repository" command
+install_if_needed "software-properties-common"
 
 # lsb-release to show current system
 install_if_needed "lsb-release"
@@ -226,23 +183,12 @@ install_if_needed "screenfetch"
 # allow easy access to suspend, hibernate etc..
 install_if_needed "pm-utils"
 
-# allow stream playing into vlc
-install_if_needed "livestreamer"
-
 # git
-app="git"
-if not_installed ${app} ; then
-    sudo apt install git -y >> ${logfile} 2>&1
-    git config --global push.default simple
-    git config --global credential.helper cache
-    git config --global credential.helper 'cache --timeout=360000'
-    check_install ${app}
-else
-    consoleLog "${app} was already installed"
-fi
+install_if_needed "git"
 
 # nvm, node & npm
 #app="nvm"
+
 
 #  ██████╗ ███████╗███████╗██╗  ██╗████████╗ ██████╗ ██████╗ 
 #  ██╔══██╗██╔════╝██╔════╝██║ ██╔╝╚══██╔══╝██╔═══██╗██╔══██╗
@@ -270,6 +216,9 @@ install_if_needed "dconf-editor"
 
 # vlc
 install_if_needed "vlc"
+
+# allow stream playing into vlc
+install_if_needed "livestreamer"
 
 # partition manager
 install_if_needed "gparted"
