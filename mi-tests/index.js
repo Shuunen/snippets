@@ -139,6 +139,7 @@ browser.on('available', reg => {
 });
 */
 
+/*
 const Aqara = require('lumi-aqara')
 
 const aqara = new Aqara()
@@ -193,4 +194,17 @@ aqara.on('gateway', (gateway) => {
     gateway.on('lightState', (state) => {
         console.log(`Light updated: ${JSON.stringify(state)}`)
     })
+})
+*/
+
+const devices = miio.devices()
+devices.on('available', reg => {
+    const device = reg.device
+    if (!device) {
+        console.log(reg.id, 'could not be connected to')
+        return
+    }
+    console.log('Connected to', device.type)
+    device.on('propertyChanged', e => console.log(device.type + ' : property "' + e.property + '" changed from ' + e.oldValue + ' to ' + e.value))
+    device.on('action', action => console.log(device.type + ' : action detected "' + action.id + '"'))
 })
