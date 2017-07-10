@@ -35,7 +35,7 @@ function check_install {
 }
 
 function consoleError {
-    printf "\n \e[31m✘ ${1}" # echo first argument in red   
+    printf "\n  \e[31m✘ ${1}" # echo first argument in red   
     echo -e "\033[0m" # reset colours back to normal
 }
 
@@ -105,7 +105,7 @@ if [[ -z $(grep ". ~/.mybashrc" ~/.bashrc) ]]; then
     consoleSuccess "auto-source custom mybashrc at login"
 fi
 
-# install custom utils
+# install custom utils, why not just add folder to PATH ?
 consoleLog "install custom utils"
 sudo cp -R mybins/* /usr/local/bin/ --force --verbose >> ${logfile} 2>&1
 sudo chmod +x /usr/local/bin/*
