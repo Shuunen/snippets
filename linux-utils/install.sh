@@ -185,6 +185,7 @@ install_if_needed "pm-utils"
 
 # git
 install_if_needed "git"
+git config --global pull.rebase true
 
 # nvm, node & npm
 #app="nvm"
