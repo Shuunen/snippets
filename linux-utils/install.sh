@@ -185,7 +185,7 @@ install_if_needed "pm-utils"
 
 # git
 install_if_needed "git"
-git config --global pull.rebase true
+git config --global alias.up 'pull --rebase --autostash'
 
 # nvm, node & npm
 #app="nvm"
