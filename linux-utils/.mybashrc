@@ -9,7 +9,8 @@ alias install='sudo apt install'
 alias search='sudo apt-cache search'
 alias edithosts='sudo nano /etc/hosts'
 alias apacheRestart='sudo service apache2 restart'
-alias gitUpdateBranch='git pull && git fetch origin develop && git merge FETCH_HEAD'
+alias gitUpdateBranch='git pull --rebase && git fetch origin develop && git merge FETCH_HEAD'
+alias yarnUpgrade='yarn upgrade-interactive'
 
 # thanks http://www.digitalocean.com/community/tutorials/an-introduction-to-useful-bash-aliases-and-functions
 alias ..='cd ..'
