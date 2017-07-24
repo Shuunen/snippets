@@ -183,6 +183,11 @@ install_if_needed "screenfetch"
 # allow easy access to suspend, hibernate etc..
 install_if_needed "pm-utils"
 
+# easy access/clean exif data on images
+install_if_needed "libimage-exiftool-perl"
+# To read  photo metadata : exiftool my_photo.jpg
+# To clean photo metadata : exiftool -all= my_photo.jpg
+
 # git
 install_if_needed "git"
 git config --global alias.up 'pull --rebase --autostash'
