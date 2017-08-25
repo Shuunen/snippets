@@ -62,7 +62,7 @@ function is_desktop {
     # set to 1 (false) initially
     local return_=1
     # array of desktop packages 
-    packages=("ubuntu-desktop" "mate-desktop")
+    packages=("ubuntu-desktop" "mate-desktop", "xubuntu-desktop")
     # check for one of them
     for package in "${packages[@]}"; do
         if not_installed "$package" ; then
@@ -187,10 +187,10 @@ install_if_needed "pm-utils"
 install_if_needed "libimage-exiftool-perl"
 # To read  photo metadata : exiftool my_photo.jpg
 # To clean photo metadata : exiftool -all= my_photo.jpg
+# To clean all photos in a folder : exiftool -all= *.png
 
 # git
 install_if_needed "git"
-git config --global alias.up 'pull --rebase --autostash'
 
 # nvm, node & npm
 #app="nvm"
@@ -208,38 +208,23 @@ if ! is_desktop ; then
     exit 1;
 fi
 
-# nautilus plugins
-# install_if_needed "nautilus-open-terminal"
-
-# gedit complete
-install_if_needed "gedit"
+install_if_needed "gedit"        # gedit complete
 install_if_needed "gedit-developer-plugins"
 install_if_needed "gedit-plugins"
 install_if_needed "gedit-source-code-browser-plugin"
-
-# handy debian conf
-install_if_needed "dconf-editor"
-
-# vlc
+install_if_needed "dconf-editor" # handy debian conf
 install_if_needed "vlc"
-
-# allow stream playing into vlc
-install_if_needed "livestreamer"
-
-# partition manager
-install_if_needed "gparted"
-
-# to compare files & dir
-install_if_needed "meld"
-
-# allow getting and setting clipboard
-install_if_needed "xsel"
-
-# seafile
-# install_if_needed "seafile-gui"
-
-# flux
-# install_if_needed "fluxgui"
+install_if_needed "pinta"        # nice graphic editor like Paint.net
+install_if_needed "livestreamer" # allow stream playing into vlc
+install_if_needed "gparted"      # partition manager
+install_if_needed "meld"         # to compare files & dir
+install_if_needed "xsel"         # allow getting and setting clipboard
+install_if_needed "synapse"      # great app/file launcher like launchy
+install_if_needed "shotwell"     # digital photo organizer/viewer
+install_if_needed "chromium-browser" # as good as chrome without spywares
+# woeusb - WoeUSB can create bootable windows installer on usb
+# fluxgui
+# seafile-gui
 
 # reload bash
 bash

@@ -6,7 +6,10 @@ alias cdproj='cd $PROJECTS_DIR'
 alias service='sudo /usr/sbin/service'
 alias reloadMyBashRc='source .mybashrc'
 alias install='sudo apt install'
-alias search='sudo apt-cache search'
+searchGrep() {
+    sudo apt-cache search $1 | grep $1
+}
+alias search=searchGrep
 alias edithosts='sudo nano /etc/hosts'
 alias apacheRestart='sudo service apache2 restart'
 alias gitUpdateBranch='git pull --rebase && git fetch origin develop && git merge FETCH_HEAD'
