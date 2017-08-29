@@ -183,6 +183,10 @@ install_if_needed "screenfetch"
 # allow easy access to suspend, hibernate etc..
 install_if_needed "pm-utils"
 
+# great tool to record and share terminal sessions 
+install_if_needed "asciinema"
+# to start just run "asciinema rec", to finish hit Ctrl-D or type "exit"
+
 # easy access/clean exif data on images
 install_if_needed "libimage-exiftool-perl"
 # To read  photo metadata : exiftool my_photo.jpg
@@ -225,6 +229,8 @@ install_if_needed "chromium-browser" # as good as chrome without spywares
 # woeusb - WoeUSB can create bootable windows installer on usb
 # fluxgui
 # seafile-gui
+# Peek - Simple animated GIF screen recorder with an easy to use interface
+# Vectr - SVG Editor
 
 # reload bash
 bash
