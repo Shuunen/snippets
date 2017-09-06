@@ -9,9 +9,9 @@
   "author": "",
   "license": "AGPL-3.0",
   "dependencies": {
-    "basic-auth": "^1.1.0",
     "cors": "^2.8.4",
     "express": "^4.15.4",
+    "express-basic-auth": "^1.1.2",
     "nodemon": "^1.12.0"
   },
   "devDependencies": {
