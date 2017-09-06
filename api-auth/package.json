@@ -1,15 +1,18 @@
 {
-  "name": "angular-htaccess",
+  "name": "api-auth",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "http-server"
+    "start": "nodemon index.js"
   },
   "author": "",
   "license": "AGPL-3.0",
   "dependencies": {
-    "http-server": "^0.10.0"
+    "basic-auth": "^1.1.0",
+    "cors": "^2.8.4",
+    "express": "^4.15.4",
+    "nodemon": "^1.12.0"
   },
   "devDependencies": {
     "eslint": "^4.6.1",
