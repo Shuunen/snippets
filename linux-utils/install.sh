@@ -62,7 +62,7 @@ function is_desktop {
     # set to 1 (false) initially
     local return_=1
     # array of desktop packages 
-    packages=("ubuntu-desktop" "mate-desktop", "xubuntu-desktop")
+    packages=("ubuntu-desktop" "mate-desktop" "xubuntu-desktop")
     # check for one of them
     for package in "${packages[@]}"; do
         if not_installed "$package" ; then
