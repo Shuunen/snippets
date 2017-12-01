@@ -62,7 +62,7 @@ function is_desktop {
     # set to 1 (false) initially
     local return_=1
     # array of desktop packages 
-    packages=("ubuntu-desktop" "mate-desktop" "xubuntu-desktop")
+    packages=("ubuntu-desktop" "mate-desktop" "xubuntu-desktop" "elementary-desktop" "cinnamon-desktop-data" "gnome-desktop3-data")
     # check for one of them
     for package in "${packages[@]}"; do
         if not_installed "$package" ; then
@@ -231,8 +231,8 @@ install_if_needed "chromium-browser" # as good as chrome without spywares
 # seafile-gui
 # Peek - Simple animated GIF screen recorder with an easy to use interface
 # Vectr - SVG Editor
-sudo gdebi -n saveddeb/ulauncher_3.2.1.r1_all.deb    # great app launcher
-sudo gdebi -n saveddeb/libdvdcss2_1.2.13-0_amd64.deb # ?
+sudo gdebi --non-interactive --quiet saveddeb/ulauncher_3.2.1.r1_all.deb    # great app launcher
+sudo gdebi --non-interactive --quiet saveddeb/libdvdcss2_1.2.13-0_amd64.deb # ?
 
 # reload bash
 bash
