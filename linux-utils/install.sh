@@ -231,6 +231,8 @@ install_if_needed "chromium-browser" # as good as chrome without spywares
 # seafile-gui
 # Peek - Simple animated GIF screen recorder with an easy to use interface
 # Vectr - SVG Editor
+sudo gdebi -n saveddeb/ulauncher_3.2.1.r1_all.deb    # great app launcher
+sudo gdebi -n saveddeb/libdvdcss2_1.2.13-0_amd64.deb # ?
 
 # reload bash
 bash
