@@ -9,7 +9,11 @@ alias install='sudo apt install'
 searchGrep() {
     sudo apt-cache search $1 | grep $1
 }
+searchInstalledGrep() {
+    sudo apt list --installed | grep $1
+}
 alias search=searchGrep
+alias searchInstalled=searchInstalledGrep
 alias edithosts='sudo nano /etc/hosts'
 alias apacheRestart='sudo service apache2 restart'
 alias gitUpdateBranch='git pull --rebase && git fetch origin develop && git merge FETCH_HEAD'
