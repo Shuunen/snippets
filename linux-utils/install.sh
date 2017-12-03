@@ -196,8 +196,15 @@ install_if_needed "libimage-exiftool-perl"
 # git
 install_if_needed "git"
 
-# nvm, node & npm
-#app="nvm"
+# Node Version Manager - Simple bash script to manage multiple active node.js versions
+# rrl : not sure that this part is working :p 
+app="nvm"
+if not_installed ${app} ; then
+    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash >> ${logfile} 2>&1
+    check_install ${app}
+else
+    consoleLog "${app} was already installed"
+fi
 
 
 #  ██████╗ ███████╗███████╗██╗  ██╗████████╗ ██████╗ ██████╗ 
@@ -215,7 +222,6 @@ fi
 install_if_needed "gedit"        # gedit complete
 install_if_needed "gedit-developer-plugins"
 install_if_needed "gedit-plugins"
-install_if_needed "gedit-source-code-browser-plugin"
 install_if_needed "dconf-editor" # handy debian conf
 install_if_needed "vlc"
 install_if_needed "pinta"        # nice graphic editor like Paint.net
@@ -223,16 +229,14 @@ install_if_needed "livestreamer" # allow stream playing into vlc
 install_if_needed "gparted"      # partition manager
 install_if_needed "meld"         # to compare files & dir
 install_if_needed "xsel"         # allow getting and setting clipboard
-install_if_needed "synapse"      # great app/file launcher like launchy
 install_if_needed "shotwell"     # digital photo organizer/viewer
-install_if_needed "chromium-browser" # as good as chrome without spywares
-# woeusb - WoeUSB can create bootable windows installer on usb
-# fluxgui
-# seafile-gui
-# Peek - Simple animated GIF screen recorder with an easy to use interface
-# Vectr - SVG Editor
-sudo gdebi --non-interactive --quiet saveddeb/ulauncher_3.2.1.r1_all.deb    # great app launcher
-sudo gdebi --non-interactive --quiet saveddeb/libdvdcss2_1.2.13-0_amd64.deb # ?
+install_if_needed "chromium-browser" # as good as chrome but without spywares
+# Peek                           # animated GIF screen recorder https://github.com/phw/peek/releases
+# Vectr                          # great SVG Editor https://vectr.com/downloads/
+sudo gdebi --non-interactive --quiet saveddeb/ulauncher_3.2.1.r1_all.deb    # great app/file launcher like launchy
+sudo gdebi --non-interactive --quiet saveddeb/libdvdcss2_1.2.13-0_amd64.deb # simple library designed for accessing DVDs
+sudo gdebi --non-interactive --quiet saveddeb/seafile-gui_6.1.3-2_amd64.deb # ui for Seafile
+sudo gdebi --non-interactive --quiet saveddeb/woeusb_3.1.4-1_webupd8_trusty0_amd64.deb # create bootable windows installer on usb
 
 # reload bash
 bash
