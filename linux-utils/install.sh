@@ -197,13 +197,10 @@ install_if_needed "libimage-exiftool-perl"
 install_if_needed "git"
 
 # Node Version Manager - Simple bash script to manage multiple active node.js versions
-# rrl : not sure that this part is working :p 
-app="nvm"
-if not_installed ${app} ; then
+if [[ ! -d ~/.nvm ]]; then
     curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash >> ${logfile} 2>&1
-    check_install ${app}
 else
-    consoleLog "${app} was already installed"
+    consoleLog "Node Version Manager was already installed"
 fi
 
 
@@ -233,10 +230,25 @@ install_if_needed "shotwell"     # digital photo organizer/viewer
 install_if_needed "chromium-browser" # as good as chrome but without spywares
 # Peek                           # animated GIF screen recorder https://github.com/phw/peek/releases
 # Vectr                          # great SVG Editor https://vectr.com/downloads/
-sudo gdebi --non-interactive --quiet saveddeb/ulauncher_3.2.1.r1_all.deb    # great app/file launcher like launchy
-sudo gdebi --non-interactive --quiet saveddeb/libdvdcss2_1.2.13-0_amd64.deb # simple library designed for accessing DVDs
-sudo gdebi --non-interactive --quiet saveddeb/seafile-gui_6.1.3-2_amd64.deb # ui for Seafile
-sudo gdebi --non-interactive --quiet saveddeb/woeusb_3.1.4-1_webupd8_trusty0_amd64.deb # create bootable windows installer on usb
+
+app="libdvdcss2"
+if not_installed ${app} ; then
+    sudo gdebi --non-interactive --quiet saveddeb/libdvdcss2_1.2.13-0_amd64.deb # simple library designed for accessing DVDs
+    check_install ${app}
+else
+    consoleLog "${app} was already installed"
+fi
+
+app="ulauncher"
+if not_installed ${app} ; then
+    sudo gdebi --non-interactive --quiet saveddeb/ulauncher_3.2.1.r1_all.deb    # great app/file launcher like launchy
+    check_install ${app}
+else
+    consoleLog "${app} was already installed"
+fi
+
+# TODO : Dependency is not satisfiable: libwxbase2.8-0
+# sudo gdebi --non-interactive --quiet saveddeb/woeusb_3.1.4-1_webupd8_trusty0_amd64.deb # create bootable windows installer on usb
 
 # reload bash
 bash
