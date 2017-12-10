@@ -10,6 +10,7 @@
   "author": "Shuunen",
   "license": "ISC",
   "dependencies": {
-    "node-dash-button": "^0.6.1"
+    "node-dash-button": "^0.6.1",
+    "nodemon": "^1.12.5"
   }
 }
