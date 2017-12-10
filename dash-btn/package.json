@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "sudo node_modules/.bin/nodemon index.js"
+    "start": "sudo node_modules/.bin/nodemon index.js",
+    "detect": "sudo node node_modules/node-dash-button/bin/findbutton"
   },
   "keywords": [],
   "author": "Shuunen",
