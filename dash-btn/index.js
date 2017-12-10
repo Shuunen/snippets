@@ -11,7 +11,7 @@ const buttons = [
 buttons.forEach(button => {
     console.log(`listening to button "${button.name}" with mac ${button.mac}`)
     button.instance = dash_button(button.mac, null, null, 'arp')
-    button.instance.on('detected', onClick(button))
+    button.instance.on('detected', () => onClick(button))
 })
 
 function onClick(button) {
