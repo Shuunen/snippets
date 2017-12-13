@@ -220,7 +220,10 @@ install_if_needed "gedit"        # gedit complete
 install_if_needed "gedit-developer-plugins"
 install_if_needed "gedit-plugins"
 install_if_needed "dconf-editor" # handy debian conf
+install_if_needed "apturl"       # allow to install packets via apt://stuff
+install_if_needed "flashplugin-installer"
 install_if_needed "vlc"
+install_if_needed "gdebi"
 install_if_needed "pinta"        # nice graphic editor like Paint.net
 install_if_needed "livestreamer" # allow stream playing into vlc
 install_if_needed "gparted"      # partition manager
