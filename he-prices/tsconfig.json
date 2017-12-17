@@ -1,7 +1,9 @@
 {
     "compilerOptions": {
+        "module": "commonjs",
+        "lib": ["es2017", "dom"],
+        "outDir": "build",
         "moduleResolution": "node",
-        "outFile": "build/app.js",
         "target": "es6",
         "sourceMap": true,
         "emitDecoratorMetadata": true,

@@ -17,11 +17,12 @@
     "scripts": {
         "build": "tsc",
         "dev": "nodemon -e ts  --exec \"tsc && npm start\"",
-        "start": "node build/app Lavandin super Bio"
+        "start": "node build/get-price Lavandin super Bio"
     },
     "author": "Shuunen",
     "license": "AGPL-3.0",
     "devDependencies": {
-        "@types/node": "^8.5.1"
+        "@types/node": "^8.5.1",
+        "@types/puppeteer": "^0.13.8"
     }
 }
