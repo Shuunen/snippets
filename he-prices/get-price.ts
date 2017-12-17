@@ -19,6 +19,8 @@ const sites: ISite[] = [
 
 const dontLog: string[] = ['processDynamicModules']
 
+let displayedResults: string[] = []
+
 class GetPrice {
 
     constructor(
@@ -30,7 +32,9 @@ class GetPrice {
             if (this[site.scrapper]) {
                 const url: string = site.url.replace('{{q}}', query)
                 site.finder = site.finder || 'dummyFind'
-                this[site.finder](url).then(finalUrl => this.scrape(site.name, finalUrl, this[site.scrapper]))
+                this[site.finder](url)
+                    .then(finalUrl => this.scrape(site.name, finalUrl, this[site.scrapper]))
+                    .catch(reason => this.log(reason))
             } else {
                 this.log(`No scrapper found for ${site.name}`)
             }
@@ -43,7 +47,7 @@ class GetPrice {
         const minutes: string = date.getMinutes() + ''
         const time: string = (hours.length === 1 ? '0' : '') + hours + 'h' + (minutes.length === 1 ? '0' : '') + minutes
         const message: string = thing.text ? thing.text : thing
-        if (!dontLog.some(str => message.includes(str))) {
+        if (!dontLog.some(str => message.toLowerCase().includes(str.toLowerCase()))) {
             // dont log message if it contains an excluded word
             console.log(time + ' :', message, args.length ? args : '')
         }
@@ -72,22 +76,28 @@ class GetPrice {
                 }
             })
             if (!finalUrl) {
-                this.log('MyCosmeFind failed at getting product url for MyCosmetik :\'(')
-                reject('Product url not found :(')
+                reject('MyCosmeFind failed at finding product on MyCosmetik :\'(')
             } else {
-                this.log('MyCosmeFind foun product url :)')
+                this.log('MyCosmeFind found product url :)')
                 resolve(finalUrl)
             }
             browser.close()
         })
     }
 
-    mycosmeScrape = (): number => {
-        let value: number = 0
+    mycosmeScrape = (): IScrapeResult => {
+        const result: IScrapeResult = {}
+        const nameEl: HTMLElement = document.querySelector('h1') as HTMLElement
+        if (!nameEl) {
+            console.log('MyCosmeScrape failed at getting product name')
+            return result
+        } else {
+            result.name = (nameEl.textContent ? nameEl.textContent : '').trim()
+        }
         const contenance: HTMLOptionElement = document.querySelector('option[title="10 ml"]') as HTMLOptionElement
         if (!contenance) {
             console.log('MyCosmeScrape failed at getting 10 ml contenance for product')
-            return value
+            return result
         }
         const select: HTMLSelectElement = contenance.parentElement as HTMLSelectElement
         select.value = contenance.value
@@ -95,51 +105,65 @@ class GetPrice {
         const priceEl: HTMLElement = document.querySelector('#our_price_display') as HTMLElement
         if (!priceEl) {
             console.log('MyCosmeScrape failed at getting price for product')
-            return value
+            return result
         }
         if (priceEl.textContent) {
-            value = parseFloat(priceEl.textContent.replace(',', '.').split(' ')[0])
+            result.price = parseFloat(priceEl.textContent.trim().replace(',', '.').split(' ')[0])
         }
-        return value
+        return result
     }
 
-    aromaScrape = (): number => {
-        let value: number = 0
+    aromaScrape = (): IScrapeResult => {
+        const result: IScrapeResult = {}
         const product: HTMLElement = document.querySelector('.products-grid .item') as HTMLElement
         if (!product) {
             console.log('AromaScrape failed at finding product in page')
-            return value
+            return result
+        } else {
+            const nameEl: HTMLElement = product.querySelector('.product-link') as HTMLElement
+            result.name = (nameEl && nameEl.textContent ? nameEl.textContent : '').trim()
         }
-        const contenances: NodeListOf<HTMLElement> = product.querySelectorAll('.item-product-simple') as NodeListOf<HTMLElement> // tslint:disable-line:max-line-length
-        if (!contenances) {
-            console.log('AromaScrape failed at getting contenances for product')
-            return value
+        let found: boolean = false
+        const singleContenance: HTMLElement = product.querySelector('.product-simple > .selected') as HTMLElement
+        if (singleContenance) {
+            const text: string = (singleContenance.textContent as string).trim()
+            // console.log(`AromaScrape found single contenance that contains ${text}`)
+            if (text.toLowerCase().includes('10 ml')) {
+                found = true
+            }
+        } else {
+            const contenances: NodeListOf<HTMLElement> = product.querySelectorAll('.item-product-simple') as NodeListOf<HTMLElement> // tslint:disable-line:max-line-length
+            if (!contenances) {
+                console.log('AromaScrape failed at getting contenances for product')
+                return result
+            }
+            let index: number
+            for (index = 0; index < contenances.length; index++) {
+                const contenance: HTMLElement = contenances[index]
+                const text: string = (contenance.textContent as string).trim()
+                // console.log(`Checking contenance with text "${text}"`)
+                if (!contenance || !text.length) {
+                    continue
+                }
+                if (!found && text.toLowerCase().includes('10 ml')) {
+                    found = true
+                    contenance.click()
+                }
+            }
+        }
+        if (!found) {
+            console.log(`AromaScrape failed to find the "10 ml" contenance for ${result.name}`)
+            return result
         }
         const priceEl: HTMLElement = product.querySelector('.price') as HTMLElement
         if (!priceEl) {
             console.log('AromaScrape failed at getting price for product')
-            return value
+            return result
         }
-        let found: boolean = false
-        let index: number
-        for (index = 0; index < contenances.length; index++) {
-            const contenance: HTMLElement = contenances[index]
-            const text: string = (contenance.textContent as string).trim()
-            // console.log(`Checking contenance with text "${text}"`)
-            if (!contenance || !text.length) {
-                continue
-            }
-            if (!found && text.includes('10 ml')) {
-                found = true
-                contenance.click()
-            }
+        if (priceEl.textContent) {
+            result.price = parseFloat(priceEl.textContent.trim().replace(',', '.').split(' ')[0])
         }
-        if (!found) {
-            console.log('AromaScrape failed to find the price for "10 ml"')
-        } else if (priceEl.textContent) {
-            value = parseFloat(priceEl.textContent.replace(',', '.').split(' ')[0])
-        }
-        return value
+        return result
     }
 
     scrape = async (site: string, url: string, scrapper: () => number) => {
@@ -149,22 +173,35 @@ class GetPrice {
         page.on('console', this.log)
         await page.goto(url)
         await page.waitFor(400)
-        const price: number = await page.evaluate(scrapper)
-        if (!price) {
-            this.log('Scrape failed at getting price :\'(')
-        } else {
-            const priceStr: string = price.toFixed(2).replace('.', ',')
-            this.log(`Scrape found price for "${this.input}", it cost ${priceStr} € on ${site}`)
+        const result: IScrapeResult = await page.evaluate(scrapper)
+        if (result.name && result.price && !displayedResults.includes(result.name)) {
+            this.log('-----')
+            this.log(`Scrape found that "${result.name} (10 ml)" cost ${this.formatPrice(result.price)} € on ${site}`) // tslint:disable-line:max-line-length
+            displayedResults.push(result.name)
+            this.log('-----')
         }
         browser.close()
     }
+
+    formatPrice(amount: number): string {
+        return amount.toFixed(2).replace('.', ',')
+    }
 }
 
-new GetPrice(process.argv.slice(2).join(' ')) // tslint:disable-line:no-unused-expression
+const search: string = process.argv.slice(2).join(' ')
+new GetPrice(search) // tslint:disable-line:no-unused-expression
+if (!search.toLowerCase().includes('bio')) {
+    new GetPrice(search + ' bio') // tslint:disable-line:no-unused-expression
+}
 
-export interface ISite {
+interface ISite {
     name: string
     url: string
     finder?: string
     scrapper: string
+}
+
+interface IScrapeResult {
+    name?: string
+    price?: number
 }
