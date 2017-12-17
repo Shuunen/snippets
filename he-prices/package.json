@@ -1,0 +1,27 @@
+{
+    "name": "he-prices",
+    "version": "1.0.0",
+    "description": "Get prices easily",
+    "engines": {
+        "node": ">=9.0.0"
+    },
+    "main": "index.js",
+    "dependencies": {
+        "minimist": "^1.2.0",
+        "nodemon": "^1.11.0",
+        "puppeteer": "^0.12.0",
+        "request": "^2.83.0",
+        "tslint": "^5.8.0",
+        "typescript": "^2.6.1"
+    },
+    "scripts": {
+        "build": "tsc",
+        "dev": "nodemon -e ts  --exec \"tsc && npm start\"",
+        "start": "node build/app Lavandin super Bio"
+    },
+    "author": "Shuunen",
+    "license": "AGPL-3.0",
+    "devDependencies": {
+        "@types/node": "^8.5.1"
+    }
+}
