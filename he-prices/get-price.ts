@@ -3,11 +3,11 @@ import { Browser, launch, Page } from 'puppeteer'
 
 /* tslint:disable:max-line-length */
 const sites: ISite[] = [
-    /* {
+    {
         name: 'Aroma-Zone',
         url: 'https://www.aroma-zone.com/catalogsearch/result/?sq=essentielle+{{q}}&order=relevance&dir=desc&limit=24&mode=grid&e=l',
         scrapper: 'aromaScrape',
-    }, */
+    },
     {
         name: 'MyCosmetik',
         url: 'https://www.mycosmetik.fr/recherche?controller=search&orderby=position&orderway=desc&search_query=essentielle+{{q}}',
@@ -56,7 +56,7 @@ class GetPrice {
     }
 
     mycosmeFind(url: string): Promise<string> {
-        this.log('Finding product url on page : ', url)
+        this.log('MyCosmeFind searching product url on page : ', url)
         return new Promise(async (resolve, reject) => {
             const browser: Browser = await launch({ headless: true })
             const page: Page = await browser.newPage()
@@ -72,10 +72,10 @@ class GetPrice {
                 }
             })
             if (!finalUrl) {
-                this.log('Failed at getting product url for MyCosmetik :\'(')
+                this.log('MyCosmeFind failed at getting product url for MyCosmetik :\'(')
                 reject('Product url not found :(')
             } else {
-                this.log('Product url found :)')
+                this.log('MyCosmeFind foun product url :)')
                 resolve(finalUrl)
             }
             browser.close()
@@ -83,24 +83,41 @@ class GetPrice {
     }
 
     mycosmeScrape = (): number => {
-        return 3.33
+        let value: number = 0
+        const contenance: HTMLOptionElement = document.querySelector('option[title="10 ml"]') as HTMLOptionElement
+        if (!contenance) {
+            console.log('MyCosmeScrape failed at getting 10 ml contenance for product')
+            return value
+        }
+        const select: HTMLSelectElement = contenance.parentElement as HTMLSelectElement
+        select.value = contenance.value
+        select.onchange(new Event('yolo'))
+        const priceEl: HTMLElement = document.querySelector('#our_price_display') as HTMLElement
+        if (!priceEl) {
+            console.log('MyCosmeScrape failed at getting price for product')
+            return value
+        }
+        if (priceEl.textContent) {
+            value = parseFloat(priceEl.textContent.replace(',', '.').split(' ')[0])
+        }
+        return value
     }
 
     aromaScrape = (): number => {
         let value: number = 0
         const product: HTMLElement = document.querySelector('.products-grid .item') as HTMLElement
         if (!product) {
-            console.log('Failed at finding product in page')
+            console.log('AromaScrape failed at finding product in page')
             return value
         }
         const contenances: NodeListOf<HTMLElement> = product.querySelectorAll('.item-product-simple') as NodeListOf<HTMLElement> // tslint:disable-line:max-line-length
         if (!contenances) {
-            console.log('Failed at getting contenances for product')
+            console.log('AromaScrape failed at getting contenances for product')
             return value
         }
         const priceEl: HTMLElement = product.querySelector('.price') as HTMLElement
         if (!priceEl) {
-            console.log('Failed at getting price for product')
+            console.log('AromaScrape failed at getting price for product')
             return value
         }
         let found: boolean = false
@@ -118,7 +135,7 @@ class GetPrice {
             }
         }
         if (!found) {
-            console.log('Failed to find the price for "10 ml"')
+            console.log('AromaScrape failed to find the price for "10 ml"')
         } else if (priceEl.textContent) {
             value = parseFloat(priceEl.textContent.replace(',', '.').split(' ')[0])
         }
@@ -126,7 +143,7 @@ class GetPrice {
     }
 
     scrape = async (site: string, url: string, scrapper: () => number) => {
-        this.log('Scrapping url : ', url)
+        this.log('Scrape start on url : ', url)
         const browser: Browser = await launch({ headless: true })
         const page: Page = await browser.newPage()
         page.on('console', this.log)
@@ -134,9 +151,10 @@ class GetPrice {
         await page.waitFor(400)
         const price: number = await page.evaluate(scrapper)
         if (!price) {
-            this.log('Failed at getting price :\'(')
+            this.log('Scrape failed at getting price :\'(')
         } else {
-            this.log(`Price found, "${this.input}" cost ${price} € on ${site}`)
+            const priceStr: string = price.toFixed(2).replace('.', ',')
+            this.log(`Scrape found price for "${this.input}", it cost ${priceStr} € on ${site}`)
         }
         browser.close()
     }
