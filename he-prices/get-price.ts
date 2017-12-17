@@ -4,7 +4,9 @@ import { Browser, launch, Page } from 'puppeteer'
 const sites: ISite[] = [
     {
         name: 'Aroma-Zone',
-        url: 'https://www.aroma-zone.com/catalogsearch/result/?sq=essentielle+{{q}}&order=relevance&dir=desc&limit=24&mode=grid&e=l', // tslint:disable-line:max-line-length
+        // tslint:disable-next-line:max-line-length
+        url: 'https://www.aroma-zone.com/catalogsearch/result/?sq=essentielle+{{q}}&order=relevance&dir=desc&limit=24&mode=grid&e=l',
+        scrapper: 'aromaScrape',
     },
 ]
 
@@ -17,7 +19,7 @@ class GetPrice {
         const query: string = this.input.replace(/\s/g, '+')
         sites.forEach(site => {
             const url: string = site.url.replace('{{q}}', query)
-            this.scrape(site.name, url, this.aromaScrape)
+            this.scrape(site.name, url, this[site.scrapper])
         })
     }
 
@@ -91,4 +93,5 @@ new GetPrice(process.argv.slice(2).join(' ')) // tslint:disable-line:no-unused-e
 export interface ISite {
     name: string
     url: string
+    scrapper: string
 }
