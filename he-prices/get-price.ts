@@ -29,7 +29,8 @@ class GetPrice {
         sites.forEach(site => {
             if (this[site.scrapper]) {
                 const url: string = site.url.replace('{{q}}', query)
-                this.scrape(site.name, url, this[site.scrapper])
+                site.finder = site.finder || 'dummyFind'
+                this[site.finder](url).then(finalUrl => this.scrape(site.name, finalUrl, this[site.scrapper]))
             } else {
                 this.log(`No scrapper found for ${site.name}`)
             }
@@ -46,6 +47,39 @@ class GetPrice {
             // dont log message if it contains an excluded word
             console.log(time + ' :', message, args.length ? args : '')
         }
+    }
+
+    dummyFind(url: string): Promise<string> {
+        return new Promise(resolve => {
+            resolve(url)
+        })
+    }
+
+    mycosmeFind(url: string): Promise<string> {
+        this.log('Finding product url on page : ', url)
+        return new Promise(async (resolve, reject) => {
+            const browser: Browser = await launch({ headless: true })
+            const page: Page = await browser.newPage()
+            page.on('console', this.log)
+            await page.goto(url)
+            await page.waitFor(400)
+            const finalUrl: string = await page.evaluate(() => {
+                const firstResult: HTMLLinkElement = document.querySelector('#product_list > li .product_link') as HTMLLinkElement // tslint:disable-line:max-line-length
+                if (firstResult) {
+                    return firstResult.href
+                } else {
+                    return null
+                }
+            })
+            if (!finalUrl) {
+                this.log('Failed at getting product url for MyCosmetik :\'(')
+                reject('Product url not found :(')
+            } else {
+                this.log('Product url found :)')
+                resolve(finalUrl)
+            }
+            browser.close()
+        })
     }
 
     mycosmeScrape = (): number => {
