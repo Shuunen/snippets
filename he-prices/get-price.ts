@@ -2,7 +2,7 @@ import { Browser, launch, Page } from 'puppeteer'
 /* import request from 'request' */
 
 const urls: { az: string } = {
-    az: 'https://www.aroma-zone.com/catalogsearch/result/?sq={{q}}&order=relevance&dir=desc&limit=24&mode=grid&e=l',
+    az: 'https://www.aroma-zone.com/catalogsearch/result/?sq=essentielle+{{q}}&order=relevance&dir=desc&limit=24&mode=grid&e=l', // tslint:disable-line:max-line-length
 }
 
 class GetPrice {
@@ -26,7 +26,7 @@ class GetPrice {
     }
 
     scrape = async (url: string) => {
-        this.log('Start scrapping...')
+        this.log('Scrapping url : ', url)
         const browser: Browser = await launch({ headless: true })
         const page: Page = await browser.newPage()
         page.on('console', this.log)
@@ -55,7 +55,7 @@ class GetPrice {
             for (index = 0; index < contenances.length; index++) {
                 const contenance: HTMLElement = contenances[index]
                 const text: string = (contenance.textContent as string).trim()
-                // console.log(`Checking contenance with text "${text}"`)
+                console.log(`Checking contenance with text "${text}"`)
                 if (!contenance || !text.length) {
                     continue
                 }

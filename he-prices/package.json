@@ -17,7 +17,7 @@
     "scripts": {
         "build": "tsc",
         "dev": "nodemon -e ts  --exec \"tsc && npm start\"",
-        "start": "node build/get-price Lavandin super Bio"
+        "start": "node build/get-price Eucalyptus Globulus Bio"
     },
     "author": "Shuunen",
     "license": "AGPL-3.0",
