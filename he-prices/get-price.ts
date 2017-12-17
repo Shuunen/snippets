@@ -1,14 +1,23 @@
 import { Browser, launch, Page } from 'puppeteer'
 /* import request from 'request' */
 
+/* tslint:disable:max-line-length */
 const sites: ISite[] = [
-    {
+    /* {
         name: 'Aroma-Zone',
-        // tslint:disable-next-line:max-line-length
         url: 'https://www.aroma-zone.com/catalogsearch/result/?sq=essentielle+{{q}}&order=relevance&dir=desc&limit=24&mode=grid&e=l',
         scrapper: 'aromaScrape',
+    }, */
+    {
+        name: 'MyCosmetik',
+        url: 'https://www.mycosmetik.fr/recherche?controller=search&orderby=position&orderway=desc&search_query=essentielle+{{q}}',
+        finder: 'mycosmeFind',
+        scrapper: 'mycosmeScrape',
     },
 ]
+/* tslint:enable:max-line-length */
+
+const dontLog: string[] = ['processDynamicModules']
 
 class GetPrice {
 
@@ -18,8 +27,12 @@ class GetPrice {
         this.log(`Want the price for "${this.input}"`)
         const query: string = this.input.replace(/\s/g, '+')
         sites.forEach(site => {
-            const url: string = site.url.replace('{{q}}', query)
-            this.scrape(site.name, url, this[site.scrapper])
+            if (this[site.scrapper]) {
+                const url: string = site.url.replace('{{q}}', query)
+                this.scrape(site.name, url, this[site.scrapper])
+            } else {
+                this.log(`No scrapper found for ${site.name}`)
+            }
         })
     }
 
@@ -29,7 +42,14 @@ class GetPrice {
         const minutes: string = date.getMinutes() + ''
         const time: string = (hours.length === 1 ? '0' : '') + hours + 'h' + (minutes.length === 1 ? '0' : '') + minutes
         const message: string = thing.text ? thing.text : thing
-        console.log(time + ' :', message, args.length ? args : '')
+        if (!dontLog.some(str => message.includes(str))) {
+            // dont log message if it contains an excluded word
+            console.log(time + ' :', message, args.length ? args : '')
+        }
+    }
+
+    mycosmeScrape = (): number => {
+        return 3.33
     }
 
     aromaScrape = (): number => {
@@ -54,7 +74,7 @@ class GetPrice {
         for (index = 0; index < contenances.length; index++) {
             const contenance: HTMLElement = contenances[index]
             const text: string = (contenance.textContent as string).trim()
-            console.log(`Checking contenance with text "${text}"`)
+            // console.log(`Checking contenance with text "${text}"`)
             if (!contenance || !text.length) {
                 continue
             }
@@ -93,5 +113,6 @@ new GetPrice(process.argv.slice(2).join(' ')) // tslint:disable-line:no-unused-e
 export interface ISite {
     name: string
     url: string
+    finder?: string
     scrapper: string
 }
