@@ -58,6 +58,7 @@ alias scanlocalnw='nmap -sP 192.168.0.1/24'
 
 # thanks http://stevenharman.net/git-clean-delete-already-merged-branches
 alias gitCleanLocalMergedBranches='git branch --merged | grep -v "\*" | xargs -n 1 git branch -d'
+alias gitCleanAllBranchesButDevelop='git branch | grep -v "develop" | xargs git branch -D '
 
 # thanks http://stackoverflow.com/questions/2499794/how-can-i-fix-a-locale-warning-from-perl#2510548
 export LC_ALL=en_US.UTF-8
