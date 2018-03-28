@@ -120,10 +120,10 @@ sudo chmod +x /usr/local/bin/*
 # fi
 
 # clean shit
-sudo aptitude purge banshee brasero brasero-common brasero-cdrkit hexchat hexchat-common -y >> ${logfile} 2>&1 # audio + burner + chat
-sudo aptitude purge mate-screensaver mate-screensaver-common xscreensaver-data-extra xscreensaver-data xscreensaver-gl-extra xscreensaver-gl -y >> ${logfile} 2>&1 # screensavers
-sudo aptitude purge tomboy toshset brltty xplayer xplayer-common bluez-cups caja-folder-color-switcher -y >> ${logfile} 2>&1 # note + toshiba + braille display + player + bluetooth printers + custo
-sudo aptitude purge ideviceinstaller xserver-xorg-input-wacom xserver-xorg-video-vmware -y >> ${logfile} 2>&1 # apple device handler + tablet + vmware
+sudo apt purge banshee brasero brasero-common brasero-cdrkit hexchat hexchat-common -y >> ${logfile} 2>&1 # audio + burner + chat
+sudo apt purge mate-screensaver mate-screensaver-common xscreensaver-data-extra xscreensaver-data xscreensaver-gl-extra xscreensaver-gl -y >> ${logfile} 2>&1 # screensavers
+sudo apt purge tomboy toshset brltty xplayer xplayer-common bluez-cups caja-folder-color-switcher -y >> ${logfile} 2>&1 # note + toshiba + braille display + player + bluetooth printers + custo
+sudo apt purge ideviceinstaller xserver-xorg-input-wacom xserver-xorg-video-vmware firefox* transmission* -y >> ${logfile} 2>&1 # apple device handler + tablet + vmware
 
 # show env detected
 if is_desktop ; then
@@ -203,8 +203,13 @@ install_if_needed "libimage-exiftool-perl"
 install_if_needed "git"
 
 # de/compression libs
-sudo apt install p7zip-rar p7zip-full unace unrar zip unzip sharutils rar uudeview mpack arj cabextract file-roller arj -y >> ${logfile} 2>&1
-consoleSuccess "installed de/compression libs"
+app="p7zip-full"
+if not_installed ${app} ; then
+    sudo apt install p7zip-rar p7zip-full unace unrar zip unzip sharutils rar uudeview mpack arj cabextract file-roller arj -y >> ${logfile} 2>&1
+    consoleSuccess "installed de/compression libs"
+else
+    consoleLog "de/compression libs was already installed"
+fi
 
 # Node Version Manager - Simple bash script to manage multiple active node.js versions
 if [[ ! -d ~/.nvm ]]; then
@@ -246,12 +251,22 @@ install_if_needed "chromium-browser" # as good as chrome but without spywares # 
 # qbittorrent                    # great bt client
 
 # Unix FireWall
-sudo ufw enable                  # enable
-install_if_needed "gufw"         # gui for UFW
+app="gufw"
+if not_installed ${app} ; then
+    sudo ufw enable >> ${logfile} 2>&1 # enable
+    install_if_needed "gufw"         # gui for UFW
+else
+    consoleLog "${app} was already installed"
+fi
 
 # microsoft fonts + unicode
-sudo apt install ttf-ubuntu-font-family ttf-dejavu ttf-dejavu-extra ttf-liberation ttf-mscorefonts-installer ttf-ancient-fonts -y >> ${logfile} 2>&1
-consoleSuccess "installed extra fonts"
+app="ttf-dejavu"
+if not_installed ${app} ; then
+    sudo apt install ttf-ubuntu-font-family ttf-dejavu ttf-dejavu-extra ttf-liberation ttf-mscorefonts-installer ttf-ancient-fonts -y >> ${logfile} 2>&1
+    consoleSuccess "installed extra fonts"
+else
+    consoleLog "extra fonts was already installed"
+fi
 
 # for eye care, try `gtk-redshift -l 45.45:3.07` to conf
 install_if_needed "redshift"
