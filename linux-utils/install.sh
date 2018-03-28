@@ -119,6 +119,12 @@ sudo chmod +x /usr/local/bin/*
 #     sudo rm -r /var/lib/apt/lists/*Translation* >> ${logfile} 2>&1
 # fi
 
+# clean shit
+sudo aptitude purge banshee brasero brasero-common brasero-cdrkit hexchat hexchat-common # audio + burner + chat
+sudo aptitude purge mate-screensaver mate-screensaver-common xscreensaver-data-extra xscreensaver-data xscreensaver-gl-extra xscreensaver-gl # screensavers
+sudo aptitude purge tomboy toshset brltty xplayer xplayer-common bluez-cups caja-folder-color-switcher # note + toshiba + braille display + player + bluetooth printers + custo
+sudo aptitude purge ideviceinstaller xserver-xorg-input-wacom xserver-xorg-video-vmware # apple device handler + tablet + vmware
+
 # show env detected
 if is_desktop ; then
     consoleLog "desktop detected"
@@ -178,7 +184,7 @@ install_if_needed "aria2"
 install_if_needed "hdparm"
 
 # screenfetch is a kikoo login ascii art
-# install_if_needed "screenfetch"
+install_if_needed "screenfetch"
 
 # allow easy access to suspend, hibernate etc..
 install_if_needed "pm-utils"
@@ -195,6 +201,10 @@ install_if_needed "libimage-exiftool-perl"
 
 # git
 install_if_needed "git"
+
+# de/compression libs
+sudo apt install p7zip-rar p7zip-full unace unrar zip unzip sharutils rar uudeview mpack arj cabextract file-roller arj -y >> ${logfile} 2>&1
+consoleSuccess "installed de/compression libs"
 
 # Node Version Manager - Simple bash script to manage multiple active node.js versions
 if [[ ! -d ~/.nvm ]]; then
@@ -230,10 +240,24 @@ install_if_needed "gparted"      # partition manager
 install_if_needed "meld"         # to compare files & dir
 install_if_needed "xsel"         # allow getting and setting clipboard
 install_if_needed "shotwell"     # digital photo organizer/viewer
-install_if_needed "chromium-browser" # as good as chrome but without spywares
+install_if_needed "chromium-browser" # as good as chrome but without spywares # else try "chromium-browser-l10n"
 # Peek                           # animated GIF screen recorder https://github.com/phw/peek/releases
 # Vectr                          # great SVG Editor https://vectr.com/downloads/
+# qbittorrent                    # great bt client
 
+# Unix FireWall
+sudo ufw enable                  # enable
+install_if_needed "gufw"         # gui for UFW
+
+# microsoft fonts + unicode
+sudo apt install ttf-ubuntu-font-family ttf-dejavu ttf-dejavu-extra ttf-liberation ttf-mscorefonts-installer ttf-ancient-fonts -y >> ${logfile} 2>&1
+consoleSuccess "installed extra fonts"
+
+# for eye care, try `gtk-redshift -l 45.45:3.07` to conf
+install_if_needed "redshift"
+install_if_needed "gtk-redshift"
+
+# to read dvd
 app="libdvdcss2"
 if not_installed ${app} ; then
     sudo gdebi --non-interactive --quiet saveddeb/libdvdcss2_1.2.13-0_amd64.deb # simple library designed for accessing DVDs
@@ -241,6 +265,7 @@ if not_installed ${app} ; then
 else
     consoleLog "${app} was already installed"
 fi
+install_if_needed "libdvdnav4"
 
 app="ulauncher"
 if not_installed ${app} ; then
@@ -273,6 +298,10 @@ exit 1;
 
 # For custom bashrc 
 # https://github.com/gto76/standard-aliases
+
+# For ideas & tweaks
+# https://lehollandaisvolant.net/linux/checklist/
+# http://www.noobslab.com/2013/10/tweaksthings-to-do-after-install-of.html
 
 
 #  ████████╗██╗  ██╗███████╗    ███████╗███╗   ██╗██████╗ 
