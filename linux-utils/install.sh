@@ -262,7 +262,7 @@ fi
 # microsoft fonts + unicode
 app="ttf-dejavu"
 if not_installed ${app} ; then
-    sudo apt install ttf-ubuntu-font-family ttf-dejavu ttf-dejavu-extra ttf-liberation ttf-mscorefonts-installer ttf-ancient-fonts -y >> ${logfile} 2>&1
+    sudo apt install ttf-ubuntu-font-family ttf-dejavu ttf-dejavu-extra ttf-liberation ttf-ancient-fonts -y >> ${logfile} 2>&1
     consoleSuccess "installed extra fonts"
 else
     consoleLog "extra fonts was already installed"
