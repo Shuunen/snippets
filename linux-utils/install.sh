@@ -290,7 +290,7 @@ else
     consoleLog "${app} was already installed"
 fi
 
-sudo apt autoremove -y
+sudo apt autoremove -y >> ${logfile} 2>&1
 
 # TODO : Dependency is not satisfiable: libwxbase2.8-0
 # sudo gdebi --non-interactive --quiet saveddeb/woeusb_3.1.4-1_webupd8_trusty0_amd64.deb # create bootable windows installer on usb
