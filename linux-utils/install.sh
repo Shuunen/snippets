@@ -143,6 +143,9 @@ if [[ ! -f ~/.lu-once ]]; then
     sudo sh -c "echo '\nHISTFILESIZE=10000\nHISTSIZE=10000\nHISTCONTROL=ignoredups' >> /etc/environment"
     consoleSuccess "allowed 10k entries in history instead of 500 by default"
 
+    echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
+    consoleSuccess "increased max number of inotify watches"
+
     consoleSuccess "system tweaks applied"
 else
     consoleLog "system tweaks already applied"
