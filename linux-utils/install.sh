@@ -125,7 +125,7 @@ sudo chmod +x /usr/local/bin/*
 sudo apt-get purge banshee brasero brasero-common brasero-cdrkit hexchat hexchat-common -y >> ${logfile} 2>&1 # audio + burner + chat
 sudo apt-get purge mate-screensaver mate-screensaver-common xscreensaver-data-extra xscreensaver-data xscreensaver-gl-extra xscreensaver-gl -y >> ${logfile} 2>&1 # screensavers
 sudo apt-get purge tomboy toshset brltty xplayer xplayer-common bluez-cups caja-folder-color-switcher -y >> ${logfile} 2>&1 # note + toshiba + braille display + player + bluetooth printers + custo
-sudo apt-get purge ideviceinstaller xserver-xorg-input-wacom xserver-xorg-video-vmware firefox* transmission* -y >> ${logfile} 2>&1 # apple device handler + tablet + vmware
+sudo apt-get purge ideviceinstaller xserver-xorg-input-wacom xserver-xorg-video-vmware firefox thunderbird transmission -y >> ${logfile} 2>&1 # apple device handler + tablet + vmware
 consoleLog "cleaned unused packages"
 
 # system tweaks

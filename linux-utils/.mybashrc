@@ -6,14 +6,13 @@ alias cdproj='cd $PROJECTS_DIR'
 alias service='sudo /usr/sbin/service'
 alias reloadMyBashRc='source .mybashrc'
 alias install='sudo apt install'
-searchGrep() {
+# no need to create alias here, functions will be directly accessible like "search firefox"
+search() {
     sudo apt-cache search $1 | grep $1
 }
-searchInstalledGrep() {
-    sudo apt list --installed | grep $1
+searchInstalled() {
+    sudo dpkg --get-selections | grep $1
 }
-alias search=searchGrep
-alias searchInstalled=searchInstalledGrep
 alias edithosts='sudo nano /etc/hosts'
 alias apacheRestart='sudo service apache2 restart'
 alias gitUpdateBranch='git pull --rebase && git fetch origin develop && git merge FETCH_HEAD'
