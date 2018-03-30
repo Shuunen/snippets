@@ -6,7 +6,7 @@ cat /dev/null > ${logfile}
 
 if [[ ! -f ./install.sh ]]; then
     # git is mandatory to be able to clone
-    sudo apt install git -y >> ${logfile} 2>&1
+    sudo apt-get install git -y >> ${logfile} 2>&1
 
     # clone repo
     git clone https://github.com/Shuunen/snippets >> ${logfile} 2>&1

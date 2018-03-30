@@ -54,7 +54,7 @@ function consoleSuccess {
 
 function install_if_needed {
     if not_installed "$1"; then
-        sudo apt install "$1" -y >> ${logfile} 2>&1
+        sudo apt-get install "$1" -y >> ${logfile} 2>&1
         check_install "$1"
     else
         consoleLog "$1 was already installed"
@@ -122,10 +122,10 @@ sudo chmod +x /usr/local/bin/*
 # fi
 
 # clean shit
-sudo apt purge banshee brasero brasero-common brasero-cdrkit hexchat hexchat-common -y >> ${logfile} 2>&1 # audio + burner + chat
-sudo apt purge mate-screensaver mate-screensaver-common xscreensaver-data-extra xscreensaver-data xscreensaver-gl-extra xscreensaver-gl -y >> ${logfile} 2>&1 # screensavers
-sudo apt purge tomboy toshset brltty xplayer xplayer-common bluez-cups caja-folder-color-switcher -y >> ${logfile} 2>&1 # note + toshiba + braille display + player + bluetooth printers + custo
-sudo apt purge ideviceinstaller xserver-xorg-input-wacom xserver-xorg-video-vmware firefox* transmission* -y >> ${logfile} 2>&1 # apple device handler + tablet + vmware
+sudo apt-get purge banshee brasero brasero-common brasero-cdrkit hexchat hexchat-common -y >> ${logfile} 2>&1 # audio + burner + chat
+sudo apt-get purge mate-screensaver mate-screensaver-common xscreensaver-data-extra xscreensaver-data xscreensaver-gl-extra xscreensaver-gl -y >> ${logfile} 2>&1 # screensavers
+sudo apt-get purge tomboy toshset brltty xplayer xplayer-common bluez-cups caja-folder-color-switcher -y >> ${logfile} 2>&1 # note + toshiba + braille display + player + bluetooth printers + custo
+sudo apt-get purge ideviceinstaller xserver-xorg-input-wacom xserver-xorg-video-vmware firefox* transmission* -y >> ${logfile} 2>&1 # apple device handler + tablet + vmware
 consoleLog "cleaned unused packages"
 
 # system tweaks
@@ -155,7 +155,7 @@ fi
 #   ╚═════╝ ╚═╝     ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝
 
 consoleLog "updating apt repositories..."
-sudo apt update >> ${logfile} 2>&1
+sudo apt-get update >> ${logfile} 2>&1
 consoleLog "update apt complete !"
 
 
@@ -194,7 +194,7 @@ install_if_needed "libimage-exiftool-perl"
 # de/compression libs
 app="p7zip-full"
 if not_installed ${app} ; then
-    sudo apt install p7zip-rar p7zip-full unace unrar zip unzip sharutils rar uudeview mpack arj cabextract file-roller arj -y >> ${logfile} 2>&1
+    sudo apt-get install p7zip-rar p7zip-full unace unrar zip unzip sharutils rar uudeview mpack arj cabextract file-roller arj -y >> ${logfile} 2>&1
     consoleSuccess "installed commons de/compression libs"
 else
     consoleLog "de/compression libs was already installed"
@@ -251,7 +251,7 @@ fi
 # microsoft fonts + unicode
 app="ttf-dejavu"
 if not_installed ${app} ; then
-    sudo apt install ttf-ubuntu-font-family ttf-dejavu ttf-dejavu-extra ttf-liberation ttf-ancient-fonts -y >> ${logfile} 2>&1
+    sudo apt-get install ttf-ubuntu-font-family ttf-dejavu ttf-dejavu-extra ttf-liberation ttf-ancient-fonts -y >> ${logfile} 2>&1
     consoleSuccess "installed extra fonts"
     sudo fc-cache -f -v >> ${logfile} 2>&1
     consoleSuccess "cleared & reloaded font cache"
@@ -281,7 +281,7 @@ else
     consoleLog "${app} was already installed"
 fi
 
-sudo apt autoremove -y >> ${logfile} 2>&1
+sudo apt-get autoremove -y >> ${logfile} 2>&1
 
 consoleLog "optional : you can manually run 'install ttf-mscorefonts-installer' & 'sudo fc-cache -f -v' to get win fonts & clear font cache"
 
