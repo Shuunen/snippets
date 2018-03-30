@@ -4,14 +4,11 @@
 logfile=get.log
 cat /dev/null > ${logfile}
 
-# import common functions
-source ./common.sh
-
 # git is mandatory to be able to clone
-install_if_needed "git"
+sudo apt install git -y >> ${logfile} 2>&1
 
 # clone repo
-git clone https://github.com/Shuunen/snippets
+git clone https://github.com/Shuunen/snippets >> ${logfile} 2>&1
 
 # go to linux folder
 cd snippets/linux-utils
