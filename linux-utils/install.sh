@@ -125,7 +125,8 @@ sudo chmod +x /usr/local/bin/*
 sudo apt-get purge banshee brasero brasero-common brasero-cdrkit hexchat hexchat-common -y >> ${logfile} 2>&1 # audio + burner + chat
 sudo apt-get purge mate-screensaver mate-screensaver-common xscreensaver-data-extra xscreensaver-data xscreensaver-gl-extra xscreensaver-gl -y >> ${logfile} 2>&1 # screensavers
 sudo apt-get purge tomboy toshset brltty xplayer xplayer-common bluez-cups caja-folder-color-switcher -y >> ${logfile} 2>&1 # note + toshiba + braille display + player + bluetooth printers + custo
-sudo apt-get purge ideviceinstaller xserver-xorg-input-wacom xserver-xorg-video-vmware firefox thunderbird transmission -y >> ${logfile} 2>&1 # apple device handler + tablet + vmware
+sudo apt-get purge ideviceinstaller xserver-xorg-input-wacom xserver-xorg-video-vmware  >> ${logfile} 2>&1 # apple device handler + tablet + vmware
+sudo apt-get purge firefox thunderbird transmission pidgin gimp gimp-data -y >> ${logfile} 2>&1 # default mint/ubuntu programs
 consoleLog "cleaned unused packages"
 
 # system tweaks
@@ -266,7 +267,7 @@ install_if_needed "gtk-redshift"
 # to read dvd
 app="libdvdcss2"
 if not_installed ${app} ; then
-    sudo gdebi --non-interactive --quiet saveddeb/libdvdcss2_1.2.13-0_amd64.deb # simple library designed for accessing DVDs
+    sudo gdebi --non-interactive --quiet saveddeb/libdvdcss2_*.deb >> ${logfile} 2>&1 # simple library designed for accessing DVDs
     check_install ${app}
 else
     consoleLog "${app} was already installed"
@@ -275,7 +276,7 @@ install_if_needed "libdvdnav4"
 
 app="ulauncher"
 if not_installed ${app} ; then
-    sudo gdebi --non-interactive --quiet saveddeb/ulauncher_3.2.1.r1_all.deb    # great app/file launcher like launchy
+    sudo gdebi --non-interactive --quiet saveddeb/ulauncher_*.deb >> ${logfile} 2>&1 # great app/file launcher like launchy
     check_install ${app}
 else
     consoleLog "${app} was already installed"
