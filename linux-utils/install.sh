@@ -35,19 +35,19 @@ function check_install {
 }
 
 function consoleError {
-    echo "\n ERROR : ${1} \n" >> ${logfile} 2>&1
+    printf "\nERROR : ${1} \n" >> ${logfile} 2>&1
     printf "\n  \e[31m✘ ${1}" # echo first argument in red   
     echo -e "\033[0m" # reset colours back to normal
 }
 
 function consoleLog {    
-    echo "\n LOG : ${1} \n" >> ${logfile} 2>&1
+    printf "\nLOG : ${1} \n" >> ${logfile} 2>&1
     printf "\n  \e[34m✔ ${1}" # echo first argument in blue
     echo -e "\033[0m" # reset colours back to normal
 }
 
 function consoleSuccess {
-    echo "\n SUCCESS : ${1} \n" >> ${logfile} 2>&1
+    printf "\nSUCCESS : ${1} \n" >> ${logfile} 2>&1
     printf "\n  \e[32m✔ ${1}" # echo first argument in green
     echo -e "\033[0m" # reset colours back to normal
 }
