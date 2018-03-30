@@ -207,9 +207,6 @@ else
     consoleLog "Node Version Manager was already installed"
 fi
 
-consoleLog "optional : you can manually run 'install ttf-mscorefonts-installer' & 'sudo fc-cache -f -v' to get win fonts & clear font cache"
-
-
 #  ██████╗ ███████╗███████╗██╗  ██╗████████╗ ██████╗ ██████╗ 
 #  ██╔══██╗██╔════╝██╔════╝██║ ██╔╝╚══██╔══╝██╔═══██╗██╔══██╗
 #  ██║  ██║█████╗  ███████╗█████╔╝    ██║   ██║   ██║██████╔╝
@@ -218,6 +215,7 @@ consoleLog "optional : you can manually run 'install ttf-mscorefonts-installer' 
 #  ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═╝     
 
 if ! is_desktop ; then
+    consoleLog "optional : you can manually run 'install ttf-mscorefonts-installer' & 'sudo fc-cache -f -v' to get win fonts & clear font cache"
     bash
     exit 1;
 fi
