@@ -216,7 +216,6 @@ fi
 #  ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═╝     
 
 if ! is_desktop ; then
-    consoleLog "optional : you can manually run 'install ttf-mscorefonts-installer' & 'sudo fc-cache -f -v' to get win fonts & clear font cache"
     bash
     exit 1;
 fi
@@ -264,27 +263,27 @@ fi
 install_if_needed "redshift"
 install_if_needed "gtk-redshift"
 
-# to read dvd
-app="libdvdcss2"
-if not_installed ${app} ; then
-    sudo gdebi --non-interactive --quiet saveddeb/libdvdcss2_*.deb >> ${logfile} 2>&1 # simple library designed for accessing DVDs
-    check_install ${app}
-else
-    consoleLog "${app} was already installed"
-fi
-install_if_needed "libdvdnav4"
+# to read dvd (commented because not using that much)
+#app="libdvdcss2" 
+#if not_installed ${app} ; then
+#    sudo gdebi --non-interactive --quiet saveddeb/libdvdcss2_*.deb >> ${logfile} 2>&1 # simple library designed for accessing DVDs
+#    check_install ${app}
+#else
+#    consoleLog "${app} was already installed"
+#fi
+#install_if_needed "libdvdnav4"
 
-app="ulauncher"
-if not_installed ${app} ; then
-    sudo gdebi --non-interactive --quiet saveddeb/ulauncher_*.deb >> ${logfile} 2>&1 # great app/file launcher like launchy
-    check_install ${app}
-else
-    consoleLog "${app} was already installed"
-fi
+# great app/file launcher like launchy
+sudo gdebi --non-interactive --quiet saveddeb/ulauncher_*.deb >> ${logfile} 2>&1 
+consoleLog "uLauncher installed or updated"
 
+# clean apt packages
 sudo apt-get autoremove -y >> ${logfile} 2>&1
 
-consoleLog "optional : you can manually run 'install ttf-mscorefonts-installer' & 'sudo fc-cache -f -v' to get win fonts & clear font cache"
+app="ttf-mscorefonts-installer"
+if not_installed ${app} ; then
+    consoleLog "optional : you can manually run 'install ttf-mscorefonts-installer' & 'sudo fc-cache -f -v' to get win fonts & clear font cache"
+fi
 
 # TODO : Dependency is not satisfiable: libwxbase2.8-0
 # sudo gdebi --non-interactive --quiet saveddeb/woeusb_3.1.4-1_webupd8_trusty0_amd64.deb # create bootable windows installer on usb
