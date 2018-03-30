@@ -1,85 +1,13 @@
 #!/bin/bash
-#
+
 # Usage: chmod +x ./install.sh && ./install.sh
 
 # prepare logfile
 logfile=install.log
 cat /dev/null > ${logfile}
 
-# clean console
-reset
-
-#  ███████╗██╗   ██╗███╗   ██╗ ██████╗████████╗██╗ ██████╗ ███╗   ██╗███████╗
-#  ██╔════╝██║   ██║████╗  ██║██╔════╝╚══██╔══╝██║██╔═══██╗████╗  ██║██╔════╝
-#  █████╗  ██║   ██║██╔██╗ ██║██║        ██║   ██║██║   ██║██╔██╗ ██║███████╗
-#  ██╔══╝  ██║   ██║██║╚██╗██║██║        ██║   ██║██║   ██║██║╚██╗██║╚════██║
-#  ██║     ╚██████╔╝██║ ╚████║╚██████╗   ██║   ██║╚██████╔╝██║ ╚████║███████║
-#  ╚═╝      ╚═════╝ ╚═╝  ╚═══╝ ╚═════╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝╚══════╝
-                                                                                                                                                    
-function not_installed {
-    # set to 1 (false) initially
-    local return_=1
-    # set to 0 (true) if not found
-    # type $1 >/dev/null 2>&1 || { local return_=0; }
-    dpkg -s "$1" >/dev/null 2>&1 || { local return_=0; }
-    # return value
-    return "$return_"
-}
-
-function check_install {
-    if not_installed "$1" ; then    
-        consoleError "$1 has not been installed"
-    else
-        consoleSuccess "$1 has been installed"
-    fi
-}
-
-function consoleError {
-    printf "\n  \e[31m✘ ${1}" # echo first argument in red   
-    echo -e "\033[0m" # reset colours back to normal
-}
-
-function consoleLog {    
-    printf "\n  \e[34m✔ ${1}" # echo first argument in blue
-    echo -e "\033[0m" # reset colours back to normal
-}
-
-function consoleSuccess {
-    printf "\n  \e[32m✔ ${1}" # echo first argument in green
-    echo -e "\033[0m" # reset colours back to normal
-}
-
-function install_if_needed {
-    if not_installed "$1"; then
-        sudo apt install "$1" -y >> ${logfile} 2>&1
-        check_install "$1"
-    else
-        consoleLog "$1 was already installed"
-    fi
-}
-
-function is_desktop {
-    # set to 1 (false) initially
-    local return_=1
-    # array of desktop packages 
-    packages=("ubuntu-desktop" "mate-desktop" "xubuntu-desktop" "elementary-desktop" "cinnamon-desktop-data" "gnome-desktop3-data")
-    # check for one of them
-    for package in "${packages[@]}"; do
-        if not_installed "$package" ; then
-            consoleLog "dektop package \"$package\" not detected"
-        else
-            consoleSuccess "dektop package \"$package\" detected"
-            # found ! set to 0 (true)
-            local return_=0
-            # stop iterations
-            break
-        fi
-    done 
-    # return value
-    return "$return_"
-}
-
-
+# import common functions
+source ./common.sh
 
 #   ██████╗██╗   ██╗███████╗████████╗ ██████╗ ███╗   ███╗██╗███████╗███████╗
 #  ██╔════╝██║   ██║██╔════╝╚══██╔══╝██╔═══██╗████╗ ████║██║╚══███╔╝██╔════╝
@@ -95,7 +23,7 @@ if [[ ! -f ~/.bashrc ]]; then
 fi
 
 # install custom mybashrc
-consoleLog "install custom ~/.mybashrc"
+consoleLog "install or update custom ~/.mybashrc"
 sudo cp .mybashrc ~/.mybashrc --force --verbose >> ${logfile} 2>&1
 source ~/.bashrc
 
@@ -124,14 +52,23 @@ sudo apt purge banshee brasero brasero-common brasero-cdrkit hexchat hexchat-com
 sudo apt purge mate-screensaver mate-screensaver-common xscreensaver-data-extra xscreensaver-data xscreensaver-gl-extra xscreensaver-gl -y >> ${logfile} 2>&1 # screensavers
 sudo apt purge tomboy toshset brltty xplayer xplayer-common bluez-cups caja-folder-color-switcher -y >> ${logfile} 2>&1 # note + toshiba + braille display + player + bluetooth printers + custo
 sudo apt purge ideviceinstaller xserver-xorg-input-wacom xserver-xorg-video-vmware firefox* transmission* -y >> ${logfile} 2>&1 # apple device handler + tablet + vmware
+consoleLog "cleaned unused packages"
 
-# show env detected
-if is_desktop ; then
-    consoleLog "desktop detected"
+# system tweaks
+if [[ $HISTFILESIZE != 10000 ]]; then
+    sudo iw reg set FR
+    consoleSuccess "EU wifi settings set"
+
+    sudo sh -c "echo 'Dir::Cache \"\";\nDir::Cache::archives \"\";' >> /etc/apt/apt.conf.d/02nocache"
+    consoleSuccess "disabled apt local cache"
+
+    sudo sh -c "echo '\nHISTFILESIZE=10000\nHISTSIZE=10000\nHISTCONTROL=ignoredups' >> /etc/environment"
+    consoleSuccess "allowed 10k entries in history instead of 500 by default"
+
+    consoleSuccess "system tweaks applied"
 else
-    consoleLog "headless server detected"    
+    consoleLog "system tweaks already applied"
 fi
-
 
 #  ██╗   ██╗██████╗ ██████╗  █████╗ ████████╗███████╗
 #  ██║   ██║██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██╔════╝
@@ -153,41 +90,19 @@ consoleLog "update apt complete !"
 #  ╚═╝╚═╝  ╚═══╝╚══════╝   ╚═╝   ╚═╝  ╚═╝╚══════╝╚══════╝
 
 
-# packages needed to have "add-apt-repository" command
-install_if_needed "software-properties-common"
-
-# lsb-release to show current system
-install_if_needed "lsb-release"
-
-# to dl stuff
-install_if_needed "curl"
-
-# to build stuff
-install_if_needed "build-essential"
-
-# mini editor
-install_if_needed "nano"
-
-# better than top
-install_if_needed "htop"
-
-# tree size browsable
-install_if_needed "ncdu"
-
-# show every disks sizes
-install_if_needed "pydf"
-
-# great downloader
-install_if_needed "aria2"
-
-# good for measuring disk speed
-install_if_needed "hdparm"
-
-# screenfetch is a kikoo login ascii art
-install_if_needed "screenfetch"
-
-# allow easy access to suspend, hibernate etc..
-install_if_needed "pm-utils"
+install_if_needed "software-properties-common"  # packages needed to have "add-apt-repository" command
+install_if_needed "lsb-release"     # lsb-release to show current system
+install_if_needed "curl"            # to dl stuff
+install_if_needed "build-essential" # to build stuff
+install_if_needed "nano"            # mini editor
+install_if_needed "htop"            # better than top
+install_if_needed "ncdu"            # browsable tree size
+install_if_needed "pydf"            # show every disks sizes
+install_if_needed "aria2"           # great downloader
+install_if_needed "hdparm"          # good at measuring disk speed
+install_if_needed "screenfetch"     # screenfetch is a kikoo login ascii art
+install_if_needed "pm-utils"        # allow easy access to suspend, hibernate etc..
+install_if_needed "git"             # really need a comment ?
 
 # great tool to record and share terminal sessions 
 # install_if_needed "asciinema"
@@ -199,14 +114,11 @@ install_if_needed "libimage-exiftool-perl"
 # To clean photo metadata : exiftool -all= my_photo.jpg
 # To clean all photos in a folder : exiftool -all= *.png
 
-# git
-install_if_needed "git"
-
 # de/compression libs
 app="p7zip-full"
 if not_installed ${app} ; then
     sudo apt install p7zip-rar p7zip-full unace unrar zip unzip sharutils rar uudeview mpack arj cabextract file-roller arj -y >> ${logfile} 2>&1
-    consoleSuccess "installed de/compression libs"
+    consoleSuccess "installed commons de/compression libs"
 else
     consoleLog "de/compression libs was already installed"
 fi
@@ -217,6 +129,8 @@ if [[ ! -d ~/.nvm ]]; then
 else
     consoleLog "Node Version Manager was already installed"
 fi
+
+consoleLog "optional : you can manually run 'install ttf-mscorefonts-installer' & 'sudo fc-cache -f -v' to get win fonts & clear font cache"
 
 
 #  ██████╗ ███████╗███████╗██╗  ██╗████████╗ ██████╗ ██████╗ 
@@ -264,6 +178,8 @@ app="ttf-dejavu"
 if not_installed ${app} ; then
     sudo apt install ttf-ubuntu-font-family ttf-dejavu ttf-dejavu-extra ttf-liberation ttf-ancient-fonts -y >> ${logfile} 2>&1
     consoleSuccess "installed extra fonts"
+    sudo fc-cache -f -v >> ${logfile} 2>&1
+    consoleSuccess "cleared & reloaded font cache"
 else
     consoleLog "extra fonts was already installed"
 fi
@@ -291,6 +207,8 @@ else
 fi
 
 sudo apt autoremove -y >> ${logfile} 2>&1
+
+consoleLog "optional : you can manually run 'install ttf-mscorefonts-installer' & 'sudo fc-cache -f -v' to get win fonts & clear font cache"
 
 # TODO : Dependency is not satisfiable: libwxbase2.8-0
 # sudo gdebi --non-interactive --quiet saveddeb/woeusb_3.1.4-1_webupd8_trusty0_amd64.deb # create bootable windows installer on usb

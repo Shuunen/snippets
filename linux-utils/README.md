@@ -1,7 +1,21 @@
 
-# Linux utils
+# Linux customization
 
-If under Debian, do this as root :
+Personal Linux headless & desktop customization :sparkles:
+
+## Use
+
+If you don't have sudo, look below, else just execute this where you want the repo to be cloned into :
+
+````bash
+curl https://raw.githubusercontent.com/Shuunen/snippets/master/linux-utils/get.sh | bash
+````
+
+:penguin: Please do not trust any script & look the sources before executing stuff like this on your computer :penguin:
+
+
+### Sudo
+Do this is as root :
 
 ````bash
 apt-get install sudo
@@ -15,14 +29,6 @@ usermod -a -G sudo MYUSER
 usermod -a -G sshusers MYUSER (if needed)
 ````
 
-Ìnstall git :
-
-````bash
-apt-get update
-apt-get upgrade
-apt-get install -y git
-````
-
 Logout from root & restart :
 
 ````bash
@@ -30,10 +36,3 @@ exit
 shutdown -r now
 ````
 
-Get snippets :
-
-````bash
-git clone https://github.com/Shuunen/snippets
-cd snippets/linux-utils
-./install.sh
-````
