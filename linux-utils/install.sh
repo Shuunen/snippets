@@ -129,9 +129,12 @@ sudo apt purge ideviceinstaller xserver-xorg-input-wacom xserver-xorg-video-vmwa
 consoleLog "cleaned unused packages"
 
 # system tweaks
-if [[ $HISTFILESIZE != 10000 ]]; then
+if [[ ! -f ~/.lu-once ]]; then
+    touch ~/.lu-once
+    consoleSuccess "created ~/.lu-once to avoid applying systems tweaks more than once"
+
     sudo iw reg set FR
-    consoleSuccess "EU wifi settings set"
+    consoleSuccess "wifi region settings set to EU"
 
     sudo sh -c "echo 'Dir::Cache \"\";\nDir::Cache::archives \"\";' >> /etc/apt/apt.conf.d/02nocache"
     consoleSuccess "disabled apt local cache"
