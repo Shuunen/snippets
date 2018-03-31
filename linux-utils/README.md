@@ -8,7 +8,7 @@ Personal Linux headless & desktop customization :sparkles:
 If you don't have sudo, look below, else just execute this where you want the repo to be cloned into :
 
 ````bash
-curl http://git.io/shuu-linux | bash
+curl -L http://git.io/shuu-linux | bash
 ````
 
 :penguin: Please do not trust any script & look the sources before executing stuff like this on your computer :penguin:
