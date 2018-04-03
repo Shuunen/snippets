@@ -9,3 +9,4 @@ Backup :
 - [ ] git/npm/xyz configs in home
 - [ ] useful installed programs `dpkg --get-selections > /backup/installed-software.log`
 - [ ] printers settings/ip
+- [ ] hostname & hosts file
