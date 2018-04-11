@@ -2,7 +2,7 @@
 // @name         Wish.com - Filters & more
 // @namespace    http://tampermonkey.net/
 // @version      3.3
-// @description  Filtering by min/max price, allow hidding free/nsfw products, see reviews
+// @description  Filtering by min/max price, allow hidding nsfw products, see reviews
 // @author       Shuunen
 // @match        https://*.wish.com/*
 // @grant        none
@@ -13,9 +13,8 @@ $(document).ready(function() {
 
   var minPrice = 0;
   var maxPrice = 1000;
-  var minStars = 1;
-  var hideFree = false;
-  var hideNsfw = true;
+  var minStars = parseInt(localStorage.abwMinStars) || 1;
+  var hideNsfw = localStorage.abwHideNsfw !== 'false';
 
   // Returns a function, that, as long as it continues to be invoked, will not
   // be triggered. The function will be called after it stops being called for
@@ -123,26 +122,23 @@ $(document).ready(function() {
     if (minPrice && minPrice > 0) {
       priceOk = priceOk && price >= minPrice;
     }
-    if (priceOk && hideFree && priceEl[0].textContent.includes('Free')) {
-      priceOk = false;
-    }
     if (priceOk && minStars && minStars > 0 && productEl.hasClass('abw-with-data')) {
       priceOk = nbStars >= minStars;
     }
     if (priceOk && hideNsfw && productEl.hasClass('abw-nsfw')) {
       priceOk = false;
     }
+    if (originalPicture) {
+      const image = productEl.find('a.display-pic');
+      if (!image || !image[0]) {
+        console.error('did not found image on product', productEl);
+        return;
+      }
+      image[0].style.backgroundImage = originalPicture;
+      image[0].style.backgroundSize = '100%';
+    }
     if (priceOk) {
       productEl.show('fast');
-      if (originalPicture) {
-        const image = productEl.find('a.display-pic');
-        if (!image || !image[0]) {
-          console.error('did not found image on product', productEl);
-          return;
-        }
-        image[0].style.backgroundImage = originalPicture;
-        image[0].style.backgroundSize = '100%';
-      }
       if (!productEl.hasClass('abw-on-hover')) {
         productEl.addClass('abw-on-hover');
         productEl.hover(getData);
@@ -182,24 +178,21 @@ $(document).ready(function() {
     $('#nav-search-input-wrapper').width(320);
     var html = '<div id="wish_tweaks_config" style="float:left;margin-top:10px;display:flex;justify-content:space-between;align-items:center;font-weight: bold;font-size: 13px;font-family: sans-serif;color: white;background-color: steelblue;padding:6px 12px;border-radius: 5px;">';
     html += 'Min / Max Price : <input id="wtc_min_price" type="text" style="width: 30px; text-align: center; margin-left: 5px;">&nbsp;/<input id="wtc_max_price" type="text" style="width: 30px; text-align: center; margin-left: 5px; margin-right: 10px;">';
-    html += 'Min stars : <input id="wtc_min_stars" type="text" style="width: 20px; text-align: center; margin-left: 5px; margin-right: 10px;">&nbsp;';
-    html += 'Hide free : <input id="wtc_hide_free" type="checkbox" checked style="margin: 0; height: 16px; width: 16px; margin-left: 5px;">';
-    html += 'Hide nsfw : <input id="wtc_hide_nsfw" type="checkbox" checked style="margin: 0; height: 16px; width: 16px; margin-left: 5px;">';
+    html += 'Min stars : <input id="wtc_min_stars" type="text" style="width: 20px; text-align: center; margin: 0 5px;">&nbsp;';
+    html += 'Hide nsfw : <input id="wtc_hide_nsfw" type="checkbox" checked style="margin: 0; height: 16px; width: 16px; margin: 0 5px;">';
     html += '</div>';
     $('#header-left').after(html);
   }
 
   // get elements
-  var hideFreeCheckbox = $('#wtc_hide_free');
   var hideNsfwCheckbox = $('#wtc_hide_nsfw');
   var minStarsInput = $('#wtc_min_stars');
   var minPriceInput = $('#wtc_min_price');
   var maxPriceInput = $('#wtc_max_price');
 
   // restore previous choices
-  hideFreeCheckbox.attr('checked', localStorage.abwHideFree === 'true'); // only if at true
-  hideNsfwCheckbox.attr('checked', localStorage.abwHideNsfw !== 'false'); // default true
-  minStarsInput.val(parseInt(localStorage.abwMinStars) || 1);
+  hideNsfwCheckbox.attr('checked', hideNsfw);
+  minStarsInput.val(minStars);
 
   // start filtering by default
   setTimeout(() => {
@@ -208,12 +201,6 @@ $(document).ready(function() {
   }, 1000);
 
   // when input value change
-  hideFreeCheckbox.change((event) => {
-    hideFree = event.currentTarget.checked;
-    localStorage.abwHideFree = hideFree;
-    // console.log('hideFree is now', hideFree);
-    showHideProductsDebounced();
-  });
   hideNsfwCheckbox.change((event) => {
     hideNsfw = event.currentTarget.checked;
     localStorage.abwHideNsfw = hideNsfw;
