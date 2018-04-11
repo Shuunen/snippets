@@ -1,3 +1,4 @@
 {
-    "window.title": "Snippets"
+    "window.title": "Snippets",
+    "prettier.semi": true
 }
