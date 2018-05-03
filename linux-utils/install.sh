@@ -184,6 +184,8 @@ install_if_needed "hdparm"          # good at measuring disk speed
 install_if_needed "screenfetch"     # screenfetch is a kikoo login ascii art
 install_if_needed "pm-utils"        # allow easy access to suspend, hibernate etc..
 install_if_needed "git"             # really need a comment ?
+install_if_needed "libssl-dev"      # pretty commom dev dep 
+install_if_needed "libcurl4-openssl-dev" # pretty commom dev dep 
 
 # great tool to record and share terminal sessions 
 # install_if_needed "asciinema"
