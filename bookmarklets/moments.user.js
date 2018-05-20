@@ -13,8 +13,9 @@ var identifierColor = 'darkorange'
 var errorDetected = false
 var autoMode = true
 var clickedOnAvailableTag = false
+var allowNoTag = true
 
-function errorSound(stop) {
+function errorSound() {
   errorDetected = true
   var context = new AudioContext()
   o = context.createOscillator()
@@ -25,9 +26,6 @@ function errorSound(stop) {
   g.connect(context.destination)
   o.start(0)
   g.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1)
-  if (!stop) {
-    setTimeout(() => errorSound(true), 150)
-  }
 }
 
 
@@ -67,6 +65,10 @@ function removeUseless() {
   document.querySelector('.synophoto-lightbox-info-section-header').remove()
 }
 
+function getCleanName(name) {
+  return (name + '').split('(')[0].trim()
+}
+
 async function check() {
   console.log('checking...')
   var photoId = getPhotoId()
@@ -77,10 +79,11 @@ async function check() {
   await names.forEach(async (name) => {
     if (!name.title || !name.title.length) {
       markAsUnidentified(name)
-      error('unidentified person')
+      errorDetected = true
+      console.error('unidentified person')
     } else {
       markAsIdentified(name)
-      var cleanName = name.title.split('(')[0].trim()
+      var cleanName = getCleanName(name.title)
       if (cleanName.length) {
         if (!tags.includes(cleanName)) {
           var status = await addTagByName(cleanName, photoId)
@@ -96,8 +99,16 @@ async function check() {
     }
   })
   tags = getPhotoTags()
+  var nbUnidentified = document.querySelectorAll('.abm-unidentified').length
   if (tags.length === 0) {
-    error('no tags after processing', true)
+    if (allowNoTag && nbUnidentified === 0) {
+      console.info('no one unidentified & no tags allowed, continues...')
+    } else {
+      error('no tags after processing', true)
+    }
+  } else if (nbUnidentified === 1) {
+    console.log('there is only one unidentified person')
+    return tryToAssociateOne()
   } else {
     console.log(tags.length, 'tags after processing')
   }
@@ -109,6 +120,30 @@ async function check() {
 }
 // prepare a debounced function
 var checkDebounced = debounce(check, 500);
+
+function tryToAssociateOne() {
+  var tags = getPhotoTags()
+  var persons = Array.from(document.querySelectorAll('.synophoto-lightbox-people-item')).map(node => getCleanName(node.title))
+  var one = tags.filter(tag => !persons.includes(tag))
+  if (one.length === 1) {
+    var availableTag = availableTags.find(tag => tag.name === one[0])
+    if (availableTag) {
+      onAvailableTagClick(availableTag)
+    } else {
+      error('failed at finding tag for the only unidentified person')
+    }
+    /*
+    var status = await addTagByName(tags[0])
+    if (status === 'success') {
+        return check()
+     } else {
+       error('failed at adding the only tag to the only unidentified person')
+     }
+     */
+  } else {
+    error('failed at finding the good tag for the only unidentified person')
+  }
+}
 
 function gotoNextPhoto() {
   document.querySelector('.synophoto-lightbox-nav-icon-button.align-right').click()
@@ -139,6 +174,10 @@ function markAs(el, identified) {
 function addTagByName(name, photoId) {
   if (!photoId) {
     photoId = getPhotoId()
+  }
+  if (name.includes('http')) {
+    console.error(name)
+    return error('bad name detected (addTagByName)')
   }
   console.info('adding tag "' + name + '" to current photo')
   var availableTag = availableTags.find(tag => tag.name === name)
@@ -330,7 +369,7 @@ var availableTags = []
 
 async function getAvailableTags() {
   console.log('getting available tags...')
-  body = `limit=100&offset=0&api=%22SYNO.Photo.Browse.GeneralTag%22&method=%22list%22&version=1`
+  body = `limit=300&offset=0&api=%22SYNO.Photo.Browse.GeneralTag%22&method=%22list%22&version=1`
   return post(body).then(response => {
     if (response.success) {
       console.log('got tags', response.data.list)
@@ -485,6 +524,10 @@ function createPerson(id, name) {
 async function onAvailableTagClick(availableTag) {
   clickedOnAvailableTag = true
   console.log('clicked on availableTag "' + availableTag.name + '" with id', availableTag.id)
+  if (availableTag.name.includes('http')) {
+    console.error(availableTag.name)
+    return error('bad name detected (onAvailableTagClick)')
+  }
   var unidentified = getFirstUnidentified()
   if (!unidentified) {
     console.log('clicking on a tag without un-identified person, simply adding tag to picture')
@@ -579,3 +622,29 @@ btn.appendChild(t); // Append the text to <button>
 btn.addEventListener('click', start)
 btn.style = 'position: absolute; top: 20px; left: 60px; color: white; display: block; font-size: 12px; z-index: 10000; border-width: 8px; padding: 6px 10px; border-radius: 14px 0; border-style: groove; border-color: antiquewhite; cursor: pointer;'
 document.body.appendChild(btn);
+
+// Include script file
+function addScript(filename) {
+  var head = document.getElementsByTagName('head')[0];
+
+  var script = document.createElement('script');
+  script.src = filename;
+  script.type = 'text/javascript';
+
+  head.append(script);
+}
+
+// Include CSS file
+function addCSS(filename) {
+  var head = document.getElementsByTagName('head')[0];
+
+  var style = document.createElement('link');
+  style.href = filename;
+  style.type = 'text/css';
+  style.rel = 'stylesheet';
+  head.append(style);
+}
+
+// does not work with securtity policy
+// addCSS('https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.3.0/css/iziToast.min.css')
+// addScript('https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.3.0/js/iziToast.min.js')
