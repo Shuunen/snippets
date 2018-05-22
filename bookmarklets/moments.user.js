@@ -15,6 +15,13 @@ var autoMode = true
 var clickedOnAvailableTag = false
 var allowNoTag = true
 
+// For error an evolutive sound
+
+var frequencyMin = 120
+var frequencyMax = 760
+var frequency = (frequencyMin + frequencyMax) / 2
+var frequencyIncrement = 100
+
 function errorSound() {
   errorDetected = true
   var context = new AudioContext()
@@ -22,7 +29,11 @@ function errorSound() {
   g = context.createGain()
   o.type = 'sine'
   o.connect(g)
-  o.frequency.value = 440
+  o.frequency.value = frequency
+  frequency += frequencyIncrement
+  if (frequency > frequencyMax) {
+    frequency = frequencyMin
+  }
   g.connect(context.destination)
   o.start(0)
   g.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1)
@@ -57,6 +68,7 @@ function openPanel() {
   } else {
     console.log('panel already opened, will start check')
   }
+  removeVisuallyAddedTags()
   setTimeout(check, 1000)
 }
 
@@ -113,7 +125,6 @@ async function check() {
     console.log(tags.length, 'tags after processing')
   }
   if (autoMode && errorDetected === false) {
-    showAutoModeSwitcher()
     gotoNextPhoto()
     // setTimeout(check, 500) // no need cause dom tree injection watched
   }
@@ -122,6 +133,7 @@ async function check() {
 var checkDebounced = debounce(check, 500);
 
 function tryToAssociateOne() {
+  removeVisuallyAddedTags()
   var tags = getPhotoTags()
   var persons = Array.from(document.querySelectorAll('.synophoto-lightbox-people-item')).map(node => getCleanName(node.title))
   var one = tags.filter(tag => !persons.includes(tag))
@@ -145,7 +157,16 @@ function tryToAssociateOne() {
   }
 }
 
+function removeRetryToast() {
+  var toast = document.querySelector('#abm-retry')
+  if (toast) {
+    iziToast.hide({}, toast);
+  }
+}
+
 function gotoNextPhoto() {
+  removeRetryToast()
+  removeVisuallyAddedTags()
   document.querySelector('.synophoto-lightbox-nav-icon-button.align-right').click()
 }
 // prepare a debounced function
@@ -207,6 +228,7 @@ function insertBefore(node, newNode) {
 }
 
 function removeVisuallyAddedTags() {
+  console.log('removeVisuallyAddedTags')
   var tags = document.querySelectorAll('.abm-visual-tag')
   tags.forEach(tag => tag.remove())
 }
@@ -215,7 +237,8 @@ function addTagVisuallyToPhotoTags(tagId) {
   var tag = availableTags.find(tag => tag.id === tagId)
   var el = document.createElement('div')
   el.classList.add('Select-value', 'abm-visual-tag')
-  el.innerHTML = `<a class="Select-value-label">${tag.name}</a>`
+  el.style.padding = 0
+  el.innerHTML = `<a class="Select-value-label" style="padding: 0 16px;">${tag.name}</a>`
   document.querySelector('.synophoto-general-tag .Select-multi-value-wrapper').prepend(el)
 }
 
@@ -243,23 +266,21 @@ function createNewTag(name) {
   return post(body)
 }
 
-var autoModeSticherDisplayed = false
-
 function showAutoModeSwitcher() {
   if (!iziToast) {
     return error('iziToast is required to show switcher', true)
   }
-  if (autoModeSticherDisplayed) {
+  if (document.querySelector('#abm-switch')) {
     return
   }
-  autoModeSticherDisplayed = true
   iziToast.info({
     closeOnClick: true,
-    message: 'Click here to stop automatic mode',
+    id: 'abm-switch',
+    message: `Click here to ${autoMode ? 'stop' : 'start'} automatic mode`,
     timeout: false,
     onClosing: function () {
-      autoModeSticherDisplayed = false
-      autoMode = false
+      autoMode = !autoMode
+      setTimeout(showAutoModeSwitcher, 3000)
     }
   });
 }
@@ -411,7 +432,8 @@ function updateAvailableTagsList(tryTime) {
       lastLetter = letter
       html += `<strong style="width: 100%; display: block; font-weight: bold; font-size: 24px;">${letter.toUpperCase()}</strong>`
     }
-    html += `<div class="Select-value"><a class="Select-value-label abm-tag">${tag.name}</a></div>`
+    var style = getStyleForTagName(tag.name)
+    html += `<div class="Select-value ${style ? 'abm-custom-background' : ''}" ${style}><a class="Select-value-label abm-tag" style="padding: 0 16px;">${tag.name}</a></div>`
     return html
   })
   tagListContent = tagListContent.replace(/\,+/g, '')
@@ -425,6 +447,26 @@ function updateAvailableTagsList(tryTime) {
     document.querySelector('.synophoto-lightbox-info-panel').style.width = '500px'
   }
   tagList.innerHTML = tagListContent
+}
+
+function getBackgroundForTagName(name) {
+  var isBlue = name.includes('Racamier-Lafon') || name.includes('guy')
+  var isRed = name.includes('Juliane') || name.includes('girl')
+  if (isBlue) {
+    return 'royalblue'
+  } else if (isRed) {
+    return 'palevioletred'
+  } else {
+    return ''
+  }
+}
+
+function getStyleForTagName(name) {
+  var background = getBackgroundForTagName(name)
+  if (background === '') {
+    return 'style="padding: 0;"'
+  }
+  return `style="background-color: ${background}; padding: 0;"`
 }
 
 function getFirstUnidentified() {
@@ -572,7 +614,7 @@ function onTagEnter(event) {
 }
 
 function onTagOut(event) {
-  event.target.parentElement.style.backgroundColor = null
+  event.target.parentElement.style.backgroundColor = getBackgroundForTagName(event.target.text)
   var unidentified = getFirstUnidentified()
   if (unidentified) {
     unidentified.style.backgroundColor = unidentifiedColor
@@ -609,11 +651,17 @@ function watchForNewPhoto() {
   document.querySelector('.synophoto-lightbox-image-panel').addEventListener('DOMSubtreeModified', onNewPhotoLoadedDebounced);
 }
 
+function clearVisualTagsOnOverlayClick() {
+  document.querySelector('.synophoto-lightbox-overlays').addEventListener('mousedown', removeVisuallyAddedTags)
+}
+
 function start() {
   openPanel()
   getAvailableTags()
   removeUseless()
   watchForNewPhoto()
+  showAutoModeSwitcher()
+  clearVisualTagsOnOverlayClick()
 }
 
 var btn = document.createElement("button"); // Create a <button> element
