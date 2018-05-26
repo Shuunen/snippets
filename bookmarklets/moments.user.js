@@ -24,6 +24,7 @@ var frequencyIncrement = 100
 
 function errorSound() {
   errorDetected = true
+  document.title = 'ACTION NEEDED'
   var context = new AudioContext()
   o = context.createOscillator()
   g = context.createGain()
@@ -86,11 +87,13 @@ async function check() {
   var photoId = getPhotoId()
   var tags = getPhotoTags()
   var names = document.querySelectorAll('.synophoto-lightbox-people-item')
+  document.title = 'working...'
   errorDetected = false
   clickedOnAvailableTag = false
   await names.forEach(async (name) => {
     if (!name.title || !name.title.length) {
       markAsUnidentified(name)
+      document.title = 'INDENTIFICATION NEEDED'
       errorDetected = true
       console.error('unidentified person')
     } else {
@@ -311,7 +314,7 @@ function error(message, avoidRejection) {
     });
   }
   if (avoidRejection) {
-    return
+    return message
   }
   return Promise.reject(message)
 }
@@ -622,7 +625,14 @@ function onTagOut(event) {
 }
 
 function getPhotoId() {
-  return parseInt(document.location.hash.match(/\d+/)[0])
+  var matches = document.location.hash.match(/\d+/g)
+  var match = null
+  if (matches.length === 1) {
+    match = matches[0]
+  } else {
+    match = matches[1]
+  }
+  return parseInt(match)
 }
 
 var lastPhotoLoaded = 1
@@ -630,6 +640,7 @@ var lastPhotoLoaded = 1
 function onNewPhotoLoaded() {
   var photoId = getPhotoId()
   if (photoId === lastPhotoLoaded) {
+    console.info('same photo id, skipping...')
     return
   }
   lastPhotoLoaded = photoId
@@ -648,11 +659,11 @@ var onNewPhotoLoadedDebounced = debounce(onNewPhotoLoaded, 500);
 
 
 function watchForNewPhoto() {
-  document.querySelector('.synophoto-lightbox-image-panel').addEventListener('DOMSubtreeModified', onNewPhotoLoadedDebounced);
+  getEl('lightbox-image').then(el => el.addEventListener('DOMSubtreeModified', onNewPhotoLoadedDebounced))
 }
 
 function clearVisualTagsOnOverlayClick() {
-  document.querySelector('.synophoto-lightbox-overlays').addEventListener('mousedown', removeVisuallyAddedTags)
+  getEl('lightbox-overlay').then(el => el.addEventListener('mousedown', removeVisuallyAddedTags))
 }
 
 function start() {
@@ -664,35 +675,133 @@ function start() {
   clearVisualTagsOnOverlayClick()
 }
 
-var btn = document.createElement("button"); // Create a <button> element
-var t = document.createTextNode("Start ABM"); // Create a text node
-btn.appendChild(t); // Append the text to <button>
-btn.addEventListener('click', start)
-btn.style = 'position: absolute; top: 20px; left: 60px; color: white; display: block; font-size: 12px; z-index: 10000; border-width: 8px; padding: 6px 10px; border-radius: 14px 0; border-style: groove; border-color: antiquewhite; cursor: pointer;'
-document.body.appendChild(btn);
-
-// Include script file
-function addScript(filename) {
-  var head = document.getElementsByTagName('head')[0];
-
-  var script = document.createElement('script');
-  script.src = filename;
-  script.type = 'text/javascript';
-
-  head.append(script);
+function getEl(type) {
+  var sel = null
+  var txt = null
+  var ele = null
+  if (type === 'tree-dots') {
+    sel = '.synophoto-menu-button > .synophoto-actionbar-action-button'
+  } else if (type === 'modify-tags') {
+    sel = '.synophoto-menu-modal[style*="44px"] .synophoto-modal-content > div > .synophoto-text-button:nth-child(2)'
+    txt = 'Modifier les tags'
+  } else if (type === 'lightbox-overlay') {
+    sel = '.synophoto-lightbox-overlays'
+  } else if (type === 'lightbox-image') {
+    sel = '.synophoto-lightbox-image-panel'
+  } else if (type === 'person-name') {
+    sel = '.synophoto-person-name-menu-button'
+  } else if (type === 'timeline') {
+    sel = '.synophoto-timeline.synophoto-list-scroll'
+  }
+  if (!sel) {
+    return error('un-handled el type "' + type + '"')
+  }
+  ele = document.querySelector(sel)
+  if (!ele) {
+    return error('failed to find "' + type + '" el in dom')
+  }
+  if (txt && ele.textContent !== txt) {
+    return error('el text did not matched "' + type + '" el')
+  }
+  return Promise.resolve(ele)
 }
 
-// Include CSS file
-function addCSS(filename) {
-  var head = document.getElementsByTagName('head')[0];
-
-  var style = document.createElement('link');
-  style.href = filename;
-  style.type = 'text/css';
-  style.rel = 'stylesheet';
-  head.append(style);
+function clickEl(el) {
+  return new Promise((resolve, reject) => {
+    if (!el) {
+      reject(error('cannot click on null', true))
+    }
+    el.click()
+    setTimeout(() => resolve('success, clicked'), 200)
+  })
 }
 
-// does not work with securtity policy
+function scrollToEl(el) {
+  return new Promise((resolve, reject) => {
+    if (!el) {
+      reject(error('cannot scroll on null', true))
+    }
+    el.scrollIntoViewIfNeeded()
+    setTimeout(() => resolve('success, scrolled to that element'), 300)
+  })
+}
+
+async function checkAllAvailable(checkboxes) {
+  return new Promise(async (resolve, reject) => {
+    var fresh = false
+    if (!checkboxes) {
+      checkboxes = await getUncheckedCheckboxes()
+      fresh = true
+    }
+    if (!fresh && !checkboxes.length) {
+      checkboxes = await getUncheckedCheckboxes()
+    }
+    if (!checkboxes.length) {
+      resolve('success, no more checkboxes to process')
+    } else {
+      var checkbox = checkboxes.shift()
+      var status = await scrollToEl(checkbox)
+      console.log(status, '(checkbox)')
+      status = await clickEl(checkbox)
+      console.log(status)
+      status = await scrollToLastChecked()
+      console.log(status, '(last checked photo)')
+      resolve(checkAllAvailable(checkboxes))
+    }
+  })
+}
+
+function scrollToLastChecked(previous) {
+  return new Promise(async (resolve, reject) => {
+    var lastPhotosChecked = document.querySelectorAll('.synophoto-selectable-overlay.checked:last-child')
+    var lastPhotoChecked = lastPhotosChecked[lastPhotosChecked.length - 1]
+    if (lastPhotoChecked) {
+      if (lastPhotoChecked === previous) {
+        setTimeout(() => resolve('success, scrolled to last checked'), 100)
+      } else {
+        var status = await scrollToEl(lastPhotoChecked)
+        console.log(status, '(last checked photo)')
+        setTimeout(() => resolve(scrollToLastChecked(lastPhotoChecked)), 200)
+      }
+    } else {
+      reject(error('failed at finding last photo', true))
+    }
+  })
+}
+
+function getUncheckedCheckboxes() {
+  return new Promise(async resolve => {
+    var sel = '.synophoto-selectable-timeline-header > .synophoto-selectable-overlay:not(.checked) .button-icon.checkbox-btn-icon'
+    var checkboxes = Array.from(document.querySelectorAll(sel))
+    console.log('found', checkboxes.length, 'checkboxes')
+    resolve(checkboxes)
+  })
+}
+
+async function autotag() {
+  var personName = await getEl('person-name').then(el => el.textContent)
+  console.log('got personName', personName)
+  var cleanName = getCleanName(personName)
+  console.log('got cleanName', cleanName)
+  var status = await checkAllAvailable()
+  console.log(status)
+  await getEl('tree-dots').then(el => clickEl(el))
+  await getEl('modify-tags').then(el => clickEl(el))
+}
+
+var btnStart = document.createElement("button"); // Create a <button> element
+var tStart = document.createTextNode("Start ABM"); // Create a text node
+btnStart.appendChild(tStart); // Append the text to <button>
+btnStart.addEventListener('click', start)
+btnStart.style = 'position: absolute; background-color: sienna; width:130px; top: 70px; left: 20px; color: white; display: block; font-size: 12px; z-index: 10000; border-width: 8px; padding: 6px 10px; border-radius: 14px 0; border-style: groove; border-color: antiquewhite; cursor: pointer;'
+document.body.appendChild(btnStart);
+
+var btnAutoTag = document.createElement("button"); // Create a <button> element
+var tAutoTag = document.createTextNode("Tag this person"); // Create a text node
+btnAutoTag.appendChild(tAutoTag); // Append the text to <button>
+btnAutoTag.addEventListener('click', autotag)
+btnAutoTag.style = 'position: absolute; background-color: sienna; width:130px; top: 120px; left: 20px; color: white; display: block; font-size: 12px; z-index: 10000; border-width: 8px; padding: 6px 10px; border-radius: 0 14px; border-style: groove; border-color: antiquewhite; cursor: pointer;'
+document.body.appendChild(btnAutoTag);
+
 // addCSS('https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.3.0/css/iziToast.min.css')
 // addScript('https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.3.0/js/iziToast.min.js')
