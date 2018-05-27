@@ -684,6 +684,9 @@ function getEl(type) {
   } else if (type === 'modify-tags') {
     sel = '.synophoto-menu-modal[style*="44px"] .synophoto-modal-content > div > .synophoto-text-button:nth-child(2)'
     txt = 'Modifier les tags'
+  } else if (type === 'show-hide-persons') {
+    sel = '.synophoto-menu-modal[style*="44px"] .synophoto-modal-content > div > .synophoto-text-button:nth-child(1)'
+    txt = "Afficher/masquer des personnes"
   } else if (type === 'lightbox-overlay') {
     sel = '.synophoto-lightbox-overlays'
   } else if (type === 'lightbox-image') {
@@ -692,6 +695,8 @@ function getEl(type) {
     sel = '.synophoto-person-name-menu-button'
   } else if (type === 'timeline') {
     sel = '.synophoto-timeline.synophoto-list-scroll'
+  } else if (type === 'person-bubble'){
+    sel = '.synophoto-icon-button-person-overlay.synophoto-icon-button-person-overlay.synophoto-selectable-checkbox:not(.abm-inverted)'
   }
   if (!sel) {
     return error('un-handled el type "' + type + '"')
@@ -706,23 +711,23 @@ function getEl(type) {
   return Promise.resolve(ele)
 }
 
-function clickEl(el) {
+function clickEl(el, time) {
   return new Promise((resolve, reject) => {
     if (!el) {
       reject(error('cannot click on null', true))
     }
     el.click()
-    setTimeout(() => resolve('success, clicked'), 200)
+    setTimeout(() => resolve('success, clicked'), time || 200)
   })
 }
 
-function scrollToEl(el) {
+function scrollToEl(el, time) {
   return new Promise((resolve, reject) => {
     if (!el) {
       reject(error('cannot scroll on null', true))
     }
     el.scrollIntoViewIfNeeded()
-    setTimeout(() => resolve('success, scrolled to that element'), 300)
+    setTimeout(() => resolve('success, scrolled to that element'), time || 300)
   })
 }
 
@@ -792,6 +797,27 @@ async function autotag() {
   document.title = 'auto tag finnished'
 }
 
+async function invertNextBubble(){
+  var bubble = await getEl('person-bubble')
+  if(!bubble || !bubble.classList){
+    return error('failed at getting next bubble element')
+  }
+  await clickEl(bubble, 100)
+  bubble.classList.add('abm-inverted')
+  await scrollToEl(bubble, 100)
+  return Promise.resolve('success')
+}
+
+async function invertSelection(){
+  // await getEl('tree-dots').then(el => clickEl(el))
+  // await getEl('show-hide-persons').then(el => clickEl(el))  
+  var status = 'success'
+  while(status === 'success'){
+    status = await invertNextBubble()
+  }
+  console.log('inverted selection !')
+}
+
 var btnStart = document.createElement("button"); // Create a <button> element
 var tStart = document.createTextNode("Start ABM"); // Create a text node
 btnStart.appendChild(tStart); // Append the text to <button>
@@ -803,8 +829,15 @@ var btnAutoTag = document.createElement("button"); // Create a <button> element
 var tAutoTag = document.createTextNode("Tag this person"); // Create a text node
 btnAutoTag.appendChild(tAutoTag); // Append the text to <button>
 btnAutoTag.addEventListener('click', autotag)
-btnAutoTag.style = 'position: absolute; background-color: sienna; width:130px; top: 120px; left: 20px; color: white; display: block; font-size: 12px; z-index: 10000; border-width: 8px; padding: 6px 10px; border-radius: 0 14px; border-style: groove; border-color: antiquewhite; cursor: pointer;'
+btnAutoTag.style = 'position: absolute; background-color: sienna; width:130px; top: 120px; left: 20px; color: white; display: block; font-size: 12px; z-index: 10000; border-width: 8px; padding: 6px 10px; border-radius: 0; border-style: groove; border-color: antiquewhite; cursor: pointer;'
 document.body.appendChild(btnAutoTag);
+
+var btnInvertSel = document.createElement("button"); // Create a <button> element
+var tInvertSel = document.createTextNode("Invert selection"); // Create a text node
+btnInvertSel.appendChild(tInvertSel); // Append the text to <button>
+btnInvertSel.addEventListener('click', invertSelection)
+btnInvertSel.style = 'position: absolute; background-color: sienna; width:130px; top: 170px; left: 20px; color: white; display: block; font-size: 12px; z-index: 10000; border-width: 8px; padding: 6px 10px; border-radius: 0 14px; border-style: groove; border-color: antiquewhite; cursor: pointer;'
+document.body.appendChild(btnInvertSel);
 
 // addCSS('https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.3.0/css/iziToast.min.css')
 // addScript('https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.3.0/js/iziToast.min.js')
