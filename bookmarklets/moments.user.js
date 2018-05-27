@@ -787,6 +787,9 @@ async function autotag() {
   console.log(status)
   await getEl('tree-dots').then(el => clickEl(el))
   await getEl('modify-tags').then(el => clickEl(el))
+  errorSound()
+  prompt('Person name', cleanName)  
+  document.title = 'auto tag finnished'
 }
 
 var btnStart = document.createElement("button"); // Create a <button> element
