@@ -1,6 +1,7 @@
 /* var names = document.querySelectorAll('.synophoto-person-name-menu-button-album')
 var name = names[0]
 console.log(name) */
+/* global iziToast */
 
 var api = 'https://192.168.31.227:5001/webapi/entry.cgi?'
 var headers = {
@@ -26,8 +27,8 @@ function errorSound() {
   errorDetected = true
   document.title = 'ACTION NEEDED'
   var context = new AudioContext()
-  o = context.createOscillator()
-  g = context.createGain()
+  var o = context.createOscillator()
+  var g = context.createGain()
   o.type = 'sine'
   o.connect(g)
   o.frequency.value = frequency
@@ -46,19 +47,19 @@ function errorSound() {
 // N milliseconds. If `immediate` is passed, trigger the function on the
 // leading edge, instead of the trailing.
 function debounce(func, wait, immediate) {
-  var timeout;
+  var timeout
   return function () {
-    var context = this;
-    var args = arguments;
+    var context = this
+    var args = arguments
     var later = function () {
-      timeout = null;
-      if (!immediate) func.apply(context, args);
-    };
-    var callNow = immediate && !timeout;
-    clearTimeout(timeout);
-    timeout = setTimeout(later, wait);
-    if (callNow) func.apply(context, args);
-  };
+      timeout = null
+      if (!immediate) func.apply(context, args)
+    }
+    var callNow = immediate && !timeout
+    clearTimeout(timeout)
+    timeout = setTimeout(later, wait)
+    if (callNow) func.apply(context, args)
+  }
 }
 
 
@@ -133,7 +134,7 @@ async function check() {
   }
 }
 // prepare a debounced function
-var checkDebounced = debounce(check, 500);
+var checkDebounced = debounce(check, 500)
 
 function tryToAssociateOne() {
   removeVisuallyAddedTags()
@@ -163,7 +164,7 @@ function tryToAssociateOne() {
 function removeRetryToast() {
   var toast = document.querySelector('#abm-retry')
   if (toast) {
-    iziToast.hide({}, toast);
+    iziToast.hide({}, toast)
   }
 }
 
@@ -173,7 +174,7 @@ function gotoNextPhoto() {
   document.querySelector('.synophoto-lightbox-nav-icon-button.align-right').click()
 }
 // prepare a debounced function
-var gotoNextPhotoDebounced = debounce(gotoNextPhoto, 500);
+var gotoNextPhotoDebounced = debounce(gotoNextPhoto, 500)
 
 
 function markAsIdentified(el) {
@@ -220,14 +221,6 @@ function addTagByName(name, photoId) {
       }
     })
   }
-}
-
-function insertAfter(node, newNode) {
-  node.parentNode.insertBefore(newNode, node.nextSibling);
-}
-
-function insertBefore(node, newNode) {
-  node.parentNode.insertBefore(newNode, node);
 }
 
 function removeVisuallyAddedTags() {
@@ -285,7 +278,7 @@ function showAutoModeSwitcher() {
       autoMode = !autoMode
       setTimeout(showAutoModeSwitcher, 3000)
     }
-  });
+  })
 }
 
 function error(message, avoidRejection) {
@@ -308,10 +301,10 @@ function error(message, avoidRejection) {
           }
           instance.hide({
             transitionOut: 'fadeOut'
-          }, toast, 'button');
+          }, toast, 'button')
         }, true],
       ],
-    });
+    })
   }
   if (avoidRejection) {
     return message
@@ -351,49 +344,11 @@ function post(body) {
   }).then(response => response.json())
 }
 
-function triggerChange(el) {
-  el.dispatchEvent(new KeyboardEvent('change'))
-  el.dispatchEvent(new Event('input', {
-    bubbles: true,
-    cancelable: true
-  }))
-}
-
-function triggerEnter2(el) {
-  el.dispatchEvent(new KeyboardEvent('keyup', {
-    key: 'Enter',
-    bubbles: true,
-    cancelable: true
-  }))
-}
-
-function triggerEnter(el) {
-  var e = new Event("keydown");
-  // e.key="a";    // just enter the char you want to send 
-  // e.keyCode=e.key.charCodeAt(0);
-  // key Enter = charCode 13
-  e.keyCode = 13
-  e.which = e.keyCode;
-  e.bubbles = true;
-  el.dispatchEvent(e);
-}
-
-function triggerClick(el) {
-  // Create our event (with options)
-  var evt = new MouseEvent('click', {
-    bubbles: true,
-    cancelable: true,
-    view: window
-  });
-  // If cancelled, don't dispatch our event
-  var canceled = !el.dispatchEvent(evt);
-}
-
 var availableTags = []
 
 async function getAvailableTags() {
   console.log('getting available tags...')
-  body = `limit=300&offset=0&api=%22SYNO.Photo.Browse.GeneralTag%22&method=%22list%22&version=1`
+  body = 'limit=300&offset=0&api=%22SYNO.Photo.Browse.GeneralTag%22&method=%22list%22&version=1'
   return post(body).then(response => {
     if (response.success) {
       console.log('got tags', response.data.list)
@@ -439,7 +394,7 @@ function updateAvailableTagsList(tryTime) {
     html += `<div class="Select-value ${style ? 'abm-custom-background' : ''}" ${style}><a class="Select-value-label abm-tag" style="padding: 0 16px;">${tag.name}</a></div>`
     return html
   })
-  tagListContent = tagListContent.replace(/\,+/g, '')
+  tagListContent = tagListContent.replace(/,+/g, '')
   tagListContent += '</div>'
   var tagList = document.querySelector('.abm-taglist')
   if (!tagList) {
@@ -497,7 +452,7 @@ setInterval(watchTags, 500)
 
 var personsByTag = []
 
-function getPersonByTag(tag, tryToCreate) {
+function getPersonByTag(tag) {
   var personByTag = personsByTag.find(person => person.tagId === tag.id)
   if (personByTag) {
     console.log('found "' + tag.name + '" in cache')
@@ -524,13 +479,6 @@ function getPersonByTag(tag, tryToCreate) {
       return error('failed at getting person by name')
     }
   })
-}
-
-function openInNewTab(url) {
-  var a = document.createElement("a");
-  a.target = "_blank";
-  a.href = url;
-  a.click();
 }
 
 async function onTagClick(event) {
@@ -655,7 +603,7 @@ function onNewPhotoLoaded() {
   }
 }
 // prepare a debounced function
-var onNewPhotoLoadedDebounced = debounce(onNewPhotoLoaded, 500);
+var onNewPhotoLoadedDebounced = debounce(onNewPhotoLoaded, 500)
 
 
 function watchForNewPhoto() {
@@ -686,7 +634,7 @@ function getEl(type) {
     txt = 'Modifier les tags'
   } else if (type === 'show-hide-persons') {
     sel = '.synophoto-menu-modal[style*="44px"] .synophoto-modal-content > div > .synophoto-text-button:nth-child(1)'
-    txt = "Afficher/masquer des personnes"
+    txt = 'Afficher/masquer des personnes'
   } else if (type === 'lightbox-overlay') {
     sel = '.synophoto-lightbox-overlays'
   } else if (type === 'lightbox-image') {
@@ -695,7 +643,7 @@ function getEl(type) {
     sel = '.synophoto-person-name-menu-button'
   } else if (type === 'timeline') {
     sel = '.synophoto-timeline.synophoto-list-scroll'
-  } else if (type === 'person-bubble'){
+  } else if (type === 'person-bubble') {
     sel = '.synophoto-icon-button-person-overlay.synophoto-icon-button-person-overlay.synophoto-selectable-checkbox:not(.abm-inverted)'
   }
   if (!sel) {
@@ -732,7 +680,7 @@ function scrollToEl(el, time) {
 }
 
 async function checkAllAvailable(checkboxes) {
-  return new Promise(async (resolve, reject) => {
+  return new Promise(async (resolve) => {
     var fresh = false
     if (!checkboxes) {
       checkboxes = await getUncheckedCheckboxes()
@@ -793,13 +741,13 @@ async function autotag() {
   await getEl('tree-dots').then(el => clickEl(el))
   await getEl('modify-tags').then(el => clickEl(el))
   errorSound()
-  prompt('Person name', cleanName)  
+  prompt('Person name', cleanName)
   document.title = 'auto tag finnished'
 }
 
-async function invertNextBubble(){
+async function invertNextBubble() {
   var bubble = await getEl('person-bubble')
-  if(!bubble || !bubble.classList){
+  if (!bubble || !bubble.classList) {
     return error('failed at getting next bubble element')
   }
   await clickEl(bubble, 100)
@@ -808,36 +756,36 @@ async function invertNextBubble(){
   return Promise.resolve('success')
 }
 
-async function invertSelection(){
+async function invertSelection() {
   // await getEl('tree-dots').then(el => clickEl(el))
   // await getEl('show-hide-persons').then(el => clickEl(el))  
   var status = 'success'
-  while(status === 'success'){
+  while (status === 'success') {
     status = await invertNextBubble()
   }
   console.log('inverted selection !')
 }
 
-var btnStart = document.createElement("button"); // Create a <button> element
-var tStart = document.createTextNode("Start ABM"); // Create a text node
-btnStart.appendChild(tStart); // Append the text to <button>
+var btnStart = document.createElement('button') // Create a <button> element
+var tStart = document.createTextNode('Start ABM') // Create a text node
+btnStart.appendChild(tStart) // Append the text to <button>
 btnStart.addEventListener('click', start)
 btnStart.style = 'position: absolute; background-color: sienna; width:130px; top: 70px; left: 20px; color: white; display: block; font-size: 12px; z-index: 10000; border-width: 8px; padding: 6px 10px; border-radius: 14px 0; border-style: groove; border-color: antiquewhite; cursor: pointer;'
-document.body.appendChild(btnStart);
+document.body.appendChild(btnStart)
 
-var btnAutoTag = document.createElement("button"); // Create a <button> element
-var tAutoTag = document.createTextNode("Tag this person"); // Create a text node
-btnAutoTag.appendChild(tAutoTag); // Append the text to <button>
+var btnAutoTag = document.createElement('button') // Create a <button> element
+var tAutoTag = document.createTextNode('Tag this person') // Create a text node
+btnAutoTag.appendChild(tAutoTag) // Append the text to <button>
 btnAutoTag.addEventListener('click', autotag)
 btnAutoTag.style = 'position: absolute; background-color: sienna; width:130px; top: 120px; left: 20px; color: white; display: block; font-size: 12px; z-index: 10000; border-width: 8px; padding: 6px 10px; border-radius: 0; border-style: groove; border-color: antiquewhite; cursor: pointer;'
-document.body.appendChild(btnAutoTag);
+document.body.appendChild(btnAutoTag)
 
-var btnInvertSel = document.createElement("button"); // Create a <button> element
-var tInvertSel = document.createTextNode("Invert selection"); // Create a text node
-btnInvertSel.appendChild(tInvertSel); // Append the text to <button>
+var btnInvertSel = document.createElement('button') // Create a <button> element
+var tInvertSel = document.createTextNode('Invert selection') // Create a text node
+btnInvertSel.appendChild(tInvertSel) // Append the text to <button>
 btnInvertSel.addEventListener('click', invertSelection)
 btnInvertSel.style = 'position: absolute; background-color: sienna; width:130px; top: 170px; left: 20px; color: white; display: block; font-size: 12px; z-index: 10000; border-width: 8px; padding: 6px 10px; border-radius: 0 14px; border-style: groove; border-color: antiquewhite; cursor: pointer;'
-document.body.appendChild(btnInvertSel);
+document.body.appendChild(btnInvertSel)
 
 // addCSS('https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.3.0/css/iziToast.min.css')
 // addScript('https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.3.0/js/iziToast.min.js')
