@@ -199,12 +199,12 @@ aqara.on('gateway', (gateway) => {
 
 const devices = miio.devices()
 devices.on('available', reg => {
-    const device = reg.device
-    if (!device) {
-        console.log(reg.id, 'could not be connected to')
-        return
-    }
-    console.log('Connected to', device.type)
-    device.on('propertyChanged', e => console.log(device.type + ' : property "' + e.property + '" changed from ' + e.oldValue + ' to ' + e.value))
-    device.on('action', action => console.log(device.type + ' : action detected "' + action.id + '"'))
+  const device = reg.device
+  if (!device) {
+    console.log(reg.id, 'could not be connected to')
+    return
+  }
+  console.log('Connected to', device.type, device.model, device.address ? '(' + device.address + ')' : '')
+  device.on('propertyChanged', e => console.log(device.type + ' : property "' + e.property + '" changed from ' + e.oldValue + ' to ' + e.value))
+  device.on('action', action => console.log(device.type + ' : action detected "' + action.id + '"'))
 })
