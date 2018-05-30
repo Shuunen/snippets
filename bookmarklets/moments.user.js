@@ -2,8 +2,9 @@
 var name = names[0]
 console.log(name) */
 /* global iziToast */
+/* eslint-disable no-unused-vars */
 
-var api = 'https://192.168.31.227:5001/webapi/entry.cgi?'
+var api = 'http://192.168.31.227:5001/webapi/entry.cgi?'
 var headers = {
   'x-syno-token': 'XXX' // <=== PUT TOKEN HERE
 }
@@ -223,6 +224,14 @@ function addTagByName(name, photoId) {
   }
 }
 
+function insertAfter(node, newNode) {
+  node.parentNode.insertBefore(newNode, node.nextSibling)
+}
+
+function insertBefore(node, newNode) {
+  node.parentNode.insertBefore(newNode, node)
+}
+
 function removeVisuallyAddedTags() {
   console.log('removeVisuallyAddedTags')
   var tags = document.querySelectorAll('.abm-visual-tag')
@@ -342,6 +351,44 @@ function post(body) {
     credentials: 'same-origin',
     headers
   }).then(response => response.json())
+}
+
+function triggerChange(el) {
+  el.dispatchEvent(new KeyboardEvent('change'))
+  el.dispatchEvent(new Event('input', {
+    bubbles: true,
+    cancelable: true
+  }))
+}
+
+function triggerEnter2(el) {
+  el.dispatchEvent(new KeyboardEvent('keyup', {
+    key: 'Enter',
+    bubbles: true,
+    cancelable: true
+  }))
+}
+
+function triggerEnter(el) {
+  var e = new Event('keydown')
+  // e.key="a";    // just enter the char you want to send 
+  // e.keyCode=e.key.charCodeAt(0);
+  // key Enter = charCode 13
+  e.keyCode = 13
+  e.which = e.keyCode
+  e.bubbles = true
+  el.dispatchEvent(e)
+}
+
+function triggerClick(el) {
+  // Create our event (with options)
+  var evt = new MouseEvent('click', {
+    bubbles: true,
+    cancelable: true,
+    view: window
+  })
+  // If cancelled, don't dispatch our event
+  !el.dispatchEvent(evt)
 }
 
 var availableTags = []
@@ -479,6 +526,13 @@ function getPersonByTag(tag) {
       return error('failed at getting person by name')
     }
   })
+}
+
+function openInNewTab(url) {
+  var a = document.createElement('a')
+  a.target = '_blank'
+  a.href = url
+  a.click()
 }
 
 async function onTagClick(event) {
@@ -704,7 +758,7 @@ async function checkAllAvailable(checkboxes) {
   })
 }
 
-function scrollToLastChecked(previous) {
+async function scrollToLastChecked(previous) {
   return new Promise(async (resolve, reject) => {
     var lastPhotosChecked = document.querySelectorAll('.synophoto-selectable-overlay.checked:last-child')
     var lastPhotoChecked = lastPhotosChecked[lastPhotosChecked.length - 1]
@@ -741,7 +795,7 @@ async function autotag() {
   await getEl('tree-dots').then(el => clickEl(el))
   await getEl('modify-tags').then(el => clickEl(el))
   errorSound()
-  prompt('Person name', cleanName)
+  prompt('Person name', cleanName)  
   document.title = 'auto tag finnished'
 }
 
