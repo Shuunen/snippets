@@ -1,7 +1,9 @@
 # Format
-## Ok, but before ?
+
+## Ok, but before
 
 Backup :
+
 - [ ] home folder if not too large
 - [ ] ssh keys, do `ls -la ~/.ssh` to check for existing ones
 - [ ] standalone apps & binaries in `~/apps`
