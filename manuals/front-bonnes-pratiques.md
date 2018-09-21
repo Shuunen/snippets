@@ -337,19 +337,102 @@ Voici les bonnes pratiques à respecter en général :
 * Favoriser les Frameworks et la pratique du [code DRY](http://fr.wikipedia.org/wiki/Ne_vous_r%C3%A9p%C3%A9tez_pas)
 * **Pas de JavaScript embedded**
 * **Pas de JavaScript inline**
-* Garder une portée globale propre, [utiliser des namespaces](https://falola.developpez.com/tutoriels/javascript/namespace/)
 * Toujours être sur la défensive, en utilisant des fonctions de détection
 * Minimiser le nombre d'événements sur une page, [utiliser la délégation des événements](https://javascript.developpez.com/actu/85848/Comprendre-la-delegation-d-evenement-en-JavaScript/)
 * Conserver les composants indépendants dès que possible
-* Précéder chaque déclaration de variable par `var` ou `let` et `const` dans les versions plus récentes
 * Toujours utiliser le triple égal **`===`** pour avoir les égalités strictes, les comparaison à base de **`==`** sont sujettes à de nombreux effets de bords
 * Toujours ajouter les **`{`** et **`}`** sur les **`if`**, **`while`**, etc
+
+* * *
+
+### Les variables
+
+Les bonnes pratiques liées aux **variables** :
+
+* Précéder chaque déclaration de variable par **`var`** ou **`let`** et **`const`** dans les versions plus récentes
+* Utiliser des variables en camelCase
+* Utiliser des constantes en MAJUSCULE_AVEC_UNDERSCORE
+* Utiliser une majuscule à la première lettre des constructeurs
+* Garder une portée globale propre, [utiliser des namespaces](https://falola.developpez.com/tutoriels/javascript/namespace/), exemple ci-dessous
+
+```js
+// Pollution du namespace global
+var showUser = true;
+var blockEdition = false;
+var maxDownloads = 3;
+
+// Pas de pollution
+var app = {};
+app.settings = {
+    showUser: true,
+    blockEdition: false,
+    maxDownloads: 3
+};
+```
+
+* * *
+
+### Les commentaires
+
+Souvent oubliés ou esquivés par le développeur initial, les commentaires s'avèrent indispensables lorsqu'une autre personne a besoin de faire des évolutions ou des correctifs sur le code.
+
+Bien sûr les commentaires sont nécessaires dans des situations particulières.
+
+Commentaire inutile :
+
+```js
+// Retourne le nom de l'utilisateur
+function getUserName() {
+    ...
+}
+```
+
+Commentaire utile :
+
+```js
+// Retourne les données associés à l'utilisateur au format objet
+// { name: "John", lastName: "Doe", age: 21 }
+function getUserData(id) {
+    ...
+}
+```
+
+Pour les fonctions, la meilleure pratique est encore de la décorer avec JSDoc :
+
+```js
+/**
+ * Retourne les données associés à l'utilisateur
+ * @param {number} id - L'identifiant unique utilisateur
+ * @returns {User} Données utilisateur au format objet { name: "John", lastName: "Doe", age: 21 }
+ */
+function getUserData(id) {
+    // ...
+}
+```
+
+L'intérêt derrière est d'avoir toutes les définitions de fonctions directement dans l'IDE :
+
+![jsdoc](https://i.imgur.com/putcr6z.png)
+
+* * *
 
 ### Les Frameworks
 
 Les frameworks permettent de **cadrer les dévelopements** et surtout de **gagner du temps**.
 
 #### Choisir un framework
+
+Pour le web, voici les deux géants qui s'affrontent : Angular et Vue
+
+|            | Angular             | Vue                             |
+| ---------- | ------------------- | ------------------------------- |
+| Popularité | Très populaire      | De plus en plus populaire       |
+|            | car arrivé plus tôt | malgrès une sortie plus tardive |
+| - -        | - -                 | - -                             |
+|            |                     |                                 |
+|            |                     |                                 |
+
+Pour une comparaison en détails entre Vue et ses concurrent : [https://fr.vuejs.org/v2/guide/comparison.html](https://fr.vuejs.org/v2/guide/comparison.html)
 
 #### Choisir une librairie
 
