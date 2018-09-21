@@ -1,4 +1,6 @@
-# Guide du Développement Web : Introduction
+# Guide du Développement Web
+
+## Introduction
 
 Ce guide a pour objectif **d'informer** mais aussi de **cadrer** les développements **front-end**.
 
@@ -20,11 +22,11 @@ Je recommande tout particulièrement ces sites qui sont, selon moi, à garder so
 
 * * *
 
-## Les navigateurs
+### Les navigateurs
 
 En fonction des projets, différents navigateurs devront être supportés.
 
-### Avant de vendre un projet
+#### Avant de vendre un projet
 
 Cibler les navigateurs :
 
@@ -43,7 +45,7 @@ Clarifier avec le client :
 > Une page doit jouer son rôle d'information et ne pas apparaître cassée. Le problème n'est pas le rendu des navigateurs, il s'agit d'offrir aux utilisateurs le meilleur contenu en fonction de leur appareil de navigation.
 > -- [David Leuliette](https://davidl.fr/manifesto.html)
 
-### Phase de développement / maintenance
+#### Phase de développement / maintenance
 
 Une fois le projet vendu, les navigateurs ciblés devront être compatibles avec le site web produit.
 
@@ -64,7 +66,7 @@ La dernière solution est la plus intéressante même si elle a un coût, **ce c
 
 * * *
 
-## Les éditeurs (IDE)
+### Les éditeurs (IDE)
 
 Pour ce qui est du développement front, plusieurs IDE reconnus sont disponibles mais voici ceux que je recommande :
 
@@ -88,7 +90,7 @@ En général il est conseillé de :
 
 * * *
 
-## Le versioning
+### Le versioning
 
 La gestion des versions n'étant pas une option, il faut à minima se mettre d'accord sur les commits :
 
@@ -103,7 +105,7 @@ Vous noterez le dernier exemple qui référence directement le numéro de l'issu
 
 * * *
 
-## Le workflow
+### Le workflow
 
 Travailler à plusieurs sur le même code source nécessite d'avoir une discipline, une méthode de travail commune.
 
@@ -120,7 +122,7 @@ La méthode Github Flow en détails : [https://guides.github.com/introduction/fl
 
 * * *
 
-# HTML
+## HTML
 
 Dans [l'introduction](/confluence/pages/viewpage.action?pageId=46745647) nous avons pu voir ensemble des sujets transverses au développement web.
 
@@ -128,7 +130,7 @@ Ici nous allons nous pencher sur la structure de toute page web, les balises HTM
 
 * * *
 
-## Sémantique
+### Sémantique
 
 Ne pas utiliser **`<br />`** pour séparer des éléments. Pour séparer plusieurs groupes de texte, on utilisera des **`<p>`**.
 
@@ -160,7 +162,7 @@ préférez
 
 * * *
 
-## Formulaires
+### Formulaires
 
 Toujours lier chaque **`<input>`**, **`<select>`**, **`<textarea>`**, etc à un élément **`<label>`** grâce aux attributs **`name`** et **`for`**.
 
@@ -189,7 +191,7 @@ préférez :
 
 * * *
 
-## Balises
+### Balises
 
 **Indenter** chaque balise.
 
@@ -220,7 +222,7 @@ préférez :
 
 * * *
 
-## Attributs
+### Attributs
 
 Toujours en **minuscule**, comme pour les balises, pour l'uniformité.
 
@@ -244,7 +246,7 @@ préférez :
 
 * * *
 
-## URL
+### URL
 
 Utiliser des adresses relatives, sauf s'il est nécessaire de pointer vers un autre domaine.
 
@@ -269,7 +271,7 @@ préférez :
 
 * * *
 
-## Images
+### Images
 
 Toujours mettre un attribut **alt** pour l'accessibilité, cela permet aux terminaux qui ne peuvent pas afficher d'image d'avoir une information sur le contenu de l'image.
 
@@ -289,7 +291,7 @@ préférez :
 
 * * *
 
-## Compatibilité
+### Compatibilité
 
 Toujours utiliser le doctype HTML5. Cela nous permet d'avoir la plus grande cohérence de rendu sur l'ensemble des navigateurs.
 
@@ -324,8 +326,59 @@ exemple de structure HTML simple :
 </html>
 ```
 
-***
+* * *
 
 ## Javascript
 
-JavaScript vient en complément de la base HTML et CSS. Il améliore l'expérience et le comportement de la page utilisateur
+JavaScript vient en **complément** de la base HTML et CSS. Il améliore l'**expérience** et le **comportement** de la page utilisateur aussi appelée **UX** (User Experience).
+
+Voici les bonnes pratiques à respecter en général :
+
+* Favoriser les Frameworks et la pratique du [code DRY](http://fr.wikipedia.org/wiki/Ne_vous_r%C3%A9p%C3%A9tez_pas)
+* **Pas de JavaScript embedded**
+* **Pas de JavaScript inline**
+* Garder une portée globale propre, [utiliser des namespaces](https://falola.developpez.com/tutoriels/javascript/namespace/)
+* Toujours être sur la défensive, en utilisant des fonctions de détection
+* Minimiser le nombre d'événements sur une page, [utiliser la délégation des événements](https://javascript.developpez.com/actu/85848/Comprendre-la-delegation-d-evenement-en-JavaScript/)
+* Conserver les composants indépendants dès que possible
+* Précéder chaque déclaration de variable par `var` ou `let` et `const` dans les versions plus récentes
+* Toujours utiliser le triple égal **`===`** pour avoir les égalités strictes, les comparaison à base de **`==`** sont sujettes à de nombreux effets de bords
+* Toujours ajouter les **`{`** et **`}`** sur les **`if`**, **`while`**, etc
+
+### Les Frameworks
+
+Les frameworks permettent de **cadrer les dévelopements** et surtout de **gagner du temps**.
+
+#### Choisir un framework
+
+#### Choisir une librairie
+
+Une fois le framework choisi, on ajoute des librairies spécifiques **qui ne sont pas embarqués** avec le framework : animations, visualisation de données, SVG et **polyfill** (fonctionnalités qui ne sont pas supportés par certains navigateurs)
+
+> Si vous voulez utiliser une librairie vous devez la lire, la comprendre, être d'accord avec elle, et ne pas être capable d'en écrire une meilleure quand vous êtes en forme.
+> @sentience
+
+Voici les raisons qui poussent à embarquer une librairie :
+
+* répond au besoin sans avoir besoin de l'adapter énormement
+* n'est pas une "usine à gaz"
+* on utilisera au moins 50% de ses capacités
+* compatible avec nos navigateurs et OS cibles
+* réputée, maintenue et sans trop de bug ouverts (stars, contributors et issues sur GitHub par exemple)
+
+Si un de ces problèmes apparait, chercher une autre librairie ou en créer une :
+
+* suite à l'intégration de la librairie, du dévelopement custom sera nécessaire pour changer **beaucoup** de chose et l'adapter à notre besoin
+* cette librairie pèse plus de 100kb minifiée
+* contient une centaine de fonctionalité, mais nous n'en avons besoin que de quelques unes, l'import partiel n'est pas disponible
+* n'est pas compatible avec un de nos navigateurs ou OS cible
+* n'est plus maintenue depuis des années
+* compte plusieurs dizaines de bugs ouverts depuis plusieurs mois et non traités
+* compte plusieurs dizaines de bugs qui ont été clos sans être traités
+* compte plus de fork que de stars, elle ne semble pas être adapté en l'état
+
+Il ne faut pas hésiter à créér son propre outil quand les libraires disponibles ne passent pas les critères ci-dessus. Un code qu'on créé est un code qu'on connait et qui sera facilement extensible et maintenable.
+
+Il faut garder à l'esprit que même si la création d'une librairie peut sembler risquée au premier abord, on se repose toujours sur des briques plus petites d'autres librairies qui respectent les critères.
+
+**On ne ré-invente jamais la roue.**
