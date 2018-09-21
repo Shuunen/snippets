@@ -1,10 +1,8 @@
-# Guide du Développement Web
-
-## Introduction
+# Guide du Développement Web : Introduction
 
 Ce guide a pour objectif **d'informer** mais aussi de **cadrer** les développements **front-end**.
 
-Notre objectif est de fournir un contenu de haute **qualité** à nos client, des sitesqui fonctionne mieux, atteignent un maximum de personnes et pas seulement avec les navigateurs et appareils d'aujourd'hui, mais aussi avec ceux de demain.
+Notre objectif est de fournir un contenu de haute **qualité** à nos client, des sites qui fonctionne mieux, atteignent un maximum de personnes et pas seulement avec les navigateurs et appareils d'aujourd'hui, mais aussi avec ceux de demain.
 
 Ce guide est **collaboratif**, les lecteurs sont invités à avoir un regard critique et à réagir afin d'améliorer ce guide.
 
@@ -26,7 +24,7 @@ Je recommande tout particulièrement ces sites qui sont, selon moi, à garder so
 
 En fonction des projets, différents navigateurs devront être supportés.
 
-## Avant de vendre un projet
+### Avant de vendre un projet
 
 Cibler les navigateurs :
 
@@ -45,7 +43,7 @@ Clarifier avec le client :
 > Une page doit jouer son rôle d'information et ne pas apparaître cassée. Le problème n'est pas le rendu des navigateurs, il s'agit d'offrir aux utilisateurs le meilleur contenu en fonction de leur appareil de navigation.
 > -- [David Leuliette](https://davidl.fr/manifesto.html)
 
-## Phase de développement / maintenance
+### Phase de développement / maintenance
 
 Une fois le projet vendu, les navigateurs ciblés devront être compatibles avec le site web produit.
 
@@ -54,7 +52,7 @@ Pour se faire il faut tester le site sous ces différents navigateurs et dans le
 Il existe plusieurs manière de tester le site :
 
 * avoir un poste physique avec navigateur installé (limité à une version de chaque navigateur)
-* avoir un poste physique avec navigateurportable (permet de faire coexister plusieurs versions d'un même navigateur)
+* avoir un poste physique avec navigateur portable (permet de faire coexister plusieurs versions d'un même navigateur)
 * avoir une machine virtuelle avec navigateur (permet de tester d'autres systèmes d'exploitation)
 * utiliser un service en ligne comme [BrowserStack](https://www.browserstack.com/) qui permet de tester quasiment tous les navigateurs sur tous les systèmes
 
@@ -73,7 +71,7 @@ Pour ce qui est du développement front, plusieurs IDE reconnus sont disponibles
 * **Visual Studio Code** : complet, gratuit et performant, maintenu par Microsoft, facile à prendre en main, peu gourmand en ressources
 * Web Storm : très complet mais payant, peut être lourd à l'utilisation pour une machine peu puissante
 
-J'utilise **VS Code**depuis qu'il est sorti en 2015 et il a admirablement remplacé tout les IDE que j'ai pu avoir par le passé : Eclipse, Netbeans, Sublime Text, Web Storm
+J'utilise **VS Code** depuis qu'il est sorti en 2015 et il a admirablement remplacé tout les IDE que j'ai pu avoir par le passé : Eclipse, Netbeans, Sublime Text, Web Storm
 
 Il est vivement conseillé d'avoir le même IDE au sein d'une équipe afin de limiter les changements de formatage typiques de certains IDE
 
@@ -86,7 +84,7 @@ En général il est conseillé de :
 
 1. mettre en place un fichier .editorconfig à la racine du projet, je conseille par exemple celui de [Babel](https://github.com/babel/babel/blob/master/.editorconfig)
 2. utiliser un linter comme ESlint ou TSlint avec les règles recommandées
-3. configurer le linter au fur et à mesure des développements si l'équipe est d'avis de changer une des règles**discutables**
+3. configurer le linter au fur et à mesure des développements si l'équipe est d'avis de changer une des règles **discutables**
 
 * * *
 
@@ -95,7 +93,7 @@ En général il est conseillé de :
 La gestion des versions n'étant pas une option, il faut à minima se mettre d'accord sur les commits :
 
 * la langue : français, anglais, cela dépendra de l'équipe et du client si le code est hébergé chez ce dernier
-* le nommage : un nommage couramment utilisé inclus letype (fix, feature, update, refacto, ...) et bien sûr la description du commit, par exemple :
+* le nommage : un nommage couramment utilisé inclus le type (fix, feature, update, refacto, ...) et bien sûr la description du commit, par exemple :
   * fix - survol des boutons
   * feature - ajout du responsive sur la page d'accueil
   * refacto : section téléchargements
@@ -113,16 +111,16 @@ Parmi ces méthodes, la plus simple et la plus efficace à mes yeux reste celle 
 
 * **une seule branche master** (pas de branche develop ici)
 * tout ce qui est dans master peut être déployé en **production**
-* **créer des branches de feature aux noms explicites depuis master** : par exemple _feature/responsive-page-accueil_ ou_fix/menu-deroulant-mobile_
-* pousser sur **origin** régulièrement :cela permet de communiquer avec l'équipe
-* ouvrir une **pull-request** dèsqu'on pense avoir terminé ou qu'on est coincé, la pull-request permet de demander une **revue du code**. Il est alors possible de commenter le code, d'apporter des modifications et de visualiser ce que l'on s'apprête à fusionner dans **master**
+* **créer des branches de feature aux noms explicites depuis master** : par exemple `feature/responsive-page-accueil` ou `fix/menu-deroulant-mobile`
+* pousser sur **origin** régulièrement : cela permet de communiquer avec l'équipe
+* ouvrir une **pull-request** dès qu'on pense avoir terminé ou qu'on est coincé, la pull-request permet de demander une **revue du code**. Il est alors possible de commenter le code, d'apporter des modifications et de visualiser ce que l'on s'apprête à fusionner dans **master**
 * fusionner seulement après une **pull-request review**: un développeur ne doit pas fusionner sa branche dans master lorsqu'il pense que c'est bon, un autre doit venir faire une **revue du code** et confirmer la stabilité de la branche.
 
-Plus de détails sur la méthode Github Flow :[https://guides.github.com/introduction/flow/](https://guides.github.com/introduction/flow/)
+La méthode Github Flow en détails : [https://guides.github.com/introduction/flow/](https://guides.github.com/introduction/flow/)
 
 * * *
 
-## HTML
+# HTML
 
 Dans [l'introduction](/confluence/pages/viewpage.action?pageId=46745647) nous avons pu voir ensemble des sujets transverses au développement web.
 
@@ -250,9 +248,9 @@ préférez :
 
 Utiliser des adresses relatives, sauf s'il est nécessaire de pointer vers un autre domaine.
 
-Les syntaxes href="./path/to/page.html" et href="path/to/file.html" étant équivalentes, on préférera la seconde car elle est plus succincte.
+Les syntaxes **`href="./path/to/page.html"`** et **`href="path/to/file.html"`** étant équivalentes, on préférera la seconde car elle est plus succincte.
 
-Si on doit utiliser des adresses absolues (limitation du CMS, profondeur de lien trop complexe), on utilisera la syntaxe //, qui permet d'utiliser https ou http en fonction du contexte.
+Si on doit utiliser des adresses absolues (limitation du CMS, profondeur de lien trop complexe), on utilisera la syntaxe **`//`**, qui permet d'utiliser https ou http en fonction du contexte.
 
 évitez :
 
@@ -325,3 +323,9 @@ exemple de structure HTML simple :
 </body>  
 </html>
 ```
+
+***
+
+## Javascript
+
+JavaScript vient en complément de la base HTML et CSS. Il améliore l'expérience et le comportement de la page utilisateur
