@@ -1,5 +1,7 @@
 # Guide du Développement Web
 
+## Introduction
+
 Ce guide a pour objectif **d'informer** mais aussi de **cadrer** les développements **front-end**.
 
 Notre objectif est de fournir un contenu de haute **qualité** à nos client, des sitesqui fonctionne mieux, atteignent un maximum de personnes et pas seulement avec les navigateurs et appareils d'aujourd'hui, mais aussi avec ceux de demain.
@@ -24,7 +26,7 @@ Je recommande tout particulièrement ces sites qui sont, selon moi, à garder so
 
 En fonction des projets, différents navigateurs devront être supportés.
 
-### Avant de vendre un projet
+## Avant de vendre un projet
 
 Cibler les navigateurs :
 
@@ -43,7 +45,7 @@ Clarifier avec le client :
 > Une page doit jouer son rôle d'information et ne pas apparaître cassée. Le problème n'est pas le rendu des navigateurs, il s'agit d'offrir aux utilisateurs le meilleur contenu en fonction de leur appareil de navigation.
 > -- [David Leuliette](https://davidl.fr/manifesto.html)
 
-### Phase de développement / maintenance
+## Phase de développement / maintenance
 
 Une fois le projet vendu, les navigateurs ciblés devront être compatibles avec le site web produit.
 
@@ -60,7 +62,7 @@ La dernière solution est la plus intéressante même si elle a un coût, **ce c
 
 * il est moins coûteux de pouvoir facilement tester un site au cours du développement (et ainsi d'éviter des bugs liés aux différences entre navigateurs et systèmes) que de ne pas tester et laisser les bugs fleurir d'eux même lors des phases de recette
 * pendant une phase de correction, un développeur ira plus vite en utilisant une plateforme de test en ligne, identifier le problème plus vite c'est aussi le corriger plus vite, et donc pour moins cher
-* avoir une plateforme de test en ligne c'est aussi une économie sur l'achat de périphériques de test  
+* avoir une plateforme de test en ligne c'est aussi une économie sur l'achat de périphériques de test
 
 * * *
 
@@ -109,7 +111,7 @@ Travailler à plusieurs sur le même code source nécessite d'avoir une discipli
 
 Parmi ces méthodes, la plus simple et la plus efficace à mes yeux reste celle de chez Github, le Github Flow :
 
-* **une seule branche****master** (pas de branche develop ici)
+* **une seule branche master** (pas de branche develop ici)
 * tout ce qui est dans master peut être déployé en **production**
 * **créer des branches de feature aux noms explicites depuis master** : par exemple _feature/responsive-page-accueil_ ou_fix/menu-deroulant-mobile_
 * pousser sur **origin** régulièrement :cela permet de communiquer avec l'équipe
@@ -118,34 +120,27 @@ Parmi ces méthodes, la plus simple et la plus efficace à mes yeux reste celle 
 
 Plus de détails sur la méthode Github Flow :[https://guides.github.com/introduction/flow/](https://guides.github.com/introduction/flow/)
 
+* * *
+
+## HTML
 
 Dans [l'introduction](/confluence/pages/viewpage.action?pageId=46745647) nous avons pu voir ensemble des sujets transverses au développement web.
 
 Ici nous allons nous pencher sur la structure de toute page web, les balises HTML, aussi appelées tag ou DOM Element
 
-Sommaire
-
-* [Sémantique](#id-2.GuideduDéveloppementWeb:HTML-Sémantique)
-* [Formulaires](#id-2.GuideduDéveloppementWeb:HTML-Formulaires)
-* [Balises](#id-2.GuideduDéveloppementWeb:HTML-Balises)
-* [Attributs](#id-2.GuideduDéveloppementWeb:HTML-Attributs)
-* [URL](#id-2.GuideduDéveloppementWeb:HTML-URL)
-* [Images](#id-2.GuideduDéveloppementWeb:HTML-Images)
-* [Compatibilité](#id-2.GuideduDéveloppementWeb:HTML-Compatibilité)
-
 * * *
 
-# Sémantique
+## Sémantique
 
-Ne pas utiliser **<br />** pour séparer des éléments. Pour séparer plusieurs groupes de texte, on utilisera des **<p>**.
+Ne pas utiliser **`<br />`** pour séparer des éléments. Pour séparer plusieurs groupes de texte, on utilisera des **`<p>`**.
 
 **Pour espacer des éléments d'interface, on utilisera du CSS**.
 
 Utiliser les balises HTML existantes sémantiques si elles existent.
 
-Ne pas utiliser d'éléments génériques comme **<div>** ou **<span>** si un élément HTML existe déjà pour cette fonction. Utiliser par exemple **<ul>**, **<ol>** ou **<dl>** pour une liste, ou **<table>** pour des données tabulaires.
+Ne pas utiliser d'éléments génériques comme **`<div>`** ou **`<span>`** si un élément HTML existe déjà pour cette fonction. Utiliser par exemple **`<ul>`**, **`<ol>`** ou **`<dl>`** pour une liste, ou **`<table>`** pour des données tabulaires.
 
-Tirer profit des balises **<table>** spécifiques. Par exemple**<thead>**, **<tbody>** et **<tfoot>** permettent de définir respectivement le **header**, le **body** et le **footer** d'un tableau.
+Tirer profit des balises **`<table>`** spécifiques. Par exemple **`<thead>`**, **`<tbody>`** et **`<tfoot>`** permettent de définir respectivement le **`header`**, le **`body`** et le **`footer`** d'un tableau.
 
 L'intérêt d'avoir une bonne sémantique est multiple :
 
@@ -155,45 +150,48 @@ L'intérêt d'avoir une bonne sémantique est multiple :
 
 évitez
 
-<div></div>
+```html
+<div class="image-avatar" style="background-image: url('mon-image.jpg')"></div>
+```
 
 préférez
 
-<imgsrc="mon-image.jpg" />
+```html
+<img class="avatar" src="mon-image.jpg" />
+```
 
 * * *
 
-# Formulaires
+## Formulaires
 
-Toujours lier chaque **<input>**, **<select>**, **<textarea>**, etc à un élément **<label>** gr=C3=A2ce aux attributs **name** et **for**.
+Toujours lier chaque **`<input>`**, **`<select>`**, **`<textarea>`**, etc à un élément **`<label>`** grâce aux attributs **`name`** et **`for`**.
 
 Cette liaison permet d'avoir un formulaire :
 
-* plus simple à utiliser, quand un utilisateur clique sur un label for="accept" l'input associé gagne le focus, voir exemple ci-dessous
+* plus simple à utiliser, quand un utilisateur clique sur un label `for="accept"` l'input associé gagne le focus
 * plus accessible aux personnes mal-voyante
 * bien pris en charge par les différent navigateurs
 
-évitez
+évitez :
 
-<div> 
-
-    J'accepte les conditions <input type="checkbox">
-
-</div>
-
-préférez
-
+```html
 <div>
-
-    <label for="accept">J'accepte les conditions</label>
-
-    <input type="checkbox" name="accept">
-
+  J'accepte les conditions <input type="checkbox" id="accept">
 </div>
+```
+
+préférez :
+
+```html
+<div>
+  <label for="accept">J'accepte les conditions</label>
+  <input type="checkbox" name="accept" id="accept">
+</div>
+```
 
 * * *
 
-# Balises
+## Balises
 
 **Indenter** chaque balise.
 
@@ -205,25 +203,26 @@ Toujours **fermer** les balises.Ajouter un /> de fermeture pour les **self-closi
 
 Utiliser un **minimum** de balises.
 
-Tirez profit du fait qu'on puisse ajouter plusieurs classes CSS à un même élément pour éviter d'ajouter des balises<span>ou<div>inutiles.
+Tirez profit du fait qu'on puisse ajouter plusieurs classes CSS à un même élément pour éviter d'ajouter des balises `<span>` ou `<div>` inutiles.
 
-évitez
+évitez :
 
-<DIV> <span>Bienvenue</span> <img src="image.jpg"> </DIV>
+```html
+<DIV class="section-entete"> <span class="titre">Bienvenue</span> <img src="image.jpg"> </DIV>
+```
 
-préférez
+préférez :
 
-<section>
-
-    <h1>Bienvenue</h1>
-
-    <img src="image.jpg" />
-
+```html
+<section class="entete">
+  <h1>Bienvenue</h1>
+  <img src="image.jpg" />
 </section>
+```
 
 * * *
 
-# Attributs
+## Attributs
 
 Toujours en **minuscule**, comme pour les balises, pour l'uniformité.
 
@@ -231,19 +230,23 @@ Utiliser des **double quotes**.
 
 Ne pas ajouter de valeurs aux attributs de type booléens. En effet il est inutile d'ajouter une valeur aux attributs booléens, leur présence signifie **true** et leur absence **false**.
 
-**Pour les attributs personnalisés, ajouter un préfixe "data-"**
+Pour les attributs **personnalisés**, ajouter un préfixe **`"data-"`**
 
-évitez
+évitez :
 
+```html
 <input TYPE="text" disabled="disabled" user='12' />
+```
 
-préférez
+préférez :
 
+```html
 <input type="text" disabled data-user="12" />
+```
 
 * * *
 
-# URL
+## URL
 
 Utiliser des adresses relatives, sauf s'il est nécessaire de pointer vers un autre domaine.
 
@@ -251,39 +254,44 @@ Les syntaxes href="./path/to/page.html" et href="path/to/file.html" étant équi
 
 Si on doit utiliser des adresses absolues (limitation du CMS, profondeur de lien trop complexe), on utilisera la syntaxe //, qui permet d'utiliser https ou http en fonction du contexte.
 
-évitez
+évitez :
 
+```html
 <a href="/path/to/file.html">Lien</a>
-
 <a href="./path/to/file.html">Lien</a>
-
 <a href="http://www.site.com/path/to/file.html">Lien</a>
+```
 
-préférez
+préférez :
 
+```html
 <a href="path/to/file.html">Lien</a>
-
 <a href="//www.site.com/path/to/file.html">Lien</a>
+```
 
 * * *
 
-# Images
+## Images
 
 Toujours mettre un attribut **alt** pour l'accessibilité, cela permet aux terminaux qui ne peuvent pas afficher d'image d'avoir une information sur le contenu de l'image.
 
-**N'utiliser <img> que pour des images de contenu** : seules les images qui apportent un contenu à la page (comme une illustration) doivent utiliser des balises <img>. Toutes les images de présentation (bulletpoint, icone, fond, etc) doivent trouver leur place dans le CSS.
+**N'utiliser `<img>` que pour des images de contenu** : seules les images qui apportent un contenu à la page (comme une illustration) doivent utiliser des balises `<img>`. Toutes les images de présentation (bulletpoint, icone, fond, etc) doivent trouver leur place dans le CSS.
 
-évitez
+évitez :
 
-<div></div>
+```html
+<div class="image-avatar" style="background-image: url('mon-image.jpg')"></div>
+```
 
-préférez
+préférez :
 
-<imgsrc="mon-image.jpg" />
+```html
+<img class="avatar" src="mon-image.jpg" />
+```
 
 * * *
 
-# Compatibilité
+## Compatibilité
 
 Toujours utiliser le doctype HTML5. Cela nous permet d'avoir la plus grande cohérence de rendu sur l'ensemble des navigateurs.
 
@@ -291,27 +299,29 @@ Un **doctype est obligatoire** pour forcer les navigateurs à utiliser un moteur
 
 Toujours dire à IE d'utiliser la dernière version de son moteur de rendu, sans cette balise, il utilisera un fallback de compatibilité moins performant.
 
+```html
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+```
 
-Toujours utiliser le bon encodage, il est important d'indiquer dans le **<head>** que la page est en **UTF-8** avec la balise suivante :
+Toujours utiliser le bon encodage, il est important d'indiquer dans le **`<head>`** que la page est en **`UTF-8`** avec la balise suivante :
 
+```html
 <meta charset="UTF-8">
+```
 
-exemple de structure HTML simple
+exemple de structure HTML simple :
 
+```html
 <!DOCTYPE html>  
 <html lang="fr">  
-   <head>  
-      <meta charset="utf-8">  
-      <title>I =E2=99=A5 HTML</title>  
-      <link rel="stylesheet" href="application.css">  
-   </head>  
+<head>  
+<meta charset="utf-8">  
+<title>I Love HTML</title>  
+<link rel="stylesheet" href="application.css">  
+</head>  
 <body>
-
-   <h1>GFI Forever</h1>
-
-   <script src="application.js"></script>  
+  <h1>HTML Forever</h1>
+  <script src="application.js"></>  
 </body>  
 </html>
-
-* * *
+```
