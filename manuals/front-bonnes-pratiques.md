@@ -510,15 +510,23 @@ Il ne faut pas hésiter à créer son propre outil quand les libraires disponibl
 
 Il faut garder à l'esprit que même si la création d'une librairie peut sembler risquée au premier abord, on se repose toujours sur des briques plus petites d'autres librairies qui respectent les critères.
   
-**On ne ré-invente jamais la roue.** 
+**On ne ré-invente jamais la roue.**
 
 * * *
 
-# Le Lint
+### Le Lint
 
 Outil **indispensable** dans la stack d'un projet, grand gardien des **conventions de code**, voici les libraries les plus connues :
 
-* Pour JavaScript, TypeScript : [Standard](https://github.com/standard/standard)
+* Pour JavaScript, TypeScript (pré-configuré) : [Standard](https://github.com/standard/standard)
 * Pour JavaScript (configurable) : [ESLint](https://eslint.org/) (ou [XO](https://github.com/xojs/xo) à tester)
 * Pour TypeScript (configurable) : [TSLint](https://palantir.github.io/tslint/) ([TSStyle](https://github.com/google/ts-style) à tester)
 * Pour CSS, Sass, etc. (configurable) : [StyleLint](https://stylelint.io/)
+* Pour Markdown (pré-configuré) : [MarkdownLint](https://github.com/DavidAnson/markdownlint)
+* Pour Markdown et autres textes (configurable) : [TextLint](https://github.com/textlint/textlint)
+
+Notez que les linters ci-dessus sont à installer dans la stack technique du projet, ils seront lancés pendant les développement mais aussi avant chaque commit et chaque build.
+
+Le but étant de garder une cohérence tout au long du processus de création et au sein d'une équipe.
+
+**Pensez aussi à récupérer les extensions pour votre IDE afin de voir les erreurs de lint en amont.**
