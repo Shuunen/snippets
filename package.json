@@ -2,6 +2,9 @@
   "dependencies": {
     "eslint-plugin-html": "^4.0.6",
     "standard": "^12.0.1",
-    "textlint": "^11.0.0"
+    "textlint": "^11.0.0",
+    "textlint-rule-max-comma": "^1.0.4",
+    "textlint-rule-period-in-list-item": "^0.2.0",
+    "textlint-rule-terminology": "^1.1.29"
   }
 }

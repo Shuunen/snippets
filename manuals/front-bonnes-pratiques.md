@@ -2,7 +2,7 @@
 
 ## Introduction
 
-Ce guide a pour objectif **d'informer** mais aussi de **cadrer** les développements **front-end**.
+Ce guide a pour objectif **d'informer** mais aussi de **cadrer** les développements **frontend**.
 
 Notre objectif est de fournir un contenu de haute **qualité** à nos client, des sites qui fonctionne mieux, atteignent un maximum de personnes et pas seulement avec les navigateurs et appareils d'aujourd'hui, mais aussi avec ceux de demain.
 
@@ -33,7 +33,7 @@ Cibler les navigateurs :
 * Regarder la part de marché des navigateurs dans le pays cible du client, ou dans le monde si nécessaire.
 * Regarder les statistiques liées à la clientèle du client en question.
 * Par exemple, dans le cadre d'une refonte d'un site internet d'un client, si ce dernier a inclus un scriptGoogle Analyticssur son ancien site, les données collectées permettront de connaitre les cibles : les visiteurs du site.
-* Si 80% des visiteurs utilisent Internet Explorer 9 alors il faudra être compatible avec ce dernier, si à l'inverse seulement 2% utilisent Internet Explorer 8 alors la compatibilité (extrêmement coûteuse) IE8 ne sera pas nécessaire.
+* Si 80% des visiteurs utilisent internet explorer 9 alors il faudra être compatible avec ce dernier, si à l'inverse seulement 2% utilisent internet explorer 8 alors la compatibilité (extrêmement coûteuse) IE8 ne sera pas nécessaire.
 * Cibler les navigateurs c'est aussi cibler les versions, Firefox ? oui mais à partir de quelle version ?
 * Si le client n'est pas inquiet vis à vis de cette sélection de navigateurs cibles, alors choisissons simplement les navigateurs actuels dans leurs dernières versions
 * Le site [http://gs.statcounter.com/](http://gs.statcounter.com/) est très pratique pour voir toutes les statistiques
@@ -70,7 +70,7 @@ La dernière solution est la plus intéressante même si elle a un coût, **ce c
 
 Pour ce qui est du développement front, plusieurs IDE reconnus sont disponibles mais voici ceux que je recommande :
 
-* **Visual Studio Code** : complet, gratuit et performant, maintenu par Microsoft, facile à prendre en main, peu gourmand en ressources
+* **Visual Studio Code** : complet, gratuit et performant, maintenu par Microsoft, facile à prendre en main et peu gourmand en ressources
 * Web Storm : très complet mais payant, peut être lourd à l'utilisation pour une machine peu puissante
 
 J'utilise **VS Code** depuis qu'il est sorti en 2015 et il a admirablement remplacé tout les IDE que j'ai pu avoir par le passé : Eclipse, Netbeans, Sublime Text, Web Storm
@@ -84,8 +84,8 @@ Une fois que l'équipe a tranché sur l'IDE il est nécessaire de se mettre d'ac
 
 En général il est conseillé de :
 
-1. mettre en place un fichier .editorconfig à la racine du projet, je conseille par exemple celui de [Babel](https://github.com/babel/babel/blob/master/.editorconfig)
-2. utiliser un linter comme ESlint ou TSlint avec les règles recommandées
+1. mettre en place un fichier .EditorConfig à la racine du projet, je conseille par exemple celui de [Babel](https://github.com/babel/babel/blob/master/.editorconfig)
+2. utiliser un linter comme ESLint ou TSlint avec les règles recommandées
 3. configurer le linter au fur et à mesure des développements si l'équipe est d'avis de changer une des règles **discutables**
 
 * * *
@@ -109,7 +109,7 @@ Vous noterez le dernier exemple qui référence directement le numéro de l'issu
 
 Travailler à plusieurs sur le même code source nécessite d'avoir une discipline, une méthode de travail commune.
 
-Parmi ces méthodes, la plus simple et la plus efficace à mes yeux reste celle de chez Github, le Github Flow :
+Parmi ces méthodes, la plus simple et la plus efficace à mes yeux reste celle de chez Github, le GitHub Flow :
 
 * **une seule branche master** (pas de branche develop ici)
 * tout ce qui est dans master peut être déployé en **production**
@@ -118,7 +118,7 @@ Parmi ces méthodes, la plus simple et la plus efficace à mes yeux reste celle 
 * ouvrir une **pull-request** dès qu'on pense avoir terminé ou qu'on est coincé, la pull-request permet de demander une **revue du code**. Il est alors possible de commenter le code, d'apporter des modifications et de visualiser ce que l'on s'apprête à fusionner dans **master**
 * fusionner seulement après une **pull-request review**: un développeur ne doit pas fusionner sa branche dans master lorsqu'il pense que c'est bon, un autre doit venir faire une **revue du code** et confirmer la stabilité de la branche.
 
-La méthode Github Flow en détails : [https://guides.github.com/introduction/flow/](https://guides.github.com/introduction/flow/)
+La méthode GitHub Flow en détails : [https://guides.github.com/introduction/flow/](https://guides.github.com/introduction/flow/)
 
 * * *
 
@@ -252,7 +252,7 @@ Utiliser des adresses relatives, sauf s'il est nécessaire de pointer vers un au
 
 Les syntaxes **`href="./path/to/page.html"`** et **`href="path/to/file.html"`** étant équivalentes, on préférera la seconde car elle est plus succincte.
 
-Si on doit utiliser des adresses absolues (limitation du CMS, profondeur de lien trop complexe), on utilisera la syntaxe **`//`**, qui permet d'utiliser https ou http en fonction du contexte.
+Si on doit utiliser des adresses absolues (limitation du CMS, profondeur de lien trop complexe), on utilisera la syntaxe **`//`**, qui permet d'utiliser HTTPS ou HTTP en fonction du contexte.
 
 évitez :
 
@@ -295,7 +295,7 @@ préférez :
 
 Toujours utiliser le doctype HTML5. Cela nous permet d'avoir la plus grande cohérence de rendu sur l'ensemble des navigateurs.
 
-Un **doctype est obligatoire** pour forcer les navigateurs à utiliser un moteur de rendu et prévenir le mode quirks avec Internet Explorer
+Un **doctype est obligatoire** pour forcer les navigateurs à utiliser un moteur de rendu et prévenir le mode quirks avec internet explorer
 
 Toujours dire à IE d'utiliser la dernière version de son moteur de rendu, sans cette balise, il utilisera un fallback de compatibilité moins performant.
 
@@ -328,7 +328,7 @@ exemple de structure HTML simple :
 
 * * *
 
-## Javascript
+## JavaScript
 
 JavaScript vient en **complément** de la base HTML et CSS. Il améliore l'**expérience** et le **comportement** de la page utilisateur aussi appelée **UX** (User Experience).
 
@@ -426,7 +426,7 @@ Pour le web, voici les géants qui s'affrontent : **Angular**, **Vue** et **Reac
 
 Précision : Angular.js est la première version, renommée simplement "Angular" depuis la version 2, c'est bien le dernier que nous aborderons dans ce guide. Toutefois à titre de comparaison, il est intéressant de regarder ce qui se passe côté Angular.js
 
-Voici un graphique représentant l'intérêt suscité par les développeurs sur Github lors de ces 5 dernières années :
+Voici un graphique représentant l'intérêt suscité par les développeurs sur GitHub lors de ces 5 dernières années :
 
 ![Stars-Comparison](https://zendev.com/assets/img/posts/framework-popularity/all-4-star-history.png)
 
@@ -436,9 +436,9 @@ Regardons maintenant du côté des téléchargements annuels :
 
 ![annual-downloads](https://i.imgur.com/snsIl3N.png)
 
-On ne retrouve pas les même tendances !
+On ne retrouve pas les même tendances, en effet, la popularité et l'utilisation ne se reflètent pas toujours.
 
-En effet, la popularité et l'utilisation ne se reflètent pas toujours, **React** et **Vue** on une belle côte de **popularité**, pour autant React domine largement sur les téléchargements (86 millions), suivi par Angular.js (@angular/core avec 37 millions) en seconde place puis en dernière position Vue est à égalité avec Angular avec environs 13 millions de téléchargements annuel.
+**React** et **Vue** on une belle côte de **popularité**, pour autant React domine largement sur les téléchargements (86 millions), suivi par Angular.js (@angular/core avec 37 millions) en seconde place puis en dernière position Vue est à égalité avec Angular avec environs 13 millions de téléchargements annuel.
 
 Ces téléchargements représentent le nombre de projets qui démarrent, les POC, les déploiements continus, etc. Par exemple pour expliquer la position d'Angular.js à la seconde place, on peut imaginer qu'un grand nombre de projets qui ont été développé avec sont toujours maintenus et du coup les CI continuent de télécharger cette librairie, contribuant à lui garder une belle place dans ce classement en 2018.
 
@@ -509,16 +509,16 @@ Si un de ces problèmes apparaît, chercher une autre librairie ou en créer une
 Il ne faut pas hésiter à créer son propre outil quand les libraires disponibles ne passent pas les critères ci-dessus. Un code qu'on créé est un code qu'on connait et qui sera facilement extensible et maintenable.
 
 Il faut garder à l'esprit que même si la création d'une librairie peut sembler risquée au premier abord, on se repose toujours sur des briques plus petites d'autres librairies qui respectent les critères.
-
-**On ne ré-invente jamais la roue.**
+  
+**On ne ré-invente jamais la roue.** 
 
 * * *
 
-### Le Lint
+# Le Lint
 
 Outil **indispensable** dans la stack d'un projet, grand gardien des **conventions de code**, voici les libraries les plus connues :
 
 * Pour JavaScript, TypeScript : [Standard](https://github.com/standard/standard)
-* Pour JavaScript (configurable) : [ESlint](https://eslint.org/) (ou [XO](https://github.com/xojs/xo) à tester)
+* Pour JavaScript (configurable) : [ESLint](https://eslint.org/) (ou [XO](https://github.com/xojs/xo) à tester)
 * Pour TypeScript (configurable) : [TSLint](https://palantir.github.io/tslint/) ([TSStyle](https://github.com/google/ts-style) à tester)
 * Pour CSS, Sass, etc. (configurable) : [StyleLint](https://stylelint.io/)

@@ -1,0 +1,7 @@
+{
+  "rules": {
+      "max-comma": true,
+      "terminology" : true,
+      "period-in-list-item": true
+  }
+}
