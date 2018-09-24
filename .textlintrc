@@ -2,6 +2,10 @@
   "rules": {
       "max-comma": true,
       "terminology" : true,
-      "period-in-list-item": true
+      "period-in-list-item": true,
+      "@textlint-rule/no-invalid-control-character": true,
+      "unexpanded-acronym": {
+        "ignore_acronyms" : ["CSS","HTTP", "HTTPS"]
+      }
   }
 }

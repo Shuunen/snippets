@@ -66,7 +66,7 @@ La dernière solution est la plus intéressante même si elle a un coût, **ce c
 
 * * *
 
-### Les éditeurs (IDE)
+### Les éditeurs ou IDE (Integrated Development Environment)
 
 Pour ce qui est du développement front, plusieurs IDE reconnus sont disponibles mais voici ceux que je recommande :
 
@@ -122,11 +122,11 @@ La méthode GitHub Flow en détails : [https://guides.github.com/introduction/fl
 
 * * *
 
-## HTML
+## HTML (Hyper Text Markup Language)
 
 Dans [l'introduction](/confluence/pages/viewpage.action?pageId=46745647) nous avons pu voir ensemble des sujets transverses au développement web.
 
-Ici nous allons nous pencher sur la structure de toute page web, les balises HTML, aussi appelées tag ou DOM Element
+Ici nous allons nous pencher sur la structure de toute page web, les balises HTML, aussi appelées tag ou DOM Element, DOM pour Document Object Model.
 
 * * *
 
@@ -246,13 +246,13 @@ préférez :
 
 * * *
 
-### URL
+### Les liens ou URL (Uniform Resource Locator)
 
 Utiliser des adresses relatives, sauf s'il est nécessaire de pointer vers un autre domaine.
 
 Les syntaxes **`href="./path/to/page.html"`** et **`href="path/to/file.html"`** étant équivalentes, on préférera la seconde car elle est plus succincte.
 
-Si on doit utiliser des adresses absolues (limitation du CMS, profondeur de lien trop complexe), on utilisera la syntaxe **`//`**, qui permet d'utiliser HTTPS ou HTTP en fonction du contexte.
+Si on doit utiliser des adresses absolues (limitation du framework, profondeur de lien trop complexe), on utilisera la syntaxe **`//`**, qui permet d'utiliser HTTPS ou HTTP en fonction du contexte.
 
 évitez :
 
@@ -334,7 +334,7 @@ JavaScript vient en **complément** de la base HTML et CSS. Il améliore l'**exp
 
 Voici les bonnes pratiques à respecter en général :
 
-* Favoriser les Frameworks et la pratique du [code DRY](http://fr.wikipedia.org/wiki/Ne_vous_r%C3%A9p%C3%A9tez_pas)
+* Favoriser les Frameworks et la pratique du [code DRY](http://fr.wikipedia.org/wiki/Ne_vous_r%C3%A9p%C3%A9tez_pas) (Dont Reapeat Yourself)
 * **Pas de JavaScript embedded**
 * **Pas de JavaScript inline**
 * Toujours être sur la défensive, en utilisant des fonctions de détection
@@ -440,7 +440,7 @@ On ne retrouve pas les même tendances, en effet, la popularité et l'utilisatio
 
 **React** et **Vue** on une belle côte de **popularité**, pour autant React domine largement sur les téléchargements (86 millions), suivi par Angular.js (@angular/core avec 37 millions) en seconde place puis en dernière position Vue est à égalité avec Angular avec environs 13 millions de téléchargements annuel.
 
-Ces téléchargements représentent le nombre de projets qui démarrent, les POC, les déploiements continus, etc. Par exemple pour expliquer la position d'Angular.js à la seconde place, on peut imaginer qu'un grand nombre de projets qui ont été développé avec sont toujours maintenus et du coup les CI continuent de télécharger cette librairie, contribuant à lui garder une belle place dans ce classement en 2018.
+Ces téléchargements représentent le nombre de projets qui démarrent, les POC (Proof Of Concept, des projets tests), les déploiements continus, etc. Par exemple pour expliquer la position d'Angular.js à la seconde place, on peut imaginer qu'un grand nombre de projets qui ont été développé avec sont toujours maintenus et du coup les CI continuent de télécharger cette librairie, contribuant à lui garder une belle place dans ce classement en 2018.
 
 Malgré sa deuxième place, Angular.js n'est plus un choix à considérer en 2018, la communauté ayant migré vers Angular et d'autres frameworks ou librairies.
 
@@ -482,7 +482,7 @@ Comme toutes les opinions, il n'y en a pas une de mieux qu'une autre, et les opi
 
 #### Choisir une librairie
 
-Une fois le framework choisi, on ajoute des librairies spécifiques **qui ne sont pas embarqués** avec le framework : animations, visualisation de données, SVG et **polyfill** (fonctionnalités qui ne sont pas supportés par certains navigateurs)
+Une fois le framework choisi, on ajoute des librairies spécifiques **qui ne sont pas embarqués** avec le framework : animations, visualisation de données, **polyfill** (fonctionnalités qui ne sont pas supportés par certains navigateurs), etc.
 
 > Si vous voulez utiliser une librairie vous devez la lire, la comprendre, être d'accord avec elle, et ne pas être capable d'en écrire une meilleure quand vous êtes en forme.
 > @sentience
