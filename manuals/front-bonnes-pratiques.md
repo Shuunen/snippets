@@ -357,9 +357,9 @@ Les bonnes pratiques liées aux **variables** :
 
 ```js
 // Pollution du namespace global
-var showUser = true;
-var blockEdition = false;
-var maxDownloads = 3;
+var showUser = true
+var blockEdition = false
+var maxDownloads = 3
 
 // Pas de pollution
 var app = {};
@@ -418,21 +418,67 @@ L'intérêt derrière est d'avoir toutes les définitions de fonctions directeme
 
 ### Les Frameworks
 
-Les frameworks permettent de **cadrer les dévelopements** et surtout de **gagner du temps**.
+Les frameworks permettent de **cadrer les développements** et surtout de **gagner du temps**.
 
 #### Choisir un framework
 
-Pour le web, voici les deux géants qui s'affrontent : Angular et Vue
+Pour le web, voici les géants qui s'affrontent : **Angular**, **Vue** et **React**.
 
-|            | Angular             | Vue                             |
-| ---------- | ------------------- | ------------------------------- |
-| Popularité | Très populaire      | De plus en plus populaire       |
-|            | car arrivé plus tôt | malgrès une sortie plus tardive |
-| - -        | - -                 | - -                             |
-|            |                     |                                 |
-|            |                     |                                 |
+Précision : Angular.js est la première version, renommée simplement "Angular" depuis la version 2, c'est bien le dernier que nous aborderons dans ce guide. Toutefois à titre de comparaison, il est intéressant de regarder ce qui se passe côté Angular.js
 
-Pour une comparaison en détails entre Vue et ses concurrent : [https://fr.vuejs.org/v2/guide/comparison.html](https://fr.vuejs.org/v2/guide/comparison.html)
+Voici un graphique représentant l'intérêt suscité par les développeurs sur Github lors de ces 5 dernières années :
+
+![Stars-Comparison](https://zendev.com/assets/img/posts/framework-popularity/all-4-star-history.png)
+
+On peut voir qu'Angular n'est plus aussi populaire qu'il a été.
+
+Regardons maintenant du côté des téléchargements annuels :
+
+![annual-downloads](https://i.imgur.com/snsIl3N.png)
+
+On ne retrouve pas les même tendances !
+
+En effet, la popularité et l'utilisation ne se reflètent pas toujours, **React** et **Vue** on une belle côte de **popularité**, pour autant React domine largement sur les téléchargements (86 millions), suivi par Angular.js (@angular/core avec 37 millions) en seconde place puis en dernière position Vue est à égalité avec Angular avec environs 13 millions de téléchargements annuel.
+
+Ces téléchargements représentent le nombre de projets qui démarrent, les POC, les déploiements continus, etc. Par exemple pour expliquer la position d'Angular.js à la seconde place, on peut imaginer qu'un grand nombre de projets qui ont été développé avec sont toujours maintenus et du coup les CI continuent de télécharger cette librairie, contribuant à lui garder une belle place dans ce classement en 2018.
+
+Malgré sa deuxième place, Angular.js n'est plus un choix à considérer en 2018, la communauté ayant migré vers Angular et d'autres frameworks ou librairies.
+
+Voyons ensemble ce qui distingue Angular, React et Vue.
+
+|              | Angular        | React        | Vue               |
+| ------------ | -------------- | ------------ | ----------------- |
+| Type         | **Framework**  | *Librairie*  | **Framework**     |
+| Fondateurs   | Google         | Facebook     | Ex-employé Google |
+| Sorti en     | Septembre 2016 | Mars 2013    | Février 2014      |
+| App natives  | NativeScript   | React Native | *Weex*            |
+| Montée       | Standard       | *Difficile*  | **Facile**        |
+| Debugging    | Standard       | *Difficile*  | Standard          |
+| Data-Binding | Two-way        | One-way      | One & Two-way     |
+
+Et voici leurs points communs :
+
+* compatibles avec **TypeScript**, l'indispensable pour tout les nouveaux projets
+* de bonnes **performances** vis à vis d'autres frameworks non cités ici
+* de grandes **communautés** qui permettent d'avoir des plugins, du support, etc.
+
+Les inconvénients selon moi (en italique dans le tableau) :
+
+* **React n'est pas un framework**, il ne donne pas de structure à un projet, il demande d'avoir un architecte compétent pour bien initialiser la stack et d'avoir aussi des développeurs qualifiés qui connaissent bien React et les bonnes pratiques React pour ne pas faire n'importe quoi
+* Sur le sujet des applications natives, c'est Vue qui est un peu en retrait avec son projet **Weex** qui **est encore en cours de développement**.
+* Pour ce qui est de la montée en compétence, **Vue est vraiment simple à prendre en main** tandis que **React reste difficile** de prime abord et difficile à maintenir proprement
+* Côté debugging, j'ai une préférence pour Vue et d'amères souvenirs avec React (et React Native).
+
+Comment choisir selon moi :
+
+* pour un démarrage facile, un code propre et facilement maintenable : **Vue**
+* pour une équipe qui a déjà travaillé sur JavaScript ou Angular.js : **Vue**
+* pour une équipe qui a déjà travaillé sur Angular : **Angular** ou **Vue**
+* pour un projet qui a des besoins web et natifs : **Angular** ou **React** (tant que Vue Weex n'est pas stable)
+
+Vous l'aurez compris, j'ai un faible pour **Vue**, je l'utilise depuis plusieurs années sur des projets de toutes sortes et n'ai jamais été déçu. J'ai aussi eu l'occasion de présenter et faire tester Vue à des développeurs débutants qui m'ont confirmé que Vue était plus simple à appréhender et à pratiquer.
+
+Comme toutes les opinions, il n'y en a pas une de mieux qu'une autre, et les opinions sont aussi le reflet d'une pensée et d'une expérience à un instant T, tout peut changer à T + 1. N'hésitez pas à réagir face à ce comparatif.
 
 #### Choisir une librairie
 
@@ -443,25 +489,36 @@ Une fois le framework choisi, on ajoute des librairies spécifiques **qui ne son
 
 Voici les raisons qui poussent à embarquer une librairie :
 
-* répond au besoin sans avoir besoin de l'adapter énormement
+* répond au besoin sans avoir besoin de l'adapter énormément
 * n'est pas une "usine à gaz"
 * on utilisera au moins 50% de ses capacités
 * compatible avec nos navigateurs et OS cibles
 * réputée, maintenue et sans trop de bug ouverts (stars, contributors et issues sur GitHub par exemple)
 
-Si un de ces problèmes apparait, chercher une autre librairie ou en créer une :
+Si un de ces problèmes apparaît, chercher une autre librairie ou en créer une :
 
-* suite à l'intégration de la librairie, du dévelopement custom sera nécessaire pour changer **beaucoup** de chose et l'adapter à notre besoin
+* suite à l'intégration de la librairie, du développement custom sera nécessaire pour changer **beaucoup** de chose et l'adapter à notre besoin
 * cette librairie pèse plus de 100kb minifiée
-* contient une centaine de fonctionalité, mais nous n'en avons besoin que de quelques unes, l'import partiel n'est pas disponible
+* contient une centaine de fonctionnalité, mais nous n'en avons besoin que de quelques unes, l'import partiel n'est pas disponible
 * n'est pas compatible avec un de nos navigateurs ou OS cible
 * n'est plus maintenue depuis des années
 * compte plusieurs dizaines de bugs ouverts depuis plusieurs mois et non traités
 * compte plusieurs dizaines de bugs qui ont été clos sans être traités
 * compte plus de fork que de stars, elle ne semble pas être adapté en l'état
 
-Il ne faut pas hésiter à créér son propre outil quand les libraires disponibles ne passent pas les critères ci-dessus. Un code qu'on créé est un code qu'on connait et qui sera facilement extensible et maintenable.
+Il ne faut pas hésiter à créer son propre outil quand les libraires disponibles ne passent pas les critères ci-dessus. Un code qu'on créé est un code qu'on connait et qui sera facilement extensible et maintenable.
 
 Il faut garder à l'esprit que même si la création d'une librairie peut sembler risquée au premier abord, on se repose toujours sur des briques plus petites d'autres librairies qui respectent les critères.
 
 **On ne ré-invente jamais la roue.**
+
+* * *
+
+### Le Lint
+
+Outil **indispensable** dans la stack d'un projet, grand gardien des **conventions de code**, voici les libraries les plus connues :
+
+* Pour JavaScript, TypeScript : [Standard](https://github.com/standard/standard)
+* Pour JavaScript (configurable) : [ESlint](https://eslint.org/) (ou [XO](https://github.com/xojs/xo) à tester)
+* Pour TypeScript (configurable) : [TSLint](https://palantir.github.io/tslint/) ([TSStyle](https://github.com/google/ts-style) à tester)
+* Pour CSS, Sass, etc. (configurable) : [StyleLint](https://stylelint.io/)
