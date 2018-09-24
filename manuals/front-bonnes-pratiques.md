@@ -30,10 +30,10 @@ En fonction des projets, différents navigateurs devront être supportés.
 
 Cibler les navigateurs :
 
-* Regarder la part de marché des navigateurs dans le pays cible du client, ou dans le monde si nécessaire.
-* Regarder les statistiques liées à la clientèle du client en question.
-* Par exemple, dans le cadre d'une refonte d'un site internet d'un client, si ce dernier a inclus un scriptGoogle Analyticssur son ancien site, les données collectées permettront de connaitre les cibles : les visiteurs du site.
-* Si 80% des visiteurs utilisent internet explorer 9 alors il faudra être compatible avec ce dernier, si à l'inverse seulement 2% utilisent internet explorer 8 alors la compatibilité (extrêmement coûteuse) IE8 ne sera pas nécessaire.
+* Regarder la part de marché des navigateurs dans le pays cible du client, ou dans le monde si nécessaire
+* Regarder les statistiques liées à la clientèle du client en question
+* Par exemple, dans le cadre d'une refonte d'un site internet d'un client, si ce dernier a inclus un scriptGoogle Analyticssur son ancien site, les données collectées permettront de connaitre les cibles : les visiteurs du site
+* Si 80% des visiteurs utilisent internet explorer 9 alors il faudra être compatible avec ce dernier, si à l'inverse seulement 2% utilisent internet explorer 8 alors la compatibilité (extrêmement coûteuse) IE8 ne sera pas nécessaire
 * Cibler les navigateurs c'est aussi cibler les versions, Firefox ? oui mais à partir de quelle version ?
 * Si le client n'est pas inquiet vis à vis de cette sélection de navigateurs cibles, alors choisissons simplement les navigateurs actuels dans leurs dernières versions
 * Le site [http://gs.statcounter.com/](http://gs.statcounter.com/) est très pratique pour voir toutes les statistiques
@@ -116,7 +116,7 @@ Parmi ces méthodes, la plus simple et la plus efficace à mes yeux reste celle 
 * **créer des branches de feature aux noms explicites depuis master** : par exemple `feature/responsive-page-accueil` ou `fix/menu-deroulant-mobile`
 * pousser sur **origin** régulièrement : cela permet de communiquer avec l'équipe
 * ouvrir une **pull-request** dès qu'on pense avoir terminé ou qu'on est coincé, la pull-request permet de demander une **revue du code**. Il est alors possible de commenter le code, d'apporter des modifications et de visualiser ce que l'on s'apprête à fusionner dans **master**
-* fusionner seulement après une **pull-request review**: un développeur ne doit pas fusionner sa branche dans master lorsqu'il pense que c'est bon, un autre doit venir faire une **revue du code** et confirmer la stabilité de la branche.
+* fusionner seulement après une **pull-request review**: un développeur ne doit pas fusionner sa branche dans master lorsqu'il pense que c'est bon, un autre doit venir faire une **revue du code** et confirmer la stabilité de la branche
 
 La méthode GitHub Flow en détails : [https://guides.github.com/introduction/flow/](https://guides.github.com/introduction/flow/)
 
@@ -460,14 +460,14 @@ Et voici leurs points communs :
 
 * compatibles avec **TypeScript**, l'indispensable pour tout les nouveaux projets
 * de bonnes **performances** vis à vis d'autres frameworks non cités ici
-* de grandes **communautés** qui permettent d'avoir des plugins, du support, etc.
+* de grandes **communautés** qui permettent d'avoir des plugins, du support, etc
 
 Les inconvénients selon moi (en italique dans le tableau) :
 
 * **React n'est pas un framework**, il ne donne pas de structure à un projet, il demande d'avoir un architecte compétent pour bien initialiser la stack et d'avoir aussi des développeurs qualifiés qui connaissent bien React et les bonnes pratiques React pour ne pas faire n'importe quoi
-* Sur le sujet des applications natives, c'est Vue qui est un peu en retrait avec son projet **Weex** qui **est encore en cours de développement**.
+* Sur le sujet des applications natives, c'est Vue qui est un peu en retrait avec son projet **Weex** qui **est encore en cours de développement**
 * Pour ce qui est de la montée en compétence, **Vue est vraiment simple à prendre en main** tandis que **React reste difficile** de prime abord et difficile à maintenir proprement
-* Côté debugging, j'ai une préférence pour Vue et d'amères souvenirs avec React (et React Native).
+* Côté debugging, j'ai une préférence pour Vue et d'amères souvenirs avec React (et React Native)
 
 Comment choisir selon moi :
 
