@@ -608,7 +608,7 @@ Les **erreurs et mauvaises pratiques** dans ce code HTML & CSS :
 * côté HTML la sémantique n'est respectée, le code peu lisible
 * côté CSS, le code est peu lisible
 * le style appliqué en dur sur la `div`, risque d'oubli si on doit copier coller cela ailleurs, manque de lisibilité, c'est quelle couleur `#1acfee` au fait ?
-* la classe `.title` doit être remplacé par une balise de titre comme un `h1` par exemple 
+* la classe `.title` doit être remplacé par une balise de titre comme un `h1` par exemple
 * `.button-normal` pourrait être simplifié en `.button` si on veut styliser les boutons, et pourquoi utiliser une classe plutôt que l'élément lui même ?
 * `.blackColor` ne respecte pas la syntaxe kebab-case et devrait être `.black-color`, cette dernière ne respecte pas non plus la règle de spécificité et devrait être `.color-black`
 * les identifiants `#login` et `#skip` on été utilisés pour styliser plusieurs choses de la même manière, il faut utiliser une classe pour ça
