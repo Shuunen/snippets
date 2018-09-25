@@ -551,9 +551,10 @@ Et les bonnes pratiques liées au styling uniquement :
 
 * * *
 
-### Variables
+### Sélecteurs
 
-Comme pour tous les languages, voici les conventions de nommages en CSS : 
+Comme pour tous les languages, voici les conventions de nommages en CSS :
+
 * **`.nom-de-classe`** : les classes visent la réutilisation, c'est la base du styling, on catégorise et groupe des styles dans des **classes réutilisables**
 * les noms de classe vont du plus générique au plus spécifique, exemple : `.login-form-button` désigne le button dans un formulaire de login, et `.login-form-field` un champ dans un formulaire de login, sans conventions on peut retrouver ce genre de classes : `.form-button-login` et `.field-form-login`
 * **`#identifiant-unique`** : chaque identifiant ne visent d'un seul élément HTML, **il n'éxiste que de très rare cas d'utilisation d'identifiants en CSS**, réfléchissez-y à deux fois avant de vous en servir
@@ -562,10 +563,10 @@ Bon exemple :
 
 ```html
 <section class="back-grey">
-	<h1>Bienvenue</h1>
- 	<button>Pas inscrit ? C'est parti !</button>
-    <button class="secondary">Déjà inscrit ? M'identifier !</button>
-    <button class="secondary">Continuer sans compte</button>
+  <h1>Bienvenue</h1>
+  <button>Pas inscrit ? C'est parti !</button>
+  <button class="secondary">Déjà inscrit ? M'identifier !</button>
+  <button class="secondary">Continuer sans compte</button>
 </section>
 ```
 
@@ -587,10 +588,10 @@ Mauvais exemple :
 
 ```html
 <div style="background-color: #1acfee;">
-	<span class="title">Bienvenue</span>
- 	<button class="button-normal blackColor">Pas inscrit ? C'est parti !</button>
-    <button class="button-secondary" id="login">Déjà inscrit ? M'identifier !</button>
-    <button class="button-secondary" id="skip">Continuer sans compte</button>
+  <span class="title">Bienvenue</span>
+  <button class="button-normal blackColor">Pas inscrit ? C'est parti !</button>
+  <button class="button-secondary" id="login">Déjà inscrit ? M'identifier !</button>
+  <button class="button-secondary" id="skip">Continuer sans compte</button>
 </div>
 ```
 
@@ -606,18 +607,20 @@ Les **erreurs et mauvaises pratiques** dans ce code HTML & CSS :
 
 * côté HTML la sémantique n'est respectée, le code peu lisible
 * côté CSS, le code est peu lisible
-* `.button-normal` pourrait être simplifié en `.button` si on veut styliser les boutons, et pourquoi utiliser une classe plutôt que l'élément lui même ? 
+* le style appliqué en dur sur la `div`, risque d'oubli si on doit copier coller cela ailleurs, manque de lisibilité, c'est quelle couleur `#1acfee` au fait ?
+* la classe `.title` doit être remplacé par une balise de titre comme un `h1` par exemple 
+* `.button-normal` pourrait être simplifié en `.button` si on veut styliser les boutons, et pourquoi utiliser une classe plutôt que l'élément lui même ?
 * `.blackColor` ne respecte pas la syntaxe kebab-case et devrait être `.black-color`, cette dernière ne respecte pas non plus la règle de spécificité et devrait être `.color-black`
 * les identifiants `#login` et `#skip` on été utilisés pour styliser plusieurs choses de la même manière, il faut utiliser une classe pour ça
 * les boutons ayant 2 styles, il est inutile de gaspiller du temps en découpant les classes avec des classes pour les font et les couleurs, afin de garder une uniformité et une simplicité, utiliser `.button-secondary { font-size: 70%; color: grey; }` ou mieux encore comme dans le bon exemple : `button.secondary { font-size: 70%; color: grey; }`
 
 * * *
 
-### IE or not IE ?
+### IE or not IE
 
 La priorité est de coder pour les navigateurs respectueux des standards (Chrome, Firefox par exemple). Je fixe les bugs pour internet explorer par la suite sauf si le client a un besoin prioritaire sur IE.
 
-> Je remercie chaque jour les navigateurs modernes d'avoir une certaine cohérence. Je n'ai jamais eu besoin de hack pour règler un problème sur un navigateur spécifique autre que IE. 
+> Je remercie chaque jour les navigateurs modernes d'avoir une certaine cohérence. Je n'ai jamais eu besoin de hack pour règler un problème sur un navigateur spécifique autre que IE.
 > Sans Internet Exporer, le développement front-end serait un jeu d'enfant.
 > -- [David Leuliette](https://davidl.fr/manifesto.html)
 
@@ -652,5 +655,5 @@ Ce patch (ou hack) permet par exemple d'avoir une image de fond sur IE 8 et plus
 
 Deux très bons articles sur le sujet des hacks IE :
 
-* en français : https://www.alsacreations.com/astuce/lire/988-classes-conditionnelles-HTML.html
-* en anglais : https://css-tricks.com/how-to-create-an-ie-only-stylesheet/
+* en français chez [AlsaCreations](https://www.alsacreations.com/astuce/lire/988-classes-conditionnelles-HTML.HTML)
+* en anglais chez [Css-Tricks](https://css-tricks.com/how-to-create-an-ie-only-stylesheet/)
