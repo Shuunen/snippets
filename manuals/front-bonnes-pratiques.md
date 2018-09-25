@@ -149,13 +149,13 @@ L'intérêt d'avoir une bonne sémantique est multiple :
 * Un site avec un code source ayant une sémantique correcte sera mis en avant par les moteurs de recherche car les informations contenues dans le site seront mieux extraite
 * Un code sémantique est plus rapide à taper, et les styles associés le seront aussi
 
-évitez
+Évitez :
 
 ```html
 <div class="image-avatar" style="background-image: url('mon-image.jpg')"></div>
 ```
 
-préférez
+Préférez :
 
 ```html
 <img class="avatar" src="mon-image.jpg" />
@@ -173,7 +173,7 @@ Cette liaison permet d'avoir un formulaire :
 * plus accessible aux personnes mal-voyante
 * bien pris en charge par les différent navigateurs
 
-évitez :
+Évitez :
 
 ```html
 <div>
@@ -181,7 +181,7 @@ Cette liaison permet d'avoir un formulaire :
 </div>
 ```
 
-préférez :
+Préférez :
 
 ```html
 <div>
@@ -206,13 +206,13 @@ Utiliser un **minimum** de balises.
 
 Tirez profit du fait qu'on puisse ajouter plusieurs classes CSS à un même élément pour éviter d'ajouter des balises `<span>` ou `<div>` inutiles.
 
-évitez :
+Évitez :
 
 ```html
 <DIV class="section-entete"> <span class="titre">Bienvenue</span> <img src="image.jpg"> </DIV>
 ```
 
-préférez :
+Préférez :
 
 ```html
 <section class="entete">
@@ -233,13 +233,13 @@ Ne pas ajouter de valeurs aux attributs de type booléens. En effet il est inuti
 
 Pour les attributs **personnalisés**, ajouter un préfixe **`"data-"`**
 
-évitez :
+Évitez :
 
 ```html
 <input TYPE="text" disabled="disabled" user='12' />
 ```
 
-préférez :
+Préférez :
 
 ```html
 <input type="text" disabled data-user="12" />
@@ -255,7 +255,7 @@ Les syntaxes **`href="./path/to/page.html"`** et **`href="path/to/file.html"`** 
 
 Si on doit utiliser des adresses absolues (limitation du framework, profondeur de lien trop complexe), on utilisera la syntaxe **`//`**, qui permet d'utiliser HTTPS ou HTTP en fonction du contexte.
 
-évitez :
+Évitez :
 
 ```html
 <a href="/path/to/file.html">Lien</a>
@@ -263,7 +263,7 @@ Si on doit utiliser des adresses absolues (limitation du framework, profondeur d
 <a href="http://www.site.com/path/to/file.html">Lien</a>
 ```
 
-préférez :
+Préférez :
 
 ```html
 <a href="path/to/file.html">Lien</a>
@@ -517,7 +517,7 @@ Il faut garder à l'esprit que même si la création d'une librairie peut semble
 
 ### Lint
 
-Outil **indispensable** dans la stack d'un projet, grand gardien des **conventions de code**, voici les libraries les plus connues :
+Outil **indispensable** dans la stack d'un projet, grand gardien des **conventions de code**, voici les libraires les plus connues :
 
 * Pour JavaScript, TypeScript (pré-configuré) : [Standard](https://github.com/standard/standard)
 * Pour JavaScript (configurable) : [ESLint](https://eslint.org/) (ou [XO](https://github.com/xojs/xo) à tester)
@@ -553,11 +553,11 @@ Et les bonnes pratiques liées au styling uniquement :
 
 ### Sélecteurs
 
-Comme pour tous les languages, voici les conventions de nommages en CSS :
+Comme pour tous les langages, voici les conventions de nommages en CSS :
 
 * **`.nom-de-classe`** : les classes visent la réutilisation, c'est la base du styling, on catégorise et groupe des styles dans des **classes réutilisables**
 * les noms de classe vont du plus générique au plus spécifique, exemple : `.login-form-button` désigne le button dans un formulaire de login, et `.login-form-field` un champ dans un formulaire de login, sans conventions on peut retrouver ce genre de classes : `.form-button-login` et `.field-form-login`
-* **`#identifiant-unique`** : chaque identifiant ne visent d'un seul élément HTML, **il n'éxiste que de très rare cas d'utilisation d'identifiants en CSS**, réfléchissez-y à deux fois avant de vous en servir
+* **`#identifiant-unique`** : chaque identifiant ne visent d'un seul élément HTML, **il n’existe que de très rare cas d'utilisation d'identifiants en CSS**, réfléchissez-y à deux fois avant de vous en servir
 
 Bon exemple :
 
@@ -620,7 +620,7 @@ Les **erreurs et mauvaises pratiques** dans ce code HTML & CSS :
 
 La priorité est de coder pour les navigateurs respectueux des standards (Chrome, Firefox par exemple). Je fixe les bugs pour internet explorer par la suite sauf si le client a un besoin prioritaire sur IE.
 
-> Je remercie chaque jour les navigateurs modernes d'avoir une certaine cohérence. Je n'ai jamais eu besoin de hack pour règler un problème sur un navigateur spécifique autre que IE.
+> Je remercie chaque jour les navigateurs modernes d'avoir une certaine cohérence. Je n'ai jamais eu besoin de hack pour régler un problème sur un navigateur spécifique autre que IE.
 > Sans Internet Exporer, le développement front-end serait un jeu d'enfant.
 > -- [David Leuliette](https://davidl.fr/manifesto.html)
 
