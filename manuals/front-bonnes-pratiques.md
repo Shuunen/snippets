@@ -16,13 +16,14 @@ Je recommande tout particulièrement ces sites qui sont, selon moi, à garder so
 
 * [https://developer.mozilla.org/fr/docs/Web](https://developer.mozilla.org/fr/docs/Web): maintenu par Mozilla, il regroupe des tutoriels et de la documentation technique claire (oui, ça existe)
 * [https://devdocs.io/](https://devdocs.io/): cette webapp permet d'accéder à toutes les documentations des technologies et librairies les plus populaires, cela permet d'avoir un unique point d'entrée pour toutes les documentations
+* [https://caniuse.com/](https://caniuse.com/): permet de connaitre la disponibilité des fonctionnalités par navigateur, indispensable pour le support d'internet explorer ou de fonctions expérimentales
 
 > Aucun d'entre nous n'est plus intelligent que l'ensemble d'entre nous.
 > -- Kenneth Blanchard
 
 * * *
 
-### Les navigateurs
+### Navigateurs
 
 En fonction des projets, différents navigateurs devront être supportés.
 
@@ -66,7 +67,7 @@ La dernière solution est la plus intéressante même si elle a un coût, **ce c
 
 * * *
 
-### Les éditeurs ou IDE (Integrated Development Environment)
+### Editeurs ou IDE (Integrated Development Environment)
 
 Pour ce qui est du développement front, plusieurs IDE reconnus sont disponibles mais voici ceux que je recommande :
 
@@ -90,7 +91,7 @@ En général il est conseillé de :
 
 * * *
 
-### Le versioning
+### Versioning
 
 La gestion des versions n'étant pas une option, il faut à minima se mettre d'accord sur les commits :
 
@@ -105,7 +106,7 @@ Vous noterez le dernier exemple qui référence directement le numéro de l'issu
 
 * * *
 
-### Le workflow
+### Workflow
 
 Travailler à plusieurs sur le même code source nécessite d'avoir une discipline, une méthode de travail commune.
 
@@ -246,7 +247,7 @@ préférez :
 
 * * *
 
-### Les liens ou URL (Uniform Resource Locator)
+### Liens ou URL (Uniform Resource Locator)
 
 Utiliser des adresses relatives, sauf s'il est nécessaire de pointer vers un autre domaine.
 
@@ -277,13 +278,13 @@ Toujours mettre un attribut **alt** pour l'accessibilité, cela permet aux termi
 
 **N'utiliser `<img>` que pour des images de contenu** : seules les images qui apportent un contenu à la page (comme une illustration) doivent utiliser des balises `<img>`. Toutes les images de présentation (bulletpoint, icone, fond, etc) doivent trouver leur place dans le CSS.
 
-évitez :
+Evitez :
 
 ```html
 <div class="image-avatar" style="background-image: url('mon-image.jpg')"></div>
 ```
 
-préférez :
+Préférez :
 
 ```html
 <img class="avatar" src="mon-image.jpg" />
@@ -309,7 +310,7 @@ Toujours utiliser le bon encodage, il est important d'indiquer dans le **`<head>
 <meta charset="UTF-8">
 ```
 
-exemple de structure HTML simple :
+Exemple de structure HTML simple :
 
 ```html
 <!DOCTYPE html>  
@@ -345,7 +346,7 @@ Voici les bonnes pratiques à respecter en général :
 
 * * *
 
-### Les variables
+### Variables
 
 Les bonnes pratiques liées aux **variables** :
 
@@ -372,7 +373,7 @@ app.settings = {
 
 * * *
 
-### Les commentaires
+### Commentaires
 
 Souvent oubliés ou esquivés par le développeur initial, les commentaires s'avèrent indispensables lorsqu'une autre personne a besoin de faire des évolutions ou des correctifs sur le code.
 
@@ -416,7 +417,7 @@ L'intérêt derrière est d'avoir toutes les définitions de fonctions directeme
 
 * * *
 
-### Les Frameworks
+### Frameworks
 
 Les frameworks permettent de **cadrer les développements** et surtout de **gagner du temps**.
 
@@ -514,7 +515,7 @@ Il faut garder à l'esprit que même si la création d'une librairie peut semble
 
 * * *
 
-### Le Lint
+### Lint
 
 Outil **indispensable** dans la stack d'un projet, grand gardien des **conventions de code**, voici les libraries les plus connues :
 
@@ -530,3 +531,126 @@ Notez que les linters ci-dessus sont à installer dans la stack technique du pro
 Le but étant de garder une cohérence tout au long du processus de création et au sein d'une équipe.
 
 **Pensez aussi à récupérer les extensions pour votre IDE afin de voir les erreurs de lint en amont.**
+
+* * *
+
+## CSS (Cascading Style Sheet)
+
+Le HTML pose la structure, le JavaScript apporte la réactivité et les données dynamiques, il ne reste plus qu'a mettre tout cela en forme.
+
+Voici les bonnes pratiques à respecter comme en JavaScript :
+
+* Favoriser les Frameworks et la pratique du [code DRY](http://fr.wikipedia.org/wiki/Ne_vous_r%C3%A9p%C3%A9tez_pas) (Dont Reapeat Yourself)
+* **Pas de style embedded**
+* **Pas de style inline**
+
+Et les bonnes pratiques liées au styling uniquement :
+
+* Je conserve le style complètement séparé du HTML (pas obligatoire avec **Vue**)
+* Je code des composants (header, buttons, links, ...) et des modules  (reset, grilles, formulaires, typographie, ...)
+
+* * *
+
+### Variables
+
+Comme pour tous les languages, voici les conventions de nommages en CSS : 
+* **`.nom-de-classe`** : les classes visent la réutilisation, c'est la base du styling, on catégorise et groupe des styles dans des **classes réutilisables**
+* les noms de classe vont du plus générique au plus spécifique, exemple : `.login-form-button` désigne le button dans un formulaire de login, et `.login-form-field` un champ dans un formulaire de login, sans conventions on peut retrouver ce genre de classes : `.form-button-login` et `.field-form-login`
+* **`#identifiant-unique`** : chaque identifiant ne visent d'un seul élément HTML, **il n'éxiste que de très rare cas d'utilisation d'identifiants en CSS**, réfléchissez-y à deux fois avant de vous en servir
+
+Bon exemple :
+
+```html
+<section class="back-grey">
+	<h1>Bienvenue</h1>
+ 	<button>Pas inscrit ? C'est parti !</button>
+    <button class="secondary">Déjà inscrit ? M'identifier !</button>
+    <button class="secondary">Continuer sans compte</button>
+</section>
+```
+
+```css
+.back-grey { background-color: #1acfee; }
+button { font-size: 100%; color: black; }
+button.secondary { font-size: 70%; color: grey; }
+```
+
+Les **bonnes** choses à dire sur ce code HTML & CSS :
+
+* côté HTML la sémantique est respectée, simple et lisible
+* côté CSS, le code est aussi simple et lisible
+* `button` est stylisé par défaut et facilement extensible avec une classe `.secondary` qui permet de le customiser quand on le souhaite
+* la classe `.secondary` est réutilisable **sans effets de bords** car elle ne concerne que les `button`
+* la classe `.back-grey` est réutilisable et permet d'appliquer le même fond gris à plusieurs éléments sans risquer de se tromper de couleur
+
+Mauvais exemple :
+
+```html
+<div style="background-color: #1acfee;">
+	<span class="title">Bienvenue</span>
+ 	<button class="button-normal blackColor">Pas inscrit ? C'est parti !</button>
+    <button class="button-secondary" id="login">Déjà inscrit ? M'identifier !</button>
+    <button class="button-secondary" id="skip">Continuer sans compte</button>
+</div>
+```
+
+```css
+.title { font-weight: bold; }
+.button-normal { font-size: 100%; }
+.button-secondary { font-size: 70%; }
+.blackColor { color: black; }
+#login, #skip { color: grey; }
+```
+
+Les **erreurs et mauvaises pratiques** dans ce code HTML & CSS :
+
+* côté HTML la sémantique n'est respectée, le code peu lisible
+* côté CSS, le code est peu lisible
+* `.button-normal` pourrait être simplifié en `.button` si on veut styliser les boutons, et pourquoi utiliser une classe plutôt que l'élément lui même ? 
+* `.blackColor` ne respecte pas la syntaxe kebab-case et devrait être `.black-color`, cette dernière ne respecte pas non plus la règle de spécificité et devrait être `.color-black`
+* les identifiants `#login` et `#skip` on été utilisés pour styliser plusieurs choses de la même manière, il faut utiliser une classe pour ça
+* les boutons ayant 2 styles, il est inutile de gaspiller du temps en découpant les classes avec des classes pour les font et les couleurs, afin de garder une uniformité et une simplicité, utiliser `.button-secondary { font-size: 70%; color: grey; }` ou mieux encore comme dans le bon exemple : `button.secondary { font-size: 70%; color: grey; }`
+
+* * *
+
+### IE or not IE ?
+
+La priorité est de coder pour les navigateurs respectueux des standards (Chrome, Firefox par exemple). Je fixe les bugs pour internet explorer par la suite sauf si le client a un besoin prioritaire sur IE.
+
+> Je remercie chaque jour les navigateurs modernes d'avoir une certaine cohérence. Je n'ai jamais eu besoin de hack pour règler un problème sur un navigateur spécifique autre que IE. 
+> Sans Internet Exporer, le développement front-end serait un jeu d'enfant.
+> -- [David Leuliette](https://davidl.fr/manifesto.html)
+
+Ajoutons cette balise pour rendre IE Compatible avec lui-même :
+
+```html
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+```
+
+Pour tester IE, voir la section sur les navigateurs dans l'introduction.
+
+Pour créer des patchs spécifiques pour IE on peut utiliser des commentaires conditionnels :
+
+```html
+<!--[if lte IE 8 ]><body class="lte-ie8"> <![endif]-->
+<!--[if IE 9 ]> <body class="ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <body> <!--<![endif]-->
+```
+
+La technique ci-dessus est ma favorite lorsque la compatibilité IE a été vendue (et donc obligatoire :/), elle permet de poser des classes en fonction de la version d'IE et d'ensuite appliquer des hacks du genre :
+
+```css
+.rgba-bg {
+  background-color: rgba(255,0,0,0.2);
+}
+.lte-ie8 .rgba-bg {
+  background-image: url('i/rgba/red-02.png');
+}
+```
+
+Ce patch (ou hack) permet par exemple d'avoir une image de fond sur IE 8 et plus anciens (IE6, IE7) car comme on peut le voir sur [CanIUse](https://caniuse.com/#feat=css3-colors), les couleurs définies en rgba ne sont pas prises en charge qu'à partir d'IE 9.
+
+Deux très bons articles sur le sujet des hacks IE :
+
+* en français : https://www.alsacreations.com/astuce/lire/988-classes-conditionnelles-HTML.html
+* en anglais : https://css-tricks.com/how-to-create-an-ie-only-stylesheet/
