@@ -738,18 +738,22 @@ Deux très bons articles sur le sujet des hacks IE :
 
 ## Glossaire
 
-API (Application Programming Interface) : ensemble normalisé de classes, de méthodes ou de fonctions qui sert de façade par laquelle un logiciel offre des services à d'autres logiciels
+**API** (Application Programming Interface) : ensemble normalisé de classes, de méthodes ou de fonctions qui sert de façade par laquelle un logiciel offre des services à d'autres logiciels
 
-CSS (Cascading Style Sheets) : feuilles de style en cascade, décrit la présentation (le style) des documents HTML et XML
+**CSS** (Cascading Style Sheets) : feuilles de style en cascade, décrit la présentation (le style) des documents HTML et XML
 
-DOM (Document Object Model) : est une interface de programmation normalisée par le W3C, qui permet à des scripts d'examiner et de modifier le contenu du navigateur web
+**DOM** (Document Object Model) : est une interface de programmation normalisée par le W3C, qui permet à des scripts d'examiner et de modifier le contenu du navigateur web
 
-DRY (Dont Reapeat Yourself) : Ne vous répétez pas, une philosophie en programmation informatique consistant à éviter la redondance de code
+**DRY** (Dont Reapeat Yourself) : Ne vous répétez pas, une philosophie en programmation informatique consistant à éviter la redondance de code
 
-IDE (Integrated Development Environment) : Environnement de développement intégré, un éditeur de code
+**IDE** (Integrated Development Environment) : Environnement de développement intégré, un éditeur de code
 
-HTML (Hyper Text Markup Language) : le langage de balisage conçu pour représenter les pages web
+**IE** (**I**nternet **E**xplorer) : parfois abrégé IE, MIE ou MSIE, est le navigateur web développé par la société américaine Microsoft et installé par défaut avec Windows
 
-POC (Proof Of Concept) : démonstration de faisabilité, une réalisation (projet) expérimentale concrète et préliminaire, courte ou incomplète, illustrant une certaine méthode ou idée afin d'en démontrer la faisabilité
+**HTML** (Hyper Text Markup Language) : le langage de balisage conçu pour représenter les pages web
 
-URL (Uniform Resource Locator) : synonyme de l'expression « adresse web » ou « lien » , qui désigne une chaîne de caractères utilisée pour identifier les ressources du Web : page, image, son, etc.
+**POC** (Proof Of Concept) : démonstration de faisabilité, une réalisation (projet) expérimentale concrète et préliminaire, courte ou incomplète, illustrant une certaine méthode ou idée afin d'en démontrer la faisabilité
+
+**Sass** (Syntactically Awesome Style Sheets) : langage permettant de produire du CSS de manière plus simple et plus lisible
+
+**URL** (Uniform Resource Locator) : synonyme de l'expression « adresse web » ou « lien » , qui désigne une chaîne de caractères utilisée pour identifier les ressources du Web : page, image, son, etc.
