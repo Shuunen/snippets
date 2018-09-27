@@ -4,7 +4,7 @@
 
 Ce guide a pour objectif **d'informer** mais aussi de **cadrer** les développements **frontend**.
 
-Notre objectif est de fournir un contenu de haute **qualité** à nos client, des sites qui fonctionne mieux, atteignent un maximum de personnes et pas seulement avec les navigateurs et appareils d'aujourd'hui, mais aussi avec ceux de demain.
+Notre objectif est de fournir un contenu de haute **qualité** à nos client, des sites qui fonctionnent mieux, atteignent un maximum de personnes et pas seulement avec les navigateurs et appareils d'aujourd'hui, mais aussi avec ceux de demain.
 
 Ce guide est **collaboratif**, les lecteurs sont invités à avoir un regard critique et à réagir afin d'améliorer ce guide.
 
@@ -33,7 +33,7 @@ Cibler les navigateurs :
 
 * Regarder la part de marché des navigateurs dans le pays cible du client, ou dans le monde si nécessaire
 * Regarder les statistiques liées à la clientèle du client en question
-* Par exemple, dans le cadre d'une refonte d'un site internet d'un client, si ce dernier a inclus un scriptGoogle Analyticssur son ancien site, les données collectées permettront de connaitre les cibles : les visiteurs du site
+* Par exemple, dans le cadre d'une refonte d'un site internet d'un client, si ce dernier a inclus un scriptGoogle Analytics sur son ancien site, les données collectées permettront de connaitre les cibles : les visiteurs du site
 * Si 80% des visiteurs utilisent internet explorer 9 alors il faudra être compatible avec ce dernier, si à l'inverse seulement 2% utilisent internet explorer 8 alors la compatibilité (extrêmement coûteuse) IE8 ne sera pas nécessaire
 * Cibler les navigateurs c'est aussi cibler les versions, Firefox ? oui mais à partir de quelle version ?
 * Si le client n'est pas inquiet vis à vis de cette sélection de navigateurs cibles, alors choisissons simplement les navigateurs actuels dans leurs dernières versions
@@ -52,7 +52,7 @@ Une fois le projet vendu, les navigateurs ciblés devront être compatibles avec
 
 Pour se faire il faut tester le site sous ces différents navigateurs et dans les versions vendues au client.
 
-Il existe plusieurs manière de tester le site :
+Il existe plusieurs manières de tester le site :
 
 * avoir un poste physique avec navigateur installé (limité à une version de chaque navigateur)
 * avoir un poste physique avec navigateur portable (permet de faire coexister plusieurs versions d'un même navigateur)
@@ -146,7 +146,7 @@ Tirer profit des balises **`<table>`** spécifiques. Par exemple **`<thead>`**, 
 L'intérêt d'avoir une bonne sémantique est multiple :
 
 * Le code est plus lisible et donc plus facilement maintenable par les développeurs
-* Un site avec un code source ayant une sémantique correcte sera mis en avant par les moteurs de recherche car les informations contenues dans le site seront mieux extraite
+* Un site avec un code source ayant une sémantique correcte sera mis en avant par les moteurs de recherche car les informations contenues dans le site seront mieux extraites
 * Un code sémantique est plus rapide à taper, et les styles associés le seront aussi
 
 Évitez :
@@ -170,7 +170,7 @@ Toujours lier chaque **`<input>`**, **`<select>`**, **`<textarea>`**, etc à un 
 Cette liaison permet d'avoir un formulaire :
 
 * plus simple à utiliser, quand un utilisateur clique sur un label `for="accept"` l'input associé gagne le focus
-* plus accessible aux personnes mal-voyante
+* plus accessible aux personnes mal-voyantes
 * bien pris en charge par les différent navigateurs
 
 Évitez :
@@ -296,7 +296,7 @@ Préférez :
 
 Toujours utiliser le doctype HTML5. Cela nous permet d'avoir la plus grande cohérence de rendu sur l'ensemble des navigateurs.
 
-Un **doctype est obligatoire** pour forcer les navigateurs à utiliser un moteur de rendu et prévenir le mode quirks avec internet explorer
+Un **doctype est obligatoire** pour forcer les navigateurs à utiliser un moteur de rendu et prévenir le mode quirks[QU'EST CE QUE C'EST?] avec internet explorer
 
 Toujours dire à IE d'utiliser la dernière version de son moteur de rendu, sans cette balise, il utilisera un fallback de compatibilité moins performant.
 
@@ -341,7 +341,7 @@ Voici les bonnes pratiques à respecter en général :
 * Toujours être sur la défensive, en utilisant des fonctions de détection
 * Minimiser le nombre d'événements sur une page, [utiliser la délégation des événements](https://javascript.developpez.com/actu/85848/Comprendre-la-delegation-d-evenement-en-JavaScript/)
 * Conserver les composants indépendants dès que possible
-* Toujours utiliser le triple égal **`===`** pour avoir les égalités strictes, les comparaison à base de **`==`** sont sujettes à de nombreux effets de bords
+* Toujours utiliser le triple égal **`===`** pour avoir les égalités strictes, les comparaisons à base de **`==`** sont sujettes à de nombreux effets de bords
 * Toujours ajouter les **`{`** et **`}`** sur les **`if`**, **`while`**, etc
 
 * * *
@@ -478,7 +478,7 @@ Pour les fonctions, la meilleure pratique est encore de la décorer avec JSDoc :
 
 ```js
 /**
- * Retourne les données associés à l'utilisateur
+ * Retourne les données associées à l'utilisateur
  * @param {number} id - L'identifiant unique utilisateur
  * @returns {User} Données utilisateur au format objet { name: "John", lastName: "Doe", age: 21 }
  */
@@ -513,11 +513,13 @@ Regardons maintenant du côté des téléchargements annuels :
 
 ![annual-downloads](https://i.imgur.com/snsIl3N.png)
 
-On ne retrouve pas les même tendances, en effet, la popularité et l'utilisation ne se reflètent pas toujours.
+On ne retrouve pas les mêmes tendances, en effet, la popularité et l'utilisation ne se reflètent pas toujours.
 
-**React** et **Vue** on une belle côte de **popularité**, pour autant React domine largement sur les téléchargements (86 millions), suivi par Angular.js (@angular/core avec 37 millions) en seconde place puis en dernière position Vue est à égalité avec Angular avec environs 13 millions de téléchargements annuel.
+**React** et **Vue** on une belle côte de **popularité**, pour autant React domine largement sur les téléchargements (86 millions), suivi par Angular.js (@angular/core avec 37 millions) en seconde place puis en dernière position Vue est à égalité avec Angular avec environs 13 millions de téléchargements annuels.
 
-Ces téléchargements représentent le nombre de projets qui démarrent, les POC, les déploiements continus, etc. Par exemple pour expliquer la position d'Angular.js à la seconde place, on peut imaginer qu'un grand nombre de projets qui ont été développé avec sont toujours maintenus et du coup les CI continuent de télécharger cette librairie, contribuant à lui garder une belle place dans ce classement en 2018.
+
+Ces téléchargements représentent le nombre de projets qui démarrent, les POC, les déploiements continus, etc. Par exemple pour expliquer la position d'Angular.js à la seconde place, on peut imaginer qu'un grand nombre de projets qui ont été développés avec sont toujours maintenus et du coup les CI continuent de télécharger cette librairie, contribuant à lui garder une belle place dans ce classement en 2018.
+
 
 Malgré sa deuxième place, Angular.js n'est plus un choix à considérer en 2018, la communauté ayant migré vers Angular et d'autres frameworks ou librairies.
 
@@ -559,7 +561,7 @@ Comme toutes les opinions, il n'y en a pas une de mieux qu'une autre, et les opi
 
 #### Choisir une librairie
 
-Une fois le framework choisi, on ajoute des librairies spécifiques **qui ne sont pas embarqués** avec le framework : animations, visualisation de données, **polyfill** (fonctionnalités qui ne sont pas supportés par certains navigateurs), etc.
+Une fois le framework choisi, on ajoute des librairies spécifiques **qui ne sont pas embarquées** avec le framework : animations, visualisation de données, **polyfill** (fonctionnalités qui ne sont pas supportées par certains navigateurs), etc.
 
 > Si vous voulez utiliser une librairie vous devez la lire, la comprendre, être d'accord avec elle, et ne pas être capable d'en écrire une meilleure quand vous êtes en forme.
 > @sentience
@@ -574,14 +576,14 @@ Voici les raisons qui poussent à embarquer une librairie :
 
 Si un de ces problèmes apparaît, chercher une autre librairie ou en créer une :
 
-* suite à l'intégration de la librairie, du développement custom sera nécessaire pour changer **beaucoup** de chose et l'adapter à notre besoin
+* suite à l'intégration de la librairie, du développement custom sera nécessaire pour changer **beaucoup** de choses et l'adapter à notre besoin
 * cette librairie pèse plus de 100kb minifiée
-* contient une centaine de fonctionnalité, mais nous n'en avons besoin que de quelques unes, l'import partiel n'est pas disponible
+* contient une centaine de fonctionnalités, mais nous n'en avons besoin que de quelques unes, l'import partiel n'est pas disponible
 * n'est pas compatible avec un de nos navigateurs ou OS cible
 * n'est plus maintenue depuis des années
 * compte plusieurs dizaines de bugs ouverts depuis plusieurs mois et non traités
 * compte plusieurs dizaines de bugs qui ont été clos sans être traités
-* compte plus de fork que de stars, elle ne semble pas être adapté en l'état
+* compte plus de fork que de stars, elle ne semble pas être adaptée en l'état
 
 Il ne faut pas hésiter à créer son propre outil quand les libraires disponibles ne passent pas les critères ci-dessus. Un code qu'on créé est un code qu'on connait et qui sera facilement extensible et maintenable.
 
@@ -612,7 +614,7 @@ Le but étant de garder une cohérence tout au long du processus de création et
 
 ## CSS
 
-Le HTML pose la structure, le JavaScript apporte la réactivité et les données dynamiques, il ne reste plus qu'a mettre tout cela en forme.
+Le HTML pose la structure, le JavaScript apporte la réactivité et les données dynamiques, il ne reste plus qu'à mettre tout cela en forme.
 
 Voici les bonnes pratiques à respecter comme en JavaScript :
 
@@ -633,7 +635,7 @@ Comme pour tous les langages, voici les conventions de nommages en CSS :
 
 * **`.nom-de-classe`** : les classes visent la réutilisation, c'est la base du styling, on catégorise et groupe des styles dans des **classes réutilisables**
 * les noms de classe vont du plus générique au plus spécifique, exemple : `.login-form-button` désigne le button dans un formulaire de login, et `.login-form-field` un champ dans un formulaire de login, sans conventions on peut retrouver ce genre de classes : `.form-button-login` et `.field-form-login`
-* **`#identifiant-unique`** : chaque identifiant ne visent d'un seul élément HTML, **il n’existe que de très rare cas d'utilisation d'identifiants en CSS**, réfléchissez-y à deux fois avant de vous en servir
+* **`#identifiant-unique`** : chaque identifiant ne visent d'un seul élément HTML, **il n’existe que de très rares cas d'utilisation d'identifiants en CSS**, réfléchissez-y à deux fois avant de vous en servir
 
 Bon exemple :
 
@@ -681,10 +683,10 @@ Mauvais exemple :
 
 Les **erreurs et mauvaises pratiques** dans ce code HTML & CSS :
 
-* côté HTML la sémantique n'est respectée, le code peu lisible
+* côté HTML la sémantique n'est pas respectée, le code peu lisible
 * côté CSS, le code est peu lisible
 * le style appliqué en dur sur la `div`, risque d'oubli si on doit copier coller cela ailleurs, manque de lisibilité, c'est quelle couleur `#1acfee` au fait ?
-* la classe `.title` doit être remplacé par une balise de titre comme un `h1` par exemple
+* la classe `.title` doit être remplacée par une balise de titre comme un `h1` par exemple
 * `.button-normal` pourrait être simplifié en `.button` si on veut styliser les boutons, et pourquoi utiliser une classe plutôt que l'élément lui même ?
 * `.blackColor` ne respecte pas la syntaxe kebab-case et devrait être `.black-color`, cette dernière ne respecte pas non plus la règle de spécificité et devrait être `.color-black`
 * les identifiants `#login` et `#skip` on été utilisés pour styliser plusieurs choses de la même manière, il faut utiliser une classe pour ça
