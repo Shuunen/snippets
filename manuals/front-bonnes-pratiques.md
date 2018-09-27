@@ -278,7 +278,7 @@ Toujours mettre un attribut **alt** pour l'accessibilité, cela permet aux termi
 
 **N'utiliser `<img>` que pour des images de contenu** : seules les images qui apportent un contenu à la page (comme une illustration) doivent utiliser des balises `<img>`. Toutes les images de présentation (bulletpoint, icone, fond, etc) doivent trouver leur place dans le CSS.
 
-Evitez :
+Évitez :
 
 ```html
 <div class="image-avatar" style="background-image: url('mon-image.jpg')"></div>
@@ -296,7 +296,7 @@ Préférez :
 
 Toujours utiliser le doctype HTML5. Cela nous permet d'avoir la plus grande cohérence de rendu sur l'ensemble des navigateurs.
 
-Un **doctype est obligatoire** pour forcer les navigateurs à utiliser un moteur de rendu et prévenir le mode quirks[QU'EST CE QUE C'EST?] avec internet explorer
+Un **doctype est obligatoire** pour forcer les navigateurs à utiliser un moteur de rendu
 
 Toujours dire à IE d'utiliser la dernière version de son moteur de rendu, sans cette balise, il utilisera un fallback de compatibilité moins performant.
 
@@ -505,7 +505,7 @@ Précision : Angular.js est la première version, renommée simplement "Angular"
 
 Voici un graphique représentant l'intérêt suscité par les développeurs sur GitHub lors de ces 5 dernières années :
 
-![Stars-Comparison](https://zendev.com/assets/img/posts/framework-popularity/all-4-star-history.png)
+![Stars-Comparison](https://i.imgur.com/3dll5iR.png)
 
 On peut voir qu'Angular n'est plus aussi populaire qu'il a été.
 
@@ -517,9 +517,7 @@ On ne retrouve pas les mêmes tendances, en effet, la popularité et l'utilisati
 
 **React** et **Vue** on une belle côte de **popularité**, pour autant React domine largement sur les téléchargements (86 millions), suivi par Angular.js (@angular/core avec 37 millions) en seconde place puis en dernière position Vue est à égalité avec Angular avec environs 13 millions de téléchargements annuels.
 
-
 Ces téléchargements représentent le nombre de projets qui démarrent, les POC, les déploiements continus, etc. Par exemple pour expliquer la position d'Angular.js à la seconde place, on peut imaginer qu'un grand nombre de projets qui ont été développés avec sont toujours maintenus et du coup les CI continuent de télécharger cette librairie, contribuant à lui garder une belle place dans ce classement en 2018.
-
 
 Malgré sa deuxième place, Angular.js n'est plus un choix à considérer en 2018, la communauté ayant migré vers Angular et d'autres frameworks ou librairies.
 
@@ -618,7 +616,7 @@ Le HTML pose la structure, le JavaScript apporte la réactivité et les données
 
 Voici les bonnes pratiques à respecter comme en JavaScript :
 
-* Favoriser les Frameworks et la pratique du [code DRY](http://fr.wikipedia.org/wiki/Ne_vous_r%C3%A9p%C3%A9tez_pas) (Dont Reapeat Yourself)
+* Favoriser les Frameworks et la pratique du [code DRY](http://fr.wikipedia.org/wiki/Ne_vous_r%C3%A9p%C3%A9tez_pas)
 * **Pas de style embedded**
 * **Pas de style inline**
 
@@ -743,7 +741,7 @@ Deux très bons articles sur le sujet des hacks IE :
 * **API** (Application Programming Interface) : ensemble normalisé de classes, de méthodes ou de fonctions qui sert de façade par laquelle un logiciel offre des services à d'autres logiciels
 * **CSS** (Cascading Style Sheets) : feuilles de style en cascade, décrit la présentation (le style) des documents HTML et XML
 * **DOM** (Document Object Model) : est une interface de programmation normalisée par le W3C, qui permet à des scripts d'examiner et de modifier le contenu du navigateur web
-* **DRY** (Dont Reapeat Yourself) : Ne vous répétez pas, une philosophie en programmation informatique consistant à éviter la redondance de code
+* **DRY** (Dont Repeat Yourself) : Ne vous répétez pas, une philosophie en programmation informatique consistant à éviter la redondance de code
 * **HTML** (Hyper Text Markup Language) : le langage de balisage conçu pour représenter les pages web
 * **IDE** (Integrated Development Environment) : Environnement de développement intégré, un éditeur de code
 * **IE** (**I**nternet **E**xplorer) : parfois abrégé IE, MIE ou MSIE, est le navigateur web développé par la société américaine Microsoft et installé par défaut avec Windows
