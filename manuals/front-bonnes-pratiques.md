@@ -67,7 +67,7 @@ La dernière solution est la plus intéressante même si elle a un coût, **ce c
 
 * * *
 
-### Editeurs ou IDE (Integrated Development Environment)
+### Editeurs ou IDE
 
 Pour ce qui est du développement front, plusieurs IDE reconnus sont disponibles mais voici ceux que je recommande :
 
@@ -123,11 +123,11 @@ La méthode GitHub Flow en détails : [https://guides.github.com/introduction/fl
 
 * * *
 
-## HTML (Hyper Text Markup Language)
+## HTML
 
 Dans [l'introduction](/confluence/pages/viewpage.action?pageId=46745647) nous avons pu voir ensemble des sujets transverses au développement web.
 
-Ici nous allons nous pencher sur la structure de toute page web, les balises HTML, aussi appelées tag ou DOM Element, DOM pour Document Object Model.
+Ici nous allons nous pencher sur la structure de toute page web, les balises HTML, aussi appelées tag ou DOM Element.
 
 * * *
 
@@ -247,7 +247,7 @@ Préférez :
 
 * * *
 
-### Liens ou URL (Uniform Resource Locator)
+### Liens ou URL
 
 Utiliser des adresses relatives, sauf s'il est nécessaire de pointer vers un autre domaine.
 
@@ -335,7 +335,7 @@ JavaScript vient en **complément** de la base HTML et CSS. Il améliore l'**exp
 
 Voici les bonnes pratiques à respecter en général :
 
-* Favoriser les Frameworks et la pratique du [code DRY](http://fr.wikipedia.org/wiki/Ne_vous_r%C3%A9p%C3%A9tez_pas) (Dont Reapeat Yourself)
+* Favoriser les Frameworks et la pratique du [code DRY](http://fr.wikipedia.org/wiki/Ne_vous_r%C3%A9p%C3%A9tez_pas)
 * **Pas de JavaScript embedded**
 * **Pas de JavaScript inline**
 * Toujours être sur la défensive, en utilisant des fonctions de détection
@@ -371,7 +371,83 @@ app.settings = {
 };
 ```
 
+#### Français ou anglais
+
+En général et si les membres de l'équipe sont à l'aise avec, on choisit l'**anglais**.
+
+Je vous conseille de choisir et de ne garder qu'une langue pour les nommages.
+
+Pensez aux personnes qui reprendront le projet, qui vont chercher un fichier ou une méthode, par exemple ici dans la capture ci-dessous :
+
+* newEntry ?
+* newEntree ?
+* nouvelleEntry ?
+* nouvelleEntree ?
+
+![franglais](https://i.imgur.com/MDNXVc0.png)
+
+Parfois on doit fournir des documentations aux clients, ça ne donne pas une image très professionnelle d'utiliser du Franglais de cette façon.
+
+Le Franglais ne doit être utilisé que pour les termes métier et les acronymes.
+
+Un bon article sur le blog de [Xebia](https://blog.xebia.fr/2010/02/18/nommage-en-anglais-ou-francais-ou-franglais)
+
+En effet comme dit l'auteur de l'article, il faut définir la bonne frontière, rester clair et cohérent.
+
+Voici l'exemple ci-dessus, renommé par ordre de préférence, du mieux au pire :
+
+1. newEntry
+2. nouvelleEntree
+3. newEntree
+4. nouvelleEntry
+
 * * *
+
+### Fichiers de configuration
+
+On commence par écrire :
+
+```js
+function getUser(id) {
+  return get('http://localhost:8080/aidegestion/rest/user/' + id)
+}
+```
+
+puis on ajoute :
+
+```js
+function deleteUser(id) {
+  return delete('http://localhost:8080/aidegestion/rest/user/' + id)
+}
+```
+
+puis :
+
+```js
+function updateUser(id, data) {
+  return update('http://localhost:8080/aidegestion/rest/user/' + id, data)
+}
+```
+
+Et on finit par avoir ceci :
+
+![static-strings](https://i.imgur.com/t4UYYt4.png)
+
+Ce genre d'URL a sa place dans un fichier de configuration, **le code source d'une app ne doit pas être changé si demain l'API change d'adresse**.
+
+Il en va de même pour toutes les autres chaines de caractères, identifiants, token et autres qui sont de l'ordre de la configuration.
+
+Solution : créez un fichier de configuration et importez-le dans chaque fichier source qui a besoin d'utiliser une entrée de la configuration.
+
+On se retrouve avec un code plus clair et une app configurable :
+
+```js
+import config from '../config'
+
+function getUser(id) {
+  return get(config.api + '/user/' + id)
+}
+```
 
 ### Commentaires
 
@@ -441,7 +517,9 @@ On ne retrouve pas les mêmes tendances, en effet, la popularité et l'utilisati
 
 **React** et **Vue** on une belle côte de **popularité**, pour autant React domine largement sur les téléchargements (86 millions), suivi par Angular.js (@angular/core avec 37 millions) en seconde place puis en dernière position Vue est à égalité avec Angular avec environs 13 millions de téléchargements annuels.
 
-Ces téléchargements représentent le nombre de projets qui démarrent, les POC (Proof Of Concept, des projets tests), les déploiements continus, etc. Par exemple pour expliquer la position d'Angular.js à la seconde place, on peut imaginer qu'un grand nombre de projets qui ont été développés avec sont toujours maintenus et du coup les CI continuent de télécharger cette librairie, contribuant à lui garder une belle place dans ce classement en 2018.
+
+Ces téléchargements représentent le nombre de projets qui démarrent, les POC, les déploiements continus, etc. Par exemple pour expliquer la position d'Angular.js à la seconde place, on peut imaginer qu'un grand nombre de projets qui ont été développés avec sont toujours maintenus et du coup les CI continuent de télécharger cette librairie, contribuant à lui garder une belle place dans ce classement en 2018.
+
 
 Malgré sa deuxième place, Angular.js n'est plus un choix à considérer en 2018, la communauté ayant migré vers Angular et d'autres frameworks ou librairies.
 
@@ -534,7 +612,7 @@ Le but étant de garder une cohérence tout au long du processus de création et
 
 * * *
 
-## CSS (Cascading Style Sheet)
+## CSS
 
 Le HTML pose la structure, le JavaScript apporte la réactivité et les données dynamiques, il ne reste plus qu'à mettre tout cela en forme.
 
@@ -657,3 +735,19 @@ Deux très bons articles sur le sujet des hacks IE :
 
 * en français chez [AlsaCreations](https://www.alsacreations.com/astuce/lire/988-classes-conditionnelles-HTML.HTML)
 * en anglais chez [Css-Tricks](https://css-tricks.com/how-to-create-an-ie-only-stylesheet/)
+
+* * *
+
+## Glossaire
+
+* **API** (Application Programming Interface) : ensemble normalisé de classes, de méthodes ou de fonctions qui sert de façade par laquelle un logiciel offre des services à d'autres logiciels
+* **CSS** (Cascading Style Sheets) : feuilles de style en cascade, décrit la présentation (le style) des documents HTML et XML
+* **DOM** (Document Object Model) : est une interface de programmation normalisée par le W3C, qui permet à des scripts d'examiner et de modifier le contenu du navigateur web
+* **DRY** (Dont Reapeat Yourself) : Ne vous répétez pas, une philosophie en programmation informatique consistant à éviter la redondance de code
+* **HTML** (Hyper Text Markup Language) : le langage de balisage conçu pour représenter les pages web
+* **IDE** (Integrated Development Environment) : Environnement de développement intégré, un éditeur de code
+* **IE** (**I**nternet **E**xplorer) : parfois abrégé IE, MIE ou MSIE, est le navigateur web développé par la société américaine Microsoft et installé par défaut avec Windows
+* **POC** (Proof Of Concept) : démonstration de faisabilité, une réalisation (projet) expérimentale concrète et préliminaire, courte ou incomplète, illustrant une certaine méthode ou idée afin d'en démontrer la faisabilité
+* **Sass** (Syntactically Awesome Style Sheets) : langage permettant de produire du CSS de manière plus simple et plus lisible
+* **URL** (Uniform Resource Locator) : synonyme de l'expression « adresse web » ou « lien » , qui désigne une chaîne de caractères utilisée pour identifier les ressources du Web : page, image, son, etc
+* **Vue** : un framework open-source JavaScript orienté simplicité et composants réutilisables
