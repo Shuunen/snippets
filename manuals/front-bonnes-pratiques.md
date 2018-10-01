@@ -341,8 +341,83 @@ Voici les bonnes pratiques à respecter en général :
 * Toujours être sur la défensive, en utilisant des fonctions de détection
 * Minimiser le nombre d'événements sur une page, [utiliser la délégation des événements](https://javascript.developpez.com/actu/85848/Comprendre-la-delegation-d-evenement-en-JavaScript/)
 * Conserver les composants indépendants dès que possible
-* Toujours utiliser le triple égal **`===`** pour avoir les égalités strictes, les comparaisons à base de **`==`** sont sujettes à de nombreux effets de bords
 * Toujours ajouter les **`{`** et **`}`** sur les **`if`**, **`while`**, etc
+
+* * *
+
+### Egalités
+
+Une des bonnes pratiques concerne les test d'égalité ou comparaison.
+
+**Il faut toujours utiliser le triple égal `===` pour avoir les égalités strictes, les comparaisons à base de `==` sont sujettes à de nombreux effets de bords.**
+
+Voici une table qui montre les dérives du double égal :
+
+![double-dangers](https://i.imgur.com/XDgmR51.png)
+(Je vous conseille de tester par vous même à la [source](https://slikts.github.io/js-equality-game/))
+
+On peut voir ci-dessus en vert les **égalités logiques et strictes** comme :
+
+* `true` est **strictement** égal à `true` (deux booléens égaux entre eux)
+* `1` est **strictement** égal à `1` (deux nombres entiers égaux entre eux)
+* `"false"` est **strictement** égal à `"true"` (deux chaines de charactère)
+
+Mais on peut aussi voir certaines **abérations qui sont aussi des égalités non-strictes** (en rouge) :
+
+* `true` est équivalent à `1` (un booléen et un nombre entier)
+* `true` est équivalent à `"1"` (un booléen et une chaine de charactère contenant un)
+* `false` est équivalent à `"0"` (un booléen et une chaine de charactère contenant zéro)
+* `0` est équivalent à `""` (un nombre entier et une chaine de charactère vide)
+
+La liste est longue comme vous pouvez le constater et je n'ai listé que quelques exemples qui vous montrent le **laxisme de la comparaison double**.
+
+Aucune de ces égalités (en rouge) ne seraient vraie au sens strict :
+
+* `true` n'est **pas strictement** égal à `1`
+* `true` n'est **pas strictement** égal à `"1"`
+* `false` n'est **pas strictement** égal à `"0"`
+* `0` n'est **pas strictement** égal à `""`
+
+Exemple dans la console de Chrome :
+
+```js
+(0 == "")  // true
+(0 === "") // false
+```
+
+Vous voilà prévenus, **en utilisant des comparaisons laxistes, on laisse la porte ouverte aux bugs**.
+
+Par exemple ici, cette fonction (triviale certes) teste si l'utilisateur est autorisé à acceder à des ressources confidentielles :
+
+```js
+function hasAccess(id) {
+    if (id == 0){
+        // only admin
+        return true
+    } else {
+        return false
+    }
+}
+```
+
+On peut voir dans le commentaire que seul l'administrateur possède l'identifiant `0`
+
+Faisons le test dans la console JavaScript :
+
+```js
+hasAccess(0)  // true
+hasAccess(42) // false
+```
+
+Très bien, on voit bien que l'utilisateur 42 n'a pas accès.
+
+Et si un enregistrement en base ne s'est pas déroulé comme prévu et que l'identifiant n'a pas été généré comme il se doit ? Ou si c'est un utilisateur sans compte et qu'il n'a pour le coup pas d'identifiant attitré ?
+
+```js
+hasAccess("")  // true
+```
+
+Bien sûr ceci est un exemple, mais cette fonction `hasAccess` n'est pas sûre de par son usage du double égal, en ajoutant un petit égal de plus on évite le problème ci-dessus.
 
 * * *
 
