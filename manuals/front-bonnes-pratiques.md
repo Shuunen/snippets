@@ -2,21 +2,21 @@
 
 ## Introduction
 
-Ce guide a pour objectif **d'informer** mais aussi de **cadrer** les développements **frontend**.
+Ce guide a pour objectif **d'informer**, mais aussi de **cadrer** les développements **frontend**.
 
-Notre objectif est de fournir un contenu de haute **qualité** à nos client, des sites qui fonctionnent mieux, atteignent un maximum de personnes et pas seulement avec les navigateurs et appareils d'aujourd'hui, mais aussi avec ceux de demain.
+Notre objectif est de fournir un contenu de haute **qualité** à nos clients, des sites qui fonctionnent mieux et atteignent un maximum de personnes et pas seulement avec les navigateurs et appareils d'aujourd'hui, mais aussi avec ceux de demain.
 
 Ce guide est **collaboratif**, les lecteurs sont invités à avoir un regard critique et à réagir afin d'améliorer ce guide.
 
 Il se veut synthétique afin de pouvoir s'y référer rapidement de temps en temps.
 
-C'est pourquoi il sera proposé aux collaborateurs d'aller voir d'eux même des articles en détails s'ils n'ont pas les bases ou s'ils veulent plus de détails.
+C'est pourquoi il sera proposé aux collaborateurs d'aller voir d'eux même des articles en détail s'ils n'ont pas les bases ou s'ils veulent plus de détails.
 
 Je recommande tout particulièrement ces sites qui sont, selon moi, à garder sous la main :
 
 * [https://developer.mozilla.org/fr/docs/Web](https://developer.mozilla.org/fr/docs/Web): maintenu par Mozilla, il regroupe des tutoriels et de la documentation technique claire (oui, ça existe)
 * [https://devdocs.io/](https://devdocs.io/): cette webapp permet d'accéder à toutes les documentations des technologies et librairies les plus populaires, cela permet d'avoir un unique point d'entrée pour toutes les documentations
-* [https://caniuse.com/](https://caniuse.com/): permet de connaitre la disponibilité des fonctionnalités par navigateur, indispensable pour le support d'internet explorer ou de fonctions expérimentales
+* [https://caniuse.com/](https://caniuse.com/): permet de connaitre la disponibilité des fonctionnalités par navigateur, indispensable pour le support d'Internet Explorer ou de fonctions expérimentales
 
 > Aucun d'entre nous n'est plus intelligent que l'ensemble d'entre nous.
 > -- Kenneth Blanchard
@@ -34,14 +34,14 @@ Cibler les navigateurs :
 * Regarder la part de marché des navigateurs dans le pays cible du client, ou dans le monde si nécessaire
 * Regarder les statistiques liées à la clientèle du client en question
 * Par exemple, dans le cadre d'une refonte d'un site internet d'un client, si ce dernier a inclus un scriptGoogle Analytics sur son ancien site, les données collectées permettront de connaitre les cibles : les visiteurs du site
-* Si 80% des visiteurs utilisent internet explorer 9 alors il faudra être compatible avec ce dernier, si à l'inverse seulement 2% utilisent internet explorer 8 alors la compatibilité (extrêmement coûteuse) IE8 ne sera pas nécessaire
-* Cibler les navigateurs c'est aussi cibler les versions, Firefox ? oui mais à partir de quelle version ?
-* Si le client n'est pas inquiet vis à vis de cette sélection de navigateurs cibles, alors choisissons simplement les navigateurs actuels dans leurs dernières versions
+* Si 80% des visiteurs utilisent IE9 alors il faudra être compatible avec ce dernier, si à l'inverse seulement 2% utilisent IE8 alors la compatibilité (extrêmement coûteuse) IE8 ne sera pas nécessaire
+* Cibler les navigateurs c'est aussi cibler les versions, Firefox ? Oui, mais à partir de quelle version ?
+* Si le client n'est pas inquiet vis-à-vis de cette sélection de navigateurs cibles, alors choisissons simplement les navigateurs actuels dans leurs dernières versions
 * Le site [http://gs.statcounter.com/](http://gs.statcounter.com/) est très pratique pour voir toutes les statistiques
 
 Clarifier avec le client :
 
-* Le site ne s'affichera pas **exactement** de la même façon sur tous les navigateurs, ni sur tous les systèmes d'exploitation
+* Le site ne s'affichera pas **exactement** de la même façon sur tous les navigateurs ni sur tous les systèmes d'exploitation
 
 > Une page doit jouer son rôle d'information et ne pas apparaître cassée. Le problème n'est pas le rendu des navigateurs, il s'agit d'offrir aux utilisateurs le meilleur contenu en fonction de leur appareil de navigation.
 > -- [David Leuliette](https://davidl.fr/manifesto.html)
@@ -50,35 +50,35 @@ Clarifier avec le client :
 
 Une fois le projet vendu, les navigateurs ciblés devront être compatibles avec le site web produit.
 
-Pour se faire il faut tester le site sous ces différents navigateurs et dans les versions vendues au client.
+Pour se faire, il faut tester le site sous ces différents navigateurs et dans les versions vendues au client.
 
 Il existe plusieurs manières de tester le site :
 
 * avoir un poste physique avec navigateur installé (limité à une version de chaque navigateur)
-* avoir un poste physique avec navigateur portable (permet de faire coexister plusieurs versions d'un même navigateur)
-* avoir une machine virtuelle avec navigateur (permet de tester d'autres systèmes d'exploitation)
+* avoir un poste physique avec navigateur portable (permets de faire coexister plusieurs versions d'un même navigateur)
+* avoir une machine virtuelle avec navigateur (permets de tester d'autres systèmes d'exploitation)
 * utiliser un service en ligne comme [BrowserStack](https://www.browserstack.com/) qui permet de tester quasiment tous les navigateurs sur tous les systèmes
 
 La dernière solution est la plus intéressante même si elle a un coût, **ce coût sera rentabilisé** :
 
-* il est moins coûteux de pouvoir facilement tester un site au cours du développement (et ainsi d'éviter des bugs liés aux différences entre navigateurs et systèmes) que de ne pas tester et laisser les bugs fleurir d'eux même lors des phases de recette
+* il est moins coûteux de pouvoir facilement tester un site au cours du développement (et ainsi d'éviter des bugs liés aux différences entre navigateurs et systèmes) que de ne pas tester et laisser les bugs fleurir d'eux-mêmes lors des phases de recette
 * pendant une phase de correction, un développeur ira plus vite en utilisant une plateforme de test en ligne, identifier le problème plus vite c'est aussi le corriger plus vite, et donc pour moins cher
 * avoir une plateforme de test en ligne c'est aussi une économie sur l'achat de périphériques de test
 
 * * *
 
-### Editeurs ou IDE
+### Éditeurs ou IDE
 
-Pour ce qui est du développement front, plusieurs IDE reconnus sont disponibles mais voici ceux que je recommande :
+Pour ce qui est du développement front, plusieurs éditeurs reconnus sont disponibles, mais voici ceux que je recommande :
 
 * **Visual Studio Code** : complet, gratuit et performant, maintenu par Microsoft, facile à prendre en main et peu gourmand en ressources
-* Web Storm : très complet mais payant, peut être lourd à l'utilisation pour une machine peu puissante
+* Web Storm : très complet, mais payant, peut être lourd à l'utilisation pour une machine peu puissante
 
-J'utilise **VS Code** depuis qu'il est sorti en 2015 et il a admirablement remplacé tout les IDE que j'ai pu avoir par le passé : Eclipse, Netbeans, Sublime Text, Web Storm
+J'utilise **VS Code** depuis qu'il est sorti en 2015 et il a admirablement remplacé tous les éditeurs que j'ai pu avoir par le passé : Eclipse, Netbeans, Sublime Text, Web Storm
 
-Il est vivement conseillé d'avoir le même IDE au sein d'une équipe afin de limiter les changements de formatage typiques de certains IDE
+Il est vivement conseillé d'avoir le même IDE au sein d'une équipe afin de limiter les changements de formatage typiques de certains éditeurs
 
-Une fois que l'équipe a tranché sur l'IDE il est nécessaire de se mettre d'accord sur certaines règles de formatage :
+Une fois que l'équipe a tranché sur l'éditeur, il est nécessaire de se mettre d'accord sur certaines règles de formatage :
 
 * la plupart ne sont **pas discutables** : les noms de classes CSS sont en kebab-case par exemple, les noms de constantes en majuscules
 * certaines sont plus **discutables** et aux goûts de chacun : la taille de l'indentation (2 ou 4 espaces), le nommage des couleurs en Sass
@@ -119,7 +119,7 @@ Parmi ces méthodes, la plus simple et la plus efficace à mes yeux reste celle 
 * ouvrir une **pull-request** dès qu'on pense avoir terminé ou qu'on est coincé, la pull-request permet de demander une **revue du code**. Il est alors possible de commenter le code, d'apporter des modifications et de visualiser ce que l'on s'apprête à fusionner dans **master**
 * fusionner seulement après une **pull-request review**: un développeur ne doit pas fusionner sa branche dans master lorsqu'il pense que c'est bon, un autre doit venir faire une **revue du code** et confirmer la stabilité de la branche
 
-La méthode GitHub Flow en détails : [https://guides.github.com/introduction/flow/](https://guides.github.com/introduction/flow/)
+La méthode GitHub Flow en détail : [https://guides.github.com/introduction/flow/](https://guides.github.com/introduction/flow/)
 
 * * *
 
@@ -165,13 +165,13 @@ Préférez :
 
 ### Formulaires
 
-Toujours lier chaque **`<input>`**, **`<select>`**, **`<textarea>`**, etc à un élément **`<label>`** grâce aux attributs **`name`** et **`for`**.
+Toujours lier chaque **`<input>`**, **`<select>`**, **`<textarea>`**, etc. à un élément **`<label>`** grâce aux attributs **`name`** et **`for`**.
 
 Cette liaison permet d'avoir un formulaire :
 
 * plus simple à utiliser, quand un utilisateur clique sur un label `for="accept"` l'input associé gagne le focus
-* plus accessible aux personnes mal-voyantes
-* bien pris en charge par les différent navigateurs
+* plus accessible aux personnes malvoyantes
+* bien pris en charge par les différents navigateurs
 
 Évitez :
 
@@ -227,7 +227,7 @@ Préférez :
 
 Toujours en **minuscule**, comme pour les balises, pour l'uniformité.
 
-Utiliser des **double quotes**.
+Utiliser les **doubles quotes**.
 
 Ne pas ajouter de valeurs aux attributs de type booléens. En effet il est inutile d'ajouter une valeur aux attributs booléens, leur présence signifie **true** et leur absence **false**.
 
@@ -276,7 +276,7 @@ Préférez :
 
 Toujours mettre un attribut **alt** pour l'accessibilité, cela permet aux terminaux qui ne peuvent pas afficher d'image d'avoir une information sur le contenu de l'image.
 
-**N'utiliser `<img>` que pour des images de contenu** : seules les images qui apportent un contenu à la page (comme une illustration) doivent utiliser des balises `<img>`. Toutes les images de présentation (bulletpoint, icone, fond, etc) doivent trouver leur place dans le CSS.
+**N'utiliser `<img>` que pour des images de contenu** : seules les images qui apportent un contenu à la page (comme une illustration) doivent utiliser des balises `<img>`. Toutes les images de présentation (bulletpoint, icône, fond, etc.) doivent trouver leur place dans le CSS.
 
 Évitez :
 
@@ -294,7 +294,7 @@ Préférez :
 
 ### Compatibilité
 
-Toujours utiliser le doctype HTML5. Cela nous permet d'avoir la plus grande cohérence de rendu sur l'ensemble des navigateurs.
+Toujours utiliser le doctype HTML5. Cela nous permet d'avoir la plus grande cohérence d'affichage sur l'ensemble des navigateurs.
 
 Un **doctype est obligatoire** pour forcer les navigateurs à utiliser un moteur de rendu
 
@@ -331,47 +331,47 @@ Exemple de structure HTML simple :
 
 ## JavaScript
 
-JavaScript vient en **complément** de la base HTML et CSS. Il améliore l'**expérience** et le **comportement** de la page utilisateur aussi appelée **UX** (User Experience).
+JavaScript vient en **complément** de la base HTML et CSS. Il améliore **l'expérience** et le **comportement** de la page utilisateur aussi appelée **UX** (User Experience).
 
 Voici les bonnes pratiques à respecter en général :
 
-* Favoriser les Frameworks et la pratique du [code DRY](http://fr.wikipedia.org/wiki/Ne_vous_r%C3%A9p%C3%A9tez_pas)
+* Favoriser les frameworks et la pratique du code [DRY](http://fr.wikipedia.org/wiki/Ne_vous_r%C3%A9p%C3%A9tez_pas)
 * **Pas de JavaScript embedded**
 * **Pas de JavaScript inline**
 * Toujours être sur la défensive, en utilisant des fonctions de détection
-* Minimiser le nombre d'événements sur une page, [utiliser la délégation des événements](https://javascript.developpez.com/actu/85848/Comprendre-la-delegation-d-evenement-en-JavaScript/)
+* Minimiser le nombre d'événements sur une page : [utiliser la délégation des événements](https://javascript.developpez.com/actu/85848/Comprendre-la-delegation-d-evenement-en-JavaScript/)
 * Conserver les composants indépendants dès que possible
 * Toujours ajouter les **`{`** et **`}`** sur les **`if`**, **`while`**, etc
 
 * * *
 
-### Egalités
+### Égalités
 
-Une des bonnes pratiques concerne les test d'égalité ou comparaison.
+Une des bonnes pratiques concerne les tests d'égalité ou comparaison.
 
 **Il faut toujours utiliser le triple égal `===` pour avoir les égalités strictes, les comparaisons à base de `==` sont sujettes à de nombreux effets de bords.**
 
 Voici une table qui montre les dérives du double égal :
 
 ![double-dangers](https://i.imgur.com/XDgmR51.png)
-(Je vous conseille de tester par vous même à la [source](https://slikts.github.io/js-equality-game/))
+(je vous conseille de tester par vous même à la [source](https://slikts.github.io/js-equality-game/))
 
 On peut voir ci-dessus en vert les **égalités logiques et strictes** comme :
 
 * `true` est **strictement** égal à `true` (deux booléens égaux entre eux)
 * `1` est **strictement** égal à `1` (deux nombres entiers égaux entre eux)
-* `"false"` est **strictement** égal à `"true"` (deux chaines de charactère)
+* `"false"` est **strictement** égal à `"true"` (deux chaines de caractère)
 
-Mais on peut aussi voir certaines **abérations qui sont aussi des égalités non-strictes** (en rouge) :
+Mais on peut aussi voir certaines **aberrations qui sont aussi des égalités non strictes** (en rouge) :
 
 * `true` est équivalent à `1` (un booléen et un nombre entier)
-* `true` est équivalent à `"1"` (un booléen et une chaine de charactère contenant un)
-* `false` est équivalent à `"0"` (un booléen et une chaine de charactère contenant zéro)
-* `0` est équivalent à `""` (un nombre entier et une chaine de charactère vide)
+* `true` est équivalent à `"1"` (un booléen et une chaine de caractère contenant un)
+* `false` est équivalent à `"0"` (un booléen et une chaine de caractère contenant zéro)
+* `0` est équivalent à `""` (un nombre entier et une chaine de caractère vide)
 
 La liste est longue comme vous pouvez le constater et je n'ai listé que quelques exemples qui vous montrent le **laxisme de la comparaison double**.
 
-Aucune de ces égalités (en rouge) ne seraient vraie au sens strict :
+Aucune de ces égalités (en rouge) ne serait vraie au sens strict :
 
 * `true` n'est **pas strictement** égal à `1`
 * `true` n'est **pas strictement** égal à `"1"`
@@ -387,7 +387,7 @@ Exemple dans la console de Chrome :
 
 Vous voilà prévenus, **en utilisant des comparaisons laxistes, on laisse la porte ouverte aux bugs**.
 
-Par exemple ici, cette fonction (triviale certes) teste si l'utilisateur est autorisé à acceder à des ressources confidentielles :
+Par exemple ici, cette fonction (triviale certes) teste si l'utilisateur est autorisé à accéder à des ressources confidentielles :
 
 ```js
 function hasAccess(id) {
@@ -417,7 +417,7 @@ Et si un enregistrement en base ne s'est pas déroulé comme prévu et que l'ide
 hasAccess("")  // true
 ```
 
-Bien sûr ceci est un exemple, mais cette fonction `hasAccess` n'est pas sûre de par son usage du double égal, en ajoutant un petit égal de plus on évite le problème ci-dessus.
+Bien sûr, ceci est un exemple, mais cette fonction `hasAccess` n'est pas sûre de par son usage du double égal, en ajoutant un petit égal de plus on évite le problème ci-dessus.
 
 * * *
 
@@ -429,7 +429,7 @@ Les bonnes pratiques liées aux **variables** :
 * Utiliser des variables en camelCase
 * Utiliser des constantes en MAJUSCULE_AVEC_UNDERSCORE
 * Utiliser une majuscule à la première lettre des constructeurs
-* Garder une portée globale propre, [utiliser des namespaces](https://falola.developpez.com/tutoriels/javascript/namespace/), exemple ci-dessous
+* Garder une portée globale propre : [utiliser des namespaces](https://falola.developpez.com/tutoriels/javascript/namespace/), exemple ci-dessous
 
 ```js
 // Pollution du namespace global
@@ -446,9 +446,9 @@ app.settings = {
 };
 ```
 
-#### Français ou anglais
+#### Français ou Anglais
 
-En général et si les membres de l'équipe sont à l'aise avec, on choisit l'**anglais**.
+En général (et si les membres de l'équipe sont à l'aise avec) on choisit **l'anglais**.
 
 Je vous conseille de choisir et de ne garder qu'une langue pour les nommages.
 
@@ -461,9 +461,9 @@ Pensez aux personnes qui reprendront le projet, qui vont chercher un fichier ou 
 
 ![franglais](https://i.imgur.com/MDNXVc0.png)
 
-Parfois on doit fournir des documentations aux clients, ça ne donne pas une image très professionnelle d'utiliser du Franglais de cette façon.
+Parfois, on doit fournir des documentations aux clients, ça ne donne pas une image très professionnelle d'utiliser du Franglais de cette façon.
 
-Le Franglais ne doit être utilisé que pour les termes métier et les acronymes.
+Le franglais ne doit être utilisé que pour les termes métier et les acronymes.
 
 Un bon article sur le blog de [Xebia](https://blog.xebia.fr/2010/02/18/nommage-en-anglais-ou-francais-ou-franglais)
 
@@ -528,7 +528,7 @@ function getUser(id) {
 
 Souvent oubliés ou esquivés par le développeur initial, les commentaires s'avèrent indispensables lorsqu'une autre personne a besoin de faire des évolutions ou des correctifs sur le code.
 
-Bien sûr les commentaires sont nécessaires dans des situations particulières.
+Bien sûr, les commentaires sont nécessaires dans des situations particulières.
 
 Commentaire inutile :
 
@@ -610,16 +610,16 @@ Voyons ensemble ce qui distingue Angular, React et Vue.
 
 Et voici leurs points communs :
 
-* compatibles avec **TypeScript**, l'indispensable pour tout les nouveaux projets
-* de bonnes **performances** vis à vis d'autres frameworks non cités ici
-* de grandes **communautés** qui permettent d'avoir des plugins, du support, etc
+* compatibles avec **TypeScript**, l'indispensable pour tous les nouveaux projets
+* de bonnes **performances** vis-à-vis d'autres frameworks non cités ici
+* de grandes **communautés** qui permettent d'avoir des plug-ins, du support, etc
 
 Les inconvénients selon moi (en italique dans le tableau) :
 
 * **React n'est pas un framework**, il ne donne pas de structure à un projet, il demande d'avoir un architecte compétent pour bien initialiser la stack et d'avoir aussi des développeurs qualifiés qui connaissent bien React et les bonnes pratiques React pour ne pas faire n'importe quoi
 * Sur le sujet des applications natives, c'est Vue qui est un peu en retrait avec son projet **Weex** qui **est encore en cours de développement**
 * Pour ce qui est de la montée en compétence, **Vue est vraiment simple à prendre en main** tandis que **React reste difficile** de prime abord et difficile à maintenir proprement
-* Côté debugging, j'ai une préférence pour Vue et d'amères souvenirs avec React (et React Native)
+* Côté debugging, j'ai une préférence pour Vue et d'amers souvenirs avec React (et React Native)
 
 Comment choisir selon moi :
 
@@ -636,7 +636,7 @@ Comme toutes les opinions, il n'y en a pas une de mieux qu'une autre, et les opi
 
 Une fois le framework choisi, on ajoute des librairies spécifiques **qui ne sont pas embarquées** avec le framework : animations, visualisation de données, **polyfill** (fonctionnalités qui ne sont pas supportées par certains navigateurs), etc.
 
-> Si vous voulez utiliser une librairie vous devez la lire, la comprendre, être d'accord avec elle, et ne pas être capable d'en écrire une meilleure quand vous êtes en forme.
+> Si vous voulez utiliser une librairie, vous devez la lire, la comprendre, être d'accord avec elle, et ne pas être capable d'en écrire une meilleure quand vous êtes en forme.
 > @sentience
 
 Voici les raisons qui poussent à embarquer une librairie :
@@ -645,24 +645,24 @@ Voici les raisons qui poussent à embarquer une librairie :
 * n'est pas une "usine à gaz"
 * on utilisera au moins 50% de ses capacités
 * compatible avec nos navigateurs et OS cibles
-* réputée, maintenue et sans trop de bug ouverts (stars, contributors et issues sur GitHub par exemple)
+* réputée, maintenue et sans trop de bugs ouverts (étoiles, contributeurs et issues sur GitHub par exemple)
 
 Si un de ces problèmes apparaît, chercher une autre librairie ou en créer une :
 
 * suite à l'intégration de la librairie, du développement custom sera nécessaire pour changer **beaucoup** de choses et l'adapter à notre besoin
 * cette librairie pèse plus de 100kb minifiée
-* contient une centaine de fonctionnalités, mais nous n'en avons besoin que de quelques unes, l'import partiel n'est pas disponible
+* contient une centaine de fonctionnalités, mais nous n'en avons besoin que de quelques-unes, l'import partiel n'est pas disponible
 * n'est pas compatible avec un de nos navigateurs ou OS cible
 * n'est plus maintenue depuis des années
 * compte plusieurs dizaines de bugs ouverts depuis plusieurs mois et non traités
 * compte plusieurs dizaines de bugs qui ont été clos sans être traités
 * compte plus de fork que de stars, elle ne semble pas être adaptée en l'état
 
-Il ne faut pas hésiter à créer son propre outil quand les libraires disponibles ne passent pas les critères ci-dessus. Un code qu'on créé est un code qu'on connait et qui sera facilement extensible et maintenable.
+Il ne faut pas hésiter à créer son propre outil quand les libraires disponibles ne passent pas les critères ci-dessus. Un code qu'on crée est un code qu'on connait et qui sera facilement extensible et plus simple à maintenir.
 
 Il faut garder à l'esprit que même si la création d'une librairie peut sembler risquée au premier abord, on se repose toujours sur des briques plus petites d'autres librairies qui respectent les critères.
   
-**On ne ré-invente jamais la roue.**
+**On ne réinvente jamais la roue.**
 
 * * *
 
@@ -670,14 +670,14 @@ Il faut garder à l'esprit que même si la création d'une librairie peut semble
 
 Outil **indispensable** dans la stack d'un projet, grand gardien des **conventions de code**, voici les libraires les plus connues :
 
-* Pour JavaScript, TypeScript (pré-configuré) : [Standard](https://github.com/standard/standard)
+* Pour JavaScript, TypeScript (préconfiguré) : [Standard](https://github.com/standard/standard)
 * Pour JavaScript (configurable) : [ESLint](https://eslint.org/) (ou [XO](https://github.com/xojs/xo) à tester)
 * Pour TypeScript (configurable) : [TSLint](https://palantir.github.io/tslint/) ([TSStyle](https://github.com/google/ts-style) à tester)
 * Pour CSS, Sass, etc. (configurable) : [StyleLint](https://stylelint.io/)
-* Pour Markdown (pré-configuré) : [MarkdownLint](https://github.com/DavidAnson/markdownlint)
-* Pour Markdown et autres textes (configurable) : [TextLint](https://github.com/textlint/textlint)
+* Pour Markdown (préconfiguré) : [MarkdownLint](https://github.com/DavidAnson/markdownlint)
+* Pour Markdown et textes statiques (configurable) : [TextLint](https://github.com/textlint/textlint)
 
-Notez que les linters ci-dessus sont à installer dans la stack technique du projet, ils seront lancés pendant les développement mais aussi avant chaque commit et chaque build.
+Notez que les linters ci-dessus sont à installer dans la stack technique du projet, ils seront lancés pendant les développements, mais aussi avant chaque commit et chaque build.
 
 Le but étant de garder une cohérence tout au long du processus de création et au sein d'une équipe.
 
@@ -691,14 +691,14 @@ Le HTML pose la structure, le JavaScript apporte la réactivité et les données
 
 Voici les bonnes pratiques à respecter comme en JavaScript :
 
-* Favoriser les Frameworks et la pratique du [code DRY](http://fr.wikipedia.org/wiki/Ne_vous_r%C3%A9p%C3%A9tez_pas)
+* Favoriser les frameworks et la pratique du code [DRY](http://fr.wikipedia.org/wiki/Ne_vous_r%C3%A9p%C3%A9tez_pas)
 * **Pas de style embedded**
 * **Pas de style inline**
 
 Et les bonnes pratiques liées au styling uniquement :
 
 * Je conserve le style complètement séparé du HTML (pas obligatoire avec **Vue**)
-* Je code des composants (header, buttons, links, ...) et des modules  (reset, grilles, formulaires, typographie, ...)
+* Je code des composants (header, buttons, links, ...) et des modules  (reset, grilles, formulaires, typographie ...)
 
 * * *
 
@@ -754,22 +754,22 @@ Mauvais exemple :
 #login, #skip { color: grey; }
 ```
 
-Les **erreurs et mauvaises pratiques** dans ce code HTML & CSS :
+Les **mauvaises pratiques** dans ce code HTML & CSS :
 
 * côté HTML la sémantique n'est pas respectée, le code peu lisible
 * côté CSS, le code est peu lisible
-* le style appliqué en dur sur la `div`, risque d'oubli si on doit copier coller cela ailleurs, manque de lisibilité, c'est quelle couleur `#1acfee` au fait ?
+* le style appliqué en dur sur la `div`, risque d'oubli si on doit copier-coller cela ailleurs, manque de lisibilité, c'est quelle couleur `#1acfee` au fait ?
 * la classe `.title` doit être remplacée par une balise de titre comme un `h1` par exemple
-* `.button-normal` pourrait être simplifié en `.button` si on veut styliser les boutons, et pourquoi utiliser une classe plutôt que l'élément lui même ?
+* `.button-normal` pourrait être simplifié en `.button` si on veut styliser les boutons, et pourquoi utiliser une classe plutôt que l'élément lui-même ?
 * `.blackColor` ne respecte pas la syntaxe kebab-case et devrait être `.black-color`, cette dernière ne respecte pas non plus la règle de spécificité et devrait être `.color-black`
-* les identifiants `#login` et `#skip` on été utilisés pour styliser plusieurs choses de la même manière, il faut utiliser une classe pour ça
+* les identifiants `#login` et `#skip` ont été utilisés pour styliser plusieurs choses de la même manière, il faut utiliser une classe pour ça
 * les boutons ayant 2 styles, il est inutile de gaspiller du temps en découpant les classes avec des classes pour les font et les couleurs, afin de garder une uniformité et une simplicité, utiliser `.button-secondary { font-size: 70%; color: grey; }` ou mieux encore comme dans le bon exemple : `button.secondary { font-size: 70%; color: grey; }`
 
 * * *
 
 ### IE or not IE
 
-La priorité est de coder pour les navigateurs respectueux des standards (Chrome, Firefox par exemple). Je fixe les bugs pour internet explorer par la suite sauf si le client a un besoin prioritaire sur IE.
+La priorité est de développer pour les navigateurs respectueux des standards (Google Chrome, Firefox par exemple). Je fixe les bugs pour internet Explorer par la suite sauf si le client a un besoin prioritaire sur IE.
 
 > Je remercie chaque jour les navigateurs modernes d'avoir une certaine cohérence. Je n'ai jamais eu besoin de hack pour régler un problème sur un navigateur spécifique autre que IE.
 > Sans Internet Exporer, le développement front-end serait un jeu d'enfant.
@@ -814,13 +814,13 @@ Deux très bons articles sur le sujet des hacks IE :
 ## Glossaire
 
 * **API** (Application Programming Interface) : ensemble normalisé de classes, de méthodes ou de fonctions qui sert de façade par laquelle un logiciel offre des services à d'autres logiciels
-* **CSS** (Cascading Style Sheets) : feuilles de style en cascade, décrit la présentation (le style) des documents HTML et XML
+* **CSS** (Cascading Style Sheets) : feuilles de style en cascade, décris la présentation (le style) des documents HTML et XML
 * **DOM** (Document Object Model) : est une interface de programmation normalisée par le W3C, qui permet à des scripts d'examiner et de modifier le contenu du navigateur web
-* **DRY** (Dont Repeat Yourself) : Ne vous répétez pas, une philosophie en programmation informatique consistant à éviter la redondance de code
+* **DRY** (Don't Repeat Yourself) : Ne vous répétez pas, une philosophie en programmation informatique consistant à éviter la redondance de code
 * **HTML** (Hyper Text Markup Language) : le langage de balisage conçu pour représenter les pages web
 * **IDE** (Integrated Development Environment) : Environnement de développement intégré, un éditeur de code
 * **IE** (**I**nternet **E**xplorer) : parfois abrégé IE, MIE ou MSIE, est le navigateur web développé par la société américaine Microsoft et installé par défaut avec Windows
-* **POC** (Proof Of Concept) : démonstration de faisabilité, une réalisation (projet) expérimentale concrète et préliminaire, courte ou incomplète, illustrant une certaine méthode ou idée afin d'en démontrer la faisabilité
+* **POC** (Proof of Concept) : démonstration de faisabilité, une réalisation (projet) expérimentale concrète et préliminaire, courte ou incomplète, illustrant une certaine méthode ou idée afin d'en démontrer la faisabilité
 * **Sass** (Syntactically Awesome Style Sheets) : langage permettant de produire du CSS de manière plus simple et plus lisible
-* **URL** (Uniform Resource Locator) : synonyme de l'expression « adresse web » ou « lien » , qui désigne une chaîne de caractères utilisée pour identifier les ressources du Web : page, image, son, etc
-* **Vue** : un framework open-source JavaScript orienté simplicité et composants réutilisables
+* **URL** (Uniform Resource Locator) : synonyme de l'expression « adresse web » ou « lien » , qui désigne une chaine de caractères utilisée pour identifier les ressources du Web : page, image, son, etc
+* **Vue** : un framework open source JavaScript orienté simplicité et composants réutilisables
