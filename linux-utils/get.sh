@@ -1,11 +1,11 @@
 #!/bin/bash
 
-function log {
+function log() {
 	printf "\\n✔ : %s \\n" "${1}"
 }
 
-function init {
-	log "script starting..."
+function init() {
+	log "linux-utils script starting..."
 
 	log "installing/checking git"
 	sudo apt-get install git -y
@@ -28,10 +28,12 @@ function init {
 	log "exit folder"
 	cd ../.. || return
 
-	log "delete snippets folder (leave log files if needed)"
+	log "delete snippets folder"
 	rm -rf ./snippets
 
-	log "script finnished :)"
+	log "linux-utils script finnished !"
 }
 
-init 2>&1 | tee get.log
+init 2>&1 | tee linux-utils.log
+log "output saved in linux-utils.log"
+log "optional : reload bash :)"
