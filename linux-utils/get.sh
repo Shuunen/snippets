@@ -1,11 +1,11 @@
 #!/bin/bash
 
 function log {
-	printf "\\nLOG : %s " "${1}"
+	printf "\\n✔ : %s \\n" "${1}"
 }
 
 function init {
-	log "START : Get script starting..."
+	log "script starting..."
 
 	log "installing/checking git"
 	sudo apt-get install git -y
@@ -31,7 +31,7 @@ function init {
 	log "delete snippets folder (leave log files if needed)"
 	rm -rf ./snippets
 
-	log "END : Get script finnished :)"
+	log "script finnished :)"
 }
 
 init 2>&1 | tee get.log

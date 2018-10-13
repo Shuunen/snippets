@@ -2,10 +2,6 @@
 
 # Usage: chmod +x ./install.sh && ./install.sh
 
-# prepare logfile
-logfile=install.log
-cat /dev/null > ${logfile}
-
 #  ███████╗██╗   ██╗███╗   ██╗ ██████╗████████╗██╗ ██████╗ ███╗   ██╗███████╗
 #  ██╔════╝██║   ██║████╗  ██║██╔════╝╚══██╔══╝██║██╔═══██╗████╗  ██║██╔════╝
 #  █████╗  ██║   ██║██╔██╗ ██║██║        ██║   ██║██║   ██║██╔██╗ ██║███████╗
@@ -27,34 +23,21 @@ function check_install {
     if not_installed "$1" ; then
         consoleError "$1 has not been installed"
     else
-        consoleSuccess "$1 has been installed"
+        consoleLog "$1 has been installed"
     fi
 }
 
-# from https://stackoverflow.com/questions/4332478/read-the-current-text-color-in-a-xterm/4332530#4332530
-RED=$(tput setaf 1)
-GREEN=$(tput setaf 2)
-BLUE=$(tput setaf 153)
-NORMAL=$(tput sgr0)
-
 function consoleError {
-    printf "\\nERROR : %s \\n" "${1}" >> ${logfile} 2>&1
-    printf "%40s\\n  " "${RED}✘ ${1} ${NORMAL}" # print color then set it back to normal
+    printf "\\nERROR : %s \\n" "${1}"
 }
 
 function consoleLog {
-    printf "\\nLOG : %s \\n" "${1}" >> ${logfile} 2>&1
-    printf "%40s\\n  " "${BLUE}✔ ${1} ${NORMAL}" # print color then set it back to normal
-}
-
-function consoleSuccess {
-    printf "\\nSUCCESS : %s \\n" "${1}" >> ${logfile} 2>&1
-    printf "%40s\\n  " "${GREEN}✔ ${1} ${NORMAL}" # print color then set it back to normal
+    printf "\\n✔ : %s \\n" "${1}"
 }
 
 function install_if_needed {
     if not_installed "$1"; then
-        sudo apt-get install "$1" -y | sudo tee -a ${logfile} > /dev/null
+        sudo apt-get install "$1" -y
         check_install "$1"
     else
         consoleLog "$1 was already installed"
@@ -71,7 +54,7 @@ function is_desktop {
         if not_installed "$package" ; then
             consoleLog "dektop package \"$package\" not detected"
         else
-            consoleSuccess "dektop package \"$package\" detected"
+            consoleLog "dektop package \"$package\" detected"
             # found ! set to 0 (true)
             local return_=0
             # stop iterations
@@ -92,13 +75,13 @@ function is_desktop {
 
 # creates ~/.bashrc if it doesn't exist.
 if [[ ! -f ~/.bashrc ]]; then
-    consoleSuccess "create .bashrc file because none was found"
+    consoleLog "create .bashrc file because none was found"
     touch ~/.bashrc
 fi
 
 # install custom mybashrc
 consoleLog "install or update custom ~/.mybashrc"
-sudo cp .mybashrc ~/.mybashrc --force --verbose | sudo tee -a ${logfile} > /dev/null
+sudo cp .mybashrc ~/.mybashrc --force --verbose
 # shellcheck source=/dev/null
 source ~/.bashrc
 
@@ -106,51 +89,51 @@ source ~/.bashrc
 if ! grep -i 'mybashrc' ~/.bashrc # not(grep --ignore-case "mystring" in/this/file)
 then
     echo "source ~/.mybashrc" >> ~/.bashrc
-    consoleSuccess "auto-source custom mybashrc at login"
+    consoleLog "auto-source custom mybashrc at login"
 else
-    printf "\\n SUCCESS : mybashrc already auto-sourced in ~/.bashrc \\n" >> ${logfile} 2>&1
+    printf "\\n SUCCESS : mybashrc already auto-sourced in ~/.bashrc \\n"
 fi
 
 # install custom utils, why not just add folder to PATH ?
 consoleLog "install custom utils"
-sudo cp -R mybins/* /usr/local/bin/ --force --verbose | sudo tee -a ${logfile} > /dev/null
+sudo cp -R mybins/* /usr/local/bin/ --force --verbose
 sudo chmod +x /usr/local/bin/*
 
 # remove useless aptitude translations
 # file="/etc/apt/apt.conf.d/99translations"
 # if [[ ! -f "$file" ]]; then
-#     consoleSuccess "remove useless aptitude translations"
+#     consoleLog "remove useless aptitude translations"
 #     sudo touch "$file"
-#     echo 'Acquire::Languages "none";' | sudo tee -a ${file} >> ${logfile} 2>&1 # allow to append line to a root file
-#     sudo rm -r /var/lib/apt/lists/*Translation* >> ${logfile} 2>&1
+#     echo 'Acquire::Languages "none";' | sudo tee -a ${file} # allow to append line to a root file
+#     sudo rm -r /var/lib/apt/lists/*Translation*
 # fi
 
 # clean shit
-sudo apt-get purge banshee brasero brasero-common brasero-cdrkit hexchat hexchat-common -y | sudo tee -a ${logfile} > /dev/null # audio + burner + chat
-sudo apt-get purge mate-screensaver mate-screensaver-common xscreensaver-data-extra xscreensaver-data xscreensaver-gl-extra xscreensaver-gl -y | sudo tee -a ${logfile} > /dev/null # screensavers
-sudo apt-get purge tomboy toshset brltty xplayer xplayer-common bluez-cups caja-folder-color-switcher -y | sudo tee -a ${logfile} > /dev/null # note + toshiba + braille display + player + bluetooth printers + custo
-sudo apt-get purge ideviceinstaller xserver-xorg-input-wacom xserver-xorg-video-vmware  | sudo tee -a ${logfile} > /dev/null # apple device handler + tablet + vmware
-sudo apt-get purge firefox thunderbird transmission pidgin gimp gimp-data -y | sudo tee -a ${logfile} > /dev/null # default mint/ubuntu programs
+sudo apt-get purge banshee brasero brasero-common brasero-cdrkit hexchat hexchat-common -y # audio + burner + chat
+sudo apt-get purge mate-screensaver mate-screensaver-common xscreensaver-data-extra xscreensaver-data xscreensaver-gl-extra xscreensaver-gl -y # screensavers
+sudo apt-get purge tomboy toshset brltty xplayer xplayer-common bluez-cups caja-folder-color-switcher -y # note + toshiba + braille display + player + bluetooth printers + custo
+sudo apt-get purge ideviceinstaller xserver-xorg-input-wacom xserver-xorg-video-vmware  # apple device handler + tablet + vmware
+sudo apt-get purge firefox thunderbird transmission pidgin gimp gimp-data -y # default mint/ubuntu programs
 consoleLog "cleaned unused packages"
 
 # system tweaks
 if [[ ! -f ~/.lu-once ]]; then
     touch ~/.lu-once
-    consoleSuccess "created ~/.lu-once to avoid applying systems tweaks more than once"
+    consoleLog "created ~/.lu-once to avoid applying systems tweaks more than once"
 
     sudo iw reg set FR
-    consoleSuccess "wifi region settings set to EU"
+    consoleLog "wifi region settings set to EU"
 
     sudo sh -c "echo 'Dir::Cache \"\";\\nDir::Cache::archives \"\";' >> /etc/apt/apt.conf.d/02nocache"
-    consoleSuccess "disabled apt local cache"
+    consoleLog "disabled apt local cache"
 
     sudo sh -c "echo '\\nHISTFILESIZE=10000\\nHISTSIZE=10000\\nHISTCONTROL=ignoredups' >> /etc/environment"
-    consoleSuccess "allowed 10k entries in history instead of 500 by default"
+    consoleLog "allowed 10k entries in history instead of 500 by default"
 
     echo fs.inotify.max_user_watches=524288 | sudo tee -a /etc/sysctl.conf && sudo sysctl -p
-    consoleSuccess "increased max number of inotify watches"
+    consoleLog "increased max number of inotify watches"
 
-    consoleSuccess "system tweaks applied"
+    consoleLog "system tweaks applied"
 else
     consoleLog "system tweaks already applied"
 fi
@@ -163,7 +146,7 @@ fi
 #   ╚═════╝ ╚═╝     ╚═════╝ ╚═╝  ╚═╝   ╚═╝   ╚══════╝
 
 consoleLog "updating apt repositories..."
-sudo apt-get update | sudo tee -a ${logfile} > /dev/null
+sudo apt-get update
 consoleLog "update apt complete !"
 
 
@@ -207,15 +190,15 @@ install_if_needed "libimage-exiftool-perl"
 # de/compression libs
 app="p7zip-full"
 if not_installed ${app} ; then
-    sudo apt-get install p7zip-rar p7zip-full unace unrar zip unzip sharutils rar uudeview mpack arj cabextract file-roller arj -y | sudo tee -a ${logfile} > /dev/null
-    consoleSuccess "installed commons de/compression libs"
+    sudo apt-get install p7zip-rar p7zip-full unace unrar zip unzip sharutils rar uudeview mpack arj cabextract file-roller arj -y
+    consoleLog "installed commons de/compression libs"
 else
     consoleLog "de/compression libs was already installed"
 fi
 
 # Node Version Manager - Simple bash script to manage multiple active node.js versions
 if [[ ! -d ~/.nvm ]]; then
-    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash >> ${logfile} 2>&1
+    curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash
 else
     consoleLog "Node Version Manager was already installed"
 fi
@@ -254,7 +237,7 @@ install_if_needed "chromium-browser" # as good as chrome but without spywares # 
 # Unix FireWall
 app="gufw"
 if not_installed ${app} ; then
-    sudo ufw enable | sudo tee -a ${logfile} > /dev/null # enable
+    sudo ufw enable # enable
     install_if_needed "gufw" # gui for UFW
 else
     consoleLog "${app} was already installed"
@@ -263,10 +246,10 @@ fi
 # microsoft fonts + unicode
 app="ttf-dejavu"
 if not_installed ${app} ; then
-    sudo apt-get install ttf-ubuntu-font-family ttf-dejavu ttf-dejavu-extra ttf-liberation ttf-ancient-fonts -y | sudo tee -a ${logfile} > /dev/null
-    consoleSuccess "installed extra fonts"
-    sudo fc-cache -f -v | sudo tee -a ${logfile} > /dev/null
-    consoleSuccess "cleared & reloaded font cache"
+    sudo apt-get install ttf-ubuntu-font-family ttf-dejavu ttf-dejavu-extra ttf-liberation ttf-ancient-fonts -y
+    consoleLog "installed extra fonts"
+    sudo fc-cache -f -v
+    consoleLog "cleared & reloaded font cache"
 else
     consoleLog "extra fonts was already installed"
 fi
@@ -278,7 +261,7 @@ install_if_needed "gtk-redshift"
 # to read dvd (commented because not using that much)
 #app="libdvdcss2"
 #if not_installed ${app} ; then
-#    sudo gdebi --non-interactive --quiet saveddeb/libdvdcss2_*.deb >> ${logfile} 2>&1 # simple library designed for accessing DVDs
+#    sudo gdebi --non-interactive --quiet saveddeb/libdvdcss2_*.deb # simple library designed for accessing DVDs
 #    check_install ${app}
 #else
 #    consoleLog "${app} was already installed"
@@ -286,11 +269,11 @@ install_if_needed "gtk-redshift"
 #install_if_needed "libdvdnav4"
 
 # great app/file launcher like launchy
-sudo gdebi --non-interactive --quiet saveddeb/ulauncher_*.deb | sudo tee -a ${logfile} > /dev/null
+sudo gdebi --non-interactive --quiet saveddeb/ulauncher_*.deb
 consoleLog "uLauncher installed or updated"
 
 # clean apt packages
-sudo apt-get autoremove -y | sudo tee -a ${logfile} > /dev/null
+sudo apt-get autoremove -y
 
 app="ttf-mscorefonts-installer"
 if not_installed ${app} ; then
