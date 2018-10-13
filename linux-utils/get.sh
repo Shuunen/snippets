@@ -34,4 +34,4 @@ function init {
 	log "END : Get script finnished :)"
 }
 
-init > get.log
+init 2>&1 | tee get.log

@@ -228,7 +228,7 @@ fi
 #  ╚═════╝ ╚══════╝╚══════╝╚═╝  ╚═╝   ╚═╝    ╚═════╝ ╚═╝
 
 if ! is_desktop ; then
-    bash
+    consoleLog "optional : reload bash :)"
     exit 1;
 fi
 
@@ -255,7 +255,7 @@ install_if_needed "chromium-browser" # as good as chrome but without spywares # 
 app="gufw"
 if not_installed ${app} ; then
     sudo ufw enable | sudo tee -a ${logfile} > /dev/null # enable
-    install_if_needed "gufw"         # gui for UFW
+    install_if_needed "gufw" # gui for UFW
 else
     consoleLog "${app} was already installed"
 fi
@@ -301,7 +301,7 @@ fi
 # sudo gdebi --non-interactive --quiet saveddeb/woeusb_3.1.4-1_webupd8_trusty0_amd64.deb # create bootable windows installer on usb
 
 # reload bash
-bash
+consoleLog "optional : reload bash :)"
 exit 1;
 
 #  ████████╗██╗  ██╗ █████╗ ███╗   ██╗██╗  ██╗███████╗
