@@ -4,21 +4,17 @@
 logfile=get.log
 cat /dev/null > ${logfile}
 
-if [[ ! -f ./install.sh ]]; then
-    # git is mandatory to be able to clone
-    sudo apt-get install git -y >> ${logfile} 2>&1
+# git is mandatory to be able to clone
+sudo apt-get install git -y | sudo tee -a ${logfile} > /dev/null
 
-    # clone repo
-    git clone https://github.com/Shuunen/snippets >> ${logfile} 2>&1
+# delete existing folder is exists
+rm -rf ./snippets >> ${logfile} 2>&1
 
-    # go to linux folder
-    cd snippets/linux-utils
+# clone repo
+git clone https://github.com/Shuunen/snippets >> ${logfile} 2>&1
 
-    # make script executable
-    sudo chmod +x install.sh
-else
-    echo "install.sh already there, just executing"
-fi
+# make script executable
+sudo chmod +x snippets/linux-utils/install.sh
 
 # start
-./install.sh
+./snippets/linux-utils/install.sh
