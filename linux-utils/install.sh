@@ -34,22 +34,25 @@ function check_install {
     fi
 }
 
+# from https://stackoverflow.com/questions/4332478/read-the-current-text-color-in-a-xterm/4332530#4332530
+RED=$(tput setaf 1)
+GREEN=$(tput setaf 2)
+BLUE=$(tput setaf 153)
+NORMAL=$(tput sgr0)
+
 function consoleError {
     printf "\\nERROR : %s \\n" "${1}" >> ${logfile} 2>&1
-    printf "\\n  \\e[31m✘ %s" "${1}" # echo first argument in red
-    echo -e "\\033[0m" # reset colours back to normal
+    printf "%40s\\n  " "${RED}✘ ${1} ${NORMAL}" # print color then set it back to normal
 }
 
 function consoleLog {
     printf "\\nLOG : %s \\n" "${1}" >> ${logfile} 2>&1
-    printf "\\n  \\e[34m✔ %s" "${1}" # echo first argument in blue
-    echo -e "\\033[0m" # reset colours back to normal
+    printf "%40s\\n  " "${BLUE}✔ ${1} ${NORMAL}" # print color then set it back to normal
 }
 
 function consoleSuccess {
     printf "\\nSUCCESS : %s \\n" "${1}" >> ${logfile} 2>&1
-    printf "\\n  \\e[32m✔ %s" "${1}" # echo first argument in green
-    echo -e "\\033[0m" # reset colours back to normal
+    printf "%40s\\n  " "${GREEN}✔ ${1} ${NORMAL}" # print color then set it back to normal
 }
 
 function install_if_needed {
