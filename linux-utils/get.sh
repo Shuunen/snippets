@@ -13,8 +13,14 @@ rm -rf ./snippets >> ${logfile} 2>&1
 # clone repo
 git clone https://github.com/Shuunen/snippets >> ${logfile} 2>&1
 
+# go into dir
+cd snippets/linux-utils || return
+
 # make script executable
-sudo chmod +x snippets/linux-utils/install.sh
+sudo chmod +x ./install.sh
 
 # start
-./snippets/linux-utils/install.sh
+./install.sh
+
+# exit folder
+cd ../.. || return
