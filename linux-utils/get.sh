@@ -1,29 +1,37 @@
 #!/bin/bash
 
-# prepare logfile
-logfile=get.log
-cat /dev/null > ${logfile}
+function log {
+	printf "\\nLOG : %s " "${1}"
+}
 
-# git is mandatory to be able to clone
-sudo apt-get install git -y | sudo tee -a ${logfile} > /dev/null
+function init {
+	log "START : Get script starting..."
 
-# delete existing folder is exists
-rm -rf ./snippets >> ${logfile} 2>&1
+	log "installing/checking git"
+	sudo apt-get install git -y
 
-# clone repo
-git clone https://github.com/Shuunen/snippets >> ${logfile} 2>&1
+	log "delete snippets existing folder is exists"
+	rm -rf ./snippets
 
-# go into dir
-cd snippets/linux-utils || return
+	log "clone snippets repo"
+	git clone https://github.com/Shuunen/snippets
 
-# make script executable
-sudo chmod +x ./install.sh
+	log "go into snippets linux-utils folder"
+	cd snippets/linux-utils || return
 
-# start
-./install.sh
+	log "make script executable"
+	sudo chmod +x ./install.sh
 
-# exit folder
-cd ../.. || return
+	log "start install script"
+	./install.sh
 
-# delete snippets folder (leave log files if needed)
-rm -rf ./snippets >> ${logfile} 2>&1
+	log "exit folder"
+	cd ../.. || return
+
+	log "delete snippets folder (leave log files if needed)"
+	rm -rf ./snippets
+
+	log "END : Get script finnished :)"
+}
+
+init > get.log
