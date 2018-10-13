@@ -24,3 +24,6 @@ sudo chmod +x ./install.sh
 
 # exit folder
 cd ../.. || return
+
+# delete snippets folder (leave log files if needed)
+rm -rf ./snippets >> ${logfile} 2>&1
