@@ -69,17 +69,17 @@ PROMPT_DIRTRIM=2
 
 # thanks coworkers
 setProxy() {
-    url="http://${1}:${2}@proxy-web.cm-cic.fr:8080"
+    url="http://${1}:${2}@${3}:${4}"
     echo "Using url : ${url}" 
     export http_proxy="${url}"
     export https_proxy="${http_proxy}"
     export ftp_proxy="${http_proxy}"
-    export no_proxy=".cm-cic.fr"
+    export no_proxy=".${3},localhost"
     export HTTP_PROXY="${http_proxy}"
     export HTTPS_PROXY="${https_proxy}"
     export FTP_PROXY="${ftp_proxy}"
 }
-# setProxy user pass
+# setProxy user pass my-domain.com 8080
 
 # Welcome screen
 printf "\n"
