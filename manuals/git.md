@@ -67,3 +67,11 @@ f 4654283490 commit msg3
 Here all commits will be merged with the first one.
 
 Now re-write your branch history : `git push -f origin feature/test`
+
+## Delete remote branch
+
+`git push --delete origin feature/test`
+
+## Delete local branch
+
+`git push -D feature/test`
