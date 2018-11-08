@@ -74,4 +74,4 @@ Now re-write your branch history : `git push -f origin feature/test`
 
 ## Delete local branch
 
-`git push -D feature/test`
+`git branch -D feature/test`
