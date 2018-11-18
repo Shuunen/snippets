@@ -1,0 +1,1 @@
+require('./mifare-classic.js')
