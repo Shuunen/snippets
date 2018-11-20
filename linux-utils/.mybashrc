@@ -17,6 +17,10 @@ alias edithosts='sudo nano /etc/hosts'
 alias apacheRestart='sudo service apache2 restart'
 alias gitUpdateBranch='git pull --rebase && git fetch origin develop && git merge FETCH_HEAD'
 alias yarnUpgrade='yarn upgrade-interactive'
+alias gitst='git status -sbu'
+alias gita='git add -p'
+alias gitac='git add -p && git commit -m'
+alias gitc='git commit -m'
 
 # thanks http://www.digitalocean.com/community/tutorials/an-introduction-to-useful-bash-aliases-and-functions
 alias ..='cd ..'
@@ -38,13 +42,7 @@ alias upgrade='sudo apt upgrade'
 alias today='date +"Today is %A %d %B %Y (%Y-%m-%d) and it is %H:%M %p"'
 
 # thanks http://durdn.com/blog/2012/11/22/must-have-git-aliases-advanced-examples/
-alias gitll='git log --pretty=format:"%C(yellow)%h\\ %ad%Cred%d\\ %Creset%s%Cblue\\ [%cn]" --decorate --date=relative'
-
-# thanks http://haacked.com/archive/2014/07/28/github-flow-aliases/
-alias gita='git add -A'
-alias gitac='git add -A && git commit -m'
-alias gitc='git commit -m'
-alias gitst='git status'
+alias gitll='git log --pretty=format:"%C(yellow)%ad%Cred%d %Creset%s%Cblue\\ [%cn]" --decorate --date=relative'
 
 # thanks http://stackoverflow.com/questions/7131670/make-bash-alias-that-takes-parameter
 gitAddCommitPush() {
@@ -70,7 +68,7 @@ PROMPT_DIRTRIM=2
 # thanks coworkers
 setProxy() {
     url="http://${1}:${2}@${3}:${4}"
-    echo "Using url : ${url}" 
+    echo "Using url : ${url}"
     export http_proxy="${url}"
     export https_proxy="${http_proxy}"
     export ftp_proxy="${http_proxy}"

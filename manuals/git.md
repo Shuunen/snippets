@@ -75,3 +75,17 @@ Now re-write your branch history : `git push -f origin feature/test`
 ## Delete local branch
 
 `git branch -D feature/test`
+
+## Use git credential helper to clone
+
+`git -c credential.helper= clone --recursive --progress -- https://github.com/Shuunen/snippets.git C:/Users/me/Projets/snippets`
+
+## Add stuff to last commit
+
+Without modifying last commit message :
+
+`git commit --amend --no-edit` or `git commit --amend -m "My new message"`
+
+Then use force to re-write history :
+
+`git push -f`
