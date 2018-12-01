@@ -18,6 +18,7 @@
    <package id="greenshot" />
    <package id="jdk8" />
    <package id="jre8" />
+   <package id="launchy" />
    <package id="markdown-edit" />
    <package id="microsoft-build-tools" />
    <package id="netstat-viewer" />
