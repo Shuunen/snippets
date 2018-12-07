@@ -4,7 +4,7 @@ script.type = 'text/javascript';
 script.src = 'https://rawgit.com/Shuunen/snippets/master/bookmarklets/feedly-filter.js';
 document.body.appendChild(script);
 
-// Refresh this url after editing : https://rawgit.com/Shuunen/snippets/master/bookmarklets/feedly-filter-custom.js
+// Refresh this url after editing : https://cdn.jsdelivr.net/gh/Shuunen/snippets/bookmarklets/feedly-filter-custom.js
 
 /* Unwanted trendy shit */
 window.avoid = 'Star Wars, Dark Vador, Pokemon Go, Twerk, Game of Thrones, Dragon Ball, Justin Timberlake';
