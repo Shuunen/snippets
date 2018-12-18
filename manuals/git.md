@@ -68,6 +68,14 @@ Here all commits will be merged with the first one.
 
 Now re-write your branch history : `git push -f origin feature/test`
 
+## Create local branch
+
+Create locally from actual branch : `git checkout -b feature/test`
+
+## Push local branch to remote
+
+Set upstream : `git push --set-upstream origin feature/test` 
+
 ## Delete remote branch
 
 `git push --delete origin feature/test`
