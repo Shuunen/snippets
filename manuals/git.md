@@ -97,3 +97,7 @@ Without modifying last commit message :
 Then use force to re-write history :
 
 `git push -f`
+
+## Rewrite history
+
+Let's say you have done 4 commits and you want to take all your modified files with latest changes to do new commits : `git reset HEAD~4` 
