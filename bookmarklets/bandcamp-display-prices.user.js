@@ -51,9 +51,7 @@
     utils.findAll(selectors.product, document, true).forEach(function (product) {
       var trackid = parseInt(product.getAttribute('data-trackid'))
       if (trackid) {
-        if (app.debug) {
-          utils.log('adding price for', trackid)
-        }
+        utils.log('adding price for', trackid)
         if (!app.tracks.hasOwnProperty(trackid)) {
           throw new Error('failed at gettting track price')
         }
