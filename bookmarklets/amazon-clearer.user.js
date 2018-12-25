@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Amazon - Cleaner
 // @namespace    https://github.com/Shuunen
-// @version      1.0.2
+// @version      1.0.3
 // @description  Un-clutter Amazon website
 // @author       Romain Racamier-Lafon
 // @match        https://www.amazon.fr/*
@@ -24,8 +24,8 @@
 
   var uselessSelectors = {
     oldPrice: '.a-text-strike, #priceblock_saleprice_lbl, #vatMessage',
-    badges: '.a-badge-label, #acBadge_feature_div',
-    ads: '.nav-swmslot, #pdagSparkleAdFeedback, #hqpWrapper, #productAlert_feature_div, #navSwmHoliday, #quickPromoDivId',
+    badges: '.a-badge-label, #acBadge_feature_div, #zeitgeistBadge_feature_div, .dotdBadge, .a-row.DEAL_OF_THE_DAY',
+    ads: '.nav-swmslot, .GB-M-COMMON.GB-SHOVELER, #pdagSparkleAdFeedback, #detail-ilm_div, #quickPromoBucketContent, #sp_detail, #hqpWrapper, #productAlert_feature_div, #navSwmHoliday, #quickPromoDivId',
     recommandations: '#raw-sitewide-rhf, #rhf',
     instantBuy: '#buyNow_feature_div, #oneClick_feature_div',
     dashButtons: '#digitalDashHighProminence_feature_div',
