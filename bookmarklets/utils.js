@@ -1,12 +1,19 @@
 /* eslint-disable-next-line no-unused-vars */
 class Shuutils {
   constructor (app) {
-    if (app) {
-      this.app = app
+    app = app || {
+      id: 'shu-app',
+      debug: true
     }
+    this.app = app
+    this.accentsIn = 'ÀÁÂÃÄÅĄàáâãäåąßÒÓÔÕÕÖØÓòóôõöøóÈÉÊËĘèéêëęðÇĆçćÐÌÍÎÏìíîïÙÚÛÜùúûüÑŃñńŠŚšśŸÿýŽŻŹžżź'
+    this.accentsOut = 'AAAAAAAaaaaaaaBOOOOOOOOoooooooEEEEEeeeeeeCCccDIIIIiiiiUUUUuuuuNNnnSSssYyyZZZzzz'
   }
 
   log (...stuff) {
+    if (!this.app.debug) {
+      return
+    }
     stuff.unshift(this.app.id + ' :')
     console.log.apply(console, stuff)
   }
@@ -19,6 +26,13 @@ class Shuutils {
   error (...stuff) {
     stuff.unshift(this.app.id + ' :')
     console.error.apply(console, stuff)
+  }
+
+  readableString (str) {
+    return str.split('').map(function (letter) {
+      var i = this.accentsIn.indexOf(letter)
+      return i !== -1 ? this.accentsOut[i] : letter
+    }).join('').replace(/(\W|-)/gi, ' ').replace(/\s+/, ' ')
   }
 
   debounce (func, wait, immediate) {
