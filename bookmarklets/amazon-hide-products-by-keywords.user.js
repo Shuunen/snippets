@@ -28,7 +28,7 @@
   }
 
   var selectors = {
-    productTitle: 'h2.a-size-base.s-inline.s-access-title.a-text-normal'
+    productTitle: 'a.s-access-detail-page > h2.s-access-title'
   }
 
   var utils = new Shuutils(app)
