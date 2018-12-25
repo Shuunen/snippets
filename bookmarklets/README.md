@@ -2,6 +2,11 @@
 
 My personal - useful or not - bookmarklets to make a better web
 
+## Amazon Clearer
+
+An image is better than 42 words :
+
+![before and after](https://i.imgur.com/cxkNxIe.jpg)
 
 ## Feedly filter
 
