@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Bandcamp - Display Prices on Wishlist
 // @namespace    https://github.com/Shuunen
-// @version      1.0.1
+// @version      1.0.2
 // @description  Simply display a price tag on each item in the wishlist
 // @author       Romain Racamier-Lafon
 // @match        https://bandcamp.com/*/wishlist

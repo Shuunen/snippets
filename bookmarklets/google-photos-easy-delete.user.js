@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Google Photos - Easy Delete
 // @namespace    https://github.com/Shuunen
-// @version      1.0.0
+// @version      1.0.1
 // @description  Delete a photo by pressing ! (bang)
 // @author       Romain Racamier-Lafon
 // @match        https://photos.google.com/photo/*
