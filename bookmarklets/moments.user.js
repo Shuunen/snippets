@@ -1,8 +1,4 @@
-/* var names = document.querySelectorAll('.synophoto-person-name-menu-button-album')
-var name = names[0]
-console.log(name) */
-/* global iziToast */
-/* eslint-disable no-unused-vars */
+/* global iziToast, AudioContext */
 
 var api = 'http://192.168.31.227:5001/webapi/entry.cgi?'
 var headers = {
@@ -24,7 +20,7 @@ var frequencyMax = 760
 var frequency = (frequencyMin + frequencyMax) / 2
 var frequencyIncrement = 100
 
-function errorSound() {
+function errorSound () {
   errorDetected = true
   document.title = 'ACTION NEEDED'
   var context = new AudioContext()
@@ -42,12 +38,11 @@ function errorSound() {
   g.gain.exponentialRampToValueAtTime(0.00001, context.currentTime + 1)
 }
 
-
 // Returns a function, that, as long as it continues to be invoked, will not
 // be triggered. The function will be called after it stops being called for
 // N milliseconds. If `immediate` is passed, trigger the function on the
 // leading edge, instead of the trailing.
-function debounce(func, wait, immediate) {
+function debounce (func, wait, immediate) {
   var timeout
   return function () {
     var context = this
@@ -63,8 +58,7 @@ function debounce(func, wait, immediate) {
   }
 }
 
-
-function openPanel() {
+function openPanel () {
   if (document.querySelector('.synophoto-lightbox-bottom-info-panel')) {
     document.querySelector('.synophoto-lightbox-toolbar-right-button[title="Information"]').click()
     console.log('panel now opened, will start check')
@@ -75,16 +69,16 @@ function openPanel() {
   setTimeout(check, 1000)
 }
 
-function removeUseless() {
+function removeUseless () {
   document.querySelector('.synophoto-lightbox-info-close').remove()
   document.querySelector('.synophoto-lightbox-info-section-header').remove()
 }
 
-function getCleanName(name) {
+function getCleanName (name) {
   return (name + '').split('(')[0].trim()
 }
 
-async function check() {
+async function check () {
   console.log('checking...')
   var photoId = getPhotoId()
   var tags = getPhotoTags()
@@ -137,7 +131,7 @@ async function check() {
 // prepare a debounced function
 var checkDebounced = debounce(check, 500)
 
-function tryToAssociateOne() {
+function tryToAssociateOne () {
   removeVisuallyAddedTags()
   var tags = getPhotoTags()
   var persons = Array.from(document.querySelectorAll('.synophoto-lightbox-people-item')).map(node => getCleanName(node.title))
@@ -162,14 +156,14 @@ function tryToAssociateOne() {
   }
 }
 
-function removeRetryToast() {
+function removeRetryToast () {
   var toast = document.querySelector('#abm-retry')
   if (toast) {
     iziToast.hide({}, toast)
   }
 }
 
-function gotoNextPhoto() {
+function gotoNextPhoto () {
   removeRetryToast()
   removeVisuallyAddedTags()
   document.querySelector('.synophoto-lightbox-nav-icon-button.align-right').click()
@@ -177,16 +171,15 @@ function gotoNextPhoto() {
 // prepare a debounced function
 var gotoNextPhotoDebounced = debounce(gotoNextPhoto, 500)
 
-
-function markAsIdentified(el) {
+function markAsIdentified (el) {
   markAs(el, true)
 }
 
-function markAsUnidentified(el) {
+function markAsUnidentified (el) {
   markAs(el, false)
 }
 
-function markAs(el, identified) {
+function markAs (el, identified) {
   el.style.backgroundColor = identified ? identifiedColor : unidentifiedColor
   el.style.padding = '10px'
   el.style.borderRadius = '50% 0'
@@ -197,7 +190,7 @@ function markAs(el, identified) {
   }
 }
 
-function addTagByName(name, photoId) {
+function addTagByName (name, photoId) {
   if (!photoId) {
     photoId = getPhotoId()
   }
@@ -224,21 +217,13 @@ function addTagByName(name, photoId) {
   }
 }
 
-function insertAfter(node, newNode) {
-  node.parentNode.insertBefore(newNode, node.nextSibling)
-}
-
-function insertBefore(node, newNode) {
-  node.parentNode.insertBefore(newNode, node)
-}
-
-function removeVisuallyAddedTags() {
+function removeVisuallyAddedTags () {
   console.log('removeVisuallyAddedTags')
   var tags = document.querySelectorAll('.abm-visual-tag')
   tags.forEach(tag => tag.remove())
 }
 
-function addTagVisuallyToPhotoTags(tagId) {
+function addTagVisuallyToPhotoTags (tagId) {
   var tag = availableTags.find(tag => tag.id === tagId)
   var el = document.createElement('div')
   el.classList.add('Select-value', 'abm-visual-tag')
@@ -247,7 +232,7 @@ function addTagVisuallyToPhotoTags(tagId) {
   document.querySelector('.synophoto-general-tag .Select-multi-value-wrapper').prepend(el)
 }
 
-function addTagToPhoto(tagId, photoId) {
+function addTagToPhoto (tagId, photoId) {
   if (!photoId) {
     photoId = getPhotoId()
   }
@@ -265,13 +250,13 @@ function addTagToPhoto(tagId, photoId) {
   })
 }
 
-function createNewTag(name) {
+function createNewTag (name) {
   console.info('creating new tag with name "' + name + '"')
   body = `name=%22${encodeURI(name)}%22&api=%22SYNO.Photo.Browse.GeneralTag%22&method=%22create%22&version=1`
   return post(body)
 }
 
-function showAutoModeSwitcher() {
+function showAutoModeSwitcher () {
   if (!iziToast) {
     return error('iziToast is required to show switcher', true)
   }
@@ -290,7 +275,7 @@ function showAutoModeSwitcher() {
   })
 }
 
-function error(message, avoidRejection) {
+function error (message, avoidRejection) {
   errorSound()
   console.error(message)
   if (iziToast) {
@@ -311,8 +296,8 @@ function error(message, avoidRejection) {
           instance.hide({
             transitionOut: 'fadeOut'
           }, toast, 'button')
-        }, true],
-      ],
+        }, true]
+      ]
     })
   }
   if (avoidRejection) {
@@ -321,7 +306,7 @@ function error(message, avoidRejection) {
   return Promise.reject(message)
 }
 
-function merge(from, to, el) {
+function merge (from, to, el) {
   if (!from || typeof from !== 'number') {
     return error('"from" shoud be a number')
   }
@@ -344,8 +329,8 @@ function merge(from, to, el) {
   })
 }
 
-function post(body) {
-  return fetch(api, {
+function post (body) {
+  return window.fetch(api, {
     body,
     method: 'POST',
     credentials: 'same-origin',
@@ -353,47 +338,9 @@ function post(body) {
   }).then(response => response.json())
 }
 
-function triggerChange(el) {
-  el.dispatchEvent(new KeyboardEvent('change'))
-  el.dispatchEvent(new Event('input', {
-    bubbles: true,
-    cancelable: true
-  }))
-}
-
-function triggerEnter2(el) {
-  el.dispatchEvent(new KeyboardEvent('keyup', {
-    key: 'Enter',
-    bubbles: true,
-    cancelable: true
-  }))
-}
-
-function triggerEnter(el) {
-  var e = new Event('keydown')
-  // e.key="a";    // just enter the char you want to send 
-  // e.keyCode=e.key.charCodeAt(0);
-  // key Enter = charCode 13
-  e.keyCode = 13
-  e.which = e.keyCode
-  e.bubbles = true
-  el.dispatchEvent(e)
-}
-
-function triggerClick(el) {
-  // Create our event (with options)
-  var evt = new MouseEvent('click', {
-    bubbles: true,
-    cancelable: true,
-    view: window
-  })
-  // If cancelled, don't dispatch our event
-  !el.dispatchEvent(evt)
-}
-
 var availableTags = []
 
-async function getAvailableTags() {
+async function getAvailableTags () {
   console.log('getting available tags...')
   body = 'limit=300&offset=0&api=%22SYNO.Photo.Browse.GeneralTag%22&method=%22list%22&version=1'
   return post(body).then(response => {
@@ -409,7 +356,7 @@ async function getAvailableTags() {
 }
 getAvailableTags()
 
-function updateAvailableTagsList(tryTime) {
+function updateAvailableTagsList (tryTime) {
   if (!tryTime) {
     tryTime = 1
   }
@@ -454,7 +401,7 @@ function updateAvailableTagsList(tryTime) {
   tagList.innerHTML = tagListContent
 }
 
-function getBackgroundForTagName(name) {
+function getBackgroundForTagName (name) {
   var isBlue = name.includes('Racamier-Lafon') || name.includes('guy')
   var isRed = name.includes('Juliane') || name.includes('girl')
   if (isBlue) {
@@ -466,7 +413,7 @@ function getBackgroundForTagName(name) {
   }
 }
 
-function getStyleForTagName(name) {
+function getStyleForTagName (name) {
   var background = getBackgroundForTagName(name)
   if (background === '') {
     return 'style="padding: 0;"'
@@ -474,17 +421,17 @@ function getStyleForTagName(name) {
   return `style="background-color: ${background}; padding: 0;"`
 }
 
-function getFirstUnidentified() {
+function getFirstUnidentified () {
   return document.querySelector('.synophoto-lightbox-people-item.abm-unidentified')
 }
 
-function getPhotoTags() {
+function getPhotoTags () {
   var els = document.querySelectorAll('.Select-control a.Select-value-label')
   var tags = Array.from(els).map(el => el.text.trim())
   return tags
 }
 
-function watchTags() {
+function watchTags () {
   var els = document.querySelectorAll('a.Select-value-label:not(.abm-watched)')
   if (els.length) {
     els.forEach(el => {
@@ -499,7 +446,7 @@ setInterval(watchTags, 500)
 
 var personsByTag = []
 
-function getPersonByTag(tag) {
+function getPersonByTag (tag) {
   var personByTag = personsByTag.find(person => person.tagId === tag.id)
   if (personByTag) {
     console.log('found "' + tag.name + '" in cache')
@@ -518,7 +465,7 @@ function getPersonByTag(tag) {
         personsByTag.push(personByTag)
         return personByTag
       } else if (persons.length === 0) {
-        return Promise.reject('this person does not exists yet') // NOT error() cause we dont want to break auto processing
+        return Promise.reject(new Error('this person does not exists yet')) // NOT error() cause we dont want to break auto processing
       } else {
         return error('failed at getting person by name : too much persons found with that name')
       }
@@ -528,14 +475,7 @@ function getPersonByTag(tag) {
   })
 }
 
-function openInNewTab(url) {
-  var a = document.createElement('a')
-  a.target = '_blank'
-  a.href = url
-  a.click()
-}
-
-async function onTagClick(event) {
+async function onTagClick (event) {
   event.preventDefault()
   event.stopPropagation()
   var name = event.target.textContent.trim()
@@ -554,7 +494,7 @@ async function onTagClick(event) {
   }
 }
 
-function createPerson(id, name) {
+function createPerson (id, name) {
   if (!id || typeof id !== 'number') {
     return error('"id" shoud be a number')
   }
@@ -568,7 +508,7 @@ function createPerson(id, name) {
   })
 }
 
-async function onAvailableTagClick(availableTag) {
+async function onAvailableTagClick (availableTag) {
   clickedOnAvailableTag = true
   console.log('clicked on availableTag "' + availableTag.name + '" with id', availableTag.id)
   if (availableTag.name.includes('http')) {
@@ -610,7 +550,7 @@ async function onAvailableTagClick(availableTag) {
     })
 }
 
-function onTagEnter(event) {
+function onTagEnter (event) {
   event.target.parentElement.style.backgroundColor = identifierColor
   var unidentified = getFirstUnidentified()
   if (unidentified) {
@@ -618,7 +558,7 @@ function onTagEnter(event) {
   }
 }
 
-function onTagOut(event) {
+function onTagOut (event) {
   event.target.parentElement.style.backgroundColor = getBackgroundForTagName(event.target.text)
   var unidentified = getFirstUnidentified()
   if (unidentified) {
@@ -626,7 +566,7 @@ function onTagOut(event) {
   }
 }
 
-function getPhotoId() {
+function getPhotoId () {
   var matches = document.location.hash.match(/\d+/g)
   var match = null
   if (matches.length === 1) {
@@ -639,7 +579,7 @@ function getPhotoId() {
 
 var lastPhotoLoaded = 1
 
-function onNewPhotoLoaded() {
+function onNewPhotoLoaded () {
   var photoId = getPhotoId()
   if (photoId === lastPhotoLoaded) {
     console.info('same photo id, skipping...')
@@ -659,16 +599,15 @@ function onNewPhotoLoaded() {
 // prepare a debounced function
 var onNewPhotoLoadedDebounced = debounce(onNewPhotoLoaded, 500)
 
-
-function watchForNewPhoto() {
+function watchForNewPhoto () {
   getEl('lightbox-image').then(el => el.addEventListener('DOMSubtreeModified', onNewPhotoLoadedDebounced))
 }
 
-function clearVisualTagsOnOverlayClick() {
+function clearVisualTagsOnOverlayClick () {
   getEl('lightbox-overlay').then(el => el.addEventListener('mousedown', removeVisuallyAddedTags))
 }
 
-function start() {
+function start () {
   openPanel()
   getAvailableTags()
   removeUseless()
@@ -677,7 +616,7 @@ function start() {
   clearVisualTagsOnOverlayClick()
 }
 
-function getEl(type) {
+function getEl (type) {
   var sel = null
   var txt = null
   var ele = null
@@ -713,7 +652,7 @@ function getEl(type) {
   return Promise.resolve(ele)
 }
 
-function clickEl(el, time) {
+function clickEl (el, time) {
   return new Promise((resolve, reject) => {
     if (!el) {
       reject(error('cannot click on null', true))
@@ -723,7 +662,7 @@ function clickEl(el, time) {
   })
 }
 
-function scrollToEl(el, time) {
+function scrollToEl (el, time) {
   return new Promise((resolve, reject) => {
     if (!el) {
       reject(error('cannot scroll on null', true))
@@ -733,7 +672,7 @@ function scrollToEl(el, time) {
   })
 }
 
-async function checkAllAvailable(checkboxes) {
+async function checkAllAvailable (checkboxes) {
   return new Promise(async (resolve) => {
     var fresh = false
     if (!checkboxes) {
@@ -758,7 +697,7 @@ async function checkAllAvailable(checkboxes) {
   })
 }
 
-async function scrollToLastChecked(previous) {
+async function scrollToLastChecked (previous) {
   return new Promise(async (resolve, reject) => {
     var lastPhotosChecked = document.querySelectorAll('.synophoto-selectable-overlay.checked:last-child')
     var lastPhotoChecked = lastPhotosChecked[lastPhotosChecked.length - 1]
@@ -776,7 +715,7 @@ async function scrollToLastChecked(previous) {
   })
 }
 
-function getUncheckedCheckboxes() {
+function getUncheckedCheckboxes () {
   return new Promise(async resolve => {
     var sel = '.synophoto-selectable-timeline-header > .synophoto-selectable-overlay:not(.checked) .button-icon.checkbox-btn-icon'
     var checkboxes = Array.from(document.querySelectorAll(sel))
@@ -785,7 +724,7 @@ function getUncheckedCheckboxes() {
   })
 }
 
-async function autotag() {
+async function autotag () {
   var personName = await getEl('person-name').then(el => el.textContent)
   console.log('got personName', personName)
   var cleanName = getCleanName(personName)
@@ -795,11 +734,11 @@ async function autotag() {
   await getEl('tree-dots').then(el => clickEl(el))
   await getEl('modify-tags').then(el => clickEl(el))
   errorSound()
-  prompt('Person name', cleanName)  
+  window.prompt('Person name', cleanName)
   document.title = 'auto tag finnished'
 }
 
-async function invertNextBubble() {
+async function invertNextBubble () {
   var bubble = await getEl('person-bubble')
   if (!bubble || !bubble.classList) {
     return error('failed at getting next bubble element')
@@ -810,9 +749,9 @@ async function invertNextBubble() {
   return Promise.resolve('success')
 }
 
-async function invertSelection() {
+async function invertSelection () {
   // await getEl('tree-dots').then(el => clickEl(el))
-  // await getEl('show-hide-persons').then(el => clickEl(el))  
+  // await getEl('show-hide-persons').then(el => clickEl(el))
   var status = 'success'
   while (status === 'success') {
     status = await invertNextBubble()
