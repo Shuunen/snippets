@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Amazon - Hide products by keyword
 // @namespace    https://github.com/Shuunen
-// @version      1.0.2
+// @version      1.0.3
 // @description  Easily hide products from your searches by specifying a block list
 // @author       Romain Racamier-Lafon
 // @match        https://www.amazon.fr/s/*
@@ -57,6 +57,9 @@
     var excluders = event.target.value.split(',')
       .map(entry => entry.trim().toLowerCase())
       .filter(entry => entry.length)
+    if (!excluders.length) {
+      return
+    }
     utils.log('excluders :', excluders)
     app.filter = excluders.join(', ')
     window.localStorage[app.id + '.filter'] = app.filter
