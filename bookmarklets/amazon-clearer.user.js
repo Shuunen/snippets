@@ -32,7 +32,7 @@
 
   function deleteUseless () {
     Object.keys(uselessSelectors).forEach(key => {
-      utils.findAll(uselessSelectors[key]).forEach(node => {
+      utils.findAll(uselessSelectors[key], document, true).forEach(node => {
         // node.style = 'background-color: red !important;color: white !important;'
         node.remove()
       })
@@ -40,7 +40,7 @@
   }
 
   function cosmeticChanges () {
-    utils.findAll(selectors.productLine).forEach(node => (node.classList = []))
+    utils.findAll(selectors.productLine, document, true).forEach(node => (node.classList = []))
   }
 
   function process () {
