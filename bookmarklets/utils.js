@@ -29,7 +29,7 @@ class Shuutils {
   }
 
   readableString (str) {
-    return str.split('').map(function (letter) {
+    return str.split('').map(letter => {
       var i = this.accentsIn.indexOf(letter)
       return i !== -1 ? this.accentsOut[i] : letter
     }).join('').replace(/(\W|-)/gi, ' ').replace(/\s+/, ' ')
