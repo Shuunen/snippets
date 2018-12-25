@@ -1,3 +1,4 @@
+/* eslint-disable-next-line no-unused-vars */
 class Shuutils {
   constructor (app) {
     if (app) {
@@ -69,5 +70,3 @@ class Shuutils {
     return items
   }
 }
-
-window.Shuutils = Shuutils
