@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Amazon - Cleaner
 // @namespace    https://github.com/Shuunen
-// @version      1.0.1
+// @version      1.0.2
 // @description  Un-clutter Amazon website
 // @author       Romain Racamier-Lafon
 // @match        https://www.amazon.fr/*
@@ -23,9 +23,15 @@
   }
 
   var uselessSelectors = {
-    oldPrice: '.a-text-strike',
-    badges: '.a-badge-label',
-    ads: '.nav-swmslot'
+    oldPrice: '.a-text-strike, #priceblock_saleprice_lbl, #vatMessage',
+    badges: '.a-badge-label, #acBadge_feature_div',
+    ads: '.nav-swmslot, #pdagSparkleAdFeedback, #hqpWrapper, #productAlert_feature_div, #navSwmHoliday, #quickPromoDivId',
+    recommandations: '#raw-sitewide-rhf, #rhf',
+    instantBuy: '#buyNow_feature_div, #oneClick_feature_div',
+    dashButtons: '#digitalDashHighProminence_feature_div',
+    sharing: '#tellAFriendBox_feature_div',
+    buyPack: '#sims-fbt',
+    comparison: '#HLCXComparisonWidget_feature_div'
   }
 
   var utils = new Shuutils(app)
