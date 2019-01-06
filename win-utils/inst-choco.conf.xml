@@ -3,6 +3,7 @@
    <package id="7zip" />
    <package id="androidstudio" />
    <package id="avidemux" />
+   <package id="bulk-crap-uninstaller" />
    <package id="chocolatey" />
    <package id="chocolateygui" />
    <package id="directx" />
