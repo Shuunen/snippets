@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <packages>
    <package id="7zip" />
-   <package id="androidstudio" />
    <package id="avidemux" />
    <package id="bulk-crap-uninstaller" />
    <package id="chocolatey" />
@@ -34,6 +33,7 @@
    <package id="soulseek" />
    <package id="spek" />
    <package id="sumatrapdf" />
+   <package id="sysinternals" />
    <package id="treesizefree" />
    <package id="vcredist-all" />
    <package id="visualstudio2017buildtools" />
