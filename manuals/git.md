@@ -101,3 +101,26 @@ Then use force to re-write history :
 ## Rewrite history
 
 Let's say you have done 4 commits and you want to take all your modified files with latest changes to do new commits : `git reset HEAD~4` 
+
+## Fixup
+
+Je veux corriger/ajouter `path/to/myfile.js` à un commit existant qui a ce sha : `f65055b005492806115f8071d821c6c54d083901`
+
+```bash
+git commit --fixup=f65055b005492806115f8071d821c6c54d083901 -- path/to/myfile.js
+git rebase -i --autosquash develop
+```
+
+Je constate :
+
+pick commit 1
+pick commit 2 plop
+fixup !fixup commit 2 plop
+pick commit 3
+
+Ici le fixup va se merge au commit qui le précède et porte le même nom. 
+Si tout est OK, deux point et Q pour quitter vim, on voit : 
+
+On a ré-écrit l'histoire donc :
+
+`git push --force`
