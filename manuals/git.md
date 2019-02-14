@@ -113,13 +113,17 @@ git rebase -i --autosquash develop
 
 Je constate :
 
+```
 pick commit 1
 pick commit 2 plop
 fixup !fixup commit 2 plop
 pick commit 3
+```
 
 Ici le fixup va se merge au commit qui le précède et porte le même nom. 
 Si tout est OK, deux point et Q pour quitter vim, on voit : 
+
+`Successfully rebased and updated refs/heads/feat/a-great-branch.`
 
 On a ré-écrit l'histoire donc :
 
