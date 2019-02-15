@@ -104,10 +104,19 @@ Let's say you have done 4 commits and you want to take all your modified files w
 
 ## Fixup
 
-Je veux corriger/ajouter `path/to/myfile.js` à un commit existant qui a ce sha : `f65055b005492806115f8071d821c6c54d083901`
+Je veux corriger/ajouter `path/to/myfile.js` et d'autres fichiers à un commit existant qui a ce sha : `f65055b005492806115f8071d821c6c54d083901`
 
 ```bash
-git commit --fixup=f65055b005492806115f8071d821c6c54d083901 -- path/to/myfile.js
+git add path/to/myfile.js
+git add path/to/another/folder/*.css
+git commit --fixup=f65055b005492806115f8071d821c6c54d083901
+```
+
+Si besoin, fixup d'autres commit en répétant la méthode ci-dessus.
+
+Ensuite :
+
+```bash
 git rebase -i --autosquash develop
 ```
 
