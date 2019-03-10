@@ -1,22 +1,35 @@
 {
+  "breadcrumbs.enabled": true,
+  "editor.minimap.maxColumn": 300,
   "explorer.confirmDelete": false,
   "explorer.confirmDragAndDrop": false,
   "files.autoSave": "onFocusChange",
+  "files.eol": "\n",
+  "git.autofetch": true,
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
+  "html.format.wrapLineLength": 300,
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
   "javascript.updateImportsOnFileMove.enabled": "always",
   "javascript.validate.enable": false,
+  "standard.autoFixOnSave": true,
+  "standard.usePackageJson": true,
+  "standard.validate": [
+    {
+      "autoFix": true,
+      "language": "javascript"
+    },
+    {
+      "autoFix": true,
+      "language": "typescript"
+    },
+    {
+      "autoFix": true,
+      "language": "vue"
+    }
+  ],
+  "telemetry.enableTelemetry": false,
   "terminal.integrated.shell.windows": "bash.exe",
   "typescript.updateImportsOnFileMove.enabled": "always",
-  "typescript.validate.enable": false,
-  "standard.validate":[
-      {
-          "language": "javascript",
-          "autoFix": true
-      },
-      {
-          "language": "typescript",
-          "autoFix": true
-      }
-  ]
+  "typescript.validate.enable": false
 }
