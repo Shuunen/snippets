@@ -11,16 +11,16 @@
   },
   "eslint.validate": [
     {
-      "language": "html",
-      "autoFix": true
+      "autoFix": true,
+      "language": "html"
     },
     {
-      "language": "vue",
-      "autoFix": true
+      "autoFix": true,
+      "language": "vue"
     },
     {
-      "language": "javascript",
-      "autoFix": true
+      "autoFix": true,
+      "language": "javascript"
     }
   ],
   "explorer.confirmDelete": false,
@@ -51,7 +51,8 @@
     }
   ],
   "telemetry.enableTelemetry": false,
-  "terminal.integrated.shell.windows": "bash.exe",
+  "terminal.integrated.shell.windows": "C:\\Users\\me\\Apps\\Git\\bin\\bash.exe",
+  "tslint.autoFixOnSave": true,
   "typescript.updateImportsOnFileMove.enabled": "always",
   "typescript.validate.enable": false
 }
