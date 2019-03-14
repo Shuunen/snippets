@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Amazon - Hide products by keyword
 // @namespace    https://github.com/Shuunen
-// @version      1.1.0
+// @version      1.1.1
 // @description  Easily hide products from your searches by specifying a block list
 // @author       Romain Racamier-Lafon
 // @match        https://www.amazon.fr/s*
@@ -38,6 +38,7 @@
   }
 
   var selectors = {
+    container: ['#search > .sg-row > div:first-child > .sg-col-inner', '#leftNavContainer'].join(', ')
     productTitle: 'a.s-access-detail-page > h2.s-access-title'
   }
 
@@ -142,7 +143,7 @@
   var onFilterChangeDebounced = utils.debounce(onFilterChange, 500)
 
   function insertFilter () {
-    var container = utils.findOne('#leftNavContainer')
+    var container = utils.findFirst(selectors.container)
     var html = `
     <style>
     .${cls.suggestions} {
