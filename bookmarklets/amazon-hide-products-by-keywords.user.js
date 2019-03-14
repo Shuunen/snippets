@@ -38,7 +38,7 @@
   }
 
   var selectors = {
-    container: ['#search > .sg-row > div:first-child > .sg-col-inner', '#leftNavContainer'].join(', ')
+    container: ['#search > .sg-row > div:first-child > .sg-col-inner', '#leftNavContainer'].join(', '),
     productTitle: 'a.s-access-detail-page > h2.s-access-title'
   }
 
