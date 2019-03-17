@@ -1,0 +1,35 @@
+{
+  "responseId": "123456-aaa-uuid-ddd-123456",
+  "queryResult": {
+    "queryText": "ou se trouve les talkies walkies",
+    "parameters": {
+      "object": ["talkies walkies"]
+    },
+    "allRequiredParamsPresent": true,
+    "fulfillmentText": "talkies walkies ? est dans { box }{ drawer }",
+    "fulfillmentMessages": [{
+      "text": {
+        "text": ["talkies walkies ? est dans la boite { box }{ drawer }"]
+      }
+    }],
+    "outputContexts": [{
+      "name": "projects/my-proj/agent/sessions/123456-aaa-uuid-ddd-123456/contexts/looking-for-an-object-followup",
+      "lifespanCount": 2,
+      "parameters": {
+        "object.original": "talkies walkies",
+        "object": ["talkies walkies"]
+      }
+    }],
+    "intent": {
+      "name": "projects/forward-vial-232110/agent/intents/0b15b567-a027-418e-ab31-966dd188f5fd",
+      "displayName": "looking-for-an-object"
+    },
+    "intentDetectionConfidence": 1.0,
+    "languageCode": "fr"
+  },
+  "originalDetectIntentRequest": {
+    "payload": {
+    }
+  },
+  "session": "projects/my-proj/agent/sessions/123456-aaa-uuid-ddd-123456"
+}
