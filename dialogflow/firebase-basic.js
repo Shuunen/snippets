@@ -19,7 +19,7 @@ process.env.DEBUG = 'dialogflow:debug' // enables lib debugging statements
 exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, response) => {
   const agent = new WebhookClient({ request, response })
 
-  function lookingHandler(agent) {
+  function lookingHandler (agent) {
     const data = new Map().set('box', 'B').set('drawer', '2')
     const title = '{{ box }}{{ drawer }}'
     const text = request.body.queryResult.fulfillmentText
