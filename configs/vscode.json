@@ -1,0 +1,58 @@
+{
+  "breadcrumbs.enabled": true,
+  "editor.minimap.maxColumn": 300,
+  "eslint.autoFixOnSave": true,
+  "eslint.options": {
+    "extensions": [
+      ".html",
+      ".js",
+      ".vue"
+    ]
+  },
+  "eslint.validate": [
+    {
+      "autoFix": true,
+      "language": "html"
+    },
+    {
+      "autoFix": true,
+      "language": "vue"
+    },
+    {
+      "autoFix": true,
+      "language": "javascript"
+    }
+  ],
+  "explorer.confirmDelete": false,
+  "explorer.confirmDragAndDrop": false,
+  "files.autoSave": "onFocusChange",
+  "files.eol": "\n",
+  "git.autofetch": true,
+  "git.confirmSync": false,
+  "git.enableSmartCommit": true,
+  "html.format.wrapLineLength": 300,
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "javascript.validate.enable": false,
+  "standard.autoFixOnSave": true,
+  "standard.usePackageJson": true,
+  "standard.validate": [
+    {
+      "autoFix": true,
+      "language": "javascript"
+    },
+    {
+      "autoFix": true,
+      "language": "typescript"
+    },
+    {
+      "autoFix": true,
+      "language": "vue"
+    }
+  ],
+  "telemetry.enableTelemetry": false,
+  "terminal.integrated.shell.windows": "C:\\Users\\me\\Apps\\Git\\bin\\bash.exe",
+  "tslint.autoFixOnSave": true,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "typescript.validate.enable": false
+}
