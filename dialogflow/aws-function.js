@@ -48,9 +48,9 @@ const LookingForIntentHandler = {
     console.log(`user is looking for object "${object}"`)
     const record = await data.findBoxContaining(object)
     if (!record) {
-      return answer(handler, 'Désolé je n\'ai pas réussi à trouver l\'objet.')
+      return answer(handler, `Désolé mais je n'ai pas réussi à trouver "${object}"`)
     }
-    const answerTpl = 'Dans la boite {{ box }}{{ drawer }}'
+    const answerTpl = `${record.name}, dans la boite {{ box }} {{ drawer }}`
     const text = utils.fill(answerTpl, record)
     return answer(handler, text)
   }
