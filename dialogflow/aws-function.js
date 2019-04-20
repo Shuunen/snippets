@@ -5,8 +5,12 @@ const Alexa = require('ask-sdk-core')
 const utils = require('./utils')
 const data = require('./data')
 
-const answer = (handler, text) => {
-  console.log(text)
+const answer = (handler, text, waitForResponse) => {
+  console.log('answer :', text)
+  if(waitForResponse){
+    return handler.responseBuilder.speak(text).reprompt(text).getResponse()
+  }
+  text += '. A bientôt !'
   return handler.responseBuilder.speak(text).getResponse()
 }
 
@@ -15,25 +19,28 @@ const LaunchRequestHandler = {
     return handlerInput.requestEnvelope.request.type === 'LaunchRequest'
   },
   handle (handlerInput) {
-    const speechText = 'Welcome, you can say Hello or Help. Which would you like to try?'
+    const speechText = 'Bonjour, comment puis-je vous aider aujourd\'hui ?'
     return handlerInput.responseBuilder
       .speak(speechText)
       .reprompt(speechText)
       .getResponse()
   }
 }
+
 const HelloWorldIntentHandler = {
   canHandle (handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
             handlerInput.requestEnvelope.request.intent.name === 'HelloWorldIntent'
   },
   handle (handlerInput) {
-    const speechText = 'Hello World!'
+    const speechText = 'Salut toi ! Que puis-je faire ?'
     return handlerInput.responseBuilder
       .speak(speechText)
+      .reprompt(speechText)
       .getResponse()
   }
 }
+
 const LookingForIntentHandler = {
   canHandle (handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
@@ -41,35 +48,71 @@ const LookingForIntentHandler = {
   },
   async handle (handler) {
     const request = handler.requestEnvelope.request
-    const object = request.intent.slots.objectslot.value
+    const object = request.intent.slots.object.value
     if (!object) {
-      return answer(handler, 'Impossible de trouver object')
+      return answer(handler, 'Quel objet ?', true)
     }
     console.log(`user is looking for object "${object}"`)
     const record = await data.findBoxContaining(object)
     if (!record) {
-      return answer(handler, `Désolé mais je n'ai pas réussi à trouver "${object}"`)
+      return answer(handler, `Désolé mais je n'ai pas réussi à trouver "${object}", souhaitez-vous autre chose ?`, true)
     }
     const answerTpl = `${record.name}, dans la boite {{ box }} {{ drawer }}`
     const text = utils.fill(answerTpl, record)
     return answer(handler, text)
   }
-
 }
+
+const SortingIntentHandler = {
+  canHandle (handlerInput) {
+    return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
+            handlerInput.requestEnvelope.request.intent.name === 'SortingAnObject'
+  },
+  async handle (handler) {
+    const request = handler.requestEnvelope.request
+    console.log('got request.intent.slots', request.intent.slots)
+    const object = request.intent.slots.object.value
+    if (!object) {
+      return answer(handler, 'Quel objet ?', true)
+    }
+    let box = request.intent.slots.box.value
+    if (!box) {
+      return answer(handler, 'Je n\'ai pas compris dans quelle boite, souhaitez-vous autre chose ?', true)
+    }
+    let drawer = request.intent.slots.drawer.value
+    if (!drawer) {
+      return answer(handler, 'Je n\'ai pas compris dans quel tiroir, souhaitez-vous autre chose ?', true)
+    }
+    box = ('' + box).trim()[0].toUpperCase()
+    if (!(/^[A-Z]$/.test(box))){
+      return answer(handler, `Je n'ai pas compris la boite "${box}", souhaitez-vous autre chose ?`, true)
+    }
+    drawer = ('' + drawer).trim()[0].trim()
+    if (!(/^\d$/.test(drawer))){
+      return answer(handler, `Je n'ai pas compris le tiroir "${drawer}", souhaitez-vous autre chose ?`, true)
+    }
+    const location = box + drawer
+    console.log(`user wants to set object "${object}" in location "${location}"`)
+    const record = await data.setObjectIn(object, '', box, drawer)
+    if (!record) {
+      return answer(handler, `Désolé mais je n'ai pas réussi à ranger "${object}" dans "${location}", souhaitez-vous autre chose ?`, true)
+    }
+    const answerTpl = `${record.name} est désormais dans la boite {{ box }} {{ drawer }}, autre chose ?`
+    const text = utils.fill(answerTpl, record)
+    return answer(handler, text, true)
+  }
+}
+
 const HelpIntentHandler = {
   canHandle (handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
             handlerInput.requestEnvelope.request.intent.name === 'AMAZON.HelpIntent'
   },
-  handle (handlerInput) {
-    const speechText = 'You can say hello to me! How can I help?'
-
-    return handlerInput.responseBuilder
-      .speak(speechText)
-      .reprompt(speechText)
-      .getResponse()
+  handle (handler) {
+    return answer(handler, 'Dites-moi je cherche x ou j\'ai rangé y dans z par exemple')
   }
 }
+
 const CancelAndStopIntentHandler = {
   canHandle (handlerInput) {
     return handlerInput.requestEnvelope.request.type === 'IntentRequest' &&
@@ -139,6 +182,7 @@ exports.handler = Alexa.SkillBuilders.custom()
     HelloWorldIntentHandler,
     LookingForIntentHandler,
     HelpIntentHandler,
+    SortingIntentHandler,
     CancelAndStopIntentHandler,
     SessionEndedRequestHandler,
     IntentReflectorHandler
