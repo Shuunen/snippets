@@ -1,0 +1,20 @@
+{
+  "recommendations": [
+    "bibhasdn.unique-lines",
+    "chenxsan.vscode-standardjs",
+    "christian-kohler.npm-intellisense",
+    "davidanson.vscode-markdownlint",
+    "dbaeumer.vscode-eslint",
+    "EditorConfig.editorconfig",
+    "eg2.vscode-npm-script",
+    "michelemelluso.gitignore",
+    "mrmlnc.vscode-csscomb",
+    "octref.vetur",
+    "orta.vscode-jest",
+    "richie5um2.vscode-sort-json",
+    "shinnn.stylelint",
+    "sibiraj-s.vscode-scss-formatter",
+    "streetsidesoftware.code-spell-checker-french",
+    "streetsidesoftware.code-spell-checker"
+  ]
+}
