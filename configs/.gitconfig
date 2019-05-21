@@ -1,0 +1,38 @@
+[core]
+	excludesfile = %USERPROFILE%\\.gitignore
+	editor = vim
+  eol = lf
+	autocrlf = input
+	filemode = false
+
+[user]
+	name = Romain Racamier-Lafon
+	email = romain.racamier@gmail.com
+
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true
+
+[alias]
+	st = status -sbu
+	as = "! GIT_SEQUENCE_EDITOR=: git rebase -i --autosquash"
+	f = fetch -va
+	ff= merge --ff-only
+	ll = log --pretty=format:'%C(yellow)%h%Cred%d %Creset%s%Cblue [%cn %ad]' --decorate --date=relative -5
+	l = log --pretty=format:'%C(yellow)%h%Cred%d %Creset%s%Cblue [%cn %ad]' --decorate --date=relative
+
+[diff]
+	tool = araxis
+[difftool]
+  prompt = false
+[difftool "araxis"]
+	cmd = merge $LOCAL $REMOTE
+
+[merge]
+	tool = araxis
+[mergetool]
+  prompt = false
+[mergetool "araxis"]
+	cmd = merge $LOCAL $REMOTE $MERGED$
