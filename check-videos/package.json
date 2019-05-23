@@ -1,0 +1,25 @@
+{
+  "author": "Romain Racamier-Lafon <romain.racamier@gmail.com>",
+  "dependencies": {
+    "get-video-duration": "^1.0.3",
+    "globby": "^9.2.0"
+  },
+  "description": "",
+  "engines": {
+    "node": ">= 8.16.0"
+  },
+  "keywords": [
+    "video",
+    "check",
+    "length",
+    "size",
+    "ratio"
+  ],
+  "license": "GPL-3.0",
+  "main": "index.js",
+  "name": "@shuunen/check-videos",
+  "scripts": {
+    "start": "node index.js \"D:\\Videos\""
+  },
+  "version": "1.0.0"
+}
