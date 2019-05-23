@@ -2,7 +2,8 @@
   "author": "Romain Racamier-Lafon <romain.racamier@gmail.com>",
   "dependencies": {
     "get-video-duration": "^1.0.3",
-    "globby": "^9.2.0"
+    "globby": "^9.2.0",
+    "progress": "^2.0.3"
   },
   "description": "",
   "engines": {
