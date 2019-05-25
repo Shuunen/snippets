@@ -79,7 +79,7 @@ function showReport () {
   logger.info(`\nFound ${results.length} videos with high ratio`)
   logger.info(report)
   if (errors) {
-    logger.error(`Found ${errors} errors detected, please check ${logFile} file`)
+    logger.error(`Detected ${errors} error(s), please check ${logFile} file`)
   }
 }
 
