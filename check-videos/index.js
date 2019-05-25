@@ -3,16 +3,13 @@ const find = require('globby')
 const fs = require('fs')
 const duration = require('get-video-duration').default
 const ProgressBar = require('progress')
+const logFile = 'debug.log'
+const logger = require('tracer').console({ transport: [data => fs.appendFile('./' + logFile, data.rawoutput + '\n', (err) => { if (err) throw err }), data => { if (data.level > 2) console.log(data.message) }] })
 
-const debug = false
-
-function log (action, message) {
-  // align logs :p
-  while (action.length < 12) {
-    action += ' '
-  }
-  console.log(action + ' :', message)
-}
+let bar = null
+let files = []
+let errors = 0
+let results = []
 
 function getFileSizeInMB (filename) {
   const stats = fs.statSync(filename)
@@ -21,56 +18,69 @@ function getFileSizeInMB (filename) {
 }
 
 async function checkVideo (videoPath) {
-  return duration(videoPath).then(seconds => {
-    const minutes = Math.round(seconds / 60) || 1
-    const size = getFileSizeInMB(videoPath)
-    const ratio = Math.round(size / minutes)
-    const file = `(${ratio}) ${size} mb - ${videoPath}`
-    if (debug) {
-      log('checked file', `${file} is ${minutes} min long`)
-    }
-    if (ratio > 30) {
-      return Promise.resolve(file)
-    }
-  })
+  return duration(videoPath)
+    .then(seconds => {
+      const minutes = Math.round(seconds / 60) || 1
+      const size = getFileSizeInMB(videoPath)
+      const ratio = Math.round(size / minutes)
+      const file = `(${ratio}) ${size} mb - ${videoPath}`
+      // logger.log(`checked file ${file} is ${minutes} min long`)
+      if (ratio > 30) {
+        results.push(file)
+      }
+    })
+    .catch(e => {
+      errors++
+      logger.log('error on file :', videoPath)
+      logger.log('error', e)
+    })
+    .then(checkNextVideo)
 }
 
 async function findVideos () {
   if (process.argv.length <= 2) {
-    log('use me via', 'node ' + path.basename(__filename) + ' path/to/directory')
+    logger.info(`use me via : node ${path.basename(__filename)} path/to/directory`)
     return process.exit(-1)
   }
   const videosPath = process.argv[2].replace('\\', '//')
-  log('scanning dir', videosPath)
+  logger.info(`\nScanning dir ${videosPath}`)
   const pattern = videosPath + '/**/*.{mp4,mkv,avi,wmv,m4v,mpg}'
-  log('with pattern', pattern)
-  return find(pattern)
+  logger.info(`with pattern ${pattern}\n`)
+  files = await find(pattern)
 }
 
-async function checkVideos (files) {
-  const bar = new ProgressBar('processing   : [:bar] file :current/:total', {
+async function checkNextVideo () {
+  bar.tick()
+  if (files.length) {
+    return checkVideo(files.shift())
+  }
+  return Promise.resolve()
+}
+
+async function checkVideos () {
+  bar = new ProgressBar('Processing   : [:bar] file :current/:total', {
     complete: '=',
     incomplete: ' ',
     total: files.length,
     width: 40
   })
-  return Promise.all(files.map(file => {
-    bar.tick()
-    return checkVideo(file)
-  }))
+  await checkNextVideo()
 }
 
-function showReport(list) {
+function showReport () {
   let report = ''
-  list = list.filter(file => {
-    if(file === undefined) {
+  results = results.filter(file => {
+    if (!file) {
       return false
     }
     report += `- ${file}\n`
     return true
   })
-  log('found', `${list.length} videos with high ratio`)
-  console.log(report)
+  logger.info(`\nFound ${results.length} videos with high ratio`)
+  logger.info(report)
+  if (errors) {
+    logger.error(`Found ${errors} errors detected, please check ${logFile} file`)
+  }
 }
 
 findVideos()
