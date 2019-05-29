@@ -120,6 +120,9 @@ Ensuite :
 git rebase -i --autosquash develop
 ```
 
+Note : sur GitHub la branche par défaut est master
+Note 2 : le dernier paramètre n'est pas lié à la branche sur laquelle on se trouve mais bien à la branche d'origine
+
 Je constate :
 
 ```
