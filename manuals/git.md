@@ -120,8 +120,9 @@ Ensuite :
 git rebase -i --autosquash develop
 ```
 
-Note : sur GitHub la branche par défaut est master
-Note 2 : le dernier paramètre n'est pas lié à la branche sur laquelle on se trouve mais bien à la branche d'origine
+Note : sur GitHub la branche par défaut est master.
+
+Note 2 : **le dernier paramètre n'est pas lié à la branche sur laquelle on se trouve** mais bien à la branche d'origine.
 
 Je constate :
 
@@ -133,6 +134,7 @@ pick commit 3
 ```
 
 Ici le fixup va se merge au commit qui le précède et porte le même nom. 
+
 Si tout est OK, deux point et Q pour quitter vim, on voit : 
 
 `Successfully rebased and updated refs/heads/feat/a-great-branch.`
