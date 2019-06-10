@@ -5,7 +5,7 @@ const path = require('path')
 
 const home = process.env.HOME
 const appData = process.env.APPDATA || (process.platform === 'darwin' ? home + 'Library/Preferences' : home + '/.local/share')
-const configs = [`${appData}/Hyper/.hyper.js`, { file: `${appData}/Code/User/settings.json`, renameTo: `vscode.json` }, `${home}/.gitignore`]
+const configs = [`${appData}/Hyper/.hyper.js`, { file: `${appData}/Code/User/settings.json`, renameTo: 'vscode.json' }, `${home}/.gitignore`]
 const backupPath = process.env.PWD
 const debug = true
 const processOne = false

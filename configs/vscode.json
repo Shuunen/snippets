@@ -51,31 +51,22 @@
     "git.autofetch": true,
     "git.confirmSync": false,
     "git.enableSmartCommit": true,
-    "html.format.wrapLineLength": 300,
+    "html.format.wrapLineLength": 200,
     "importCost.debug": false,
     "importCost.timeout": 60000,
     "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
     "javascript.updateImportsOnFileMove.enabled": "always",
     "javascript.validate.enable": false,
-    "standard.autoFixOnSave": true,
-    "standard.usePackageJson": true,
-    "standard.validate": [
-        {
-            "autoFix": true,
-            "language": "javascript"
-        },
-        {
-            "autoFix": true,
-            "language": "typescript"
-        },
-        {
-            "autoFix": true,
-            "language": "vue"
-        }
-    ],
     "telemetry.enableTelemetry": false,
     "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
     "tslint.autoFixOnSave": true,
     "typescript.updateImportsOnFileMove.enabled": "always",
-    "typescript.validate.enable": false
+    "typescript.validate.enable": false,
+    "vetur.format.defaultFormatter.js": "none",
+    "vetur.format.defaultFormatterOptions": {
+        "prettyhtml": {
+            "printWidth": 200,
+            "singleQuote": false
+        }
+    }
 }
