@@ -17,7 +17,7 @@
 
 [alias]
 	aa = add .
-	am = commit --amend --no-edit
+	amend = commit --amend --no-edit
 	as = "! GIT_SEQUENCE_EDITOR=: git rebase -i --autosquash"
 	f = fetch -va
 	ff= merge --ff-only
