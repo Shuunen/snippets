@@ -16,12 +16,15 @@
 	required = true
 
 [alias]
-	st = status -sbu
+	aa = add .
+	am = commit --amend --no-edit
 	as = "! GIT_SEQUENCE_EDITOR=: git rebase -i --autosquash"
 	f = fetch -va
 	ff= merge --ff-only
-	ll = log --pretty=format:'%C(yellow)%h%Cred%d %Creset%s%Cblue [%cn %ad]' --decorate --date=relative -5
 	l = log --pretty=format:'%C(yellow)%h%Cred%d %Creset%s%Cblue [%cn %ad]' --decorate --date=relative
+	ll = log --pretty=format:'%C(yellow)%h%Cred%d %Creset%s%Cblue [%cn %ad]' --decorate --date=relative -5
+	pf = push --force
+	st = status -sbu
 
 [diff]
 	tool = araxis
