@@ -1,7 +1,2 @@
-logs
 *.log
-npm-debug.log*
 node_modules
-.idea
-package-lock.json
-downloadedpackages.config
