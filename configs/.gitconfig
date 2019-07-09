@@ -1,9 +1,9 @@
 [core]
 	excludesfile = %USERPROFILE%\\.gitignore
 	editor = vim
-  eol = lf
 	autocrlf = input
 	filemode = false
+	eol = lf
 
 [user]
 	name = Romain Racamier-Lafon
@@ -17,13 +17,16 @@
 
 [alias]
 	aa = add .
+	acp = "!f() { git add -A && git commit -m \"$@\" && git push; }; f"
 	amend = commit --amend --no-edit
 	as = "! GIT_SEQUENCE_EDITOR=: git rebase -i --autosquash"
+	co = checkout
 	f = fetch -va
 	ff= merge --ff-only
 	l = log --pretty=format:'%C(yellow)%h%Cred%d %Creset%s%Cblue [%cn %ad]' --decorate --date=relative
 	ll = log --pretty=format:'%C(yellow)%h%Cred%d %Creset%s%Cblue [%cn %ad]' --decorate --date=relative -5
 	pf = push --force
+	rh = "!f() { git reset HEAD~$@ && echo -e \"\n You moved $@ commit(s) back\"; }; f"
 	st = status -sbu
 
 [diff]
