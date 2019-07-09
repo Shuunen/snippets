@@ -5,7 +5,7 @@ const path = require('path')
 
 const home = process.env.HOME
 const appData = process.env.APPDATA || (process.platform === 'darwin' ? home + 'Library/Preferences' : home + '/.local/share')
-const configs = [`${appData}/Hyper/.hyper.js`, { file: `${appData}/Code/User/settings.json`, renameTo: 'vscode.json' }, `${home}/.gitignore`]
+const configs = [`${appData}/Hyper/.hyper.js`, { file: `${appData}/Code/User/settings.json`, renameTo: 'vscode.json' }, `${home}/.gitignore`, `${home}/.gitconfig`]
 const backupPath = process.env.PWD
 const debug = true
 const processOne = false
@@ -45,6 +45,7 @@ function start () {
   } else {
     configs.map(config => backup(config))
   }
+  console.log('\n Tip: you can use "git difftool my-file.json" to check updates\n\n Configs backup done.\n')
 }
 
 start()
