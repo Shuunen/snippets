@@ -18,8 +18,11 @@ function copy (source, dest) {
       if (err) {
         console.log('no file   :', source)
       } else {
-        console.log('backed up :', source)
-        console.log('to        :', dest)
+        console.log('local file            :', source)
+        console.log('backed up to          :', dest)
+        const destFile = 'files/' + dest.split('configs\\files\\')[1]
+        console.log('1. develop < > backup : git difftool', destFile)
+        console.log('2. backup  < > local  : merge', destFile, source.replace(/\\/g, '/'))
       }
       resolve()
     })
