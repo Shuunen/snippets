@@ -6,7 +6,7 @@
 
 ```bash
 choco feature enable -n allowGlobalConfirmation
-choco install 7zip googlechrome git git-credential-manager-for-windows directx jdk8 jre8 microsoft-build-tools nvm vcredist-all visualstudio2017buildtools vscode
+choco install 7zip googlechrome steam git git-credential-manager-for-windows directx jdk8 jre8 microsoft-build-tools nvm vcredist-all visualstudio2017buildtools vscode
 ```
 
 - [ ] install [Synology Drive](https://archive.synology.com/download/Tools/SynologyDriveClient/?C=M;O=D)
@@ -14,6 +14,8 @@ choco install 7zip googlechrome git git-credential-manager-for-windows directx j
 - [ ] copy `.ssh` keys
 - [ ] copy `documents` saved games
 - [ ] install my custom hosts file
+- [ ] start `Steam` and add my 2 game library in `download options > steam library`
+- [ ] install graphic card drivers
 - [ ] copy folder `Apps/_copy-these-on-ssd` to home and rename it `Apps`
 - [ ] install `Apps\portabler\install.bat`
 - [ ] use `Apps\RapidEE` to add `global` & `araxis` folder to user path
