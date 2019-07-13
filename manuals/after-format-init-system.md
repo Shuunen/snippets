@@ -3,10 +3,12 @@
 - [ ] install [kaspersky](https://www.kaspersky.com/downloads/thank-you/antivirus)
 - [ ] install [chocolatey](https://chocolatey.org/install)
 - [ ] open a cmd with rights and run :
+
 ```bash
 choco feature enable -n allowGlobalConfirmation
 choco install 7zip googlechrome git git-credential-manager-for-windows directx jdk8 jre8 microsoft-build-tools nvm vcredist-all visualstudio2017buildtools vscode
 ```
+
 - [ ] install [Synology Drive](https://archive.synology.com/download/Tools/SynologyDriveClient/?C=M;O=D)
 - [ ] setup folders and **deactivate "SynologyDrive" folder default creation**
 - [ ] copy `.ssh` keys
@@ -21,10 +23,12 @@ choco install 7zip googlechrome git git-credential-manager-for-windows directx j
 - [ ] move the shortcut to `%AppData%\Microsoft\Windows\Start Menu\Programs\Startup`
 - [ ] do the same for flux
 - [ ] open git bash, run :
+
 ```bash
 cd && mkdir Projects && cd Projects
 nvm install 8.16.0
 nvm use 8.16.0
+npm install -g nodemon serve
 git clone git@github.com:Shuunen/snippets.git
 cd snippets/configs/files/
 cp .gitignore ~
@@ -32,8 +36,9 @@ cp .gitconfig ~
 cp vscode.json ~/AppData/Roaming/Code/User/settings.json
 code ~/Projects/snippets
 ```
-- [ ] install my recommanded extensions
 
-## Optionals 
+- [ ] install my recommended extensions
+
+## Optionals
 
 - [ ] install Android Dev Env

@@ -13,6 +13,7 @@ Check these files/folders :
 - [ ] configs in `~/.config`
 - [ ] ssh keys, do `ls -la ~/.ssh` to check for existing ones
 - [ ] git/npm/xyz configs in home
+- [ ] list global npm packages
 - [ ] virtual machines
 
 And these :
