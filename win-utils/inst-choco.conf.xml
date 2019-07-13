@@ -1,44 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <packages>
    <package id="7zip" />
-   <package id="avidemux" />
-   <package id="bulk-crap-uninstaller" />
-   <package id="chocolatey" />
-   <package id="chocolateygui" />
    <package id="directx" />
-   <package id="dns-benchmark" />
-   <package id="f.lux" />
-   <package id="filebot" version="4.7.9" />
-   <package id="filezilla" />
-   <package id="freefilesync" />
-   <package id="gifcam" />
    <package id="git" />
    <package id="git-credential-manager-for-windows" />
    <package id="googlechrome" />
-   <package id="greenshot" />
    <package id="jdk8" />
    <package id="jre8" />
-   <package id="launchy" />
-   <package id="markdown-edit" />
    <package id="microsoft-build-tools" />
-   <package id="netstat-viewer" />
-   <package id="notepadplusplus" />
    <package id="nvm" />
-   <package id="paint.net" />
-   <package id="pci-z" />
-   <package id="picard" />
-   <package id="python2" />
-   <package id="qbittorrent" />
-   <package id="rapidee" />
-   <package id="soulseek" />
-   <package id="spek" />
-   <package id="sumatrapdf" />
-   <package id="sysinternals" />
-   <package id="treesizefree" />
    <package id="vcredist-all" />
    <package id="visualstudio2017buildtools" />
-   <package id="vlc" />
    <package id="vscode" />
-   <package id="WhatsApp" />
-   <package id="yarn" />
 </packages>
