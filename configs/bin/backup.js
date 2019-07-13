@@ -48,7 +48,7 @@ function backup (config) {
 async function start () {
   console.log('\nConfigs backup start')
   await Promise.all(configs.map(config => backup(config)))
-  console.log('\nTip: you can use "git difftool files\\my-file.json" to check updates\n\nConfigs backup done.\n')
+  console.log('\n\nConfigs backup done.\n')
 }
 
 start()
