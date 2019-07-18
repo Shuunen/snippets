@@ -27,10 +27,11 @@
   co = checkout
   f = fetch -va
   ff= merge --ff-only
+  fr = "!f() { git fetch && git rebase origin/$@ && echo -e \"\n Branch rebased to origin $@ \n\" && git st; }; f"
   l = log --pretty=format:'%C(yellow)%h%Cred%d %Creset%s%Cblue [%cn %ad]' --decorate --date=relative
   ll = log --pretty=format:'%C(yellow)%h%Cred%d %Creset%s%Cblue [%cn %ad]' --decorate --date=relative -5
   pf = push --force
-  rh = "!f() { git reset HEAD~$@ && echo -e \"\n You moved $@ commit(s) back\"; }; f"
+  rh = "!f() { git reset HEAD~$@ && echo -e \"\n You moved $@ commit(s) back \n\"; }; f"
   st = status -sbu
 
 [diff]
