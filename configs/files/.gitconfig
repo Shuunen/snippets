@@ -32,6 +32,7 @@
   ll = log --pretty=format:'%C(yellow)%h%Cred%d %Creset%s%Cblue [%cn %ad]' --decorate --date=relative -5
   pf = push --force
   rh = "!f() { git reset HEAD~$@ && echo -e \"\n You moved $@ commit(s) back \n\"; }; f"
+  sps = "!f() { git stash && git pull && git stash apply; }; f"
   st = status -sbu
 
 [diff]
