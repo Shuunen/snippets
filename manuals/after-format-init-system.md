@@ -6,7 +6,7 @@
 
 ```bash
 choco feature enable -n allowGlobalConfirmation
-choco install geforce-game-ready-driver autoruns spotify 7zip googlechrome steam git git-credential-manager-for-windows directx jdk8 jre8 microsoft-build-tools nvm vcredist-all visualstudio2017buildtools vscode
+choco install geforce-game-ready-driver autoruns spotify yarn 7zip googlechrome steam git git-credential-manager-for-windows directx jdk8 jre8 microsoft-build-tools nvm vcredist-all visualstudio2017buildtools vscode
 ```
 
 - [ ] install [Synology Drive](https://archive.synology.com/download/Tools/SynologyDriveClient/?C=M;O=D)
