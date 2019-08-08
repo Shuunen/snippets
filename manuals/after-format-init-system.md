@@ -30,7 +30,7 @@ choco install geforce-game-ready-driver autoruns spotify yarn 7zip googlechrome 
 cd && mkdir Projects && cd Projects
 nvm install 8.16.0
 nvm use 8.16.0
-npm install -g nodemon serve
+npm install -g nodemon serve @vue/cli @vue/cli-init @angular/cli
 git clone git@github.com:Shuunen/snippets.git
 cd snippets/configs/files/
 cp .gitignore ~
