@@ -157,4 +157,4 @@ module.exports = {
     // Example
     // 'window:devtools': 'cmd+alt+o',
   },
-};
+}
