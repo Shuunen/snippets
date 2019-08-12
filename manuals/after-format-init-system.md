@@ -27,10 +27,10 @@ choco install geforce-game-ready-driver autoruns spotify yarn 7zip googlechrome 
 - [ ] open git bash, run :
 
 ```bash
-cd && mkdir Projects && cd Projects
 nvm install 8.16.0
 nvm use 8.16.0
-npm install -g nodemon serve @vue/cli @vue/cli-init @angular/cli
+npm install -g nodemon serve @vue/cli @vue/cli-init
+cd && mkdir Projects && cd Projects
 git clone git@github.com:Shuunen/snippets.git
 cd snippets/configs/files/
 cp .gitignore ~
@@ -40,6 +40,7 @@ cd ..
 ./bin/backup.js
 ```
 
+- [ ] copy package.json & eslintrc.js to ~ and npm install to have a global lint conf with Standard
 - [ ] install my recommended extensions
 
 ## Optionals
