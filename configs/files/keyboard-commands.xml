@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<DPGCmd>
+   <Copyright>Copyright (c) Shuunen</Copyright>
+   <Version>11.0.0.0</Version>
+   <ENG />
+   <FRA />
+   <ALL>
+      <Application UniqueName="StandardSupport">
+         <C309 Type="5" KeySeq="ctrl F4" />
+         <C201 Type="5" KeySeq="ctrl c" />
+         <C200 Type="5" KeySeq="ctrl x" />
+         <C301 Type="5" KeySeq="alt F4" />
+         <C302 Type="5" KeySeq="F1" />
+         <C202 Type="5" KeySeq="ctrl v" />
+         <C203 Type="5" KeySeq="ctrl z" />
+         <C205 Type="5" KeySeq="delete" />
+         <C100 Type="8" Button="xbutton1" />
+         <C101 Type="8" Button="xbutton2" />
+         <C103 Type="5" KeySeq="escape" />
+         <C300 Type="5" KeySeq="enter" />
+         <C1613 Type="5" KeySeq="pagedown" />
+         <C1612 Type="5" KeySeq="pageup" />
+         <C319 Type="6" Activator="ScrollUp" />
+         <C320 Type="6" Activator="ScrollDown" />
+         <C1003 Type="7" Subtype="0" />
+         <C900 Type="5" KeySeq="ctrl r" />
+         <C901 Type="5" KeySeq="ctrl f" />
+         <C902 Type="5" KeySeq="ctrl enter" />
+      </Application>
+   </ALL>
+</DPGCmd>
