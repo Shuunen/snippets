@@ -1,63 +1,30 @@
 #!/usr/bin/env node
+const files = require('./files')
+const utils = require('./utils')
 
-const fs = require('fs')
-const path = require('path')
-
-const home = process.env.HOME
-const appData = process.env.APPDATA || (process.platform === 'darwin' ? home + 'Library/Preferences' : home + '/.local/share')
-const prgFiles = 'C:/Program Files'
-const configs = [
-  `${appData}/Hyper/.hyper.js`,
-  { file: `${appData}/Code/User/settings.json`, renameTo: 'vscode-settings.json' },
-  `${home}/.gitignore`, `${home}/.gitconfig`,
-  `${home}/.repo-checker.js`,
-  { file: `${home}/.eslintrc.js`, renameTo: 'global-lint-eslintrc.js' },
-  { file: `${home}/package.json`, renameTo: 'global-lint-package.json' },
-  { file: `${prgFiles}/Microsoft Mouse and Keyboard Center/commands.xml`, renameTo: 'keyboard-commands.xml' },
-]
-const backupPath = path.join(process.env.PWD, '/files')
-
-function copy (source, dest) {
-  return new Promise(resolve => {
-    source = path.normalize(source)
-    dest = path.normalize(dest)
-    // destination will be created or overwritten by default.
-    fs.copyFile(source, dest, (err) => {
-      console.log('')
-      if (err) {
-        console.log('no file   :', source)
-      } else {
-        console.log('local file            :', source)
-        console.log('backed up to          :', dest)
-        const destFile = 'files/' + dest.split('configs\\files\\')[1]
-        console.log('1. develop < > backup : git difftool', destFile)
-        console.log('2. backup  < > local  : merge', destFile, source.replace(/\\/g, '/'))
-      }
-      resolve()
-    })
-  })
-}
-
-function backup (config) {
-  let source = ''
-  let filename = ''
-  if (typeof config === 'string') {
-    source = config
-    filename = path.basename(config)
-  } else if (typeof config === 'object') {
-    source = config.file
-    filename = config.renameTo
-  } else {
-    throw new Error('unhandled config format')
+async function backup (file) {
+  const filesEqual = await utils.areFilesEqual(file.source, file.dest)
+  if (filesEqual) {
+    return utils.log('backup is up to date for :', file.source)
   }
-  const dest = path.join(backupPath, filename)
-  return copy(source, dest)
+  const copySuccess = await utils.copy(file.source, file.dest)
+  if (!copySuccess) {
+    return utils.log('no file or error at copying :', file.source)
+  }
+  utils.log('backed up :', file.source)
+  const destFile = 'files/' + file.dest.split('configs\\files\\')[1]
+  return 'git difftool ' + destFile
+  // utils.log('2. backup  < > local  : merge', destFile, file.source.replace(/\\/g, '/'))
 }
 
 async function start () {
-  console.log('\nConfigs backup start')
-  await Promise.all(configs.map(config => backup(config)))
-  console.log('\n\nConfigs backup done.\n')
+  utils.log('Backup start...')
+  const results = await Promise.all(files.map(file => backup(file)))
+  const suggestedCommands = results.filter(result => !!result)
+  if (suggestedCommands.length) {
+    utils.log('suggested commands :\n\n', suggestedCommands.join('\n '))
+  }
+  utils.log('Backup done.')
 }
 
 start()
