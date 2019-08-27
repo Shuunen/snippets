@@ -7,6 +7,7 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'standard',
+    'plugin:vue/recommended',
   ],
   parserOptions: {
     sourceType: 'module',
@@ -14,8 +15,10 @@ module.exports = {
   },
   rules: {
     'linebreak-style': ['error', 'unix'],
-    'no-console': 'off',
     'func-names': ['error', 'always'],
+    'no-console': 'off',
+    'vue/max-attributes-per-line': 'off',
+    'vue/singleline-html-element-content-newline': 'off',
     'comma-dangle': ['error', 'always-multiline'],
   },
 }
