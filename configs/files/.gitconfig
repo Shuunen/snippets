@@ -23,16 +23,18 @@
   acp = "!f() { git add -A && git commit -m \"$@\" && git push; }; f"
   amend = commit --amend --no-edit
   as = "! GIT_SEQUENCE_EDITOR=: git rebase -i --autosquash"
+  asd = "! git as develop"
   bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs -r git branch -d; }; f"
   co = checkout
   f = fetch -va
   ff= merge --ff-only
   fr = "!f() { git fetch && git rebase origin/$@ && echo -e \"\n Branch rebased to origin $@ \n\" && git st; }; f"
+  frd = "! git fr develop"
   l = log --pretty=format:'%C(yellow)%h%Cred%d %Creset%s%Cblue [%cn %ad]' --decorate --date=relative
   ll = log --pretty=format:'%C(yellow)%h%Cred%d %Creset%s%Cblue [%cn %ad]' --decorate --date=relative -5
   pf = push --force
   rh = "!f() { git reset HEAD~$@ && echo -e \"\n You moved $@ commit(s) back \n\"; }; f"
-  sps = "!f() { git stash && git pull && git stash apply; }; f"
+  sps = "! git stash && git pull && git stash apply"
   st = status -sbu
 
 [diff]
