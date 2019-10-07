@@ -10,8 +10,8 @@ module.exports = {
     'plugin:vue/recommended',
   ],
   parserOptions: {
+    ecmaVersion: 2018,
     sourceType: 'module',
-    ecmaVersion: 8,
   },
   rules: {
     'linebreak-style': ['error', 'unix'],
