@@ -1,12 +1,9 @@
 const fs = require('fs')
 const path = require('path')
 const util = require('util')
-const exec = util.promisify(require('child_process').exec);
+const exec = util.promisify(require('child_process').exec)
 const readFile = util.promisify(fs.readFile)
 const copyFile = util.promisify(fs.copyFile)
-const writeFile = util.promisify(fs.writeFile)
-const deleteFile = util.promisify(fs.unlink)
-const statFile = util.promisify(fs.stat)
 
 const log = console.log.bind(console, '')
 
@@ -37,7 +34,7 @@ async function report (filepath) {
   return {
     path: normalize(filepath),
     exists: !!content,
-    content
+    content,
   }
 }
 
@@ -50,15 +47,9 @@ async function copy (source, dest) {
 }
 
 async function merge (source, dest) {
-  const empty = 'omg.txt'
-  await writeFile(empty, '').catch((err) => {
-    log(err)
-    return false
-  })
-  // git merge-file b.txt c.txt a.txt -p
-  await exec(`git merge-file -L "last backup" -L useless -L "local file" ${normalize(dest, true)} ${empty} ${normalize(source, true)}`).catch(() => true)
-  await deleteFile(empty)
-  return true
+  const empty = 'files/empty.txt'
+  const cmd = `git merge-file -L "last backup" -L useless -L "local file" ${normalize(dest, true)} ${empty} ${normalize(source, true)}`
+  return exec(cmd).catch(() => true).then(() => true)
 }
 
 module.exports = { equals, copy, log, merge, report, read, normalize }
