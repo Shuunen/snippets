@@ -4,6 +4,7 @@
   autocrlf = input
   filemode = false
   eol = lf
+  ignorecase = false
 
 [user]
   name = Romain Racamier-Lafon

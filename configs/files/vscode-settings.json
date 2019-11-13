@@ -32,8 +32,10 @@
     "Shuutils",
     "Synology",
     "Vuex",
+    "accès",
     "antialiased",
     "araxis",
+    "arial",
     "autofetch",
     "autoruns",
     "autosquash",
@@ -63,6 +65,7 @@
     "gmail",
     "googlechrome",
     "grayscale",
+    "gridsome",
     "hyperpower",
     "inversify",
     "kaspersky",
@@ -113,16 +116,21 @@
     "singleline",
     "spotify",
     "tabindex",
+    "taiko",
     "tmux",
     "touchenter",
     "touchleave",
     "typestrict",
     "vcredist",
     "vetur",
+    "viewports",
     "visualstudio",
     "wario"
   ],
   "csscomb.formatOnSave": true,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true
+  },
   "editor.minimap.maxColumn": 300,
   "editor.tabSize": 2,
   "eslint.alwaysShowStatus": true,
@@ -156,9 +164,8 @@
   "telemetry.enableTelemetry": false,
   "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
   "tslint.autoFixOnSave": true,
-  "tslint.typeCheck": true,
   "typescript.updateImportsOnFileMove.enabled": "always",
-  "typescript.validate.enable": false,
+  "vetur.completion.autoImport": true,
   "vetur.format.defaultFormatter.js": "none",
   "vetur.format.defaultFormatterOptions": {
     "prettyhtml": {
@@ -166,5 +173,7 @@
       "singleQuote": false
     }
   },
+  "vetur.useWorkspaceDependencies": true,
+  "vetur.validation.script": true,
   "window.zoomLevel": 0
 }
