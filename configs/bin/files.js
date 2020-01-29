@@ -7,7 +7,6 @@ const appData = process.env.APPDATA || (process.platform === 'darwin' ? home + '
 const prgFiles = 'C:/Program Files'
 
 const configs = [
-  `${appData}/Hyper/.hyper.js`,
   { file: `${appData}/Code/User/settings.json`, renameTo: 'vscode-settings.json' },
   `${home}/.gitignore`, `${home}/.gitconfig`,
   `${home}/.repo-checker.js`,

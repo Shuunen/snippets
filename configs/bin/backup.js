@@ -40,7 +40,7 @@ async function start () {
   const suggestedCommands = results.filter(result => !!result)
   if (suggestedCommands.length) {
     utils.log('\nTODO :\n=====\n1. review changes on this repo if any\n2. run these to compare backup & local files :\n\n', suggestedCommands.join('\n '))
-  }else {
+  } else {
     utils.log('\nNo actions required.')
   }
   utils.log('\nBackup done, have a nice day :)')
