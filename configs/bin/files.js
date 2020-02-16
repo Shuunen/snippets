@@ -10,8 +10,6 @@ const configs = [
   { file: `${appData}/Code/User/settings.json`, renameTo: 'vscode-settings.json' },
   `${home}/.gitignore`, `${home}/.gitconfig`,
   `${home}/.repo-checker.js`,
-  { file: `${home}/.eslintrc.js`, renameTo: 'global-lint-eslintrc.js' },
-  { file: `${home}/package.json`, renameTo: 'global-lint-package.json' },
   { file: `${prgFiles}/Microsoft Mouse and Keyboard Center/commands.xml`, renameTo: 'keyboard-commands.xml' },
 ]
 
