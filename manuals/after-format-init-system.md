@@ -26,6 +26,8 @@ choco install geforce-game-ready-driver autoruns spotify 7zip googlechrome steam
 - [ ] set windows default apps : VLC, Picasa & Chrome
 - [ ] activate windows
 - [ ] enable windows night luminosity mode & dark mode
+- [ ] change machine name
+- [ ] tell windows to use power mode in energy settings
 - [ ] use autoruns to remove useless things at startup
 - [ ] open git bash, run :
 
