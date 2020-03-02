@@ -5,7 +5,7 @@
 
 ```bash
 choco feature enable -n allowGlobalConfirmation
-choco install geforce-game-ready-driver autoruns spotify 7zip googlechrome steam git git-credential-manager-for-windows directx jdk8 jre8 microsoft-build-tools nvm vcredist-all visualstudio2017buildtools vscode chocolateygui launchyqt
+choco install geforce-game-ready-driver autoruns spotify 7zip googlechrome steam git git-credential-manager-for-windows directx jdk8 jre8 microsoft-build-tools nvm vcredist-all visualstudio2017buildtools vscode chocolateygui launchyqt vlc
 ```
 
 - [ ] start 7zip and setup file association
@@ -19,8 +19,11 @@ choco install geforce-game-ready-driver autoruns spotify 7zip googlechrome steam
 - [ ] remove win 10 shit with [O&O ShutUp10](https://www.oo-software.com/en/shutup10)
 - [ ] use `Apps\RapidEE` to add `global` & `araxis` folder to user path
 - [ ] start `Clavier.Plus.Plus` and activate it on startup
-- [ ] start Launchy and set the Ctrl+Shift+K keystroke from clavier++
+- [ ] start Launchy, set the Ctrl+Shift+K keystroke from clavier++, add portable app folder & scan
+- [ ] press Win+R , type shell:startup , hit Enter, go up one level & drag Launchy shortcut to Stratup folder to make it start with windows
 - [ ] start `Picasa3` and setup image viewer
+- [ ] go to a folder with jpg or png image and set open as -> chose specific -> use `PicasaPhotoViewer.exe`
+- [ ] set windows default apps : VLC, Picasa & Chrome
 - [ ] activate windows
 - [ ] enable windows night luminosity mode & dark mode
 - [ ] use autoruns to remove useless things at startup
@@ -48,4 +51,5 @@ code ..
 
 ## Optionals
 
+- [ ] Do Geekbench, Cinebench & UserBenchmark
 - [ ] install Android Dev Env
