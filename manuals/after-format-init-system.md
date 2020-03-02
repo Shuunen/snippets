@@ -5,7 +5,7 @@
 
 ```bash
 choco feature enable -n allowGlobalConfirmation
-choco install geforce-game-ready-driver autoruns spotify 7zip googlechrome steam git git-credential-manager-for-windows directx jdk8 jre8 microsoft-build-tools nvm vcredist-all visualstudio2017buildtools vscode chocolateygui
+choco install geforce-game-ready-driver autoruns spotify 7zip googlechrome steam git git-credential-manager-for-windows directx jdk8 jre8 microsoft-build-tools nvm vcredist-all visualstudio2017buildtools vscode chocolateygui launchyqt
 ```
 
 - [ ] start 7zip and setup file association
@@ -19,28 +19,31 @@ choco install geforce-game-ready-driver autoruns spotify 7zip googlechrome steam
 - [ ] remove win 10 shit with [O&O ShutUp10](https://www.oo-software.com/en/shutup10)
 - [ ] use `Apps\RapidEE` to add `global` & `araxis` folder to user path
 - [ ] start `Clavier.Plus.Plus` and activate it on startup
+- [ ] start Launchy and set the Ctrl+Shift+K keystroke from clavier++
 - [ ] start `Picasa3` and setup image viewer
-- [ ] go to `Eye.Leo` and create a shortcut of `EyeLeo.exe`
-- [ ] move the shortcut to `%AppData%\Microsoft\Windows\Start Menu\Programs\Startup`
-- [ ] do the same for flux
+- [ ] activate windows
+- [ ] enable windows night luminosity mode & dark mode
 - [ ] use autoruns to remove useless things at startup
 - [ ] open git bash, run :
 
 ```bash
-nvm install 8.16.0
-nvm use 8.16.0
-npm install -g nodemon serve @vue/cli @vue/cli-init
+nvm install 12.16.1
+nvm use 12.16.1
+echo -e '#!/bin/bash\n\neval "$(ssh-agent -s)"\nssh-add ~/.ssh/id_rsa_gh' > ~/.bashrc 
+echo -e '\nalias ll="ls -alhFo --group-directories-first --time-style=long-iso --color=auto"' >> ~/.bashrc
+bash
 cd && mkdir Projects && cd Projects
 git clone git@github.com:Shuunen/snippets.git
 cd snippets/configs/files/
 cp .gitignore ~
 cp .gitconfig ~
-cp vscode.json ~/AppData/Roaming/Code/User/settings.json
+cp .repo-checker.js ~
+cp vscode-settings.json ~/AppData/Roaming/Code/User/settings.json
 cd ..
 ./bin/backup.js
+code ..
 ```
 
-- [ ] copy package.json & eslintrc.js to ~ and npm install to have a global lint conf with Standard
 - [ ] install my recommended extensions
 
 ## Optionals
