@@ -5,7 +5,7 @@
 
 ```bash
 choco feature enable -n allowGlobalConfirmation
-choco install geforce-game-ready-driver autoruns spotify 7zip googlechrome steam git git-credential-manager-for-windows directx jdk8 jre8 microsoft-build-tools nvm vcredist-all visualstudio2017buildtools vscode chocolateygui launchyqt vlc
+choco install 7zip autoruns chocolateygui directx geforce-game-ready-driver git git-credential-manager-for-windows googlechrome jdk8 jre8 launchyqt microsoft-build-tools nvm qbittorrent spotify steam vcredist-all visualstudio2017buildtools vlc vscode
 ```
 
 - [ ] start 7zip and setup file association
@@ -34,7 +34,7 @@ choco install geforce-game-ready-driver autoruns spotify 7zip googlechrome steam
 ```bash
 nvm install 12.16.1
 nvm use 12.16.1
-echo -e '#!/bin/bash\n\neval "$(ssh-agent -s)"\nssh-add ~/.ssh/id_rsa_gh' > ~/.bashrc 
+echo -e '#!/bin/bash\n\neval "$(ssh-agent -s)"\nssh-add ~/.ssh/id_rsa_gh' > ~/.bashrc
 echo -e '\nalias ll="ls -alhFo --group-directories-first --time-style=long-iso --color=auto"' >> ~/.bashrc
 bash
 cd && mkdir Projects && cd Projects
