@@ -1,8 +1,10 @@
 /* global iziToast, AudioContext */
 
+/* eslint-disable func-names, no-async-promise-executor */
+
 var api = 'http://192.168.31.227:5001/webapi/entry.cgi?'
 var headers = {
-  'x-syno-token': 'XXX' // <=== PUT TOKEN HERE
+  'x-syno-token': 'XXX', // <=== PUT TOKEN HERE
 }
 var body = ''
 var unidentifiedColor = 'red'
@@ -12,8 +14,6 @@ var errorDetected = false
 var autoMode = true
 var clickedOnAvailableTag = false
 var allowNoTag = true
-
-// For error an evolutive sound
 
 var frequencyMin = 120
 var frequencyMax = 760
@@ -89,7 +89,7 @@ async function check () {
   await names.forEach(async (name) => {
     if (!name.title || !name.title.length) {
       markAsUnidentified(name)
-      document.title = 'INDENTIFICATION NEEDED'
+      document.title = 'IDENTIFICATION NEEDED'
       errorDetected = true
       console.error('unidentified person')
     } else {
@@ -271,7 +271,7 @@ function showAutoModeSwitcher () {
     onClosing: function () {
       autoMode = !autoMode
       setTimeout(showAutoModeSwitcher, 3000)
-    }
+    },
   })
 }
 
@@ -294,10 +294,10 @@ function error (message, avoidRejection) {
             check()
           }
           instance.hide({
-            transitionOut: 'fadeOut'
+            transitionOut: 'fadeOut',
           }, toast, 'button')
-        }, true]
-      ]
+        }, true],
+      ],
     })
   }
   if (avoidRejection) {
@@ -308,19 +308,19 @@ function error (message, avoidRejection) {
 
 function merge (from, to, el) {
   if (!from || typeof from !== 'number') {
-    return error('"from" shoud be a number')
+    return error('"from" should be a number')
   }
   if (!to || typeof to !== 'number') {
-    return error('"to" shoud be a number')
+    return error('"to" should be a number')
   }
   if (!el || typeof el.tagName !== 'string') {
-    return error('"el" shoud be a dom element')
+    return error('"el" should be a dom element')
   }
   console.info('merging person', from, 'to', to)
   body = `target_id=${to}&merged_id=%5B${from}%5D&api=%22SYNO.Photo.Browse.Person%22&method=%22merge%22&version=1`
   return post(body).then(response => {
     if (response.success) {
-      console.info('merge succeful')
+      console.info('merge successful')
       markAsIdentified(el)
       return 'success'
     } else {
@@ -334,7 +334,7 @@ function post (body) {
     body,
     method: 'POST',
     credentials: 'same-origin',
-    headers
+    headers,
   }).then(response => response.json())
 }
 
@@ -496,7 +496,7 @@ async function onTagClick (event) {
 
 function createPerson (id, name) {
   if (!id || typeof id !== 'number') {
-    return error('"id" shoud be a number')
+    return error('"id" should be a number')
   }
   body = `id=${id}&name=%22${encodeURI(name)}%22&api=%22SYNO.Photo.Browse.Person%22&method=%22set%22&version=1`
   return post(body).then(response => {
@@ -522,7 +522,7 @@ async function onAvailableTagClick (availableTag) {
   }
   var fromPersonId = parseInt(unidentified.href.match(/person\/(\d+)/)[1])
   if (!fromPersonId || typeof fromPersonId !== 'number') {
-    return error('"fromPersonId" shoud be a number')
+    return error('"fromPersonId" should be a number')
   }
   getPersonByTag(availableTag)
     .then(person => {
@@ -735,7 +735,7 @@ async function autotag () {
   await getEl('modify-tags').then(el => clickEl(el))
   errorSound()
   window.prompt('Person name', cleanName)
-  document.title = 'auto tag finnished'
+  document.title = 'auto tag finished'
 }
 
 async function invertNextBubble () {

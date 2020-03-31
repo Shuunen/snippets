@@ -7,7 +7,7 @@ const { Card, Suggestion } = require('dialogflow-fulfillment')
 
 const fill = (tpl, data) => {
   let str = '' + tpl
-  for (let [key, value] of data) {
+  for (const [key, value] of data) {
     const regex = new RegExp('{+\\s?' + key + '\\s?}+', 'ig')
     str = str.replace(regex, value)
   }
@@ -27,15 +27,15 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
     agent.add(new Card({
       title: fill(title, data),
       imageUrl: 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/146/card-file-box_1f5c3.png',
-      text: 'est-ce correct ?'
-    })
+      text: 'est-ce correct ?',
+    }),
     )
     // Suggestion title must be under 25 chars
     agent.add(new Suggestion('😲 non pas trouvé'))
     agent.add(new Suggestion('👍 oui je l\'ai trouvé !'))
   }
 
-  let intentMap = new Map()
+  const intentMap = new Map()
   intentMap.set('looking-for-an-object', lookingHandler)
   agent.handleRequest(intentMap)
 })

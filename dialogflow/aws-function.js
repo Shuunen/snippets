@@ -7,7 +7,7 @@ const data = require('./data')
 
 const answer = (handler, text, waitForResponse) => {
   console.log('answer :', text)
-  if(waitForResponse){
+  if (waitForResponse) {
     return handler.responseBuilder.speak(text).reprompt(text).getResponse()
   }
   text += '. A bientôt !'
@@ -24,7 +24,7 @@ const LaunchRequestHandler = {
       .speak(speechText)
       .reprompt(speechText)
       .getResponse()
-  }
+  },
 }
 
 const HelloWorldIntentHandler = {
@@ -38,7 +38,7 @@ const HelloWorldIntentHandler = {
       .speak(speechText)
       .reprompt(speechText)
       .getResponse()
-  }
+  },
 }
 
 const LookingForIntentHandler = {
@@ -60,7 +60,7 @@ const LookingForIntentHandler = {
     const answerTpl = `${record.name}, dans la boite {{ box }} {{ drawer }}`
     const text = utils.fill(answerTpl, record)
     return answer(handler, text)
-  }
+  },
 }
 
 const SortingIntentHandler = {
@@ -84,11 +84,11 @@ const SortingIntentHandler = {
       return answer(handler, 'Je n\'ai pas compris dans quel tiroir, souhaitez-vous autre chose ?', true)
     }
     box = ('' + box).trim()[0].toUpperCase()
-    if (!(/^[A-Z]$/.test(box))){
+    if (!(/^[A-Z]$/.test(box))) {
       return answer(handler, `Je n'ai pas compris la boite "${box}", souhaitez-vous autre chose ?`, true)
     }
     drawer = ('' + drawer).trim()[0].trim()
-    if (!(/^\d$/.test(drawer))){
+    if (!(/^\d$/.test(drawer))) {
       return answer(handler, `Je n'ai pas compris le tiroir "${drawer}", souhaitez-vous autre chose ?`, true)
     }
     const location = box + drawer
@@ -100,7 +100,7 @@ const SortingIntentHandler = {
     const answerTpl = `${record.name} est désormais dans la boite {{ box }} {{ drawer }}, autre chose ?`
     const text = utils.fill(answerTpl, record)
     return answer(handler, text, true)
-  }
+  },
 }
 
 const HelpIntentHandler = {
@@ -110,7 +110,7 @@ const HelpIntentHandler = {
   },
   handle (handler) {
     return answer(handler, 'Dites-moi je cherche x ou j\'ai rangé y dans z par exemple')
-  }
+  },
 }
 
 const CancelAndStopIntentHandler = {
@@ -124,7 +124,7 @@ const CancelAndStopIntentHandler = {
     return handlerInput.responseBuilder
       .speak(speechText)
       .getResponse()
-  }
+  },
 }
 const SessionEndedRequestHandler = {
   canHandle (handlerInput) {
@@ -133,7 +133,7 @@ const SessionEndedRequestHandler = {
   handle (handlerInput) {
     // Any cleanup logic goes here.
     return handlerInput.responseBuilder.getResponse()
-  }
+  },
 }
 
 // The intent reflector is used for interaction model testing and debugging.
@@ -152,7 +152,7 @@ const IntentReflectorHandler = {
       .speak(speechText)
     // .reprompt('add a reprompt if you want to keep the session open for the user to respond')
       .getResponse()
-  }
+  },
 }
 
 // Generic error handling to capture any syntax or routing errors. If you receive an error
@@ -170,7 +170,7 @@ const ErrorHandler = {
       .speak(speechText)
       .reprompt(speechText)
       .getResponse()
-  }
+  },
 }
 
 // This handler acts as the entry point for your skill, routing all request and response
@@ -185,7 +185,7 @@ exports.handler = Alexa.SkillBuilders.custom()
     SortingIntentHandler,
     CancelAndStopIntentHandler,
     SessionEndedRequestHandler,
-    IntentReflectorHandler
+    IntentReflectorHandler,
   ) // make sure IntentReflectorHandler is last so it doesn't override your custom intent handlers
   .addErrorHandlers(ErrorHandler)
   .lambda()

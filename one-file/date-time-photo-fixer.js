@@ -75,7 +75,7 @@ function rename (fileName) {
     return
   }
 
-  fs.rename(photosPath + '\\' + fileName, photosPath + '\\' + newFileName, function (err) {
+  fs.rename(photosPath + '\\' + fileName, photosPath + '\\' + newFileName, function onRename (err) {
     if (err) {
       console.log(err)
     } else {
@@ -94,7 +94,7 @@ function init () {
     log('scanning directory', path.dirname(photosPath))
     doLogOnly = false
     // list files in given directory
-    fs.readdir(photosPath, function (err, fileNames) {
+    fs.readdir(photosPath, function onReadDir (err, fileNames) {
       if (err) {
         return console.error(err)
       }

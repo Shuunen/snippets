@@ -2,7 +2,7 @@ var request = require('request')
 var cheerio = require('cheerio')
 
 function scrap (url, arg) {
-  request(url, function (error, response, body) {
+  request(url, function onRequest (error, response, body) {
     if (!error && response.statusCode === 200) {
       /*
        // save html content to file
