@@ -5,7 +5,7 @@
 
 ```bash
 choco feature enable -n allowGlobalConfirmation
-choco install 7zip autoruns chocolateygui directx geforce-game-ready-driver git git-credential-manager-for-windows googlechrome jdk8 jre8 launchyqt microsoft-build-tools nvm qbittorrent spotify steam vcredist-all visualstudio2017buildtools vlc vscode
+choco install 7zip autoruns chocolateygui directx geforce-game-ready-driver git git-credential-manager-for-windows GoogleChrome jdk8 jre8 launchyqt lockhunter microsoft-build-tools nvm.portable qbittorrent rufus soulseek spotify steam vcredist-all visualstudio2017buildtools vlc vscode
 ```
 
 - [ ] start 7zip and setup file association

@@ -25,7 +25,7 @@ And these :
 
 - [ ] documents folder for game/soft saves/configs
 - [ ] copy useful installed apps to a `_previously-installed-apps` folder (backup list & maybe new portable apps)
-- [ ] update `win-utils\inst-choco.conf.xml` on this repo if needed
+- [ ] list installed choco packages `choco list --id-only --local-only` and update `after-format-init-system.md` on this repo if needed
 - [ ] list other apps that need manual installation
 
 ## Linux only
