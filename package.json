@@ -1,0 +1,48 @@
+{
+  "author": "Romain Racamier-Lafon <romain.racamier@gmail.com>",
+  "bugs": "https://github.com/Shuunen/snippets/issues",
+  "config": {
+    "port": 8000
+  },
+  "dependencies": {
+    "eslint": "6.8.0",
+    "eslint-config-standard": "14.1.1",
+    "eslint-plugin-html": "6.0.0",
+    "eslint-plugin-import": "2.20.2",
+    "eslint-plugin-node": "11.1.0",
+    "eslint-plugin-promise": "4.2.1",
+    "eslint-plugin-standard": "4.0.1"
+  },
+  "description": "My personal snippets",
+  "files": [
+    "bookmarklets",
+    "configs",
+    "dialogflow",
+    "linux-utils",
+    "manuals",
+    "one-file",
+    "soundbox",
+    "styles"
+  ],
+  "homepage": "https://github.com/Shuunen/snippets",
+  "keywords": [
+    "personal",
+    "snippets"
+  ],
+  "license": "GPL-3.0",
+  "name": "@shuunen/snippets",
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Shuunen/snippets.git"
+  },
+  "scripts": {
+    "check": "npx repo-check",
+    "ci": "npm run test",
+    "lint": "eslint --fix --ignore-path .gitignore --ext .js,.html .",
+    "start": "echo no need for start task",
+    "test": "npm run check && npm run lint",
+    "update": "npx npm-check-updates -u"
+  },
+  "version": "0.0.0"
+}
