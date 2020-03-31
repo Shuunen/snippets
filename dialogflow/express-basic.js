@@ -29,9 +29,9 @@ const dfResponse = (text, source) => {
     fulfillmentMessages: [
       {
         text: {
-          text: [text]
-        }
-      }
+          text: [text],
+        },
+      },
     ],
     payload: {
       google: {
@@ -40,14 +40,14 @@ const dfResponse = (text, source) => {
           items: [
             {
               simpleResponse: {
-                textToSpeech: text
-              }
-            }
-          ]
-        }
-      }
+                textToSpeech: text,
+              },
+            },
+          ],
+        },
+      },
     },
-    source: source || 'default-source'
+    source: source || 'default-source',
   }
 }
 

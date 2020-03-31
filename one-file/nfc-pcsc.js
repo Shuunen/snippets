@@ -45,10 +45,10 @@ const minilogger = {
 */
 const nfc = new NFC() // const nfc = new NFC(minilogger); // optionally you can pass logger to see internal debug logs
 
-let readers = []
+const readers = []
 
 nfc.on('reader', async reader => {
-  console.info(`device attached`, { reader: reader.name })
+  console.info('device attached', { reader: reader.name })
 
   readers.push(reader)
 
@@ -60,15 +60,15 @@ nfc.on('reader', async reader => {
     if (card.type === TAG_ISO_14443_3) {
       // standard nfc tags like Mifare
       // const uid = card.uid;
-      console.info(`card 3 detected`, { reader: reader.name, card })
+      console.info('card 3 detected', { reader: reader.name, card })
     } else if (card.type === TAG_ISO_14443_4) {
       // Android HCE
       // process raw Buffer data
       const data = card.data.toString('utf8')
-      console.info(`card 4 detected`, { reader: reader.name, card: { ...card, data } })
+      console.info('card 4 detected', { reader: reader.name, card: { ...card, data } })
     } else {
       // not possible, just to be sure
-      console.info(`card detected`, { reader: reader.name, card })
+      console.info('card detected', { reader: reader.name, card })
     }
 
     // Notice: reading data from Mifare Classic cards (e.g. Mifare 1K) requires,
@@ -86,12 +86,12 @@ nfc.on('reader', async reader => {
 
       // we will authenticate block 4, ... (which we want to read)
       await Promise.all([
-        reader.authenticate(startRead, keyType, key)
+        reader.authenticate(startRead, keyType, key),
       ])
 
-      console.info(`blocks successfully authenticated`)
+      console.info('blocks successfully authenticated')
     } catch (err) {
-      console.error(`error when authenticating data`, { reader: reader.name, card, err })
+      console.error('error when authenticating data', { reader: reader.name, card, err })
       return
     }
 
@@ -113,20 +113,20 @@ nfc.on('reader', async reader => {
       console.info(`data converted`, payload)
       */
       const data = await reader.read(startRead, 16, 16) // starts reading in block 4, continues to 5 and 6 in order to read 12 bytes
-      console.log(`data read`, data)
+      console.log('data read', data)
       const payload = data.toString() // utf8 is default encoding
-      console.log(`data converted`, payload)
+      console.log('data converted', payload)
     } catch (err) {
-      console.error(`error when reading data`, { reader: reader.name, err })
+      console.error('error when reading data', { reader: reader.name, err })
     }
   })
 
   reader.on('error', err => {
-    console.error(`an error occurred`, { reader: reader.name, err })
+    console.error('an error occurred', { reader: reader.name, err })
   })
 
   reader.on('end', () => {
-    console.info(`device removed`, { reader: reader.name })
+    console.info('device removed', { reader: reader.name })
 
     delete readers[readers.indexOf(reader)]
 
@@ -135,5 +135,5 @@ nfc.on('reader', async reader => {
 })
 
 nfc.on('error', err => {
-  console.error(`an error occurred`, err)
+  console.error('an error occurred', err)
 })

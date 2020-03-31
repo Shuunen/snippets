@@ -11,30 +11,29 @@ const notifier = require('node-notifier')
 /* Custom */
 let lastNb = 0
 
-function check() {
-    osmosis
-        .get(url)
-        .set({ info: selector })
-        .data(function (data) {
-            /* Custom */
-            const nb = data.info.split(' ')[0]
-            if (lastNb !== nb) {
-                notifier.notify({
-                    'title': 'New like',
-                    'message': 'Total : ' + nb + ' likes'
-                })
-                console.log('Total : ' + nb + ' likes')
-            }
-            lastNb = nb
+function check () {
+  osmosis
+    .get(url)
+    .set({ info: selector })
+    .data(function onData (data) {
+      /* Custom */
+      const nb = data.info.split(' ')[0]
+      if (lastNb !== nb) {
+        notifier.notify({
+          title: 'New like',
+          message: 'Total : ' + nb + ' likes',
         })
-        .error(console.log)
+        console.log('Total : ' + nb + ' likes')
+      }
+      lastNb = nb
+    })
+    .error(console.log)
     // .log(console.log)
     // .debug(console.log)
 }
 
-
-function init() {
-    setInterval(check, everySeconds * 1000)
+function init () {
+  setInterval(check, everySeconds * 1000)
 }
 
 init()

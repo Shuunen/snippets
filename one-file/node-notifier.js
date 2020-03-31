@@ -3,13 +3,13 @@
 const notifier = require('node-notifier')
 
 // a notification to display
-let msg = {
+const msg = {
   title: 'My title',
   message: 'A damn good message !',
   sound: false, // true | false.
   time: 2000, // How long to show balloon in ms
   wait: false, // Wait for User Action against Notification
-  type: 'info' // The notification type : info | warn | error
+  type: 'info', // The notification type : info | warn | error
 }
 
 // this basic usage is supposed to use any method available in actual env

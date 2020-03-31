@@ -12,32 +12,30 @@ if (!token) {
 token = token.replace('\n', '')
 
 var controller = Botkit.slackbot({
-  debug: false
+  debug: false,
   // include "log: false" to disable logging
   // or a "logLevel" integer from 0 to 7 to adjust logging verbosity
 })
 
 // connect the bot to a stream of messages
 controller.spawn({
-  token: token
+  token: token,
 }).startRTM()
 
-var pick = function (arr) {
-  return shuffle(arr)[0]
-}
+var pick = (arr) => shuffle(arr)[0]
 
 var userIdToName = {
-  'U0760C9CL': ['romain', 'rom1', 'rominou'],
-  'U21PGPWE9': ['romain 1'],
-  'U0YBJJB0B': ['léo', 'lé0', 'lEyyO'],
-  'U0AMSTYCB': ['bertrand', 'bertr@nd', 'b€rtraN'],
-  'U23HBPVB2': ['floris', 'fl0r1s'],
-  'U1Y7HMH1Q': ['popo', 'pauline', 'p0l1ne', 'popoPO', 'paulAYYine'],
-  'U0EQPACE6': ['flo', 'gouy gouy', 'florian', 'fl0 le chaud'],
-  'U0YCZU9MY': ['benJ', 'ben', 'benjam1', 'ben le ouf']
+  U0760C9CL: ['romain', 'rom1', 'rominou'],
+  U21PGPWE9: ['romain 1'],
+  U0YBJJB0B: ['léo', 'lé0', 'lEyyO'],
+  U0AMSTYCB: ['bertrand', 'bertr@nd', 'b€rtraN'],
+  U23HBPVB2: ['floris', 'fl0r1s'],
+  U1Y7HMH1Q: ['popo', 'pauline', 'p0l1ne', 'popoPO', 'paulAYYine'],
+  U0EQPACE6: ['flo', 'gouy gouy', 'florian', 'fl0 le chaud'],
+  U0YCZU9MY: ['benJ', 'ben', 'benjam1', 'ben le ouf'],
 }
 
-var userFromId = function (userId) {
+var userFromId = (userId) => {
   if (_.has(userIdToName, userId)) {
     return pick(userIdToName[userId])
   } else {
@@ -48,7 +46,7 @@ var userFromId = function (userId) {
 var endToArr = ['bro', 'bro\'', 'broow', '', 'broo', 'broOo', 'br0', '', 'ma couille', 'soss\'', 'mon ami', 'la véritayy', 'zbraaa']
 var endPuncArr = ['!', '\\o/', '!', '', '']
 var endSmileyyArr = [':stuck_out_tongue:', ':p', ':)', ' ', ' ', ':smile:', ':sunglasses:', ':grin:', ':clap:']
-var end = function () {
+var end = () => {
   lastReply = timestamp()
   return ' ' + pick(endToArr) + ' ' + pick(endPuncArr) + ' ' + pick(endSmileyyArr)
 }
@@ -60,9 +58,7 @@ var dudeWillSpeak = function (userName) {
   return pick(speakDude).replace('_N_', userName) + ' ' + pick(goDude) + ' ' + pick(endSmileyyArr)
 }
 */
-var timestamp = function () {
-  return Math.round(Date.now() / 1000)
-}
+var timestamp = () => Math.round(Date.now() / 1000)
 
 var quotes = ['mon gars posey po-posey mon gars hey hey', 'je rappe mieux qu’tupac plus de buzz qu’obama', 'dis moi pourquoi mon rap est trop fraiy demande a’amnadine elle te dira pourquoi je suis trop beauw', 'Swaggy Doggy Dort il n’sait plus quoi faire car on est blinder d’or equipey tatouey de la tete jusqu’au piey mec', 'Tu bois trop de label 5 Mec on est dechirey mec on est montey en bentley', 'J\'ai des cadavres de culs, j\'ai les couilles déchargées', 'Avec ta gow, je suis posey, elle a le froc baissey; Elle fait que des avances, j\'crois bien qu\'elle a envie d\'baisey', 'Des fois j\'aimerais mettre mes mains dans mes poches, mais y\'a trop d\'billeys', 'Parlent de moi mais j\'baise leur fiancée comme un antillais; An-an-antillais, me dissout pas j\'reste entiey', 'Tellement d\'swag et d\'argent que ta grand-mère me suce sans dentiey', 'Dans ma Bentley ou ma Lambo\', suce mon kiki pendant qu\'t\'y es']
 
@@ -70,12 +66,9 @@ var lastReply = timestamp()
 // var lastUserId = ''
 var validUserName = null
 
-var firstCap = function (str) {
-  return str.charAt(0).toUpperCase() + str.slice(1)
-}
+var firstCap = (str) => str.charAt(0).toUpperCase() + str.slice(1)
 
-// reply to any incoming message
-controller.on('message_received', function (bot, msg) {
+var onMsgReceived = (bot, msg) => {
   if (['presence_change', 'reconnect_url', 'hello'].indexOf(msg.type) !== -1) {
     return
   } else {
@@ -169,7 +162,10 @@ controller.on('message_received', function (bot, msg) {
     var p = pick(['yes', 'ça dépend des fois', 'carreyment', 'nan jammayy', 'seulement le dimanche', 'ouais t\'as cru quoi', 'plutôw ouayy', 'pas troww'])
     bot.reply(msg, p + end())
   }
-})
+}
+
+// reply to any incoming message
+controller.on('message_received', onMsgReceived)
 
 /*
 // reply to a direct mention - @bot hello

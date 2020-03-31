@@ -13,7 +13,7 @@ let results = []
 
 function getFileSizeInMB (filename) {
   const stats = fs.statSync(filename)
-  const size = stats['size']
+  const size = stats.size
   return Math.round(size / 1000000.0)
 }
 
@@ -62,7 +62,7 @@ async function checkVideos () {
     complete: '=',
     incomplete: ' ',
     total: files.length,
-    width: 40
+    width: 40,
   })
   await checkNextVideo()
 }
