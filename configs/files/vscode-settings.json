@@ -1,4 +1,7 @@
 {
+  "[vue]": {
+    "editor.defaultFormatter": "octref.vetur"
+  },
   "breadcrumbs.enabled": true,
   "cSpell.language": "en,fr,fr-FR,en-GB,en-US",
   "cSpell.userWords": [
@@ -37,13 +40,16 @@
     "Synology",
     "Vuex",
     "accès",
+    "actionbar",
     "antialiased",
+    "antiquewhite",
     "araxis",
     "arial",
     "autofetch",
     "autoruns",
     "autosquash",
     "backticks",
+    "bookmarklets",
     "brainz",
     "browserslist",
     "buildtools",
@@ -58,8 +64,10 @@
     "deployer",
     "devtool",
     "devtools",
+    "dialogflow",
     "difftool",
     "directx",
+    "dpkg",
     "dropdown",
     "editorconfig",
     "eofline",
@@ -125,6 +133,7 @@
     "spotify",
     "symlinked",
     "tabindex",
+    "taglist",
     "taiko",
     "tailwindcss",
     "tmux",
@@ -135,11 +144,13 @@
     "vetur",
     "viewports",
     "visualstudio",
-    "wario"
+    "wario",
+    "yolo"
   ],
   "csscomb.formatOnSave": true,
   "editor.codeActionsOnSave": {
-    "source.fixAll": true
+    "source.fixAll": true,
+    "source.organizeImports": true
   },
   "editor.minimap.maxColumn": 300,
   "editor.tabSize": 2,
@@ -176,7 +187,7 @@
   "typescript.preferences.quoteStyle": "single",
   "typescript.updateImportsOnFileMove.enabled": "always",
   "vetur.completion.autoImport": true,
-  "vetur.format.defaultFormatter.ts": "vscode-typescript",
+  "vetur.format.defaultFormatter.js": "none",
   "vetur.format.defaultFormatterOptions": {
     "prettyhtml": {
       "printWidth": 200,
