@@ -25,8 +25,9 @@
   amend = commit --amend --no-edit
   as = "! GIT_SEQUENCE_EDITOR=: git rebase -i --autosquash"
   asd = "! git as develop"
-  bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs -r git branch -d; }; f"
+  bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs -r git branch -d; }; f" 
   co = checkout
+  cgh = "!f() { git clone git@github.com:Shuunen/$1.git; code $1; }; f"
   f = fetch -va
   ff= merge --ff-only
   fr = "!f() { git fetch && git rebase origin/$@ && echo -e \"\n Branch rebased to origin $@ \n\" && git st; }; f"
