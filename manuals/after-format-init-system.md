@@ -19,7 +19,8 @@ choco install autoruns chocolateygui directx geforce-game-ready-driver git Googl
 - [ ] install minimum drivers with [DriversCloud](https://www.driverscloud.com)
 - [ ] add quick access to portable apps folder
 - [ ] remove win 10 shit with [O&O ShutUp10](https://www.oo-software.com/en/shutup10)
-- [ ] use `Apps\RapidEE` to add `global` & `araxis` folder to user path & these :
+- [ ] open `Apps\RapidEE` (forget red/error nvm folder, it's empty until nvm install)
+- [ ] add `global` & `araxis` folder to user path & these :
 
 ```text
 ANDROID_HOME=D:\Android\android-sdk
@@ -44,8 +45,10 @@ Path=D:\Apps\_previously-installed-apps\Python38\Scripts
 - [ ] enable windows night luminosity (éclairage nocturne) mode & color dark mode (paramètre de couleur -> sombre)
 - [ ] change machine name
 - [ ] tell windows to use power mode in energy settings
+- [ ] restart before continue
 - [ ] use autoruns to remove useless things at startup
-- [ ] open git bash, run :
+- [ ] open git bash and options : Looks -> dracula theme, Text -> font size to 11, Mouse -> right btn paste, Window 120 x 30
+- [ ] apply, save & then run :
 
 ```bash
 nvm install 12.16.2
@@ -75,6 +78,8 @@ cp .gitignore ~
 cp .gitconfig ~
 cp .repo-checker.js ~
 cp vscode-settings.json ~/AppData/Roaming/Code/User/settings.json
+cp vscode-keybindings.json ~/AppData/Roaming/Code/User/keybindings.json
+cp launchy.ini ~/AppData/Roaming/Launchy/launchy.ini
 cd ..
 ./bin/backup.js
 code ..
@@ -85,4 +90,5 @@ code ..
 ## Optionals
 
 - [ ] Do Geekbench, Cinebench & UserBenchmark
+- [ ] [pimp with a 2k wallpaper](https://www.google.com/search?q=wallpaper+2k)
 - [ ] install Android Dev Env
