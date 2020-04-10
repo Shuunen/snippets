@@ -8,9 +8,14 @@ const prgFiles = 'C:/Program Files'
 
 const configs = [
   { file: `${appData}/Code/User/settings.json`, renameTo: 'vscode-settings.json' },
-  `${home}/.gitignore`, `${home}/.gitconfig`,
+  { file: `${appData}/Code/User/keybindings.json`, renameTo: 'vscode-keybindings.json' },
+  `${home}/.bashrc`,
+  `${home}/.bash_profile`,
+  `${home}/.gitignore`,
+  `${home}/.gitconfig`,
   `${home}/.repo-checker.js`,
   { file: `${prgFiles}/Microsoft Mouse and Keyboard Center/commands.xml`, renameTo: 'keyboard-commands.xml' },
+  `${appData}/Launchy/launchy.ini`
 ]
 
 const backupPath = path.join(process.env.PWD, '/files')
