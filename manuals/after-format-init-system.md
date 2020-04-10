@@ -11,13 +11,12 @@ choco install autoruns chocolateygui directx geforce-game-ready-driver git Googl
 > theses apps have to be portable-tested before entering above list : lockhunter jdk8 jre8 qbittorrent vlc 7zip soulseek
 > may be useful : visualstudio2017buildtools microsoft-build-tools git-credential-manager-for-windows
 
-- [ ] start 7zip and setup file association
+- [ ] start 7zip as admin and setup file association for user & context menu
 - [ ] copy `.ssh` keys
 - [ ] copy `documents` saved games
-- [ ] install my custom hosts file
+- [ ] install my custom hosts file `code C:\Windows\System32\drivers\etc\hosts`
 - [ ] start `Steam` and add game libraries in `download options > steam library`
-- [ ] install missing intel drivers with [Intel Driver Assistant](https://www.intel.fr/content/www/fr/fr/support/detect.html)
-- [ ] install missing drivers with [DriversCloud](https://www.driverscloud.com)
+- [ ] install minimum drivers with [DriversCloud](https://www.driverscloud.com)
 - [ ] add quick access to portable apps folder
 - [ ] remove win 10 shit with [O&O ShutUp10](https://www.oo-software.com/en/shutup10)
 - [ ] use `Apps\RapidEE` to add `global` & `araxis` folder to user path & these :
@@ -42,15 +41,15 @@ Path=D:\Apps\_previously-installed-apps\Python38\Scripts
 - [ ] go to a folder with jpg or png image and set open as -> chose specific -> use `PicasaPhotoViewer.exe`
 - [ ] set windows default apps : VLC, Picasa & Chrome
 - [ ] activate windows
-- [ ] enable windows night luminosity mode & dark mode
+- [ ] enable windows night luminosity (éclairage nocturne) mode & color dark mode (paramètre de couleur -> sombre)
 - [ ] change machine name
 - [ ] tell windows to use power mode in energy settings
 - [ ] use autoruns to remove useless things at startup
 - [ ] open git bash, run :
 
 ```bash
-nvm install 12.16.1
-nvm use 12.16.1
+nvm install 12.16.2
+nvm use 12.16.2
 echo -e '#!/bin/bash\n\neval "$(ssh-agent -s)"\nssh-add ~/.ssh/id_rsa_gh' > ~/.bashrc
 echo -e '\nalias ll="ls -alhFo --group-directories-first --time-style=long-iso --color=auto"' >> ~/.bashrc
 bash
