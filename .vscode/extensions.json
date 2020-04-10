@@ -1,5 +1,6 @@
 {
   "recommendations": [
+    "aeschli.vscode-css-formatter",
     "bibhasdn.unique-lines",
     "christian-kohler.npm-intellisense",
     "davidanson.vscode-markdownlint",
@@ -9,6 +10,8 @@
     "foxundermoon.shell-format",
     "jianbingfang.dupchecker",
     "michelemelluso.gitignore",
+    "mikeburgh.xml-format",
+    "mrmlnc.vscode-csscomb",
     "octref.vetur",
     "richie5um2.vscode-sort-json",
     "streetsidesoftware.code-spell-checker-french",
