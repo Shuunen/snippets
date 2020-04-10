@@ -5,7 +5,7 @@
 
 ```bash
 choco feature enable -n allowGlobalConfirmation
-choco install autoruns chocolateygui directx geforce-game-ready-driver git GoogleChrome launchyqt nvm.portable rufus spotify steam vcredist-all vscode
+choco install autoruns chocolateygui directx geforce-game-ready-driver git GoogleChrome launchyqt nvm.portable spotify steam vcredist-all vscode
 ```
 
 > theses apps have to be portable-tested before entering above list : lockhunter jdk8 jre8 qbittorrent vlc 7zip soulseek
