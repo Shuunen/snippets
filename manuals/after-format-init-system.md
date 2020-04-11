@@ -91,4 +91,12 @@ code ..
 
 - [ ] Do Geekbench, Cinebench & UserBenchmark
 - [ ] [pimp with a 2k wallpaper](https://www.google.com/search?q=wallpaper+2k)
-- [ ] install Android Dev Env
+
+### Android development environnement
+
+Thanks to preinstalled android env, only these steps are required :
+
+- [ ] install nativescript `npm install -g nativescript` && check all with `tns doctor`
+- [ ] open cmd & `"%ANDROID_HOME%/extras/intel/Hardware_Accelerated_Execution_Manager/intelhaxm-android.exe"`
+- [ ] then `"%ANDROID_HOME%/extras/intel/Hardware_Accelerated_Execution_Manager/haxm_check.exe"` should gives two yes
+- [ ] `avdmanager create avd -n avd_28_xl -k "system-images;android-28;google_apis;x86_64" -d pixel_xl` && `%ANDROID_HOME%/emulator/emulator -avd avd_28_xl` you should see the avd starting
