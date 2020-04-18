@@ -90,6 +90,7 @@
     "listitem",
     "lorsqu'elle",
     "metroui",
+    "microbundle",
     "minlength",
     "mixins",
     "mkdir",
@@ -110,6 +111,7 @@
     "postversion",
     "prebuild",
     "precache",
+    "precheck",
     "precommit",
     "prestart",
     "prettyhtml",
@@ -128,6 +130,7 @@
     "scripthost",
     "scrollbar",
     "servor",
+    "setx",
     "shuunen",
     "sidenav",
     "singleline",
@@ -150,6 +153,7 @@
     "yolo"
   ],
   "csscomb.formatOnSave": true,
+  "diffEditor.ignoreTrimWhitespace": false,
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
     "source.organizeImports": true

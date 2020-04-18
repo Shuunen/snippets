@@ -13,7 +13,7 @@ const configs = [
   `${home}/.bash_profile`,
   `${home}/.gitignore`,
   `${home}/.gitconfig`,
-  `${home}/.repo-checker.js`,
+  `${home}/repo-checker.config.js`,
   { file: `${prgFiles}/Microsoft Mouse and Keyboard Center/commands.xml`, renameTo: 'keyboard-commands.xml' },
   `${appData}/Launchy/launchy.ini`
 ]

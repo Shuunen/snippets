@@ -5,23 +5,18 @@ const utils = require('./utils')
 async function backup (file) {
   const source = await utils.report(file.source)
   const dest = await utils.report(file.dest)
-  if (!source.exists) {
-    return utils.log('source file does not exists :', source.path)
-  }
+  if (!source.exists) return utils.log('source file does not exists :', source.path)
   if (!dest.exists) {
     const success = await utils.copy(source.path, dest.path)
-    if (success) {
-      return utils.log('backed up :', source.path)
-    }
+    if (success) return utils.log('backed up :', source.path)
     return utils.log('failed at copying :', source.path)
   }
   const sameContent = await utils.equals(source.content, dest.content)
-  if (sameContent) {
-    return utils.log('backup is up to date :', source.path)
-  }
+  if (sameContent) return utils.log('backup is up to date :', source.path)
   const isJson = source.path.includes('.json')
-  if (isJson) {
-    utils.log('cannot auto back up json file :', source.path)
+  const isIni = source.path.includes('.ini')
+  if (isJson || isIni) {
+    utils.log('cannot auto back up file :', source.path)
   } else {
     // merge fail beautifully with json files \o/
     const filesMerged = await utils.merge(source.path, dest.path)
