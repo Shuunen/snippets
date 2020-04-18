@@ -8,9 +8,6 @@ choco feature enable -n allowGlobalConfirmation
 choco install autoruns chocolateygui directx geforce-game-ready-driver git GoogleChrome launchyqt nvm.portable spotify steam vcredist-all vscode
 ```
 
-> theses apps have to be portable-tested before entering above list : lockhunter jdk8 jre8 qbittorrent vlc 7zip soulseek
-> may be useful : visualstudio2017buildtools microsoft-build-tools git-credential-manager-for-windows
-
 - [ ] start 7zip as admin and setup file association for user & context menu
 - [ ] copy `.ssh` keys
 - [ ] copy `documents` saved games
@@ -19,28 +16,41 @@ choco install autoruns chocolateygui directx geforce-game-ready-driver git Googl
 - [ ] install minimum drivers with [DriversCloud](https://www.driverscloud.com)
 - [ ] add quick access to portable apps folder
 - [ ] remove win 10 shit with [O&O ShutUp10](https://www.oo-software.com/en/shutup10)
-- [ ] open `Apps\RapidEE` (forget red/error nvm folder, it's empty until nvm install)
-- [ ] add `global` & `araxis` folder to user path & these :
+- [ ] open cmd **as admin** and set env variables with :
 
-```text
-ANDROID_HOME=D:\Android\android-sdk
-JAVA_HOME=D:\Apps\_previously-installed-apps\AdoptOpenJDK\jdk8u192-b12
-
-Path=D:\Apps\_previously-installed-apps\Python38\Scripts
-  D:\Apps\_previously-installed-apps\Python38
-  D:\Apps\_previously-installed-apps\Java\jdk1.8.0_211\bin
-  D:\Apps\_previously-installed-apps\AdoptOpenJDK\jdk8u192-b12\bin
-  D:\Android\android-sdk\tools
-  D:\Android\android-sdk\platform-tools
-  D:\Android\android-sdk\tools\bin
+```batch
+setx PATH "D:\Android\android-sdk\platform-tools;D:\Android\android-sdk\tools;D:\Android\android-sdk\tools\bin;D:\Apps\_global;D:\Apps\AdoptOpenJDK\jdk8u192-b12\bin;D:\Apps\Araxis;D:\Apps\Java\jdk1.8.0_211\bin;D:\Apps\Python38;D:\Apps\Python38\Scripts;C:\Program Files\Microsoft VS Code;D:\Apps\Picasa;D:\Apps\Spread.32.Free.Excel.Lite;D:\Apps\VLC"
+setx ANDROID_HOME "D:\Android\android-sdk"
+setx JAVA_HOME "D:\Apps\AdoptOpenJDK\jdk8u192-b12"
+ftype jarfileterm=cmd /s /k ""D:\Apps\Java\jre1.8.0_241\bin\java.exe" -jar "%1" %*"
+assoc .jar=jarfileterm
+ftype VideoFile=vlc.exe %1 %*
+assoc .avi=VideoFile
+assoc .mkv=VideoFile
+assoc .mov=VideoFile
+assoc .mp4=VideoFile
+assoc .webm=VideoFile
+ftype AudioFile=vlc.exe %1 %*
+assoc .mp3=AudioFile
+ftype SpreadsheetFile=spread32.exe %1 %*
+assoc .xls=SpreadsheetFile
+ftype TextFile=Code.exe %1 %*
+assoc .csv=TextFile
+assoc .json=TextFile
+assoc .log=TextFile
+assoc .md=TextFile
+assoc .nfo=TextFile
+assoc .xml=TextFile
+ftype SubtitleFile=SubtitleEdit.exe %1 %*
+assoc .srt=SubtitleFile
+ftype ImageFile=PicasaPhotoViewer.exe %1 %*
+assoc .jpg=ImageFile
+assoc .png=ImageFile
 ```
 
 - [ ] start `Clavier.Plus.Plus` and activate it on startup
 - [ ] start Launchy, set the Ctrl+Shift+K keystroke from clavier++, add portable app folder & scan
-- [ ] press Win+R , type shell:startup , hit Enter, go up one level & drag Launchy shortcut to Stratup folder to make it start with windows
-- [ ] start `Picasa3` and setup image viewer
-- [ ] go to a folder with jpg or png image and set open as -> chose specific -> use `PicasaPhotoViewer.exe`
-- [ ] set windows default apps : VLC, Picasa & Chrome
+- [ ] press Win+R , type shell:startup , hit Enter, go up one level & drag Launchy shortcut to Startup folder to make it start with windows
 - [ ] activate windows
 - [ ] enable windows night luminosity (éclairage nocturne) mode & color dark mode (paramètre de couleur -> sombre)
 - [ ] change machine name
