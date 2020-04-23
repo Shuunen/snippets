@@ -19,10 +19,10 @@ choco install autoruns chocolateygui directx geforce-game-ready-driver git Googl
 - [ ] open cmd **as admin** and set env variables with :
 
 ```batch
-setx PATH "D:\Android\android-sdk\platform-tools;D:\Android\android-sdk\tools;D:\Android\android-sdk\tools\bin;D:\Apps\_global;D:\Apps\AdoptOpenJDK\jdk8u192-b12\bin;D:\Apps\Araxis;D:\Apps\Java\jdk1.8.0_211\bin;D:\Apps\Python38;D:\Apps\Python38\Scripts;C:\Program Files\Microsoft VS Code;D:\Apps\Picasa;D:\Apps\Spread.32.Free.Excel.Lite;D:\Apps\VLC"
+setx PATH "D:\Android\android-sdk\platform-tools;D:\Android\android-sdk\tools;D:\Android\android-sdk\tools\bin;D:\Apps\_global;D:\Apps\AdoptOpenJDK\jdk8u192-b12\bin;D:\Apps\Araxis;D:\Apps\Python38;D:\Apps\Python38\Scripts;C:\Program Files\Microsoft VS Code;D:\Apps\Picasa;D:\Apps\Spread.32.Free.Excel.Lite;D:\Apps\VLC;D:\Apps\Mkvtoolnix"
 setx ANDROID_HOME "D:\Android\android-sdk"
 setx JAVA_HOME "D:\Apps\AdoptOpenJDK\jdk8u192-b12"
-ftype jarfileterm=cmd /s /k ""D:\Apps\Java\jre1.8.0_241\bin\java.exe" -jar "%1" %*"
+ftype jarfileterm=cmd /s /c java -jar %1 %*
 assoc .jar=jarfileterm
 ftype VideoFile=vlc.exe %1 %*
 assoc .avi=VideoFile
