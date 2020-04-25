@@ -30,6 +30,7 @@ const utils = {
       bitrateKbps: media.bit_rate ? Math.round(media.bit_rate / 1024) : 0,
       durationSeconds: media.duration ? Math.round(media.duration) : 0,
       sizeMb: media.size ? Math.round(media.size / 1000000) : 0,
+      sizeGb: media.size ? (Math.round(media.size / 100000000) / 10).toFixed(1) : 0,
     }
   },
   cutWords: (str = '', nb) => ((str.match(new RegExp(`(?:\\b\\w+\\b[\\s\\r\\n]*){1,${nb}}`)) || [])[0] + '').trim(),
@@ -114,7 +115,7 @@ class CheckVideos {
     const meta = await utils.getVideoMetadata(path)
     // console.log('found meta :', utils.prettyPrint(meta))
     const name = utils.ellipsis(filename.split(').')[0] + ')', 30)
-    const entry = `${name.padEnd(30)}  ${(meta.codec).padEnd(5)} ${(meta.height + '').padStart(4)}p  ${(meta.bitrateKbps + '').padStart(4)}kbps  ${(meta.fps + '').padStart(2)}fps`
+    const entry = `${name.padEnd(30)}  ${(meta.sizeGb + '').padStart(3)} Gb  ${(meta.codec).padEnd(5)} ${(meta.height + '').padStart(4)}p  ${(meta.bitrateKbps + '').padStart(4)} kbps  ${(meta.fps + '').padStart(2)} fps`
     if (meta.height < 1000) return this.detect('Under 1000p', entry, meta.height)
     if (meta.bitrateKbps < 2000) return this.detect('Low bitrate', entry, meta.bitrateKbps)
     if (meta.bitrateKbps > 8000) return this.detect('High bitrate', entry, meta.bitrateKbps)
