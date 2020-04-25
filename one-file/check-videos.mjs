@@ -20,17 +20,19 @@ const utils = {
     // console.log(utils.prettyPrint(data))
     const media = data.format || {}
     const video = data.streams.find(s => s.codec_type === 'video') || {}
+    const title = (media.tags && media.tags.title) || ''
     // console.log(utils.prettyPrint(video))
     return {
-      codec: video.codec_name || 'unknown codec',
-      width: parseInt(video.width || 0),
-      height: parseInt(video.height || 0),
-      // eslint-disable-next-line no-eval
-      fps: video.r_frame_rate ? Math.round(eval(video.r_frame_rate)) : 0,
       bitrateKbps: media.bit_rate ? Math.round(media.bit_rate / 1024) : 0,
+      codec: video.codec_name || 'unknown codec',
       durationSeconds: media.duration ? Math.round(media.duration) : 0,
-      sizeMb: media.size ? Math.round(media.size / 1000000) : 0,
+      fps: video.avg_frame_rate ? Math.round(eval(video.avg_frame_rate)) : 0, // eslint-disable-line no-eval
+      height: parseInt(video.height || 0),
+      isDvdRip: title.toLowerCase().includes('dvdrip'),
       sizeGb: media.size ? (Math.round(media.size / 100000000) / 10).toFixed(1) : 0,
+      sizeMb: media.size ? Math.round(media.size / 1000000) : 0,
+      title,
+      width: parseInt(video.width || 0),
     }
   },
   cutWords: (str = '', nb) => ((str.match(new RegExp(`(?:\\b\\w+\\b[\\s\\r\\n]*){1,${nb}}`)) || [])[0] + '').trim(),
@@ -116,9 +118,15 @@ class CheckVideos {
     // console.log('found meta :', utils.prettyPrint(meta))
     const name = utils.ellipsis(filename.split(').')[0] + ')', 30)
     const entry = `${name.padEnd(30)}  ${(meta.sizeGb + '').padStart(3)} Gb  ${(meta.codec).padEnd(5)} ${(meta.height + '').padStart(4)}p  ${(meta.bitrateKbps + '').padStart(4)} kbps  ${(meta.fps + '').padStart(2)} fps`
-    if (meta.height < 1000) return this.detect('Under 1000p', entry, meta.height)
-    if (meta.bitrateKbps < 2000) return this.detect('Low bitrate', entry, meta.bitrateKbps)
-    if (meta.bitrateKbps > 8000) return this.detect('High bitrate', entry, meta.bitrateKbps)
+    if (meta.isDvdRip) {
+      if (meta.height < 300) return this.detect('DvdRip under 300p', entry, meta.height)
+      if (meta.bitrateKbps < 1000) return this.detect('DvdRip with low bitrate', entry, meta.bitrateKbps)
+      if (meta.bitrateKbps > 2000) return this.detect('DvdRip with high bitrate', entry, meta.bitrateKbps)
+    } else {
+      if (meta.height < 800) return this.detect('BlurayRip under 800p', entry, meta.height)
+      if (meta.bitrateKbps < 2000) return this.detect('BlurayRip with low bitrate', entry, meta.bitrateKbps)
+      if (meta.bitrateKbps > 8000) return this.detect('BlurayRip with high bitrate', entry, meta.bitrateKbps)
+    }
     if (meta.fps < 24) return this.detect('Low fps', entry, meta.fps)
     if (meta.fps > 60) return this.detect('High fps', entry, meta.fps)
   }
