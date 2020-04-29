@@ -64,7 +64,6 @@ assoc .png=ImageFile
 nvm install 12.16.2
 nvm use 12.16.2
 echo -e '#!/bin/bash\n\neval "$(ssh-agent -s)"\nssh-add ~/.ssh/id_rsa_gh' > ~/.bashrc
-echo -e '\nalias ll="ls -alhFo --group-directories-first --time-style=long-iso --color=auto"' >> ~/.bashrc
 bash
 cd && mkdir Projects && cd Projects
 git clone git@github.com:Shuunen/alpine-parcel-tailwind.git
