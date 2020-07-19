@@ -10,7 +10,6 @@ const configs = [
   { file: `${appData}/Code/User/settings.json`, renameTo: 'vscode-settings.json' },
   { file: `${appData}/Code/User/keybindings.json`, renameTo: 'vscode-keybindings.json' },
   `${home}/.bashrc`,
-  `${home}/.bash_profile`,
   `${home}/.gitignore`,
   `${home}/.gitconfig`,
   `${home}/repo-checker.config.js`,
