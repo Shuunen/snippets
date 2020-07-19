@@ -19,6 +19,7 @@ choco install autoruns chocolateygui directx geforce-game-ready-driver git Googl
 
 ## Explorer 
 
+- [ ] pin explorer to task bar
 - [ ] make downloads shortcut points to d:
 - [ ] options > display : set typical stuff
 - [ ] add quick access to portable apps folder
@@ -86,34 +87,41 @@ assoc .png=ImageFile
 - [ ] options : Looks -> dracula theme, Text -> font size to 11, Mouse -> right btn paste, Window 120 x 30
 
 ```bash
-nvm install 12.16.2
+nvm ls available
+nvm install 12.16.2 # put the latest LTS
 nvm use 12.16.2
 echo -e '#!/bin/bash\n\neval "$(ssh-agent -s)"\nssh-add ~/.ssh/id_rsa_gh' > ~/.bashrc
 bash
 cd && mkdir Projects && cd Projects
+mkdir shuunen && cd shuunen
 git clone git@github.com:Shuunen/alpine-parcel-tailwind.git
 git clone git@github.com:Shuunen/bergerac-roads.git
 git clone git@github.com:Shuunen/contacto.git
 git clone git@github.com:Shuunen/crystal-plan.git
 git clone git@github.com:Shuunen/flood-it.git
 git clone git@github.com:Shuunen/folio.git
+git clone git@github.com:Shuunen/goals.git
 git clone git@github.com:Shuunen/green-app.git
+git clone git@github.com:Shuunen/recipes.git
 git clone git@github.com:Shuunen/regex-converter.git
 git clone git@github.com:Shuunen/repo-checker.git
 git clone git@github.com:Shuunen/shuutils.git
-git clone git@github.com:Shuunen/slack-bot.git
 git clone git@github.com:Shuunen/snippets.git
 git clone git@github.com:Shuunen/stuff-finder.git
+git clone git@github.com:Shuunen/td-express.git
 git clone git@github.com:Shuunen/user-scripts.git
 git clone git@github.com:Shuunen/vue-image-compare.git
 git clone git@github.com:Shuunen/what-now.git
 cd snippets/configs/files/
-cp .gitignore ~
+cp .bashrc ~
 cp .gitconfig ~
-cp .repo-checker.js ~
+cp .gitignore ~
+cp repo-checker.config.js ~
 cp vscode-settings.json ~/AppData/Roaming/Code/User/settings.json
 cp vscode-keybindings.json ~/AppData/Roaming/Code/User/keybindings.json
 cp launchy.ini ~/AppData/Roaming/Launchy/launchy.ini
+mkdir -p ~/AppData/Roaming/Greenshot && cp Greenshot.ini ~/AppData/Roaming/Greenshot/Greenshot.ini
+mkdir -p ~/AppData/Roaming/HandBrake && cp handbrake-presets.json ~/AppData/Roaming/HandBrake/presets.json
 cd ..
 ./bin/backup.js
 code ..
