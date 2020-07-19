@@ -15,7 +15,9 @@ const configs = [
   `${home}/.gitconfig`,
   `${home}/repo-checker.config.js`,
   { file: `${prgFiles}/Microsoft Mouse and Keyboard Center/commands.xml`, renameTo: 'keyboard-commands.xml' },
-  `${appData}/Launchy/launchy.ini`
+  `${appData}/Launchy/launchy.ini`,
+  `${appData}/Greenshot/Greenshot.ini`,
+  { file : `${appData}/HandBrake/presets.json`, renameTo: 'handbrake-presets.json'}
 ]
 
 const backupPath = path.join(process.env.PWD, '/files')
