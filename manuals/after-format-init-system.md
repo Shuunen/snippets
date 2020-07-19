@@ -1,22 +1,35 @@
 # Init Windows
 
+## Choco
+
 - [ ] install [chocolatey](https://chocolatey.org/install)
-- [ ] open a cmd with rights and run :
+
+## Cmd as admin
 
 ```bash
 choco feature enable -n allowGlobalConfirmation
 choco install autoruns chocolateygui directx geforce-game-ready-driver git GoogleChrome launchyqt nvm.portable spotify steam vcredist-all vscode
 ```
 
-- [ ] start 7zip as admin and setup file association for user & context menu
+## Chrome
+
+- [ ] start sync
+- [ ] settings > set as default browser
+- [ ] login to github & edit this manual to add missing steps (so meta)
+
+## Explorer 
+
+- [ ] make downloads shortcut points to d:
+- [ ] options > display : set typical stuff
+- [ ] add quick access to portable apps folder
 - [ ] copy `.ssh` keys
 - [ ] copy `documents` saved games
-- [ ] install my custom hosts file `code C:\Windows\System32\drivers\etc\hosts`
-- [ ] start `Steam` and add game libraries in `download options > steam library`
-- [ ] install minimum drivers with [DriversCloud](https://www.driverscloud.com)
-- [ ] add quick access to portable apps folder
-- [ ] remove win 10 shit with [O&O ShutUp10](https://www.oo-software.com/en/shutup10)
-- [ ] open cmd **as admin** and set env variables with :
+
+## Cmd as admin
+
+- [ ] `D:\Apps\7zip\7zFM.exe` and setup file association for user & context menu
+- [ ] `code C:\Windows\System32\drivers\etc\hosts` to customize hosts
+- [ ] set env variables with this but copy/paste to notepad to have CRLF & copy/paste into CMD after (thx m$) :
 
 ```batch
 setx PATH "D:\Android\android-sdk\platform-tools;D:\Android\android-sdk\tools;D:\Android\android-sdk\tools\bin;D:\Apps\_global;D:\Apps\AdoptOpenJDK\jdk8u192-b12\bin;D:\Apps\Araxis;D:\Apps\Python38;D:\Apps\Python38\Scripts;C:\Program Files\Microsoft VS Code;D:\Apps\Picasa;D:\Apps\Spread.32.Free.Excel.Lite;D:\Apps\VLC;D:\Apps\Mkvtoolnix"
@@ -48,17 +61,29 @@ assoc .jpg=ImageFile
 assoc .png=ImageFile
 ```
 
-- [ ] start `Clavier.Plus.Plus` and activate it on startup
-- [ ] start Launchy, set the Ctrl+Shift+K keystroke from clavier++, add portable app folder & scan
-- [ ] press Win+R , type shell:startup , hit Enter, go up one level & drag Launchy shortcut to Startup folder to make it start with windows
-- [ ] activate windows
-- [ ] enable windows night luminosity (éclairage nocturne) mode & color dark mode (paramètre de couleur -> sombre)
-- [ ] change machine name
-- [ ] tell windows to use power mode in energy settings
-- [ ] restart before continue
+## Misc 
+
+- [ ] start `Apps/Clavier.Plus.Plus` and activate it on startup
+- [ ] start Launchy from start menu, set the Ctrl+Shift+K keystroke from clavier++
+- [ ] press Win+R , type `shell:startup`, hit Enter, go up one level & drag Launchy shortcut to Startup folder to make it start with windows
+- [ ] start `Steam` from start menu and add game libraries in `download options > steam library`, update the default one
 - [ ] use autoruns to remove useless things at startup
-- [ ] open git bash and options : Looks -> dracula theme, Text -> font size to 11, Mouse -> right btn paste, Window 120 x 30
-- [ ] apply, save & then run :
+
+## Windows 
+
+- [ ] activate windows
+- [ ] enable windows night luminosity mode
+- [ ] enable windows dark mode
+- [ ] change machine name
+- [ ] use power mode in energy settings
+- [ ] open advanced power settings to prevent hibernation exit via shitty timers
+- [ ] open device manager, open settings of ethernet network card, disable ability to exit from hibernation
+- [ ] remove more shit with [O&O ShutUp10](https://www.oo-software.com/en/shutup10)
+- [ ] restart
+
+## Git bash 
+
+- [ ] options : Looks -> dracula theme, Text -> font size to 11, Mouse -> right btn paste, Window 120 x 30
 
 ```bash
 nvm install 12.16.2
@@ -100,6 +125,7 @@ code ..
 
 - [ ] Do Geekbench, Cinebench & UserBenchmark
 - [ ] [pimp with a 2k wallpaper](https://www.google.com/search?q=wallpaper+2k)
+- [ ] install minimum drivers with [DriversCloud](https://www.driverscloud.com)
 
 ### Android development environnement
 
