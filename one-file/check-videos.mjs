@@ -1,5 +1,5 @@
 import { exec } from 'child_process'
-import { readdir, stat } from 'fs'
+import { readdir, readFile, stat } from 'fs'
 import { join, normalize } from 'path'
 import { inspect } from 'util'
 
@@ -41,6 +41,9 @@ const utils = {
     readdir(path, (err, filenames) => (err ? reject(err) : resolve(filenames)))
   }),
   prettyPrint: obj => inspect(obj, { depth: 2, colors: true }),
+  readFile: async (path) => new Promise((resolve) => {
+    readFile(path, 'utf8', (err, content) => (err ? resolve('') : resolve(content)))
+  }),
 }
 
 class CheckVideos {
@@ -68,7 +71,8 @@ class CheckVideos {
   async find () {
     console.log(`Scanning dir ${this.videosPath}`)
     const isVideo = /\.(mp4|mkv|avi|wmv|m4v|mpg)$/
-    this.files = (await utils.listFiles(this.videosPath)).filter(entry => isVideo.test(entry))
+    const isIgnored = (await utils.readFile(join(this.videosPath,'.check-videos-ignore'))).split('\n')
+    this.files = (await utils.listFiles(this.videosPath)).filter(entry => (!isIgnored.includes(entry) && isVideo.test(entry) ))
     if (!this.files.length) throw new Error('no files found with these extensions ' + isVideo)
     console.log(this.files.length, 'files found')
   }
