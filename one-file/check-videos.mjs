@@ -124,8 +124,8 @@ class CheckVideos {
       if (meta.bitrateKbps > 2000) return this.detect('DvdRip with high bitrate', entry, meta.bitrateKbps)
     } else {
       if (meta.height < 800) return this.detect('BlurayRip under 800p', entry, meta.height)
-      if (meta.bitrateKbps < 2000) return this.detect('BlurayRip with low bitrate', entry, meta.bitrateKbps)
-      if (meta.bitrateKbps > 8000) return this.detect('BlurayRip with high bitrate', entry, meta.bitrateKbps)
+      if (meta.bitrateKbps < 2500) return this.detect('BlurayRip with low bitrate', entry, meta.bitrateKbps)
+      if (meta.bitrateKbps > 10000) return this.detect('BlurayRip with high bitrate', entry, meta.bitrateKbps)
     }
     if (meta.fps < 24) return this.detect('Low fps', entry, meta.fps)
     if (meta.fps > 60) return this.detect('High fps', entry, meta.fps)
