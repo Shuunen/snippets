@@ -53,10 +53,10 @@ class CheckVideos {
     this.videosPath = ''
   }
 
-  start () {
+  start (processOne) {
     console.log('\nCheck Videos is starting !\n')
     this.args()
-      .then(() => this.find())
+      .then(() => this.find(processOne))
       .then(() => this.check())
       .then(() => this.report())
       .catch(err => console.error(err))
@@ -68,13 +68,16 @@ class CheckVideos {
     this.videosPath = normalize(process.argv[2])
   }
 
-  async find () {
+  async find (processOne = false) {
     console.log(`Scanning dir ${this.videosPath}`)
     const isVideo = /\.(mp4|mkv|avi|wmv|m4v|mpg)$/
     const isIgnored = (await utils.readFile(join(this.videosPath,'.check-videos-ignore'))).split('\n')
     this.files = (await utils.listFiles(this.videosPath)).filter(entry => (!isIgnored.includes(entry) && isVideo.test(entry) ))
     if (!this.files.length) throw new Error('no files found with these extensions ' + isVideo)
     console.log(this.files.length, 'files found')
+    if(!processOne) return
+    console.log('but only one file will be processed')
+    this.files = [this.files[0]]
   }
 
   async check () {
@@ -119,9 +122,8 @@ class CheckVideos {
   async checkOne (filename) {
     const path = join(this.videosPath, filename)
     const meta = await utils.getVideoMetadata(path)
-    // console.log('found meta :', utils.prettyPrint(meta))
     const name = utils.ellipsis(filename.split(').')[0] + ')', 30)
-    const entry = `${name.padEnd(30)}  ${(meta.sizeGb + '').padStart(3)} Gb  ${(meta.codec).padEnd(5)} ${(meta.height + '').padStart(4)}p  ${(meta.bitrateKbps + '').padStart(4)} kbps  ${(meta.fps + '').padStart(2)} fps`
+    const entry = `${name.padEnd(30)}  ${(meta.sizeGb + '').padStart(4)} Gb  ${(meta.codec).padEnd(5)} ${(meta.height + '').padStart(4)}p  ${(meta.bitrateKbps + '').padStart(4)} kbps  ${(meta.fps + '').padStart(2)} fps`
     if (meta.isDvdRip) {
       if (meta.height < 300) return this.detect('DvdRip under 300p', entry, meta.height)
       if (meta.bitrateKbps < 1000) return this.detect('DvdRip with low bitrate', entry, meta.bitrateKbps)
@@ -137,4 +139,5 @@ class CheckVideos {
 }
 
 const instance = new CheckVideos()
-instance.start()
+const processOne = false
+instance.start(processOne)
