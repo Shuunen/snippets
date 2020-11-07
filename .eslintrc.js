@@ -4,6 +4,7 @@ module.exports = {
   extends: [
     'eslint:recommended',
     'standard',
+    'plugin:unicorn/recommended',
   ],
   rules,
   parserOptions: {
@@ -12,5 +13,6 @@ module.exports = {
   },
   plugins: [
     'html',
+    'unicorn',
   ],
 }

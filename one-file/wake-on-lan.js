@@ -1,4 +1,4 @@
-var wol = require('wake_on_lan')
+const wol = require('wake_on_lan')
 
 wol.wake('50-46-5D-A3-6E-53', function onWake (error) {
   if (error) {

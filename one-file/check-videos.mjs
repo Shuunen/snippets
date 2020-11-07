@@ -1,6 +1,6 @@
 import { exec } from 'child_process'
 import { readdir, readFile, stat } from 'fs'
-import { join, normalize } from 'path'
+import path from 'path'
 import { inspect } from 'util'
 
 const utils = {
@@ -11,7 +11,7 @@ const utils = {
     })
   }),
   getFileSizeInMb: async (path) => new Promise((resolve, reject) => {
-    stat(path, (err, stats) => (err ? reject(err) : resolve(Math.round(stats.size / 1000000.0))))
+    stat(path, (error, stats) => (error ? reject(error) : resolve(Math.round(stats.size / 1000000))))
   }),
   getVideoMetadata: async (path) => {
     const output = await utils.shellCommand(`ffprobe -show_format -show_streams -print_format json -v quiet -i "${path}" `)
@@ -27,22 +27,21 @@ const utils = {
       codec: video.codec_name || 'unknown codec',
       durationSeconds: media.duration ? Math.round(media.duration) : 0,
       fps: video.avg_frame_rate ? Math.round(eval(video.avg_frame_rate)) : 0, // eslint-disable-line no-eval
-      height: parseInt(video.height || 0),
+      height: Number.parseInt(video.height || 0),
       isDvdRip: title.toLowerCase().includes('dvdrip'),
       sizeGb: media.size ? (Math.round(media.size / 100000000) / 10).toFixed(1) : 0,
       sizeMb: media.size ? Math.round(media.size / 1000000) : 0,
       title,
-      width: parseInt(video.width || 0),
+      width: Number.parseInt(video.width || 0),
     }
   },
-  cutWords: (str = '', nb) => ((str.match(new RegExp(`(?:\\b\\w+\\b[\\s\\r\\n]*){1,${nb}}`)) || [])[0] + '').trim(),
-  ellipsis: (str = '', len = 0) => str.length > len ? (str.substring(0, len - 3) + '...') : str,
+  ellipsis: (string = '', length = 0) => string.length > length ? (string.slice(0, Math.max(0, length - 3)) + '...') : string,
   listFiles: async (path) => new Promise((resolve, reject) => {
-    readdir(path, (err, filenames) => (err ? reject(err) : resolve(filenames)))
+    readdir(path, (error, filenames) => (error ? reject(error) : resolve(filenames)))
   }),
-  prettyPrint: obj => inspect(obj, { depth: 2, colors: true }),
+  prettyPrint: object => inspect(object, { depth: 2, colors: true }),
   readFile: async (path) => new Promise((resolve) => {
-    readFile(path, 'utf8', (err, content) => (err ? resolve('') : resolve(content)))
+    readFile(path, 'utf8', (error, content) => (error ? resolve('') : resolve(content)))
   }),
 }
 
@@ -59,23 +58,23 @@ class CheckVideos {
       .then(() => this.find(processOne))
       .then(() => this.check())
       .then(() => this.report())
-      .catch(err => console.error(err))
+      .catch(error => console.error(error))
       .then(() => console.log('\nCheck Videos ended.'))
   }
 
   async args () {
     if (process.argv.length <= 2) throw new Error('this script need a path as argument like : node-esm check-videos.mjs "U:\\Movies\\"')
-    this.videosPath = normalize(process.argv[2])
+    this.videosPath = path.normalize(process.argv[2])
   }
 
   async find (processOne = false) {
     console.log(`Scanning dir ${this.videosPath}`)
     const isVideo = /\.(mp4|mkv|avi|wmv|m4v|mpg)$/
-    const isIgnored = (await utils.readFile(join(this.videosPath,'.check-videos-ignore'))).split('\n')
-    this.files = (await utils.listFiles(this.videosPath)).filter(entry => (!isIgnored.includes(entry) && isVideo.test(entry) ))
-    if (!this.files.length) throw new Error('no files found with these extensions ' + isVideo)
+    const isIgnored = (await utils.readFile(path.join(this.videosPath, '.check-videos-ignore'))).split('\n')
+    this.files = (await utils.listFiles(this.videosPath)).filter(entry => (!isIgnored.includes(entry) && isVideo.test(entry)))
+    if (this.files.length === 0) throw new Error('no files found with these extensions ' + isVideo)
     console.log(this.files.length, 'files found')
-    if(!processOne) return
+    if (!processOne) return
     console.log('but only one file will be processed')
     this.files = [this.files[0]]
   }
@@ -90,20 +89,23 @@ class CheckVideos {
     }
   }
 
+  getReportValue (string) {
+    return Number.parseInt(string.match(/\[(\d+)]/)[1])
+  }
+
   async report () {
     const types = Object.keys(this.detected)
-    if (types.length === 0) return console.log('\x1b[32m%s\x1b[0m', '\nAll checked files seems fine :)')
-    const getValue = str => parseInt(str.match(/\[(\d+)\]/)[1])
-    const byValueAsc = (a, b) => (getValue(a) - getValue(b))
+    if (types.length === 0) return console.log('\u001B[32m%s\u001B[0m', '\nAll checked files seems fine :)')
+    const byValueAsc = (a, b) => (this.getReportValue(a) - this.getReportValue(b))
     let total = 0
-    console.log('\x1b[1m%s\x1b[0m', '\nReport :')
+    console.log('\u001B[1m%s\u001B[0m', '\nReport :')
     types.forEach(type => {
-      console.log('\x1b[100m%s\x1b[0m', `\n${type} :`)
+      console.log('\u001B[100m%s\u001B[0m', `\n${type} :`)
       this.detected[type].sort(byValueAsc).forEach((file, index) => {
         const even = (index % 2) === 0
         const line = ` - ${file}`
         total++
-        if (even) return console.log('\x1b[91m%s\x1b[0m', line)
+        if (even) return console.log('\u001B[91m%s\u001B[0m', line)
         return console.log(line)
       })
     })
@@ -120,8 +122,8 @@ class CheckVideos {
   }
 
   async checkOne (filename) {
-    const path = join(this.videosPath, filename)
-    const meta = await utils.getVideoMetadata(path)
+    const folder = path.join(this.videosPath, filename)
+    const meta = await utils.getVideoMetadata(folder)
     const name = utils.ellipsis(filename.split(').')[0] + ')', 30)
     const entry = `${name.padEnd(30)}  ${(meta.sizeGb + '').padStart(4)} Gb  ${(meta.codec).padEnd(5)} ${(meta.height + '').padStart(4)}p  ${(meta.bitrateKbps + '').padStart(4)} kbps  ${(meta.fps + '').padStart(2)} fps`
     if (meta.isDvdRip) {

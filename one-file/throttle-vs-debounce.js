@@ -1,12 +1,12 @@
 // this counter allow us to see how many times doStuff is executed
-var doStuffExecutionNumber = 0
+let doStuffExecutionNumber = 0
 
 // this is the precious function we need to take care
 // calling it too many times is bad for your business
-var doStuff = () => console.info('doStuff EXECUTION ' + (++doStuffExecutionNumber) + showTiming())
+const doStuff = () => console.info('doStuff EXECUTION ' + (++doStuffExecutionNumber) + showTiming())
 
 // the period to wait to execute doStuff
-var waitFor = 2000
+const waitFor = 2000
 
 /*************************************************************************************************
  * This will be the function that will be harassed and that will protect doStuff from suffering *
@@ -171,35 +171,35 @@ var waitFor = 2000
 // be triggered. The function will be called after it stops being called for
 // N milliseconds. If `immediate` is passed, trigger the function on the
 // leading edge, instead of the trailing.
-function debounce (func, wait, immediate) {
-  var timeout
+function debounce (callback, wait, immediate) {
+  let timeout
   return () => {
-    var context = this
-    var args = arguments
-    var later = () => {
-      timeout = null
-      if (!immediate) func.apply(context, args)
+    const context = this
+    const arguments_ = arguments
+    const later = () => {
+      timeout = undefined
+      if (!immediate) callback.apply(context, arguments_)
     }
-    var callNow = immediate && !timeout
+    const callNow = immediate && !timeout
     clearTimeout(timeout)
     timeout = setTimeout(later, wait)
-    if (callNow) func.apply(context, args)
+    if (callNow) callback.apply(context, arguments_)
   }
 }
-var doStuffOnTime = debounce(doStuff, waitFor)
+const doStuffOnTime = debounce(doStuff, waitFor)
 
 // this function just log each harassment
-var tryToDoStuffRightNow = () => {
+const tryToDoStuffRightNow = () => {
   console.log('calling doStuffOnTime' + showTiming(true))
   doStuffOnTime()
 }
 
 // just return a timestamp in ms
 // divide by 1000 to have seconds
-var timestamp = () => new Date().getTime()
+const timestamp = () => new Date().getTime()
 
-var isFirstStep = true
-var showTiming = (isStep) => {
+let isFirstStep = true
+const showTiming = (isStep) => {
   timestampStepDiff = timestampStep - timestamp()
   if (isStep) {
     timestampStep = timestamp()
@@ -212,15 +212,15 @@ var showTiming = (isStep) => {
   return ' @' + Math.abs(timestampStart - timestampStep) + 'ms ' + (isStep ? '(+ ' + Math.abs(timestampStepDiff) + 'ms)' : '')
 }
 
-var timestampStart = timestamp()
-var timestampStep
-var timestampStepDiff
-var executingTimes = 20
-var executingEach = 300
+const timestampStart = timestamp()
+let timestampStep
+let timestampStepDiff
+const executingTimes = 20
+const executingEach = 300
 console.clear()
 
 // simulate [executingTimes] calls separated by [executingEach]ms time period
-for (var i = 0; i < executingTimes; i++) {
-  var time = i * executingEach
+for (let index = 0; index < executingTimes; index++) {
+  const time = index * executingEach
   setTimeout(tryToDoStuffRightNow, time)
 }

@@ -2,30 +2,30 @@
 
 /* eslint-disable func-names, no-async-promise-executor */
 
-var api = 'http://192.168.31.227:5001/webapi/entry.cgi?'
-var headers = {
+const api = 'http://192.168.31.227:5001/webapi/entry.cgi?'
+const headers = {
   'x-syno-token': 'XXX', // <=== PUT TOKEN HERE
 }
-var body = ''
-var unidentifiedColor = 'red'
-var identifiedColor = 'green'
-var identifierColor = 'darkorange'
-var errorDetected = false
-var autoMode = true
-var clickedOnAvailableTag = false
-var allowNoTag = true
+let body = ''
+const unidentifiedColor = 'red'
+const identifiedColor = 'green'
+const identifierColor = 'darkorange'
+let errorDetected = false
+let autoMode = true
+let clickedOnAvailableTag = false
+const allowNoTag = true
 
-var frequencyMin = 120
-var frequencyMax = 760
-var frequency = (frequencyMin + frequencyMax) / 2
-var frequencyIncrement = 100
+const frequencyMin = 120
+const frequencyMax = 760
+let frequency = (frequencyMin + frequencyMax) / 2
+const frequencyIncrement = 100
 
 function errorSound () {
   errorDetected = true
   document.title = 'ACTION NEEDED'
-  var context = new AudioContext()
-  var o = context.createOscillator()
-  var g = context.createGain()
+  const context = new AudioContext()
+  const o = context.createOscillator()
+  const g = context.createGain()
   o.type = 'sine'
   o.connect(g)
   o.frequency.value = frequency
@@ -42,19 +42,19 @@ function errorSound () {
 // be triggered. The function will be called after it stops being called for
 // N milliseconds. If `immediate` is passed, trigger the function on the
 // leading edge, instead of the trailing.
-function debounce (func, wait, immediate) {
-  var timeout
+function debounce (callback, wait, immediate) {
+  let timeout
   return function () {
-    var context = this
-    var args = arguments
-    var later = function () {
-      timeout = null
-      if (!immediate) func.apply(context, args)
+    const context = this
+    const arguments_ = arguments
+    const later = function () {
+      timeout = undefined
+      if (!immediate) callback.apply(context, arguments_)
     }
-    var callNow = immediate && !timeout
+    const callNow = immediate && !timeout
     clearTimeout(timeout)
     timeout = setTimeout(later, wait)
-    if (callNow) func.apply(context, args)
+    if (callNow) callback.apply(context, arguments_)
   }
 }
 
@@ -80,24 +80,24 @@ function getCleanName (name) {
 
 async function check () {
   console.log('checking...')
-  var photoId = getPhotoId()
-  var tags = getPhotoTags()
-  var names = document.querySelectorAll('.synophoto-lightbox-people-item')
+  const photoId = getPhotoId()
+  let tags = getPhotoTags()
+  const names = document.querySelectorAll('.synophoto-lightbox-people-item')
   document.title = 'working...'
   errorDetected = false
   clickedOnAvailableTag = false
   await names.forEach(async (name) => {
-    if (!name.title || !name.title.length) {
+    if (!name.title || name.title.length === 0) {
       markAsUnidentified(name)
       document.title = 'IDENTIFICATION NEEDED'
       errorDetected = true
       console.error('unidentified person')
     } else {
       markAsIdentified(name)
-      var cleanName = getCleanName(name.title)
-      if (cleanName.length) {
+      const cleanName = getCleanName(name.title)
+      if (cleanName.length > 0) {
         if (!tags.includes(cleanName)) {
-          var status = await addTagByName(cleanName, photoId)
+          const status = await addTagByName(cleanName, photoId)
           if (status !== 'success') {
             error('failed at adding tag by name')
           }
@@ -110,7 +110,7 @@ async function check () {
     }
   })
   tags = getPhotoTags()
-  var nbUnidentified = document.querySelectorAll('.abm-unidentified').length
+  const nbUnidentified = document.querySelectorAll('.abm-unidentified').length
   if (tags.length === 0) {
     if (allowNoTag && nbUnidentified === 0) {
       console.info('no one unidentified & no tags allowed, continues...')
@@ -129,15 +129,15 @@ async function check () {
   }
 }
 // prepare a debounced function
-var checkDebounced = debounce(check, 500)
+const checkDebounced = debounce(check, 500)
 
 function tryToAssociateOne () {
   removeVisuallyAddedTags()
-  var tags = getPhotoTags()
-  var persons = Array.from(document.querySelectorAll('.synophoto-lightbox-people-item')).map(node => getCleanName(node.title))
-  var one = tags.filter(tag => !persons.includes(tag))
+  const tags = getPhotoTags()
+  const persons = new Set([...document.querySelectorAll('.synophoto-lightbox-people-item')].map(node => getCleanName(node.title)))
+  const one = tags.filter(tag => !persons.has(tag))
   if (one.length === 1) {
-    var availableTag = availableTags.find(tag => tag.name === one[0])
+    const availableTag = availableTags.find(tag => tag.name === one[0])
     if (availableTag) {
       onAvailableTagClick(availableTag)
     } else {
@@ -157,7 +157,7 @@ function tryToAssociateOne () {
 }
 
 function removeRetryToast () {
-  var toast = document.querySelector('#abm-retry')
+  const toast = document.querySelector('#abm-retry')
   if (toast) {
     iziToast.hide({}, toast)
   }
@@ -169,24 +169,24 @@ function gotoNextPhoto () {
   document.querySelector('.synophoto-lightbox-nav-icon-button.align-right').click()
 }
 // prepare a debounced function
-var gotoNextPhotoDebounced = debounce(gotoNextPhoto, 500)
+const gotoNextPhotoDebounced = debounce(gotoNextPhoto, 500)
 
-function markAsIdentified (el) {
-  markAs(el, true)
+function markAsIdentified (element) {
+  markAs(element, true)
 }
 
-function markAsUnidentified (el) {
-  markAs(el, false)
+function markAsUnidentified (element) {
+  markAs(element, false)
 }
 
-function markAs (el, identified) {
-  el.style.backgroundColor = identified ? identifiedColor : unidentifiedColor
-  el.style.padding = '10px'
-  el.style.borderRadius = '50% 0'
+function markAs (element, identified) {
+  element.style.backgroundColor = identified ? identifiedColor : unidentifiedColor
+  element.style.padding = '10px'
+  element.style.borderRadius = '50% 0'
   if (identified) {
-    el.classList.remove('abm-unidentified')
+    element.classList.remove('abm-unidentified')
   } else {
-    el.classList.add('abm-unidentified')
+    element.classList.add('abm-unidentified')
   }
 }
 
@@ -199,37 +199,34 @@ function addTagByName (name, photoId) {
     return error('bad name detected (addTagByName)')
   }
   console.info('adding tag "' + name + '" to current photo')
-  var availableTag = availableTags.find(tag => tag.name === name)
-  if (availableTag) {
-    return addTagToPhoto(availableTag.id, photoId)
-  } else {
-    return createNewTag(name).then(response => {
-      if (response.success) {
-        var newTag = response.data.tag
-        console.info('new tag created for "' + newTag.name + '", has id', newTag.id)
-        availableTags.push(newTag)
-        updateAvailableTagsList()
-        return addTagToPhoto(newTag.id, photoId)
-      } else {
-        return error('failed at creating new tag')
-      }
-    })
-  }
+  const availableTag = availableTags.find(tag => tag.name === name)
+  if (availableTag) return addTagToPhoto(availableTag.id, photoId)
+  return createNewTag(name).then(response => {
+    if (response.success) {
+      const newTag = response.data.tag
+      console.info('new tag created for "' + newTag.name + '", has id', newTag.id)
+      availableTags.push(newTag)
+      updateAvailableTagsList()
+      return addTagToPhoto(newTag.id, photoId)
+    } else {
+      return error('failed at creating new tag')
+    }
+  })
 }
 
 function removeVisuallyAddedTags () {
   console.log('removeVisuallyAddedTags')
-  var tags = document.querySelectorAll('.abm-visual-tag')
+  const tags = document.querySelectorAll('.abm-visual-tag')
   tags.forEach(tag => tag.remove())
 }
 
 function addTagVisuallyToPhotoTags (tagId) {
-  var tag = availableTags.find(tag => tag.id === tagId)
-  var el = document.createElement('div')
-  el.classList.add('Select-value', 'abm-visual-tag')
-  el.style.padding = 0
-  el.innerHTML = `<a class="Select-value-label" style="padding: 0 16px;">${tag.name}</a>`
-  document.querySelector('.synophoto-general-tag .Select-multi-value-wrapper').prepend(el)
+  const tag = availableTags.find(tag => tag.id === tagId)
+  const element = document.createElement('div')
+  element.classList.add('Select-value', 'abm-visual-tag')
+  element.style.padding = 0
+  element.innerHTML = `<a class="Select-value-label" style="padding: 0 16px;">${tag.name}</a>`
+  document.querySelector('.synophoto-general-tag .Select-multi-value-wrapper').prepend(element)
 }
 
 function addTagToPhoto (tagId, photoId) {
@@ -306,14 +303,14 @@ function error (message, avoidRejection) {
   return Promise.reject(message)
 }
 
-function merge (from, to, el) {
+function merge (from, to, element) {
   if (!from || typeof from !== 'number') {
     return error('"from" should be a number')
   }
   if (!to || typeof to !== 'number') {
     return error('"to" should be a number')
   }
-  if (!el || typeof el.tagName !== 'string') {
+  if (!element || typeof element.tagName !== 'string') {
     return error('"el" should be a dom element')
   }
   console.info('merging person', from, 'to', to)
@@ -321,7 +318,7 @@ function merge (from, to, el) {
   return post(body).then(response => {
     if (response.success) {
       console.info('merge successful')
-      markAsIdentified(el)
+      markAsIdentified(element)
       return 'success'
     } else {
       return error('failed at merging')
@@ -338,7 +335,7 @@ function post (body) {
   }).then(response => response.json())
 }
 
-var availableTags = []
+let availableTags = []
 
 async function getAvailableTags () {
   console.log('getting available tags...')
@@ -361,7 +358,7 @@ function updateAvailableTagsList (tryTime) {
     tryTime = 1
   }
   console.log('in updateAvailableTagsList, try n°', tryTime)
-  var infoPanel = document.querySelector('.synophoto-lightbox-info-panel')
+  const infoPanel = document.querySelector('.synophoto-lightbox-info-panel')
   if (!infoPanel) {
     if (tryTime < 10) {
       setTimeout(() => updateAvailableTagsList(++tryTime), 400)
@@ -371,39 +368,39 @@ function updateAvailableTagsList (tryTime) {
   // first sort by name
   availableTags = availableTags.sort((a, b) => a.name.localeCompare(b.name))
   // then create the tag list that will be displayed
-  var tagListContent = '<div class="Select--multi">'
-  var lastLetter = ''
+  let tagListContent = '<div class="Select--multi">'
+  let lastLetter = ''
   tagListContent += availableTags.map(tag => {
     // dont display un-popular tags
     if (tag.item_count < 2) {
       return ''
     }
-    var html = ''
-    var letter = tag.name.toLowerCase()[0]
+    let html = ''
+    const letter = tag.name.toLowerCase()[0]
     if (letter !== lastLetter) {
       lastLetter = letter
       html += `<strong style="width: 100%; display: block; font-weight: bold; font-size: 24px;">${letter.toUpperCase()}</strong>`
     }
-    var style = getStyleForTagName(tag.name)
+    const style = getStyleForTagName(tag.name)
     html += `<div class="Select-value ${style ? 'abm-custom-background' : ''}" ${style}><a class="Select-value-label abm-tag" style="padding: 0 16px;">${tag.name}</a></div>`
     return html
   })
   tagListContent = tagListContent.replace(/,+/g, '')
   tagListContent += '</div>'
-  var tagList = document.querySelector('.abm-taglist')
+  let tagList = document.querySelector('.abm-taglist')
   if (!tagList) {
     tagList = document.createElement('div')
     tagList.style = 'height: 52%; overflow: auto; box-shadow: inset -4px 0px 20px black; padding: 11px 14px;'
     tagList.classList.add('abm-taglist', 'synophoto-lightbox-info-section', 'synophoto-general-tag', 'synophoto-react-select', 'synophoto-lightbox-tag-panel')
-    infoPanel.appendChild(tagList)
+    infoPanel.append(tagList)
     document.querySelector('.synophoto-lightbox-info-panel').style.width = '500px'
   }
   tagList.innerHTML = tagListContent
 }
 
 function getBackgroundForTagName (name) {
-  var isBlue = name.includes('Racamier-Lafon') || name.includes('guy')
-  var isRed = name.includes('Juliane') || name.includes('girl')
+  const isBlue = name.includes('Racamier-Lafon') || name.includes('guy')
+  const isRed = name.includes('Juliane') || name.includes('girl')
   if (isBlue) {
     return 'royalblue'
   } else if (isRed) {
@@ -414,7 +411,7 @@ function getBackgroundForTagName (name) {
 }
 
 function getStyleForTagName (name) {
-  var background = getBackgroundForTagName(name)
+  const background = getBackgroundForTagName(name)
   if (background === '') {
     return 'style="padding: 0;"'
   }
@@ -426,28 +423,28 @@ function getFirstUnidentified () {
 }
 
 function getPhotoTags () {
-  var els = document.querySelectorAll('.Select-control a.Select-value-label')
-  var tags = Array.from(els).map(el => el.text.trim())
+  const els = document.querySelectorAll('.Select-control a.Select-value-label')
+  const tags = [...els].map(element => element.text.trim())
   return tags
 }
 
 function watchTags () {
-  var els = document.querySelectorAll('a.Select-value-label:not(.abm-watched)')
-  if (els.length) {
-    els.forEach(el => {
-      el.classList.add('abm-watched')
-      el.addEventListener('mousedown', onTagClick)
-      el.addEventListener('mouseenter', onTagEnter)
-      el.addEventListener('mouseout', onTagOut)
+  const els = document.querySelectorAll('a.Select-value-label:not(.abm-watched)')
+  if (els.length > 0) {
+    els.forEach(element => {
+      element.classList.add('abm-watched')
+      element.addEventListener('mousedown', onTagClick)
+      element.addEventListener('mouseenter', onTagEnter)
+      element.addEventListener('mouseout', onTagOut)
     })
   }
 }
 setInterval(watchTags, 500)
 
-var personsByTag = []
+const personsByTag = []
 
 function getPersonByTag (tag) {
-  var personByTag = personsByTag.find(person => person.tagId === tag.id)
+  let personByTag = personsByTag.find(person => person.tagId === tag.id)
   if (personByTag) {
     console.log('found "' + tag.name + '" in cache')
     return Promise.resolve(personByTag)
@@ -458,7 +455,7 @@ function getPersonByTag (tag) {
   body = `name_prefix=%22${encodeURI(tag.name)}%22&api=%22SYNO.Photo.Browse.Person%22&method=%22suggest%22&version=1`
   return post(body).then(response => {
     if (response.success) {
-      var persons = response.data.list
+      const persons = response.data.list
       console.log('got persons', persons)
       if (persons.length === 1) {
         personByTag = persons[0]
@@ -478,8 +475,8 @@ function getPersonByTag (tag) {
 async function onTagClick (event) {
   event.preventDefault()
   event.stopPropagation()
-  var name = event.target.textContent.trim()
-  var availableTag = availableTags.find(tag => tag.name === name)
+  const name = event.target.textContent.trim()
+  let availableTag = availableTags.find(tag => tag.name === name)
   if (availableTag) {
     onAvailableTagClick(availableTag)
   } else {
@@ -500,11 +497,7 @@ function createPerson (id, name) {
   }
   body = `id=${id}&name=%22${encodeURI(name)}%22&api=%22SYNO.Photo.Browse.Person%22&method=%22set%22&version=1`
   return post(body).then(response => {
-    if (response.success) {
-      return 'success'
-    } else {
-      return error('failed at creating a new person')
-    }
+    return response.success ? 'success' : error('failed at creating a new person')
   })
 }
 
@@ -515,18 +508,18 @@ async function onAvailableTagClick (availableTag) {
     console.error(availableTag.name)
     return error('bad name detected (onAvailableTagClick)')
   }
-  var unidentified = getFirstUnidentified()
+  const unidentified = getFirstUnidentified()
   if (!unidentified) {
     console.log('clicking on a tag without un-identified person, simply adding tag to picture')
     return addTagToPhoto(availableTag.id)
   }
-  var fromPersonId = parseInt(unidentified.href.match(/person\/(\d+)/)[1])
+  const fromPersonId = Number.parseInt(unidentified.href.match(/person\/(\d+)/)[1])
   if (!fromPersonId || typeof fromPersonId !== 'number') {
     return error('"fromPersonId" should be a number')
   }
   getPersonByTag(availableTag)
     .then(person => {
-      var toPersonId = person.id
+      const toPersonId = person.id
       merge(fromPersonId, toPersonId, unidentified).then(status => {
         if (status === 'success') {
           unidentified.title = availableTag.name
@@ -536,8 +529,8 @@ async function onAvailableTagClick (availableTag) {
         }
       })
     })
-    .catch(reason => {
-      if (reason.includes('not exists')) {
+    .catch(error_ => {
+      if (error_.includes('not exists')) {
         createPerson(fromPersonId, availableTag.name).then(status => {
           if (status === 'success') {
             console.log('person "' + availableTag.name + '" has been created to match the tag, restarting check')
@@ -552,7 +545,7 @@ async function onAvailableTagClick (availableTag) {
 
 function onTagEnter (event) {
   event.target.parentElement.style.backgroundColor = identifierColor
-  var unidentified = getFirstUnidentified()
+  const unidentified = getFirstUnidentified()
   if (unidentified) {
     unidentified.style.backgroundColor = identifierColor
   }
@@ -560,27 +553,22 @@ function onTagEnter (event) {
 
 function onTagOut (event) {
   event.target.parentElement.style.backgroundColor = getBackgroundForTagName(event.target.text)
-  var unidentified = getFirstUnidentified()
+  const unidentified = getFirstUnidentified()
   if (unidentified) {
     unidentified.style.backgroundColor = unidentifiedColor
   }
 }
 
 function getPhotoId () {
-  var matches = document.location.hash.match(/\d+/g)
-  var match = null
-  if (matches.length === 1) {
-    match = matches[0]
-  } else {
-    match = matches[1]
-  }
-  return parseInt(match)
+  const matches = document.location.hash.match(/\d+/g)
+  const match = matches.length === 1 ? matches[0] : matches[1]
+  return Number.parseInt(match)
 }
 
-var lastPhotoLoaded = 1
+let lastPhotoLoaded = 1
 
 function onNewPhotoLoaded () {
-  var photoId = getPhotoId()
+  const photoId = getPhotoId()
   if (photoId === lastPhotoLoaded) {
     console.info('same photo id, skipping...')
     return
@@ -597,14 +585,14 @@ function onNewPhotoLoaded () {
   }
 }
 // prepare a debounced function
-var onNewPhotoLoadedDebounced = debounce(onNewPhotoLoaded, 500)
+const onNewPhotoLoadedDebounced = debounce(onNewPhotoLoaded, 500)
 
 function watchForNewPhoto () {
-  getEl('lightbox-image').then(el => el.addEventListener('DOMSubtreeModified', onNewPhotoLoadedDebounced))
+  getElement('lightbox-image').then(element => element.addEventListener('DOMSubtreeModified', onNewPhotoLoadedDebounced))
 }
 
 function clearVisualTagsOnOverlayClick () {
-  getEl('lightbox-overlay').then(el => el.addEventListener('mousedown', removeVisuallyAddedTags))
+  getElement('lightbox-overlay').then(element => element.addEventListener('mousedown', removeVisuallyAddedTags))
 }
 
 function start () {
@@ -616,10 +604,9 @@ function start () {
   clearVisualTagsOnOverlayClick()
 }
 
-function getEl (type) {
-  var sel = null
-  var txt = null
-  var ele = null
+function getElement (type) {
+  let sel
+  let txt
   if (type === 'tree-dots') {
     sel = '.synophoto-menu-button > .synophoto-actionbar-action-button'
   } else if (type === 'modify-tags') {
@@ -642,7 +629,7 @@ function getEl (type) {
   if (!sel) {
     return error('un-handled el type "' + type + '"')
   }
-  ele = document.querySelector(sel)
+  const ele = document.querySelector(sel)
   if (!ele) {
     return error('failed to find "' + type + '" el in dom')
   }
@@ -652,43 +639,43 @@ function getEl (type) {
   return Promise.resolve(ele)
 }
 
-function clickEl (el, time) {
+function clickElement (element, time) {
   return new Promise((resolve, reject) => {
-    if (!el) {
+    if (!element) {
       reject(error('cannot click on null', true))
     }
-    el.click()
+    element.click()
     setTimeout(() => resolve('success, clicked'), time || 200)
   })
 }
 
-function scrollToEl (el, time) {
+function scrollToElement (element, time) {
   return new Promise((resolve, reject) => {
-    if (!el) {
+    if (!element) {
       reject(error('cannot scroll on null', true))
     }
-    el.scrollIntoViewIfNeeded()
+    element.scrollIntoViewIfNeeded()
     setTimeout(() => resolve('success, scrolled to that element'), time || 300)
   })
 }
 
 async function checkAllAvailable (checkboxes) {
   return new Promise(async (resolve) => {
-    var fresh = false
+    let fresh = false
     if (!checkboxes) {
       checkboxes = await getUncheckedCheckboxes()
       fresh = true
     }
-    if (!fresh && !checkboxes.length) {
+    if (!fresh && checkboxes.length === 0) {
       checkboxes = await getUncheckedCheckboxes()
     }
-    if (!checkboxes.length) {
+    if (checkboxes.length === 0) {
       resolve('success, no more checkboxes to process')
     } else {
-      var checkbox = checkboxes.shift()
-      var status = await scrollToEl(checkbox)
+      const checkbox = checkboxes.shift()
+      let status = await scrollToElement(checkbox)
       console.log(status, '(checkbox)')
-      status = await clickEl(checkbox)
+      status = await clickElement(checkbox)
       console.log(status)
       status = await scrollToLastChecked()
       console.log(status, '(last checked photo)')
@@ -699,13 +686,13 @@ async function checkAllAvailable (checkboxes) {
 
 async function scrollToLastChecked (previous) {
   return new Promise(async (resolve, reject) => {
-    var lastPhotosChecked = document.querySelectorAll('.synophoto-selectable-overlay.checked:last-child')
-    var lastPhotoChecked = lastPhotosChecked[lastPhotosChecked.length - 1]
+    const lastPhotosChecked = document.querySelectorAll('.synophoto-selectable-overlay.checked:last-child')
+    const lastPhotoChecked = lastPhotosChecked[lastPhotosChecked.length - 1]
     if (lastPhotoChecked) {
       if (lastPhotoChecked === previous) {
         setTimeout(() => resolve('success, scrolled to last checked'), 100)
       } else {
-        var status = await scrollToEl(lastPhotoChecked)
+        const status = await scrollToElement(lastPhotoChecked)
         console.log(status, '(last checked photo)')
         setTimeout(() => resolve(scrollToLastChecked(lastPhotoChecked)), 200)
       }
@@ -717,68 +704,68 @@ async function scrollToLastChecked (previous) {
 
 function getUncheckedCheckboxes () {
   return new Promise(async resolve => {
-    var sel = '.synophoto-selectable-timeline-header > .synophoto-selectable-overlay:not(.checked) .button-icon.checkbox-btn-icon'
-    var checkboxes = Array.from(document.querySelectorAll(sel))
+    const sel = '.synophoto-selectable-timeline-header > .synophoto-selectable-overlay:not(.checked) .button-icon.checkbox-btn-icon'
+    const checkboxes = [...document.querySelectorAll(sel)]
     console.log('found', checkboxes.length, 'checkboxes')
     resolve(checkboxes)
   })
 }
 
 async function autotag () {
-  var personName = await getEl('person-name').then(el => el.textContent)
+  const personName = await getElement('person-name').then(element => element.textContent)
   console.log('got personName', personName)
-  var cleanName = getCleanName(personName)
+  const cleanName = getCleanName(personName)
   console.log('got cleanName', cleanName)
-  var status = await checkAllAvailable()
+  const status = await checkAllAvailable()
   console.log(status)
-  await getEl('tree-dots').then(el => clickEl(el))
-  await getEl('modify-tags').then(el => clickEl(el))
+  await getElement('tree-dots').then(element => clickElement(element))
+  await getElement('modify-tags').then(element => clickElement(element))
   errorSound()
   window.prompt('Person name', cleanName)
   document.title = 'auto tag finished'
 }
 
 async function invertNextBubble () {
-  var bubble = await getEl('person-bubble')
+  const bubble = await getElement('person-bubble')
   if (!bubble || !bubble.classList) {
     return error('failed at getting next bubble element')
   }
-  await clickEl(bubble, 100)
+  await clickElement(bubble, 100)
   bubble.classList.add('abm-inverted')
-  await scrollToEl(bubble, 100)
+  await scrollToElement(bubble, 100)
   return Promise.resolve('success')
 }
 
 async function invertSelection () {
   // await getEl('tree-dots').then(el => clickEl(el))
   // await getEl('show-hide-persons').then(el => clickEl(el))
-  var status = 'success'
+  let status = 'success'
   while (status === 'success') {
     status = await invertNextBubble()
   }
   console.log('inverted selection !')
 }
 
-var btnStart = document.createElement('button') // Create a <button> element
-var tStart = document.createTextNode('Start ABM') // Create a text node
-btnStart.appendChild(tStart) // Append the text to <button>
-btnStart.addEventListener('click', start)
-btnStart.style = 'position: absolute; background-color: sienna; width:130px; top: 70px; left: 20px; color: white; display: block; font-size: 12px; z-index: 10000; border-width: 8px; padding: 6px 10px; border-radius: 14px 0; border-style: groove; border-color: antiquewhite; cursor: pointer;'
-document.body.appendChild(btnStart)
+const buttonStart = document.createElement('button') // Create a <button> element
+const tStart = document.createTextNode('Start ABM') // Create a text node
+buttonStart.append(tStart) // Append the text to <button>
+buttonStart.addEventListener('click', start)
+buttonStart.style = 'position: absolute; background-color: sienna; width:130px; top: 70px; left: 20px; color: white; display: block; font-size: 12px; z-index: 10000; border-width: 8px; padding: 6px 10px; border-radius: 14px 0; border-style: groove; border-color: antiquewhite; cursor: pointer;'
+document.body.append(buttonStart)
 
-var btnAutoTag = document.createElement('button') // Create a <button> element
-var tAutoTag = document.createTextNode('Tag this person') // Create a text node
-btnAutoTag.appendChild(tAutoTag) // Append the text to <button>
-btnAutoTag.addEventListener('click', autotag)
-btnAutoTag.style = 'position: absolute; background-color: sienna; width:130px; top: 120px; left: 20px; color: white; display: block; font-size: 12px; z-index: 10000; border-width: 8px; padding: 6px 10px; border-radius: 0; border-style: groove; border-color: antiquewhite; cursor: pointer;'
-document.body.appendChild(btnAutoTag)
+const buttonAutoTag = document.createElement('button') // Create a <button> element
+const tAutoTag = document.createTextNode('Tag this person') // Create a text node
+buttonAutoTag.append(tAutoTag) // Append the text to <button>
+buttonAutoTag.addEventListener('click', autotag)
+buttonAutoTag.style = 'position: absolute; background-color: sienna; width:130px; top: 120px; left: 20px; color: white; display: block; font-size: 12px; z-index: 10000; border-width: 8px; padding: 6px 10px; border-radius: 0; border-style: groove; border-color: antiquewhite; cursor: pointer;'
+document.body.append(buttonAutoTag)
 
-var btnInvertSel = document.createElement('button') // Create a <button> element
-var tInvertSel = document.createTextNode('Invert selection') // Create a text node
-btnInvertSel.appendChild(tInvertSel) // Append the text to <button>
-btnInvertSel.addEventListener('click', invertSelection)
-btnInvertSel.style = 'position: absolute; background-color: sienna; width:130px; top: 170px; left: 20px; color: white; display: block; font-size: 12px; z-index: 10000; border-width: 8px; padding: 6px 10px; border-radius: 0 14px; border-style: groove; border-color: antiquewhite; cursor: pointer;'
-document.body.appendChild(btnInvertSel)
+const buttonInvertSel = document.createElement('button') // Create a <button> element
+const tInvertSel = document.createTextNode('Invert selection') // Create a text node
+buttonInvertSel.append(tInvertSel) // Append the text to <button>
+buttonInvertSel.addEventListener('click', invertSelection)
+buttonInvertSel.style = 'position: absolute; background-color: sienna; width:130px; top: 170px; left: 20px; color: white; display: block; font-size: 12px; z-index: 10000; border-width: 8px; padding: 6px 10px; border-radius: 0 14px; border-style: groove; border-color: antiquewhite; cursor: pointer;'
+document.body.append(buttonInvertSel)
 
 // addCSS('https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.3.0/css/iziToast.min.css')
 // addScript('https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.3.0/js/iziToast.min.js')

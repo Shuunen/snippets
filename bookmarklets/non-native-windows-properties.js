@@ -1,4 +1,4 @@
-var xyz = {}
+const xyz = {}
 
 xyz.generic = [
   'postMessage',
@@ -202,10 +202,8 @@ xyz.generic = [
 
 xyz.current = Object.keys(window)
 
-xyz.diff = xyz.current.filter(e => (xyz.generic.indexOf(e) === -1) && e !== 'xyz')
+xyz.diff = xyz.current.filter(item => (!xyz.generic.includes(item)) && item !== 'xyz')
 
 console.log(`Found ${xyz.diff.length} non-native property on windows object :`)
 
-xyz.diff.map(key => {
-  console.log(key, ':', window[key])
-})
+xyz.diff.map(key => (console.log(key, ':', window[key])))

@@ -16,7 +16,7 @@ const configs = [
   { file: `${prgFiles}/Microsoft Mouse and Keyboard Center/commands.xml`, renameTo: 'keyboard-commands.xml' },
   `${appData}/Launchy/launchy.ini`,
   `${appData}/Greenshot/Greenshot.ini`,
-  { file : `${appData}/HandBrake/presets.json`, renameTo: 'handbrake-presets.json'}
+  { file: `${appData}/HandBrake/presets.json`, renameTo: 'handbrake-presets.json' },
 ]
 
 const backupPath = path.join(process.env.PWD, '/files')
@@ -31,10 +31,10 @@ const files = configs.map(config => {
     source = config.file
     filename = config.renameTo
   } else {
-    throw new Error('unhandled config format')
+    throw new TypeError('unhandled config format')
   }
-  const dest = path.join(backupPath, filename)
-  return { source, dest }
+  const destination = path.join(backupPath, filename)
+  return { source, dest: destination }
 })
 
 module.exports = files

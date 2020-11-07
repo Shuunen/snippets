@@ -1,17 +1,18 @@
-var Botkit = require('botkit')
-var _ = require('underscore')
-var shuffle = require('shuffle-array')
-var fs = require('fs')
-var token = fs.readFileSync('./token.conf', 'utf8')
+const Botkit = require('botkit')
+const _ = require('underscore')
+const shuffle = require('shuffle-array')
+const fs = require('fs')
+let token = fs.readFileSync('./token.conf', 'utf8')
 
 if (!token) {
   console.log('please set a slack token in a token.conf file')
+  // eslint-disable-next-line unicorn/no-process-exit
   process.exit(1)
 }
 
 token = token.replace('\n', '')
 
-var controller = Botkit.slackbot({
+const controller = Botkit.slackbot({
   debug: false,
   // include "log: false" to disable logging
   // or a "logLevel" integer from 0 to 7 to adjust logging verbosity
@@ -22,9 +23,9 @@ controller.spawn({
   token: token,
 }).startRTM()
 
-var pick = (arr) => shuffle(arr)[0]
+const pick = (array) => shuffle(array)[0]
 
-var userIdToName = {
+const userIdToName = {
   U0760C9CL: ['romain', 'rom1', 'rominou'],
   U21PGPWE9: ['romain 1'],
   U0YBJJB0B: ['léo', 'lé0', 'lEyyO'],
@@ -35,20 +36,16 @@ var userIdToName = {
   U0YCZU9MY: ['benJ', 'ben', 'benjam1', 'ben le ouf'],
 }
 
-var userFromId = (userId) => {
-  if (_.has(userIdToName, userId)) {
-    return pick(userIdToName[userId])
-  } else {
-    return null
-  }
+const userFromId = (userId) => {
+  return _.has(userIdToName, userId) ? pick(userIdToName[userId]) : undefined
 }
 
-var endToArr = ['bro', 'bro\'', 'broow', '', 'broo', 'broOo', 'br0', '', 'ma couille', 'soss\'', 'mon ami', 'la véritayy', 'zbraaa']
-var endPuncArr = ['!', '\\o/', '!', '', '']
-var endSmileyyArr = [':stuck_out_tongue:', ':p', ':)', ' ', ' ', ':smile:', ':sunglasses:', ':grin:', ':clap:']
-var end = () => {
+const endToArray = ['bro', 'bro\'', 'broow', '', 'broo', 'broOo', 'br0', '', 'ma couille', 'soss\'', 'mon ami', 'la véritayy', 'zbraaa']
+const endPuncArray = ['!', '\\o/', '!', '', '']
+const endSmileyyArray = [':stuck_out_tongue:', ':p', ':)', ' ', ' ', ':smile:', ':sunglasses:', ':grin:', ':clap:']
+const end = () => {
   lastReply = timestamp()
-  return ' ' + pick(endToArr) + ' ' + pick(endPuncArr) + ' ' + pick(endSmileyyArr)
+  return ' ' + pick(endToArray) + ' ' + pick(endPuncArray) + ' ' + pick(endSmileyyArray)
 }
 
 /*
@@ -58,26 +55,26 @@ var dudeWillSpeak = function (userName) {
   return pick(speakDude).replace('_N_', userName) + ' ' + pick(goDude) + ' ' + pick(endSmileyyArr)
 }
 */
-var timestamp = () => Math.round(Date.now() / 1000)
+const timestamp = () => Math.round(Date.now() / 1000)
 
-var quotes = ['mon gars posey po-posey mon gars hey hey', 'je rappe mieux qu’tupac plus de buzz qu’obama', 'dis moi pourquoi mon rap est trop fraiy demande a’amnadine elle te dira pourquoi je suis trop beauw', 'Swaggy Doggy Dort il n’sait plus quoi faire car on est blinder d’or equipey tatouey de la tete jusqu’au piey mec', 'Tu bois trop de label 5 Mec on est dechirey mec on est montey en bentley', 'J\'ai des cadavres de culs, j\'ai les couilles déchargées', 'Avec ta gow, je suis posey, elle a le froc baissey; Elle fait que des avances, j\'crois bien qu\'elle a envie d\'baisey', 'Des fois j\'aimerais mettre mes mains dans mes poches, mais y\'a trop d\'billeys', 'Parlent de moi mais j\'baise leur fiancée comme un antillais; An-an-antillais, me dissout pas j\'reste entiey', 'Tellement d\'swag et d\'argent que ta grand-mère me suce sans dentiey', 'Dans ma Bentley ou ma Lambo\', suce mon kiki pendant qu\'t\'y es']
+const quotes = ['mon gars posey po-posey mon gars hey hey', 'je rappe mieux qu’tupac plus de buzz qu’obama', 'dis moi pourquoi mon rap est trop fraiy demande a’amnadine elle te dira pourquoi je suis trop beauw', 'Swaggy Doggy Dort il n’sait plus quoi faire car on est blinder d’or equipey tatouey de la tete jusqu’au piey mec', 'Tu bois trop de label 5 Mec on est dechirey mec on est montey en bentley', 'J\'ai des cadavres de culs, j\'ai les couilles déchargées', 'Avec ta gow, je suis posey, elle a le froc baissey; Elle fait que des avances, j\'crois bien qu\'elle a envie d\'baisey', 'Des fois j\'aimerais mettre mes mains dans mes poches, mais y\'a trop d\'billeys', 'Parlent de moi mais j\'baise leur fiancée comme un antillais; An-an-antillais, me dissout pas j\'reste entiey', 'Tellement d\'swag et d\'argent que ta grand-mère me suce sans dentiey', 'Dans ma Bentley ou ma Lambo\', suce mon kiki pendant qu\'t\'y es']
 
-var lastReply = timestamp()
+let lastReply = timestamp()
 // var lastUserId = ''
-var validUserName = null
+let validUserName
 
-var firstCap = (str) => str.charAt(0).toUpperCase() + str.slice(1)
+const firstCap = (string) => string.charAt(0).toUpperCase() + string.slice(1)
 
-var onMsgReceived = (bot, msg) => {
-  if (['presence_change', 'reconnect_url', 'hello'].indexOf(msg.type) !== -1) {
+const onMessageReceived = (bot, message) => {
+  if (['presence_change', 'reconnect_url', 'hello'].includes(message.type)) {
     return
   } else {
-    console.log('entendu "' + JSON.stringify(msg) + '"')
+    console.log('entendu "' + JSON.stringify(message) + '"')
   }
 
-  var userId = msg.user
-  var userName = userFromId(userId)
-  var content = msg.content
+  const userId = message.user
+  const userName = userFromId(userId)
+  const content = message.content
 
   console.log('AZY userId "' + userId + '"')
   console.log('AZY validUserName "' + validUserName + '"')
@@ -113,26 +110,26 @@ var onMsgReceived = (bot, msg) => {
   }
   console.log('AZY avec content et validUserName "' + validUserName + '"')
 
-  if (content.indexOf('billet') !== -1) {
-    bot.reply(msg, 'j\'kiff les billayy' + end())
-  } else if (content.indexOf('posé') !== -1) {
-    bot.reply(msg, 'j\'suis trop posayyy' + end())
-  } else if (content.indexOf('tatoué') !== -1) {
-    bot.reply(msg, 'd\'la tête aux pieyy' + end())
-  } else if (content.indexOf('reposer') !== -1) {
-    bot.reply(msg, 'pas besoin bro, j\'suis survoltayyy' + end())
-  } else if (content.indexOf('pnl') !== -1) {
-    bot.reply(msg, 'azy PNL cay day paydayy' + end())
-  } else if (content.indexOf('citation') !== -1) {
-    bot.reply(msg, pick(quotes) + end())
-  } else if (content.indexOf('azy') !== -1) {
-    bot.reply(msg, 'c\'toi le nazi' + end())
-  } else if (content.indexOf('yo') !== -1) {
-    bot.reply(msg, 'yo' + end())
-  } else if (content.indexOf('ça va') !== -1) {
-    bot.reply(msg, 'ca roule et toi' + end())
-  } else if (content.indexOf('préféré') !== -1) {
-    var m = 'c\'est toi ma couille !'
+  if (content.includes('billet')) {
+    bot.reply(message, 'j\'kiff les billayy' + end())
+  } else if (content.includes('posé')) {
+    bot.reply(message, 'j\'suis trop posayyy' + end())
+  } else if (content.includes('tatoué')) {
+    bot.reply(message, 'd\'la tête aux pieyy' + end())
+  } else if (content.includes('reposer')) {
+    bot.reply(message, 'pas besoin bro, j\'suis survoltayyy' + end())
+  } else if (content.includes('pnl')) {
+    bot.reply(message, 'azy PNL cay day paydayy' + end())
+  } else if (content.includes('citation')) {
+    bot.reply(message, pick(quotes) + end())
+  } else if (content.includes('azy')) {
+    bot.reply(message, 'c\'toi le nazi' + end())
+  } else if (content.includes('yo')) {
+    bot.reply(message, 'yo' + end())
+  } else if (content.includes('ça va')) {
+    bot.reply(message, 'ca roule et toi' + end())
+  } else if (content.includes('préféré')) {
+    let m = 'c\'est toi ma couille !'
     if (validUserName) {
       m += ' _N_ + Swaggy Boy = :cupid:'
       m = m.replace('_N_', firstCap(validUserName))
@@ -140,32 +137,32 @@ var onMsgReceived = (bot, msg) => {
       console.log('AZY !!! je connais pas "' + userId + '" MON PREFEREYY !')
     }
     m += end()
-    bot.reply(msg, m)
-  } else if (content.indexOf('te revoir') !== -1) {
-    var secs = Math.round(timestamp() - lastReply) + ' secondes'
-    bot.reply(msg, 'cay clair! c\'étaay les ' + secs + ' les plus longues de ma life' + end())
-  } else if (content.indexOf('longue') !== -1) {
-    bot.reply(msg, 'comme ma trompe' + end())
-  } else if (content.indexOf('manges où') !== -1) {
-    var placeToEat = pick(['au stéréo lux', 'dans ma Bentleyy'])
-    bot.reply(msg, placeToEat + end())
-  } else if (content.indexOf('quelle heure') !== -1) {
-    var hour = pick(['de sortir les billaayy', 'd\'allay mangeayy', 'd\'allay se posayy'])
-    bot.reply(msg, 'l\'heure ' + hour + end())
-  } else if (content.indexOf('où') !== -1) {
-    var location = pick(['dans ma villa de luxe', 'à un congrayy', 'au KFCayyy'])
-    bot.reply(msg, location + end())
-  } else if (content.indexOf('on va') !== -1) {
-    var ok = pick(['yes', 'carreyment', 'nan jammayy'])
-    bot.reply(msg, ok + end())
+    bot.reply(message, m)
+  } else if (content.includes('te revoir')) {
+    const secs = Math.round(timestamp() - lastReply) + ' secondes'
+    bot.reply(message, 'cay clair! c\'étaay les ' + secs + ' les plus longues de ma life' + end())
+  } else if (content.includes('longue')) {
+    bot.reply(message, 'comme ma trompe' + end())
+  } else if (content.includes('manges où')) {
+    const placeToEat = pick(['au stéréo lux', 'dans ma Bentleyy'])
+    bot.reply(message, placeToEat + end())
+  } else if (content.includes('quelle heure')) {
+    const hour = pick(['de sortir les billaayy', 'd\'allay mangeayy', 'd\'allay se posayy'])
+    bot.reply(message, 'l\'heure ' + hour + end())
+  } else if (content.includes('où')) {
+    const location = pick(['dans ma villa de luxe', 'à un congrayy', 'au KFCayyy'])
+    bot.reply(message, location + end())
+  } else if (content.includes('on va')) {
+    const ok = pick(['yes', 'carreyment', 'nan jammayy'])
+    bot.reply(message, ok + end())
   } else {
-    var p = pick(['yes', 'ça dépend des fois', 'carreyment', 'nan jammayy', 'seulement le dimanche', 'ouais t\'as cru quoi', 'plutôw ouayy', 'pas troww'])
-    bot.reply(msg, p + end())
+    const p = pick(['yes', 'ça dépend des fois', 'carreyment', 'nan jammayy', 'seulement le dimanche', 'ouais t\'as cru quoi', 'plutôw ouayy', 'pas troww'])
+    bot.reply(message, p + end())
   }
 }
 
 // reply to any incoming message
-controller.on('message_received', onMsgReceived)
+controller.on('message_received', onMessageReceived)
 
 /*
 // reply to a direct mention - @bot hello

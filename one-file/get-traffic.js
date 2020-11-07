@@ -1,7 +1,7 @@
-var request = require('request')
-var cheerio = require('cheerio')
+const request = require('request')
+const cheerio = require('cheerio')
 
-function scrap (url, arg) {
+function scrap (url, argument) {
   request(url, function onRequest (error, response, body) {
     if (!error && response.statusCode === 200) {
       /*
@@ -16,12 +16,12 @@ function scrap (url, arg) {
        */
 
       // extract data
-      var result = ''
-      if (typeof arg === 'string') {
-        var $ = cheerio.load(body)
-        result = $(arg).text()
-      } else if (typeof arg === 'function') {
-        result = arg(body)
+      let result = ''
+      if (typeof argument === 'string') {
+        const $ = cheerio.load(body)
+        result = $(argument).text()
+      } else if (typeof argument === 'function') {
+        result = argument(body)
       }
 
       // log to console
@@ -33,26 +33,26 @@ function scrap (url, arg) {
 }
 
 function getGgTrafficTime (body) {
-  var result = ''
+  let result = ''
 
-  var minutesMatches = body.match(/traffic.+?\d+\smin.+?(\d+)\smin/) // TODO : handle hours
+  const minutesMatches = body.match(/traffic.+?\d+\smin.+?(\d+)\smin/) // TODO : handle hours
   if (minutesMatches) {
     if (minutesMatches[1]) {
       result = minutesMatches[1] + ' minutes'
     } else {
-      console.error('only global minutesMatch : ', minutesMatches[0])
+      console.error('only global minutesMatch :', minutesMatches[0])
     }
   } else {
     console.error('no minutesMatches at all')
   }
 
-  var kilometers
-  var kilometerMatches = body.match(/traffic.+?(\d+(,\d+)?)\skm/)
+  let kilometers
+  const kilometerMatches = body.match(/traffic.+?(\d+(,\d+)?)\skm/)
   if (kilometerMatches) {
     if (kilometerMatches[1]) {
       kilometers = kilometerMatches[1]
     } else {
-      console.error('only global kilometerMatch : ', kilometerMatches[0])
+      console.error('only global kilometerMatch :', kilometerMatches[0])
     }
   } else {
     console.error('no kilometerMatches at all')

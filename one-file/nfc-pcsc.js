@@ -90,8 +90,8 @@ nfc.on('reader', async reader => {
       ])
 
       console.info('blocks successfully authenticated')
-    } catch (err) {
-      console.error('error when authenticating data', { reader: reader.name, card, err })
+    } catch (error) {
+      console.error('error when authenticating data', { reader: reader.name, card, err: error })
       return
     }
 
@@ -116,13 +116,13 @@ nfc.on('reader', async reader => {
       console.log('data read', data)
       const payload = data.toString() // utf8 is default encoding
       console.log('data converted', payload)
-    } catch (err) {
-      console.error('error when reading data', { reader: reader.name, err })
+    } catch (error) {
+      console.error('error when reading data', { reader: reader.name, err: error })
     }
   })
 
-  reader.on('error', err => {
-    console.error('an error occurred', { reader: reader.name, err })
+  reader.on('error', error => {
+    console.error('an error occurred', { reader: reader.name, err: error })
   })
 
   reader.on('end', () => {
@@ -134,6 +134,6 @@ nfc.on('reader', async reader => {
   })
 })
 
-nfc.on('error', err => {
-  console.error('an error occurred', err)
+nfc.on('error', error => {
+  console.error('an error occurred', error)
 })

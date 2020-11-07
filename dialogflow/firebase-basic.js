@@ -6,12 +6,12 @@ const { WebhookClient } = require('dialogflow-fulfillment')
 const { Card, Suggestion } = require('dialogflow-fulfillment')
 
 const fill = (tpl, data) => {
-  let str = '' + tpl
+  let string = '' + tpl
   for (const [key, value] of data) {
     const regex = new RegExp('{+\\s?' + key + '\\s?}+', 'ig')
-    str = str.replace(regex, value)
+    string = string.replace(regex, value)
   }
-  return str
+  return string
 }
 
 process.env.DEBUG = 'dialogflow:debug' // enables lib debugging statements

@@ -203,6 +203,6 @@ devices.on('available', reg => {
     return
   }
   console.log('Connected to', device.type, device.model, device.address ? '(' + device.address + ')' : '')
-  device.on('propertyChanged', e => console.log(device.type + ' : property "' + e.property + '" changed from ' + e.oldValue + ' to ' + e.value))
+  device.on('propertyChanged', event => console.log(device.type + ' : property "' + event.property + '" changed from ' + event.oldValue + ' to ' + event.value))
   device.on('action', action => console.log(device.type + ' : action detected "' + action.id + '"'))
 })

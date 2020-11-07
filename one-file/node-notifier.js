@@ -3,7 +3,7 @@
 const notifier = require('node-notifier')
 
 // a notification to display
-const msg = {
+const message = {
   title: 'My title',
   message: 'A damn good message !',
   sound: false, // true | false.
@@ -15,7 +15,7 @@ const msg = {
 // this basic usage is supposed to use any method available in actual env
 // but ...
 // on Win 7/8 it just do nothing
-notifier.notify(msg)
+notifier.notify(message)
 
 // because this works on Win 10+
 const WindowsToaster = require('node-notifier/notifiers/toaster')
@@ -28,4 +28,4 @@ new Growl().notify('Growl message :)')
 // this works on Win 7/8
 const WindowsBalloon = require('node-notifier/notifiers/balloon')
 const WindowsBalloonNotifier = new WindowsBalloon()
-WindowsBalloonNotifier.notify(msg)
+WindowsBalloonNotifier.notify(message)

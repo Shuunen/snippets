@@ -8,19 +8,19 @@ app.use(morgan('combined'))
 app.use(bodyParser.urlencoded({ extended: 'true' }))
 app.use(bodyParser.json())
 
-app.use((req, res, next) => {
-  res.header('Access-Control-Allow-Origin', '*')
-  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+app.use((request, response, next) => {
+  response.header('Access-Control-Allow-Origin', '*')
+  response.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
   next()
 })
 
 const fill = (tpl, data) => {
-  let str = '' + tpl
+  let string = '' + tpl
   for (const [key, value] of data) {
     const regex = new RegExp('{+\\s?' + key + '\\s?}+', 'ig')
-    str = str.replace(regex, value)
+    string = string.replace(regex, value)
   }
-  return str
+  return string
 }
 
 const dfResponse = (text, source) => {
@@ -51,13 +51,13 @@ const dfResponse = (text, source) => {
   }
 }
 
-app.post('/webhook', (req, res) => {
-  const query = req.body.queryResult
+app.post('/webhook', (request, response) => {
+  const query = request.body.queryResult
 
   if (!query) {
     const message = 'not a DialogFlow request'
     console.log(message)
-    return res.send(message)
+    return response.send(message)
   }
 
   // log all df query
@@ -65,7 +65,7 @@ app.post('/webhook', (req, res) => {
 
   const data = new Map().set('box', 'B').set('drawer', '2')
   const tpl = 'you\'re looking for drawer { drawer } in box n°{ box }'
-  res.json(dfResponse(fill(tpl, data)))
+  response.json(dfResponse(fill(tpl, data)))
 })
 
 app.listen(port, () => {
