@@ -40,12 +40,9 @@ class CheckDuplicates {
 
   async check () {
     this.results = {}
-    let nbResults = 0
     for (let aIndex = 0; aIndex < this.nbElements; aIndex++) {
-      if (maxResults === nbResults) break
       for (let bIndex = 0; bIndex < this.nbElements; bIndex++) {
         if (aIndex === bIndex) continue
-        if (maxResults === nbResults) break
         const a = this.elements[aIndex]
         const b = this.elements[bIndex]
         const key = aIndex + '|' + bIndex
@@ -54,14 +51,13 @@ class CheckDuplicates {
         let amount = distance(a, b) + ''
         amount = (amount.length === 1 ? '0' : '') + amount
         this.results[key] = amount + ' : ' + this.ellipsis(a) + ' VS ' + this.ellipsis(b)
-        nbResults++
       }
     }
   }
 
   async report () {
-    const list = Object.keys(this.results).map(key => this.results[key])
-    console.log(list.sort())
+    const list = Object.keys(this.results).map(key => this.results[key]).sort()
+    console.log(list.splice(0, maxResults))
   }
 }
 
