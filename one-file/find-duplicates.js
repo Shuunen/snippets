@@ -3,8 +3,10 @@ const fs = require('fs')
 const distance = require('./levenshtein')
 const { promisify } = require('util')
 const readDirectory = promisify(fs.readdir)
+const stat = promisify(fs.stat)
 
 const maxResults = 10
+const sizeGrain = 10000
 
 class CheckDuplicates {
   constructor () {
@@ -48,9 +50,13 @@ class CheckDuplicates {
         const key = aIndex + '|' + bIndex
         const keyAlt = bIndex + '|' + aIndex
         if (this.results[key] || this.results[keyAlt]) continue
-        let amount = distance(a, b) + ''
-        amount = (amount.length === 1 ? '0' : '') + amount
-        this.results[key] = amount + ' : ' + this.ellipsis(a) + ' VS ' + this.ellipsis(b)
+        let amount = distance(a, b)
+        const sizeA = await stat(path.join(this.target, a)).then(data => Math.round(data.size / sizeGrain))
+        const sizeB = await stat(path.join(this.target, b)).then(data => Math.round(data.size / sizeGrain))
+        const sizeDiff = Math.abs(sizeA - sizeB)
+        amount += sizeDiff // add the size diff as distance ^^
+        amount = (amount.toString().length === 1 ? '0' : '') + amount
+        this.results[key] = `${amount} (${sizeDiff}) : ${this.ellipsis(a)} VS ${this.ellipsis(b)}`
       }
     }
   }
