@@ -7,7 +7,6 @@
   "dependencies": {
     "eslint": "7.14.0",
     "eslint-config-standard": "16.0.2",
-    "eslint-plugin-html": "6.1.1",
     "eslint-plugin-import": "2.22.1",
     "eslint-plugin-node": "11.1.0",
     "eslint-plugin-promise": "4.2.1",
@@ -41,7 +40,7 @@
   "scripts": {
     "check": "repo-check",
     "ci": "npm run test",
-    "lint": "eslint --fix --ignore-path .gitignore --ext .js,.html .",
+    "lint": "eslint --fix --ignore-path .gitignore --ext .js .",
     "postversion": "git push && git push --tags",
     "preversion": "npm run ci",
     "start": "echo no need for start task",

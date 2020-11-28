@@ -12,7 +12,6 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: [
-    'html',
     'unicorn',
   ],
 }
