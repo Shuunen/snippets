@@ -194,7 +194,7 @@ fi
 
 # Node Version Manager - Simple bash script to manage multiple active node.js versions
 if [[ ! -d ~/.nvm ]]; then
-	curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.6/install.sh | bash
+  curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.37.2/install.sh | bash
 else
 	consoleLog "Node Version Manager was already installed"
 fi
@@ -211,14 +211,12 @@ if ! is_desktop; then
 fi
 
 install_if_needed "gedit"                   # gedit base
-install_if_needed "gedit-developer-plugins" # useful dev plugins
 install_if_needed "gedit-plugins"           # useful plugins
 install_if_needed "dconf-editor"            # handy debian conf
 install_if_needed "apturl"                  # allow to install packets via apt://stuff
 install_if_needed "vlc"                     # ze media player
 install_if_needed "gdebi"                   # easy gui package installer
 install_if_needed "pinta"                   # nice graphic editor like Paint.net
-install_if_needed "livestreamer"            # allow stream playing into vlc
 install_if_needed "gparted"                 # partition manager
 install_if_needed "meld"                    # to compare files & dir
 install_if_needed "xsel"                    # allow getting and setting clipboard
