@@ -21,6 +21,7 @@
     "Geekbench",
     "Geolocation",
     "Gmap",
+    "Greenshot",
     "Gtmetrix",
     "Hueï",
     "Imgur",
@@ -40,6 +41,7 @@
     "Picasa",
     "RACAMIRO",
     "Racamier",
+    "Romain",
     "SARLU",
     "SASU",
     "SELARL",
@@ -68,6 +70,7 @@
     "carafer",
     "cdnjs",
     "choco",
+    "cipav",
     "cmyk",
     "codir",
     "commitlint",
@@ -84,7 +87,9 @@
     "dpkg",
     "dropdown",
     "dropdowns",
+    "dvdrip",
     "editorconfig",
+    "enedis",
     "eofline",
     "esnext",
     "ffprobe",
@@ -110,6 +115,7 @@
     "linebreak",
     "listitem",
     "lorsqu'elle",
+    "maxlength",
     "metroui",
     "microbundle",
     "minlength",
@@ -147,12 +153,13 @@
     "rawgit",
     "readonly",
     "rebased",
-    "redaxios",
+    "reefjs",
     "registrator",
     "remarkise",
     "repo",
     "royalblue",
     "rulesets",
+    "sakura",
     "scandir",
     "scripthost",
     "scrollbar",
@@ -163,6 +170,7 @@
     "singleline",
     "spotify",
     "subpath",
+    "symfony",
     "symlinked",
     "tabindex",
     "taglist",
@@ -175,20 +183,22 @@
     "typestrict",
     "unitless",
     "vcredist",
+    "verlingue",
     "vetur",
     "viewports",
     "visualstudio",
     "wario",
     "webcomponent",
-    "yolo"
+    "yolo",
+    "zurb"
   ],
   "css.validate": false,
   "csscomb.formatOnSave": true,
   "diffEditor.ignoreTrimWhitespace": false,
-  "editor.codeActionsOnSave": [
-    "source.organizeImports",
-    "source.fixAll.eslint"
-  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll": true,
+    "source.organizeImports": true
+  },
   "editor.minimap.maxColumn": 300,
   "editor.tabSize": 2,
   "eslint.alwaysShowStatus": true,
@@ -223,8 +233,8 @@
   "vetur.format.defaultFormatter.js": "none",
   "vetur.format.defaultFormatter.ts": "vscode-typescript",
   "vetur.format.defaultFormatterOptions": {
-    "prettyhtml": {
-      "printWidth": 200,
+    "prettier": {
+      "printWidth": 150,
       "singleQuote": false
     }
   },
@@ -254,8 +264,5 @@
     "terminal.selectionBackground": "#97979b33",
     "terminalCursor.background": "#282a36",
     "terminalCursor.foreground": "#97979b"
-  },
-  "[html]": {
-    "editor.defaultFormatter": "vscode.html-language-features"
   }
 }
