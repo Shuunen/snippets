@@ -196,7 +196,7 @@ const tryToDoStuffRightNow = () => {
 
 // just return a timestamp in ms
 // divide by 1000 to have seconds
-const timestamp = () => new Date().getTime()
+const timestamp = () => Date.now()
 
 let isFirstStep = true
 const showTiming = (isStep) => {

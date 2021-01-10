@@ -32,7 +32,7 @@ document.querySelectorAll('.stable-body > table > tbody > tr[index][title]').for
   const dateNow = new Date(new Date().toISOString().split('T')[0]) // ends up with new Date("2019-11-15") and no hours/min/sec
   const diffDays = (dateNow - dateStart) / (1000 * 60 * 60 * 24)
   let moPerDay = Math.round(nbMo / diffDays)
-  if (!moPerDay || moPerDay === Infinity || moPerDay < 1) {
+  if (!moPerDay || moPerDay === Number.POSITIVE_INFINITY || moPerDay < 1) {
     moPerDay = 0
   }
   sentElement.textContent = `${moPerDay} mo/jour`
