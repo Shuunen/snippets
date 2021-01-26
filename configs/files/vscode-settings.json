@@ -195,8 +195,8 @@
     "zurb"
   ],
   "css.validate": false,
-  "csscomb.formatOnSave": true,
   "diffEditor.ignoreTrimWhitespace": false,
+  "editor.formatOnSave": true,
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
     "source.organizeImports": true
@@ -268,5 +268,13 @@
     "terminal.selectionBackground": "#97979b33",
     "terminalCursor.background": "#282a36",
     "terminalCursor.foreground": "#97979b"
+  },
+  "xo.enable": true,
+  "xo.format.enable": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "samverschueren.linter-xo"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "samverschueren.linter-xo"
   }
 }
