@@ -2,6 +2,7 @@
   "recommendations": [
     "aeschli.vscode-css-formatter",
     "bibhasdn.unique-lines",
+    "bradlc.vscode-tailwindcss",
     "christian-kohler.npm-intellisense",
     "davidanson.vscode-markdownlint",
     "dbaeumer.vscode-eslint",
@@ -14,6 +15,8 @@
     "mrmlnc.vscode-csscomb",
     "octref.vetur",
     "richie5um2.vscode-sort-json",
+    "ryanluker.vscode-coverage-gutters",
+    "samverschueren.linter-xo",
     "streetsidesoftware.code-spell-checker-french",
     "streetsidesoftware.code-spell-checker",
     "timonwong.shellcheck",
