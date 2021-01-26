@@ -17,6 +17,7 @@ const configs = [
   `${appData}/Launchy/launchy.ini`,
   `${appData}/Greenshot/Greenshot.ini`,
   { file: `${appData}/HandBrake/presets.json`, renameTo: 'handbrake-presets.json' },
+  { file: `${appData}/HandBrake/settings.json`, renameTo: 'handbrake-settings.json' },
 ]
 
 const backupPath = path.join(process.env.PWD, '/files')
