@@ -17,7 +17,7 @@ choco install autoruns chocolateygui directx geforce-game-ready-driver git Googl
 - [ ] settings > set as default browser
 - [ ] login to github & edit this manual to add missing steps (so meta)
 
-## Explorer 
+## Explorer
 
 - [ ] pin explorer to task bar
 - [ ] make downloads shortcut points to d:
@@ -26,7 +26,7 @@ choco install autoruns chocolateygui directx geforce-game-ready-driver git Googl
 - [ ] copy `.ssh` keys
 - [ ] copy `documents` saved games
 
-## Cmd as admin
+## Cmd as admin again
 
 - [ ] `D:\Apps\7zip\7zFM.exe` and setup file association for user & context menu
 - [ ] `code C:\Windows\System32\drivers\etc\hosts` to customize hosts
@@ -62,7 +62,7 @@ assoc .jpg=ImageFile
 assoc .png=ImageFile
 ```
 
-## Misc 
+## Misc
 
 - [ ] start `Apps/Clavier.Plus.Plus` and activate it on startup
 - [ ] start Launchy from start menu, set the Ctrl+Shift+K keystroke from clavier++
@@ -70,7 +70,7 @@ assoc .png=ImageFile
 - [ ] start `Steam` from start menu and add game libraries in `download options > steam library`, update the default one
 - [ ] use autoruns to remove useless things at startup
 
-## Windows 
+## Windows
 
 - [ ] activate windows
 - [ ] enable windows night luminosity mode
@@ -82,7 +82,7 @@ assoc .png=ImageFile
 - [ ] remove more shit with [O&O ShutUp10](https://www.oo-software.com/en/shutup10)
 - [ ] restart
 
-## Git bash 
+## Git bash
 
 - [ ] options : Looks -> dracula theme, Text -> font size to 11, Mouse -> right btn paste, Window 120 x 30
 

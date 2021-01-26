@@ -7,10 +7,9 @@
 Check these files/folders :
 
 - [ ] desktop
-- [ ] global apps/bin
-- [ ] downloads
+- [ ] downloads (should be on another partition)
 - [ ] hostname & hosts file
-- [ ] configs in `~/.config` (rarely interesting)
+- [ ] anything interesting in user home folder
 - [ ] ssh keys, do `ls -la ~/.ssh` to check for existing ones
 - [ ] git/npm/xyz configs in home (handled by snippet/config)
 - [ ] virtual machines
