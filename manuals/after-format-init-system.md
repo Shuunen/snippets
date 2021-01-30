@@ -1,5 +1,9 @@
-# Init Windows
+<!-- markdownlint-disable MD033 -->
+# Init
 
+<details>
+  <summary>Windows</summary>
+  
 ## Choco
 
 - [ ] install [chocolatey](https://chocolatey.org/install)
@@ -8,10 +12,10 @@
 
 ```bash
 choco feature enable -n allowGlobalConfirmation
-choco install autoruns chocolateygui directx geforce-game-ready-driver git GoogleChrome launchyqt nvm.portable spotify steam vcredist-all vscode
+choco install autoruns chocolateygui directx geforce-game-ready-driver git GoogleChrome launchyqt spotify steam vcredist-all vscode
 ```
 
-## Chrome
+## Chrome or other
 
 - [ ] start sync
 - [ ] settings > set as default browser
@@ -30,36 +34,13 @@ choco install autoruns chocolateygui directx geforce-game-ready-driver git Googl
 
 - [ ] `D:\Apps\7zip\7zFM.exe` and setup file association for user & context menu
 - [ ] `code C:\Windows\System32\drivers\etc\hosts` to customize hosts
+- [ ] instead of nvm, put/check various node versions on `D:\Apps\node\12` for example & check the below PATH to use one of these
 - [ ] set env variables with this but copy/paste to notepad to have CRLF & copy/paste into CMD after (thx m$) :
 
 ```batch
-setx PATH "D:\Android\android-sdk\platform-tools;D:\Android\android-sdk\tools;D:\Android\android-sdk\tools\bin;D:\Apps\_global;D:\Apps\AdoptOpenJDK\jdk8u192-b12\bin;D:\Apps\Araxis;D:\Apps\Python38;D:\Apps\Python38\Scripts;C:\Program Files\Microsoft VS Code;D:\Apps\Picasa;D:\Apps\Spread.32.Free.Excel.Lite;D:\Apps\VLC;D:\Apps\Mkvtoolnix"
+setx PATH "D:\Android\android-sdk\platform-tools;D:\Android\android-sdk\tools;D:\Android\android-sdk\tools\bin;D:\Apps\_global;D:\Apps\AdoptOpenJDK\jdk8u192-b12\bin;D:\Apps\Araxis;D:\Apps\Python38;D:\Apps\Python38\Scripts;C:\Program Files\Microsoft VS Code;D:\Apps\Picasa;D:\Apps\Spread.32.Free.Excel.Lite;D:\Apps\VLC;D:\Apps\Mkvtoolnix;D:\Apps\node\12"
 setx ANDROID_HOME "D:\Android\android-sdk"
 setx JAVA_HOME "D:\Apps\AdoptOpenJDK\jdk8u192-b12"
-ftype jarfileterm=cmd /s /c java -jar %1 %*
-assoc .jar=jarfileterm
-ftype VideoFile=vlc.exe %1 %*
-assoc .avi=VideoFile
-assoc .mkv=VideoFile
-assoc .mov=VideoFile
-assoc .mp4=VideoFile
-assoc .webm=VideoFile
-ftype AudioFile=vlc.exe %1 %*
-assoc .mp3=AudioFile
-ftype SpreadsheetFile=spread32.exe %1 %*
-assoc .xls=SpreadsheetFile
-ftype TextFile=Code.exe %1 %*
-assoc .csv=TextFile
-assoc .json=TextFile
-assoc .log=TextFile
-assoc .md=TextFile
-assoc .nfo=TextFile
-assoc .xml=TextFile
-ftype SubtitleFile=SubtitleEdit.exe %1 %*
-assoc .srt=SubtitleFile
-ftype ImageFile=PicasaPhotoViewer.exe %1 %*
-assoc .jpg=ImageFile
-assoc .png=ImageFile
 ```
 
 ## Misc
@@ -87,31 +68,11 @@ assoc .png=ImageFile
 - [ ] options : Looks -> dracula theme, Text -> font size to 11, Mouse -> right btn paste, Window 120 x 30
 
 ```bash
-nvm ls available
-nvm install 12.16.2 # put the latest LTS
-nvm use 12.16.2
 echo -e '#!/bin/bash\n\neval "$(ssh-agent -s)"\nssh-add ~/.ssh/id_rsa_gh' > ~/.bashrc
 bash
 cd && mkdir Projects && cd Projects
-mkdir shuunen && cd shuunen
-git clone git@github.com:Shuunen/alpine-parcel-tailwind.git
-git clone git@github.com:Shuunen/bergerac-roads.git
-git clone git@github.com:Shuunen/contacto.git
-git clone git@github.com:Shuunen/crystal-plan.git
-git clone git@github.com:Shuunen/flood-it.git
-git clone git@github.com:Shuunen/folio.git
-git clone git@github.com:Shuunen/goals.git
-git clone git@github.com:Shuunen/green-app.git
-git clone git@github.com:Shuunen/recipes.git
-git clone git@github.com:Shuunen/regex-converter.git
-git clone git@github.com:Shuunen/repo-checker.git
-git clone git@github.com:Shuunen/shuutils.git
+mkdir github && cd github
 git clone git@github.com:Shuunen/snippets.git
-git clone git@github.com:Shuunen/stuff-finder.git
-git clone git@github.com:Shuunen/td-express.git
-git clone git@github.com:Shuunen/user-scripts.git
-git clone git@github.com:Shuunen/vue-image-compare.git
-git clone git@github.com:Shuunen/what-now.git
 cd snippets/configs/files/
 cp .bashrc ~
 cp .gitconfig ~
@@ -127,14 +88,6 @@ cd ..
 code ..
 ```
 
-- [ ] install my recommended extensions
-
-## Optionals
-
-- [ ] Do Geekbench, Cinebench & UserBenchmark
-- [ ] [pimp with a 2k wallpaper](https://www.google.com/search?q=wallpaper+2k)
-- [ ] install minimum drivers with [DriversCloud](https://www.driverscloud.com)
-
 ### Android development environnement
 
 Thanks to preinstalled android env, only these steps are required :
@@ -143,3 +96,56 @@ Thanks to preinstalled android env, only these steps are required :
 - [ ] open cmd & `"%ANDROID_HOME%/extras/intel/Hardware_Accelerated_Execution_Manager/intelhaxm-android.exe"`
 - [ ] then `"%ANDROID_HOME%/extras/intel/Hardware_Accelerated_Execution_Manager/haxm_check.exe"` should gives two yes
 - [ ] `avdmanager create avd -n avd_28_xl -k "system-images;android-28;google_apis;x86_64" -d pixel_xl` && `%ANDROID_HOME%/emulator/emulator -avd avd_28_xl` you should see the avd starting
+
+</details>
+
+<details>
+  <summary>Linux</summary>
+
+```bash
+echo -e "alias ..='cd ..' \n alias install='sudo apt install' \n alias mkdir='mkdir -pv' \n alias whatsmyip='curl http://ipecho.net/plain; echo' \n alias psg='ps aux | grep -v grep | grep -i -e VSZ -e' \n echo '' \n screenfetch \n echo ' Welcome ${USER} ^^' \n echo ''" > ~/.bash_aliases # make sure bash_aliases is sourced in ~/.bashrc
+source ~/.bash_aliases
+sudo snap install node --classic --channel=14 # channel is the major version
+npm config set package-lock false # malicious laugth :p
+sudo apt install git aria2 nano curl snapd screenfetch # vvv below is for desktop only vvv
+sudo apt install vlc pinta gparted meld xsel shotwell qbittorrent 
+sudo snap install --classic code
+sudo apt autoremove -y
+echo -e "optional : you can manually run 'sudo apt install ttf-mscorefonts-installer' & 'sudo fc-cache -f -v' to get win fonts & clear font cache"
+mkdir ~/Projects/github
+cd ~/Projects/github
+git clone git@github.com:Shuunen/snippets.git
+cd snippets/configs/files/
+cp .gitconfig ~
+```
+
+</details>
+
+<details>
+  <summary>All</summary>
+
+```bash
+cd ~/Projects/github
+git clone git@github.com:Shuunen/contacto.git
+git clone git@github.com:Shuunen/crystal-plan.git
+git clone git@github.com:Shuunen/flood-it.git
+git clone git@github.com:Shuunen/folio.git
+git clone git@github.com:Shuunen/goals.git
+git clone git@github.com:Shuunen/recipes.git
+git clone git@github.com:Shuunen/regex-converter.git
+git clone git@github.com:Shuunen/repo-checker.git
+git clone git@github.com:Shuunen/shuutils.git
+git clone git@github.com:Shuunen/stack.git
+git clone git@github.com:Shuunen/stuff-finder.git
+git clone git@github.com:Shuunen/td-express.git
+git clone git@github.com:Shuunen/user-scripts.git
+git clone git@github.com:Shuunen/vue-image-compare.git
+git clone git@github.com:Shuunen/what-now.git
+code snippets
+```
+
+- [ ] install my recommended extensions
+- [ ] Do Geekbench, Cinebench, UserBenchmark
+- [ ] [pimp with a 2k wallpaper](https://www.google.com/search?q=wallpaper+2k)
+
+</details>

@@ -1,6 +1,0 @@
-#/bin/sh
-echo "Unified Remotes Server : Killing active processes"
-killall urserver -v -g
-echo "Unified Remotes Server : Starting new ones"
-/opt/urserver/urserver --remotes="/home/chou/.urserver/remotes" --daemon --pidfile="/home/chou/.urserver/urserver.pid"
-echo "Unified Remotes Server : Restart done :)"
