@@ -1,24 +1,26 @@
 const path = require('path')
 
 const home = process.env.HOME
-
-const appData = process.env.APPDATA || (process.platform === 'darwin' ? home + 'Library/Preferences' : home + '/.local/share')
-
+const appData = process.env.APPDATA || (process.platform === 'darwin' ? home + 'Library/Preferences' : home + '/.config')
+const onWindows = process.env.APPDATA === appData
 const prgFiles = 'C:/Program Files'
 
 const configs = [
   { file: `${appData}/Code/User/settings.json`, renameTo: 'vscode-settings.json' },
   { file: `${appData}/Code/User/keybindings.json`, renameTo: 'vscode-keybindings.json' },
-  `${home}/.bashrc`,
   `${home}/.gitignore`,
   `${home}/.gitconfig`,
   `${home}/repo-checker.config.js`,
-  { file: `${prgFiles}/Microsoft Mouse and Keyboard Center/commands.xml`, renameTo: 'keyboard-commands.xml' },
-  `${appData}/Launchy/launchy.ini`,
-  `${appData}/Greenshot/Greenshot.ini`,
   { file: `${appData}/HandBrake/presets.json`, renameTo: 'handbrake-presets.json' },
   { file: `${appData}/HandBrake/settings.json`, renameTo: 'handbrake-settings.json' },
 ]
+
+if (onWindows) configs.push(
+  `${home}/.bashrc`,
+  `${appData}/Launchy/launchy.ini`,
+  `${appData}/Greenshot/Greenshot.ini`,
+  { file: `${prgFiles}/Microsoft Mouse and Keyboard Center/commands.xml`, renameTo: 'keyboard-commands.xml' },
+)
 
 const backupPath = path.join(process.env.PWD, '/files')
 
