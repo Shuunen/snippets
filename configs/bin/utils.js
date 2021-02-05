@@ -41,7 +41,7 @@ async function report (filepath) {
 async function copy (source, destination) {
   // destination will be created or overwritten by default.
   const destFolder = destination.replace(filename(destination), '')
-  await exec('mkdir ' + destFolder + ' -p')
+  await exec('mkdir "' + destFolder + '" -p')
   return copyFile(source, destination).then(() => true).catch((error) => {
     log(error)
     return false

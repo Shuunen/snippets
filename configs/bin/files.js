@@ -19,7 +19,6 @@ if (onWindows) configs.push(
   `${home}/.bashrc`,
   `${appData}/Launchy/launchy.ini`,
   `${appData}/Greenshot/Greenshot.ini`,
-  { file: `${prgFiles}/Microsoft Mouse and Keyboard Center/commands.xml`, renameTo: 'keyboard-commands.xml' },
 )
 
 const backupPath = path.join(process.env.PWD, '/files')
