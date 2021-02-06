@@ -93,7 +93,6 @@ Thanks to preinstalled android env, only these steps are required :
 
 ```bash
 sudo snap install node --classic --channel=14 # channel is the major version
-npm config set package-lock false # malicious laugth :p
 sudo snap install onefetch
 echo -e "alias ..='cd ..' \n alias install='sudo apt install' \n alias apt='sudo apt' \n alias mkdir='mkdir -pv' \n alias merge=meld \n alias whatsmyip='curl http://ipecho.net/plain; echo' \n alias psg='ps aux | grep -v grep | grep -i -e VSZ -e' \n echo '' \n if [ -d '.git' ]; then onefetch; else screenfetch; fi \n echo ' Welcome ${USER} ^^' \n echo ''" > ~/.bash_aliases # make sure bash_aliases is sourced in ~/.bashrc
 source ~/.bash_aliases
@@ -116,6 +115,7 @@ node bin/sync.js --setup
   <summary>All</summary>
 
 ```bash
+npm config set package-lock false --global # malicious laugth :p
 cd ~/Projects/github
 git clone git@github.com:Shuunen/contacto.git
 git clone git@github.com:Shuunen/crystal-plan.git
