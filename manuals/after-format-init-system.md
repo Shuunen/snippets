@@ -12,7 +12,7 @@
 
 ```bash
 choco feature enable -n allowGlobalConfirmation
-choco install directx geforce-game-ready-driver git GoogleChrome launchyqt spotify steam vcredist-all vscode
+choco install directx geforce-game-ready-driver git GoogleChrome launchyqt spotify steam vcredist-all
 ```
 
 ## Chrome or other
@@ -57,6 +57,7 @@ setx JAVA_HOME "D:\Apps\AdoptOpenJDK\jdk8u192-b12"
 - [ ] enable windows dark mode
 - [ ] change machine name
 - [ ] use power mode in energy settings
+- [ ] remove sound notifications
 - [ ] open advanced power settings to prevent hibernation exit via shitty timers
 - [ ] open device manager, open settings of ethernet network card, disable ability to exit from hibernation
 - [ ] remove more shit with [O&O ShutUp10](https://www.oo-software.com/en/shutup10)
@@ -67,7 +68,7 @@ setx JAVA_HOME "D:\Apps\AdoptOpenJDK\jdk8u192-b12"
 - [ ] options : Looks -> dracula theme, Text -> font size to 11, Mouse -> right btn paste, Window 120 x 30
 
 ```bash
-echo -e '#!/bin/bash\n\neval "$(ssh-agent -s)"\nssh-add ~/.ssh/id_rsa_gh' > ~/.bashrc
+echo -e '#!/bin/bash\n\neval "$(ssh-agent -s)"\nssh-add ~/.ssh/id_rsa_gh\n\nalias ll="ls -alhFo --group-directories-first --time-style=long-iso --color=auto"' > ~/.bashrc
 bash
 cd && mkdir Projects && cd Projects
 mkdir github && cd github
