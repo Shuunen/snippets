@@ -12,7 +12,7 @@
 
 ```bash
 choco feature enable -n allowGlobalConfirmation
-choco install autoruns chocolateygui directx geforce-game-ready-driver git GoogleChrome launchyqt spotify steam vcredist-all vscode
+choco install directx geforce-game-ready-driver git GoogleChrome launchyqt spotify steam vcredist-all vscode
 ```
 
 ## Chrome or other
@@ -34,11 +34,10 @@ choco install autoruns chocolateygui directx geforce-game-ready-driver git Googl
 
 - [ ] `D:\Apps\7zip\7zFM.exe` and setup file association for user & context menu
 - [ ] `code C:\Windows\System32\drivers\etc\hosts` to customize hosts
-- [ ] instead of nvm, put/check various node versions on `D:\Apps\node\12` for example & check the below PATH to use one of these
 - [ ] set env variables with this but copy/paste to notepad to have CRLF & copy/paste into CMD after (thx m$) :
 
 ```batch
-setx PATH "D:\Android\android-sdk\platform-tools;D:\Android\android-sdk\tools;D:\Android\android-sdk\tools\bin;D:\Apps\_global;D:\Apps\AdoptOpenJDK\jdk8u192-b12\bin;D:\Apps\Araxis;D:\Apps\Python38;D:\Apps\Python38\Scripts;C:\Program Files\Microsoft VS Code;D:\Apps\Picasa;D:\Apps\Spread.32.Free.Excel.Lite;D:\Apps\VLC;D:\Apps\Mkvtoolnix;D:\Apps\node\12"
+setx PATH "D:\Android\android-sdk\platform-tools;D:\Android\android-sdk\tools;D:\Android\android-sdk\tools\bin;D:\Apps\_global;D:\Apps\AdoptOpenJDK\jdk8u192-b12\bin;D:\Apps\Araxis;D:\Apps\Python38;D:\Apps\Python38\Scripts;D:\Apps\VS.Code;D:\Apps\Picasa;D:\Apps\Spread.32.Free.Excel.Lite;D:\Apps\VLC;D:\Apps\Mkvtoolnix;D:\Apps\Node\14"
 setx ANDROID_HOME "D:\Android\android-sdk"
 setx JAVA_HOME "D:\Apps\AdoptOpenJDK\jdk8u192-b12"
 ```
