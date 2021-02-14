@@ -1,10 +1,7 @@
 const exec = require('child_process').exec
 const fs = require('fs').promises
 const path = require('path')
-const ask = require('readline').createInterface({
-  input: process.stdin,
-  output: process.stdout,
-})
+const ask = require('readline').createInterface({ input: process.stdin, output: process.stdout })
 
 const shellCommand = async (cmd) => new Promise((resolve) => {
   exec(cmd, (error, stdout, stderr) => {
@@ -12,11 +9,18 @@ const shellCommand = async (cmd) => new Promise((resolve) => {
     resolve(stdout || stderr)
   })
 })
+
 const deleteFile = path => fs.unlink(path).catch(() => 'ok')
-const getFileSizeInGb = async (path) => {
-  const results = await fs.stat(path)
-  return (Math.round(results.size / 100000000)) / 10
+
+const getVideoMetadata = async (path) => {
+  const output = await shellCommand(`ffprobe -show_format -show_streams -print_format json -v quiet -i "${path}" `)
+  if (output[0] !== '{') throw new Error('ffprobe output should be JSON but got :' + output)
+  const data = JSON.parse(output)
+  const media = data.format || {}
+  const title = (media.tags && media.tags.title) || ''
+  return { title, sizeGb: media.size ? (Math.round(media.size / 100000000) / 10).toFixed(1) : 0 }
 }
+
 const logFile = path.join(__dirname, 'take-screenshot.log')
 const logClear = () => fs.writeFile(logFile, '')
 const logAdd = (...stuff) => fs.appendFile(logFile, stuff.join(' ') + '\n')
@@ -36,9 +40,10 @@ const getVariables = async input => {
   const time = `${(minutes > 0 ? `${minutes}m` : '') + seconds}s`
   const videoPath = process.argv[2]
   const videoName = path.basename(videoPath)
-  const videoSize = await getFileSizeInGb(videoPath)
-  const size = `${String(videoSize).replace('.', ',')}go`
-  const screenName = `${videoName} ${time} ${size}.jpg`
+  const meta = await getVideoMetadata(videoPath)
+  const title = meta.title.length > videoName.length ? meta.title : videoName
+  const size = `${String(meta.sizeGb).replace('.', ',')}go`
+  const screenName = `${title} ${time} ${size}.jpg`
   const screenPath = path.join(process.env.HOME || process.env.USERPROFILE, 'Pictures', screenName)
   return { totalSeconds, videoPath, screenPath }
 }
