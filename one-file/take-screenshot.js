@@ -18,7 +18,20 @@ const getVideoMetadata = async (path) => {
   const data = JSON.parse(output)
   const media = data.format || {}
   const title = (media.tags && media.tags.title) || ''
-  return { title, sizeGb: media.size ? (Math.round(media.size / 100000000) / 10).toFixed(1) : 0 }
+  const size = media.size || getFileSize(path)
+  return { title, size }
+}
+
+const getFileSize = async (path) => (await fs.stat(path)).size
+
+const readableSize = size => {
+  let unit = 'go'
+  let nb = (size / 1024 / 1024 / 1024).toFixed(1)
+  if (nb[0] === '0') {
+    unit = 'mo'
+    nb = Math.round(size / 1024 / 1024) + ''
+  }
+  return nb.replace('.', ',') + unit
 }
 
 const logFile = path.join(__dirname, 'take-screenshot.log')
@@ -35,21 +48,23 @@ const asciiWelcome = () => {
 const getVariables = async input => {
   input = input + ''
   const seconds = Number.parseInt(input.slice(-2))
-  const minutes = Number.parseInt(input.slice(0, -2))
+  const minutes = Number.parseInt(input.slice(0, -2)) || 0
   const totalSeconds = minutes * 60 + seconds
   const time = `${(minutes > 0 ? `${minutes}m` : '') + seconds}s`
   const videoPath = process.argv[2]
   const videoName = path.basename(videoPath)
   const meta = await getVideoMetadata(videoPath)
   const title = meta.title.length > videoName.length ? meta.title : videoName
-  const size = `${String(meta.sizeGb).replace('.', ',')}go`
+  const size = readableSize(meta.size)
   const screenName = `${title} ${time} ${size}.jpg`
   const screenPath = path.join(process.env.HOME || process.env.USERPROFILE, 'Pictures', screenName)
+  await logAdd(`- seconds : ${seconds}\n- minutes : ${minutes}\n- totalSeconds : ${totalSeconds}\n- time : ${time}\n- videoPath : ${videoPath}\n- videoName : ${videoName}`)
+  await logAdd(`- title : ${title}\n- meta.size : ${meta.size}\n- size : ${size}\n- screenName : ${screenName}\n- screenPath : ${screenPath} `)
   return { totalSeconds, videoPath, screenPath }
 }
 
 const takeScreenAt = async (input) => {
-  const { totalSeconds, videoPath, screenPath } = await getVariables(input)
+  const { totalSeconds, videoPath, screenPath } = await getVariables(input).catch(error => console.error(error))
   if (!totalSeconds) throw new Error('failed to process variables')
   const cmd = `ffmpeg -ss ${totalSeconds} -i "${videoPath}" -frames:v 1 -q:v 1 "${screenPath}"`
   await deleteFile(screenPath)
