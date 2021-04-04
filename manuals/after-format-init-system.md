@@ -69,7 +69,7 @@ setx JAVA_HOME "D:\Apps\AdoptOpenJDK\jdk8u192-b12"
 
 ```bash
 neofetch > neofetch-once.log
-echo -e '#!/bin/bash \n\n eval "$(ssh-agent -s)" \n ssh-add ~/.ssh/id_rsa_gh \n\n alias ll="ls -alhFo --group-directories-first --time-style=long-iso --color=auto" \n\n echo ""\ncat neofetch-once.log \n echo " Welcome ${USERNAME} ^^"' > ~/.bashrc
+echo -e '#!/bin/bash \n\n eval "$(ssh-agent -s)" \n ssh-add ~/.ssh/id_rsa_gh \n\n alias ll="ls -alhFo --group-directories-first --time-style=long-iso --color=auto" \n\n echo ""\ncat ~/neofetch-once.log \n echo "Welcome ${USERNAME} ^^"' > ~/.bashrc
 bash
 cd && mkdir Projects && cd Projects
 mkdir github && cd github
