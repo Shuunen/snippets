@@ -3,7 +3,7 @@ const path = require('path')
 const home = process.env.HOME
 const appData = process.env.APPDATA || (process.platform === 'darwin' ? home + 'Library/Preferences' : home + '/.config')
 const onWindows = process.env.APPDATA === appData
-const prgFiles = 'C:/Program Files'
+// const prgFiles = 'C:/Program Files'
 
 const configs = [
   { file: `${appData}/Code/User/settings.json`, renameTo: 'vscode-settings.json' },
@@ -32,9 +32,7 @@ const files = configs.map(config => {
   } else if (typeof config === 'object') {
     source = config.file
     filename = config.renameTo
-  } else {
-    throw new TypeError('unhandled config format')
-  }
+  } else throw new TypeError('unhandled config format')
   const destination = path.join(backupPath, filename)
   return { source, dest: destination }
 })

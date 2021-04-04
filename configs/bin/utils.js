@@ -1,61 +1,45 @@
-const fs = require('fs')
+const { readFile, copyFile } = require('fs').promises
 const path = require('path')
-const { promisify } = require('util')
-const exec = promisify(require('child_process').exec)
-const readFile = promisify(fs.readFile)
-const copyFile = promisify(fs.copyFile)
+const exec = require('child_process').promises
 
 const log = console.log.bind(console, '')
+const clean = string => string.replace(/\s*/g, '')
+const equals = (content1, content2) => (clean(content1) === clean(content2))
+const filename = (path = '') => (/[/\\]([\w-]*[.\w-]+)$/.exec(path) || [])[1]
 
-function clean (string) {
-  return string.replace(/\s*/g, '')
-}
-
-function equals (content1, content2) {
-  return (clean(content1) === clean(content2))
-}
-
-function normalize (filepath, useSlash) {
+const normalize = (filepath, useSlash) => {
   const p = path.normalize(filepath)
   return useSlash ? p.replace(/\\/g, '/') : p
 }
 
-async function read (path) {
-  return readFile(path, 'utf-8').catch((error) => {
-    if (!error.message.includes('no such file')) {
-      console.error(error)
-    }
-    return false
-  })
-}
+const read = async path => readFile(path, 'utf-8').catch(error => {
+  if (!error.message.includes('no such file')) console.error(error)
+  return false
+})
 
-async function report (filepath) {
+const report = async filepath => {
   const content = await read(filepath)
   return {
     path: normalize(filepath),
-    exists: !!content,
+    exists: Boolean(content),
     content,
   }
 }
 
-async function copy (source, destination) {
+const copy = async (source, destination) => {
   // destination will be created or overwritten by default.
   const destFolder = destination.replace(filename(destination), '')
   await exec('mkdir "' + destFolder + '" -p')
-  return copyFile(source, destination).then(() => true).catch((error) => {
+  return copyFile(source, destination).then(() => true).catch(error => {
     log(error)
     return false
   })
 }
 
-async function merge (source, destination) {
+const merge = async (source, destination) => {
   const empty = 'files/empty.txt'
   const cmd = `git merge-file -L "last backup" -L useless -L "local file" ${normalize(destination, true)} ${empty} ${normalize(source, true)}`
   return exec(cmd).catch(() => true).then(() => true)
-}
-
-function filename (path = '') {
-  return (/[/\\]([\w-]*[\.\w-]+)$/.exec(path) || [])[1]
 }
 
 module.exports = { equals, copy, log, filename, merge, report, read, normalize }

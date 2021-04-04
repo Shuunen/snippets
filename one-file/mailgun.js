@@ -13,10 +13,7 @@ const data = {
   text: 'Cool ;) Time is ' + hour,
 }
 
-mailgun.messages().send(data, function onSend (error, body) {
-  if (error) {
-    console.log('got an error:', error)
-  } else {
-    console.log(body)
-  }
+mailgun.messages().send(data, function onSend(error, body) {
+  if (error) console.log('got an error:', error)
+  else console.log(body)
 })

@@ -18,6 +18,6 @@ buttons.forEach(button => {
   button.instance.on('detected', () => onClick(button))
 })
 
-function onClick (button) {
+function onClick(button) {
   console.log(`"${button.name}" has been clicked`)
 }

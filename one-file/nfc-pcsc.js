@@ -8,8 +8,8 @@
 // - example authentication for Mifare Classic cards
 // #############
 
-import { NFC, TAG_ISO_14443_3, TAG_ISO_14443_4, KEY_TYPE_B } from 'nfc-pcsc'
 import consola from 'consola'
+import { KEY_TYPE_B, NFC, TAG_ISO_14443_3, TAG_ISO_14443_4 } from 'nfc-pcsc'
 
 consola.wrapConsole()
 
@@ -57,19 +57,9 @@ nfc.on('reader', async reader => {
   reader.aid = 'F222222222'
 
   reader.on('card', async card => {
-    if (card.type === TAG_ISO_14443_3) {
-      // standard nfc tags like Mifare
-      // const uid = card.uid;
-      console.info('card 3 detected', { reader: reader.name, card })
-    } else if (card.type === TAG_ISO_14443_4) {
-      // Android HCE
-      // process raw Buffer data
-      const data = card.data.toString('utf8')
-      console.info('card 4 detected', { reader: reader.name, card: { ...card, data } })
-    } else {
-      // not possible, just to be sure
-      console.info('card detected', { reader: reader.name, card })
-    }
+    if (card.type === TAG_ISO_14443_3) console.info('card 3 detected', { reader: reader.name, card }) // standard nfc tags like Mifare
+    else if (card.type === TAG_ISO_14443_4) console.info('card 4 detected', { reader: reader.name, card: { ...card, data: card.data.toString('utf8') } }) // Android HCE
+    else console.info('card detected', { reader: reader.name, card }) // not possible, just to be sure
 
     // Notice: reading data from Mifare Classic cards (e.g. Mifare 1K) requires,
     // that the data block must be authenticated first

@@ -1,3 +1,5 @@
+const { debounce } = require('shuutils')
+
 // this counter allow us to see how many times doStuff is executed
 let doStuffExecutionNumber = 0
 
@@ -171,21 +173,6 @@ const waitFor = 2000
 // be triggered. The function will be called after it stops being called for
 // N milliseconds. If `immediate` is passed, trigger the function on the
 // leading edge, instead of the trailing.
-function debounce (callback, wait, immediate) {
-  let timeout
-  return () => {
-    const context = this
-    const arguments_ = arguments
-    const later = () => {
-      timeout = undefined
-      if (!immediate) callback.apply(context, arguments_)
-    }
-    const callNow = immediate && !timeout
-    clearTimeout(timeout)
-    timeout = setTimeout(later, wait)
-    if (callNow) callback.apply(context, arguments_)
-  }
-}
 const doStuffOnTime = debounce(doStuff, waitFor)
 
 // this function just log each harassment
@@ -199,11 +186,9 @@ const tryToDoStuffRightNow = () => {
 const timestamp = () => Date.now()
 
 let isFirstStep = true
-const showTiming = (isStep) => {
+const showTiming = isStep => {
   timestampStepDiff = timestampStep - timestamp()
-  if (isStep) {
-    timestampStep = timestamp()
-  }
+  if (isStep) timestampStep = timestamp()
   if (isFirstStep) {
     // just avoid showing a fake diff
     isFirstStep = false

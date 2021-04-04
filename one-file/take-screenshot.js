@@ -3,7 +3,7 @@ const fs = require('fs').promises
 const path = require('path')
 const ask = require('readline').createInterface({ input: process.stdin, output: process.stdout })
 
-const shellCommand = async (cmd) => new Promise((resolve) => {
+const shellCommand = async cmd => new Promise(resolve => {
   exec(cmd, (error, stdout, stderr) => {
     if (error) console.error(error)
     resolve(stdout || stderr)
@@ -12,7 +12,7 @@ const shellCommand = async (cmd) => new Promise((resolve) => {
 
 const deleteFile = path => fs.unlink(path).catch(() => 'ok')
 
-const getVideoMetadata = async (path) => {
+const getVideoMetadata = async path => {
   const output = await shellCommand(`ffprobe -show_format -show_streams -print_format json -v quiet -i "${path}" `)
   if (output[0] !== '{') throw new Error('ffprobe output should be JSON but got :' + output)
   const data = JSON.parse(output)
@@ -22,14 +22,14 @@ const getVideoMetadata = async (path) => {
   return { title, size }
 }
 
-const getFileSize = async (path) => (await fs.stat(path)).size
+const getFileSize = async path => (await fs.stat(path)).size
 
 const readableSize = size => {
   let unit = 'go'
   let nb = (size / 1024 / 1024 / 1024).toFixed(1)
   if (nb[0] === '0') {
     unit = 'mo'
-    nb = Math.round(size / 1024 / 1024) + ''
+    nb = String(Math.round(size / 1024 / 1024))
   }
   return nb.replace('.', ',') + unit
 }
@@ -46,10 +46,10 @@ const asciiWelcome = () => {
 }
 
 const getVariables = async input => {
-  input = input + ''
-  const seconds = Number.parseInt(input.slice(-2))
-  const minutes = Number.parseInt(input.slice(0, -2)) || 0
-  const totalSeconds = minutes * 60 + seconds
+  input = String(input)
+  const seconds = Number.parseInt(input.slice(-2), 10)
+  const minutes = Number.parseInt(input.slice(0, -2), 10) || 0
+  const totalSeconds = (minutes * 60) + seconds
   const time = `${(minutes > 0 ? `${minutes}m` : '') + seconds}s`
   const videoPath = process.argv[2]
   const videoName = path.basename(videoPath)
@@ -63,14 +63,14 @@ const getVariables = async input => {
   return { totalSeconds, videoPath, screenPath }
 }
 
-const takeScreenAt = async (input) => {
+const takeScreenAt = async input => {
   const { totalSeconds, videoPath, screenPath } = await getVariables(input).catch(error => console.error(error))
   if (!totalSeconds) throw new Error('failed to process variables')
   const cmd = `ffmpeg -ss ${totalSeconds} -i "${videoPath}" -frames:v 1 -q:v 1 "${screenPath}"`
   await deleteFile(screenPath)
   await logAdd('Command :', cmd)
   await logAdd(await shellCommand(cmd))
-  process.exit(0) // eslint-disable-line unicorn/no-process-exit
+  process.exit(0)
 }
 
 const init = async () => {

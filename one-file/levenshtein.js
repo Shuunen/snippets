@@ -1,11 +1,9 @@
 /*
-  From https://github.com/gustf/js-levenshtein
-
-  MIT License
-
-  Copyright (c) 2017 Gustaf Andersson
+From https://github.com/gustf/js-levenshtein
+MIT License
+Copyright (c) 2017 Gustaf Andersson
 */
-/* eslint-disable func-names */
+/* eslint-disable func-names, max-params, space-before-function-paren, operator-linebreak, indent, curly, unicorn/no-array-push-push, no-multi-assign */
 'use strict'
 module.exports = (function () {
   function _min (d0, d1, d2, bx, ay) {

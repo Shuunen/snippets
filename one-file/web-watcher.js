@@ -11,11 +11,11 @@ const notifier = require('node-notifier')
 /* Custom */
 let lastNb = 0
 
-function check () {
+function check() {
   osmosis
     .get(url)
     .set({ info: selector })
-    .data(function onData (data) {
+    .data(function onData(data) {
       /* Custom */
       const nb = data.info.split(' ')[0]
       if (lastNb !== nb) {
@@ -32,8 +32,4 @@ function check () {
     // .debug(console.log)
 }
 
-function init () {
-  setInterval(check, everySeconds * 1000)
-}
-
-init()
+setInterval(check, everySeconds * 1000)

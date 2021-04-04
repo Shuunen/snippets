@@ -1,20 +1,11 @@
 {
   "author": "Romain Racamier-Lafon <romain.racamier@gmail.com>",
   "bugs": "https://github.com/Shuunen/snippets/issues",
-  "config": {
-    "port": 8000
-  },
-  "dependencies": {
-    "eslint": "7.18.0",
-    "eslint-config-standard": "16.0.2",
-    "eslint-plugin-import": "2.22.1",
-    "eslint-plugin-node": "11.1.0",
-    "eslint-plugin-promise": "4.2.1",
-    "eslint-plugin-standard": "4.1.0",
-    "eslint-plugin-unicorn": "24.0.0",
-    "repo-check": "1.14.5"
-  },
   "description": "My personal snippets",
+  "devDependencies": {
+    "shuunen-stack": "latest",
+    "shuutils": "latest"
+  },
   "files": [
     "bookmarklets",
     "configs",
@@ -40,11 +31,11 @@
   "scripts": {
     "check": "repo-check",
     "ci": "npm run test",
-    "lint": "eslint --fix --ignore-path .gitignore --ext .js .",
+    "lint": "stack lint",
     "postversion": "git push && git push --tags",
     "preversion": "npm run ci",
     "start": "echo no need for start task",
-    "test": "npm run check && npm run lint",
+    "test": "npm run lint",
     "update": "npx npm-check-updates -u"
   },
   "version": "0.0.0"

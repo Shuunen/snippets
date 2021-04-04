@@ -15,7 +15,7 @@ app.use((request, response, next) => {
 })
 
 const fill = (tpl, data) => {
-  let string = '' + tpl
+  let string = String(tpl)
   for (const [key, value] of data) {
     const regex = new RegExp('{+\\s?' + key + '\\s?}+', 'ig')
     string = string.replace(regex, value)

@@ -6,7 +6,7 @@ const { WebhookClient } = require('dialogflow-fulfillment')
 const { Card, Suggestion } = require('dialogflow-fulfillment')
 
 const fill = (tpl, data) => {
-  let string = '' + tpl
+  let string = String(tpl)
   for (const [key, value] of data) {
     const regex = new RegExp('{+\\s?' + key + '\\s?}+', 'ig')
     string = string.replace(regex, value)
@@ -19,7 +19,7 @@ process.env.DEBUG = 'dialogflow:debug' // enables lib debugging statements
 exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, response) => {
   const agent = new WebhookClient({ request, response })
 
-  function lookingHandler (agent) {
+  function lookingHandler(agent) {
     const data = new Map().set('box', 'B').set('drawer', '2')
     const title = '{{ box }}{{ drawer }}'
     const text = request.body.queryResult.fulfillmentText
@@ -28,8 +28,7 @@ exports.dialogflowFirebaseFulfillment = functions.https.onRequest((request, resp
       title: fill(title, data),
       imageUrl: 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/google/146/card-file-box_1f5c3.png',
       text: 'est-ce correct ?',
-    }),
-    )
+    }))
     // Suggestion title must be under 25 chars
     agent.add(new Suggestion('😲 non pas trouvé'))
     agent.add(new Suggestion('👍 oui je l\'ai trouvé !'))

@@ -1,3 +1,4 @@
+/* global window */
 const xyz = {}
 
 xyz.generic = [
