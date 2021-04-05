@@ -22,16 +22,10 @@ async function sync(file) {
   }
   const sameContent = await utils.equals(source.content, destination.content)
   if (sameContent) return utils.log('sync is up to date :', source.path)
-  const isJson = source.path.includes('.json')
-  const isIni = source.path.includes('.ini')
-  if (isJson || isIni) utils.log('cannot auto sync file :', source.path)
-  else {
-    // merge fail beautifully with json files \o/
-    if (dry) return utils.log(`would merge ${source.path} to ${destination.path}`)
-    const filesMerged = await utils.merge(source.path, destination.path)
-    if (!filesMerged) return utils.log('failed to merge file :', source.path)
-    utils.log('sync done :', source.path)
-  }
+  if (dry) return utils.log(`would merge ${source.path} to ${destination.path}`)
+  const filesMerged = await utils.merge(source.path, destination.path)
+  if (!filesMerged) return utils.log('failed to merge file :', source.path)
+  utils.log('sync done :', source.path)
   return `merge files/${utils.filename(file.dest)} ${utils.normalize(source.path, true)}`
 }
 

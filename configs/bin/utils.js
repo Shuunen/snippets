@@ -1,6 +1,7 @@
-const { readFile, copyFile } = require('fs').promises
+const { promisify } = require('util')
+const { readFile, copyFile, writeFile } = require('fs').promises
+const exec = promisify(require('child_process').exec)
 const path = require('path')
-const exec = require('child_process').promises
 
 const log = console.log.bind(console, '')
 const clean = string => string.replace(/\s*/g, '')
@@ -18,7 +19,11 @@ const read = async path => readFile(path, 'utf-8').catch(error => {
 })
 
 const report = async filepath => {
-  const content = await read(filepath)
+  let content = await read(filepath)
+  if (/\r/.test(content)) {
+    content = content.replace(/\r\n/g, '\n')
+    writeFile(filepath, content)
+  }
   return {
     path: normalize(filepath),
     exists: Boolean(content),
@@ -38,7 +43,7 @@ const copy = async (source, destination) => {
 
 const merge = async (source, destination) => {
   const empty = 'files/empty.txt'
-  const cmd = `git merge-file -L "last backup" -L useless -L "local file" ${normalize(destination, true)} ${empty} ${normalize(source, true)}`
+  const cmd = `git merge-file -L "last backup" -L useless -L "local file" ${normalize(destination, true)} ${empty} ${normalize(source, true)} --union`
   return exec(cmd).catch(() => true).then(() => true)
 }
 
