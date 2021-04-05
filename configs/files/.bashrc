@@ -17,3 +17,7 @@ function setProxy() {
   export HTTPS_PROXY="${https_proxy}"
   export FTP_PROXY="${ftp_proxy}"
 }
+
+echo ""
+test -f ~/neofetch-once.log && cat ~/neofetch-once.log 
+echo "Welcome ${USERNAME} ^^"
