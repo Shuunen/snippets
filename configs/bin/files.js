@@ -37,4 +37,4 @@ const files = configs.map(config => {
   return { source, dest: destination }
 })
 
-module.exports = files
+module.exports = { files, backupPath }

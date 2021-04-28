@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-const files = require('./files')
+const { files } = require('./files')
+const { relativeBackupPath } = require('./utils')
 const utils = require('./utils')
 const dry = process.argv.includes('--dry')
 const setup = process.argv.includes('--setup')
@@ -26,7 +27,7 @@ async function sync(file) {
   const filesMerged = await utils.merge(source.path, destination.path)
   if (!filesMerged) return utils.log('failed to merge file :', source.path)
   utils.log('sync done :', source.path)
-  return `merge files/${utils.filename(file.dest)} ${utils.normalize(source.path, true)}`
+  return `merge ${relativeBackupPath}/${utils.filename(file.dest)} ${utils.normalize(source.path, true, true)}`
 }
 
 async function start() {
