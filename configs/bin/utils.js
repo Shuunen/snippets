@@ -1,5 +1,5 @@
 const { promisify } = require('util')
-const { readFile, copyFile, writeFile } = require('fs').promises
+const { readFile, copyFile, writeFile, mkdir } = require('fs').promises
 const exec = promisify(require('child_process').exec)
 const path = require('path')
 
@@ -34,7 +34,7 @@ const report = async filepath => {
 const copy = async (source, destination) => {
   // destination will be created or overwritten by default.
   const destFolder = destination.replace(filename(destination), '')
-  await exec('mkdir "' + destFolder + '" -p')
+  await mkdir(destFolder, { recursive: true })
   return copyFile(source, destination).then(() => true).catch(error => {
     log(error)
     return false
