@@ -21,7 +21,7 @@ if (onWindows) configs.push(
   `${appData}/Greenshot/Greenshot.ini`,
 )
 
-const backupPath = path.join(process.env.PWD, '/files')
+const backupPath = path.join(__dirname, '../files')
 
 const files = configs.map(config => {
   let source = ''
