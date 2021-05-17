@@ -1,0 +1,47 @@
+{
+  "rules": {
+    "@typescript-eslint/comma-dangle": "off",
+    "@typescript-eslint/consistent-type-assertions": "off",
+    "@typescript-eslint/no-confusing-void-expression": "off",
+    "@typescript-eslint/object-curly-spacing": "off",
+    "capitalized-comments": "off",
+    "comma-dangle": [
+      "error",
+      "always-multiline"
+    ],
+    "curly": [
+      "error",
+      "multi"
+    ],
+    "func-names": [
+      "error",
+      "always"
+    ],
+    "indent": [
+      "error",
+      2
+    ],
+    "lines-between-class-members": "off",
+    "max-statements-per-line": "off",
+    "no-console": "off",
+    "object-curly-spacing": [
+      "error",
+      "always"
+    ],
+    "padding-line-between-statements": "off",
+    "quotes": [
+      "error",
+      "single"
+    ],
+    "semi": [
+      "error",
+      "never"
+    ],
+    "unicorn/no-array-for-each": "off",
+    "unicorn/no-process-exit": "off",
+    "unicorn/prefer-node-protocol": "off",
+    "unicorn/prefer-switch": "off"
+  },
+  "semicolon": false,
+  "space": true
+}

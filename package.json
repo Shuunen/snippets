@@ -4,7 +4,8 @@
   "description": "My personal snippets",
   "devDependencies": {
     "shuunen-stack": "latest",
-    "shuutils": "latest"
+    "shuutils": "latest",
+    "xo": "*"
   },
   "files": [
     "bookmarklets",
@@ -29,14 +30,10 @@
     "url": "https://github.com/Shuunen/snippets.git"
   },
   "scripts": {
-    "check": "repo-check",
-    "ci": "npm run test",
     "lint": "stack lint",
     "postversion": "git push && git push --tags",
-    "preversion": "npm run ci",
-    "start": "echo no need for start task",
-    "test": "npm run lint",
-    "update": "npx npm-check-updates -u"
+    "preversion": "npm run lint",
+    "update": "stack update"
   },
   "version": "0.0.0"
 }

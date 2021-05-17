@@ -2,7 +2,7 @@ const { promisify } = require('util')
 const { readFile, copyFile, writeFile, mkdir } = require('fs').promises
 const exec = promisify(require('child_process').exec)
 const path = require('path')
-const { backupPath } = require('./files')
+const { backupPath } = require('./files.js')
 
 const log = console.log.bind(console, '')
 const clean = string => string.replace(/\s*/g, '')

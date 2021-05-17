@@ -1,6 +1,6 @@
 const path = require('path')
 const fs = require('fs')
-const distance = require('./levenshtein')
+const distance = require('./levenshtein.js')
 const { promisify } = require('util')
 const readDirectory = promisify(fs.readdir)
 const stat = promisify(fs.stat)
