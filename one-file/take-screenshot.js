@@ -76,7 +76,7 @@ const takeScreenAt = async input => {
 const init = async () => {
   asciiWelcome()
   await logClear()
-  await logAdd('Take screenshot starts @ ', new Date())
+  await logAdd('Take screenshot starts @', new Date())
   if (!process.argv[2]) throw new Error('missing videoPath')
   if (process.argv[3]) return takeScreenAt(process.argv[3])
   ask.question('  Please type the time in mmss or ss : ', time => takeScreenAt(time))
