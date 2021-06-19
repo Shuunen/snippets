@@ -63,8 +63,8 @@ class CheckVideos {
   }
 
   async args() {
-    if (process.argv.length <= 2) throw new Error('this script need a path as argument like : node-esm check-videos.mjs "U:\\Movies\\"')
-    this.videosPath = path.normalize(process.argv[2])
+    if (process.argv.length <= 2) console.log('Targeting current folder, you can also specify a specific path, ex : node check-videos.mjs "U:\\Movies\\" \n')
+    this.videosPath = path.normalize(process.argv[2] || process.cwd())
   }
 
   async find(processOne = false) {
@@ -73,7 +73,7 @@ class CheckVideos {
     const isIgnored = (await utils.readFile(path.join(this.videosPath, '.check-videos-ignore'))).split('\n')
     this.files = (await utils.listFiles(this.videosPath)).filter(entry => (!isIgnored.includes(entry) && isVideo.test(entry)))
     if (this.files.length === 0) throw new Error('no files found with these extensions ' + isVideo)
-    console.log(this.files.length, 'files found')
+    console.log('\n', this.files.length, 'files found\n')
     if (!processOne) return
     console.log('but only one file will be processed')
     this.files = [this.files[0]]
@@ -132,7 +132,7 @@ class CheckVideos {
       if (meta.bitrateKbps > 2000) return this.detect('DvdRip with high bitrate', entry, meta.bitrateKbps)
     } else {
       if (meta.height < 800) return this.detect('BlurayRip under 800p', entry, meta.height)
-      if (meta.bitrateKbps < 2500) return this.detect('BlurayRip with low bitrate', entry, meta.bitrateKbps)
+      if (meta.bitrateKbps < 2100) return this.detect('BlurayRip with low bitrate', entry, meta.bitrateKbps)
       if (meta.bitrateKbps > 10000) return this.detect('BlurayRip with high bitrate', entry, meta.bitrateKbps)
     }
     if (meta.fps < 24) return this.detect('Low fps', entry, meta.fps)
