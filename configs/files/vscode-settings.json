@@ -1,10 +1,4 @@
 {
-  "[javascript]": {
-    "editor.defaultFormatter": "samverschueren.linter-xo"
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "samverschueren.linter-xo"
-  },
   "[vue]": {
     "editor.defaultFormatter": "octref.vetur"
   },
@@ -15,12 +9,14 @@
     "AGPL",
     "Airtable",
     "Antd",
+    "Battlestar",
     "Bluray",
     "Cinebench",
     "Datepicker",
     "Dealabs",
     "Debounced",
     "Deno",
+    "Digiposte",
     "Draggable",
     "EIRL",
     "ENOENT",
@@ -43,6 +39,7 @@
     "MINGW",
     "Netlify",
     "Noty",
+    "Npmjs",
     "Paginator",
     "Paylib",
     "Picasa",
@@ -54,6 +51,10 @@
     "SELARL",
     "Shuutils",
     "Synology",
+    "Schrute",
+    "Shuutils",
+    "Synology",
+    "USERPROFILE",
     "Vecteezy",
     "Vuex",
     "accès",
@@ -74,6 +75,8 @@
     "browserslist",
     "buildtools",
     "bulma",
+    "bundlephobia",
+    "camelcase",
     "carafer",
     "cdnjs",
     "choco",
@@ -99,6 +102,7 @@
     "editorconfig",
     "enedis",
     "eofline",
+    "esbuild",
     "esnext",
     "ffprobe",
     "filepath",
@@ -113,6 +117,7 @@
     "gridsome",
     "halloumi",
     "hyperpower",
+    "iife",
     "inversify",
     "kaspersky",
     "keymaps",
@@ -178,6 +183,7 @@
     "sidenav",
     "singleline",
     "spotify",
+    "stylelint",
     "subpath",
     "symfony",
     "symlinked",
@@ -185,6 +191,7 @@
     "taglist",
     "taiko",
     "tailwindcss",
+    "tetris",
     "timey",
     "tmux",
     "todos",
@@ -205,6 +212,7 @@
     "webcomponent",
     "xlink",
     "yolo",
+    "zorglub",
     "zurb"
   ],
   "css.validate": false,
@@ -213,7 +221,7 @@
     "source.fixAll": true,
     "source.organizeImports": true
   },
-  "editor.formatOnSave": true,
+  "editor.formatOnSave": false,
   "editor.minimap.maxColumn": 300,
   "editor.tabSize": 2,
   "eslint.alwaysShowStatus": true,
@@ -231,8 +239,6 @@
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
   "html.format.wrapLineLength": 150,
-  "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
-  "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
   "javascript.format.semicolons": "remove",
   "javascript.preferences.quoteStyle": "single",
   "javascript.updateImportsOnFileMove.enabled": "always",
@@ -345,8 +351,6 @@
       "no-eol-whitespace": true,
       "no-extra-semicolons": true,
       "no-invalid-double-slash-comments": true,
-      "no-missing-end-of-source-newline": true,
-      "number-leading-zero": "never",
       "number-no-trailing-zeros": true,
       "property-case": "lower",
       "property-no-unknown": true,
@@ -376,7 +380,14 @@
       "selector-pseudo-element-colon-notation": "double",
       "selector-pseudo-element-no-unknown": true,
       "selector-type-case": "lower",
-      "selector-type-no-unknown": true,
+      "selector-type-no-unknown": [
+        true,
+        {
+          "ignore": [
+            "custom-elements"
+          ]
+        }
+      ],
       "string-no-newline": true,
       "unit-case": "lower",
       "unit-no-unknown": true,
@@ -392,14 +403,27 @@
   "terminal.integrated.cursorBlinking": true,
   "terminal.integrated.cursorStyle": "line",
   "terminal.integrated.cursorWidth": 3,
+  "terminal.integrated.defaultProfile.windows": "Git Bash",
   "terminal.integrated.fontSize": 16,
-  "terminal.integrated.shell.windows": "C:\\Program Files\\Git\\bin\\bash.exe",
+  "terminal.integrated.profiles.windows": {
+    "Command Prompt": {
+      "path": "C:\\Windows\\System32\\cmd.exe"
+    },
+    "Git Bash": {
+      "args": [
+        "--login"
+      ],
+      "path": "C:\\Program Files\\Git\\bin\\bash.exe",
+      "source": "Git Bash"
+    },
+    "PowerShell": null
+  },
   "typescript.format.semicolons": "remove",
   "typescript.preferences.quoteStyle": "single",
   "typescript.updateImportsOnFileMove.enabled": "always",
   "vetur.completion.autoImport": true,
   "vetur.format.defaultFormatter.css": "none",
-  "vetur.format.defaultFormatter.js": "none",
+  "vetur.format.defaultFormatter.js": "vscode-typescript",
   "vetur.format.defaultFormatter.ts": "vscode-typescript",
   "vetur.format.defaultFormatterOptions": {
     "prettier": {
@@ -410,7 +434,6 @@
   "vetur.format.enable": true,
   "vetur.useWorkspaceDependencies": true,
   "vetur.validation.script": true,
-  "window.zoomLevel": 0,
   "workbench.colorCustomizations": {
     "terminal.ansiBlack": "#282a36",
     "terminal.ansiBlue": "#57c7ff",
@@ -433,7 +456,5 @@
     "terminal.selectionBackground": "#97979b33",
     "terminalCursor.background": "#282a36",
     "terminalCursor.foreground": "#97979b"
-  },
-  "xo.enable": true,
-  "xo.format.enable": true
+  }
 }
