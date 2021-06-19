@@ -1,4 +1,3 @@
-/* global document */
 document.querySelectorAll('.stable-body > table > tbody > tr[index][title]').forEach(row => {
   const nameElement = row.querySelector('.stable-List-col-0 div')
   if (!nameElement) return

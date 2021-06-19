@@ -1,0 +1,7 @@
+{
+  "env": {
+    "browser": true,
+    "node": true
+  },
+  "extends": "./node_modules/shuunen-stack/.eslintrc.json"
+}

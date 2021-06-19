@@ -1,7 +1,10 @@
-const exec = require('child_process').exec
-const fs = require('fs').promises
-const path = require('path')
-const ask = require('readline').createInterface({ input: process.stdin, output: process.stdout })
+import { exec } from 'child_process'
+import { promises as fs } from 'fs'
+import path from 'path'
+import { createInterface } from 'readline'
+import { fileURLToPath } from 'url'
+
+const ask = createInterface({ input: process.stdin, output: process.stdout })
 
 const shellCommand = async cmd => new Promise(resolve => {
   exec(cmd, (error, stdout, stderr) => {
@@ -18,7 +21,7 @@ const getVideoMetadata = async path => {
   const data = JSON.parse(output)
   const media = data.format || {}
   const title = (media.tags && media.tags.title) || ''
-  const size = media.size || getFileSize(path)
+  const size = (media.size > 0 || media.size.length > 0) ? media.size : getFileSize(path)
   return { title, size }
 }
 
@@ -34,7 +37,8 @@ const readableSize = size => {
   return nb.replace('.', ',') + unit
 }
 
-const logFile = path.join(__dirname, 'take-screenshot.log')
+const currentFolder = path.dirname(fileURLToPath(import.meta.url))
+const logFile = path.join(currentFolder, 'take-screenshot.log')
 const logClear = () => fs.writeFile(logFile, '')
 const logAdd = (...stuff) => fs.appendFile(logFile, stuff.join(' ') + '\n')
 
@@ -56,7 +60,7 @@ const getVariables = async input => {
   const meta = await getVideoMetadata(videoPath)
   const title = meta.title.length > videoName.length ? meta.title : videoName
   const size = readableSize(meta.size)
-  const screenName = `${title} ${time} ${size}.jpg`.replace(/\s?[|/\\*<>:?"]+\s?/g, ' ') // replace un-authorized characters in filename
+  const screenName = `${title} ${time} ${size}.jpg`.replace(/\s?["*/:<>?\\|]+\s?/g, ' ') // replace un-authorized characters in filename
   const screenPath = path.join(process.env.HOME || process.env.USERPROFILE, 'Pictures', screenName)
   await logAdd(`- seconds : ${seconds}\n- minutes : ${minutes}\n- totalSeconds : ${totalSeconds}\n- time : ${time}\n- videoPath : ${videoPath}\n- videoName : ${videoName}`)
   await logAdd(`- title : ${title}\n- meta.size : ${meta.size}\n- size : ${size}\n- screenName : ${screenName}\n- screenPath : ${screenPath} `)

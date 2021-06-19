@@ -1,9 +1,9 @@
-const clipboard = require('clipboardy')
+import { readSync, writeSync } from 'clipboardy'
 
-const input = clipboard.readSync()
+const input = readSync()
 
 const output = input.replace(/\s*\n+/g, '\n\n').trim()
 
 console.log('will copy this to clipboard :\n---\n' + output + `\n--- ${Date.now()}`)
 
-clipboard.writeSync(output)
+writeSync(output)

@@ -11,4 +11,3 @@
 
 - [Github](https://github.com) : for all their great work year after year, pushing OSS forward
 - [Shields.io](https://shields.io) : nice looking badges to be proud of
-- [Xo](https://github.com/xojs/xo) : super tool to find & fix problems

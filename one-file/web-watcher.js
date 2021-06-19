@@ -1,21 +1,17 @@
-/**
- * A small tool to keep an eye on a webpage
- */
-
-const url = 'https://www.facebook.com/MoovTime/'
+const url = 'https://www.facebook.com/some-page/'
 const selector = 'div._4-u8 > div._2pi9._2pi2 > div._ikh > div._4bl9'
 const everySeconds = 20
-const osmosis = require('osmosis')
-const notifier = require('node-notifier')
+import notifier from 'node-notifier'
+import osmosis from 'osmosis'
 
 /* Custom */
 let lastNb = 0
 
-function check() {
+function check () {
   osmosis
     .get(url)
     .set({ info: selector })
-    .data(function onData(data) {
+    .data(function onData (data) {
       /* Custom */
       const nb = data.info.split(' ')[0]
       if (lastNb !== nb) {
@@ -28,8 +24,6 @@ function check() {
       lastNb = nb
     })
     .error(console.log)
-    // .log(console.log)
-    // .debug(console.log)
 }
 
 setInterval(check, everySeconds * 1000)

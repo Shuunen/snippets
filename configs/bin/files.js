@@ -1,4 +1,5 @@
-const path = require('path')
+import path from 'path'
+import { fileURLToPath } from 'url'
 
 const home = process.env.HOME
 const appData = process.env.APPDATA || (process.platform === 'darwin' ? home + 'Library/Preferences' : home + '/.config')
@@ -21,9 +22,11 @@ if (onWindows) configs.push(
   `${appData}/Greenshot/Greenshot.ini`,
 )
 
-const backupPath = path.join(__dirname, '../files')
+const currentFolder = path.dirname(fileURLToPath(import.meta.url))
 
-const files = configs.map(config => {
+export const backupPath = path.join(currentFolder, '../files')
+
+export const files = configs.map(config => {
   let source = ''
   let filename = ''
   if (typeof config === 'string') {
@@ -37,4 +40,3 @@ const files = configs.map(config => {
   return { source, dest: destination }
 })
 
-module.exports = { files, backupPath }

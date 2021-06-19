@@ -11,7 +11,7 @@ const utils = {
     })
   }),
   getFileSizeInMb: async path => new Promise((resolve, reject) => {
-    stat(path, (error, stats) => (error ? reject(error) : resolve(Math.round(stats.size / 1000000))))
+    stat(path, (error, stats) => (error ? reject(error) : resolve(Math.round(stats.size / 1_000_000))))
   }),
   getVideoMetadata: async path => {
     const output = await utils.shellCommand(`ffprobe -show_format -show_streams -print_format json -v quiet -i "${path}" `)
@@ -26,11 +26,11 @@ const utils = {
       bitrateKbps: media.bit_rate ? Math.round(media.bit_rate / 1024) : 0,
       codec: video.codec_name || 'unknown codec',
       durationSeconds: media.duration ? Math.round(media.duration) : 0,
-      fps: video.avg_frame_rate ? Math.round(eval(video.avg_frame_rate)) : 0, // eslint-disable-line no-eval
+      fps: video.avg_frame_rate ? Math.round(eval(video.avg_frame_rate)) : 0,
       height: Number.parseInt(video.height || 0, 10),
       isDvdRip: title.toLowerCase().includes('dvdrip'),
-      sizeGb: media.size ? (Math.round(media.size / 100000000) / 10).toFixed(1) : 0,
-      sizeMb: media.size ? Math.round(media.size / 1000000) : 0,
+      sizeGb: media.size > 0 ? (Math.round(media.size / 100_000_000) / 10).toFixed(1) : 0,
+      sizeMb: media.size > 0 ? Math.round(media.size / 1_000_000) : 0,
       title,
       width: Number.parseInt(video.width || 0, 10),
     }
@@ -46,28 +46,27 @@ const utils = {
 }
 
 class CheckVideos {
-  constructor() {
+  constructor () {
     this.files = []
     this.detected = {}
     this.videosPath = ''
   }
 
-  start(processOne) {
+  start (processOne) {
     console.log('\nCheck Videos is starting !\n')
     this.args()
       .then(() => this.find(processOne))
       .then(() => this.check())
       .then(() => this.report())
       .catch(error => console.error(error))
-      .then(() => console.log('\nCheck Videos ended.'))
   }
 
-  async args() {
-    if (process.argv.length <= 2) console.log('Targeting current folder, you can also specify a specific path, ex : node check-videos.mjs "U:\\Movies\\" \n')
+  async args () {
+    if (process.argv.length <= 2) console.log('Targeting current folder, you can also specify a specific path, ex : node check-videos.js "U:\\Movies\\" \n')
     this.videosPath = path.normalize(process.argv[2] || process.cwd())
   }
 
-  async find(processOne = false) {
+  async find (processOne = false) {
     console.log(`Scanning dir ${this.videosPath}`)
     const isVideo = /\.(mp4|mkv|avi|wmv|m4v|mpg)$/
     const isIgnored = (await utils.readFile(path.join(this.videosPath, '.check-videos-ignore'))).split('\n')
@@ -79,29 +78,32 @@ class CheckVideos {
     this.files = [this.files[0]]
   }
 
-  async check() {
+  async check () {
     const total = this.files.length
     // console.log('in checkAll with a total of', total)
     for (let index = 0; index < total; index++) {
       const filename = this.files[index]
       console.log(`checking file ${(String(index + 1)).padStart((String(total)).length)} / ${total} : ${filename}`)
-      await this.checkOne(filename) // eslint-disable-line no-await-in-loop
+      await this.checkOne(filename)
     }
   }
 
-  getReportValue(string) {
+  getReportValue (string) {
     return Number.parseInt(string.match(/\[(\d+)]/)[1], 10)
   }
 
-  async report() {
+  byValueAsc (a, b) {
+    return this.getReportValue(a) - this.getReportValue(b)
+  }
+
+  async report () {
     const types = Object.keys(this.detected)
     if (types.length === 0) return console.log('\u001B[32m%s\u001B[0m', '\nAll checked files seems fine :)')
-    const byValueAsc = (a, b) => (this.getReportValue(a) - this.getReportValue(b))
     let total = 0
     console.log('\u001B[1m%s\u001B[0m', '\nReport :')
     types.forEach(type => {
       console.log('\u001B[100m%s\u001B[0m', `\n${type} :`)
-      this.detected[type].sort(byValueAsc).forEach((file, index) => {
+      this.detected[type].sort((a, b) => this.byValueAsc(a, b)).forEach((file, index) => {
         const even = (index % 2) === 0
         const line = ` - ${file}`
         total++
@@ -116,12 +118,12 @@ class CheckVideos {
     console.log('╚' + '═'.repeat(line.length) + '╝')
   }
 
-  detect(type, entry, value) {
+  detect (type, entry, value) {
     if (!this.detected[type]) this.detected[type] = []
     this.detected[type].push(`${entry}  [${value}]`)
   }
 
-  async checkOne(filename) {
+  async checkOne (filename) {
     const folder = path.join(this.videosPath, filename)
     const meta = await utils.getVideoMetadata(folder)
     const name = utils.ellipsis(filename.split(').')[0] + ')', 30)
@@ -133,7 +135,7 @@ class CheckVideos {
     } else {
       if (meta.height < 800) return this.detect('BlurayRip under 800p', entry, meta.height)
       if (meta.bitrateKbps < 2100) return this.detect('BlurayRip with low bitrate', entry, meta.bitrateKbps)
-      if (meta.bitrateKbps > 10000) return this.detect('BlurayRip with high bitrate', entry, meta.bitrateKbps)
+      if (meta.bitrateKbps > 10_000) return this.detect('BlurayRip with high bitrate', entry, meta.bitrateKbps)
     }
     if (meta.fps < 24) return this.detect('Low fps', entry, meta.fps)
     if (meta.fps > 60) return this.detect('High fps', entry, meta.fps)
