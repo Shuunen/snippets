@@ -118,8 +118,6 @@ node bin/sync.js --setup
 ```bash
 npm config set package-lock false --global # malicious laugth :p
 cd ~/Projects/github
-git clone git@github.com:Shuunen/contacto.git
-git clone git@github.com:Shuunen/crystal-plan.git
 git clone git@github.com:Shuunen/flood-it.git
 git clone git@github.com:Shuunen/folio.git
 git clone git@github.com:Shuunen/goals.git
