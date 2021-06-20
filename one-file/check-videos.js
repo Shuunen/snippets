@@ -1,7 +1,9 @@
 import { exec } from 'child_process'
-import { readdir, readFile, stat } from 'fs'
+import { readdir, readFile, stat, writeFileSync } from 'fs'
 import path from 'path'
 import { inspect } from 'util'
+
+let listing = 'name,title\n'
 
 const utils = {
   shellCommand: async cmd => new Promise(resolve => {
@@ -70,6 +72,9 @@ class CheckVideos {
     console.log(`Scanning dir ${this.videosPath}`)
     const isVideo = /\.(mp4|mkv|avi|wmv|m4v|mpg)$/
     const isIgnored = (await utils.readFile(path.join(this.videosPath, '.check-videos-ignore'))).split('\n')
+    isIgnored.forEach((line = '') => {
+      if (line.trim().length > 0 && !line.startsWith('//')) listing += `${line},\n`
+    })
     this.files = (await utils.listFiles(this.videosPath)).filter(entry => (!isIgnored.includes(entry) && isVideo.test(entry)))
     if (this.files.length === 0) throw new Error('no files found with these extensions ' + isVideo)
     console.log('\n', this.files.length, 'files found\n')
@@ -86,6 +91,7 @@ class CheckVideos {
       console.log(`checking file ${(String(index + 1)).padStart((String(total)).length)} / ${total} : ${filename}`)
       await this.checkOne(filename)
     }
+    writeFileSync(path.join(this.videosPath, '.check-videos-listing.csv'), listing)
   }
 
   getReportValue (string) {
@@ -126,6 +132,7 @@ class CheckVideos {
   async checkOne (filename) {
     const folder = path.join(this.videosPath, filename)
     const meta = await utils.getVideoMetadata(folder)
+    listing += `${filename},${meta.title}\n`
     const name = utils.ellipsis(filename.split(').')[0] + ')', 30)
     const entry = `${name.padEnd(30)}  ${(String(meta.sizeGb)).padStart(4)} Gb  ${(meta.codec).padEnd(5)} ${(String(meta.height)).padStart(4)}p  ${(String(meta.bitrateKbps)).padStart(4)} kbps  ${(String(meta.fps)).padStart(2)} fps`
     if (meta.isDvdRip) {
