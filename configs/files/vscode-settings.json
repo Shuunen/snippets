@@ -1,4 +1,7 @@
 {
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
   "[vue]": {
     "editor.defaultFormatter": "octref.vetur"
   },
@@ -49,8 +52,6 @@
     "SARLU",
     "SASU",
     "SELARL",
-    "Shuutils",
-    "Synology",
     "Schrute",
     "Shuutils",
     "Synology",
@@ -183,6 +184,7 @@
     "sidenav",
     "singleline",
     "spotify",
+    "steelblue",
     "stylelint",
     "subpath",
     "symfony",
@@ -197,8 +199,6 @@
     "todos",
     "touchenter",
     "touchleave",
-    "typestrict",
-    "unitless",
     "tsup",
     "typestrict",
     "unitless",
@@ -210,6 +210,7 @@
     "visualstudio",
     "wario",
     "webcomponent",
+    "whitesmoke",
     "xlink",
     "yolo",
     "zorglub",
@@ -224,6 +225,9 @@
   },
   "editor.formatOnSave": false,
   "editor.minimap.maxColumn": 300,
+  "editor.quickSuggestions": {
+    "strings": true
+  },
   "editor.tabSize": 2,
   "eslint.alwaysShowStatus": true,
   "eslint.validate": [
@@ -240,10 +244,13 @@
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
   "html.format.wrapLineLength": 150,
+  "javascript.format.insertSpaceAfterConstructor": true,
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
   "javascript.format.semicolons": "remove",
   "javascript.preferences.quoteStyle": "single",
   "javascript.updateImportsOnFileMove.enabled": "always",
   "markdown.extension.toc.levels": "1..3",
+  "security.workspace.trust.untrustedFiles": "open",
   "sortJSON.contextMenu": {
     "sortJSON": true,
     "sortJSONAlphaNum": false,
@@ -411,6 +418,22 @@
       "value-list-max-empty-lines": 0
     }
   },
+  "tailwindCSS.experimental.classRegex": [
+    "dom\\([^\\s]+\\s['`]([^'`]*)",
+    "div\\(['`]([^'`]*)",
+    "img\\(['`]([^'`]*)",
+    "image\\(['`]([^'`]*)",
+    "a\\(['`]([^'`]*)",
+    "link\\(['`]([^'`]*)",
+    "p\\(['`]([^'`]*)",
+    "text\\(['`]([^'`]*)",
+    "strong\\(['`]([^'`]*)",
+    "bold\\(['`]([^'`]*)",
+    "em\\(['`]([^'`]*)",
+    "italic\\(['`]([^'`]*)",
+    "small\\(['`]([^'`]*)",
+    "h\\d\\(['`]([^'`]*)"
+  ],
   "telemetry.enableCrashReporter": false,
   "telemetry.enableTelemetry": false,
   "terminal.integrated.cursorBlinking": true,
@@ -431,6 +454,8 @@
     },
     "PowerShell": null
   },
+  "typescript.format.insertSpaceAfterConstructor": true,
+  "typescript.format.insertSpaceBeforeFunctionParenthesis": true,
   "typescript.format.semicolons": "remove",
   "typescript.preferences.quoteStyle": "single",
   "typescript.updateImportsOnFileMove.enabled": "always",
