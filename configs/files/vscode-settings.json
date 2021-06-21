@@ -1,4 +1,7 @@
 {
+  "[css]": {
+    "editor.defaultFormatter": "mrmlnc.vscode-postcss-sorting"
+  },
   "[typescript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
@@ -199,6 +202,8 @@
     "todos",
     "touchenter",
     "touchleave",
+    "typestrict",
+    "unitless",
     "tsup",
     "typestrict",
     "unitless",
@@ -245,11 +250,15 @@
   "git.enableSmartCommit": true,
   "html.format.wrapLineLength": 150,
   "javascript.format.insertSpaceAfterConstructor": true,
+  "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
   "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
   "javascript.format.semicolons": "remove",
   "javascript.preferences.quoteStyle": "single",
   "javascript.updateImportsOnFileMove.enabled": "always",
   "markdown.extension.toc.levels": "1..3",
+  "postcssSorting.config": {
+    "properties-order": "alphabetical"
+  },
   "security.workspace.trust.untrustedFiles": "open",
   "sortJSON.contextMenu": {
     "sortJSON": true,
@@ -324,19 +333,6 @@
       "declaration-colon-newline-after": "always-multi-line",
       "declaration-colon-space-after": "always-single-line",
       "declaration-colon-space-before": "never",
-      "declaration-empty-line-before": [
-        "always",
-        {
-          "except": [
-            "after-declaration",
-            "first-nested"
-          ],
-          "ignore": [
-            "after-comment",
-            "inside-single-line-block"
-          ]
-        }
-      ],
       "font-family-no-duplicate-names": true,
       "font-family-no-missing-generic-family-keyword": true,
       "function-calc-no-invalid": true,
@@ -400,14 +396,6 @@
       "selector-pseudo-element-colon-notation": "double",
       "selector-pseudo-element-no-unknown": true,
       "selector-type-case": "lower",
-      "selector-type-no-unknown": [
-        true,
-        {
-          "ignore": [
-            "custom-elements"
-          ]
-        }
-      ],
       "string-no-newline": true,
       "unit-case": "lower",
       "unit-no-unknown": true,
@@ -418,6 +406,8 @@
       "value-list-max-empty-lines": 0
     }
   },
+  "stylelint.reportInvalidScopeDisables": true,
+  "stylelint.reportNeedlessDisables": true,
   "tailwindCSS.experimental.classRegex": [
     "dom\\([^\\s]+\\s['`]([^'`]*)",
     "div\\(['`]([^'`]*)",
@@ -472,6 +462,7 @@
   "vetur.format.enable": true,
   "vetur.useWorkspaceDependencies": true,
   "vetur.validation.script": true,
+  "window.zoomLevel": 0,
   "workbench.colorCustomizations": {
     "terminal.ansiBlack": "#282a36",
     "terminal.ansiBlue": "#57c7ff",
