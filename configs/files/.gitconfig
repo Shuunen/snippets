@@ -22,6 +22,7 @@ helper = manager
 [alias]
 aa = add .
 acp = "!f() { git add -A && git commit -m \"$@\" && git push; }; f"
+amp = "!f() { git add -A && git commit --amend --no-edit && git push --force; }; f"
 amend = commit --amend --no-edit
 as = "! GIT_SEQUENCE_EDITOR=: git rebase -i --autosquash"
 asd = "! git as develop"
