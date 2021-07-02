@@ -92,17 +92,19 @@ Thanks to preinstalled android env, only these steps are required :
 <details>
   <summary>Linux</summary>
 
-```bash
+```bash  
+sudo apt install screenfetch snapd -y
 sudo snap install node --classic --channel=14 # channel is the major version
 sudo snap install onefetch
 echo -e "alias ..='cd ..' \n alias install='sudo apt install' \n alias apt='sudo apt' \n alias mkdir='mkdir -pv' \n alias merge=meld \n alias whatsmyip='curl http://ipecho.net/plain; echo' \n alias psg='ps aux | grep -v grep | grep -i -e VSZ -e' \n echo '' \n if [ -d '.git' ]; then onefetch; else screenfetch; fi \n echo ' Welcome ${USER} ^^' \n echo ''" > ~/.bash_aliases # make sure bash_aliases is sourced in ~/.bashrc
 source ~/.bash_aliases
-sudo apt install git aria2 nano curl snapd screenfetch # vvv below is for desktop only vvv
-sudo apt install pinta gparted meld xsel shotwell qbittorrent hollywood
+sudo apt install git aria2 nano curl -y # vvv below is for desktop only vvv
+sudo apt install pinta gparted meld xsel shotwell qbittorrent hollywood -y
 sudo snap install --classic code
 sudo snap install jdownloader2 boxy-svg picard breaktimer filebot snap-store smart-file-renamer vlc spotify spek
 sudo apt autoremove -y
 echo -e "optional : you can manually run 'sudo apt install ttf-mscorefonts-installer' & 'sudo fc-cache -f -v' to get win fonts & clear font cache"
+sudo chmod 700 ~/.ssh/ -R
 mkdir ~/Projects/github
 cd ~/Projects/github
 git clone git@github.com:Shuunen/snippets.git
