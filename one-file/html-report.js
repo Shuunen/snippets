@@ -22,32 +22,37 @@ class HtmlReport {
       stylesBlock: 0,
     }
     this.state = ''
+    this.setState(states.lookingForATag)
     this.scan()
     return this.stats
   }
   scan () {
-    this.setState(states.lookingForATag)
-    const chars = [...this.input]
-    chars.forEach(char => {
-      this.index++
-      if (char === '>') {
-        this.stats.tags++
-        return this.setState(states.lookingForATag)
-      }
-      if (this.state === states.onTagName && char === ' ') {
-        this.stats.attr++
-        return this.setState(states.onTagAttr)
-      }
-      if (this.state === states.onTagName) return this.stats.tags++
-      if (this.state === states.onTagAttr && char !== '>') return this.stats.attr++
-      if (this.state === states.lookingForATag && char !== '<') return this.stats.text++
-      if (char === '<') {
-        this.stats.tags++
-        return this.setState(states.onTagName)
-      }
-    })
-    console.assert((this.stats.tags + this.stats.attr + this.stats.text) === this.stats.total, 'sub-stats does not adds up as total')
-
+    this.index++
+    const char = this.input[this.index]
+    if (!char) return this.onScanComplete()
+    if (char === '>') {
+      this.stats.tags++
+      this.setState(states.lookingForATag)
+    } else if (this.state === states.onTagName && char === ' ') {
+      this.stats.attr++
+      this.setState(states.onTagAttr)
+    } else if (this.state === states.onTagName) this.stats.tags++
+    else if (this.state === states.onTagAttr && char === 's') {
+      const [match] = this.input.slice(this.index).match(/^style="[^"]+"/) || []
+      if (match) {
+        this.stats.stylesInline += match.length
+        this.index += match.length - 1
+      } else this.stats.attr++
+    } else if (this.state === states.onTagAttr && char !== '>') this.stats.attr++
+    else if (this.state === states.lookingForATag && char !== '<') this.stats.text++
+    else if (char === '<') {
+      this.stats.tags++
+      this.setState(states.onTagName)
+    }
+    this.scan()
+  }
+  onScanComplete () {
+    console.assert((this.stats.tags + this.stats.attr + this.stats.text + this.stats.stylesInline) === this.stats.total, 'sub-stats does not adds up as total')
   }
   readable (index, color) {
     let char = this.input[index]
@@ -71,11 +76,15 @@ const tests = {
   cases: [
     {
       input: '<h1 style="color: red">Super top !</h1>',
-      expected: { total: 39, text: 11, attr: 19, tags: 9, stylesInline: 0, stylesBlock: 0 },
+      expected: { total: 39, text: 11, attr: 1, tags: 9, stylesInline: 18, stylesBlock: 0 },
     },
     {
       input: '<p><small>ah</small></p> ',
       expected: { total: 25, text: 3, attr: 0, tags: 22, stylesInline: 0, stylesBlock: 0 },
+    },
+    {
+      input: '<p style="font-weight: bold; color: black;"><small style="font-style: italic">ah</small></p> ',
+      expected: { total: 93, text: 3, attr: 2, tags: 22, stylesInline: 66, stylesBlock: 0 },
     },
     {
       input: `<p>
