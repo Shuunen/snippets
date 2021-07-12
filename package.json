@@ -4,6 +4,7 @@
   "description": "My personal snippets",
   "devDependencies": {
     "clipboardy": "latest",
+    "colorette": "*",
     "shuunen-stack": "0.11.1",
     "shuutils": "*"
   },
