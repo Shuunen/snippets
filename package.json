@@ -5,6 +5,7 @@
   "devDependencies": {
     "clipboardy": "latest",
     "colorette": "*",
+    "repo-check": "*",
     "shuunen-stack": "0.11.1",
     "shuutils": "*"
   },
