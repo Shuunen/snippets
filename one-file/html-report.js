@@ -10,11 +10,19 @@ const states = {
 }
 
 const explanations = {
-  attr: `${blue('tag attributes')}, ex: ${gray('<h1')}${yellow(' an-attribute="value" another-one')}${gray(' style="color: red">A super title !</h1>')}`,
-  css: `${blue('css')} code inside style tags, ex: ${gray('<style>')}${yellow('div.a-selector { font-weight: bold; }')}${gray('</style>')}`,
-  styles: `${blue('styles')} inline, ex: ${gray('<h1 attribute="value"')}${yellow('style="color: red"')}${gray('>A super title !</h1>')}`,
-  tags: `${blue('tag')} names, ex: ${yellow('<h1')}${gray(' attribute="value"')}${yellow('>')}${gray('A super title !')}${yellow('</h1>')}`,
-  text: `${blue('text')} nodes, ex: ${gray('<h1>')}${yellow('A super title !')}${gray('</h1>')}`,
+  attr: `${blue('attributes')}`,
+  css: `${blue('css')} code`,
+  styles: `${blue('styles')} inline`,
+  tags: `${blue('tag')} names`,
+  text: `${blue('text')} nodes`,
+}
+
+const examples = {
+  attr: `${gray('<h1')}${yellow(' an-attribute="value" another-one')}${gray(' style="color: red">A super title !</h1>')}`,
+  css: `${gray('<style>')}${yellow('div.a-selector { font-weight: bold; }')}${gray('</style>')}`,
+  styles: `${gray('<h1 attribute="value"')}${yellow('style="color: red"')}${gray('>A super title !</h1>')}`,
+  tags: `${yellow('<h1')}${gray(' attribute="value"')}${yellow('>')}${gray('A super title !')}${yellow('</h1>')}`,
+  text: `${gray('<h1>')}${yellow('A super title !')}${gray('</h1>')}`,
 }
 
 class HtmlReport {
@@ -39,7 +47,7 @@ class HtmlReport {
     /* eslint-disable curly, @typescript-eslint/brace-style */
     this.index++
     const char = this.input[this.index]
-    if (!char) return this.onScanComplete()
+    if (!char || this.index === this.stats.total) return this.onScanComplete()
     if (char === '>') {
       this.stats.tags++
       this.setState(states.lookingForATag)
@@ -49,7 +57,7 @@ class HtmlReport {
       this.setState(states.onTagAttr)
     }
     else if (this.state === states.onTagName && char === 's') {
-      const [match] = this.input.slice(this.index).match(/^style>.*?<\/style>/) || []
+      const [match] = this.input.slice(this.index).match(/^style[\S\s]*?<\/style>/) || []
       if (match) {
         this.stats.tags += 14 // the "<" has already been count on stats.tags, it remains "style></style>" to be count as stats.tags
         this.stats.css += match.length - 14 // here stats.css is only the content
@@ -92,9 +100,9 @@ class HtmlReport {
   setState (newState) {
     if (this.debug) {
       const context = this.readable(this.index - 2, gray) + this.readable(this.index - 1, gray) + this.readable(this.index, green) + this.readable(this.index + 1, gray) + this.readable(this.index + 2, gray)
-      const stateChange = `${this.state} => ${newState}`
+      const stateChange = `${this.state} ${gray('=>')} ${newState}`
       const stats = `tags:${this.stats.tags.toString().padEnd(3)} attr:${this.stats.attr.toString().padEnd(3)} text:${this.stats.text.toString().padEnd(3)}`
-      console.log(`${this.index.toString().padEnd(3)} ${stateChange.padEnd(28)} ${stats.padEnd(24)} ${context}`)
+      console.log(`${this.index.toString().padEnd(4)} ${stateChange.padEnd(28)} ${stats.padEnd(24)} ${context}`)
     }
     this.state = newState
   }
@@ -106,25 +114,39 @@ function startTests () {
     cases: [
       {
         input: '<br/><style>h1 { color: red; font-size: 2rem }</style>',
-        expected: { total: 54, text: 0, attr: 0, tags: 20, styles: 0, css: 34 },
+        expected: { attr: 0, css: 34, styles: 0, tags: 20, text: 0, total: 54 },
       },
       {
         input: '<h1 style="color: red">Super top !</h1>',
-        expected: { total: 39, text: 11, attr: 1, tags: 9, styles: 18, css: 0 },
+        expected: { attr: 1, css: 0, styles: 18, tags: 9, text: 11, total: 39 },
       },
       {
         input: '<p><small>ah</small></p> ',
-        expected: { total: 25, text: 3, attr: 0, tags: 22, styles: 0, css: 0 },
+        expected: { attr: 0, css: 0, styles: 0, tags: 22, text: 3, total: 25 },
       },
       {
         input: '<p style="font-weight: bold; color: black;"><small style="font-style: italic">ah</small></p> ',
-        expected: { total: 93, text: 3, attr: 2, tags: 22, styles: 66, css: 0 },
+        expected: { attr: 2, css: 0, styles: 66, tags: 22, text: 3, total: 93 },
       },
       {
         input: `<p>
           <small>ah... !!</small>
         </p>`,
-        expected: { total: 50, text: 28, attr: 0, tags: 22, styles: 0, css: 0 },
+        expected: { attr: 0, css: 0, styles: 0, tags: 22, text: 28, total: 50 },
+      },
+      {
+        input: `<style data-vue-ssr-id="d706d280:0 2a082f94:0">
+        /*! tailwindcss v2.2.4 | MIT License | https://tailwindcss.com*/
+
+        /*! modern-normalize v1.1.0 | MIT License | https://github.com/sindresorhus/modern-normalize */
+        *,
+        ::after,
+        ::before {
+          box-sizing: border-box;
+        }
+        </style>
+        <link rel="preload" href="/_nuxt/static/1626092993/state.js" as="script">`,
+        expected: { attr: 80, css: 318, styles: 0, tags: 17, text: 0, total: 415 },
       },
     ],
     valid: 0,
@@ -136,26 +158,28 @@ function startTests () {
     const valid = JSON.stringify(results) === JSON.stringify(test.expected)
     if (valid) tests.valid++
     else tests.invalid++
-    console.assert(valid, `test at index ${index} failed : ${ellipsis(test.input, 30)}`)
+    console.assert(valid, `\n\nTest at index ${index} failed : ${ellipsis(test.input, 30)}`)
     if (!valid) {
+      // console.log(results)
       Object.keys(results).forEach(key => {
         if (test.expected[key] === results[key]) return
-        console.log(`expected ${key} of ${test.expected[key]} but got ${results[key]}`)
+        console.log(`expected ${blue(key.padStart(7))} of ${green(test.expected[key].toString().padStart(4))} but got ${red(results[key])}`)
       })
+      console.log('')
       new HtmlReport(test.input, true)
     }
   })
 
-  console.log(`${green(tests.valid)} tests successful`)
+  console.log(`\n${green(tests.valid)} tests successful`)
   if (tests.invalid > 0) console.log(red(`${tests.invalid} tests failed`))
 }
 
 function showReport (stats) {
   let report = 'Scan detected :\n'
   Object.keys(stats).forEach(key => {
-    if (key === 'total' || stats[key] === 0) return
-    const percent = Math.round(stats[key] / stats.total * 100) + '%'
-    report += `- ${blueBright(percent.padStart(3))} of ${explanations[key]}\n`
+    if (key === 'total') return
+    const percent = Math.round(stats[key] / stats.total * 100) + ' %'
+    report += `- ${blueBright(percent.padStart(4))} of ${explanations[key].padEnd(25)} ${examples[key]}\n`
   })
   console.log(report)
 }
