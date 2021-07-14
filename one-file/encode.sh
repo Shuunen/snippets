@@ -15,8 +15,10 @@ title="$input-$preset-crf$crf-$tune"
 ffmpeg -hide_banner -y \
   -i "$1" \
   -metadata title="$title" \
-  -map "0:0" \
+  -map 0 \
   -c:v libx265 -preset "$preset" -crf "$crf" -tune "$tune" \
+  -c:a copy \
+  -c:s copy \
   "$title.mkv"
 
 # only extract 60 seconds starting at 8 min 30 sec
@@ -53,9 +55,9 @@ ffmpeg -hide_banner -y \
 # -map 0:2
 # -map 0:12
 # to take all streams just : -map 0
-#   / \                                              / \
-#  / ! \  mapping subtitles slow the whole process  / ! \
-# -------                                          -------
+#   / \                                                                / \
+#  / ! \  mapping badly encoded subtitles can slow the whole process  / ! \
+# -------                                                            -------
 
 # ask ffmpeg to stream copy directly audio & subtitles
 # -c:a copy
