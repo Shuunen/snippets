@@ -1,24 +1,37 @@
+<!-- markdownlint-disable MD033 -->
+
 # Before format
 
 > A guide to avoid destruction of beloved files
 
+<details>
+  <summary>Mobile</summary>
+
+- [ ] list useful installed apps
+- [ ] backup SD card content and wipe folders
+- [ ] authenticator : export accounts
+- [ ] generate steam recovery codes
+- [ ] check if some SMS need to be backup
+- [ ] sync various accounts (Google at least)
+
+</details>
+
+<details>
+  <summary>Desktop</summary>
+
 ## General
 
-Check these files/folders :
-
-- [ ] desktop
-- [ ] downloads (should be on another partition)
+- [ ] desktop folder
+- [ ] downloads folder (should be on another partition)
 - [ ] hostname & hosts file
 - [ ] anything interesting in user home folder
 - [ ] ssh keys, do `ls -la ~/.ssh` to check for existing ones
 - [ ] git/npm/xyz configs in home (handled by snippet/config)
 - [ ] virtual machines
-
-And these :
-
 - [ ] git projects
 - [ ] printers settings/ip
 - [ ] start snippet/config
+- [ ] list of useful installed apps
 
 ## Windows only
 
@@ -33,3 +46,5 @@ And these :
 
 - [ ] wifi/eth security connectivity settings
 - [ ] list useful installed programs `dpkg --get-selections > /backup/installed-software.log`
+
+</details>
