@@ -10,9 +10,10 @@
 - [ ] list useful installed apps
 - [ ] backup SD card content and wipe folders
 - [ ] authenticator : export accounts, take a picture with another device
-- [ ] generate steam recovery codes
 - [ ] check if some SMS need to be backup
 - [ ] sync various accounts (Google at least)
+
+PS: nothing to do with steam app, steam guard will be overwrite with the new install
 
 </details>
 
