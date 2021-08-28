@@ -21,6 +21,9 @@
     "yzhang.markdown-all-in-one",
     "dbaeumer.vscode-eslint",
     "mrmlnc.vscode-postcss-sorting",
-    "stylelint.vscode-stylelint"
+    "stylelint.vscode-stylelint",
+    "heybourn.headwind",
+    "wix.vscode-import-cost",
+    "mechatroner.rainbow-csv"
   ]
 }
