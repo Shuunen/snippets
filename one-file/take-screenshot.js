@@ -60,7 +60,7 @@ const getVariables = async input => {
   const meta = await getVideoMetadata(videoPath)
   const title = meta.title.length > videoName.length ? meta.title : videoName
   const size = readableSize(meta.size)
-  const screenName = `${title} ${time} ${size}.jpg`.replace(/\s?["*/:<>?\\|]+\s?/g, ' ') // replace un-authorized characters in filename
+  const screenName = `${title.replace(/\./g, ' ')} ${time} ${size}.jpg`.replace(/\s?["*/:<>?\\|]+\s?/g, ' ').replace(/\s+/g, ' ') // replace un-authorized characters in filename
   const screenPath = path.join(process.env.HOME || process.env.USERPROFILE, 'Pictures', screenName)
   await logAdd(`- seconds : ${seconds}\n- minutes : ${minutes}\n- totalSeconds : ${totalSeconds}\n- time : ${time}\n- videoPath : ${videoPath}\n- videoName : ${videoName}`)
   await logAdd(`- title : ${title}\n- meta.size : ${meta.size}\n- size : ${size}\n- screenName : ${screenName}\n- screenPath : ${screenPath} `)
