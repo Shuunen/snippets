@@ -13,6 +13,7 @@ const configs = [
   `${home}/.gitconfig`,
   `${home}/repo-checker.config.js`,
   `${home}/.local/share/nautilus/scripts/take-screenshot.sh`,
+  `${home}/.local/share/nautilus/scripts/lol-practice-5v5.sh`,
   { file: `${appData}/HandBrake/presets.json`, renameTo: 'handbrake-presets.json' },
   { file: `${appData}/HandBrake/settings.json`, renameTo: 'handbrake-settings.json' },
 ]
