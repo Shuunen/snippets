@@ -12,6 +12,7 @@ const configs = [
   `${home}/.gitignore`,
   `${home}/.gitconfig`,
   `${home}/repo-checker.config.js`,
+  `${home}/.local/share/nautilus/scripts/take-screenshot.sh`,
   { file: `${appData}/HandBrake/presets.json`, renameTo: 'handbrake-presets.json' },
   { file: `${appData}/HandBrake/settings.json`, renameTo: 'handbrake-settings.json' },
 ]
