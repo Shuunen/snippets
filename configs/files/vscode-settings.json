@@ -488,5 +488,6 @@
     "terminal.selectionBackground": "#97979b33",
     "terminalCursor.background": "#282a36",
     "terminalCursor.foreground": "#97979b"
-  }
+  },
+  "workbench.colorTheme": "Default Dark+"
 }
