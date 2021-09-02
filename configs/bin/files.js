@@ -9,6 +9,7 @@ const onWindows = process.env.APPDATA === appData
 const configs = [
   { file: `${appData}/Code/User/settings.json`, renameTo: 'vscode-settings.json' },
   { file: `${appData}/Code/User/keybindings.json`, renameTo: 'vscode-keybindings.json' },
+  `${appData}/kupfer/kupfer.cfg`,
   `${home}/.gitignore`,
   `${home}/.gitconfig`,
   `${home}/repo-checker.config.js`,
