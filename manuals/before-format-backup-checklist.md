@@ -31,7 +31,7 @@ PS: nothing to do with steam app, steam guard will be overwrite with the new ins
 - [ ] virtual machines
 - [ ] git projects
 - [ ] printers settings/ip
-- [ ] start snippet/config
+- [ ] start snippet/config/sync
 - [ ] list of useful installed apps
 
 ## Windows only
@@ -46,6 +46,10 @@ PS: nothing to do with steam app, steam guard will be overwrite with the new ins
 ## Linux only
 
 - [ ] wifi/eth security connectivity settings
-- [ ] list useful installed programs `dpkg --get-selections > /backup/installed-software.log`
+- [ ] list useful installed programs
+  - `apt-mark showmanual`
+  - `flatpak list`
+  - `snap list`
+  - `dpkg --get-selections`
 
 </details>
