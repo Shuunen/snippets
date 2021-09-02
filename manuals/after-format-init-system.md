@@ -140,7 +140,7 @@ code snippets
 ```
 
 - [ ] install my recommended extensions
-- [ ] Do Geekbench, Cinebench, UserBenchmark
+- [ ] Do Geekbench && `geekbench5 --compute OpenCL`, Cinebench, UserBenchmark
 - [ ] [pimp with a 2k wallpaper](https://www.google.com/search?q=wallpaper+2k)
 
 </details>
