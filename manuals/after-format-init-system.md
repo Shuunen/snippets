@@ -101,10 +101,10 @@ source ~/.bash_aliases
 sudo apt install git aria2 nano curl -y # vvv below is for desktop only vvv
 sudo apt install pinta gparted meld xsel shotwell hollywood -y
 sudo snap install --classic code
-sudo snap install jdownloader2 boxy-svg picard breaktimer filebot snap-store smart-file-renamer vlc spotify spek
+sudo snap install lutris p7zip-desktop kupfer jdownloader2 boxy-svg picard subtitle-edit breaktimer filebot snap-store smart-file-renamer vlc spotify spek MediaInfo FreeFileSync
 sudo add-apt-repository ppa:qbittorrent-team/qbittorrent-stable
-sudo apt-get update
-sudo apt-get install qbittorrent
+sudo apt update
+sudo apt install qbittorrent -y
 sudo apt autoremove -y
 echo -e "optional : you can manually run 'sudo apt install ttf-mscorefonts-installer' & 'sudo fc-cache -f -v' to get win fonts & clear font cache"
 sudo chmod 700 ~/.ssh/ -R
