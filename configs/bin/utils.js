@@ -23,7 +23,7 @@ const read = async path => readFile(path, 'utf-8').catch(error => {
 
 export const report = async filepath => {
   let content = await read(filepath)
-  if (/\r/.test(content)) {
+  if (/\r/.test(content) && !filepath.includes('.qbtheme')) { // qbtheme files does not like this
     content = content.replace(/\r\n/g, '\n')
     writeFile(filepath, content)
   }
