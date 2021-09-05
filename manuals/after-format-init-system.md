@@ -102,9 +102,9 @@ echo -e "alias ..='cd ..' \n alias install='sudo apt install' \n alias apt='sudo
 source ~/.bash_aliases
 sudo apt install git aria2 nano curl -y # vvv below is for desktop only vvv
 sudo apt install pinta gparted kupfer meld mediainfo xsel shotwell hollywood -y
-sudo snap install --classic code
-sudo snap install p7zip-desktop jdownloader2 boxy-svg picard breaktimer filebot snap-store smart-file-renamer vlc spotify spek
-# FreeFileSync subtitle-edit lutris 
+# the following snap does not works well on every distro :
+# sudo snap install --classic code 
+# sudo snap install jdownloader2 boxy-svg picard breaktimer filebot snap-store smart-file-renamer vlc spotify spek
 sudo add-apt-repository ppa:qbittorrent-team/qbittorrent-stable
 sudo apt update
 sudo apt install qbittorrent -y
