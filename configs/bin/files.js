@@ -13,6 +13,7 @@ const configs = [
   `${home}/.gitignore`,
   `${home}/.gitconfig`,
   `${home}/repo-checker.config.js`,
+  `${home}/.local/share/applications/lol-practice-5v5.desktop`,
   `${home}/.local/share/qBittorrent/themes/qbittorrent-darkstylesheet.qbtheme`,
   `${home}/.local/share/nautilus/scripts/take-screenshot.sh`,
   `${home}/.local/share/nautilus/scripts/lol-practice-5v5.sh`,

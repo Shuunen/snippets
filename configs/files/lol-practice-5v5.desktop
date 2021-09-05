@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Terminal=false
+Name=Lol practice 5v5
+Icon=/home/huei/Projects/github/snippets/one-file/lol-practice-5v5.ico
+Exec=node "/home/huei/Projects/github/snippets/one-file/lol-practice-5v5.js" "/home/huei/Games/league-of-legends/drive_c/Riot Games/League of Legends/lockfile"
