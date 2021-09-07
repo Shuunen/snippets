@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Terminal=false
+Name=Isolate clipboard lines
+Icon=/home/huei/Projects/github/snippets/one-file/isolate-lines.ico
+Exec=node "/home/huei/Projects/github/snippets/one-file/isolate-lines.js" --clipboard

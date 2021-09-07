@@ -14,6 +14,7 @@ const configs = [
   `${home}/.gitconfig`,
   `${home}/repo-checker.config.js`,
   `${home}/.local/share/applications/lol-practice-5v5.desktop`,
+  `${home}/.local/share/applications/isolate-lines-clipboard.desktop`,
   `${home}/.local/share/qBittorrent/themes/qbittorrent-darkstylesheet.qbtheme`,
   `${home}/.local/share/nautilus/scripts/shrink-all-pdf.sh`,
   `${home}/.local/share/nautilus/scripts/take-screenshot.sh`,
