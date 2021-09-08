@@ -2,5 +2,5 @@
 Type=Application
 Terminal=false
 Name=Isolate clipboard lines
-Icon=/home/huei/Projects/github/snippets/one-file/isolate-lines.ico
+Icon=/home/huei/Projects/github/snippets/one-file/isolate-lines-clipboard.ico
 Exec=node "/home/huei/Projects/github/snippets/one-file/isolate-lines.js" --clipboard
