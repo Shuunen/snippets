@@ -39,6 +39,7 @@ const readableSize = size => {
 
 const currentFolder = path.dirname(fileURLToPath(import.meta.url))
 const logFile = path.join(currentFolder, 'take-screenshot.log')
+const modulos = [5, 4, 3, 2, 1]
 const logClear = () => fs.writeFile(logFile, '')
 const logAdd = (...stuff) => fs.appendFile(logFile, stuff.join(' ') + '\n')
 
@@ -49,31 +50,45 @@ const asciiWelcome = () => {
   `)
 }
 
-const getVariables = async input => {
-  input = String(input)
-  const seconds = Number.parseInt(input.slice(-2), 10)
-  const minutes = Number.parseInt(input.slice(0, -2), 10) || 0
-  const totalSeconds = (minutes * 60) + seconds
-  const time = `${(minutes > 0 ? `${minutes}m` : '') + seconds}s`
+const getTask = (totalSeconds, title, size, videoPath) => {
+  const minutes = Math.floor(totalSeconds / 60)
+  const seconds = totalSeconds % 60
+  const timeHuman = `${(minutes > 0 ? `${minutes}m` : '') + seconds}s`
+  const screenName = `${title.replace(/\./g, ' ')} ${timeHuman} ${size}.jpg`.replace(/\s?["*/:<>?\\|]+\s?/g, ' ').replace(/\s+/g, ' ') // replace un-authorized characters in filename
+  const screenPath = path.join(process.env.HOME || process.env.USERPROFILE, 'Pictures', screenName)
+  return { totalSeconds, videoPath, screenPath }
+}
+
+const getTasks = async input => {
+  const { a, b, modulo = '' } = String(input).match(/(?<a>\d{1,2})(?<b>\d{1,2})?(?<modulo>[+-]{1,2})?/).groups
+  const seconds = Number.parseInt(b || a, 10)
+  const minutes = Number.parseInt(a, 10)
+  if (modulo) console.log('detected modulo :', modulo)
   const videoPath = process.argv[2]
   const videoName = path.basename(videoPath)
   const meta = await getVideoMetadata(videoPath)
   const title = meta.title.length > videoName.length ? meta.title : videoName
   const size = readableSize(meta.size)
-  const screenName = `${title.replace(/\./g, ' ')} ${time} ${size}.jpg`.replace(/\s?["*/:<>?\\|]+\s?/g, ' ').replace(/\s+/g, ' ') // replace un-authorized characters in filename
-  const screenPath = path.join(process.env.HOME || process.env.USERPROFILE, 'Pictures', screenName)
-  await logAdd(`- seconds : ${seconds}\n- minutes : ${minutes}\n- totalSeconds : ${totalSeconds}\n- time : ${time}\n- videoPath : ${videoPath}\n- videoName : ${videoName}`)
-  await logAdd(`- title : ${title}\n- meta.size : ${meta.size}\n- size : ${size}\n- screenName : ${screenName}\n- screenPath : ${screenPath} `)
-  return { totalSeconds, videoPath, screenPath }
+  await logAdd(`- minutes : ${minutes}\n- seconds : ${seconds}\n- modulo : ${modulo}\n- videoPath : ${videoPath}\n- videoName : ${videoName}\n- title : ${title}\n- size : ${size}`)
+  const tasks = []
+  const totalSeconds = (minutes * 60) + seconds
+  if (modulo.includes('-')) modulos.forEach(m => tasks.push(totalSeconds - m))
+  tasks.push(totalSeconds)
+  if (modulo.includes('+')) modulos.sort().forEach(m => tasks.push(totalSeconds + m))
+  await logAdd(`- tasks (seconds) : ${tasks.toString()}`)
+  return tasks.map(tSecs => getTask(tSecs, title, size, videoPath))
 }
 
 const takeScreenAt = async input => {
-  const { totalSeconds, videoPath, screenPath } = await getVariables(input).catch(error => console.error(error))
-  if (!totalSeconds) throw new Error('failed to process variables')
-  const cmd = `ffmpeg -ss ${totalSeconds} -i "${videoPath}" -frames:v 1 -q:v 1 "${screenPath}"`
-  await deleteFile(screenPath)
-  await logAdd('Command :', cmd)
-  await logAdd(await shellCommand(cmd))
+  const tasks = await getTasks(input).catch(error => console.error(error))
+  for (let task of tasks) {
+    const { totalSeconds, videoPath, screenPath } = task
+    if (!totalSeconds) throw new Error('failed to process variables')
+    const cmd = `ffmpeg -ss ${totalSeconds} -i "${videoPath}" -frames:v 1 -q:v 1 "${screenPath}"`
+    await deleteFile(screenPath)
+    await logAdd('Command :', cmd)
+    await logAdd(await shellCommand(cmd))
+  }
   process.exit(0)
 }
 
