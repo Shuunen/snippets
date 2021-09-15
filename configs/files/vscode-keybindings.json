@@ -38,6 +38,10 @@
     "command": "markdown.extension.editing.toggleList"
   },
   {
+    "key": "ctrl+oem_8",
+    "command": "typescript.restartTsServer"
+  },
+  {
     "key": "shift+alt+f",
     "command": "-filesExplorer.findInFolder",
     "when": "explorerResourceIsFolder && explorerViewletVisible && filesExplorerFocus && !inputFocus"
