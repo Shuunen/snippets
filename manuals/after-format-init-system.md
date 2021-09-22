@@ -98,10 +98,10 @@ sudo snap install node --classic --channel=14 # channel is the major version
 sudo snap install onefetch
 mkdir ~/.npm-global
 npm config set prefix '~/.npm-global'
-echo -e "alias ..='cd ..' \n alias install='sudo apt install' \n alias apt='sudo apt' \n alias mkdir='mkdir -pv' \n alias merge=meld \n alias whatsmyip='curl http://ipecho.net/plain; echo' \n alias psg='ps aux | grep -v grep | grep -i -e VSZ -e' \n echo '' \n if [ -d '.git' ]; then onefetch; else screenfetch; fi \n echo ' Welcome ${USER} ^^' \n echo '' \n export PATH=~/.npm-global/bin:\$PATH" > ~/.bash_aliases # make sure bash_aliases is sourced in ~/.bashrc
+echo -e "alias ..='cd ..' \n alias install='sudo apt install' \n alias apt='sudo apt' \n alias mkdir='mkdir -pv' \n alias merge=meld \n alias whatsmyip='curl http://ipecho.net/plain; echo' \n alias psg='ps aux | grep -v grep | grep -i -e VSZ -e' \n echo '' \n if [ -d '.git' ]; then onefetch; else screenfetch; fi \n echo ' Welcome ${USER} ^^' \n echo '' \n export PATH=~/.npm-global/bin:~/Apps:~/Projects/github/snippets/one-file:\$PATH" > ~/.bash_aliases # make sure bash_aliases is sourced in ~/.bashrc
 source ~/.bash_aliases
 sudo apt install git aria2 nano curl -y # vvv below is for desktop only vvv
-sudo apt install pinta gparted kupfer meld mediainfo mpv xsel shotwell hollywood vlc -y
+sudo apt install pinta gparted kupfer meld mediainfo mpv xsel shotwell hollywood vlc yad-icon-browser -y
 # the following snap does not works well on every distro :
 # sudo snap install --classic code 
 # sudo snap install jdownloader2 boxy-svg picard breaktimer filebot snap-store smart-file-renamer spotify spek

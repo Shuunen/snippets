@@ -1,0 +1,7 @@
+[Desktop Entry]
+Comment=Find stuff quickly
+Exec=/opt/google/chrome/google-chrome --profile-directory=Default --app-id=eahidkgdggjblflklfmdnmpgdpndlfed
+Icon=chrome-eahidkgdggjblflklfmdnmpgdpndlfed-Default
+Name=Stuff Finder
+Terminal=false
+Type=Application

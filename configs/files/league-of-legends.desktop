@@ -1,0 +1,6 @@
+[Desktop Entry]
+Categories=Game
+Exec=lutris lutris:rungameid/1
+Icon=lutris_league-of-legends
+Name=League of Legends
+Type=Application

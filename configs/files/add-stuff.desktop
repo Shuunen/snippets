@@ -1,0 +1,7 @@
+[Desktop Entry]
+Comment=Add an object to Stuff-Finder
+Exec=/opt/google/chrome/google-chrome --profile-directory=Default --app-id=nepfkahofkalfglfpbdpomnhfdpbhdcg
+Icon=chrome-nepfkahofkalfglfpbdpomnhfdpbhdcg-Default
+Name=Add stuff
+Terminal=false
+Type=Application

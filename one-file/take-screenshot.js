@@ -63,7 +63,6 @@ const getTasks = async input => {
   const { a, b, modulo = '' } = String(input).match(/(?<a>\d{1,2})(?<b>\d{1,2})?(?<modulo>[+-]{1,2})?/).groups
   const seconds = Number.parseInt(b || a, 10)
   const minutes = Number.parseInt(a, 10)
-  if (modulo) console.log('detected modulo :', modulo)
   const videoPath = process.argv[2]
   const videoName = path.basename(videoPath)
   const meta = await getVideoMetadata(videoPath)

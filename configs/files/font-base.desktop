@@ -1,0 +1,7 @@
+[Desktop Entry]
+Comment=Font manager
+Exec="Font-Base.AppImage"
+Icon=fonts
+Name=Font Base 
+Terminal=false
+Type=Application

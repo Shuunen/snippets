@@ -1,6 +1,7 @@
 [Desktop Entry]
-Type=Application
-Terminal=false
+Comment=Split each line into a unique list with double carriage returns
+Exec=node "isolate-lines.js" --clipboard
+Icon=gnome-stock-text-indent
 Name=Isolate clipboard lines
-Icon=/home/huei/Projects/github/snippets/one-file/isolate-lines-clipboard.ico
-Exec=node "/home/huei/Projects/github/snippets/one-file/isolate-lines.js" --clipboard
+Terminal=false
+Type=Application

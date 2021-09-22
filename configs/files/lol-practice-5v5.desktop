@@ -1,6 +1,7 @@
 [Desktop Entry]
-Type=Application
+Comment=Start an unblocked practice game
+Exec=node "Projects/github/snippets/one-file/lol-practice-5v5.js" "Games/league-of-legends/drive_c/Riot Games/League of Legends/lockfile"
+Icon=lutris_league-of-legends
+Name=League of legends - Lol practice 5v5
 Terminal=false
-Name=Lol practice 5v5
-Icon=/home/huei/Projects/github/snippets/one-file/lol-practice-5v5.ico
-Exec=node "/home/huei/Projects/github/snippets/one-file/lol-practice-5v5.js" "/home/huei/Games/league-of-legends/drive_c/Riot Games/League of Legends/lockfile"
+Type=Application

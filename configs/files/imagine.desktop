@@ -1,0 +1,7 @@
+[Desktop Entry]
+Comment=Batch image compressor
+Exec="Imagine.AppImage"
+Icon=filesave
+Name=Imagine
+Terminal=false
+Type=Application

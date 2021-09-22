@@ -1,0 +1,7 @@
+[Desktop Entry]
+Comment=Rtorrent remote gui
+Exec="Electorrent.AppImage"
+Icon=network-transmit
+Name=Electorrent 
+Terminal=false
+Type=Application

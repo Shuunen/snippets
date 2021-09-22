@@ -1,0 +1,7 @@
+[Desktop Entry]
+Comment=Simple vector file editor
+Exec=/opt/google/chrome/google-chrome --profile-directory=Default --app-id=gaoogdonmngmdlbinmiclicjpbjhgomg
+Icon=chrome-gaoogdonmngmdlbinmiclicjpbjhgomg-Default
+Name=Boxy SVG - Chrome Extension
+Terminal=false
+Type=Application

@@ -1,0 +1,7 @@
+[Desktop Entry]
+Comment=Appimage store
+Exec="Appimage-Pool.AppImage"
+Icon=gnome-other
+Name=Appimage Pool
+Terminal=false
+Type=Application
