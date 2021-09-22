@@ -1,0 +1,12 @@
+[Desktop Entry]
+Categories=Graphics;
+Comment=Image editor/processor
+Exec="Apps/Photopea.AppImage" %U
+Icon=appimagekit-photopea
+Name=Photopea
+StartupWMClass=Photopea
+Terminal=false
+Type=Application
+X-AppImage-BuildId=1JjD14uwyf7zD0MXVDkhft0XRpx
+X-AppImage-Version=1.2.0
+X-Desktop-File-Install-Version=0.26

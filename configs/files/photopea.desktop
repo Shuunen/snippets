@@ -1,7 +1,0 @@
-[Desktop Entry]
-Comment=Amazing free photo editor
-Exec="Photopea.AppImage"
-Icon=image-crop-symbolic
-Name=Photopea
-Terminal=false
-Type=Application

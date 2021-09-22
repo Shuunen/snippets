@@ -1,7 +1,0 @@
-[Desktop Entry]
-Comment=MKV Toolbox
-Exec="MKV-Tool-Nix-GUI.AppImage"
-Icon=applications-multimedia
-Name=MKV-Tool-Nix-GUI
-Terminal=false
-Type=Application
