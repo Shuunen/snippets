@@ -28,6 +28,7 @@ const configs = [
   `${home}/.local/share/nautilus/scripts/shrink-all-pdf.sh`,
   `${home}/.local/share/nautilus/scripts/take-screenshot.sh`,
   `${home}/.local/share/qBittorrent/themes/qbittorrent-darkstylesheet.qbtheme`,
+  `${home}/.profile`,
   `${home}/repo-checker.config.js`,
   { file: `${appData}/HandBrake/presets.json`, renameTo: 'handbrake-presets.json' },
   { file: `${appData}/HandBrake/settings.json`, renameTo: 'handbrake-settings.json' },
