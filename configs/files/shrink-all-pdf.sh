@@ -1,3 +1,3 @@
-#!/bin/sh
+#!/bin/bash
 
-find . -name "*.pdf" -exec "$HOME/Projects/github/snippets/one-file/shrink-pdf.sh" {} \;
+find . -name "*.pdf" -exec "shrink-pdf.sh" {} \;
