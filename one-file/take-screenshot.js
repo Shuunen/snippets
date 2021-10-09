@@ -22,7 +22,7 @@ const getVideoMetadata = async path => {
   const data = JSON.parse(output)
   const media = data.format || {}
   const title = (media.tags && media.tags.title) || ''
-  const size = (media.size > 0 || media.size.length > 0) ? media.size : getFileSize(path)
+  const size = (media.size !== undefined && (media.size > 0 || media.size.length > 0)) ? media.size : getFileSize(path)
   return { title, size }
 }
 
@@ -63,7 +63,7 @@ const getTask = (totalSeconds, title, size, videoPath) => {
 const getTasks = async input => {
   const { a, b, modulo = '' } = String(input).match(/(?<a>\d{1,2})(?<b>\d{1,2})?(?<modulo>[+-]{1,2})?/).groups
   const seconds = Number.parseInt(b || a, 10)
-  const minutes = Number.parseInt(a, 10)
+  const minutes = b === undefined ? 0 : Number.parseInt(a, 10)
   const videoPath = process.argv[2]
   const videoName = path.basename(videoPath)
   const meta = await getVideoMetadata(videoPath)
