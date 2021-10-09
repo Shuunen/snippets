@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const mergeUnique = (array) => [...new Set([...array])]
+const mergeUnique = (array) => [...new Set(array)]
 
 const isolateList = (list) => {
   const lines = mergeUnique(list.replace(/ /g, '').split('\n')).filter(line => line.length > 0)
