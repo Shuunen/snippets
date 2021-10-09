@@ -1,6 +1,6 @@
 [Desktop Entry]
 Comment=Start an unblocked practice game
-Exec=node "Projects/github/snippets/one-file/lol-practice-5v5.js" "Games/league-of-legends/drive_c/Riot Games/League of Legends/lockfile"
+Exec=lol-practice-5v5.js "Games/league-of-legends/drive_c/Riot Games/League of Legends/lockfile"
 Icon=lutris_league-of-legends
 Name=League of legends - Lol practice 5v5
 Terminal=false

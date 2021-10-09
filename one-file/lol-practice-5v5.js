@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { appendFileSync, readFileSync, writeFileSync } from 'fs'
 import { request as _request } from 'https'
 import path from 'path'
@@ -38,7 +39,7 @@ function doRequest () {
 
 function readLock () {
   const lockPath = process.argv[2]
-  if (!lockPath) throw new Error('missing lockfile path, use me like : \n\n node lol-practice-5v5.js "D:\\Games\\Riot Games\\League of Legends\\lockfile" "My game lobby name"')
+  if (!lockPath) throw new Error('missing lockfile path, use me like : \n\n lol-practice-5v5.js "D:\\Games\\Riot Games\\League of Legends\\lockfile" "My game lobby name"')
   logAdd('Summoner lockfile located at : ' + lockPath)
   if (!/lockfile/.test(lockPath)) throw new Error('lockfile path invalid, should looks like "D:\\Games\\Riot Games\\League of Legends\\lockfile"')
   const content = readFileSync(lockPath, 'utf-8').split(':') || []

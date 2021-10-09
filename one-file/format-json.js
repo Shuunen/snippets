@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { lstatSync, readdirSync, readFileSync, writeFileSync } from 'fs'
 import path from 'path'
 
@@ -15,7 +16,7 @@ function getFiles (path) {
 }
 
 function getPath () {
-  if (process.argv.length <= 2) throw new Error('this script need a path as argument like : node format-json.js my-file.json or node format-json.js "C:\\My Folder\\"')
+  if (process.argv.length <= 2) throw new Error('this script need a path as argument like : format-json.js my-file.json or format-json.js "C:\\My Folder\\"')
   return path.normalize(process.argv[2])
 }
 

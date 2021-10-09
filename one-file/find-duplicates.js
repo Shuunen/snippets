@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { readdir, stat } from 'fs/promises'
 import path from 'path'
 
@@ -21,7 +22,7 @@ class CheckDuplicates {
   }
 
   async args () {
-    if (process.argv.length < 4) throw new Error('this script need a path as argument like : node find-duplicates.js "U:\\Movies\\"')
+    if (process.argv.length < 4) throw new Error('this script need a path as argument like : find-duplicates.js "U:\\Movies\\"')
     this.target = path.normalize(process.argv[3])
   }
 

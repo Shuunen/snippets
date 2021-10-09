@@ -1,5 +1,4 @@
-
-
+#!/usr/bin/env node
 const mergeUnique = (array) => [...new Set([...array])]
 
 const isolateList = (list) => {

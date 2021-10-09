@@ -1,6 +1,6 @@
 [Desktop Entry]
 Comment=Split each line into a unique list with double carriage returns
-Exec=node "isolate-lines.js" --clipboard
+Exec=isolate-lines.js --clipboard
 Icon=gnome-stock-text-indent
 Name=Isolate clipboard lines
 Terminal=false

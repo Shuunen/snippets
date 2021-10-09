@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { exec } from 'child_process'
 import { readdir, readFile, stat, writeFileSync } from 'fs'
 import path from 'path'
@@ -64,7 +65,7 @@ class CheckVideos {
   }
 
   async args () {
-    if (process.argv.length <= 2) console.log('Targeting current folder, you can also specify a specific path, ex : node check-videos.js "U:\\Movies\\" \n')
+    if (process.argv.length <= 2) console.log('Targeting current folder, you can also specify a specific path, ex : check-videos.js "U:\\Movies\\" \n')
     this.videosPath = path.normalize(process.argv[2] || process.cwd())
   }
 

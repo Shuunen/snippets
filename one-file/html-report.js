@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import { blue, blueBright, gray, green, red, yellow } from 'colorette'
 import { readFile } from 'fs/promises'
 
