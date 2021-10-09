@@ -7,5 +7,5 @@ This folder is a backup of software configurations I use
 ```bash
 ./bin/sync.js
 ./bin/sync.js --setup # tell sync to create files if they does not exists
-./bin/sync.js --dry # show what sync want to do without modifying anything on the fs
+./bin/sync.js --dry   # show what sync want to do without modifying anything on the fs
 ```
