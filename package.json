@@ -5,7 +5,7 @@
   "devDependencies": {
     "clipboardy": "latest",
     "colorette": "*",
-    "shuunen-stack": "0.13.0"
+    "shuunen-stack": "0.14.0"
   },
   "files": [
     "bookmarklets",
