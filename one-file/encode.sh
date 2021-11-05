@@ -13,6 +13,7 @@ input="$(echo "$1" | sed 's/[\. \_].*//')" # get the first word of the input fil
 title="$input-$preset-crf$crf-$tune"
 
 ffmpeg -hide_banner -y \
+  -ss 00:20:21 -t 10 \
   -i "$1" \
   -metadata title="$title" \
   -map 0 \
@@ -70,7 +71,7 @@ ffmpeg -hide_banner -y \
 #   -frames:v 1 -q:v 1 \
 #   "$HOME/Pictures/$2.jpg"
 
-# take-screenshot.sh "$title.mkv" 3
+take-screenshot.sh "$title.mkv" 5
 
 # to check croppable area
 # ffplay -ss 00:10:00 -t 2 -i "input.mkv" -vf cropdetect=24:16:0
