@@ -105,6 +105,10 @@ sudo apt install pinta gparted kupfer meld mediainfo mkvtoolnix mkvtoolnix-gui m
 # the following snap does not works well on every distro :
 # sudo snap install --classic code 
 # sudo snap install jdownloader2 boxy-svg picard breaktimer filebot snap-store smart-file-renamer spotify spek
+# Digikam (photo collection manager), Gdevelop (game development), Imagine (batch image compressor)
+# Meta Grabber (filebot alternative), Font-Base (font viewer & manager), Electorrent (remote torrent gui)
+# LosslessCut (video splitter), FontFinder (font viewer & manager)
+# ffmpeg (great video tools)
 sudo add-apt-repository ppa:qbittorrent-team/qbittorrent-stable
 sudo apt update
 sudo apt install qbittorrent -y
