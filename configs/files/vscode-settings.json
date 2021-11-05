@@ -151,6 +151,7 @@
     "oeuf",
     "oeufs",
     "onefetch",
+    "outfile",
     "Paginator",
     "Paylib",
     "photopea",
@@ -256,6 +257,7 @@
     "source.organizeImports": true
   },
   "editor.formatOnSave": false,
+  "editor.inlineSuggest.enabled": true,
   "editor.minimap.maxColumn": 300,
   "editor.quickSuggestions": {
     "strings": true
