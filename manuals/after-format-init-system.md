@@ -12,7 +12,7 @@
 
 ```bash
 choco feature enable -n allowGlobalConfirmation
-choco install directx geforce-game-ready-driver git GoogleChrome launchyqt spotify steam vcredist-all 7zip ant-renamer autoruns clavier-plus dnsjumper exiftoolgui filezilla f.lux gifcam gnumeric greenshot picard paint.net qbittorrent rapidee riot rufus soulseek spek subtitleedit.portable sumatrapdf treesizefree lockhunter usbdeview virustotaluploader
+choco install directx geforce-game-ready-driver git GoogleChrome launchyqt spotify steam vcredist-all 7zip ant-renamer autoruns clavier-plus dnsjumper exiftoolgui filezilla f.lux gifcam gnumeric greenshot picard paint.net qbittorrent rapidee riot rufus soulseek spek subtitleedit.portable sumatrapdf treesizefree lockhunter usbdeview virustotaluploader javaruntime vscode mpv vlc nvm.portable shutup10
 ```
 
 ## Chrome or other
@@ -30,25 +30,14 @@ choco install directx geforce-game-ready-driver git GoogleChrome launchyqt spoti
 - [ ] copy `.ssh` keys
 - [ ] copy `documents` saved games
 
-## Cmd as admin again
-
-- [ ] `D:\Apps\7zip\7zFM.exe` and setup file association for user & context menu
-- [ ] `code C:\Windows\System32\drivers\etc\hosts` to customize hosts
-- [ ] set env variables with this but copy/paste to notepad to have CRLF & copy/paste into CMD after (thx m$) :
-
-```batch
-setx PATH "D:\Android\android-sdk\platform-tools;D:\Android\android-sdk\tools;D:\Android\android-sdk\tools\bin;D:\Apps\_global;D:\Apps\AdoptOpenJDK\jdk8u192-b12\bin;D:\Apps\Araxis;D:\Apps\Python38;D:\Apps\Python38\Scripts;D:\Apps\VS.Code;D:\Apps\Picasa;D:\Apps\Spread.32.Free.Excel.Lite;D:\Apps\VLC;D:\Apps\Mkvtoolnix;D:\Apps\Node\14"
-setx ANDROID_HOME "D:\Android\android-sdk"
-setx JAVA_HOME "D:\Apps\AdoptOpenJDK\jdk8u192-b12"
-```
-
 ## Misc
 
-- [ ] start `Apps/Clavier.Plus.Plus` and activate it on startup
+- [ ] start `Clavier++` and activate it on startup
 - [ ] start Launchy from start menu, set the Ctrl+Shift+K keystroke from clavier++
 - [ ] press Win+R , type `shell:startup`, hit Enter, go up one level & drag Launchy shortcut to Startup folder to make it start with windows
 - [ ] start `Steam` from start menu and add game libraries in `download options > steam library`, update the default one
 - [ ] use autoruns to remove useless things at startup
+- [ ] `nvm install 14.18.1` & `nvm use 14.18.1`
 
 ## Windows
 
@@ -62,14 +51,14 @@ setx JAVA_HOME "D:\Apps\AdoptOpenJDK\jdk8u192-b12"
 - [ ] open device manager, open settings of ethernet network card, disable ability to exit from hibernation
 - [ ] remove more shit with [O&O ShutUp10](https://www.oo-software.com/en/shutup10)
 - [ ] restart
+- [ ] as a user, open cmd and `C:\tools\winfetch\winfetch.bat > fetch-once.log`
 
 ## Git bash
 
 - [ ] options : Looks -> dracula theme, Text -> font size to 11, Mouse -> right btn paste, Window 120 x 30
 
 ```bash
-neofetch > neofetch-once.log
-echo -e '#!/bin/bash \n\n eval "$(ssh-agent -s)" \n ssh-add ~/.ssh/id_rsa_gh \n\n alias ll="ls -alhFo --group-directories-first --time-style=long-iso --color=auto" \n\n echo ""\ncat ~/neofetch-once.log \n echo "Welcome ${USERNAME} ^^"' > ~/.bashrc
+echo -e '#!/bin/bash \n\n eval "$(ssh-agent -s)" \n ssh-add ~/.ssh/id_rsa_gh \n echo "Welcome ${USERNAME} ^^"' > ~/.bashrc
 bash
 cd && mkdir Projects && cd Projects
 mkdir github && cd github
@@ -79,8 +68,16 @@ node bin/sync.js --setup
 ```
 
 ### Android development environnement
+  
+Set env variables with this but copy/paste to notepad to have CRLF & copy/paste into CMD after (thx m$) :
 
-Thanks to preinstalled android env, only these steps are required :
+```batch
+setx PATH "D:\Android\android-sdk\platform-tools;D:\Android\android-sdk\tools;D:\Android\android-sdk\tools\bin;D:\Apps\AdoptOpenJDK\jdk8u192-b12\bin;D:\Apps\Node\14"
+setx ANDROID_HOME "D:\Android\android-sdk"
+setx JAVA_HOME "D:\Apps\AdoptOpenJDK\jdk8u192-b12"
+```
+
+Then :
 
 - [ ] install nativescript `npm install -g nativescript` && check all with `tns doctor`
 - [ ] open cmd & `"%ANDROID_HOME%/extras/intel/Hardware_Accelerated_Execution_Manager/intelhaxm-android.exe"`
