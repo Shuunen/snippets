@@ -24,6 +24,7 @@
     "stylelint.vscode-stylelint",
     "heybourn.headwind",
     "wix.vscode-import-cost",
-    "mechatroner.rainbow-csv"
+    "mechatroner.rainbow-csv",
+    "github.copilot"
   ]
 }
