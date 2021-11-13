@@ -12,7 +12,7 @@
 
 ```bash
 choco feature enable -n allowGlobalConfirmation
-choco install directx geforce-game-ready-driver git GoogleChrome launchyqt spotify steam vcredist-all 7zip ant-renamer autoruns clavier-plus dnsjumper exiftoolgui filezilla f.lux gifcam gnumeric greenshot picard paint.net qbittorrent rapidee riot rufus soulseek spek subtitleedit.portable sumatrapdf treesizefree lockhunter usbdeview virustotaluploader javaruntime vscode mpv vlc nvm.portable shutup10
+choco install directx geforce-game-ready-driver git GoogleChrome launchyqt spotify steam vcredist-all 7zip ant-renamer autoruns clavier-plus dnsjumper exiftoolgui filezilla gifcam gnumeric greenshot picard paint.net qbittorrent rapidee riot rufus soulseek spek subtitleedit.portable sumatrapdf treesizefree lockhunter usbdeview virustotaluploader javaruntime vscode mpv vlc nvm.portable shutup10 digikam imageglass chocolateygui mkvtoolnix ffmpeg
 ```
 
 ## Chrome or other
