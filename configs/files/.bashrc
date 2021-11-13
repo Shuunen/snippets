@@ -19,5 +19,5 @@ function setProxy() {
 }
 
 echo ""
-test -f ~/neofetch-once.log && cat ~/neofetch-once.log 
+test -f ~/fetch-once.log && cat ~/fetch-once.log 
 echo "Welcome ${USERNAME} ^^"
