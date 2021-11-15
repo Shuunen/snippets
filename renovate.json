@@ -2,6 +2,7 @@
   "dependencyDashboard": false,
   "extends": [
     "config:base",
-    ":automergeAll"
+    ":automergeAll",
+    ":preserveSemverRanges"
   ]
 }
