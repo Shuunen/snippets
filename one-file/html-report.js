@@ -45,7 +45,7 @@ class HtmlReport {
     return this.stats
   }
   scan () {
-    /* eslint-disable curly, @typescript-eslint/brace-style */
+    /* eslint-disable curly */
     this.index++
     const char = this.input[this.index]
     if (!char || this.index === this.stats.total) return this.onScanComplete()
@@ -85,7 +85,7 @@ class HtmlReport {
       this.stats.tags++
       this.setState(states.onTagName)
     }
-    /* eslint-enable curly, @typescript-eslint/brace-style */
+    /* eslint-enable curly */
     this.scan()
   }
   onScanComplete () {

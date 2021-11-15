@@ -3,9 +3,11 @@
   "bugs": "https://github.com/Shuunen/snippets/issues",
   "description": "My personal snippets",
   "devDependencies": {
-    "clipboardy": "latest",
-    "colorette": "*",
-    "shuunen-stack": "0.14.0"
+    "clipboardy": "3",
+    "eslint": "8",
+    "eslint-plugin-unicorn": "38",
+    "repo-check": "^1.20.1",
+    "shuutils": "^5.0.0"
   },
   "files": [
     "bookmarklets",
@@ -30,10 +32,11 @@
     "url": "https://github.com/Shuunen/snippets.git"
   },
   "scripts": {
-    "lint": "stack lint",
+    "check": "repo-check",
+    "ci": "npm run lint && npm run check",
+    "lint": "eslint --fix --ignore-path .gitignore --ext .js .",
     "postversion": "git push && git push --tags",
-    "preversion": "npm run lint",
-    "update": "stack update"
+    "preversion": "npm run lint"
   },
   "type": "module",
   "version": "0.0.0"
