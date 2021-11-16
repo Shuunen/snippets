@@ -20,10 +20,13 @@ const getVideoMetadata = async path => {
   const output = await shellCommand(`ffprobe -show_format -show_streams -print_format json -v quiet -i "${path}" `)
   if (output[0] !== '{') throw new Error('ffprobe output should be JSON but got :' + output)
   const data = JSON.parse(output)
+  const video = data.streams.find(stream => stream.codec_type === 'video')
+  const height = video.height
   const media = data.format || {}
+  const duration = media.duration
   const title = (media.tags && media.tags.title) || ''
   const size = (media.size !== undefined && (media.size > 0 || media.size.length > 0)) ? media.size : getFileSize(path)
-  return { title, size }
+  return { title, size, height, duration }
 }
 
 const getFileSize = async path => (await fs.stat(path)).size
@@ -38,6 +41,10 @@ const readableSize = size => {
   return nb.replace('.', ',') + unit
 }
 
+const readableDuration = seconds => new Date(seconds * 1000).toISOString().slice(11, 19).replace(':', 'h').replace(':', 'm') + 's'
+
+const readableHeight = height => height ? `${height}p` : ''
+
 const currentFolder = path.dirname(fileURLToPath(import.meta.url))
 const logFile = path.join(currentFolder, 'take-screenshot.log')
 const modulos = [5, 4, 3, 2, 1]
@@ -51,11 +58,11 @@ const asciiWelcome = () => {
   `)
 }
 
-const getTask = (totalSeconds, title, size, videoPath) => {
+const getTask = (totalSeconds, title, videoPath, meta = {}) => {
   const minutes = Math.floor(totalSeconds / 60)
   const seconds = totalSeconds % 60
-  const timeHuman = `${(minutes > 0 ? `${minutes}m` : '') + seconds}s`
-  const screenName = `${title.replace(/\./g, ' ')} ${timeHuman} ${size}.jpg`.replace(/\s?["*/:<>?\\|]+\s?/g, ' ').replace(/\s+/g, ' ') // replace un-authorized characters in filename
+  const timeHuman = `${(minutes > 0 ? `${minutes}m` : '') + seconds}s`.trim()
+  const screenName = `${title.replace(/\./g, ' ')} ${timeHuman} ${readableSize(meta.size)} ${readableHeight(meta.height)} ${readableDuration(meta.duration)}.jpg`.replace(/\s?["*/:<>?\\|]+\s?/g, ' ').replace(/\s+/g, ' ') // replace un-authorized characters in filename
   const screenPath = path.join(process.env.HOME || process.env.USERPROFILE, 'Pictures', screenName)
   return { totalSeconds, videoPath, screenPath }
 }
@@ -68,15 +75,14 @@ const getTasks = async input => {
   const videoName = path.basename(videoPath)
   const meta = await getVideoMetadata(videoPath)
   const title = meta.title.length > videoName.length ? meta.title : videoName
-  const size = readableSize(meta.size)
-  await logAdd(`- minutes : ${minutes}\n- seconds : ${seconds}\n- modulo : ${modulo}\n- videoPath : ${videoPath}\n- videoName : ${videoName}\n- title : ${title}\n- size : ${size}`)
+  await logAdd(`- minutes : ${minutes}\n- seconds : ${seconds}\n- modulo : ${modulo}\n- videoPath : ${videoPath}\n- videoName : ${videoName}\n- title : ${title}`)
   const tasks = []
   const totalSeconds = (minutes * 60) + seconds
   if (modulo.includes('-')) modulos.forEach(m => tasks.push(totalSeconds - m))
   tasks.push(totalSeconds)
   if (modulo.includes('+')) modulos.sort().forEach(m => tasks.push(totalSeconds + m))
   await logAdd(`- tasks (seconds) : ${tasks.toString()}`)
-  return tasks.map(tSecs => getTask(tSecs, title, size, videoPath))
+  return tasks.map(tSecs => getTask(tSecs, title, videoPath, meta))
 }
 
 const takeScreenAt = async input => {
