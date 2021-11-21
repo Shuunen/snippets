@@ -29,7 +29,10 @@ const getVideoMetadata = async path => {
   return { title, size, height, duration }
 }
 
-const getFileSize = async path => (await fs.stat(path)).size
+const getFileSize = async path => {
+  const stats = await fs.stat(path)
+  return stats.size
+}
 
 const readableSize = size => {
   let unit = 'go'

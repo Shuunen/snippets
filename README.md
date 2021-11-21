@@ -13,3 +13,4 @@
 - [Github](https://github.com) : for all their great work year after year, pushing OSS forward
 - [Repo-checker](https://github.com/Shuunen/repo-checker) : eslint cover /src code and this tool the rest ^^
 - [Shields.io](https://shields.io) : nice looking badges to be proud of
+- [Shuutils](https://github.com/Shuunen/shuutils) : collection of pure JS utils

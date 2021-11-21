@@ -72,11 +72,13 @@ class CheckVideos {
   async find (processOne = false) {
     console.log(`Scanning dir ${this.videosPath}`)
     const isVideo = /\.(mp4|mkv|avi|wmv|m4v|mpg)$/
-    const isIgnored = (await utils.readFile(path.join(this.videosPath, '.check-videos-ignore'))).split('\n')
+    const list = await utils.readFile(path.join(this.videosPath, '.check-videos-ignore'))
+    const isIgnored = list.split('\n')
     isIgnored.forEach((line = '') => {
       if (line.trim().length > 0 && !line.startsWith('//')) listing += `${line},\n`
     })
-    this.files = (await utils.listFiles(this.videosPath)).filter(entry => (!isIgnored.includes(entry) && isVideo.test(entry)))
+    const files = await utils.listFiles(this.videosPath)
+    this.files = files.filter(entry => (!isIgnored.includes(entry) && isVideo.test(entry)))
     if (this.files.length === 0) throw new Error('no files found with these extensions ' + isVideo)
     console.log('\n', this.files.length, 'files found\n')
     if (!processOne) return

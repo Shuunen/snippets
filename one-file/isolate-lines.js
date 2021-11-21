@@ -7,11 +7,11 @@ const isolateList = (list) => {
 }
 
 const processClipboard = async () => {
-  const { readSync, writeSync } = (await import('clipboardy')).default
-  const input = readSync()
+  const clipboard = await import('clipboardy')
+  const input = clipboard.default.readSync()
   const output = isolateList(input)
   console.log('will copy this to clipboard :\n---\n' + output + `\n--- ${Date.now()}`)
-  writeSync(output)
+  clipboard.default.writeSync(output)
 }
 
 const runTests = async () => {
