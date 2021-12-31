@@ -5,7 +5,7 @@
   "devDependencies": {
     "clipboardy": "3",
     "eslint": "8",
-    "eslint-plugin-unicorn": "39",
+    "eslint-plugin-unicorn": "40",
     "repo-check": "^1.21",
     "shuutils": "^5.0"
   },
