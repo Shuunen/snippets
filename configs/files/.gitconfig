@@ -28,6 +28,7 @@ as = "! GIT_SEQUENCE_EDITOR=: git rebase -i --autosquash"
 asd = "! git as develop"
 bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs -r git branch -d; }; f"
 co = checkout
+cop = "!f() { git checkout $1; git pull; }; f"
 cgh = "!f() { git clone git@github.com:Shuunen/$1.git; code $1; }; f"
 f = fetch -va
 ff= merge --ff-only

@@ -2,6 +2,18 @@
   "[css]": {
     "editor.defaultFormatter": "mrmlnc.vscode-postcss-sorting"
   },
+  "[html]": {
+    "editor.defaultFormatter": "vscode.html-language-features"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+  },
   "[typescript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
@@ -32,6 +44,7 @@
     "barcode",
     "Battlestar",
     "Beesly",
+    "birthtime",
     "Bluray",
     "bookmarklets",
     "brainz",
@@ -69,6 +82,7 @@
     "Draggable",
     "dropdown",
     "dropdowns",
+    "Dunder",
     "dvdrip",
     "editorconfig",
     "EIRL",
@@ -85,6 +99,7 @@
     "Geekbench",
     "geforce",
     "Geolocation",
+    "giftcard",
     "githubusercontent",
     "gitignore",
     "gitlab",
@@ -177,6 +192,7 @@
     "qbittorrent",
     "Qumox",
     "quotemark",
+    "quʼune",
     "Racamier",
     "RACAMIRO",
     "rawgit",
@@ -224,9 +240,11 @@
     "timey",
     "tmux",
     "todos",
+    "topbar",
     "touchenter",
     "touchleave",
     "tsup",
+    "typeof",
     "typestrict",
     "Unigine",
     "unitless",
@@ -272,11 +290,27 @@
   ],
   "explorer.confirmDelete": false,
   "explorer.confirmDragAndDrop": false,
+  "extensions.ignoreRecommendations": true,
   "files.autoSave": "onFocusChange",
   "files.eol": "\n",
   "git.autofetch": true,
   "git.confirmSync": false,
   "git.enableSmartCommit": true,
+  "github.copilot.enable": {
+    "*": true,
+    "markdown": false,
+    "plaintext": false,
+    "yaml": false
+  },
+  "grammarly.hideUnavailablePremiumAlerts": true,
+  "headwind.classRegex": {
+    "css": "\\B@apply\\s+([_a-zA-Z0-9\\s\\-\\:\\/]+);",
+    "html": "\\bclass\\s*=\\s*[\\\"\\']([_a-zA-Z0-9\\s\\-\\:\\/]+)[\\\"\\']",
+    "javascript": "(?:\\bclassName\\s*=\\s*[\\\"\\']([_a-zA-Z0-9\\s\\-\\:\\/]+)[\\\"\\'])|(?:\\btw\\s*`([_a-zA-Z0-9\\s\\-\\:\\/]*)`)",
+    "typescript": "\\bclassName\\s\\+?=\\s[`']([^`']+)[`']|class=\\\"([^\"]+)|dom\\([^,]+,\\s['`]([^'`]*)|div\\(['`]([^'`]*)|icon\\(['`]([^'`]*)|link\\(['`]([^'`]*)|text\\(['`]([^'`]*)|strong\\(['`]([^'`]*)|bold\\(['`]([^'`]*)|em\\(['`]([^'`]*)|italic\\(['`]([^'`]*)|small\\(['`]([^'`]*)|\\bp\\(['`]([^'`]*)|image\\(['`]([^'`]*)|img\\(['`]([^'`]*)|\\ba\\(['`]([^'`]*)|add\\(['`]([^'`]*)|genClass\\([^,]+,[^\\]]+],\\s\\[['`]([^'`]*)"
+  },
+  "headwind.prependCustomClasses": true,
+  "headwind.runOnSave": true,
   "html.format.wrapLineLength": 150,
   "importCost.bundleSizeDecoration": "minified",
   "importCost.mediumPackageSize": 10,
@@ -288,7 +322,7 @@
   "javascript.preferences.quoteStyle": "single",
   "javascript.updateImportsOnFileMove.enabled": "always",
   "markdown.extension.toc.levels": "1..3",
-  "npm.validate.enable": false,
+  "npm.autoDetect": "off",
   "postcssSorting.config": {
     "properties-order": "alphabetical"
   },
@@ -306,7 +340,7 @@
     "sortJSONValues": false,
     "sortJSONValuesReverse": false
   },
-  "stylelint.configOverrides": {
+  "stylelint.config": {
     "rules": {
       "at-rule-empty-line-before": [
         "always",
@@ -465,8 +499,7 @@
     "small\\(['`]([^'`]*)",
     "h\\d\\(['`]([^'`]*)"
   ],
-  "telemetry.enableCrashReporter": false,
-  "telemetry.enableTelemetry": false,
+  "telemetry.telemetryLevel": "off",
   "terminal.integrated.cursorBlinking": true,
   "terminal.integrated.cursorStyle": "line",
   "terminal.integrated.cursorWidth": 3,
@@ -496,35 +529,12 @@
   "vetur.format.defaultFormatter.ts": "vscode-typescript",
   "vetur.format.defaultFormatterOptions": {
     "prettier": {
-      "printWidth": 150,
+      "printWidth": 200,
       "singleQuote": false
     }
   },
   "vetur.format.enable": true,
   "vetur.useWorkspaceDependencies": true,
   "vetur.validation.script": true,
-  "workbench.colorCustomizations": {
-    "terminal.ansiBlack": "#282a36",
-    "terminal.ansiBlue": "#57c7ff",
-    "terminal.ansiBrightBlack": "#686868",
-    "terminal.ansiBrightBlue": "#57c7ff",
-    "terminal.ansiBrightCyan": "#9aedfe",
-    "terminal.ansiBrightGreen": "#5af78e",
-    "terminal.ansiBrightMagenta": "#ff6ac1",
-    "terminal.ansiBrightRed": "#ff5c57",
-    "terminal.ansiBrightWhite": "#eff0eb",
-    "terminal.ansiBrightYellow": "#f3f99d",
-    "terminal.ansiCyan": "#9aedfe",
-    "terminal.ansiGreen": "#5af78e",
-    "terminal.ansiMagenta": "#ff6ac1",
-    "terminal.ansiRed": "#ff5c57",
-    "terminal.ansiWhite": "#f1f1f0",
-    "terminal.ansiYellow": "#f3f99d",
-    "terminal.background": "#282a36",
-    "terminal.foreground": "#eff0eb",
-    "terminal.selectionBackground": "#97979b33",
-    "terminalCursor.background": "#282a36",
-    "terminalCursor.foreground": "#97979b"
-  },
   "workbench.colorTheme": "Default Dark+"
 }
