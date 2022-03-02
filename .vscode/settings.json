@@ -28,5 +28,10 @@
     ],
     "cSpell.ignoreWords": [
         "neval"
-    ]
+    ],
+    "workbench.colorCustomizations": {
+        "activityBar.background": "#54143A",
+        "titleBar.activeBackground": "#751C51",
+        "titleBar.activeForeground": "#FEFCFD"
+    }
 }
