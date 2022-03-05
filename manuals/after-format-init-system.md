@@ -13,7 +13,7 @@
 ```bash
 choco feature enable -n allowGlobalConfirmation
 choco install ^
-7zip.portable
+7zip.portable ^
 ant-renamer ^
 araxismerge ^
 audacity ^
