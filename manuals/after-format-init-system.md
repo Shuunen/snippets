@@ -93,7 +93,7 @@ Remember last line should not have any `^`, the special char that tells windows 
 - [ ] press Win+R , type `shell:startup`, hit Enter, go up one level & drag Launchy shortcut to Startup folder to make it start with windows
 - [ ] start `Steam` from start menu and add game libraries in `download options > steam library`, update the default one
 - [ ] use autoruns to remove useless things at startup
-- [ ] `nvm install 14.18.1` & `nvm use 14.18.1`
+- [ ] `nvm list available` and choose your jam flavour
 
 ## Windows
 
