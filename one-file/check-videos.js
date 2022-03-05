@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { exec } from 'child_process'
-import { readdir, readFile, stat, writeFileSync } from 'fs'
+import { readdir, readFile, renameSync, stat, writeFileSync } from 'fs'
 import path from 'path'
 import { inspect } from 'util'
 
@@ -13,22 +13,26 @@ const utils = {
       resolve(stdout || stderr)
     })
   }),
-  getFileSizeInMb: async path => new Promise((resolve, reject) => {
-    stat(path, (error, stats) => (error ? reject(error) : resolve(Math.round(stats.size / 1_000_000))))
+  getFileSizeInMb: async filepath => new Promise((resolve, reject) => {
+    stat(filepath, (error, stats) => (error ? reject(error) : resolve(Math.round(stats.size / 1_000_000))))
   }),
-  getVideoMetadata: async path => {
-    const output = await utils.shellCommand(`ffprobe -show_format -show_streams -print_format json -v quiet -i "${path}" `)
+  getVideoMetadata: async filepath => {
+    const output = await utils.shellCommand(`ffprobe -show_format -show_streams -print_format json -v quiet -i "${filepath}" `)
     if (output[0] !== '{') throw new Error('ffprobe output should be JSON but got :' + output)
     const data = JSON.parse(output)
     // console.log(utils.prettyPrint(data))
     const media = data.format || {}
     const video = data.streams.find(s => s.codec_type === 'video') || {}
     const title = (media.tags && media.tags.title) || ''
+    const extension = path.extname(filepath).slice(1)
+    const filename = title.length > 0 ? `${title}.${extension}` : ''
     // console.log(utils.prettyPrint(video))
     return {
       bitrateKbps: media.bit_rate ? Math.round(media.bit_rate / 1024) : 0,
       codec: video.codec_name || 'unknown codec',
       durationSeconds: media.duration ? Math.round(media.duration) : 0,
+      extension,
+      filename,
       fps: video.avg_frame_rate ? Math.round(eval(video.avg_frame_rate)) : 0,
       height: Number.parseInt(video.height || 0, 10),
       isDvdRip: title.toLowerCase().includes('dvdrip'),
@@ -38,13 +42,18 @@ const utils = {
       width: Number.parseInt(video.width || 0, 10),
     }
   },
+  setVideoTitle: async (filepath, filename) => {
+    if (filepath.includes('.mp4') || filepath.includes('.avi')) return
+    const title = filename.replace(/\.[^.]+$/, '')
+    return utils.shellCommand(`mkvpropedit "${filepath}" -e info -s title="${title}"`)
+  },
   ellipsis: (string = '', length = 0) => string.length > length ? (string.slice(0, Math.max(0, length - 3)) + '...') : string,
-  listFiles: async path => new Promise((resolve, reject) => {
-    readdir(path, (error, filenames) => (error ? reject(error) : resolve(filenames)))
+  listFiles: async filepath => new Promise((resolve, reject) => {
+    readdir(filepath, (error, filenames) => (error ? reject(error) : resolve(filenames)))
   }),
   prettyPrint: object => inspect(object, { depth: 2, colors: true }),
-  readFile: async path => new Promise(resolve => {
-    readFile(path, 'utf8', (error, content) => (error ? resolve('') : resolve(content)))
+  readFile: async filepath => new Promise(resolve => {
+    readFile(filepath, 'utf8', (error, content) => (error ? resolve('') : resolve(content)))
   }),
 }
 
@@ -53,12 +62,15 @@ class CheckVideos {
     this.files = []
     this.detected = {}
     this.videosPath = ''
+    this.rename = false
+    this.setTitle = false
+    this.processOne = false
   }
 
-  start (processOne) {
+  start () {
     console.log('\nCheck Videos is starting !\n')
     this.args()
-      .then(() => this.find(processOne))
+      .then(() => this.find())
       .then(() => this.check())
       .then(() => this.report())
       .catch(error => console.error(error))
@@ -67,9 +79,12 @@ class CheckVideos {
   async args () {
     if (process.argv.length <= 2) console.log('Targeting current folder, you can also specify a specific path, ex : check-videos.js "U:\\Movies\\" \n')
     this.videosPath = path.normalize(process.argv[2] || process.cwd())
+    this.rename = process.argv.includes('--rename')
+    this.processOne = process.argv.includes('--process-one')
+    this.setTitle = process.argv.includes('--set-title')
   }
 
-  async find (processOne = false) {
+  async find () {
     console.log(`Scanning dir ${this.videosPath}`)
     const isVideo = /\.(mp4|mkv|avi|wmv|m4v|mpg)$/
     const list = await utils.readFile(path.join(this.videosPath, '.check-videos-ignore'))
@@ -80,9 +95,9 @@ class CheckVideos {
     const files = await utils.listFiles(this.videosPath)
     this.files = files.filter(entry => (!isIgnored.includes(entry) && isVideo.test(entry)))
     if (this.files.length === 0) throw new Error('no files found with these extensions ' + isVideo)
-    console.log('\n', this.files.length, 'files found\n')
-    if (!processOne) return
-    console.log('but only one file will be processed')
+    console.log(this.files.length, 'files found\n')
+    if (!this.processOne) return
+    console.log('--process-one flag active : only one file will be processed\n')
     this.files = [this.files[0]]
   }
 
@@ -132,12 +147,23 @@ class CheckVideos {
     this.detected[type].push(`${entry}  [${value}]`)
   }
 
+  shouldRename (actual = '', expected = '') {
+    if (!this.rename) return false
+    if (expected === '') return false
+    if (expected.length > actual.length) return true
+    const diff = Math.abs(actual.length - expected.length)
+    const toleratedDiff = Math.round(actual.length / 10)
+    if (diff <= toleratedDiff) return true
+    console.log(`Avoid renaming, too much diff between : \n - actual filename : ${actual} \n - expected filename : ${expected}`)
+  }
+
   async checkOne (filename) {
-    const folder = path.join(this.videosPath, filename)
-    const meta = await utils.getVideoMetadata(folder)
+    const filepath = path.join(this.videosPath, filename)
+    const meta = await utils.getVideoMetadata(filepath)
+    if (this.setTitle && filename !== meta.filename) await utils.setVideoTitle(filepath, filename.length > meta.filename.length ? filename : meta.filename)
+    if (this.shouldRename(filename, meta.filename)) renameSync(filepath, path.join(this.videosPath, meta.filename))
     listing += `${filename},${meta.title}\n`
-    const name = utils.ellipsis(filename.split(').')[0] + ')', 30)
-    const entry = `${name.padEnd(30)}  ${(String(meta.sizeGb)).padStart(4)} Gb  ${(meta.codec).padEnd(5)} ${(String(meta.height)).padStart(4)}p  ${(String(meta.bitrateKbps)).padStart(4)} kbps  ${(String(meta.fps)).padStart(2)} fps`
+    const entry = `${utils.ellipsis(filename, 50).padEnd(50)}  ${(String(meta.sizeGb)).padStart(4)} Gb  ${(meta.codec).padEnd(5)} ${(String(meta.height)).padStart(4)}p  ${(String(meta.bitrateKbps)).padStart(4)} kbps  ${(String(meta.fps)).padStart(2)} fps`
     if (meta.isDvdRip) {
       if (meta.height < 300) return this.detect('DvdRip under 300p', entry, meta.height)
       if (meta.bitrateKbps < 1000) return this.detect('DvdRip with low bitrate', entry, meta.bitrateKbps)
@@ -153,5 +179,4 @@ class CheckVideos {
 }
 
 const instance = new CheckVideos()
-const processOne = false
-instance.start(processOne)
+instance.start()
