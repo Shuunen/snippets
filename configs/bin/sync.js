@@ -21,8 +21,8 @@ async function sync (file) {
     return console.log('failed at copying :', source.path)
   }
   const sameContent = await equals(source.content, destination.content)
-  if (sameContent) return console.log('sync is up to date :', source.path)
-  console.log('sync file manually :', source.path)
+  if (sameContent) return // console.log('sync is up to date :', source.path)
+  // console.log('sync file manually :', source.path)
   return `merge ${relativeBackupPath}/${filename(file.dest)} ${normalize(source.path, true, true)}`
 }
 
