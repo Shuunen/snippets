@@ -46,7 +46,7 @@ lossless-cut ^
 mediainfo ^
 mkvtoolnix ^
 mpv.portable ^
-nvm.portable ^
+nodejs-lts ^
 paint.net ^
 picard ^
 qbittorrent ^
@@ -88,12 +88,9 @@ Remember last line should not have any `^`, the special char that tells windows 
 
 ## Misc
 
-- [ ] start `Clavier++` and activate it on startup
-- [ ] start Launchy from start menu, set the Ctrl+Shift+K keystroke from clavier++
 - [ ] press Win+R , type `shell:startup`, hit Enter, go up one level & drag Launchy shortcut to Startup folder to make it start with windows
 - [ ] start `Steam` from start menu and add game libraries in `download options > steam library`, update the default one
 - [ ] use autoruns to remove useless things at startup
-- [ ] `nvm list available` and choose your jam flavour
 
 ## Windows
 
