@@ -13,7 +13,7 @@
 ```bash
 choco feature enable -n allowGlobalConfirmation
 choco install ^
-7zip.portable ^
+7zip.install ^
 ant-renamer ^
 araxismerge ^
 audacity ^
@@ -21,7 +21,7 @@ autohotkey.portable ^
 autoruns ^
 bulk-crap-uninstaller ^
 chocolateygui ^
-clavier-plus.portable ^
+clavier-plus.install ^
 digikam ^
 directx ^
 dnsjumper ^
@@ -32,7 +32,7 @@ ffmpeg ^
 filezilla ^
 geforce-game-ready-driver ^
 Ghostscript.app ^
-git.portable ^
+git.install ^
 gnumeric ^
 GoogleChrome ^
 gpu-z ^
@@ -65,7 +65,7 @@ usbdeview ^
 vcredist-all ^
 virustotaluploader ^
 vlc ^
-vscode.portable ^
+vscode.install ^
 winfetch
 ```
 
