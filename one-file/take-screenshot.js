@@ -20,6 +20,7 @@ const getVideoMetadata = async path => {
   const output = await shellCommand(`ffprobe -show_format -show_streams -print_format json -v quiet -i "${path}" `)
   if (output[0] !== '{') throw new Error('ffprobe output should be JSON but got :' + output)
   const data = JSON.parse(output)
+  if (!data.streams) return { title: '', duration: 0, size: 0, height: 0 }
   const video = data.streams.find(stream => stream.codec_type === 'video')
   const height = video.height
   const media = data.format || {}
