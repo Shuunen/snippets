@@ -3,11 +3,19 @@
   "bugs": "https://github.com/Shuunen/snippets/issues",
   "description": "My personal snippets",
   "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "5",
+    "@typescript-eslint/parser": "5",
+    "c8": "7",
     "clipboardy": "3",
     "eslint": "8",
     "eslint-plugin-unicorn": "41",
-    "repo-check": "^1.21",
-    "shuutils": "^5.0"
+    "npm-run-all": "4",
+    "repo-check": "1.22",
+    "shuutils": "^5.0",
+    "tsm": "2",
+    "typescript": "4",
+    "uvu": "0",
+    "watchlist": "0"
   },
   "files": [
     "bookmarklets",
@@ -33,10 +41,12 @@
   },
   "scripts": {
     "check": "repo-check",
-    "ci": "npm run lint && npm run check",
-    "lint": "eslint --fix --ignore-path .gitignore --ext .js .",
+    "ci": "run-s lint check test",
+    "lint": "tsc --noEmit && eslint --fix --ignore-path .gitignore --ext .js .",
     "postversion": "git push && git push --tags",
-    "preversion": "npm run lint"
+    "preversion": "npm run lint",
+    "test": "uvu -r tsm tests",
+    "test:watch": "watchlist src tests -eager -- npm test"
   },
   "type": "module",
   "version": "0.0.0"
