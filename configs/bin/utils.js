@@ -16,7 +16,7 @@ export const normalize = (filepath, useSlash, useTilde) => {
 const home = normalize(process.env.HOME, true)
 export const relativeBackupPath = normalize(backupPath, true).replace(normalize(process.env.PWD, true).replace('/c/','C:/'), '').slice(1)
 
-const read = async path => readFile(path, 'utf-8').catch(error => {
+const read = async path => readFile(path, 'utf8').catch(error => {
   if (!error.message.includes('no such file')) console.error(`failed to read path "${path}" :(`)
   return false
 })

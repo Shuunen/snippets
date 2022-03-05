@@ -42,7 +42,7 @@ function readLock () {
   if (!lockPath) throw new Error('missing lockfile path, use me like : \n\n lol-practice-5v5.js "D:\\Games\\Riot Games\\League of Legends\\lockfile" "My game lobby name"')
   logAdd('Summoner lockfile located at : ' + lockPath)
   if (!/lockfile/.test(lockPath)) throw new Error('lockfile path invalid, should looks like "D:\\Games\\Riot Games\\League of Legends\\lockfile"')
-  const content = readFileSync(lockPath, 'utf-8').split(':') || []
+  const content = readFileSync(lockPath, 'utf8').split(':') || []
   if (!content[2] || !content[3]) throw new Error('lockfile does not contains expected data or is not formatted as usual')
   options.port = content[2]
   options.headers.Authorization = `Basic ${Buffer.from(`riot:${content[3]}`).toString('base64')}`

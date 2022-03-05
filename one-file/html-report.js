@@ -190,7 +190,7 @@ async function startReport (input = '') {
   const seemsLikeAPath = /[\w-]+\.\w{2,4}$/.test(input)
   if (seemsLikeAPath) {
     console.log('Scanning file', gray(input))
-    content = await readFile(input, 'utf-8')
+    content = await readFile(input, 'utf8')
   }
   const stats = new HtmlReport(content)
   showReport(stats)
