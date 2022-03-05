@@ -12,8 +12,58 @@
 
 ```bash
 choco feature enable -n allowGlobalConfirmation
-choco install directx geforce-game-ready-driver git GoogleChrome launchyqt spotify steam vcredist-all 7zip ant-renamer autoruns clavier-plus dnsjumper exiftoolgui filezilla gifcam gnumeric greenshot picard paint.net qbittorrent rapidee riot rufus soulseek spek subtitleedit.portable sumatrapdf treesizefree lockhunter usbdeview virustotaluploader javaruntime vscode mpv vlc nvm.portable shutup10 digikam imageglass chocolateygui mkvtoolnix ffmpeg mediainfo
+choco install ^
+7zip ^
+ant-renamer ^
+autoruns ^
+chocolateygui ^
+clavier-plus ^
+digikam ^
+directx ^
+dnsjumper ^
+exiftoolgui ^
+ffmpeg ^
+filezilla ^
+geforce-game-ready-driver ^
+gifcam ^
+git ^
+gnumeric ^
+GoogleChrome ^
+gpu-z ^
+greenshot ^
+hashmyfiles ^
+imageglass ^
+javaruntime ^
+launchyqt ^
+lockhunter ^
+lossless-cut ^
+mediainfo ^
+mkvtoolnix ^
+mpv ^
+nvm.portable ^
+paint.net ^
+picard ^
+qbittorrent ^
+rapidee ^
+riot ^
+rufus ^
+shutup10 ^
+soulseek ^
+spek ^
+spotify ^
+steam ^
+subtitleedit.portable ^
+sumatrapdf ^
+treesizefree ^
+usbdeview ^
+vcredist-all ^
+virustotaluploader ^
+vlc ^
+vscode ^
+winfetch
 ```
+
+Remember last line should not have any `^`, the special char that tells windows cmd to process a multi line command.
 
 ## Chrome or other
 
