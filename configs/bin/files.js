@@ -7,8 +7,11 @@ const onWindows = process.env.APPDATA === appData
 // const prgFiles = 'C:/Program Files'
 
 const configs = [
-  { file: `${appData}/Code/User/settings.json`, renameTo: 'vscode-settings.json' },
   { file: `${appData}/Code/User/keybindings.json`, renameTo: 'vscode-keybindings.json' },
+  { file: `${appData}/Code/User/settings.json`, renameTo: 'vscode-settings.json' },
+  { file: `${appData}/HandBrake/presets.json`, renameTo: 'handbrake-presets.json' },
+  { file: `${appData}/HandBrake/settings.json`, renameTo: 'handbrake-settings.json' },
+  `${appData}/../Local/Clavier+/Clavier.ini`,
   `${appData}/kupfer/kupfer.cfg`,
   `${appData}/mpv/mpv.conf`,
   `${appData}/qBittorrent/qBittorrent.conf`,
@@ -30,8 +33,6 @@ const configs = [
   `${home}/.local/share/qBittorrent/themes/qbittorrent-darkstylesheet.qbtheme`,
   `${home}/.profile`,
   `${home}/repo-checker.config.js`,
-  { file: `${appData}/HandBrake/presets.json`, renameTo: 'handbrake-presets.json' },
-  { file: `${appData}/HandBrake/settings.json`, renameTo: 'handbrake-settings.json' },
 ]
 
 if (onWindows) configs.push(
