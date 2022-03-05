@@ -15,18 +15,23 @@ choco feature enable -n allowGlobalConfirmation
 choco install ^
 7zip ^
 ant-renamer ^
+araxismerge ^
+audacity ^
+autohotkey.portable ^
 autoruns ^
+bulk-crap-uninstaller ^
 chocolateygui ^
 clavier-plus ^
 digikam ^
 directx ^
 dnsjumper ^
+dotnetfx ^
+exiftool ^
 exiftoolgui ^
 ffmpeg ^
 filezilla ^
 geforce-game-ready-driver ^
-gifcam ^
-git ^
+Ghostscript.app ^
 gnumeric ^
 GoogleChrome ^
 gpu-z ^
