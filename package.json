@@ -10,7 +10,7 @@
     "eslint": "8",
     "eslint-plugin-unicorn": "41",
     "npm-run-all": "4",
-    "repo-check": "1.23",
+    "repo-check": "1.24",
     "shuutils": "^5.0",
     "tsm": "2",
     "typescript": "4",
