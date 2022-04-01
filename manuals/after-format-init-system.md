@@ -24,12 +24,14 @@ chocolateygui ^
 clavier-plus.install ^
 digikam ^
 directx ^
+discord.install ^
 dnsjumper ^
 dotnetfx ^
 exiftool ^
 exiftoolgui ^
 ffmpeg ^
 filezilla ^
+geekbench5 ^
 geforce-game-ready-driver ^
 Ghostscript.app ^
 git.install ^
@@ -55,6 +57,7 @@ riot ^
 rufus ^
 shutup10 ^
 soulseek ^
+speccy ^
 spek ^
 spotify ^
 steam ^
