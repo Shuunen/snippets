@@ -144,17 +144,19 @@ Then :
 
 <details>
   <summary>Linux</summary>
+  <br>
+  
+Install [Chrome](https://www.google.com/intl/fr_fr/chrome) & [VsCode](https://code.visualstudio.com/download) via deb files.
 
 ```bash  
-sudo apt install screenfetch snapd -y
-sudo snap install node --classic --channel=14 # channel is the major version
-sudo snap install onefetch
+wget -qO- https://deb.nodesource.com/setup_16.x | sudo -E bash -
+sudo apt install -y nodejs screenfetch
 mkdir ~/.npm-global
 npm config set prefix '~/.npm-global'
-echo -e "alias ..='cd ..' \n alias install='sudo apt install' \n alias apt='sudo apt' \n alias mkdir='mkdir -pv' \n alias merge=meld \n alias whatsmyip='curl http://ipecho.net/plain; echo' \n alias psg='ps aux | grep -v grep | grep -i -e VSZ -e' \n echo '' \n if [ -d '.git' ]; then onefetch; else screenfetch; fi \n echo ' Welcome ${USER} ^^' \n echo ''" > ~/.bash_aliases # make sure bash_aliases is sourced in ~/.bashrc
+echo -e "alias ..='cd ..' \n alias install='sudo apt install' \n alias apt='sudo apt' \n alias mkdir='mkdir -pv' \n alias merge=meld \n alias whatsmyip='curl http://ipecho.net/plain; echo' \n alias psg='ps aux | grep -v grep | grep -i -e VSZ -e' \n echo '' \n screenfetch \n echo ' Welcome ${USER} ^^' \n echo ''" > ~/.bash_aliases # make sure bash_aliases is sourced in ~/.bashrc
 source ~/.bash_aliases
 sudo apt install git aria2 nano curl -y # vvv below is for desktop only vvv
-sudo apt install pinta gparted kupfer meld mediainfo mkvtoolnix mkvtoolnix-gui mpv xsel shotwell hollywood vlc yad-icon-browser -y
+sudo apt install pinta gparted kupfer meld mediainfo mkvtoolnix mkvtoolnix-gui mpv xsel shotwell hollywood vlc -y
 # the following snap does not works well on every distro :
 # sudo snap install --classic code 
 # sudo snap install jdownloader2 boxy-svg picard breaktimer filebot snap-store smart-file-renamer spotify spek
