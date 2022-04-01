@@ -35,6 +35,7 @@
     "araxis",
     "arial",
     "autofetch",
+    "autohotkey",
     "autoremove",
     "autoruns",
     "autosize",
@@ -79,6 +80,7 @@
     "difftool",
     "Digiposte",
     "directx",
+    "dnsjumper",
     "dpkg",
     "Draggable",
     "dropdown",
@@ -97,6 +99,7 @@
     "ffprobe",
     "filebot",
     "filepath",
+    "finga",
     "Geekbench",
     "geforce",
     "Geolocation",
@@ -154,7 +157,9 @@
     "mkvtoolnix",
     "mockserver",
     "multiline",
+    "musiblox",
     "music",
+    "nanocolors",
     "neofetch",
     "Netlify",
     "Noty",
@@ -219,6 +224,7 @@
     "scrollbar",
     "SDHC",
     "SELARL",
+    "servedir",
     "servor",
     "setx",
     "shotwell",
@@ -288,6 +294,7 @@
     "html",
     "vue",
     "javascript",
+    "javascriptreact",
     "typescript"
   ],
   "explorer.confirmDelete": false,
@@ -325,6 +332,7 @@
   "javascript.updateImportsOnFileMove.enabled": "always",
   "markdown.extension.toc.levels": "1..3",
   "npm.autoDetect": "off",
+  "npm.validate.enable": false,
   "postcssSorting.config": {
     "properties-order": "alphabetical"
   },
@@ -503,6 +511,7 @@
   ],
   "telemetry.enableCrashReporter": false,
   "telemetry.enableTelemetry": false,
+  "telemetry.telemetryLevel": "off",
   "terminal.integrated.cursorBlinking": true,
   "terminal.integrated.cursorStyle": "line",
   "terminal.integrated.cursorWidth": 3,
@@ -539,5 +548,6 @@
   "vetur.format.enable": true,
   "vetur.useWorkspaceDependencies": true,
   "vetur.validation.script": true,
+  "vetur.validation.template": false,
   "workbench.colorTheme": "Default Dark+"
 }
