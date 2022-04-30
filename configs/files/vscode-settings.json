@@ -18,7 +18,7 @@
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
   "[vue]": {
-    "editor.defaultFormatter": "octref.vetur"
+    "editor.defaultFormatter": "johnsoncodehk.volar"
   },
   "breadcrumbs.enabled": true,
   "cSpell.language": "en,fr,fr-FR,en-GB,en-US",
@@ -32,6 +32,7 @@
     "Antd",
     "antialiased",
     "antiquewhite",
+    "Antutu",
     "araxis",
     "arial",
     "autofetch",
@@ -235,6 +236,7 @@
     "spek",
     "spotify",
     "steelblue",
+    "Stretchly",
     "stylelint",
     "subpath",
     "symfony",
@@ -273,6 +275,7 @@
     "xsel",
     "yolo",
     "zorglub",
+    "Zorin",
     "zurb"
   ],
   "coverage-gutters.customizable.context-menu": false,
@@ -509,8 +512,6 @@
     "small\\(['`]([^'`]*)",
     "h\\d\\(['`]([^'`]*)"
   ],
-  "telemetry.enableCrashReporter": false,
-  "telemetry.enableTelemetry": false,
   "telemetry.telemetryLevel": "off",
   "terminal.integrated.cursorBlinking": true,
   "terminal.integrated.cursorStyle": "line",

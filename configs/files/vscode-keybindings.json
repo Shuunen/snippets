@@ -1,74 +1,84 @@
 [
   {
-    "key": "ctrl+shift+down",
     "command": "-cursorDownSelect",
-    "when": "textInputFocus"
-  },
-  {
-    "key": "ctrl+shift+up",
-    "command": "-cursorUpSelect",
-    "when": "textInputFocus"
-  },
-  {
     "key": "ctrl+shift+down",
-    "command": "editor.action.copyLinesDownAction",
-    "when": "editorTextFocus && !editorReadonly"
+    "when": "textInputFocus"
   },
   {
-    "key": "shift+alt+down",
-    "command": "-editor.action.copyLinesDownAction",
-    "when": "editorTextFocus && !editorReadonly"
-  },
-  {
+    "command": "-cursorUpSelect",
     "key": "ctrl+shift+up",
+    "when": "textInputFocus"
+  },
+  {
+    "command": "editor.action.copyLinesDownAction",
+    "key": "ctrl+shift+down",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "command": "-editor.action.copyLinesDownAction",
+    "key": "shift+alt+down",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
     "command": "editor.action.copyLinesUpAction",
+    "key": "ctrl+shift+up",
     "when": "editorTextFocus && !editorReadonly"
   },
   {
-    "key": "shift+alt+up",
     "command": "-editor.action.copyLinesUpAction",
+    "key": "shift+alt+up",
     "when": "editorTextFocus && !editorReadonly"
   },
   {
-    "key": "ctrl+numpad_subtract",
-    "command": "-workbench.action.zoomOut"
+    "command": "-workbench.action.zoomOut",
+    "key": "ctrl+numpad_subtract"
   },
   {
-    "key": "ctrl+numpad_subtract",
-    "command": "markdown.extension.editing.toggleList"
+    "command": "markdown.extension.editing.toggleList",
+    "key": "ctrl+numpad_subtract"
   },
   {
-    "key": "ctrl+oem_8",
-    "command": "typescript.restartTsServer"
+    "command": "typescript.restartTsServer",
+    "key": "ctrl+oem_8"
   },
   {
-    "key": "shift+alt+f",
     "command": "-filesExplorer.findInFolder",
+    "key": "shift+alt+f",
     "when": "explorerResourceIsFolder && explorerViewletVisible && filesExplorerFocus && !inputFocus"
   },
   {
-    "key": "shift+alt+f",
     "command": "editor.action.formatDocument",
+    "key": "shift+alt+f",
     "when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly && !inCompositeEditor"
   },
   {
-    "key": "ctrl+shift+i",
     "command": "-editor.action.formatDocument",
+    "key": "ctrl+shift+i",
     "when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly && !inCompositeEditor"
   },
   {
-    "key": "ctrl+[Period]",
     "command": "-breadcrumbs.focus",
+    "key": "ctrl+[Period]",
     "when": "breadcrumbsPossible"
   },
   {
-    "key": "ctrl+[Period]",
     "command": "editor.action.commentLine",
+    "key": "ctrl+[Period]",
     "when": "editorTextFocus && !editorReadonly"
   },
   {
-    "key": "ctrl+shift+[Period]",
     "command": "-editor.action.commentLine",
+    "key": "ctrl+shift+[Period]",
     "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "command": "workbench.action.terminal.new",
+    "key": "ctrl+[Quote]",
+    "when": "terminalProcessSupported || terminalWebExtensionContributedProfile"
+  },
+  {
+    "command": "-workbench.action.terminal.new",
+    "key": "ctrl+shift+[Backquote]",
+    "when": "terminalProcessSupported || terminalWebExtensionContributedProfile"
   }
 ]
