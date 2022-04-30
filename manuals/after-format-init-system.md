@@ -146,7 +146,12 @@ Then :
   <summary>Linux</summary>
   <br>
   
-Install [Chrome](https://www.google.com/intl/fr_fr/chrome) & [VsCode](https://code.visualstudio.com/download) via deb files.
+Install these deb :
+
+- [Chrome](https://www.google.com/intl/fr_fr/chrome)
+- [VsCode](https://code.visualstudio.com/download)
+- [Steam](https://store.steampowered.com/about)
+- [Stretchly](https://github.com/hovancik/stretchly/releases)
 
 ```bash  
 wget -qO- https://deb.nodesource.com/setup_16.x | sudo -E bash -
@@ -156,17 +161,12 @@ npm config set prefix '~/.npm-global'
 echo -e "alias ..='cd ..' \n alias install='sudo apt install' \n alias apt='sudo apt' \n alias mkdir='mkdir -pv' \n alias merge=meld \n alias whatsmyip='curl http://ipecho.net/plain; echo' \n alias psg='ps aux | grep -v grep | grep -i -e VSZ -e' \n echo '' \n screenfetch \n echo ' Welcome ${USER} ^^' \n echo ''" > ~/.bash_aliases # make sure bash_aliases is sourced in ~/.bashrc
 source ~/.bash_aliases
 sudo apt install git aria2 nano curl -y # vvv below is for desktop only vvv
-sudo apt install pinta gparted kupfer meld mediainfo mkvtoolnix mkvtoolnix-gui mpv xsel shotwell hollywood vlc -y
-# the following snap does not works well on every distro :
-# sudo snap install --classic code 
-# sudo snap install jdownloader2 boxy-svg picard breaktimer filebot snap-store smart-file-renamer spotify spek
-# Digikam (photo collection manager), Gdevelop (game development), Imagine (batch image compressor)
-# Meta Grabber (filebot alternative), Font-Base (font viewer & manager), Electorrent (remote torrent gui)
-# LosslessCut (video splitter), FontFinder (font viewer & manager)
-# ffmpeg (great video tools)
+sudo apt install pinta gparted kupfer meld mediainfo mkvtoolnix mkvtoolnix-gui mpv xsel shotwell hollywood vlc ffmpeg -y
 sudo add-apt-repository ppa:qbittorrent-team/qbittorrent-stable
+sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 5E3C45D7B312C643
+echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
 sudo apt update
-sudo apt install qbittorrent -y
+sudo apt install qbittorrent spotify-client -y
 sudo apt autoremove -y
 echo -e "optional : you can manually run 'sudo apt install ttf-mscorefonts-installer' & 'sudo fc-cache -f -v' to get win fonts & clear font cache"
 sudo chmod 700 ~/.ssh/ -R
@@ -176,6 +176,29 @@ git clone git@github.com:Shuunen/snippets.git
 cd snippets/configs/
 node bin/sync.js --setup
 ```
+
+Some app are available as AppImage :
+
+- [LosslessCut](https://github.com/mifi/lossless-cut/releases)
+- [FontBase](https://fontba.se/downloads/linux)
+- [MetaGrabber](https://github.com/andreaswilli/meta-grabber/releases)
+- Imagine (batch image compressor)
+
+Nice app to keep in mind :
+
+- Boxy SVG
+- breaktimer
+- Digikam (photo collection manager)
+- Electorrent (remote torrent gui)
+- filebot
+- FontFinder (font viewer & manager)
+- FSearch (ultra fast search)
+- Gdevelop (game development)
+- [Identity](https://gitlab.gnome.org/YaLTeR/identity) (compare images & videos)
+- jdownloader2
+- picard
+- smart-file-renamer
+- spek
 
 </details>
 
