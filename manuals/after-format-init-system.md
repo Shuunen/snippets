@@ -211,6 +211,7 @@ cd ~/Projects/github
 git clone git@github.com:Shuunen/finga.git
 git clone git@github.com:Shuunen/flood-it.git
 git clone git@github.com:Shuunen/folio.git
+git clone git@github.com:Shuunen/ging.git
 git clone git@github.com:Shuunen/goals.git
 git clone git@github.com:Shuunen/musiblox.git
 git clone git@github.com:Shuunen/recipes.git
@@ -221,6 +222,8 @@ git clone git@github.com:Shuunen/stack.git
 git clone git@github.com:Shuunen/stuff-finder.git
 git clone git@github.com:Shuunen/user-scripts.git
 git clone git@github.com:Shuunen/vue-image-compare.git
+git clone git@github.com:Shuunen/wcs-demo.git
+git clone git@github.com:Shuunen/wcs.git
 git clone git@github.com:Shuunen/what-now.git
 code snippets
 ```
