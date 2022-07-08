@@ -18,7 +18,7 @@
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
   "[vue]": {
-    "editor.defaultFormatter": "johnsoncodehk.volar"
+    "editor.defaultFormatter": "Vue.volar"
   },
   "breadcrumbs.enabled": true,
   "cSpell.language": "en,fr,fr-FR,en-GB,en-US",
@@ -37,6 +37,7 @@
     "arial",
     "autofetch",
     "autohotkey",
+    "automerge",
     "autoremove",
     "autoruns",
     "autosize",
@@ -67,6 +68,7 @@
     "colorette",
     "commitlint",
     "cyclomatic",
+    "d’oeil",
     "darkorange",
     "darkred",
     "Datepicker",
@@ -105,6 +107,7 @@
     "geforce",
     "Geolocation",
     "giftcard",
+    "ging",
     "githubusercontent",
     "gitignore",
     "gitlab",
@@ -230,6 +233,7 @@
     "setx",
     "shotwell",
     "shuunen",
+    "shuutils",
     "Shuutils",
     "sidenav",
     "singleline",
@@ -238,6 +242,7 @@
     "steelblue",
     "Stretchly",
     "stylelint",
+    "stylesheet",
     "subpath",
     "symfony",
     "symlinked",
@@ -497,6 +502,7 @@
   "stylelint.reportInvalidScopeDisables": true,
   "stylelint.reportNeedlessDisables": true,
   "tailwindCSS.experimental.classRegex": [
+    "className\\s=\\s['`]([^'`]*)",
     "dom\\([^\\s]+\\s['`]([^'`]*)",
     "div\\(['`]([^'`]*)",
     "img\\(['`]([^'`]*)",
@@ -517,6 +523,7 @@
   "terminal.integrated.cursorStyle": "line",
   "terminal.integrated.cursorWidth": 3,
   "terminal.integrated.defaultProfile.windows": "Git Bash",
+  "terminal.integrated.enableMultiLinePasteWarning": false,
   "terminal.integrated.fontSize": 16,
   "terminal.integrated.profiles.windows": {
     "Command Prompt": {
