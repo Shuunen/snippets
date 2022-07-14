@@ -32,7 +32,7 @@ exiftoolgui ^
 ffmpeg ^
 filezilla ^
 geekbench5 ^
-geforce-game-ready-driver ^
+geforce-experience ^
 Ghostscript.app ^
 git.install ^
 gnumeric ^
@@ -73,6 +73,10 @@ winfetch
 ```
 
 Remember last line should not have any `^`, the special char that tells windows cmd to process a multi line command.
+
+Avoid :
+
+- geforce-game-ready-driver : each choco update rollback to old graphic drivers
 
 ## Chrome or other
 
