@@ -15,6 +15,8 @@ const configs = [
   `${appData}/kupfer/kupfer.cfg`,
   `${appData}/mpv/mpv.conf`,
   `${appData}/qBittorrent/qBittorrent.conf`,
+  `${home}/.gitconfig-anatec`,
+  `${home}/.gitconfig-github`,
   `${home}/.gitconfig`,
   `${home}/.gitignore`,
   `${home}/.local/share/applications/add-stuff.desktop`,

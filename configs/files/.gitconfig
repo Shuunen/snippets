@@ -6,9 +6,10 @@ filemode = false
 eol = lf
 ignorecase = false
 
-[user]
-name = Romain Racamier-Lafon
-email = romain.racamier@gmail.com
+[includeIf "gitdir:~/Projects/github/"]
+path = .gitconfig-github
+[includeIf "gitdir:~/Projects/anatec/"]
+path = .gitconfig-anatec
 
 [filter "lfs"]
 clean = git-lfs clean -- %f
