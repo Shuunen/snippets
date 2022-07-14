@@ -5,6 +5,8 @@
 # - https://github.com/jbenet/compress-pdf/blob/master/compress-pdf
 # - https://github.com/theeko74/pdfc/blob/master/pdf_compressor.py
 
+# Command on Window : /c/Program Files/gs/gs9.56.1/bin/gswin64 -q -dNOPAUSE -dBATCH -sDEVICE=pdfwrite -dCompatibilityLevel=1.4 -sOutputFile="temp.pdf" "out.pdf"
+
 temp="temp.pdf"
 
 if [ ! -z "$1" ]; then
