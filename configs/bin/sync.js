@@ -29,9 +29,9 @@ async function sync (file) {
 async function start () {
   console.log('\n Sync start...\n')
   const results = await Promise.all(files.map(file => sync(file)))
-  const suggestedCommands = results.filter(result => Boolean(result))
+  const suggestedCommands = results.filter(Boolean)
   if (suggestedCommands.length > 0) console.log('\n TODO :\n=====\n1. review changes on this repo if any\n2. run these to compare backup & local files :\n\n', suggestedCommands.join('\n '), '\n')
   else console.log('\n No actions required.\n')
 }
 
-start()
+await start()

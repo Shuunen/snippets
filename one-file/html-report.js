@@ -40,4 +40,4 @@ async function startReport (input = '') {
   showReport(stats)
 }
 
-if (process.argv[2]) startReport(process.argv[2])
+if (process.argv[2]) await startReport(process.argv[2])

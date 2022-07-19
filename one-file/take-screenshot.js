@@ -111,4 +111,4 @@ const init = async () => {
   ask.question('  Please type the time in mmss or ss : ', time => takeScreenAt(time))
 }
 
-init().catch(error => console.error(error))
+await init().catch(error => console.error(error))

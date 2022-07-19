@@ -32,36 +32,29 @@ export class HtmlReporter {
     if (char === '>') {
       this.stats.tags++
       this.setState(states.lookingForATag)
-    }
-    else if (this.state === states.onTagName && char === ' ') {
+    } else if (this.state === states.onTagName && char === ' ') {
       this.stats.attr++
       this.setState(states.onTagAttr)
-    }
-    else if (this.state === states.onTagName && char === 's') {
+    } else if (this.state === states.onTagName && char === 's') {
       const [match] = this.input.slice(this.index).match(/^style[\S\s]*?<\/style>/) || []
       if (match) {
         this.stats.tags += 14 // the "<" has already been count on stats.tags, it remains "style></style>" to be count as stats.tags
         this.stats.css += match.length - 14 // here stats.css is only the content
         this.index += match.length - 1
       } else this.stats.tags++
-    }
-    else if (this.state === states.onTagName) {
+    } else if (this.state === states.onTagName) {
       this.stats.tags++
-    }
-    else if (this.state === states.onTagAttr && char === 's') {
+    } else if (this.state === states.onTagAttr && char === 's') {
       const [match] = this.input.slice(this.index).match(/^style="[^"]+"/) || []
       if (match) {
         this.stats.styles += match.length
         this.index += match.length - 1
       } else this.stats.attr++
-    }
-    else if (this.state === states.onTagAttr && char !== '>') {
+    } else if (this.state === states.onTagAttr && char !== '>') {
       this.stats.attr++
-    }
-    else if (this.state === states.lookingForATag && char !== '<') {
+    } else if (this.state === states.lookingForATag && char !== '<') {
       this.stats.text++
-    }
-    else if (char === '<') {
+    } else if (char === '<') {
       this.stats.tags++
       this.setState(states.onTagName)
     }

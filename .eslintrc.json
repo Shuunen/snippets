@@ -12,24 +12,39 @@
   "overrides": [
     {
       "files": [
-        "repo-checker.config.js"
+        "**/*.js",
+        "**/*.mjs"
       ],
-      "env": {
-        "node": true
-      },
       "rules": {
-        "unicorn/prefer-module": "off"
+        "@typescript-eslint/explicit-function-return-type": "off"
       }
     }
   ],
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 2021,
     "sourceType": "module"
   },
   "plugins": [
+    "@typescript-eslint",
     "unicorn"
   ],
   "rules": {
+    "@typescript-eslint/brace-style": [
+      "error",
+      "1tbs",
+      {
+        "allowSingleLine": true
+      }
+    ],
+    "@typescript-eslint/explicit-function-return-type": "error",
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^(_|global)"
+      }
+    ],
     "capitalized-comments": "off",
     "comma-dangle": [
       "error",

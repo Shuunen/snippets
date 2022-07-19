@@ -5,7 +5,8 @@
 *.mp4
 *.tgz
 /cypress/screenshots
+coverage
 dist
 node_modules
-sample.*
 pnpm-lock.yaml
+sample.*

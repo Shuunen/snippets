@@ -61,4 +61,4 @@ async function init () {
   doRequest()
 }
 
-init().catch(error => console.error(`\n${error.message}`))
+await init().catch(error => console.error(`\n${error.message}`))
