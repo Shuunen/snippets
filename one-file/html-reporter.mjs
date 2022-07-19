@@ -1,4 +1,4 @@
-import { gray, green } from 'shuutils/dist/colors.js'
+import { gray, green } from 'shuutils'
 
 const states = {
   lookingForATag: 'lookingForATag',

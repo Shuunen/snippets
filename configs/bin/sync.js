@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { files } from './files.js'
-import { report, filename, copy, equals, relativeBackupPath, normalize } from './utils.js'
+import { copy, equals, filename, normalize, relativeBackupPath, report } from './utils.js'
 const dry = process.argv.includes('--dry')
 const setup = process.argv.includes('--setup')
 

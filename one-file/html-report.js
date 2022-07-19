@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { readFile } from 'fs/promises'
-import { blue, gray, yellow } from 'shuutils/dist/colors.js'
+import { blue, gray, yellow } from 'shuutils'
 import { HtmlReporter } from './html-reporter.mjs'
 
 const explanations = {
