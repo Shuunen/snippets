@@ -9,7 +9,6 @@
     "clipboardy": "3",
     "eslint": "8",
     "eslint-plugin-unicorn": "43",
-    "npm-run-all": "4",
     "repo-check": "1.24",
     "shuutils": "^5.0",
     "tsm": "2",
@@ -41,7 +40,7 @@
   },
   "scripts": {
     "check": "repo-check",
-    "ci": "run-s lint check test",
+    "ci": "npm run lint && npm run check && npm run test",
     "lint": "tsc --noEmit && eslint --fix --ignore-path .gitignore --ext .js .",
     "postversion": "git push && git push --tags",
     "preversion": "npm run lint",
