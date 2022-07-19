@@ -1,0 +1,16 @@
+{
+  "branches": 90,
+  "check-coverage": true,
+  "exclude": [],
+  "functions": 90,
+  "include": [
+    "one-file/**/*.js",
+    "configs/**/*.js"
+  ],
+  "lines": 90,
+  "reporter": [
+    "text",
+    "lcovonly"
+  ],
+  "statements": 90
+}

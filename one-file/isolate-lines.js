@@ -10,8 +10,10 @@ const processClipboard = async () => {
   const clipboard = await import('clipboardy')
   const input = clipboard.default.readSync()
   const output = isolateLines(input)
+  /* c8 ignore next */
   console.log('will copy this to clipboard :\n---\n' + output + `\n--- ${Date.now()}`)
   clipboard.default.writeSync(output)
 }
 
-if(process.argv.includes('--clipboard')) processClipboard()
+/* c8 ignore next */
+if (process.argv.includes('--clipboard')) processClipboard()
