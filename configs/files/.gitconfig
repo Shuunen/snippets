@@ -29,11 +29,11 @@ as = "! GIT_SEQUENCE_EDITOR=: git rebase -i --autosquash"
 asd = "! git as develop"
 bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs -r git branch -d; }; f"
 co = checkout
-cop = "!f() { git checkout $1; git pull; }; f"
+cop = "!f() { git checkout $1; git f; git pull; }; f"
 cgh = "!f() { git clone git@github.com:Shuunen/$1.git; code $1; }; f"
-f = fetch -va
+f = fetch --prune-tags --prune
 ff= merge --ff-only
-fr = "!f() { git fetch && git rebase origin/$@ && echo -e \"\n Branch rebased to origin $@ \n\" && git st; }; f"
+fr = "!f() { git f && git rebase origin/$@ && echo -e \"\n Branch rebased to origin $@ \n\" && git st; }; f"
 frd = "! git fr develop"
 l = log --pretty=format:'%C(yellow)%h%Cred%d %Creset%s%Cblue [%cn %ad]' --decorate --date=relative
 ll = log --pretty=format:'%C(yellow)%h%Cred%d %Creset%s%Cblue [%cn %ad]' --decorate --date=relative -5
