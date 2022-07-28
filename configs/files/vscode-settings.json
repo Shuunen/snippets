@@ -17,6 +17,9 @@
   "[typescript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "denoland.vscode-deno"
+  },
   "[vue]": {
     "editor.defaultFormatter": "Vue.volar"
   },
@@ -502,6 +505,7 @@
   "stylelint.reportInvalidScopeDisables": true,
   "stylelint.reportNeedlessDisables": true,
   "tailwindCSS.experimental.classRegex": [
+    "tw`([^`]*)",
     "className\\s=\\s['`]([^'`]*)",
     "dom\\([^\\s]+\\s['`]([^'`]*)",
     "div\\(['`]([^'`]*)",
