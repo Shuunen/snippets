@@ -19,9 +19,11 @@ araxismerge ^
 audacity ^
 autohotkey.portable ^
 autoruns ^
+avidemux ^
 bulk-crap-uninstaller ^
 chocolateygui ^
 clavier-plus.install ^
+deno ^
 digikam ^
 directx ^
 discord.install ^
@@ -49,6 +51,7 @@ mediainfo ^
 mkvtoolnix ^
 mpv.portable ^
 nodejs-lts ^
+notepadplusplus.install ^
 paint.net ^
 picard ^
 qbittorrent ^
@@ -61,7 +64,7 @@ speccy ^
 spek ^
 spotify ^
 steam ^
-subtitleedit.portable ^
+subtitleedit ^
 sumatrapdf.portable ^
 treesizefree ^
 usbdeview ^
@@ -69,7 +72,8 @@ vcredist-all ^
 virustotaluploader ^
 vlc ^
 vscode.install ^
-winfetch
+winfetch ^
+winmerge
 ```
 
 Remember last line should not have any `^`, the special char that tells windows cmd to process a multi line command.
