@@ -3,7 +3,7 @@ import { readFile } from 'fs/promises'
 import { blue, gray, yellow } from 'shuutils'
 import { HtmlReporter } from './html-reporter.mjs'
 
-const explanations = {
+const /** @type Record<string, string> */ explanations = {
   attr: `${blue('attributes')}`,
   css: `${blue('css')} code`,
   styles: `${blue('styles')} inline`,
@@ -11,7 +11,7 @@ const explanations = {
   text: `${blue('text')} nodes`,
 }
 
-const examples = {
+const /** @type Record<string, string> */ examples = {
   attr: `${gray('<h1')}${yellow(' an-attribute="value" another-one')}${gray(' style="color: red">A super title !</h1>')}`,
   css: `${gray('<style>')}${yellow('div.a-selector { font-weight: bold; }')}${gray('</style>')}`,
   styles: `${gray('<h1 attribute="value"')}${yellow('style="color: red"')}${gray('>A super title !</h1>')}`,
@@ -19,13 +19,16 @@ const examples = {
   text: `${gray('<h1>')}${yellow('A super title !')}${gray('</h1>')}`,
 }
 
+/**
+ * @param {HtmlReporter} stats
+ */
 function showReport (stats) {
   let report = 'Scan detected :\n'
-  Object.keys(stats).forEach(key => {
-    if (key === 'total') return
-    const percent = Math.round(stats[key] / stats.total * 100) + ' %'
-    report += `- ${blue(percent.padStart(4))} of ${explanations[key].padEnd(25)} ${examples[key]}\n`
-  })
+  for (const [key, value] of Object.entries(stats)) {
+    if (key === 'total') continue
+    const percent = Math.round(value / stats['total'] * 100) + ' %'
+    report += `- ${blue(percent.padStart(4))} of ${explanations[key]?.padEnd(25)} ${examples[key]}\n`
+  }
   console.log(report)
 }
 
@@ -40,4 +43,5 @@ async function startReport (input = '') {
   showReport(stats)
 }
 
+// @ts-ignore
 if (process.argv[2]) await startReport(process.argv[2])

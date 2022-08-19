@@ -1,6 +1,7 @@
 const lastRequest = { url: '', method: '' }
 
 const OldXHR = window.XMLHttpRequest
+
 function newXHR () {
   const instance = new OldXHR()
   instance.addEventListener('readystatechange', () => {
@@ -10,10 +11,13 @@ function newXHR () {
 }
 
 const originalOpen = OldXHR.prototype.open
-OldXHR.prototype.open = function open (method, url) {
+OldXHR.prototype.open = function open (/** @type {string} */ method, /** @type {string} */ url) {
   lastRequest.method = method
   lastRequest.url = url
+  // @ts-ignore
   return originalOpen.apply(this, Array.prototype.slice.call(arguments))
 }
 
+// @ts-ignore
 window.XMLHttpRequest = newXHR
+

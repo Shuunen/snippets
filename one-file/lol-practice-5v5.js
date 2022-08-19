@@ -4,7 +4,7 @@ import { request as _request } from 'https'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
+process.env['NODE_TLS_REJECT_UNAUTHORIZED'] = '0'
 
 const data = {
   customGameLobby: {
@@ -14,22 +14,23 @@ const data = {
   },
   isCustom: true,
 }
-const options = { hostname: '127.0.0.1', path: '/lol-lobby/v2/lobby', method: 'POST', headers: { 'Content-Type': 'application/json' } }
+const options = { hostname: '127.0.0.1', path: '/lol-lobby/v2/lobby', method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': '' }, port: 0 }
 
+// @ts-ignore
 const currentFolder = path.dirname(fileURLToPath(import.meta.url))
 const logFile = path.join(currentFolder, 'lol-practice-5v5.log')
 const logClear = () => writeFileSync(logFile, '')
-const logAdd = (...stuff) => appendFileSync(logFile, '\n' + stuff.join(' ') + '\n')
+const logAdd = (/** @type {string[]} */ ...stuff) => appendFileSync(logFile, '\n' + stuff.join(' ') + '\n')
 
 function doRequest () {
   if (!options.port) throw new Error('cannot make the request without port')
-  const request = _request(options, response => {
+  const request = _request(options, (response) => {
     logAdd(`Game api response status code : ${response.statusCode}`)
     let data = ''
     response.on('data', chunk => (data += chunk))
     response.on('end', () => logAdd(`5v5 Practice created successfully by ${JSON.parse(data).localMember.summonerName}`))
   })
-  request.on('error', error => {
+  request.on('error', (/** @type {string} */ error) => {
     logAdd(error)
     throw error
   })
@@ -44,7 +45,7 @@ function readLock () {
   if (!/lockfile/.test(lockPath)) throw new Error('lockfile path invalid, should looks like "D:\\Games\\Riot Games\\League of Legends\\lockfile"')
   const content = readFileSync(lockPath, 'utf8').split(':') || []
   if (!content[2] || !content[3]) throw new Error('lockfile does not contains expected data or is not formatted as usual')
-  options.port = content[2]
+  options.port = Number.parseInt(content[2])
   options.headers.Authorization = `Basic ${Buffer.from(`riot:${content[3]}`).toString('base64')}`
 }
 
@@ -55,10 +56,11 @@ function handleCustomName () {
 
 async function init () {
   logClear()
-  logAdd('LoL Practice 5v5 maker starts @', new Date())
+  logAdd('LoL Practice 5v5 maker starts @', String(new Date()))
   readLock()
   handleCustomName()
   doRequest()
 }
 
+// @ts-ignore
 await init().catch(error => console.error(`\n${error.message}`))

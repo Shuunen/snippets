@@ -8,7 +8,9 @@
 // - example authentication for Mifare Classic cards
 // #############
 
+// @ts-ignore
 import consola from 'consola'
+// @ts-ignore
 import { KEY_TYPE_B, NFC, TAG_ISO_14443_3, TAG_ISO_14443_4 } from 'nfc-pcsc'
 
 consola.wrapConsole()
@@ -45,9 +47,12 @@ const minilogger = {
 */
 const nfc = new NFC() // const nfc = new NFC(minilogger); // optionally you can pass logger to see internal debug logs
 
+/**
+ * @type {any[]}
+ */
 const readers = []
 
-nfc.on('reader', async reader => {
+nfc.on('reader', async (/** @type {{ name: any; aid: string; on: (arg0: string, arg1: (any: any) => void) => void; authenticate: (arg0: number, arg1: any, arg2: string) => any; read: (arg0: number, arg1: number, arg2: number) => any; }} */ reader) => {
   console.info('device attached', { reader: reader.name })
 
   readers.push(reader)
@@ -111,7 +116,7 @@ nfc.on('reader', async reader => {
     }
   })
 
-  reader.on('error', error => {
+  reader.on('error', (error) => {
     console.error('an error occurred', { reader: reader.name, err: error })
   })
 
@@ -124,6 +129,6 @@ nfc.on('reader', async reader => {
   })
 })
 
-nfc.on('error', error => {
+nfc.on('error', (/** @type {Error} */ error) => {
   console.error('an error occurred', error)
 })

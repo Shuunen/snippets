@@ -7,9 +7,17 @@ const sizeGrain = 10_000
 
 class CheckDuplicates {
   constructor () {
+    /**
+     * @type {string[]}
+     */
     this.elements = []
     this.detected = {}
     this.target = ''
+    this.nbElements = 0
+    /**
+     * @type {{ [key: string]: string }}
+     */
+    this.results = {}
   }
 
   async start () {
@@ -23,7 +31,7 @@ class CheckDuplicates {
 
   async args () {
     if (process.argv.length < 4) throw new Error('this script need a path as argument like : find-duplicates.js "U:\\Movies\\"')
-    this.target = path.normalize(process.argv[3])
+    this.target = path.normalize(process.argv[3] || '')
   }
 
   async find () {
@@ -47,18 +55,18 @@ class CheckDuplicates {
     for (let aIndex = 0; aIndex < this.nbElements; aIndex++)
       for (let bIndex = 0; bIndex < this.nbElements; bIndex++) {
         if (aIndex === bIndex) continue
-        const a = this.elements[aIndex]
-        const b = this.elements[bIndex]
+        const a = String(this.elements[aIndex])
+        const b = String(this.elements[bIndex])
         const key = aIndex + '|' + bIndex
         const keyAlt = bIndex + '|' + aIndex
         if (this.results[key] || this.results[keyAlt]) continue
         let amount = this.distance(a, b)
-        const sizeA = await stat(path.join(this.target, a)).then(data => Math.round(data.size / sizeGrain))
-        const sizeB = await stat(path.join(this.target, b)).then(data => Math.round(data.size / sizeGrain))
+        const sizeA = await stat(path.join(this.target, a)).then((/** @type {{ size: number; }} */ data) => Math.round(data.size / sizeGrain))
+        const sizeB = await stat(path.join(this.target, b)).then((/** @type {{ size: number; }} */ data) => Math.round(data.size / sizeGrain))
         const sizeDiff = Math.abs(sizeA - sizeB)
         amount += sizeDiff // add the size diff as distance ^^
-        amount = (amount.toString().length === 1 ? '0' : '') + amount
-        this.results[key] = `${amount} (${sizeDiff}) : ${this.ellipsis(a)} VS ${this.ellipsis(b)}`
+        const amountString = (amount.toString().length === 1 ? '0' : '') + amount
+        this.results[key] = `${amountString} (${sizeDiff}) : ${this.ellipsis(a)} VS ${this.ellipsis(b)}`
       }
   }
 
