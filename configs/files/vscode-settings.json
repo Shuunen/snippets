@@ -11,6 +11,9 @@
   "[json]": {
     "editor.defaultFormatter": "vscode.json-language-features"
   },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
   "[markdown]": {
     "editor.defaultFormatter": "yzhang.markdown-all-in-one"
   },
@@ -293,6 +296,7 @@
     "source.fixAll": true,
     "source.organizeImports": true
   },
+  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
   "editor.formatOnSave": false,
   "editor.inlineSuggest.enabled": true,
   "editor.minimap.maxColumn": 300,
@@ -332,6 +336,8 @@
   "headwind.prependCustomClasses": true,
   "headwind.runOnSave": true,
   "html.format.wrapLineLength": 150,
+  "i18n-ally.displayLanguage": "fr",
+  "i18n-ally.sourceLanguage": "fr",
   "importCost.bundleSizeDecoration": "minified",
   "importCost.mediumPackageSize": 10,
   "importCost.smallPackageSize": 5,
