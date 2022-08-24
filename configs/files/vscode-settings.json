@@ -510,6 +510,7 @@
   },
   "stylelint.reportInvalidScopeDisables": true,
   "stylelint.reportNeedlessDisables": true,
+  "tabnine.experimentalAutoImports": true,
   "tailwindCSS.experimental.classRegex": [
     "tw`([^`]*)",
     "className\\s=\\s['`]([^'`]*)",
@@ -566,6 +567,5 @@
   "vetur.format.enable": true,
   "vetur.useWorkspaceDependencies": true,
   "vetur.validation.script": true,
-  "vetur.validation.template": false,
-  "workbench.colorTheme": "Default Dark+"
+  "vetur.validation.template": false
 }
