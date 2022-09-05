@@ -27,7 +27,7 @@
     "editor.defaultFormatter": "Vue.volar"
   },
   "breadcrumbs.enabled": true,
-  "cSpell.language": "en,fr,fr-FR,en-GB,en-US",
+  "cSpell.language": "en,en-US,fr,fr-FR",
   "cSpell.userWords": [
     "accès",
     "actionbar",
@@ -279,6 +279,7 @@
     "visualstudio",
     "Vuex",
     "wario",
+    "watchlist",
     "webcomponent",
     "whatsmyip",
     "whitesmoke",
@@ -297,12 +298,13 @@
     "source.organizeImports": true
   },
   "editor.defaultFormatter": "dbaeumer.vscode-eslint",
-  "editor.formatOnSave": false,
+  "editor.formatOnSave": true,
   "editor.inlineSuggest.enabled": true,
   "editor.minimap.maxColumn": 300,
   "editor.quickSuggestions": {
     "strings": true
   },
+  "editor.stickyScroll.enabled": true,
   "editor.tabSize": 2,
   "eslint.alwaysShowStatus": true,
   "eslint.validate": [
@@ -326,7 +328,6 @@
     "plaintext": false,
     "yaml": false
   },
-  "grammarly.hideUnavailablePremiumAlerts": true,
   "headwind.classRegex": {
     "css": "\\B@apply\\s+([_a-zA-Z0-9\\s\\-\\:\\/]+);",
     "html": "\\bclass\\s*=\\s*[\\\"\\']([_a-zA-Z0-9\\s\\-\\:\\/]+)[\\\"\\']",
@@ -347,6 +348,7 @@
   "javascript.format.semicolons": "remove",
   "javascript.preferences.quoteStyle": "single",
   "javascript.updateImportsOnFileMove.enabled": "always",
+  "json.format.enable": true,
   "markdown.extension.toc.levels": "1..3",
   "npm.autoDetect": "off",
   "npm.validate.enable": false,
@@ -510,7 +512,6 @@
   },
   "stylelint.reportInvalidScopeDisables": true,
   "stylelint.reportNeedlessDisables": true,
-  "tabnine.experimentalAutoImports": true,
   "tailwindCSS.experimental.classRegex": [
     "tw`([^`]*)",
     "className\\s=\\s['`]([^'`]*)",
