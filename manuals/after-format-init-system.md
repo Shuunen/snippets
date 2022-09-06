@@ -44,6 +44,7 @@ greenshot ^
 hashmyfiles ^
 imageglass ^
 javaruntime ^
+jbs ^
 launchyqt ^
 lockhunter ^
 lossless-cut ^
