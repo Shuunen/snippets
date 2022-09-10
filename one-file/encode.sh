@@ -1,5 +1,11 @@
 #!/bin/sh
 
+# use me like this :
+# $ encode.sh "video-stuff-foobar.mkv"
+# will default to :
+# $ encode.sh "input file" 24 medium
+# and generate : video-medium-crf24-grain.mkv
+
 # basic="crf=22:strong-intra-smoothing=0:rect=0:aq-mode=3"
 # rarbg avg bitrate 2000 kbps is pretty much equivalent to crf 22
 # but their other settings make the result looking nicer than the basic settings above
@@ -7,7 +13,7 @@
 # doom9="crf=22:qcomp=0.8:aq-mode=1:aq_strength=1.0:qg-size=16:psy-rd=0.7:psy-rdoq=5.0:rdoq-level=1:merange=44"
 
 crf="${2:-24}"
-preset="${3:-medium}"
+preset="${3:-medium}" # fast / medium / slow
 tune="grain"
 input="$(echo "$1" | sed 's/[\. \_].*//')" # get the first word of the input filename
 title="$input-$preset-crf$crf-$tune"
