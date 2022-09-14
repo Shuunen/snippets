@@ -2,7 +2,16 @@
 import { exec } from 'child_process'
 import { readdir, readFile, renameSync, stat, writeFileSync } from 'fs'
 import path from 'path'
+import { blue, red, slugify } from 'shuutils'
 import { inspect } from 'util'
+
+const { argv, cwd } = process
+if (argv.length <= 2) console.log('Targeting current folder, you can also specify a specific path, ex : check-videos.js "U:\\Movies\\" \n')
+const VIDEOS_PATH = path.normalize(argv[2] || cwd())
+const DO_RENAME = argv.includes('--rename') || argv.includes('--fix')
+const PROCESS_ONE = argv.includes('--process-one') || argv.includes('--one')
+const SET_TITLE = argv.includes('--set-title') || argv.includes('--fix')
+const DRY_RUN = argv.includes('--dry-run') || argv.includes('--dry')
 
 let listing = 'name,title\n'
 
@@ -38,13 +47,13 @@ const utils = {
     // console.log(utils.prettyPrint(data))
     const media = data.format || {}
     const video = data.streams.find((/** @type {{ codec_type: string; }} */ s) => s.codec_type === 'video') || {}
-    const title = (media.tags && media.tags.title) || ''
+    const title = utils.cleanTitle(media.tags?.title)
     const extension = path.extname(filepath).slice(1)
     const filename = title.length > 0 ? `${title}.${extension}` : ''
     // console.log(utils.prettyPrint(video))
     return {
       bitrateKbps: media.bit_rate ? Math.round(media.bit_rate / 1024) : 0,
-      codec: video.codec_name || 'unknown codec',
+      codec: video.codec_name.replace('video', '') || 'unknown codec',
       durationSeconds: media.duration ? Math.round(media.duration) : 0,
       extension,
       filename,
@@ -61,11 +70,12 @@ const utils = {
    * Set the title of a video in its metadata
    * @param {string} filepath The filepath of the video
    * @param {string} filename The filename of the video
-   * @returns {Promise<string | undefined>}
+   * @returns {Promise<string | undefined | void>}
    */
   setVideoTitle: async (filepath, filename) => {
     if (filepath.includes('.mp4') || filepath.includes('.avi')) return
-    const title = filename.replace(/\.[^.]+$/, '')
+    const title = utils.cleanTitle(filename.replace(/\.[^.]+$/, ''))
+    if (DRY_RUN) return console.log(`Would set title to ${blue(title)}\n`)
     return utils.shellCommand(`mkvpropedit "${filepath}" -e info -s title="${title}"`)
   },
   ellipsis: (string = '', length = 0) => string.length > length ? (string.slice(0, Math.max(0, length - 3)) + '...') : string,
@@ -90,6 +100,8 @@ const utils = {
   readFile: async filepath => new Promise(resolve => {
     readFile(filepath, 'utf8', (/** @type {Error|null} */ error, /** @type {string} */ content) => (error ? resolve('') : resolve(content)))
   }),
+  cleanTitle: (title = '') => title.replace('PSArips.com | ', '').replace(/[,:]/g, ' ').replace(/\s+/g, ' ').trim(),
+  folderName: (filepath = '') => /\W([\s\w]+)\W?$/.exec(filepath)?.[1] || '',
 }
 
 class CheckVideos {
@@ -104,43 +116,29 @@ class CheckVideos {
      * @type {Record<string, string[]>}
      */
     this.detected = {}
-    this.videosPath = ''
-    this.rename = false
-    this.setTitle = false
-    this.processOne = false
   }
 
   start () {
     console.log('\nCheck Videos is starting !\n')
-    this.args()
-      .then(() => this.find())
+    this.find()
       .then(() => this.check())
       .then(() => this.report())
       .catch(error => console.error(error))
   }
 
-  async args () {
-    const { argv, cwd } = process
-    if (argv.length <= 2) console.log('Targeting current folder, you can also specify a specific path, ex : check-videos.js "U:\\Movies\\" \n')
-    this.videosPath = path.normalize(argv[2] || cwd())
-    this.rename = argv.includes('--rename')
-    this.processOne = argv.includes('--process-one')
-    this.setTitle = argv.includes('--set-title')
-  }
-
   async find () {
-    console.log(`Scanning dir ${this.videosPath}`)
+    console.log(`Scanning dir ${VIDEOS_PATH}`)
     const isVideo = /\.(mp4|mkv|avi|wmv|m4v|mpg)$/
-    const list = await utils.readFile(path.join(this.videosPath, '.check-videos-ignore'))
+    const list = await utils.readFile(path.join(VIDEOS_PATH, '.check-videos-ignore'))
     const isIgnored = list.split('\n')
     isIgnored.forEach((line = '') => {
       if (line.trim().length > 0 && !line.startsWith('//')) listing += `${line},\n`
     })
-    const files = await utils.listFiles(this.videosPath)
+    const files = await utils.listFiles(VIDEOS_PATH)
     this.files = files.filter(entry => (!isIgnored.includes(entry) && isVideo.test(entry)))
     if (this.files.length === 0) throw new Error('no files found with these extensions ' + isVideo)
     console.log(this.files.length, 'files found\n')
-    if (!this.processOne || this.files.length === 0) return
+    if (!PROCESS_ONE || this.files.length === 0) return
     console.log('--process-one flag active : only one file will be processed\n')
     const first = this.files[0]
     if (!first) throw new Error('no files found')
@@ -156,7 +154,8 @@ class CheckVideos {
       console.log(`checking file ${(String(index + 1)).padStart((String(total)).length)} / ${total} : ${filename}`)
       await this.checkOne(filename)
     }
-    writeFileSync(path.join(this.videosPath, '.check-videos-listing.csv'), listing)
+    const listingFilename = '.' + slugify(utils.folderName(VIDEOS_PATH) || 'check') + '-videos-listing.csv'
+    writeFileSync(path.join(VIDEOS_PATH, listingFilename), listing)
   }
   /**
    * @param {string} string
@@ -216,8 +215,9 @@ class CheckVideos {
    * @returns {boolean} true if the video should be renamed
    */
   shouldRename (actual = '', expected = '') {
-    if (!this.rename) return false
+    if (!DO_RENAME) return false
     if (expected === '') return false
+    if (actual === expected) return false
     if (expected.length > actual.length) return true
     const diff = Math.abs(actual.length - expected.length)
     const toleratedDiff = Math.round(actual.length / 10)
@@ -231,10 +231,10 @@ class CheckVideos {
    * @returns {Promise<void>}
    */
   async checkOne (filename) {
-    const filepath = path.join(this.videosPath, filename)
+    const filepath = path.join(VIDEOS_PATH, filename)
     const meta = await utils.getVideoMetadata(filepath)
-    if (this.setTitle && filename !== meta.filename) await utils.setVideoTitle(filepath, filename.length > meta.filename.length ? filename : meta.filename)
-    if (this.shouldRename(filename, meta.filename)) renameSync(filepath, path.join(this.videosPath, meta.filename))
+    if (SET_TITLE && filename !== meta.filename) await utils.setVideoTitle(filepath, filename.length > meta.filename.length ? filename : meta.filename)
+    if (this.shouldRename(filename, meta.filename)) DRY_RUN ? console.log(`Would rename file to ${red(meta.filename)}\n`) : renameSync(filepath, path.join(VIDEOS_PATH, meta.filename))
     listing += `${filename},${meta.title}\n`
     const entry = `${utils.ellipsis(filename, 50).padEnd(50)}  ${(String(meta.sizeGb)).padStart(4)} Gb  ${(meta.codec).padEnd(5)} ${(String(meta.height)).padStart(4)}p  ${(String(meta.bitrateKbps)).padStart(4)} kbps  ${(String(meta.fps)).padStart(2)} fps`
     if (meta.isDvdRip) {
