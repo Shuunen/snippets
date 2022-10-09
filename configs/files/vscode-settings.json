@@ -1,18 +1,9 @@
 {
   "[css]": {
-    "editor.defaultFormatter": "mrmlnc.vscode-postcss-sorting"
+    "editor.defaultFormatter": "stylelint.vscode-stylelint"
   },
   "[html]": {
     "editor.defaultFormatter": "vscode.html-language-features"
-  },
-  "[javascript]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
-  },
-  "[json]": {
-    "editor.defaultFormatter": "vscode.json-language-features"
-  },
-  "[jsonc]": {
-    "editor.defaultFormatter": "vscode.json-language-features"
   },
   "[markdown]": {
     "editor.defaultFormatter": "yzhang.markdown-all-in-one"
@@ -20,11 +11,11 @@
   "[typescript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "denoland.vscode-deno"
-  },
   "[vue]": {
     "editor.defaultFormatter": "Vue.volar"
+  },
+  "[xml]": {
+    "editor.defaultFormatter": "mikeburgh.xml-format"
   },
   "breadcrumbs.enabled": true,
   "cSpell.language": "en,en-US,fr,fr-FR",
@@ -33,12 +24,14 @@
     "actionbar",
     "AFFERO",
     "AGPL",
+    "airtable",
     "Airtable",
     "alpinejs",
     "Antd",
     "antialiased",
     "antiquewhite",
     "Antutu",
+    "Aquara",
     "araxis",
     "arial",
     "autofetch",
@@ -62,6 +55,7 @@
     "buildtools",
     "bulma",
     "bundlephobia",
+    "callees",
     "camelcase",
     "carafer",
     "cdnjs",
@@ -132,6 +126,7 @@
     "hyperpower",
     "iife",
     "Imgur",
+    "Inetum",
     "Injectable",
     "Inspiron",
     "Interop",
@@ -141,6 +136,7 @@
     "Jira",
     "Juliane",
     "kaspersky",
+    "Kbps",
     "keymaps",
     "keypress",
     "Korben",
@@ -153,7 +149,9 @@
     "lightgray",
     "linebreak",
     "listitem",
+    "localstorage",
     "lorsqu'elle",
+    "Lumia",
     "markdownlint",
     "maxlength",
     "mediainfo",
@@ -283,6 +281,7 @@
     "webcomponent",
     "whatsmyip",
     "whitesmoke",
+    "Xiaomi",
     "xlink",
     "xsel",
     "yolo",
@@ -297,14 +296,9 @@
     "source.fixAll": true,
     "source.organizeImports": true
   },
-  "editor.defaultFormatter": "dbaeumer.vscode-eslint",
   "editor.formatOnSave": true,
   "editor.inlineSuggest.enabled": true,
   "editor.minimap.maxColumn": 300,
-  "editor.quickSuggestions": {
-    "strings": true
-  },
-  "editor.stickyScroll.enabled": true,
   "editor.tabSize": 2,
   "eslint.alwaysShowStatus": true,
   "eslint.validate": [
@@ -324,6 +318,7 @@
   "git.enableSmartCommit": true,
   "github.copilot.enable": {
     "*": true,
+    "jsonc": true,
     "markdown": false,
     "plaintext": false,
     "yaml": false
@@ -528,6 +523,7 @@
     "em\\(['`]([^'`]*)",
     "italic\\(['`]([^'`]*)",
     "small\\(['`]([^'`]*)",
+    "tw\\(['`]([^'`]*)",
     "h\\d\\(['`]([^'`]*)"
   ],
   "telemetry.telemetryLevel": "off",

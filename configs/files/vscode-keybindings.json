@@ -30,14 +30,6 @@
     "when": "editorTextFocus && !editorReadonly"
   },
   {
-    "command": "-workbench.action.zoomOut",
-    "key": "ctrl+numpad_subtract"
-  },
-  {
-    "command": "markdown.extension.editing.toggleList",
-    "key": "ctrl+numpad_subtract"
-  },
-  {
     "command": "typescript.restartTsServer",
     "key": "ctrl+oem_8"
   },
@@ -52,11 +44,6 @@
     "when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly && !inCompositeEditor"
   },
   {
-    "command": "-editor.action.formatDocument",
-    "key": "ctrl+shift+i",
-    "when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly && !inCompositeEditor"
-  },
-  {
     "command": "-breadcrumbs.focus",
     "key": "ctrl+[Period]",
     "when": "breadcrumbsPossible"
@@ -67,18 +54,8 @@
     "when": "editorTextFocus && !editorReadonly"
   },
   {
-    "command": "-editor.action.commentLine",
-    "key": "ctrl+shift+[Period]",
-    "when": "editorTextFocus && !editorReadonly"
-  },
-  {
-    "command": "workbench.action.terminal.new",
-    "key": "ctrl+[Quote]",
-    "when": "terminalProcessSupported || terminalWebExtensionContributedProfile"
-  },
-  {
-    "command": "-workbench.action.terminal.new",
-    "key": "ctrl+shift+[Backquote]",
-    "when": "terminalProcessSupported || terminalWebExtensionContributedProfile"
+    "command": "sortJSON.sortJSON",
+    "key": "ctrl+s",
+    "when": "editorTextFocus && !editorReadonly && resourceExtname == .json"
   }
 ]
