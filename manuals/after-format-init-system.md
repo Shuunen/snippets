@@ -14,6 +14,8 @@
 choco feature enable -n allowGlobalConfirmation
 choco install ^
 7zip.install ^
+adb ^
+airexplorer ^
 ant-renamer ^
 araxismerge ^
 audacity ^
@@ -23,6 +25,7 @@ avidemux ^
 bulk-crap-uninstaller ^
 chocolateygui ^
 clavier-plus.install ^
+cpu-z.install ^
 deno ^
 digikam ^
 directx ^
@@ -36,25 +39,34 @@ filezilla ^
 geekbench5 ^
 geforce-experience ^
 Ghostscript.app ^
+Ghostscript ^
 git.install ^
 gnumeric ^
 GoogleChrome ^
 gpu-z ^
 greenshot ^
+handbrake.install ^
 hashmyfiles ^
+hpusbdisk ^
 imageglass ^
 javaruntime ^
 jbs ^
 launchyqt ^
 lockhunter ^
 lossless-cut ^
+makemkv ^
 mediainfo ^
 mkvtoolnix ^
 mpv.portable ^
-nodejs-lts ^
+nodejs.install ^
 notepadplusplus.install ^
+onlyoffice ^
+openhardwaremonitor ^
 paint.net ^
 picard ^
+pnpm ^
+powertoys ^
+python3 ^
 qbittorrent ^
 rapidee ^
 riot ^
@@ -64,15 +76,18 @@ soulseek ^
 speccy ^
 spek ^
 spotify ^
-steam ^
+steam-client ^
 subtitleedit ^
 sumatrapdf.portable ^
+tagscanner ^
 treesizefree ^
 usbdeview ^
 vcredist-all ^
+virtualdub ^
 virustotaluploader ^
-vlc ^
+vlc.install ^
 vscode.install ^
+webview2-runtime ^
 winfetch ^
 winmerge
 ```
