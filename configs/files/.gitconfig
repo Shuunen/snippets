@@ -6,6 +6,9 @@ filemode = false
 eol = lf
 ignorecase = false
 
+[pull]
+rebase = true
+
 [includeIf "gitdir:~/Projects/github/"]
 path = .gitconfig-github
 [includeIf "gitdir:~/Projects/anatec/"]

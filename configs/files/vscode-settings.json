@@ -6,7 +6,8 @@
     "editor.defaultFormatter": "vscode.html-language-features"
   },
   "[markdown]": {
-    "editor.defaultFormatter": "yzhang.markdown-all-in-one"
+    "editor.defaultFormatter": "yzhang.markdown-all-in-one",
+    "editor.wordWrap": "off"
   },
   "[typescript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
@@ -184,6 +185,7 @@
     "outfile",
     "Paginator",
     "Paylib",
+    "Phomemo",
     "photopea",
     "Picasa",
     "polyfill",
@@ -319,7 +321,7 @@
   "github.copilot.enable": {
     "*": true,
     "jsonc": true,
-    "markdown": false,
+    "markdown": true,
     "plaintext": false,
     "yaml": false
   },
@@ -508,6 +510,7 @@
   "stylelint.reportInvalidScopeDisables": true,
   "stylelint.reportNeedlessDisables": true,
   "tailwindCSS.experimental.classRegex": [
+    " +[a-z_]+: '([^']*)',",
     "tw`([^`]*)",
     "className\\s=\\s['`]([^'`]*)",
     "dom\\([^\\s]+\\s['`]([^'`]*)",
@@ -562,7 +565,6 @@
     }
   },
   "vetur.format.enable": true,
-  "vetur.useWorkspaceDependencies": true,
-  "vetur.validation.script": true,
-  "vetur.validation.template": false
+  "window.zoomLevel": 1,
+  "workbench.colorTheme": "Default Dark+"
 }
