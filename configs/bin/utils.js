@@ -1,42 +1,72 @@
-import { copyFile, mkdir, readFile, writeFile } from 'fs/promises'
+import { copyFile, mkdir } from 'fs/promises'
 import path from 'path'
-import { backupPath } from './files.js'
 
-const clean = string => string.replace(/\s*/g, '')
-export const equals = (content1, content2) => (clean(content1) === clean(content2))
 export const filename = (path = '') => (/[/\\]([\w-]*[\w.-]+)$/.exec(path) || [])[1]
 
-export const normalize = (filepath, useSlash, useTilde) => {
+/**
+ * Clean a file details content
+ * @param {string} content the file content to clean
+ * @param {RegExp} [linesAfter] a regex to remove lines after
+ * @param {RegExp[]} [linesMatching] a list of regex to remove lines matching
+ * @returns {string} the cleaned file content
+ */
+export const clean = (content, linesAfter, linesMatching, clearSpaces = true) => {
+  if (!content) return ''
+  if (linesAfter) content = removeLinesAfter(content, linesAfter)
+  if (linesMatching) content = removeLinesMatching(content, linesMatching)
+  if (clearSpaces) content = content.replace(/\s*/g, '')
+  return content
+}
+
+/**
+ * 
+ * @param {string} filepath 
+ * @param {boolean} useSlash use slash instead of backslash
+ * @param {boolean} useTilde use tilde will replace the home directory with ~
+ * @param {string} home the home directory path
+ * @returns 
+ */
+export const normalize = (filepath, useSlash = false, useTilde = false, home = process.env['HOME'] ?? '') => {
   let p = path.normalize(filepath)
   if (useSlash) p = p.replace(/\\/g, '/')
-  if (useTilde) p = p.replace(home, '~')
+  if (useTilde) p = p.replace(normalize(home, useSlash), '~')
   return p
 }
 
-const home = normalize(process.env.HOME, true)
-export const relativeBackupPath = normalize(backupPath, true).replace(normalize(process.env.PWD, true).replace('/c/','C:/'), '').slice(1)
-
-const read = async path => readFile(path, 'utf8').catch(error => {
-  if (!error.message.includes('no such file')) console.error(`failed to read path "${path}" :(`)
-  return false
-})
-
-export const report = async filepath => {
-  let content = await read(filepath)
-  if (/\r/.test(content) && !filepath.includes('.qbtheme')) { // qbtheme files does not like this
-    content = content.replace(/\r\n/g, '\n')
-    writeFile(filepath, content)
-  }
-  return {
-    path: normalize(filepath),
-    exists: Boolean(content),
-    content,
-  }
+/**
+ * Remove lines matching a regexp list
+ * @param {string} content the content to clean
+ * @param {RegExp[]} regexList the regex list to match
+ * @returns {string} the cleaned content
+ */
+export const removeLinesMatching = (content, regexList) => {
+  const lines = content.split('\n')
+  const filteredLines = lines.filter(line => !regexList.some(regex => regex.test(line)))
+  return filteredLines.join('\n').trim()
 }
 
+/**
+ * Remove lines after a given regex
+ * @param {string} content the content to remove lines from
+ * @param {RegExp} regex the regexp to match the line after which to remove content
+ * @returns {string} the content without the lines after the matching line
+ */
+export const removeLinesAfter = (content, regex) => {
+  const lines = content.split('\n')
+  const index = lines.findIndex(line => regex.test(line))
+  if (index === -1) return content.trim()
+  return lines.slice(0, index).join('\n').trim()
+}
+
+/**
+ * 
+ * @param {string} source 
+ * @param {string} destination 
+ * @returns 
+ */
 export const copy = async (source, destination) => {
   // destination will be created or overwritten by default.
-  const destinationFolder = destination.replace(filename(destination), '')
+  const destinationFolder = destination.replace(filename(destination) ?? '', '')
   await mkdir(destinationFolder, { recursive: true })
   return copyFile(source, destination).then(() => true).catch(error => {
     console.log(error)
