@@ -4,12 +4,12 @@
   "exclude": [],
   "functions": 90,
   "include": [
-    "one-file/**/*.js",
-    "configs/**/*.js"
+    "one-file/**/*.js"
   ],
   "lines": 90,
   "reporter": [
     "text",
+    "html",
     "lcovonly"
   ],
   "statements": 90
