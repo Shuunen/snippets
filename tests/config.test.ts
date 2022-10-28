@@ -47,10 +47,7 @@ RunInbackground.MS Paint=True
 TornEdgeEffectSettings=Darkness
 `
 
-check('clean A', clean(contentGreenShot, /\[Editor]/, [/^(OutputFileAsFull|LastUpdateCheck|LastCapturedRegion|Commands=)/, /(MS Paint)/]), `; Greenshot core configuration
-[Core]
-
-; Greenshot editor configuration`)
+check('clean A', clean(contentGreenShot, /\[Editor]/, [/^(OutputFileAsFull|LastUpdateCheck|LastCapturedRegion|Commands=)/, /(MS Paint)/]), ';Greenshotcoreconfiguration[Core];Greenshoteditorconfiguration')
 
 const winHome = 'C:/Users/Johnny'
 const winPath = 'C:/Users/Johnny/Projects/github/snippets/tests'
