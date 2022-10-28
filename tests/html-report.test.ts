@@ -1,4 +1,4 @@
-import { check } from 'shuutils'
+import { check, checksRun } from 'shuutils'
 import { HtmlReporter } from '../one-file/html-reporter.mjs'
 
 const samples = [
@@ -58,4 +58,4 @@ samples.forEach(({ title, input, output }) => {
   check(`html-report ${title} total`, actual.total, output.total)
 })
 
-check.run()
+checksRun()
