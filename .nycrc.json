@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/nycrc",
   "branches": 90,
   "check-coverage": true,
   "exclude": [],
