@@ -5,6 +5,9 @@ import path from 'path'
 import { createInterface } from 'readline'
 import { fileURLToPath } from 'url'
 
+// @ts-ignore
+const lastInputFile = path.join(path.dirname(fileURLToPath(import.meta.url)), 'take-screenshot-last-input.txt')
+
 const ask = createInterface({ input: process.stdin, output: process.stdout })
 
 const shellCommand = async (/** @type {string} */ cmd) => new Promise(resolve => {
@@ -83,7 +86,7 @@ const getTasks = async (input) => {
   const seconds = Number.parseInt(b || a, 10)
   const minutes = b === undefined ? 0 : Number.parseInt(a, 10)
   const videoPath = process.argv[2]
-  if(!videoPath) throw new Error('no video path')
+  if (!videoPath) throw new Error('no video path')
   const videoName = path.basename(videoPath)
   const meta = await getVideoMetadata(videoPath)
   const title = meta.title.length > videoName.length ? meta.title : videoName
@@ -98,6 +101,8 @@ const getTasks = async (input) => {
 }
 
 const takeScreenAt = async (/** @type {string} */ input) => {
+  await logAdd(`Input : "${input}"`)
+  fs.writeFile(lastInputFile, input)
   const tasks = await getTasks(input)
   for (let task of tasks) {
     const { totalSeconds, videoPath, screenPath } = task
@@ -119,7 +124,8 @@ const init = async () => {
     takeScreenAt(process.argv[3])
     return
   }
-  ask.question('  Please type the time in mmss or ss : ', (/** @type {any} */ time) => takeScreenAt(time))
+  const lastInput = await fs.readFile(lastInputFile, 'utf8').catch(() => '60')
+  ask.question(`  Please type the time in mmss or ss (enter to use "${lastInput}") : `, (/** @type {string} */ time) => takeScreenAt(time || lastInput))
 }
 
 // @ts-ignore

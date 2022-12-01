@@ -5,6 +5,7 @@
 *.mp4
 *.tgz
 /cypress/screenshots
+/one-file/take-screenshot-last-input.txt
 coverage
 dist
 node_modules
