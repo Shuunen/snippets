@@ -8,4 +8,6 @@ REM this script folder
 REM like : "D:\Apps\Set.Title\"
 SET thisFolder=%~dp0
 
-node %thisFolder%/take-screenshot.js %targetFile%
+REM DO NOT try to pipe the output of this script to a file
+REM because we need the user input in the console
+ts-node-esm %thisFolder%/take-screenshot.cli.ts %targetFile%

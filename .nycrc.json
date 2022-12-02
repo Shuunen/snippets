@@ -5,7 +5,8 @@
   "exclude": [],
   "functions": 90,
   "include": [
-    "one-file/**/*.js"
+    "one-file/**/*.js",
+    "one-file/**/*.ts"
   ],
   "lines": 90,
   "reporter": [
