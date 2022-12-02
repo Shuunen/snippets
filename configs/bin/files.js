@@ -46,7 +46,7 @@ const configs = [
 if (onWindows) configs.push(
   { source: `${home}/.bashrc` },
   { source: `${appData}/Launchy/launchy.ini`, removeLinesAfter: /\[History]/ },
-  { source: `${appData}/Greenshot/Greenshot.ini`, removeLinesAfter: /\[Editor]/, removeLinesMatching: [/^(OutputFileAsFull|LastUpdateCheck|LastCapturedRegion|Commands=)/, /MS Paint/] },
+  { source: `${appData}/Greenshot/Greenshot.ini`, removeLinesAfter: /\[Editor]/, removeLinesMatching: [/^(OutputFileAsFull|ImgurUploadHistory|LastUpdateCheck|LastCapturedRegion|Commands=)/, /MS Paint/] },
 )
 
 // @ts-ignore
