@@ -9,6 +9,9 @@ ignorecase = false
 [pull]
 rebase = true
 
+[push]
+autoSetupRemote = true
+
 [includeIf "gitdir:~/Projects/github/"]
 path = .gitconfig-github
 [includeIf "gitdir:~/Projects/anatec/"]
@@ -38,6 +41,7 @@ f = fetch --prune-tags --prune
 ff= merge --ff-only
 fr = "!f() { git f && git rebase origin/$@ && echo -e \"\n Branch rebased to origin $@ \n\" && git st; }; f"
 frd = "! git fr develop"
+frm = "! git fr master"
 l = log --pretty=format:'%C(yellow)%h%Cred%d %Creset%s%Cblue [%cn %ad]' --decorate --date=relative
 ll = log --pretty=format:'%C(yellow)%h%Cred%d %Creset%s%Cblue [%cn %ad]' --decorate --date=relative -5
 pf = push --force

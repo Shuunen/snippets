@@ -206,6 +206,7 @@
     "postpack",
     "postpublish",
     "postversion",
+    "Preact",
     "prebuild",
     "precache",
     "precheck",
