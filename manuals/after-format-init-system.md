@@ -31,6 +31,11 @@ digikam ^
 directx ^
 discord.install ^
 dnsjumper ^
+dotnet-6.0-desktopruntime ^
+dotnet-7.0-desktopruntime ^
+dotnet-desktopruntime ^
+DotNet3.5 ^
+DotNet4.5.2 ^
 dotnetfx ^
 exiftool ^
 exiftoolgui ^
@@ -38,8 +43,8 @@ ffmpeg ^
 filezilla ^
 geekbench5 ^
 geforce-experience ^
-Ghostscript.app ^
 Ghostscript ^
+Ghostscript.app ^
 git.install ^
 gnumeric ^
 GoogleChrome ^
@@ -48,9 +53,12 @@ greenshot ^
 handbrake.install ^
 hashmyfiles ^
 hpusbdisk ^
+hyperfine ^
 imageglass ^
+InkScape ^
 javaruntime ^
 jbs ^
+jre8 ^
 launchyqt ^
 lockhunter ^
 lossless-cut ^
@@ -58,6 +66,7 @@ makemkv ^
 mediainfo ^
 mkvtoolnix ^
 mpv.portable ^
+netfx-4.7.2 ^
 nodejs.install ^
 notepadplusplus.install ^
 onlyoffice ^
