@@ -1,8 +1,10 @@
 const lastRequest = { url: '', method: '' }
 
+// @ts-ignore
 const OldXHR = window.XMLHttpRequest
 
 function newXHR () {
+  // @ts-ignore
   const instance = new OldXHR()
   instance.addEventListener('readystatechange', () => {
     if (instance.readyState === 4 && instance.status !== 200) console.log(`HTTP Error ${instance.status} on ${lastRequest.method} ${lastRequest.url}`)

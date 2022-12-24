@@ -1,3 +1,4 @@
+// @ts-ignore
 import { gray, green } from 'shuutils/dist/colors'
 
 const states = {
