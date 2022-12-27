@@ -51,15 +51,19 @@ sps = "! git stash && git pull && git stash apply"
 st = status -sbu
 
 [diff]
-tool = araxis
+tool = winmerge
 [difftool]
 prompt = false
-[difftool "araxis"]
-cmd = merge $LOCAL $REMOTE
+[difftool "winmerge"]
+name = WinMerge
+trustExitCode = true
 
 [merge]
-tool = araxis
+tool = winmerge
 [mergetool]
 prompt = false
-[mergetool "araxis"]
-cmd = merge $LOCAL $REMOTE $MERGED$
+keepBackup = false
+keepTemporaries = false
+[mergetool "winmerge"]
+name = WinMerge
+trustExitCode = true
