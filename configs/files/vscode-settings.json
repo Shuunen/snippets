@@ -12,9 +12,6 @@
   "[typescript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
-  "[vue]": {
-    "editor.defaultFormatter": "Vue.volar"
-  },
   "[xml]": {
     "editor.defaultFormatter": "mikeburgh.xml-format"
   },
@@ -72,6 +69,7 @@
     "commitlint",
     "cyclomatic",
     "d’oeil",
+    "darkgreen",
     "darkorange",
     "darkred",
     "Datepicker",
@@ -179,6 +177,7 @@
     "neofetch",
     "netlify",
     "Netlify",
+    "nocheck",
     "Noty",
     "Npmjs",
     "npmrc",
@@ -188,6 +187,7 @@
     "NZXT",
     "oeuf",
     "oeufs",
+    "Oled",
     "onefetch",
     "outdir",
     "outfile",
@@ -234,11 +234,13 @@
     "Romain",
     "royalblue",
     "rulesets",
+    "Ryzen",
     "sakura",
     "Sandisk",
     "SARLU",
     "SASU",
     "scandir",
+    "Schenker",
     "Schrute",
     "screenfetch",
     "scripthost",
