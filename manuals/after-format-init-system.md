@@ -207,7 +207,7 @@ Install these deb :
 - [Stretchly](https://github.com/hovancik/stretchly/releases)
 
 ```bash  
-wget -qO- https://deb.nodesource.com/setup_16.x | sudo -E bash -
+wget -qO- https://deb.nodesource.com/setup_18.x | sudo -E bash -
 sudo apt install -y nodejs screenfetch
 mkdir ~/.npm-global
 npm config set prefix '~/.npm-global'
@@ -216,10 +216,8 @@ source ~/.bash_aliases
 sudo apt install git aria2 nano curl -y # vvv below is for desktop only vvv
 sudo apt install pinta gparted kupfer meld mediainfo mkvtoolnix mkvtoolnix-gui mpv xsel shotwell hollywood vlc ffmpeg -y
 sudo add-apt-repository ppa:qbittorrent-team/qbittorrent-stable
-sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 5E3C45D7B312C643
-echo "deb http://repository.spotify.com stable non-free" | sudo tee /etc/apt/sources.list.d/spotify.list
 sudo apt update
-sudo apt install qbittorrent spotify-client -y
+sudo apt install qbittorrent -y
 sudo apt autoremove -y
 echo -e "optional : you can manually run 'sudo apt install ttf-mscorefonts-installer' & 'sudo fc-cache -f -v' to get win fonts & clear font cache"
 sudo chmod 700 ~/.ssh/ -R
@@ -259,8 +257,8 @@ Nice app to keep in mind :
   <summary>All</summary>
 
 ```bash
-npm config set package-lock false --global # malicious laugh :p
 cd ~/Projects/github
+git clone git@github.com:Shuunen/c-est-donne.git
 git clone git@github.com:Shuunen/finga.git
 git clone git@github.com:Shuunen/flood-it.git
 git clone git@github.com:Shuunen/folio.git
