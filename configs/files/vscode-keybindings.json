@@ -44,6 +44,11 @@
     "when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly && !inCompositeEditor"
   },
   {
+    "command": "-editor.action.formatDocument",
+    "key": "ctrl+shift+i",
+    "when": "editorHasDocumentFormattingProvider && editorTextFocus && !editorReadonly && !inCompositeEditor"
+  },
+  {
     "command": "-breadcrumbs.focus",
     "key": "ctrl+[Period]",
     "when": "breadcrumbsPossible"
@@ -52,6 +57,21 @@
     "command": "editor.action.commentLine",
     "key": "ctrl+[Period]",
     "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "command": "-editor.action.commentLine",
+    "key": "ctrl+shift+[Period]",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
+    "command": "workbench.action.terminal.new",
+    "key": "ctrl+[Quote]",
+    "when": "terminalProcessSupported || terminalWebExtensionContributedProfile"
+  },
+  {
+    "command": "-workbench.action.terminal.new",
+    "key": "ctrl+shift+[Backquote]",
+    "when": "terminalProcessSupported || terminalWebExtensionContributedProfile"
   },
   {
     "command": "sortJSON.sortJSON",
