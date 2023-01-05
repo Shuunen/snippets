@@ -13,6 +13,7 @@ const onWindows = process.env['APPDATA'] === appData
  * @type {import('./types').Config[]} 
  */
 const configs = [
+  { source: `${home}/.bash_aliases` },
   { source: `${appData}/Code/User/keybindings.json`, renameTo: 'vscode-keybindings.json' },
   { source: `${appData}/Code/User/settings.json`, renameTo: 'vscode-settings.json' },
   // { source: `${appData}/HandBrake/presets.json`, renameTo: 'handbrake-presets.json' },
