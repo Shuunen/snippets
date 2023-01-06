@@ -228,29 +228,6 @@ cd snippets/configs/
 node bin/sync.js --setup
 ```
 
-Some app are available as AppImage :
-
-- [LosslessCut](https://github.com/mifi/lossless-cut/releases)
-- [FontBase](https://fontba.se/downloads/linux)
-- [MetaGrabber](https://github.com/andreaswilli/meta-grabber/releases)
-- Imagine (batch image compressor)
-
-Nice app to keep in mind :
-
-- Boxy SVG
-- breaktimer
-- Digikam (photo collection manager)
-- Electorrent (remote torrent gui)
-- filebot
-- FontFinder (font viewer & manager)
-- FSearch (ultra fast search)
-- Gdevelop (game development)
-- [Identity](https://gitlab.gnome.org/YaLTeR/identity) (compare images & videos)
-- jdownloader2
-- picard
-- smart-file-renamer
-- spek
-
 </details>
 
 <details>
@@ -282,5 +259,26 @@ code snippets
 - [ ] Do Geekbench && `geekbench5 --compute OpenCL`, Cinebench, UserBenchmark
 - [ ] [pimp with a 2k wallpaper](https://www.google.com/search?q=wallpaper+2k)
 - [ ] encrypt drive
+
+Nice app to keep in mind :
+
+- [Boxy SVG](https://boxy-svg.com/) : simple & effective svg editor
+- [Breaktimer](https://breaktimer.app/) : break reminder & eye care
+- [Digikam](https://www.digikam.org/) : photo collection manager
+- [Electorrent](https://github.com/tympanix/Electorrent) : remote torrent gui
+- [Filebot](https://www.filebot.net/) : rename & organize movie/tv shows files
+- [FontBase](https://fontba.se/downloads/linux) : font manager
+- [FontFinder](https://github.com/mmstick/fontfinder) : font viewer & manager, install fonts from google fonts
+- [FSearch](https://github.com/cboxdoerfer/fsearch) : ultra fast search
+- [Gdevelop](https://gdevelop.io/) : game development tool
+- [Identity](https://gitlab.gnome.org/YaLTeR/identity) : compare images & videos
+- [Imagine](https://github.com/meowtec/Imagine) : batch image compressor
+- [JDownloader2](https://jdownloader.org/) : download manager
+- [LosslessCut](https://github.com/mifi/lossless-cut/releases) : cut videos
+- [MetaGrabber](https://github.com/andreaswilli/meta-grabber/releases) : get metadata from videos
+- [Picard](https://picard.musicbrainz.org/) : music tagger
+- [Smart-file-renamer](https://qiplex.com/software/smart-file-renamer/)
+- [Spek](https://github.com/alexkay/spek) : audio spectrum analyzer
+- [Upscayl](https://github.com/upscayl/upscayl) : great image upscale tool
 
 </details>
