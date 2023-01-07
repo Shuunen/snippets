@@ -50,6 +50,7 @@ PS: nothing to do with steam app, steam guard will be overwrite with the new ins
   - `apt-mark showmanual`
   - `flatpak list`
   - `snap list`
+  - `history | grep apt`
   - `dpkg --get-selections`
 
 </details>
