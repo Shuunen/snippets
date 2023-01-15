@@ -1,3 +1,3 @@
 #!/bin/sh
 
-take-screenshot.js "$1" "$2"
+ts-node-esm "$HOME/Projects/github/snippets/one-file/take-screenshot.cli.ts" "$1" "$2"
