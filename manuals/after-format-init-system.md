@@ -153,6 +153,7 @@ Avoid :
 - [ ] activate windows
 - [ ] enable windows night luminosity mode
 - [ ] enable windows dark mode
+- [ ] disable XBox game bar
 - [ ] change machine name
 - [ ] use power mode in energy settings
 - [ ] remove sound notifications
@@ -171,9 +172,11 @@ echo -e '#!/bin/bash \n\n eval "$(ssh-agent -s)" \n ssh-add ~/.ssh/id_rsa_gh \n 
 bash
 cd && mkdir Projects && cd Projects
 mkdir github && cd github
+pnpm i ts-node -g
 git clone git@github.com:Shuunen/snippets.git
-cd snippets/configs/
-node bin/sync.js --setup
+cd snippets
+pnpm install
+node configs/bin/sync.js --setup
 ```
 
 ### Android development environnement
@@ -211,6 +214,7 @@ wget -qO- https://deb.nodesource.com/setup_18.x | sudo -E bash -
 sudo apt install -y nodejs screenfetch
 mkdir ~/.npm-global
 npm config set prefix '~/.npm-global'
+npm i pnpm ts-node -g
 echo -e "alias ..='cd ..' \n alias install='sudo apt install' \n alias apt='sudo apt' \n alias mkdir='mkdir -pv' \n alias merge=meld \n alias whatsmyip='curl http://ipecho.net/plain; echo' \n alias psg='ps aux | grep -v grep | grep -i -e VSZ -e' \n echo '' \n screenfetch \n echo ' Welcome ${USER} ^^' \n echo ''" > ~/.bash_aliases # make sure bash_aliases is sourced in ~/.bashrc
 source ~/.bash_aliases
 sudo apt install git aria2 nano curl -y # vvv below is for desktop only vvv
@@ -252,6 +256,7 @@ git clone git@github.com:Shuunen/vue-image-compare.git
 git clone git@github.com:Shuunen/wcs-demo.git
 git clone git@github.com:Shuunen/wcs.git
 git clone git@github.com:Shuunen/what-now.git
+find . -maxdepth 1 -type d \( ! -name . \) -exec bash -c "cd '{}' && pnpm i" \;
 code snippets
 ```
 
