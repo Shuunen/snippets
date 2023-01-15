@@ -154,6 +154,7 @@ Avoid :
 - [ ] enable windows night luminosity mode
 - [ ] enable windows dark mode
 - [ ] disable XBox game bar
+- [ ] enable BitLocker
 - [ ] change machine name
 - [ ] use power mode in energy settings
 - [ ] remove sound notifications

@@ -52,5 +52,6 @@ PS: nothing to do with steam app, steam guard will be overwrite with the new ins
   - `snap list`
   - `history | grep apt`
   - `dpkg --get-selections`
+- [ ] remember to activate disk encryption on next install
 
 </details>
