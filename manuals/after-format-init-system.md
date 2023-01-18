@@ -173,10 +173,12 @@ echo -e '#!/bin/bash \n\n eval "$(ssh-agent -s)" \n ssh-add ~/.ssh/id_rsa_gh \n 
 bash
 cd && mkdir Projects && cd Projects
 mkdir github && cd github
+pnpm setup
 pnpm i ts-node -g
 git clone git@github.com:Shuunen/snippets.git
 cd snippets
 pnpm install
+rm ~/.bashrc
 node configs/bin/sync.js --setup
 ```
 
