@@ -8,7 +8,7 @@ specifiers:
   clipboardy: '3'
   eslint: '8'
   eslint-plugin-unicorn: '45'
-  repo-check: '1.29'
+  repo-check: '1.30'
   shuutils: '7.1'
   tsm: '2'
   typescript: '4'
@@ -23,7 +23,7 @@ devDependencies:
   clipboardy: 3.0.0
   eslint: 8.30.0
   eslint-plugin-unicorn: 45.0.2_eslint@8.30.0
-  repo-check: 1.29.0
+  repo-check: 1.30.0
   shuutils: 7.1.0
   tsm: 2.3.0
   typescript: 4.9.4
@@ -357,6 +357,10 @@ packages:
 
   /arch/2.2.0:
     resolution: {integrity: sha512-Of/R0wqp83cgHozfIYLbBMnej79U/SVGOOyuB3VVFv1NRM/PSFMK12x9KVtiYzJqmnU5WR2qp0Z5rHb7sWGnFQ==}
+    dev: true
+
+  /arg/5.0.2:
+    resolution: {integrity: sha512-PYjyFOLKQ9y57JvQ6QLo8dAgNqswh8M1RMJYdQduT6xbWSgK36P/Z/v+p888pM69jMMfS8Xd8F6I1kQ/I9HUGg==}
     dev: true
 
   /argparse/2.0.1:
@@ -1557,9 +1561,12 @@ packages:
       jsesc: 0.5.0
     dev: true
 
-  /repo-check/1.29.0:
-    resolution: {integrity: sha512-byp4NWqqR5R/0mLOSPxcHiXmj5kW+MVGasvLJNWEmqNT1yuV7t5AJ0jen+rQ4Ah5s+aglP3eupgY812rB9uVpA==}
+  /repo-check/1.30.0:
+    resolution: {integrity: sha512-L/V4iSVlxaeEABGTZ/3JS1SggAQWMycs4W0pu6LCGDnCborl6HurWy3Jh3Sh5kiZFeHclKHw9O98XCgR4h6ang==}
     hasBin: true
+    dependencies:
+      arg: 5.0.2
+      shuutils: 7.1.0
     dev: true
 
   /require-directory/2.1.1:
