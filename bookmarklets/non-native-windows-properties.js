@@ -1,3 +1,4 @@
+/* eslint-disable import/unambiguous */
 const xyz = {}
 
 xyz.generic = [

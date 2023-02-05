@@ -15,6 +15,7 @@ const buttons = [
 buttons.forEach(button => {
   console.log(`listening to button "${button.name}" with mac ${button.mac}`)
   // @ts-ignore
+  // eslint-disable-next-line no-param-reassign
   button.instance = dashBtn(button.mac, undefined, undefined, 'arp')
   // @ts-ignore
   button.instance.on('detected', () => console.log(`"${button.name}" has been clicked`))

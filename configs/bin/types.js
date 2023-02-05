@@ -1,3 +1,5 @@
+/* eslint-disable spaced-comment */
+/* eslint-disable multiline-comment-style */
 /**
   @typedef FileDetails
   @type {Object}

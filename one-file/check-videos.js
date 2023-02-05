@@ -1,4 +1,17 @@
 #!/usr/bin/env node
+/* eslint-disable max-statements */
+/* eslint-disable complexity */
+/* eslint-disable sonarjs/cognitive-complexity */
+/* eslint-disable consistent-return */
+/* eslint-disable prefer-named-capture-group */
+/* eslint-disable regexp/prefer-named-capture-group */
+/* eslint-disable regexp/no-super-linear-move */
+/* eslint-disable no-eval */
+/* eslint-disable security/detect-eval-with-expression */
+/* eslint-disable no-magic-numbers */
+/* eslint-disable promise/avoid-new */
+/* eslint-disable require-await */
+/* eslint-disable security/detect-child-process */
 import { exec } from 'child_process'
 import { readdir, readFile, renameSync, stat, writeFileSync } from 'fs'
 import path from 'path'
@@ -6,8 +19,9 @@ import { blue, red, slugify } from 'shuutils'
 import { inspect } from 'util'
 
 const { argv, cwd } = process
-if (argv.length <= 2) console.log('Targeting current folder, you can also specify a specific path, ex : check-videos.js "U:\\Movies\\" \n')
-const VIDEOS_PATH = path.normalize(argv[2] || cwd())
+const expectedNbParameters = 2
+if (argv.length <= expectedNbParameters) console.log('Targeting current folder, you can also specify a specific path, ex : check-videos.js "U:\\Movies\\" \n')
+const VIDEOS_PATH = path.normalize(argv[expectedNbParameters] || cwd())
 const DO_RENAME = argv.includes('--rename') || argv.includes('--fix')
 const PROCESS_ONE = argv.includes('--process-one') || argv.includes('--one')
 const SET_TITLE = argv.includes('--set-title') || argv.includes('--fix')
@@ -42,11 +56,11 @@ const utils = {
    */
   getVideoMetadata: async filepath => {
     const output = await utils.shellCommand(`ffprobe -show_format -show_streams -print_format json -v quiet -i "${filepath}" `)
-    if (output[0] !== '{') throw new Error('ffprobe output should be JSON but got :' + output)
+    if (output[0] !== '{') throw new Error(`ffprobe output should be JSON but got :${output}`)
     const data = JSON.parse(output)
     // console.log(utils.prettyPrint(data))
     const media = data.format || {}
-    const video = data.streams.find((/** @type {{ codec_type: string; }} */ s) => s.codec_type === 'video') || {}
+    const video = data.streams.find((/** @type {{ codec_type: string; }} */ stream) => stream.codec_type === 'video') || {}
     const title = utils.cleanTitle(media.tags?.title)
     const extension = path.extname(filepath).slice(1)
     const filename = title.length > 0 ? `${title}.${extension}` : ''
@@ -70,15 +84,15 @@ const utils = {
    * Set the title of a video in its metadata
    * @param {string} filepath The filepath of the video
    * @param {string} filename The filename of the video
-   * @returns {Promise<string | undefined | void>}
+   * @returns {Promise<void>}
    */
   setVideoTitle: async (filepath, filename) => {
     if (filepath.includes('.mp4') || filepath.includes('.avi')) return
-    const title = utils.cleanTitle(filename.replace(/\.[^.]+$/, ''))
-    if (DRY_RUN) return console.log(`Would set title to ${blue(title)}\n`)
-    return utils.shellCommand(`mkvpropedit "${filepath}" -e info -s title="${title}"`)
+    const title = utils.cleanTitle(filename.replace(/\.[^.]+$/u, ''))
+    if (DRY_RUN) console.log(`Would set title to ${blue(title)}\n`)
+    else await utils.shellCommand(`mkvpropedit "${filepath}" -e info -s title="${title}"`)
   },
-  ellipsis: (string = '', length = 0) => string.length > length ? (string.slice(0, Math.max(0, length - 3)) + '...') : string,
+  ellipsis: (string = '', length = 0) => string.length > length ? (`${string.slice(0, Math.max(0, length - 3))}...`) : string,
   /**
    * List the files in a directory
    * @param {string} filepath The directory to list
@@ -100,8 +114,8 @@ const utils = {
   readFile: async filepath => new Promise(resolve => {
     readFile(filepath, 'utf8', (/** @type {Error|null} */ error, /** @type {string} */ content) => (error ? resolve('') : resolve(content)))
   }),
-  cleanTitle: (title = '') => title.replace('PSArips.com | ', '').replace(/[,:]/g, ' ').replace(/\s+/g, ' ').trim(),
-  folderName: (filepath = '') => /\W([\s\w]+)\W?$/.exec(filepath)?.[1] || '',
+  cleanTitle: (title = '') => title.replace('PSArips.com | ', '').replace(/[,:]/gu, ' ').replace(/\s+/gu, ' ').trim(),
+  folderName: (filepath = '') => /\W([\s\w]+)\W?$/u.exec(filepath)?.[1] || '',
 }
 
 class CheckVideos {
@@ -118,17 +132,16 @@ class CheckVideos {
     this.detected = {}
   }
 
-  start () {
+  async start () {
     console.log('\nCheck Videos is starting !\n')
-    this.find()
-      .then(() => this.check())
-      .then(() => this.report())
-      .catch(error => console.error(error))
+    await this.find()
+    await this.check()
+    await this.report()
   }
 
   async find () {
     console.log(`Scanning dir ${VIDEOS_PATH}`)
-    const isVideo = /\.(mp4|mkv|avi|wmv|m4v|mpg)$/
+    const isVideo = /\.(avi|m4v|mkv|mp4|mpg|wmv)$/u
     const list = await utils.readFile(path.join(VIDEOS_PATH, '.check-videos-ignore'))
     const isIgnored = list.split('\n')
     isIgnored.forEach((line = '') => {
@@ -136,11 +149,11 @@ class CheckVideos {
     })
     const files = await utils.listFiles(VIDEOS_PATH)
     this.files = files.filter(entry => (!isIgnored.includes(entry) && isVideo.test(entry)))
-    if (this.files.length === 0) throw new Error('no files found with these extensions ' + isVideo)
+    if (this.files.length === 0) throw new Error(`no files found with these extensions ${isVideo}`)
     console.log(this.files.length, 'files found\n')
     if (!PROCESS_ONE || this.files.length === 0) return
     console.log('--process-one flag active : only one file will be processed\n')
-    const first = this.files[0]
+    const [first] = this.files
     if (!first) throw new Error('no files found')
     this.files = [first]
   }
@@ -148,13 +161,15 @@ class CheckVideos {
   async check () {
     const total = this.files.length
     // console.log('in checkAll with a total of', total)
-    for (let index = 0; index < total; index++) {
+    for (let index = 0; index < total; index += 1) {
       const filename = this.files[index]
+      // eslint-disable-next-line no-continue
       if (!filename) continue
       console.log(`checking file ${(String(index + 1)).padStart((String(total)).length)} / ${total} : ${filename}`)
+      // eslint-disable-next-line no-await-in-loop
       await this.checkOne(filename)
     }
-    const listingFilename = '.' + slugify(utils.folderName(VIDEOS_PATH) || 'check') + '-videos-listing.csv'
+    const listingFilename = `.${slugify(utils.folderName(VIDEOS_PATH) || 'check')}-videos-listing.csv`
     writeFileSync(path.join(VIDEOS_PATH, listingFilename), listing)
   }
   /**
@@ -162,39 +177,43 @@ class CheckVideos {
    * @returns {number}
    */
   getReportValue (string) {
-    const matches = string.match(/\[(\d+)]/) || []
+    const matches = string.match(/\[(\d+)\]/u) || []
     return matches[1] ? Number.parseInt(matches[1], 10) : 0
   }
   /**
-   * @param {string} a
-   * @param {string} b
+   * @param {string} valueA
+   * @param {string} valueB
    * @returns
    */
-  byValueAsc (a, b) {
-    return this.getReportValue(a) - this.getReportValue(b)
+  byValueAsc (valueA, valueB) {
+    return this.getReportValue(valueA) - this.getReportValue(valueB)
   }
 
-  async report () {
+  /**
+   *
+   * @returns {void}
+   */
+  report () {
     const types = Object.keys(this.detected)
-    if (types.length === 0) return console.log('\u001B[32m%s\u001B[0m', '\nAll checked files seems fine :)')
+    if (types.length === 0) { console.log('\u001B[32m%s\u001B[0m', '\nAll checked files seems fine :)'); return }
     let total = 0
     console.log('\u001B[1m%s\u001B[0m', '\nReport :')
     types.forEach(type => {
       console.log('\u001B[100m%s\u001B[0m', `\n${type} :`)
       const videos = this.detected[type] || []
-      videos.sort((a, b) => this.byValueAsc(a, b)).forEach((file, index) => {
+      videos.sort((videoA, videoB) => this.byValueAsc(videoA, videoB)).forEach((file, index) => {
         const even = (index % 2) === 0
         const line = ` - ${file}`
-        total++
-        if (even) return console.log('\u001B[91m%s\u001B[0m', line)
-        return console.log(line)
+        total += 1
+        if (even) console.log('\u001B[91m%s\u001B[0m', line)
+        else console.log(line)
       })
     })
     console.log('')
     const line = ` ${total} files seems problematic `
-    console.log('╔' + '═'.repeat(line.length) + '╗')
-    console.log('║' + line + '║')
-    console.log('╚' + '═'.repeat(line.length) + '╝')
+    console.log(`╔${'═'.repeat(line.length)}╗`)
+    console.log(`║${line}║`)
+    console.log(`╚${'═'.repeat(line.length)}╝`)
   }
 
   /**
@@ -234,6 +253,7 @@ class CheckVideos {
     const filepath = path.join(VIDEOS_PATH, filename)
     const meta = await utils.getVideoMetadata(filepath)
     if (SET_TITLE && filename !== meta.filename) await utils.setVideoTitle(filepath, filename.length > meta.filename.length ? filename : meta.filename)
+    // eslint-disable-next-line no-unused-expressions
     if (this.shouldRename(filename, meta.filename)) DRY_RUN ? console.log(`Would rename file to ${red(meta.filename)}\n`) : renameSync(filepath, path.join(VIDEOS_PATH, meta.filename))
     listing += `${filename},${meta.title}\n`
     const entry = `${utils.ellipsis(filename, 50).padEnd(50)}  ${(String(meta.sizeGb)).padStart(4)} Gb  ${(meta.codec).padEnd(5)} ${(String(meta.height)).padStart(4)}p  ${(String(meta.bitrateKbps)).padStart(4)} kbps  ${(String(meta.fps)).padStart(2)} fps`

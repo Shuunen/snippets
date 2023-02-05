@@ -4,9 +4,9 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import { clean } from './utils.js'
 
-const home = process.env['HOME']
-const appData = process.env['APPDATA'] || (process.platform === 'darwin' ? home + 'Library/Preferences' : home + '/.config')
-const onWindows = process.env['APPDATA'] === appData
+const home = process.env.HOME
+const appData = process.env.APPDATA || (process.platform === 'darwin' ? `${home}Library/Preferences` : `${home}/.config`)
+const onWindows = process.env.APPDATA === appData
 // const prgFiles = 'C:/Program Files'
 
 /**
@@ -41,39 +41,41 @@ const configs = [
   // { source: `${home}/.local/share/nautilus/scripts/Take screenshot`},
   { source: `${home}/.local/share/qBittorrent/themes/qbittorrent-darkstylesheet.qbtheme` },
   { source: `${home}/.profile` },
-  { source: `${home}/repo-checker.config.js` },
+  // { source: `${home}/repo-checker.config.js` },
 ]
 
 if (onWindows) configs.push(
   { source: `${home}/.bashrc` },
-  { source: `${appData}/Launchy/launchy.ini`, removeLinesAfter: /\[History]/ },
-  { source: `${appData}/Greenshot/Greenshot.ini`, removeLinesAfter: /\[Editor]/, removeLinesMatching: [/^(OutputFileAsFull|ImgurUploadHistory|LastUpdateCheck|LastCapturedRegion|Commands=)/, /MS Paint/] },
+  { source: `${appData}/Launchy/launchy.ini`, removeLinesAfter: /\[History\]/u },
+  { source: `${appData}/Greenshot/Greenshot.ini`, removeLinesAfter: /\[Editor\]/u, removeLinesMatching: [/^(?:ImgurUploadHistory|LastCapturedRegion|LastUpdateCheck|OutputFileAsFull|Commands=)/u, /MS Paint/u] },
 )
 
 // @ts-ignore
 const currentFolder = path.dirname(fileURLToPath(import.meta.url))
-
-export const backupPath = path.join(currentFolder, '../files')
 
 /**
  * Convert carriage return to unix line endings
  * @param {string} content the content to be processed
  * @returns {string} the processed content with unix line endings
  */
-const useUnixCarriageReturn = content => content.replace(/\r\n/g, '\n')
+function useUnixCarriageReturn (content) {
+  return content.replace(/\r\n/gu, '\n')
+}
 
 /**
  * Transform a file path to a FileDetails object
  * @param {string} filepath the file path
  * @returns {import('./types').FileDetails} the file details
  */
-const getDetails = filepath => {
+function getDetails (filepath) {
   const exists = existsSync(filepath)
   const content = exists ? readFileSync(filepath, 'utf8') : ''
-  const newContent = /\r/.test(content) && !filepath.includes('.qbtheme') ? useUnixCarriageReturn(content) : content // qbtheme files does not like \n
-  if (content !== newContent) writeFile(filepath, newContent)
-  return { filepath, exists, content: newContent }
+  const updatedContent = /\r/u.test(content) && !filepath.includes('.qbtheme') ? useUnixCarriageReturn(content) : content // qbtheme files does not like \n
+  if (content !== updatedContent) writeFile(filepath, updatedContent)
+  return { filepath, exists, content: updatedContent }
 }
+
+export const backupPath = path.join(currentFolder, '../files')
 
 /**
  * @type {import('./types').File[]}

@@ -29,6 +29,7 @@
         "javaruntime",
         "Launchy",
         "launchyqt",
+        "levenshtein",
         "lockhunter",
         "mailgun",
         "mifare",
@@ -52,6 +53,7 @@
         "Upscayl",
         "usbdeview",
         "virustotaluploader",
+        "vivino",
         "winfetch",
         "yeelight"
     ],

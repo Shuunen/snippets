@@ -1,4 +1,11 @@
 #!/usr/bin/env node
+/* eslint-disable no-magic-numbers */
+/* eslint-disable no-await-in-loop */
+/* eslint-disable no-continue */
+/* eslint-disable no-plusplus */
+/* eslint-disable sonarjs/cognitive-complexity */
+/* eslint-disable max-statements */
+/* eslint-disable no-warning-comments */
 import { readdir, stat } from 'fs/promises'
 import path from 'path'
 
@@ -29,7 +36,7 @@ class CheckDuplicates {
     console.log('Check duplicates ended.')
   }
 
-  async args () {
+  args () {
     if (process.argv.length < 4) throw new Error('this script need a path as argument like : find-duplicates.js "U:\\Movies\\"')
     this.target = path.normalize(process.argv[3] || '')
   }
@@ -42,12 +49,12 @@ class CheckDuplicates {
   }
 
   ellipsis (string = '', length = 40) {
-    return string.length > length ? (string.slice(0, Math.max(0, length - 3)) + '...') : string
+    return string.length > length ? (`${string.slice(0, Math.max(0, length - 3))}...`) : string
   }
 
-  distance (a = '', b = '') {
+  distance (stringA = '', stringB = '') {
     // todo: something like levenshtein
-    return a.length + b.length
+    return stringA.length + stringB.length
   }
 
   async check () {
@@ -55,22 +62,22 @@ class CheckDuplicates {
     for (let aIndex = 0; aIndex < this.nbElements; aIndex++)
       for (let bIndex = 0; bIndex < this.nbElements; bIndex++) {
         if (aIndex === bIndex) continue
-        const a = String(this.elements[aIndex])
-        const b = String(this.elements[bIndex])
-        const key = aIndex + '|' + bIndex
-        const keyAlt = bIndex + '|' + aIndex
+        const itemA = String(this.elements[aIndex])
+        const itemB = String(this.elements[bIndex])
+        const key = `${aIndex}|${bIndex}`
+        const keyAlt = `${bIndex}|${aIndex}`
         if (this.results[key] || this.results[keyAlt]) continue
-        let amount = this.distance(a, b)
-        const sizeA = await stat(path.join(this.target, a)).then((/** @type {{ size: number; }} */ data) => Math.round(data.size / sizeGrain))
-        const sizeB = await stat(path.join(this.target, b)).then((/** @type {{ size: number; }} */ data) => Math.round(data.size / sizeGrain))
+        let amount = this.distance(itemA, itemB)
+        const sizeA = await stat(path.join(this.target, itemA)).then((/** @type {{ size: number; }} */ data) => Math.round(data.size / sizeGrain))
+        const sizeB = await stat(path.join(this.target, itemB)).then((/** @type {{ size: number; }} */ data) => Math.round(data.size / sizeGrain))
         const sizeDiff = Math.abs(sizeA - sizeB)
         amount += sizeDiff // add the size diff as distance ^^
         const amountString = (amount.toString().length === 1 ? '0' : '') + amount
-        this.results[key] = `${amountString} (${sizeDiff}) : ${this.ellipsis(a)} VS ${this.ellipsis(b)}`
+        this.results[key] = `${amountString} (${sizeDiff}) : ${this.ellipsis(itemA)} VS ${this.ellipsis(itemB)}`
       }
   }
 
-  async report () {
+  report () {
     const list = Object.keys(this.results).map(key => this.results[key]).sort()
     console.log(list.splice(0, maxResults))
   }

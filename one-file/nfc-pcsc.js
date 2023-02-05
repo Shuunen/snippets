@@ -1,4 +1,6 @@
-'use strict'
+/* eslint-disable no-magic-numbers */
+/* eslint-disable max-statements */
+
 
 // #############
 // Basic example
@@ -30,21 +32,21 @@ consola.wrapConsole()
 // };
 
 // minilogger for debugging
-/*
-function log () {
-  console.log(...arguments)
-}
-
-const debug = false
-
-const minilogger = {
-  log: log,
-  debug: log,
-  info: log,
-  warn: log,
-  error: log
-}
-*/
+//
+// function log () {
+// console.log(...arguments)
+// }
+//
+// const debug = false
+//
+// const minilogger = {
+// log: log,
+// debug: log,
+// info: log,
+// warn: log,
+// error: log
+// }
+//
 const nfc = new NFC() // const nfc = new NFC(minilogger); // optionally you can pass logger to see internal debug logs
 
 /**
@@ -52,13 +54,14 @@ const nfc = new NFC() // const nfc = new NFC(minilogger); // optionally you can 
  */
 const readers = []
 
-nfc.on('reader', async (/** @type {{ name: any; aid: string; on: (arg0: string, arg1: (any: any) => void) => void; authenticate: (arg0: number, arg1: any, arg2: string) => any; read: (arg0: number, arg1: number, arg2: number) => any; }} */ reader) => {
+nfc.on('reader', (/** @type {{ name: any; aid: string; on: (arg0: string, arg1: (any: any) => void) => void; authenticate: (arg0: number, arg1: any, arg2: string) => any; read: (arg0: number, arg1: number, arg2: number) => any; }} */ reader) => {
   console.info('device attached', { reader: reader.name })
 
   readers.push(reader)
 
   // needed for reading tags emulated with Android HCE AID
   // see https://developer.android.com/guide/topics/connectivity/nfc/hce.html
+  // eslint-disable-next-line no-param-reassign
   reader.aid = 'F222222222'
 
   reader.on('card', async card => {
@@ -86,7 +89,7 @@ nfc.on('reader', async (/** @type {{ name: any; aid: string; on: (arg0: string, 
 
       console.info('blocks successfully authenticated')
     } catch (error) {
-      console.error('error when authenticating data', { reader: reader.name, card, err: error })
+      console.error('error when authenticating data', { reader: reader.name, card, error })
       return
     }
 
@@ -100,24 +103,24 @@ nfc.on('reader', async (/** @type {{ name: any; aid: string; on: (arg0: string, 
       //   containing access bits instead of data, each last block in sector is sector trailer
       //   (e.g. block 3, 7, 11, 14)
       //   see for more info https://github.com/pokusew/nfc-pcsc/issues/16#issuecomment-304989178
-      /*
-      // example reading 16 bytes assuming containing 16bit integer
-      const data = await reader.read(0, 16, 16) // await reader.read(4, 16, 16); for Mifare Classic cards
-      console.info(`data read`, { reader: reader.name, data })
-      const payload = data.readInt16BE()
-      console.info(`data converted`, payload)
-      */
+      //
+      // // example reading 16 bytes assuming containing 16bit integer
+      // const data = await reader.read(0, 16, 16) // await reader.read(4, 16, 16); for Mifare Classic cards
+      // console.info(`data read`, { reader: reader.name, data })
+      // const payload = data.readInt16BE()
+      // console.info(`data converted`, payload)
+      //
       const data = await reader.read(startRead, 16, 16) // starts reading in block 4, continues to 5 and 6 in order to read 12 bytes
       console.log('data read', data)
       const payload = data.toString() // utf8 is default encoding
       console.log('data converted', payload)
     } catch (error) {
-      console.error('error when reading data', { reader: reader.name, err: error })
+      console.error('error when reading data', { reader: reader.name, error })
     }
   })
 
   reader.on('error', (error) => {
-    console.error('an error occurred', { reader: reader.name, err: error })
+    console.error('an error occurred', { reader: reader.name, error })
   })
 
   reader.on('end', () => {

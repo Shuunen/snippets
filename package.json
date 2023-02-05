@@ -5,11 +5,10 @@
   "description": "My personal snippets",
   "devDependencies": {
     "@types/node": "18",
-    "@typescript-eslint/eslint-plugin": "5",
-    "@typescript-eslint/parser": "5",
     "c8": "7",
     "clipboardy": "3",
-    "eslint": "8",
+    "eslint": "8.33",
+    "eslint-config-hardcore": "26",
     "eslint-plugin-unicorn": "45",
     "repo-check": "1.30",
     "shuutils": "7.1",
@@ -42,11 +41,11 @@
   },
   "scripts": {
     "check": "repo-check",
-    "ci": "npm run lint && npm run check && npm run test",
-    "lint": "tsc --noEmit && eslint --fix --ignore-path .gitignore --ext .js .",
+    "ci": "npm run lint && npm run check && npm run test && echo ci success",
+    "lint": "tsc --noEmit && eslint --cache --fix --ignore-path .gitignore --ext .js . && echo lint success",
     "postversion": "git push && git push --tags",
     "preversion": "npm run lint",
-    "test": "c8 uvu -r tsm tests",
+    "test": "c8 uvu -r tsm tests && echo test success",
     "test:watch": "watchlist configs one-file tests -eager -- npm test"
   },
   "type": "module",

@@ -1,10 +1,11 @@
 #!/usr/bin/env node
+/* eslint-disable no-magic-numbers */
 import { readFile } from 'fs/promises'
 import { blue, gray, yellow } from 'shuutils'
 import { HtmlReporter } from './html-reporter.mjs'
 
 const /** @type Record<string, string> */ explanations = {
-  attr: `${blue('attributes')}`,
+  attr: String(blue('attributes')),
   css: `${blue('css')} code`,
   styles: `${blue('styles')} inline`,
   tags: `${blue('tag')} names`,
@@ -25,8 +26,9 @@ const /** @type Record<string, string> */ examples = {
 function showReport (stats) {
   let report = 'Scan detected :\n'
   for (const [key, value] of Object.entries(stats)) {
+    // eslint-disable-next-line no-continue
     if (key === 'total') continue
-    const percent = Math.round(value / stats['total'] * 100) + ' %'
+    const percent = `${Math.round(value / stats.total * 100)} %`
     report += `- ${blue(percent.padStart(4))} of ${explanations[key]?.padEnd(25)} ${examples[key]}\n`
   }
   console.log(report)
@@ -34,7 +36,8 @@ function showReport (stats) {
 
 async function startReport (input = '') {
   let content = input // lets assume input is some html
-  const seemsLikeAPath = /[\w-]+\.\w{2,4}$/.test(input)
+  // eslint-disable-next-line regexp/no-super-linear-move
+  const seemsLikeAPath = /[\w-]+\.\w{2,4}$/u.test(input)
   if (seemsLikeAPath) {
     console.log('Scanning file', gray(input))
     content = await readFile(input, 'utf8')
@@ -45,3 +48,4 @@ async function startReport (input = '') {
 
 // @ts-ignore
 if (process.argv[2]) await startReport(process.argv[2])
+

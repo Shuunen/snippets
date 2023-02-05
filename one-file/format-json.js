@@ -2,12 +2,15 @@
 import { lstatSync, readdirSync, readFileSync, writeFileSync } from 'fs'
 import path from 'path'
 
+const spaces = 2
+const expectedNbParameters = 2
+
 /**
  * @param {string} filePath
  */
 function formatFile (filePath) {
   const jsonIn = readFileSync(filePath, 'utf8')
-  const jsonOut = JSON.stringify(JSON.parse(jsonIn), undefined, 2) + '\n'
+  const jsonOut = `${JSON.stringify(JSON.parse(jsonIn), undefined, spaces)}\n`
   if (jsonIn !== jsonOut) writeFileSync(filePath, jsonOut)
 }
 
@@ -26,8 +29,8 @@ function getFiles (folderPath) {
  * @returns {string}
  */
 function getPath () {
-  if (process.argv.length <= 2) throw new Error('this script need a path as argument like : format-json.js my-file.json or format-json.js "C:\\My Folder\\"')
-  return path.normalize(process.argv[2] || '')
+  if (process.argv.length <= expectedNbParameters) throw new Error('this script need a path as argument like : format-json.js my-file.json or format-json.js "C:\\My Folder\\"')
+  return path.normalize(process.argv[expectedNbParameters] || '')
 }
 
 function start () {
