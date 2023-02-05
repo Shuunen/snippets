@@ -42,7 +42,7 @@
   "scripts": {
     "check": "repo-check",
     "ci": "npm run lint && npm run check && npm run test && echo ci success",
-    "lint": "tsc --noEmit && eslint --cache --fix --ignore-path .gitignore --ext .js . && echo lint success",
+    "lint": "tsc --noEmit && eslint --cache --fix --ignore-path .gitignore --ext .js,.ts . && echo lint success",
     "postversion": "git push && git push --tags",
     "preversion": "npm run lint",
     "test": "c8 uvu -r tsm tests && echo test success",

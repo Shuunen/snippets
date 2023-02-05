@@ -11,26 +11,26 @@ LastUpdateCheck=10/20/2022 08:59:59
 DisableSettings=False
 `
 
-check('remove lines matching A', removeLinesMatching(content, [/^LastUpdateCheck=/]), `; How many days between every update check? (0=no checks)
+check('remove lines matching A', removeLinesMatching(content, [/^LastUpdateCheck=/u]), `; How many days between every update check? (0=no checks)
 UpdateCheckInterval=14
 ; Last update check
 [History]
 ; Enable/disable the access to the settings, can only be changed manually in this .ini
 DisableSettings=False`)
 
-check('remove lines matching B', removeLinesMatching(content, [/\b=\b/]), `; Last update check
+check('remove lines matching B', removeLinesMatching(content, [/\b=\b/u]), `; Last update check
 [History]
 ; Enable/disable the access to the settings, can only be changed manually in this .ini`)
 
-check('remove lines matching C should catch all', removeLinesMatching(content, [/^;/, /^\[/, /\b=\b/]), '')
+check('remove lines matching C should catch all', removeLinesMatching(content, [/^;/u, /^\[/u, /\b=\b/u]), '')
 
 
-check('remove lines after A', removeLinesAfter(content, /^; Last/), `; How many days between every update check? (0=no checks)
+check('remove lines after A', removeLinesAfter(content, /^; Last/u), `; How many days between every update check? (0=no checks)
 UpdateCheckInterval=14`)
 
-check('remove lines after B failed should return all', removeLinesAfter(content, /^Does not exists/), content.trim())
+check('remove lines after B failed should return all', removeLinesAfter(content, /^Does not exists/u), content.trim())
 
-check('remove lines after C', removeLinesAfter(content, /^\[History]/), `; How many days between every update check? (0=no checks)
+check('remove lines after C', removeLinesAfter(content, /^\[History\]/u), `; How many days between every update check? (0=no checks)
 UpdateCheckInterval=14
 ; Last update check
 LastUpdateCheck=10/20/2022 08:59:59`)
@@ -47,7 +47,7 @@ RunInbackground.MS Paint=True
 TornEdgeEffectSettings=Darkness
 `
 
-check('clean A', clean(contentGreenShot, /\[Editor]/, [/^(OutputFileAsFull|LastUpdateCheck|LastCapturedRegion|Commands=)/, /(MS Paint)/]), ';Greenshotcoreconfiguration[Core];Greenshoteditorconfiguration')
+check('clean A', clean(contentGreenShot, /\[Editor\]/u, [/^(?:LastCapturedRegion|LastUpdateCheck|OutputFileAsFull|Commands=)/u, /(?:MS Paint)/u]), ';Greenshotcoreconfiguration[Core];Greenshoteditorconfiguration')
 
 const winHome = 'C:/Users/Johnny'
 const winPath = 'C:/Users/Johnny/Projects/github/snippets/tests'

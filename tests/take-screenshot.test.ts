@@ -7,11 +7,13 @@ check('parseVideoMetadata A', parseVideoMetadata(ffProbeOutputA), emptyMetadata)
 
 const ffProbeOutputB = {
   streams: [{
+    // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
     codec_type: 'audio',
     width: 0,
     height: 0,
     duration: '',
   }, {
+    // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
     codec_type: 'video',
     width: 1920,
     height: 1080,
@@ -38,6 +40,7 @@ check('parseVideoMetadata B', parseVideoMetadata(ffProbeOutputB), expectedMetada
 
 const ffProbeOutputCnoVideo = {
   streams: [{
+    // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
     codec_type: 'audio',
     width: 0,
     height: 0,
@@ -57,6 +60,7 @@ check('parseVideoMetadata C', parseVideoMetadata(ffProbeOutputCnoVideo), emptyMe
 
 const ffProbeOutputDnoFormat = {
   streams: [{
+    // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
     codec_type: 'video',
     width: 1280,
     height: 720,
