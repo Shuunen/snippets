@@ -21,38 +21,50 @@ const options = { hostname: '127.0.0.1', path: '/lol-lobby/v2/lobby', method: 'P
 // @ts-ignore
 const currentFolder = path.dirname(fileURLToPath(import.meta.url))
 const logFile = path.join(currentFolder, 'lol-practice-5v5.log')
+let logCount = 0
 function logClear () {
   return writeFileSync(logFile, '')
 }
 function logAdd (/** @type {string[]} */ ...stuff) {
-  return appendFileSync(logFile, `\n${stuff.join(' ')}\n`)
+  logCount += 1
+  return appendFileSync(logFile, `\n${logCount}) ${stuff.join(' ')}\n`)
 }
 
 function doRequest () {
   if (!options.port) throw new Error('cannot make the request without port')
+  logAdd('Making request...')
   const request = _request(options, (response) => {
     logAdd(`Game api response status code : ${response.statusCode}`)
     let requestData = ''
     response.on('data', chunk => { requestData += chunk })
     response.on('end', () => logAdd(`5v5 Practice created successfully by ${JSON.parse(requestData).localMember.summonerName}`))
   })
+  logAdd('Request made successfully, listening for error...')
   request.on('error', (/** @type {string} */ error) => {
     logAdd(error)
     throw error
   })
+  logAdd('Request error listened successfully, writing data...')
   request.write(JSON.stringify(data))
+  logAdd('Data written successfully, sending request...')
   request.end()
 }
 
+// eslint-disable-next-line max-statements
 function readLock () {
   const lockPath = process.argv[2]
   if (!lockPath) throw new Error('missing lockfile path, use me like : \n\n lol-practice-5v5.js "D:\\Games\\Riot Games\\League of Legends\\lockfile" "My game lobby name"')
   logAdd(`Summoner lockfile located at : ${lockPath}`)
   if (!/lockfile/u.test(lockPath)) throw new Error('lockfile path invalid, should looks like "D:\\Games\\Riot Games\\League of Legends\\lockfile"')
+  logAdd('Reading lockfile...')
   const content = readFileSync(lockPath, 'utf8').split(':') || []
+  logAdd('Lockfile read successfully')
   if (!content[2] || !content[3]) throw new Error('lockfile does not contains expected data or is not formatted as usual')
+  logAdd('Lockfile data parsed successfully')
   options.port = Number.parseInt(content[2], 10)
+  logAdd(`Game api port : ${options.port}`)
   const auth = Buffer.from(`riot:${content[3]}`).toString('base64')
+  logAdd('Authorization header generated successfully')
   options.headers.Authorization = `Basic ${auth}`
 }
 
@@ -70,5 +82,4 @@ function init () {
 }
 
 // @ts-ignore
-// eslint-disable-next-line sonarjs/no-use-of-empty-return-value
-await init().catch(error => console.error(`\n${error.message}`))
+init()
