@@ -7,7 +7,7 @@
     "@types/node": "18",
     "c8": "7",
     "clipboardy": "3",
-    "eslint": "8.33",
+    "eslint": "8.34",
     "eslint-config-hardcore": "26",
     "eslint-plugin-unicorn": "45",
     "repo-check": "1.30",
