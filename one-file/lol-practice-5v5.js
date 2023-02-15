@@ -6,8 +6,6 @@ import { request as _request } from 'https'
 import path from 'path'
 import { fileURLToPath } from 'url'
 
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0'
-
 const data = {
   customGameLobby: {
     configuration: { gameMode: 'PRACTICETOOL', gameMutator: '', gameServerRegion: '', mapId: 11, mutators: { id: 1 }, spectatorPolicy: 'AllAllowed', teamSize: 5 },
@@ -76,6 +74,7 @@ function handleCustomName () {
 function init () {
   logClear()
   logAdd('LoL Practice 5v5 maker starts @', String(new Date()))
+  logAdd('Checking process.env.NODE_TLS_REJECT_UNAUTHORIZED status', process.env.NODE_TLS_REJECT_UNAUTHORIZED === '0' ? 'OK, disabled as expected' : 'KO, not disabled, this script should not work without it')
   readLock()
   handleCustomName()
   doRequest()
