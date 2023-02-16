@@ -11,6 +11,7 @@
 - [ ] add a demo
 - [ ] compress repo-banner output with svgo
 - [ ] let repo-banner find the color in manifest.json or index.html files
+- [ ] banner is displayed full width, so the height should be reduced by 40%
 
 ## Thanks
 
