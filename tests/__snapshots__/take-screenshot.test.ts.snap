@@ -1,0 +1,50 @@
+// Vitest Snapshot v1
+
+exports[`getTargets A 1`] = `
+[
+  {
+    "minutes": 2,
+    "seconds": 25,
+  },
+  {
+    "minutes": 2,
+    "seconds": 26,
+  },
+  {
+    "minutes": 2,
+    "seconds": 27,
+  },
+  {
+    "minutes": 2,
+    "seconds": 28,
+  },
+  {
+    "minutes": 2,
+    "seconds": 29,
+  },
+  {
+    "minutes": 2,
+    "seconds": 30,
+  },
+  {
+    "minutes": 2,
+    "seconds": 31,
+  },
+  {
+    "minutes": 2,
+    "seconds": 32,
+  },
+  {
+    "minutes": 2,
+    "seconds": 33,
+  },
+  {
+    "minutes": 2,
+    "seconds": 34,
+  },
+  {
+    "minutes": 2,
+    "seconds": 35,
+  },
+]
+`;

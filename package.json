@@ -5,17 +5,15 @@
   "description": "My personal snippets",
   "devDependencies": {
     "@types/node": "18",
-    "c8": "7",
+    "@vitest/coverage-c8": "0.28",
     "clipboardy": "3",
     "eslint": "8.34",
     "eslint-config-hardcore": "26",
     "eslint-plugin-unicorn": "45",
     "repo-check": "1.30",
     "shuutils": "7.2",
-    "tsm": "2",
     "typescript": "4",
-    "uvu": "0",
-    "watchlist": "0"
+    "vitest": "0.28"
   },
   "files": [
     "bookmarklets",
@@ -45,8 +43,8 @@
     "lint": "tsc --noEmit && eslint --cache --fix --ignore-path .gitignore --ext .js,.ts . && echo lint success",
     "postversion": "git push && git push --tags",
     "preversion": "npm run lint",
-    "test": "c8 uvu -r tsm tests && echo test success",
-    "test:watch": "watchlist configs one-file tests -eager -- npm test"
+    "test": "npm run test:watch -- --run && echo test success",
+    "test:watch": "vitest --coverage"
   },
   "type": "module",
   "version": "0.0.0"

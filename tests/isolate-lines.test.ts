@@ -1,5 +1,5 @@
-import { check, checksRun } from 'shuutils'
 import { isolateLines } from '../one-file/isolate-lines.utils'
+import { check } from './utils'
 
 check(
   'isolate lines A',
@@ -12,5 +12,3 @@ check('isolate lines C', isolateLines('  '), '')
 check('isolate lines D', isolateLines('  \n  '), '')
 check('isolate lines E', isolateLines('  \n  \n  '), '')
 check('isolate lines F', isolateLines('  \nxyz  \n  \n  '), 'xyz')
-
-checksRun()

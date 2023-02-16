@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-magic-numbers */
+
 import { Logger } from 'shuutils'
 
 export const logger = new Logger()
@@ -25,7 +25,7 @@ export function replaceAndCheck (string: string, regex: RegExp, replacement: str
  * @returns The replaced string
  */
 export function replaceAndCheckById (string: string, id: string, replacement: string): string {
-  // /(?<before>id="projectName"[^>]+>)(?<content>[^<]+)(?<after><\/)/gu
-  const regex = new RegExp(`(?<before>id="${id}"[^>]+>)(?<content>[^<]+)(?<after><\/)`, 'gu')
+  // eslint-disable-next-line security/detect-non-literal-regexp
+  const regex = new RegExp(`(?<before>id="${id}"[^>]+>)(?<content>[^<]+)(?<after></)`, 'gu')
   return replaceAndCheck(string, regex, replacement)
 }

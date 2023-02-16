@@ -1,5 +1,6 @@
-import { check, checksRun } from 'shuutils'
+import { gray } from 'shuutils'
 import { HtmlReporter } from '../one-file/html-reporter.mjs'
+import { check, checkSnapshot } from './utils.js'
 
 const samples = [
   {
@@ -46,7 +47,7 @@ const samples = [
 <link rel="preload" href="/_nuxt/static/1626092993/state.js" as="script">`,
     output: { attr: 67, css: 92, styles: 0, tags: 22, text: 0, total: 181 },
   },
-]
+] as const
 
 samples.forEach(({ title, input, output }) => {
   const actual = new HtmlReporter(input)
@@ -58,4 +59,14 @@ samples.forEach(({ title, input, output }) => {
   check(`html-report ${title} total`, actual.total, output.total)
 })
 
-checksRun()
+// eslint-disable-next-line prefer-destructuring
+const { title, input, output } = samples[5]
+const actualDebug = new HtmlReporter(input, true)
+check(`html-report debug ${title} attr`, actualDebug.attr, output.attr)
+check(`html-report debug ${title} css`, actualDebug.css, output.css)
+check(`html-report debug ${title} styles`, actualDebug.styles, output.styles)
+check(`html-report debug ${title} tags`, actualDebug.tags, output.tags)
+check(`html-report debug ${title} text`, actualDebug.text, output.text)
+check(`html-report debug ${title} total`, actualDebug.total, output.total)
+checkSnapshot('html-report debug readable A', actualDebug.readable(3, gray))
+checkSnapshot('html-report debug readable B', actualDebug.readable(16, gray))

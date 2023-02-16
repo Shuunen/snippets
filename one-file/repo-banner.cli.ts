@@ -24,8 +24,8 @@ const defaults = { color: '#024eb8', scope: 'JohnDoe', name: 'unknown', descript
 const rawJson = readFileSync(path.join(currentWorkingFolder, 'package.json'), 'utf8')
 const { error, value: packageJson } = parseJson<PackageJson>(rawJson)
 if (error) { logger.error(error); process.exit(1) }
-// eslint-disable-next-line etc/no-assign-mutated-array
 const scopeAndName = /\.com\/(?<scope>[^/]+)\/(?<name>[\w-]+)/iu.exec(rawJson)?.groups
+// eslint-disable-next-line etc/no-assign-mutated-array
 const name = scopeAndName?.name ?? packageJson.name.split('/').reverse()[0] ?? defaults.name
 const scope = scopeAndName?.scope ?? defaults.scope
 if (name === defaults.name) logger.error('Could not find a name for the project, using the default one :', name)
@@ -45,7 +45,7 @@ logger.info('- name :', data.name)
 logger.info('- description :', data.description)
 logger.info('- color :', data.color)
 const svgTemplate = readFileSync(path.join(thisFileFolder, 'repo-banner.template.svg'), 'utf8')
-let svg = replaceAndCheck(svgTemplate, /(?<before>: )(?<content>#f{6})(?<after>[\d]*")/gu, data.color)
+let svg = replaceAndCheck(svgTemplate, /(?<before>: )(?<content>#f{6})(?<after>\d*")/gu, data.color)
 svg = replaceAndCheckById(svg, 'projectName', data.name)
 svg = replaceAndCheckById(svg, 'projectScope', data.scope)
 svg = replaceAndCheckById(svg, 'projectDescription', data.description)
@@ -53,4 +53,3 @@ logger.info('SVG code prepared, writing to file...')
 const outFile = `${name}-banner.svg`
 writeFileSync(outFile, svg)
 logger.test(true, 'SVG code written to', outFile)
-

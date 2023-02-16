@@ -1,5 +1,5 @@
-import { check, checksRun } from 'shuutils'
-import { emptyMetadata, getFfmpegCommand, getScreenshotFilename, parseUserInput, parseVideoMetadata, readableDuration, readableSize } from '../one-file/take-screenshot.utils'
+import { emptyMetadata, getFfmpegCommand, getScreenshotFilename, getTargets, parseUserInput, parseVideoMetadata, readableDuration, readableSize } from '../one-file/take-screenshot.utils'
+import { check, checkSnapshot } from './utils'
 
 const ffProbeOutputA = { streams: [] }
 
@@ -112,4 +112,4 @@ check('getScreenshotFilename C', getScreenshotFilename(0, { title: '', size: 0, 
 
 check('getFfmpegCommand A', getFfmpegCommand({ totalSeconds: 120, videoPath: 'plop.mp4', screenPath: 'plop.jpg' }), 'ffmpeg -ss 120 -i "plop.mp4" -frames:v 1 -q:v 1 "plop.jpg"')
 
-checksRun()
+checkSnapshot('getTargets A', getTargets(5, 2, 30))

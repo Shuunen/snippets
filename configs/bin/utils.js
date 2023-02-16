@@ -55,13 +55,13 @@ export function clean (content, linesAfter, linesMatching, clearSpaces = true) {
 }
 
 /**
- * 
+ * Normalize a filepath
  * @param {string} filepath 
  * @param {boolean} useSlash use slash instead of backslash
  * @param {boolean} useTilde use tilde will replace the home directory with ~
  * @param {string} home the home directory path
- * @returns 
- */
+*/
+/* c8 ignore next */
 export function normalize (filepath, useSlash = false, useTilde = false, home = process.env.HOME ?? '') {
   let outPath = path.normalize(filepath)
   if (useSlash) outPath = outPath.replace(/\\/gu, '/')
@@ -70,11 +70,11 @@ export function normalize (filepath, useSlash = false, useTilde = false, home = 
 }
 
 /**
- * 
+ * Copy a file
  * @param {string} source 
  * @param {string} destination 
- * @returns 
  */
+/* c8 ignore start */
 export async function copy (source, destination) {
   // destination will be created or overwritten by default.
   const destinationFolder = destination.replace(filename(destination) ?? '', '')
@@ -85,3 +85,4 @@ export async function copy (source, destination) {
     return false
   })
 }
+/* c8 ignore stop */

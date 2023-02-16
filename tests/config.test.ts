@@ -1,5 +1,5 @@
-import { check, checksRun } from 'shuutils'
-import { clean, normalize, removeLinesAfter, removeLinesMatching } from '../configs/bin/utils'
+import { clean, filename, normalize, removeLinesAfter, removeLinesMatching } from '../configs/bin/utils'
+import { check } from './utils'
 
 const content = `
 ; How many days between every update check? (0=no checks)
@@ -48,6 +48,7 @@ TornEdgeEffectSettings=Darkness
 `
 
 check('clean A', clean(contentGreenShot, /\[Editor\]/u, [/^(?:LastCapturedRegion|LastUpdateCheck|OutputFileAsFull|Commands=)/u, /(?:MS Paint)/u]), ';Greenshotcoreconfiguration[Core];Greenshoteditorconfiguration')
+check('clean B', clean('', /test/u, [/^test/u]), '')
 
 const winHome = 'C:/Users/Johnny'
 const winPath = 'C:/Users/Johnny/Projects/github/snippets/tests'
@@ -56,5 +57,14 @@ check('normalize filepath A to antislash style', normalize(winPath, undefined, u
 check('normalize filepath B to slash style', normalize(winPath, true, undefined, winHome), 'C:/Users/Johnny/Projects/github/snippets/tests')
 check('normalize filepath C to antislash style with tilde', normalize(winPath, false, true, winHome), '~\\Projects\\github\\snippets\\tests')
 check('normalize filepath D to slash style with tilde', normalize(winPath, true, true, winHome), '~/Projects/github/snippets/tests')
+check('normalize filepath E to antislash style with tilde', normalize(winPath, false, true, winHome), '~\\Projects\\github\\snippets\\tests')
+check('normalize filepath F to slash style with tilde', normalize(winPath, true, true, winHome), '~/Projects/github/snippets/tests')
+check('normalize filepath G', normalize(winPath), 'C:\\Users\\Johnny\\Projects\\github\\snippets\\tests')
+check('normalize filepath H', normalize(winPath, true), 'C:/Users/Johnny/Projects/github/snippets/tests')
+check('normalize filepath I', normalize(winPath, false), 'C:\\Users\\Johnny\\Projects\\github\\snippets\\tests')
+check('normalize filepath J', normalize(winPath, undefined, true), 'C:\\Users\\Johnny\\Projects\\github\\snippets\\tests')
 
-checksRun()
+check('filename A', filename(winPath), 'tests')
+check('filename B', filename('C:\\Users\\me\\file.txt'), 'file.txt')
+check('filename C', filename('file.txt'), '')
+check('filename D', filename('file'), '')

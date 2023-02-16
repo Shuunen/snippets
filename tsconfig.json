@@ -30,6 +30,7 @@
   "include": [
     "configs",
     "one-file",
-    "tests"
+    "tests",
+    "*.ts"
   ]
 }

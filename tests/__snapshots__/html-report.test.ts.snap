@@ -1,0 +1,5 @@
+// Vitest Snapshot v1
+
+exports[`html-report debug readable A 1`] = `"[90m\\\\n[39m"`;
+
+exports[`html-report debug readable B 1`] = `"[90m\\\\s[39m"`;
