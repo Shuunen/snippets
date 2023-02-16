@@ -2,10 +2,15 @@
 
 [![GitHub license](https://img.shields.io/github/license/shuunen/snippets.svg?color=informational)](https://github.com/Shuunen/snippets/blob/master/LICENSE)
 
-[![David](https://img.shields.io/david/shuunen/snippets.svg)](https://david-dm.org/shuunen/snippets)
-[![LGTM Grade](https://img.shields.io/lgtm/grade/javascript/github/Shuunen/snippets.svg)](https://lgtm.com/projects/g/Shuunen/snippets)
+![banner](docs/banner.svg)
 
 > My personal snippets, tests, and things that are too small to have their own repo :)
+
+## Todo
+
+- [ ] add a demo
+- [ ] compress repo-banner output with svgo
+- [ ] let repo-banner find the color in manifest.json or index.html files
 
 ## Thanks
 
