@@ -12,6 +12,7 @@
 - [ ] compress repo-banner output with svgo
 - [ ] let repo-banner find the color in manifest.json or index.html files
 - [ ] banner is displayed full width, so the height should be reduced by 40%
+- [ ] banner should be able to show something else than github + ts : vue + ts, vue + js, js, ts, etc
 
 ## Thanks
 
