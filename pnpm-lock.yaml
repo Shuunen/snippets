@@ -5,7 +5,7 @@ specifiers:
   '@vitest/coverage-c8': '0.29'
   clipboardy: '3'
   eslint: '8.34'
-  eslint-config-hardcore: '30'
+  eslint-config-hardcore: '31'
   eslint-plugin-unicorn: '45'
   repo-check: '1.30'
   shuutils: '7.2'
@@ -17,7 +17,7 @@ devDependencies:
   '@vitest/coverage-c8': 0.29.1_vitest@0.29.1
   clipboardy: 3.0.0
   eslint: 8.34.0
-  eslint-config-hardcore: 30.0.0_eslint@8.34.0
+  eslint-config-hardcore: 31.0.0_eslint@8.34.0
   eslint-plugin-unicorn: 45.0.2_eslint@8.34.0
   repo-check: 1.30.1
   shuutils: 7.2.0
@@ -3407,8 +3407,8 @@ packages:
       object.entries: 1.1.6
     dev: true
 
-  /eslint-config-hardcore/30.0.0_eslint@8.34.0:
-    resolution: {integrity: sha512-8c3jhJWDM9hjDwNe9XUqrV+bIQ+mqi9EV59cj6DhnRKkR/bkudrgjkjId/4ldhOVZWuwnDWHjHnVa4i6lnRUhQ==}
+  /eslint-config-hardcore/31.0.0_eslint@8.34.0:
+    resolution: {integrity: sha512-p/vwqGmT2+3+kmHAbVfvPTJfwBFbbDyAu4E57/JaIbRcpIEEEujCiI+H9xhY2RAVyPvQMzWtRavh58Ybg4GyIA==}
     peerDependencies:
       eslint: ^8.34.0
     dependencies:
@@ -3452,6 +3452,7 @@ packages:
       eslint-plugin-security: 1.7.1
       eslint-plugin-sonarjs: 0.18.0_eslint@8.34.0
       eslint-plugin-sort-class-members: 1.16.0_eslint@8.34.0
+      eslint-plugin-ssr-friendly: 1.2.0_eslint@8.34.0
       eslint-plugin-storybook: 0.6.11_7kw3g6rralp5ps6mg3uyzz6azm
       eslint-plugin-styled-components-a11y: 0.1.0_3lwvh4re63pzsu5napsjpogfpa
       eslint-plugin-testing-library: 5.10.2_7kw3g6rralp5ps6mg3uyzz6azm
@@ -4056,6 +4057,15 @@ packages:
       eslint: '>=0.8.0'
     dependencies:
       eslint: 8.34.0
+    dev: true
+
+  /eslint-plugin-ssr-friendly/1.2.0_eslint@8.34.0:
+    resolution: {integrity: sha512-py+DI+upyWdcm2fS+gBHSXME4HiZ6GRlLz+4c8GMXiUi8huIP83RaQeOPccBsu9aKEIZiXAblaxYjIHUnrIpAQ==}
+    peerDependencies:
+      eslint: '>=0.8.0'
+    dependencies:
+      eslint: 8.34.0
+      globals: 13.19.0
     dev: true
 
   /eslint-plugin-storybook/0.6.11_7kw3g6rralp5ps6mg3uyzz6azm:
