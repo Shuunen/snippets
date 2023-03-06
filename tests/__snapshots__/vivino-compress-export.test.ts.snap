@@ -1,4 +1,4 @@
-// Vitest Snapshot v1
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
 exports[`compressCsv A 1`] = `
 "domaine des bergeonnieres saint nicolas de bourgueil vielles vignes,3.6
