@@ -54,13 +54,12 @@ export function getTargets (modulo: number, minutesBase: number, secondsBase: nu
  * @returns [{ minutes: 0, seconds: 12 }], [{minutes: 0, seconds: 11}, {minutes: 0, seconds: 12}, {minutes: 0, seconds: 13}] or [{minutes: 21, seconds: 4}, {minutes: 21, seconds: 5}, {minutes: 21, seconds: 6},{minutes: 21, seconds: 7}, {minutes: 21, seconds: 8}]
  */
 export function parseUserInput (userInput: string): Target[] {
-  // eslint-disable-next-line security/detect-unsafe-regex, unicorn/no-unsafe-regex
-  const { minutesOrSeconds, secondsMaybe, moduloMarker, moduloMaybe } = (/^(?<minutesOrSeconds>\d{1,2})(?<secondsMaybe>\d{1,2})?(?<moduloMarker>[+-]{1,2})?(?<moduloMaybe>\d{1,2})?$/u.exec(userInput))?.groups ?? {}
-  if (minutesOrSeconds === undefined) return []
-  const secondsBase = Number.parseInt(secondsMaybe ?? minutesOrSeconds, 10)
-  const minutesBase = secondsMaybe === undefined ? 0 : Number.parseInt(minutesOrSeconds, 10)
+  const { minutesOrSeconds = '', secondsMaybe = '', moduloMarker = '', moduloMaybe = '' } = (/^(?<minutesOrSeconds>\d{1,2})(?<secondsMaybe>\d{0,2})(?<moduloMarker>[+-]*)(?<moduloMaybe>\d{0,2})$/u.exec(userInput))?.groups ?? {}
+  if (minutesOrSeconds === '') return []
+  const secondsBase = Number.parseInt(secondsMaybe || minutesOrSeconds, 10)
+  const minutesBase = secondsMaybe === '' ? 0 : Number.parseInt(minutesOrSeconds, 10)
   // eslint-disable-next-line no-nested-ternary
-  const modulo = moduloMaybe === undefined ? (moduloMarker === undefined ? Nb.None : Nb.Five) : Number.parseInt(moduloMaybe.replace(/\D/gu, ''), 10)
+  const modulo = moduloMaybe === '' ? (moduloMarker === '' ? Nb.None : Nb.Five) : Number.parseInt(moduloMaybe.replace(/\D/gu, ''), 10)
   return getTargets(modulo, minutesBase, secondsBase)
 }
 
