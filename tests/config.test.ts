@@ -1,4 +1,4 @@
-import { clean, filename, normalize, removeLinesAfter, removeLinesMatching } from '../configs/bin/utils'
+import { clean, filename, normalizePathWithSlash, removeLinesAfter, removeLinesMatching } from '../configs/bin/utils'
 import { check } from './utils'
 
 const content = `
@@ -53,16 +53,16 @@ check('clean B', clean('', /test/u, [/^test/u]), '')
 const winHome = 'C:/Users/Johnny'
 const winPath = 'C:/Users/Johnny/Projects/github/snippets/tests'
 
-check('normalize filepath A to antislash style', normalize(winPath, undefined, undefined, winHome), 'C:\\Users\\Johnny\\Projects\\github\\snippets\\tests')
-check('normalize filepath B to slash style', normalize(winPath, true, undefined, winHome), 'C:/Users/Johnny/Projects/github/snippets/tests')
-check('normalize filepath C to antislash style with tilde', normalize(winPath, false, true, winHome), '~\\Projects\\github\\snippets\\tests')
-check('normalize filepath D to slash style with tilde', normalize(winPath, true, true, winHome), '~/Projects/github/snippets/tests')
-check('normalize filepath E to antislash style with tilde', normalize(winPath, false, true, winHome), '~\\Projects\\github\\snippets\\tests')
-check('normalize filepath F to slash style with tilde', normalize(winPath, true, true, winHome), '~/Projects/github/snippets/tests')
-check('normalize filepath G', normalize(winPath), 'C:\\Users\\Johnny\\Projects\\github\\snippets\\tests')
-check('normalize filepath H', normalize(winPath, true), 'C:/Users/Johnny/Projects/github/snippets/tests')
-check('normalize filepath I', normalize(winPath, false), 'C:\\Users\\Johnny\\Projects\\github\\snippets\\tests')
-check('normalize filepath J', normalize(winPath, undefined, true), 'C:\\Users\\Johnny\\Projects\\github\\snippets\\tests')
+check('normalizePathWithSlash A', normalizePathWithSlash(winPath, undefined, winHome), 'C:/Users/Johnny/Projects/github/snippets/tests')
+check('normalizePathWithSlash B', normalizePathWithSlash(winPath, undefined, winHome), 'C:/Users/Johnny/Projects/github/snippets/tests')
+check('normalizePathWithSlash C', normalizePathWithSlash(winPath, true, winHome), '~/Projects/github/snippets/tests')
+check('normalizePathWithSlash D', normalizePathWithSlash(winPath, true, winHome), '~/Projects/github/snippets/tests')
+check('normalizePathWithSlash E', normalizePathWithSlash(winPath, true, winHome), '~/Projects/github/snippets/tests')
+check('normalizePathWithSlash F', normalizePathWithSlash(winPath, true, winHome), '~/Projects/github/snippets/tests')
+check('normalizePathWithSlash G', normalizePathWithSlash(winPath), 'C:/Users/Johnny/Projects/github/snippets/tests')
+check('normalizePathWithSlash H', normalizePathWithSlash(winPath), 'C:/Users/Johnny/Projects/github/snippets/tests')
+check('normalizePathWithSlash I', normalizePathWithSlash(winPath), 'C:/Users/Johnny/Projects/github/snippets/tests')
+check('normalizePathWithSlash J', normalizePathWithSlash(winPath, true), 'C:/Users/Johnny/Projects/github/snippets/tests')
 
 check('filename A', filename(winPath), 'tests')
 check('filename B', filename('C:\\Users\\me\\file.txt'), 'file.txt')

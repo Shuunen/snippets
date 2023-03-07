@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 import { gray, green, red, yellow } from 'shuutils'
 import { backupPath, files } from './files.js'
-import { copy, filename, normalize } from './utils.js'
+import { copy, filename, normalizePathWithSlash } from './utils.js'
 const dry = process.argv.includes('--dry')
 const setup = process.argv.includes('--setup')
 const debug = process.argv.includes('--debug')
-const relativeBackupPath = normalize(backupPath, true).replace(normalize(process.env.PWD ?? '', true).replace('/c/', 'C:/'), '').slice(1)
+const relativeBackupPath = normalizePathWithSlash(backupPath).replace(normalizePathWithSlash(process.env.PWD ?? '').replace('/c/', 'C:/'), '').slice(1)
 
 /**
  * @type {import('./types.js').Report}
@@ -36,7 +36,7 @@ async function sync (file) {
   }
   if (equals) return report.success.push(`sync is up to date : ${source.filepath}`)
   report.infos.push(`file should be sync manually : ${source.filepath}`)
-  return report.suggestions.push(`merge ${relativeBackupPath}/${filename(destination.filepath)} ${normalize(source.filepath, true, true)}`)
+  return report.suggestions.push(`merge ${relativeBackupPath}/${filename(destination.filepath)} ${normalizePathWithSlash(source.filepath, true)}`)
 }
 
 async function start () {

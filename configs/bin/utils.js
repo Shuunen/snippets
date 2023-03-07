@@ -55,17 +55,15 @@ export function clean (content, linesAfter, linesMatching, clearSpaces = true) {
 }
 
 /**
- * Normalize a filepath
+ * Normalize a filepath with slash style
  * @param {string} filepath 
- * @param {boolean} useSlash use slash instead of backslash
  * @param {boolean} useTilde use tilde will replace the home directory with ~
  * @param {string} home the home directory path
 */
 /* c8 ignore next */
-export function normalize (filepath, useSlash = false, useTilde = false, home = process.env.HOME ?? '') {
-  let outPath = path.normalize(filepath)
-  if (useSlash) outPath = outPath.replace(/\\/gu, '/')
-  if (useTilde) outPath = outPath.replace(normalize(home, useSlash), '~')
+export function normalizePathWithSlash (filepath, useTilde = false, home = process.env.HOME ?? '') {
+  let outPath = path.normalize(filepath).replace(/\\/gu, '/')
+  if (useTilde) outPath = outPath.replace(normalizePathWithSlash(home), '~')
   return outPath
 }
 
