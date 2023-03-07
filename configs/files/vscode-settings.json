@@ -15,17 +15,6 @@
   "[xml]": {
     "editor.defaultFormatter": "mikeburgh.xml-format"
   },
-  "colorize.languages": [
-    "css",
-    "html",
-    "javascript",
-    "json",
-    "markdown",
-    "php",
-    "scss",
-    "typescript",
-    "vue"
-  ],
   "breadcrumbs.enabled": true,
   "cSpell.language": "en,en-US,fr,fr-FR",
   "cSpell.userWords": [
@@ -325,16 +314,29 @@
     "Zorin",
     "zurb"
   ],
+  "colorize.languages": [
+    "css",
+    "html",
+    "javascript",
+    "json",
+    "markdown",
+    "php",
+    "scss",
+    "typescript",
+    "vue"
+  ],
   "coverage-gutters.customizable.context-menu": false,
   "css.format.enable": false,
   "css.validate": false,
   "diffEditor.ignoreTrimWhitespace": false,
+  "editor.accessibilitySupport": "off",
   "editor.codeActionsOnSave": {
     "source.fixAll": true,
     "source.organizeImports": true
   },
   "editor.formatOnSave": true,
   "editor.inlineSuggest.enabled": true,
+  "editor.minimap.enabled": false,
   "editor.minimap.maxColumn": 300,
   "editor.tabSize": 2,
   "eslint.alwaysShowStatus": true,
@@ -585,6 +587,8 @@
     },
     "PowerShell": null
   },
+  "totalTypeScript.hideAllTips": false,
+  "totalTypeScript.hideBasicTips": false,
   "typescript.format.insertSpaceAfterConstructor": true,
   "typescript.format.insertSpaceBeforeFunctionParenthesis": true,
   "typescript.format.semicolons": "remove",
@@ -602,6 +606,5 @@
   },
   "vetur.format.enable": true,
   "window.zoomLevel": 1,
-  "workbench.colorTheme": "Default Dark+",
-  "editor.accessibilitySupport": "off"
+  "workbench.colorTheme": "Default Dark+"
 }
