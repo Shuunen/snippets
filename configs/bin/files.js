@@ -4,6 +4,10 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import { clean } from './utils.js'
 
+const currentFilePath = fileURLToPath(import.meta.url)
+const currentFolderPath = path.dirname(currentFilePath)
+const changesFolderPath = path.join(currentFolderPath, '..', 'changes')
+
 const home = process.env.HOME
 const appData = process.env.APPDATA || (process.platform === 'darwin' ? `${home}Library/Preferences` : `${home}/.config`)
 const onWindows = process.env.APPDATA === appData
@@ -18,7 +22,7 @@ const configs = [
   { source: `${appData}/Code/User/settings.json`, renameTo: 'vscode-settings.json' },
   // { source: `${appData}/HandBrake/presets.json`, renameTo: 'handbrake-presets.json' },
   // { source: `${appData}/HandBrake/settings.json`, renameTo: 'handbrake-settings.json' },
-  { source: `${appData}/../Local/Clavier+/Clavier.ini` },
+  { source: `${appData}/../Local/Clavier+/Clavier.ini`, removeLinesMatching: [/Usages/u] },
   { source: `${appData}/kupfer/kupfer.cfg` },
   { source: `${appData}/mpv/mpv.conf` },
   { source: `${appData}/qBittorrent/qBittorrent.conf` },
@@ -87,8 +91,8 @@ export const files = configs.map(config => {
   const destination = getDetails(path.join(backupPath, filename))
   const equals = clean(source.content, removeLinesAfter, removeLinesMatching) === clean(destination.content, removeLinesAfter, removeLinesMatching)
   if (!equals) {
-    writeFileSync(`configs/changes/${filename}-source.log`, clean(source.content, removeLinesAfter, removeLinesMatching, false))
-    writeFileSync(`configs/changes/${filename}-destination.log`, clean(destination.content, removeLinesAfter, removeLinesMatching, false))
+    writeFileSync(path.join(changesFolderPath, `${filename}-source.log`), clean(source.content, removeLinesAfter, removeLinesMatching, false))
+    writeFileSync(path.join(changesFolderPath, `${filename}-destination.log`), clean(destination.content, removeLinesAfter, removeLinesMatching, false))
   }
   return { source, destination, equals, removeLinesMatching, removeLinesAfter }
 })
