@@ -44,6 +44,7 @@ frd = "! git fr develop"
 frm = "! git fr master"
 l = log --pretty=format:'%C(yellow)%h%Cred%d %Creset%s%Cblue [%cn %ad]' --decorate --date=relative
 ll = log --pretty=format:'%C(yellow)%h%Cred%d %Creset%s%Cblue [%cn %ad]' --decorate --date=relative -5
+p = pull
 pf = push --force
 pt = !git tag -l | xargs git tag -d && git fetch -t # prune local git tags that don't exist on remote
 rh = "!f() { git reset HEAD~$@ && echo -e \"\n You moved $@ commit(s) back \n\"; }; f"

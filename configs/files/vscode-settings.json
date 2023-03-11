@@ -587,8 +587,8 @@
     },
     "PowerShell": null
   },
-  "totalTypeScript.hideAllTips": false,
-  "totalTypeScript.hideBasicTips": false,
+  "totalTypeScript.hideAllTips": true,
+  "totalTypeScript.hideBasicTips": true,
   "typescript.format.insertSpaceAfterConstructor": true,
   "typescript.format.insertSpaceBeforeFunctionParenthesis": true,
   "typescript.format.semicolons": "remove",
