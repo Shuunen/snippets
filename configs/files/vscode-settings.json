@@ -547,6 +547,7 @@
   },
   "stylelint.reportInvalidScopeDisables": true,
   "stylelint.reportNeedlessDisables": true,
+  "svelte.enable-ts-plugin": true,
   "tailwindCSS.experimental.classRegex": [
     " +[a-z_]+: '([^']*)',",
     "tw`([^`]*)",
