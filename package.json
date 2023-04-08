@@ -7,7 +7,7 @@
     "@types/node": "18",
     "@vitest/coverage-c8": "0.29",
     "clipboardy": "3",
-    "eslint": "8.37",
+    "eslint": "8.38",
     "eslint-config-hardcore": "34",
     "eslint-plugin-unicorn": "46",
     "repo-check": "1.30",
