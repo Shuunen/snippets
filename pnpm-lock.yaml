@@ -14,8 +14,8 @@ devDependencies:
     specifier: '8.38'
     version: 8.38.0
   eslint-config-hardcore:
-    specifier: '34'
-    version: 34.0.0(@babel/core@7.20.12)(@babel/eslint-parser@7.19.1)(eslint@8.38.0)(vue-eslint-parser@9.1.0)
+    specifier: '35'
+    version: 35.0.0(@babel/core@7.20.12)(@babel/eslint-parser@7.19.1)(eslint@8.38.0)(vue-eslint-parser@9.1.0)
   eslint-plugin-unicorn:
     specifier: '46'
     version: 46.0.0(eslint@8.38.0)
@@ -67,7 +67,7 @@ packages:
       '@babel/parser': 7.20.15
       '@babel/template': 7.20.7
       '@babel/traverse': 7.20.13
-      '@babel/types': 7.20.7
+      '@babel/types': 7.21.3
       convert-source-map: 1.9.0
       debug: 4.3.4
       gensync: 1.0.0-beta.2
@@ -289,7 +289,7 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
     dependencies:
-      '@babel/types': 7.20.7
+      '@babel/types': 7.21.3
     dev: true
 
   /@babel/plugin-proposal-decorators@7.20.13(@babel/core@7.20.12):
@@ -354,20 +354,11 @@ packages:
       '@babel/helper-hoist-variables': 7.18.6
       '@babel/helper-split-export-declaration': 7.18.6
       '@babel/parser': 7.20.15
-      '@babel/types': 7.20.7
+      '@babel/types': 7.21.3
       debug: 4.3.4
       globals: 11.12.0
     transitivePeerDependencies:
       - supports-color
-    dev: true
-
-  /@babel/types@7.20.7:
-    resolution: {integrity: sha512-69OnhBxSSgK0OzTJai4kyPDiKTIe3j+ctaHdIGVbRahTLAT7L3R9oeXHC2aVSuGYt3cVnoAMDmOCgJ2yaiLMvg==}
-    engines: {node: '>=6.9.0'}
-    dependencies:
-      '@babel/helper-string-parser': 7.19.4
-      '@babel/helper-validator-identifier': 7.19.1
-      to-fast-properties: 2.0.0
     dev: true
 
   /@babel/types@7.21.3:
@@ -842,8 +833,8 @@ packages:
     engines: {node: '>=16'}
     dependencies:
       '@babel/traverse': 7.20.13
-      '@babel/types': 7.20.7
-      '@putout/engine-parser': 5.3.2
+      '@babel/types': 7.21.3
+      '@putout/engine-parser': 5.6.0
       '@putout/operate': 8.7.0
       debug: 4.3.4
       jessy: 3.1.1
@@ -877,30 +868,13 @@ packages:
       putout: '*'
     dependencies:
       '@babel/core': 7.20.12
-      '@putout/engine-parser': 5.3.2
+      '@putout/engine-parser': 5.6.0
       diff-match-patch: 1.0.5
       nano-memoize: 2.0.0
       once: 1.4.0
       putout: 29.1.4
       try-catch: 3.0.1
       try-to-catch: 3.0.1
-    transitivePeerDependencies:
-      - supports-color
-    dev: true
-
-  /@putout/engine-parser@5.3.2:
-    resolution: {integrity: sha512-iW5YG2EVevFqjCBUyFMk13Xu91hVtVLCqrW4RQBxAtgQ5Kaz9BjUxVhWH3UCCKFOtDCd0qLi2K9KrK6dV/kdnw==}
-    engines: {node: '>=16'}
-    dependencies:
-      '@babel/generator': 7.20.14
-      '@babel/parser': 7.20.15
-      '@babel/template': 7.20.7
-      '@babel/types': 7.20.7
-      '@putout/recast': 1.11.0
-      estree-to-babel: 5.0.1
-      nano-memoize: 2.0.0
-      once: 1.4.0
-      try-catch: 3.0.1
     transitivePeerDependencies:
       - supports-color
     dev: true
@@ -940,9 +914,9 @@ packages:
     engines: {node: '>=16'}
     dependencies:
       '@babel/traverse': 7.20.13
-      '@babel/types': 7.20.7
+      '@babel/types': 7.21.3
       '@putout/compare': 9.13.0
-      '@putout/engine-parser': 5.3.2
+      '@putout/engine-parser': 5.6.0
       '@putout/operate': 8.7.0
       '@putout/operator-declare': 5.0.1(putout@29.1.4)
       debug: 4.3.4
@@ -1079,7 +1053,7 @@ packages:
     resolution: {integrity: sha512-N6MbpHe49iSJD5ATTXEWNAUZZU4Ro+mNNkZplbheH0SDeVuTDahFGSd50p1dxd7zs8LI2dhbCwm8cEDF0RBOgw==}
     engines: {node: '>=16'}
     dependencies:
-      '@babel/types': 7.20.7
+      '@babel/types': 7.21.3
     dev: true
 
   /@putout/operator-add-args@3.1.0(putout@29.1.4):
@@ -1088,9 +1062,9 @@ packages:
     peerDependencies:
       putout: '>=25'
     dependencies:
-      '@babel/types': 7.20.7
+      '@babel/types': 7.21.3
       '@putout/compare': 9.13.0
-      '@putout/engine-parser': 5.3.2
+      '@putout/engine-parser': 5.6.0
       putout: 29.1.4
     transitivePeerDependencies:
       - supports-color
@@ -2023,17 +1997,6 @@ packages:
       putout: 29.1.4
       try-catch: 3.0.1
       yaml: 2.2.1
-    dev: true
-
-  /@putout/recast@1.11.0:
-    resolution: {integrity: sha512-dvzv5vbfG2zRBumTlGcZAywgkVBQA9Wvc/KvUDGZb+YUIQ41S4yU/DteHzl2xN8REUbYVL8SU4EFmjtSriJlpA==}
-    engines: {node: '>=12'}
-    dependencies:
-      assert: 2.0.0
-      ast-types: 0.16.1
-      esprima: 4.0.1
-      source-map: 0.6.1
-      tslib: 2.5.0
     dev: true
 
   /@putout/recast@1.12.1:
@@ -3421,8 +3384,8 @@ packages:
       object.entries: 1.1.6
     dev: true
 
-  /eslint-config-hardcore@34.0.0(@babel/core@7.20.12)(@babel/eslint-parser@7.19.1)(eslint@8.38.0)(vue-eslint-parser@9.1.0):
-    resolution: {integrity: sha512-vgokLZp9ZgCngzDZ4G+SzU/CyTf3Fpc0kDjjM3UI8NaTx1RF/QG6wN05MRATdBeKyPDL9GgDmAJlZ6J7X+1teg==}
+  /eslint-config-hardcore@35.0.0(@babel/core@7.20.12)(@babel/eslint-parser@7.19.1)(eslint@8.38.0)(vue-eslint-parser@9.1.0):
+    resolution: {integrity: sha512-tzhNNYbkBiQXFmOA25JmqhnzuoPJle7JLMkNeB7XX5XShJTRpPEIUIAZq2kjkaj2YTK2tGfjWWWp+wmqRbY8cg==}
     peerDependencies:
       eslint: ^8.36.0
     dependencies:
@@ -3472,6 +3435,7 @@ packages:
       eslint-plugin-storybook: 0.6.11(eslint@8.38.0)(typescript@4.9.5)
       eslint-plugin-styled-components-a11y: 0.1.0(eslint-plugin-import@2.27.5)(eslint-plugin-react@7.32.2)(eslint@8.38.0)
       eslint-plugin-testing-library: 5.10.2(eslint@8.38.0)(typescript@4.9.5)
+      eslint-plugin-total-functions: 6.10.7(eslint@8.38.0)(typescript@4.9.5)
       eslint-plugin-unicorn: 46.0.0(eslint@8.38.0)
       eslint-plugin-validate-jsx-nesting: 0.1.0(eslint@8.38.0)
       eslint-plugin-vue: 9.9.0(eslint@8.38.0)
@@ -3929,7 +3893,7 @@ packages:
       '@babel/plugin-syntax-class-properties': 7.12.13(@babel/core@7.20.12)
       '@babel/traverse': 7.20.13
       '@eslint/eslintrc': 1.4.1
-      '@putout/engine-parser': 5.3.2
+      '@putout/engine-parser': 5.6.0
       '@putout/eslint': 2.0.0
       '@putout/eslint-config': 7.3.0(eslint@8.38.0)
       '@typescript-eslint/eslint-plugin': 5.55.0(@typescript-eslint/parser@5.55.0)(eslint@8.38.0)(typescript@4.9.5)
@@ -4133,6 +4097,23 @@ packages:
     transitivePeerDependencies:
       - supports-color
       - typescript
+    dev: true
+
+  /eslint-plugin-total-functions@6.10.7(eslint@8.38.0)(typescript@4.9.5):
+    resolution: {integrity: sha512-rAvpAV/u9SVVJrpM9rJa3VH1dpSqjLYPJi/QcXy6sea40Xo6FHKhMMKGVryvJQrxDgzW/KrzDTX3sihJm31Gog==}
+    peerDependencies:
+      eslint: ^8.35.0
+      typescript: ^4.9.5
+    dependencies:
+      '@typescript-eslint/eslint-plugin': 5.55.0(@typescript-eslint/parser@5.55.0)(eslint@8.38.0)(typescript@4.9.5)
+      '@typescript-eslint/parser': 5.55.0(eslint@8.38.0)(typescript@4.9.5)
+      '@typescript-eslint/type-utils': 5.55.0(eslint@8.38.0)(typescript@4.9.5)
+      '@typescript-eslint/utils': 5.55.0(eslint@8.38.0)(typescript@4.9.5)
+      eslint: 8.38.0
+      tsutils: 3.21.0(typescript@4.9.5)
+      typescript: 4.9.5
+    transitivePeerDependencies:
+      - supports-color
     dev: true
 
   /eslint-plugin-unicorn@46.0.0(eslint@8.38.0):
@@ -6215,7 +6196,7 @@ packages:
     dependencies:
       '@babel/code-frame': 7.18.6
       '@babel/traverse': 7.20.13
-      '@babel/types': 7.20.7
+      '@babel/types': 7.21.3
       '@putout/cli-cache': 2.1.1
       '@putout/cli-keypress': 1.0.0
       '@putout/cli-match': 2.0.0
@@ -6223,7 +6204,7 @@ packages:
       '@putout/cli-validate-args': 1.1.1
       '@putout/compare': 9.13.0
       '@putout/engine-loader': 8.0.0(putout@29.1.4)
-      '@putout/engine-parser': 5.3.2
+      '@putout/engine-parser': 5.6.0
       '@putout/engine-processor': 6.4.2(putout@29.1.4)
       '@putout/engine-runner': 15.0.1(putout@29.1.4)
       '@putout/eslint': 2.0.0
