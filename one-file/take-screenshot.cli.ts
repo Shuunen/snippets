@@ -12,15 +12,20 @@ const currentFolder = path.dirname(thisFilePath)
 const logFile = path.join(currentFolder, 'take-screenshot.log')
 const lastInputFile = path.join(currentFolder, 'take-screenshot-last-input.txt')
 
-async function logClear (): Promise<void> { await fs.writeFile(logFile, '') }
+async function logClear () {
+  await fs.writeFile(logFile, '')
+}
 
-async function logAdd (...stuff: Date[] | string[]): Promise<void> { await fs.appendFile(logFile, `${stuff.join(' ')}\n`) }
+async function logAdd (...stuff: Date[] | string[]) {
+  await fs.appendFile(logFile, `${stuff.join(' ')}\n`)
+}
 
+// eslint-disable-next-line total-functions/no-unsafe-readonly-mutable-assignment
 const ask = createInterface({ input: process.stdin, output: process.stdout })
 
-async function shellCommand (cmd: string): Promise<string> {
+async function shellCommand (cmd: string) {
   // eslint-disable-next-line promise/avoid-new
-  return await new Promise(resolve => {
+  return await new Promise((resolve: (value: string) => void) => {
     // eslint-disable-next-line security/detect-child-process
     exec(cmd, (error, stdout: string, stderr: string) => {
       if (error)
@@ -30,16 +35,16 @@ async function shellCommand (cmd: string): Promise<string> {
   })
 }
 
-async function deleteFile (filePath: string): Promise<void> {
+async function deleteFile (filePath: string) {
   await fs.unlink(filePath).catch(() => 'ok')
 }
 
-async function getFileSize (filepath: string): Promise<number> {
+async function getFileSize (filepath: string) {
   const stats = await fs.stat(filepath)
   return stats.size
 }
 
-async function getVideoMetadata (filepath: string): Promise<Metadata> {
+async function getVideoMetadata (filepath: string) {
   const output = await shellCommand(`ffprobe -show_format -show_streams -print_format json -v quiet -i "${filepath}" `)
   if (!output.startsWith('{')) throw new Error(`ffprobe output should be JSON but got :${output}`)
   // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
@@ -66,7 +71,7 @@ function getTask (totalSeconds: number, metadata: Metadata): Task {
   return { totalSeconds, videoPath: metadata.filepath, screenPath }
 }
 
-async function getTasks (input: string): Promise<Task[]> {
+async function getTasks (input: string) {
   const videoPath = process.argv[Nb.Two]
   if (videoPath === undefined) throw new Error('no video path')
   const videoName = path.basename(videoPath)
@@ -77,7 +82,7 @@ async function getTasks (input: string): Promise<Task[]> {
   return targetsTotalSeconds.map(totalSeconds => getTask(totalSeconds, meta))
 }
 
-async function takeScreenAt (input: string): Promise<never> {
+async function takeScreenAt (input: string) {
   await logAdd(`Input : "${input}"`)
   void fs.writeFile(lastInputFile, input)
   const tasks = await getTasks(input)
@@ -90,7 +95,7 @@ async function takeScreenAt (input: string): Promise<never> {
   process.exit(0)
 }
 
-async function init (): Promise<void> {
+async function init () {
   asciiWelcome()
   await logClear()
   await logAdd('Take screenshot starts @', new Date().toISOString())

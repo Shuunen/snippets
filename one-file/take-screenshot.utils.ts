@@ -86,6 +86,7 @@ export function getScreenshotFilename (totalSeconds: number, metadata: Metadata)
     `${height}p`,
     readableDuration(duration),
   ].join(' ').trim()}.jpg`
+
   // replace un-authorized characters in filename
   return screenName.replace(/\s?["*/:<>?\\|]+\s?/gu, ' ').replace(/\s+/gu, ' ')
 }

@@ -35,5 +35,5 @@ jobs:
       - name: Install dependencies 👨🏻‍💻
         run: pnpm install
 
-      - name: Run ci task 👀
-        run: pnpm run ci
+      - name: Run check task 👀
+        run: pnpm run check

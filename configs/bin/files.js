@@ -60,7 +60,7 @@ const currentFolder = path.dirname(fileURLToPath(import.meta.url))
 /**
  * Convert carriage return to unix line endings
  * @param {string} content the content to be processed
- * @returns {string} the processed content with unix line endings
+ * @returns the processed content with unix line endings
  */
 function useUnixCarriageReturn (content) {
   return content.replace(/\r\n/gu, '\n')
@@ -69,7 +69,7 @@ function useUnixCarriageReturn (content) {
 /**
  * Transform a file path to a FileDetails object
  * @param {string} filepath the file path
- * @returns {import('./types').FileDetails} the file details
+ * @returns the file details
  */
 function getDetails (filepath) {
   const exists = existsSync(filepath)
@@ -81,9 +81,6 @@ function getDetails (filepath) {
 
 export const backupPath = path.join(currentFolder, '../files')
 
-/**
- * @type {import('./types').File[]}
- */
 export const files = configs.map(config => {
   const { renameTo, removeLinesAfter, removeLinesMatching } = config
   const filename = renameTo ?? path.basename(config.source)

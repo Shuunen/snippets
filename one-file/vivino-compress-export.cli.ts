@@ -26,15 +26,15 @@ function asciiWelcome (): void {
   `)
 }
 
-async function logClear (): Promise<void> {
+async function logClear () {
   await fs.writeFile(logFile, '')
 }
 
-async function logAdd (...stuff: Date[] | string[]): Promise<void> {
+async function logAdd (...stuff: Date[] | string[]) {
   await fs.appendFile(logFile, `${stuff.join(' ')}\n`)
 }
 
-async function init (): Promise<void> {
+async function init () {
   asciiWelcome()
   await logClear()
   await logAdd('Vivino compress starts @', new Date().toISOString())
@@ -44,7 +44,7 @@ async function init (): Promise<void> {
   const input = await fs.readFile(fileName, 'utf8')
   const output = compressCsv(input)
   await fs.writeFile(fileName.replace('.csv', '.compressed.csv'), output)
-  // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+  // eslint-disable-next-line @typescript-eslint/no-magic-numbers, total-functions/no-partial-division
   console.log('  Done, final file is only', Math.round(output.length / input.length * 100), '% of the original size :)')
   await logAdd('Vivino compress ends @', new Date().toISOString())
 }

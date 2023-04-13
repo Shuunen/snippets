@@ -8,11 +8,11 @@
     "@vitest/coverage-c8": "0.30",
     "clipboardy": "3",
     "eslint": "8.38",
-    "eslint-config-hardcore": "34",
+    "eslint-config-hardcore": "35",
     "eslint-plugin-unicorn": "46",
     "repo-check": "1.30",
     "shuutils": "7.2",
-    "typescript": "4",
+    "typescript": "5.0",
     "vitest": "0.30"
   },
   "files": [
@@ -38,8 +38,7 @@
     "url": "https://github.com/Shuunen/snippets.git"
   },
   "scripts": {
-    "check": "repo-check",
-    "ci": "npm run lint && npm run check && npm run test && echo ci success",
+    "check": "npm run lint && repo-check && npm run test && echo check success",
     "lint": "tsc --noEmit && eslint --cache --fix --ignore-path .gitignore --ext .js,.ts . && echo lint success",
     "postversion": "git push && git push --tags",
     "preversion": "npm run lint",

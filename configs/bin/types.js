@@ -14,8 +14,8 @@
   @property {FileDetails} source the source file details
   @property {FileDetails} destination the destination file details
   @property {boolean} equals true if the source and destination files are the same
-  @property {RegExp} [removeLinesAfter] a regex to remove lines after
-  @property {RegExp[]} [removeLinesMatching] a list of regex to remove lines matching
+  @property {RegExp | undefined} [removeLinesAfter] a regex to remove lines after
+  @property {RegExp[] | undefined} [removeLinesMatching] a list of regex to remove lines matching
  */
 
 /**
