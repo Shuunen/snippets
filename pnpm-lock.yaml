@@ -20,8 +20,8 @@ devDependencies:
     specifier: '46'
     version: 46.0.0(eslint@8.38.0)
   repo-check:
-    specifier: '1.30'
-    version: 1.30.1
+    specifier: '1.31'
+    version: 1.31.0
   shuutils:
     specifier: '7.2'
     version: 7.2.0
@@ -3148,6 +3148,16 @@ packages:
   /dequal@2.0.3:
     resolution: {integrity: sha512-0je+qPKHEMohvfRTCEo3CrPG6cAzAYgmzKyxRiYSSDkS6eGJdyVJm7WaYA5ECaAD9wLB2T4EEeymA5aFVcYXCA==}
     engines: {node: '>=6'}
+    dev: true
+
+  /detect-indent@5.0.0:
+    resolution: {integrity: sha512-rlpvsxUtM0PQvy9iZe640/IWwWYyBsTApREbA1pHOpmOUIl9MkP/U4z7vTtg4Oaojvqhxt7sdufnT0EzGaR31g==}
+    engines: {node: '>=4'}
+    dev: true
+
+  /detect-newline@2.1.0:
+    resolution: {integrity: sha512-CwffZFvlJffUg9zZA0uqrjQayUTC8ob94pnr5sFwaVv3IOmkfUHcWH+jXaQK3askE51Cqe8/9Ql/0uXNwqZ8Zg==}
+    engines: {node: '>=0.10.0'}
     dev: true
 
   /diff-match-patch@1.0.5:
@@ -6671,12 +6681,13 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  /repo-check@1.30.1:
-    resolution: {integrity: sha512-x/kNdIMH6oUn72AdRFAcWK6Pax6DgA9l0C0rhBXnrDz8cgWGEna35bBst5YrUU+8rjHou8sroTtftLIkGAbX/w==}
+  /repo-check@1.31.0:
+    resolution: {integrity: sha512-mMXPcw4bD4PzIed2E3Uh00dEVG7WFPDCEpjHnHCz3KmJXMrBK1SFbKnO+sny0xoXeHB8OnDyTa7+ZMakWFNy6w==}
     hasBin: true
     dependencies:
       arg: 5.0.2
       shuutils: 7.2.0
+      sort-json: 2.0.1
     dev: true
 
   /req-all@0.1.0:
@@ -6921,6 +6932,15 @@ packages:
     dependencies:
       dot-case: 3.0.4
       tslib: 2.5.0
+    dev: true
+
+  /sort-json@2.0.1:
+    resolution: {integrity: sha512-s8cs2bcsQCzo/P2T/uoU6Js4dS/jnX8+4xunziNoq9qmSpZNCrRIAIvp4avsz0ST18HycV4z/7myJ7jsHWB2XQ==}
+    hasBin: true
+    dependencies:
+      detect-indent: 5.0.0
+      detect-newline: 2.1.0
+      minimist: 1.2.8
     dev: true
 
   /source-map-js@1.0.2:
