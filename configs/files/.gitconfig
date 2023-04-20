@@ -1,6 +1,6 @@
 [core]
 excludesfile = %USERPROFILE%\\.gitignore
-editor = vim
+editor = nano
 autocrlf = input
 filemode = false
 eol = lf
@@ -11,6 +11,7 @@ rebase = true
 
 [push]
 autoSetupRemote = true
+default = current
 
 [includeIf "gitdir:~/Projects/github/"]
 path = .gitconfig-github

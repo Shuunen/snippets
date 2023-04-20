@@ -39,6 +39,7 @@
   },
   "scripts": {
     "check": "npm run lint && repo-check && npm run test && echo check success",
+    "config:sync": "node configs/bin/sync",
     "lint": "tsc --noEmit && eslint --cache --fix --ignore-path .gitignore --ext .js,.ts . && echo lint success",
     "postversion": "git push && git push --tags",
     "preversion": "npm run lint",
