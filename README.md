@@ -22,3 +22,4 @@
 - [Repo-checker](https://github.com/Shuunen/repo-checker) : eslint cover /src code and this tool the rest ^^
 - [Shields.io](https://shields.io) : nice looking badges to be proud of
 - [Shuutils](https://github.com/Shuunen/shuutils) : collection of pure JS utils
+- [Vitest](https://github.com/vitest-dev/vitest) : super fast vite-native testing framework

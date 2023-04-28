@@ -174,7 +174,7 @@ bash
 cd && mkdir Projects && cd Projects
 mkdir github && cd github
 pnpm setup
-pnpm i ts-node -g
+pnpm i ts-node -g # remember to use --transpileOnly
 git clone git@github.com:Shuunen/snippets.git
 cd snippets
 pnpm install
@@ -217,7 +217,7 @@ wget -qO- https://deb.nodesource.com/setup_18.x | sudo -E bash -
 sudo apt install -y nodejs screenfetch
 mkdir ~/.npm-global
 npm config set prefix '~/.npm-global'
-npm i pnpm ts-node -g
+npm i pnpm ts-node -g # remember to use --transpileOnly
 echo -e "alias ..='cd ..' \n alias install='sudo apt install' \n alias apt='sudo apt' \n alias mkdir='mkdir -pv' \n alias merge=meld \n alias whatsmyip='curl http://ipecho.net/plain; echo' \n alias psg='ps aux | grep -v grep | grep -i -e VSZ -e' \n echo '' \n screenfetch \n echo ' Welcome ${USER} ^^' \n echo ''" > ~/.bash_aliases # make sure bash_aliases is sourced in ~/.bashrc
 source ~/.bash_aliases
 sudo apt install git aria2 nano curl -y # vvv below is for desktop only vvv

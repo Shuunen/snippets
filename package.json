@@ -12,6 +12,7 @@
     "eslint-plugin-unicorn": "46",
     "repo-check": "1.31",
     "shuutils": "7.2",
+    "ts-node": "10",
     "typescript": "5.0",
     "vitest": "0.30"
   },
@@ -38,12 +39,12 @@
     "url": "https://github.com/Shuunen/snippets.git"
   },
   "scripts": {
-    "check": "npm run lint && repo-check && npm run test && echo check success",
+    "check": "pnpm lint && repo-check && pnpm test && echo check success",
     "config:sync": "node configs/bin/sync",
-    "lint": "tsc --noEmit && eslint --cache --fix --ignore-path .gitignore --ext .js,.ts . && echo lint success",
+    "lint": "tsc --noEmit && eslint --cache --fix --ext .js,.ts . && echo lint success",
     "postversion": "git push && git push --tags",
-    "preversion": "npm run lint",
-    "test": "npm run test:watch -- --run && echo test success",
+    "preversion": "pnpm check",
+    "test": "pnpm test:watch --run && echo test success",
     "test:watch": "vitest --coverage"
   },
   "type": "module",

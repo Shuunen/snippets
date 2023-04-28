@@ -4,7 +4,7 @@ import { parseJson } from 'shuutils'
 import { fileURLToPath } from 'url'
 import { logger, replaceAndCheck, replaceAndCheckById } from './repo-banner.utils.js'
 
-// usage : ts-node-esm one-file/repo-banner.cli.ts
+// usage : ts-node-esm one-file/repo-banner.cli.ts --transpileOnly
 
 const thisFilePath = fileURLToPath(import.meta.url)
 const thisFileFolder = path.dirname(thisFilePath)

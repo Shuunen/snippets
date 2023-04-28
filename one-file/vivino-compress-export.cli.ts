@@ -1,9 +1,10 @@
+/* eslint-disable no-console */
 import { promises as fs } from 'fs'
 import path from 'path'
 import { fileURLToPath } from 'url'
 import { compressCsv } from './vivino-compress-export.utils.js'
 
-// usage : ts-node-esm ~/Projects/github/snippets/one-file/vivino-compress-export.cli.ts full_wine_list.csv
+// usage : ts-node-esm --transpileOnly ~/Projects/github/snippets/one-file/vivino-compress-export.cli.ts full_wine_list.csv
 
 const thisFilePath = fileURLToPath(import.meta.url)
 const currentFolder = path.dirname(thisFilePath)
@@ -44,7 +45,7 @@ async function init () {
   const input = await fs.readFile(fileName, 'utf8')
   const output = compressCsv(input)
   await fs.writeFile(fileName.replace('.csv', '.compressed.csv'), output)
-  // eslint-disable-next-line @typescript-eslint/no-magic-numbers, total-functions/no-partial-division
+  // eslint-disable-next-line @typescript-eslint/no-magic-numbers
   console.log('  Done, final file is only', Math.round(output.length / input.length * 100), '% of the original size :)')
   await logAdd('Vivino compress ends @', new Date().toISOString())
 }

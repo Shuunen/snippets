@@ -1,11 +1,11 @@
-/* eslint-disable no-await-in-loop */
+/* eslint-disable no-await-in-loop, no-console */
 import { exec } from 'child_process'
 import { promises as fs } from 'fs'
 import path from 'path'
 import { createInterface } from 'readline'
 import { Nb } from 'shuutils'
 import { fileURLToPath } from 'url'
-import { getFfmpegCommand, getScreenshotFilename, parseUserInput, parseVideoMetadata, type FfProbeOutput, type Metadata, type Task } from './take-screenshot.utils.js' // js extension is required for ts-node to import it
+import { getFfmpegCommand, getScreenshotFilename, parseUserInput, parseVideoMetadata, type FfProbeOutput, type Metadata, type Task } from './take-screenshot.utils.js' // js extension is required here
 
 const thisFilePath = fileURLToPath(import.meta.url)
 const currentFolder = path.dirname(thisFilePath)
@@ -28,8 +28,7 @@ async function shellCommand (cmd: string) {
   return await new Promise((resolve: (value: string) => void) => {
     // eslint-disable-next-line security/detect-child-process
     exec(cmd, (error, stdout: string, stderr: string) => {
-      if (error)
-        console.error(error)
+      if (error) console.error(error)
       resolve(stdout || stderr)
     })
   })

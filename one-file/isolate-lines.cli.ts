@@ -1,5 +1,6 @@
+/* eslint-disable no-console */
 import clipboard from 'clipboardy'
-import { isolateLines } from './isolate-lines.utils.js' // js extension is required for ts-node to import it
+import { isolateLines } from './isolate-lines.utils.js' // js extension is required here
 
 console.log('isolate-lines.cli start')
 const input = clipboard.readSync()

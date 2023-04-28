@@ -16,7 +16,8 @@
         "**/*.mjs"
       ],
       "rules": {
-        "@typescript-eslint/ban-ts-comment": "off"
+        "@typescript-eslint/ban-ts-comment": "off",
+        "no-console": "off"
       }
     }
   ],
@@ -42,6 +43,7 @@
       "error",
       2
     ],
+    "@typescript-eslint/lines-around-comment": "off",
     "@typescript-eslint/member-delimiter-style": [
       "error",
       {
@@ -83,6 +85,7 @@
     "eslint-comments/no-use": "off",
     "etc/no-const-enum": "off",
     "etc/no-enum": "off",
+    "etc/prefer-interface": "off",
     "ext/lines-between-object-properties": "off",
     "func-names": [
       "error",
@@ -124,17 +127,14 @@
     "import/no-webpack-loader-syntax": "off",
     "import/order": "off",
     "import/prefer-default-export": "off",
-    "indent": [
-      "error",
-      2
-    ],
+    "indent": "off",
     "line-comment-position": "off",
     "lines-around-comment": "off",
     "lines-between-class-members": "off",
     "logical-assignment-operators": "off",
     "max-len": "off",
     "max-statements-per-line": "off",
-    "no-console": "off",
+    "no-console": "error",
     "no-inline-comments": "off",
     "object-curly-spacing": [
       "error",
@@ -146,10 +146,7 @@
       "error",
       "consistent-as-needed"
     ],
-    "quotes": [
-      "error",
-      "single"
-    ],
+    "quotes": "off",
     "require-atomic-updates": [
       "error",
       {
@@ -164,6 +161,7 @@
       "error",
       "always"
     ],
+    "total-functions/no-partial-division": "off",
     "unicorn/no-array-for-each": "off",
     "unicorn/no-process-exit": "off",
     "unicorn/prefer-module": "off",
