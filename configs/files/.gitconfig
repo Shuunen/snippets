@@ -50,6 +50,7 @@ pf = push --force
 pt = !git tag -l | xargs git tag -d && git fetch -t # prune local git tags that don't exist on remote
 rh = "!f() { git reset HEAD~$@ && echo -e \"\n You moved $@ commit(s) back \n\"; }; f"
 sps = "! git stash && git pull && git stash apply"
+srds = "! git stash && git frd && git stash apply"
 st = status -sbu
 
 [diff]

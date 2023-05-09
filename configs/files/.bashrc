@@ -5,7 +5,7 @@ ssh-add ~/.ssh/id_rsa_gh
 ssh-add ~/.ssh/id_rsa_anatec
 
 alias merge='C:/Program\ Files/WinMerge/WinMergeU.exe'
-alias ll="ls -alhFo --group-directories-first --time-style=long-iso --color=auto"
+alias ll="ls -lv --almost-all --no-group --human-readable --classify --group-directories-first --time-style=long-iso --color=auto"
 alias regenLock="rm node_modules/ -rf && rm pnpm-lock.yaml && pnpm i && pnpm outdated"
 alias updateLock="pnpm update && git checkout package.json && pnpm i && pnpm outdated"
 
