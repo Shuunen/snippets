@@ -70,6 +70,7 @@
     "commitlint",
     "cyclomatic",
     "d’oeil",
+    "darkgray",
     "darkgreen",
     "darkorange",
     "darkred",
@@ -146,6 +147,7 @@
     "Kbps",
     "keymaps",
     "keypress",
+    "KONAMI",
     "Korben",
     "kupfer",
     "Lafon",
@@ -199,6 +201,7 @@
     "Paginator",
     "paren",
     "Paylib",
+    "pentium",
     "Phomemo",
     "photopea",
     "Picasa",
@@ -240,6 +243,7 @@
     "Romain",
     "royalblue",
     "rulesets",
+    "ryzen",
     "Ryzen",
     "sakura",
     "Sandisk",
@@ -607,6 +611,7 @@
     }
   },
   "vetur.format.enable": true,
+  "vue.features.codeActions.savingTimeLimit": 1000,
   "window.zoomLevel": 1,
   "workbench.colorTheme": "Default Dark+"
 }
