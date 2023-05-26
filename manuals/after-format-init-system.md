@@ -32,6 +32,7 @@ chocolatey-windowsupdate.extension ^
 chocolateygui ^
 clavier-plus.install ^
 cpu-z.install ^
+deezer ^
 deno ^
 digikam ^
 directx ^
@@ -46,6 +47,7 @@ dotnetfx ^
 exiftool ^
 exiftoolgui ^
 ffmpeg ^
+filebot ^
 filezilla ^
 geekbench5 ^
 geforce-experience ^
@@ -62,6 +64,8 @@ hpusbdisk ^
 hyperfine ^
 imageglass ^
 InkScape ^
+irfanview ^
+irfanviewplugins ^
 javaruntime ^
 jbs ^
 jre8 ^
@@ -77,9 +81,9 @@ lossless-cut ^
 makemkv ^
 mediainfo ^
 mkvtoolnix ^
-mpv.portable ^
+mpv.install ^
 netfx-4.7.2 ^
-nodejs.install ^
+nodejs-lts ^
 notepadplusplus.install ^
 onlyoffice ^
 openhardwaremonitor ^
@@ -87,6 +91,7 @@ paint.net ^
 picard ^
 pnpm ^
 powertoys ^
+procexp ^
 python3 ^
 qbittorrent ^
 rapidee ^
@@ -98,8 +103,10 @@ speccy ^
 spek ^
 spotify ^
 steam-client ^
+streamlabs-obs ^
 subtitleedit ^
 sumatrapdf.portable ^
+svg-explorer-extension ^
 tagscanner ^
 treesizefree ^
 usbdeview ^
@@ -118,6 +125,7 @@ vlc.install ^
 vscode.install ^
 webview2-runtime ^
 winfetch ^
+yarn ^
 winmerge
 ```
 

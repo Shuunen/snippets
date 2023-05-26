@@ -36,7 +36,6 @@ PS: nothing to do with steam app, steam guard will be overwrite with the new ins
 
 ## Windows only
 
-- [ ] go to `~\.vscode\extensions` and update `snippets\.vscode\extensions.json` if needed
 - [ ] go to `~\AppData` and for each Local, LocalLow, Roaming => update snippet/config with missing configs
 - [ ] documents folder for game/soft saves/configs
 - [ ] copy useful installed apps to a `_previously-installed-apps` folder (backup list & maybe new portable apps)
