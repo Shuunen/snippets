@@ -29,11 +29,14 @@ helper = manager
 
 [alias]
 aa = add .
+afd = "!f() { git add -A && git commit --fixup $@ && git asd; }; f"
+afm = "!f() { git add -A && git commit --fixup $@ && git asm; }; f"
 acp = "!f() { git add -A && git commit -m \"$@\" && git push; }; f"
 amp = "!f() { git add -A && git commit --amend --no-edit && git push --force; }; f"
 amend = commit --amend --no-edit
 as = "! GIT_SEQUENCE_EDITOR=: git rebase -i --autosquash"
 asd = "! git as develop"
+asm = "! git as master"
 bclean = "!f() { git branch --merged ${1-master} | grep -v " ${1-master}$" | xargs -r git branch -d; }; f"
 co = checkout
 cop = "!f() { git checkout $1; git f; git pull; }; f"

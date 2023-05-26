@@ -30,7 +30,13 @@
     "when": "editorTextFocus && !editorReadonly"
   },
   {
-    "command": "typescript.restartTsServer",
+    "args": {
+      "commands": [
+        "typescript.restartTsServer",
+        "eslint.restart"
+      ]
+    },
+    "command": "runCommands",
     "key": "ctrl+oem_8"
   },
   {
