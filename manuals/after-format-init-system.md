@@ -103,8 +103,9 @@ soulseek ^
 speccy ^
 spek ^
 spotify ^
-steam-client ^
+steam ^
 streamlabs-obs ^
+stretchly ^
 subtitleedit ^
 sumatrapdf.portable ^
 svg-explorer-extension ^
@@ -141,6 +142,7 @@ Avoid :
 - [ ] start sync
 - [ ] settings > set as default browser
 - [ ] login to github & edit this manual to add missing steps (so meta)
+- [ ] setup violent-monkey settings > sync > google drive > authorize
 
 ## Explorer
 
@@ -153,9 +155,8 @@ Avoid :
 
 ## Misc
 
-- [ ] press Win+R , type `shell:startup`, hit Enter, go up one level & drag Launchy shortcut to Startup folder to make it start with windows
-- [ ] start `Steam` from start menu and add game libraries in `download options > steam library`, update the default one
 - [ ] use autoruns to remove useless things at startup
+- [ ] start & setup Stretchly
 
 ## Windows
 
@@ -171,7 +172,7 @@ Avoid :
 - [ ] open device manager, open settings of ethernet network card, disable ability to exit from hibernation
 - [ ] remove more shit with [O&O ShutUp10](https://www.oo-software.com/en/shutup10)
 - [ ] restart
-- [ ] as a user, open cmd and `C:\tools\winfetch\winfetch.bat > fetch-once.log`
+- [ ] as a user, open cmd and `C:\tools\winfetch\winfetch.bat > fetch-once.log`, open & check that `fetch-once.log` is correct
 
 ## Git bash
 
@@ -275,6 +276,7 @@ code snippets
 ```
 
 - [ ] install my recommended extensions
+- [ ] set display screen refresh rate to max
 - [ ] Do Geekbench && `geekbench5 --compute OpenCL`, Cinebench, UserBenchmark
 - [ ] [pimp with a 2k wallpaper](https://www.google.com/search?q=wallpaper+2k)
 - [ ] encrypt drive
