@@ -252,12 +252,14 @@ node bin/sync.js --setup
 ```bash
 cd ~/Projects/github
 git clone git@github.com:Shuunen/c-est-donne.git
+git clone git@github.com:Shuunen/eslint-plugin-shuunen.git
 git clone git@github.com:Shuunen/finga.git
 git clone git@github.com:Shuunen/flood-it.git
 git clone git@github.com:Shuunen/folio.git
 git clone git@github.com:Shuunen/ging.git
 git clone git@github.com:Shuunen/goals.git
 git clone git@github.com:Shuunen/musiblox.git
+git clone git@github.com:Shuunen/ntlite-configs.git
 git clone git@github.com:Shuunen/recipes.git
 git clone git@github.com:Shuunen/regex-converter.git
 git clone git@github.com:Shuunen/repo-checker.git
