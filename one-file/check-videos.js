@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+/* eslint-disable putout/putout */
 /* eslint-disable max-statements */
 /* eslint-disable complexity */
 /* eslint-disable sonarjs/cognitive-complexity */
@@ -202,7 +203,7 @@ class CheckVideos {
       console.log('\u001B[100m%s\u001B[0m', `\n${type} :`)
       const videos = this.detected[type] || []
       videos.sort((videoA, videoB) => this.byValueAsc(videoA, videoB)).forEach((file, index) => {
-        const even = (index % 2) === 0
+        const even = !(index % 2)
         const line = ` - ${file}`
         total += 1
         if (even) console.log('\u001B[91m%s\u001B[0m', line)

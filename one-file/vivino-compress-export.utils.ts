@@ -11,7 +11,7 @@ export function compressCsv (input: string): string {
     .split('\n')
     .slice(1)
     .map((line) => {
-      // eslint-disable-next-line @typescript-eslint/naming-convention, no-underscore-dangle
+      // eslint-disable-next-line @typescript-eslint/naming-convention, no-underscore-dangle, unused-imports/no-unused-vars
       const [name, domain, _year, _region, _country, , _avgRating, _scanDate, _location, rating = ''] = line.split(',')
       const wine = `${readable(name)} ${readable(domain)}`.trim()
       return rating ? [wine, rating].join(',') : ''

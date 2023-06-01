@@ -1,9 +1,10 @@
+/* eslint-disable total-functions/no-unsafe-readonly-mutable-assignment */
 /* eslint-disable no-await-in-loop, no-console */
 import { exec } from 'child_process'
 import { promises as fs } from 'fs'
 import path from 'path'
 import { createInterface } from 'readline'
-import { Nb } from 'shuutils'
+import { nbSecondsInMinute } from 'shuutils'
 import { fileURLToPath } from 'url'
 import { getFfmpegCommand, getScreenshotFilename, parseUserInput, parseVideoMetadata, type FfProbeOutput, type Metadata, type Task } from './take-screenshot.utils.js' // js extension is required here
 
@@ -20,7 +21,6 @@ async function logAdd (...stuff: Date[] | string[]) {
   await fs.appendFile(logFile, `${stuff.join(' ')}\n`)
 }
 
-// eslint-disable-next-line total-functions/no-unsafe-readonly-mutable-assignment
 const ask = createInterface({ input: process.stdin, output: process.stdout })
 
 async function shellCommand (cmd: string) {
@@ -49,6 +49,7 @@ async function getVideoMetadata (filepath: string) {
   // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   const data = JSON.parse(output) as Partial<FfProbeOutput>
   const metadata = parseVideoMetadata(data)
+  // eslint-disable-next-line putout/putout
   if (metadata.size === 0) metadata.size = await getFileSize(filepath)
   metadata.filepath = filepath
   return metadata
@@ -71,13 +72,14 @@ function getTask (totalSeconds: number, metadata: Metadata): Task {
 }
 
 async function getTasks (input: string) {
-  const videoPath = process.argv[Nb.Two]
+  // eslint-disable-next-line prefer-destructuring, @typescript-eslint/no-magic-numbers
+  const videoPath = process.argv[2]
   if (videoPath === undefined) throw new Error('no video path')
   const videoName = path.basename(videoPath)
   const meta = await getVideoMetadata(videoPath)
   if (meta.title.length <= videoName.length) meta.title = videoName
   await logAdd(`\n- videoPath : ${videoPath}\n- videoName : ${videoName}\n- title : ${meta.title}`)
-  const targetsTotalSeconds = parseUserInput(input).map(({ minutes, seconds }) => minutes * Nb.SecondsInMinute + seconds)
+  const targetsTotalSeconds = parseUserInput(input).map(({ minutes, seconds }) => minutes * nbSecondsInMinute + seconds)
   return targetsTotalSeconds.map(totalSeconds => getTask(totalSeconds, meta))
 }
 
@@ -98,11 +100,10 @@ async function init () {
   asciiWelcome()
   await logClear()
   await logAdd('Take screenshot starts @', new Date().toISOString())
-  if (process.argv[Nb.Two] === undefined) throw new Error('missing videoPath')
-  if (process.argv[Nb.Three] !== undefined) { void takeScreenAt(process.argv[Nb.Three]); return }
+  if (process.argv[2] === undefined) throw new Error('missing videoPath') // eslint-disable-line @typescript-eslint/no-magic-numbers
+  if (process.argv[3] !== undefined) { void takeScreenAt(process.argv[3]); return } // eslint-disable-line @typescript-eslint/no-magic-numbers
   const lastInput = await fs.readFile(lastInputFile, 'utf8').catch(() => '60')
   ask.question(`  Please type the time in mmss or ss (enter to use "${lastInput}") : `, (time: string) => { void takeScreenAt(time || lastInput) })
 }
 
 await init()
-

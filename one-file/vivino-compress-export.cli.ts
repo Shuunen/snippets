@@ -28,6 +28,7 @@ function asciiWelcome (): void {
 }
 
 async function logClear () {
+  // eslint-disable-next-line total-functions/no-unsafe-readonly-mutable-assignment
   await fs.writeFile(logFile, '')
 }
 
@@ -44,6 +45,7 @@ async function init () {
   if (!fileName) throw new Error('missing full_wine_list.csv file path')
   const input = await fs.readFile(fileName, 'utf8')
   const output = compressCsv(input)
+  // eslint-disable-next-line total-functions/no-unsafe-readonly-mutable-assignment
   await fs.writeFile(fileName.replace('.csv', '.compressed.csv'), output)
   // eslint-disable-next-line @typescript-eslint/no-magic-numbers
   console.log('  Done, final file is only', Math.round(output.length / input.length * 100), '% of the original size :)')

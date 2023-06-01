@@ -1,5 +1,4 @@
-/* c8 ignore next */
-import { Nb } from 'shuutils'
+import { nbMsInSecond, nbSecondsInMinute } from 'shuutils'
 
 export interface FfProbeOutput {
   format: { filename: string; tags: { title: string }; size: number; duration: number }
@@ -14,6 +13,7 @@ export interface Metadata { title: string; size: number; height: number; duratio
 export const emptyMetadata: Metadata = { title: '', duration: 0, size: 0, height: 0 }
 
 export function parseVideoMetadata (ffProbeOutput?: Partial<FfProbeOutput>): Metadata {
+  // eslint-disable-next-line putout/putout
   if (ffProbeOutput === undefined || ffProbeOutput.streams === undefined || ffProbeOutput.streams.length === 0) return emptyMetadata
   const video = ffProbeOutput.streams.find((stream) => stream.codec_type === 'video')
   if (!video) return emptyMetadata
@@ -36,14 +36,14 @@ export function getTargets (modulo: number, minutesBase: number, secondsBase: nu
     seconds = secondsBase + step
     if (seconds < 0) {
       minutes = minutesBase - 1
-      seconds += Nb.SecondsInMinute
+      seconds += nbSecondsInMinute
       // eslint-disable-next-line sonarjs/elseif-without-else
-    } else if (seconds > (Nb.SecondsInMinute - Nb.One)) {
+    } else if (seconds > (nbSecondsInMinute - 1)) {
       minutes = minutesBase + 1
-      seconds -= Nb.SecondsInMinute
+      seconds -= nbSecondsInMinute
     }
     targets.push({ minutes, seconds })
-    if (seconds === (Nb.SecondsInMinute - Nb.One)) minutes += 1
+    if (seconds === (nbSecondsInMinute - 1)) minutes += 1
   }
   return targets
 }
@@ -58,13 +58,13 @@ export function parseUserInput (userInput: string): Target[] {
   if (minutesOrSeconds === '') return []
   const secondsBase = Number.parseInt(secondsMaybe || minutesOrSeconds, 10)
   const minutesBase = secondsMaybe === '' ? 0 : Number.parseInt(minutesOrSeconds, 10)
-  // eslint-disable-next-line no-nested-ternary
-  const modulo = moduloMaybe === '' ? (moduloMarker === '' ? Nb.None : Nb.Five) : Number.parseInt(moduloMaybe.replace(/\D/gu, ''), 10)
+  // eslint-disable-next-line no-nested-ternary, @typescript-eslint/no-magic-numbers
+  const modulo = moduloMaybe === '' ? (moduloMarker === '' ? 0 : 5) : Number.parseInt(moduloMaybe.replace(/\D/gu, ''), 10)
   return getTargets(modulo, minutesBase, secondsBase)
 }
 
 export function readableDuration (seconds: number): string {
-  return `${new Date(seconds * Nb.Thousand).toISOString().slice(11, 19).replace(':', 'h').replace(':', 'm')}s` // eslint-disable-line @typescript-eslint/no-magic-numbers
+  return `${new Date(seconds * nbMsInSecond).toISOString().slice(11, 19).replace(':', 'h').replace(':', 'm')}s` // eslint-disable-line @typescript-eslint/no-magic-numbers
 }
 
 export function readableSize (size: number): string {
@@ -95,4 +95,3 @@ export function getFfmpegCommand (task: Task): string {
   const { totalSeconds, videoPath, screenPath } = task
   return `ffmpeg -ss ${totalSeconds} -i "${videoPath}" -frames:v 1 -q:v 1 "${screenPath}"`
 }
-
