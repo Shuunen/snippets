@@ -98,6 +98,7 @@ rapidee ^
 riot ^
 rufus ^
 shutup10 ^
+slack ^
 soulseek ^
 speccy ^
 spek ^
