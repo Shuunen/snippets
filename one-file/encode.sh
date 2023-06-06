@@ -3,8 +3,9 @@
 # use me like this :
 # $ encode.sh "video-stuff-foobar.mkv"
 # will default to :
-# $ encode.sh "input file" 24 medium
+# $ encode.sh "video-stuff-foobar.mkv" 24 medium
 # and generate : video-medium-crf24-grain.mkv
+# instead of "medium" you can also use "slow" or "fast"
 
 # basic="crf=22:strong-intra-smoothing=0:rect=0:aq-mode=3"
 # rarbg avg bitrate 2000 kbps is pretty much equivalent to crf 22
