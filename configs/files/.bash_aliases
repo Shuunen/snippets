@@ -15,5 +15,5 @@ PATH="$PATH:$HOME/.npm-global/bin"
 
 echo '' 
 screenfetch 
-echo ' Welcome huei ^^' 
+echo ' Hey there ^^ Have a nice day!' 
 echo ''
