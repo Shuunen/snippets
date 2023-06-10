@@ -13,9 +13,7 @@ const appData = process.env.APPDATA || (process.platform === 'darwin' ? `${home}
 const onWindows = process.env.APPDATA === appData
 // const prgFiles = 'C:/Program Files'
 
-/**
- * @type {import('./types').Config[]} 
- */
+/** @type {import('./types').Config[]} */
 const configs = [
   { source: `${home}/.bash_aliases` },
   { source: `${appData}/Code/User/keybindings.json`, renameTo: 'vscode-keybindings.json' },
@@ -79,17 +77,44 @@ function getDetails (filepath) {
   return { filepath, exists, content: updatedContent }
 }
 
-export const backupPath = path.join(currentFolder, '../files')
+/**
+ * Get the filename from the config
+ * @param {import('./types').Config} config the config
+ * @returns the filename
+ */
+function getFilename ({ renameTo, source }) {
+  return renameTo ?? path.basename(source)
+}
 
-export const files = configs.map(config => {
-  const { renameTo, removeLinesAfter, removeLinesMatching } = config
-  const filename = renameTo ?? path.basename(config.source)
-  const source = getDetails(config.source)
-  const destination = getDetails(path.join(backupPath, filename))
-  const equals = clean(source.content, removeLinesAfter, removeLinesMatching) === clean(destination.content, removeLinesAfter, removeLinesMatching)
-  if (!equals) {
+/**
+ * Check if the source and destination files content are equals
+ * @param {import('./types').File} file the file to be checked
+ * @param {import('./types').Config} config the config
+ * @returns true if the files are equals
+ */
+function isEquals (file, config) {
+  const { source, destination } = file
+  const { removeLinesAfter, removeLinesMatching } = config
+  const filename = getFilename(config)
+  const areEquals = clean(source.content, removeLinesAfter, removeLinesMatching) === clean(destination.content, removeLinesAfter, removeLinesMatching)
+  if (!areEquals) {
     writeFileSync(path.join(changesFolderPath, `${filename}-source.log`), clean(source.content, removeLinesAfter, removeLinesMatching, false))
     writeFileSync(path.join(changesFolderPath, `${filename}-destination.log`), clean(destination.content, removeLinesAfter, removeLinesMatching, false))
   }
-  return { source, destination, equals, removeLinesMatching, removeLinesAfter }
+  return areEquals
+}
+
+export const backupPath = path.join(currentFolder, '../files')
+
+/** @type {import('./types').File[]} */
+export const files = configs.map(config => {
+  const filename = getFilename(config)
+  const source = getDetails(config.source)
+  const destination = getDetails(path.join(backupPath, filename))
+  const /** @type {import('./types').File} */ file = { source, destination, equals: false }
+  file.equals = isEquals(file, config)
+  if (config.removeLinesMatching) file.removeLinesMatching = config.removeLinesMatching
+  if (config.removeLinesAfter) file.removeLinesAfter = config.removeLinesAfter
+  return file
 })
+

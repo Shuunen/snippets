@@ -8,13 +8,13 @@ const debug = process.argv.includes('--debug')
 const relativeBackupPath = normalizePathWithSlash(backupPath).replace(normalizePathWithSlash(process.env.PWD ?? '').replace('/c/', 'C:/'), '').slice(1)
 
 /**
- * @type {import('./types.js').Report}
+ * @type {import('./types').Report}
  */
 const report = { errors: [], warnings: [], infos: [], success: [], suggestions: [] }
 
 /**
  * Synchronize a file
- * @param {import('./types.js').File} file the file to synchronize
+ * @param {import('./types').File} file the file to synchronize
  * @returns {Promise<number>}
  */
 // eslint-disable-next-line max-statements, sonarjs/cognitive-complexity
