@@ -29,18 +29,25 @@
 
 1. Turn on the printer
 2. Connect it via USB
-3. Let Windows install the drivers
+3. Download & execute `QY_Printer Driver Setup v1.2.10.exe` from [Phomemo](https://phomemo.com/en-fr/pages/download-for-phomemo-m120-label-printer), [direct link](https://oss.qu-in.life/app/M120-win.zip)
+4. Open `Printers & scanners` Windows settings, you should see the `M120 Printer`
+5. Click on it, then click on `Manage`
 
 Now :
 
 ![settings](images/phomemo-m120-settings.gif)
 
-1. Open the printer settings
+1. Click on `Printing preferences`
 2. Go to "Page Setup" tab
 3. Add a new paper size
 4. Or edit an existing one
 5. Type the name that will be displayed in the print sizes list
 6. Remove few mm from the width to avoid the printer to cut the paper too early
+
+For example, I created :
+
+- a `40 x 30mm` paper size with `38 x 30mm` dimensions
+- a `40 x 20mm` paper size with `38 x 20mm` dimensions
 
 ## Printing from a webpage
 
