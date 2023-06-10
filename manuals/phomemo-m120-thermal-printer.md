@@ -1,4 +1,4 @@
-# Phomemo m120 Bluetooth thermal printer
+# Phomemo m120 Bluetooth & USB thermal printer
 
 ![visual](./images/phomemo-m120.png)
 
