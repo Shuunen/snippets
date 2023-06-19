@@ -1,10 +1,9 @@
 /* eslint-disable no-console */
 import clipboard from 'clipboardy'
-import { isolateLines, linesToList } from './isolate-lines.utils.js' // js extension is required here
+import { cleanTrackers } from './clean-trackers.utils.js'
 
-console.log('isolate-lines.cli start')
+console.log('clean-trackers.cli start')
 const input = clipboard.readSync()
-const lines = isolateLines(input)
-const output = linesToList(lines)
+const output = cleanTrackers(input)
 console.log(`will copy this to clipboard :\n---\n${output}\n--- ${new Date().toLocaleString()}`)
 clipboard.writeSync(output)
