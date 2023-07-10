@@ -110,6 +110,7 @@ subtitleedit ^
 sumatrapdf.portable ^
 svg-explorer-extension ^
 tagscanner ^
+teamviewer ^
 treesizefree ^
 usbdeview ^
 vcredist-all ^
