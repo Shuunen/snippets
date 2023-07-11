@@ -179,20 +179,6 @@ Avoid :
 
 - [ ] options : Looks -> dracula theme, Text -> font size to 11, Mouse -> right btn paste, Window 120 x 30
 
-```bash
-echo -e '#!/bin/bash \n\n eval "$(ssh-agent -s)" \n ssh-add ~/.ssh/id_rsa_gh \n echo "Welcome ${USERNAME} ^^"' > ~/.bashrc
-bash
-cd && mkdir Projects && cd Projects
-mkdir github && cd github
-pnpm setup
-pnpm i ts-node -g # remember to use --transpileOnly
-git clone git@github.com:Shuunen/snippets.git
-cd snippets
-pnpm install
-rm ~/.bashrc
-node configs/bin/sync.js --setup
-```
-
 ### Android development environnement
   
 Set env variables with this but copy/paste to notepad to have CRLF & copy/paste into CMD after (thx m$) :
@@ -213,7 +199,7 @@ Then :
 </details>
 
 <details>
-  <summary>Linux</summary>
+  <summary>Debian based : Ubuntu, Mint, PopOs...</summary>
   <br>
   
 Install these deb :
@@ -226,9 +212,6 @@ Install these deb :
 ```bash  
 wget -qO- https://deb.nodesource.com/setup_18.x | sudo -E bash -
 sudo apt install -y nodejs screenfetch
-mkdir ~/.npm-global
-npm config set prefix '~/.npm-global'
-npm i pnpm ts-node -g # remember to use --transpileOnly
 echo -e "alias ..='cd ..' \n alias install='sudo apt install' \n alias apt='sudo apt' \n alias mkdir='mkdir -pv' \n alias merge=meld \n alias whatsmyip='curl http://ipecho.net/plain; echo' \n alias psg='ps aux | grep -v grep | grep -i -e VSZ -e' \n echo '' \n screenfetch \n echo ' Welcome ${USER} ^^' \n echo ''" > ~/.bash_aliases # make sure bash_aliases is sourced in ~/.bashrc
 source ~/.bash_aliases
 sudo apt install git aria2 nano curl -y # vvv below is for desktop only vvv
@@ -238,20 +221,36 @@ sudo apt update
 sudo apt install qbittorrent -y
 sudo apt autoremove -y
 echo -e "optional : you can manually run 'sudo apt install ttf-mscorefonts-installer' & 'sudo fc-cache -f -v' to get win fonts & clear font cache"
-sudo chmod 700 ~/.ssh/ -R
-mkdir ~/Projects/github
-cd ~/Projects/github
-git clone git@github.com:Shuunen/snippets.git
-cd snippets/configs/
-node bin/sync.js --setup
 ```
 
 </details>
 
 <details>
+  <summary>CentOS, Fedora and Red Hat based : Nobara</summary>
+  <br>
+
+```bash 
+sudo snap install node --classic --channel=18 # sudo dnf module install nodejs:18/common # not working on Nobara 38
+sudo dnf install neofetch git aria2 nano curl -y # vvv below is for desktop only vvv
+sudo dnf install pinta gparted meld mediainfo mkvtoolnix mkvtoolnix-gui mpv xsel shotwell vlc ffmpeg qbittorrent -y
+```
+
+</details>
+
+
+<details>
   <summary>All</summary>
 
-```bash
+  Copy ssh keys then :
+  
+  ```bash
+sudo chmod 700 ~/.ssh/ -R
+mkdir ~/.npm-global
+npm config set prefix '~/.npm-global'
+npm i pnpm ts-node -g # remember to use --transpileOnly
+export PATH="~/.npm-global/bin:$PATH"
+pnpm setup
+mkdir ~/Projects/github -p
 cd ~/Projects/github
 git clone git@github.com:Shuunen/c-est-donne.git
 git clone git@github.com:Shuunen/eslint-plugin-shuunen.git
@@ -266,19 +265,20 @@ git clone git@github.com:Shuunen/recipes.git
 git clone git@github.com:Shuunen/regex-converter.git
 git clone git@github.com:Shuunen/repo-checker.git
 git clone git@github.com:Shuunen/shuutils.git
+git clone git@github.com:Shuunen/snippets.git
 git clone git@github.com:Shuunen/stuff-finder.git
 git clone git@github.com:Shuunen/user-scripts.git
 git clone git@github.com:Shuunen/vue-image-compare.git
 git clone git@github.com:Shuunen/wcs-demo.git
 git clone git@github.com:Shuunen/wcs.git
 git clone git@github.com:Shuunen/what-now.git
-find . -maxdepth 1 -type d \( ! -name . \) -exec bash -c "cd '{}' && git cop master && pnpm i" \;
-code snippets
+find . -maxdepth 1 -type d \( ! -name . \) -exec bash -c "cd '{}' && git checkout master && pnpm i" \;
+node snippets/configs/bin/sync.js --setup
 ```
 
 - [ ] install my recommended extensions
 - [ ] set display screen refresh rate to max
-- [ ] Do Geekbench && `geekbench5 --compute OpenCL`, Cinebench, UserBenchmark
+- [ ] Do Geekbench && `geekbench6 --gpu`, `geekbench5 --compute`, Cinebench, UserBenchmark
 - [ ] [pimp with a 2k wallpaper](https://www.google.com/search?q=wallpaper+2k)
 - [ ] encrypt drive
 
