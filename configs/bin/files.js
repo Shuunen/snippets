@@ -46,11 +46,17 @@ const configs = [
   // { source: `${home}/repo-checker.config.js` },
 ]
 
-if (onWindows) configs.push(
-  { source: `${home}/.bashrc` },
+const windowsConfigs = [
+  { source: `${home}/.bashrc`, renameTo: '.bashrc-windows' },
   { source: `${appData}/Launchy/launchy.ini`, removeLinesAfter: /\[History\]/u },
   { source: `${appData}/Greenshot/Greenshot.ini`, removeLinesAfter: /\[Editor\]/u, removeLinesMatching: [/^(?:ImgurUploadHistory|LastCapturedRegion|LastUpdateCheck|OutputFileAsFull|Commands=)/u, /MS Paint/u] },
-)
+]
+
+const linuxConfigs = [
+  { source: `${home}/.bashrc`, renameTo: '.bashrc-linux' },
+]
+
+configs.push(...(onWindows ? windowsConfigs : linuxConfigs))
 
 // @ts-ignore
 const currentFolder = path.dirname(fileURLToPath(import.meta.url))

@@ -237,7 +237,6 @@ sudo dnf install pinta gparted meld mediainfo mkvtoolnix mkvtoolnix-gui mpv xsel
 
 </details>
 
-
 <details>
   <summary>All</summary>
 
