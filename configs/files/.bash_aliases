@@ -9,7 +9,9 @@ alias regenLock="rm node_modules/ -rf && rm pnpm-lock.yaml && pnpm i && pnpm out
 alias updateLock="pnpm update && git checkout package.json && pnpm i && pnpm outdated"
 alias whatsmyip='curl http://ipecho.net/plain; echo' 
 
-PATH="$PATH:$HOME/.npm-global/bin"
+if ! [[ "$PATH" =~ .npm-global/bin ]]; then PATH="$PATH:$HOME/.npm-global/bin"; fi
+if ! [[ "$PATH" =~ .local/share/applications ]]; then PATH="$PATH:$HOME/.local/share/applications"; fi
+if ! [[ "$PATH" =~ snippets/one-file ]]; then PATH="$PATH:$HOME/Projects/github/snippets/one-file"; fi
 
 echo '' 
 neofetch 
