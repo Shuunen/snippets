@@ -628,6 +628,6 @@
   },
   "vetur.format.enable": true,
   "vue.features.codeActions.savingTimeLimit": 1000,
-  "window.zoomLevel": 1,
+  "window.titleBarStyle": "custom",
   "workbench.colorTheme": "Default Dark+"
 }
