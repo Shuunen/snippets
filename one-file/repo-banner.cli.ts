@@ -31,7 +31,7 @@ const scope = scopeAndName?.scope ?? defaults.scope
 if (name === defaults.name) logger.error('Could not find a name for the project, using the default one :', name)
 const { description = defaults.description } = packageJson
 if (description === defaults.description) logger.error('Could not find a description for the project, using the default one :', description)
-// eslint-disable-next-line security/detect-unsafe-regex, unicorn/no-unsafe-regex
+// eslint-disable-next-line security/detect-unsafe-regex
 const color = /#(?:[\da-f]{3}){1,2}/iu.exec(rawJson)?.[0] ?? defaults.color
 if (color === defaults.color) logger.warn('Could not find a color for the project, using the default one :', color)
 const data = { color, scope, name, description }
