@@ -285,7 +285,7 @@ git clone git@github.com:Shuunen/vue-image-compare.git
 git clone git@github.com:Shuunen/wcs-demo.git
 git clone git@github.com:Shuunen/wcs.git
 git clone git@github.com:Shuunen/what-now.git
-find . -maxdepth 1 -type d \( ! -name . \) -exec bash -c "cd '{}' && git checkout master && pnpm i" \;
+find . -maxdepth 1 -type d \( ! -name . \) -exec bash -c "cd '{}' && git checkout master && git pull && pnpm i" \;
 node snippets/configs/bin/sync.js --setup
 ```
 
