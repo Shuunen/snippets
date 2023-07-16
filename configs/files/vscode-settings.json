@@ -629,5 +629,6 @@
   "vetur.format.enable": true,
   "vue.features.codeActions.savingTimeLimit": 1000,
   "window.titleBarStyle": "custom",
+  "window.zoomLevel": 1,
   "workbench.colorTheme": "Default Dark+"
 }
