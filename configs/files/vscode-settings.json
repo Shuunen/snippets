@@ -72,6 +72,7 @@
     "commitlint",
     "cyclomatic",
     "d’oeil",
+    "daisyui",
     "darkgray",
     "darkgreen",
     "darkorange",
@@ -169,6 +170,7 @@
     "lightgray",
     "lightgreen",
     "linebreak",
+    "linkedin",
     "listitem",
     "localstorage",
     "lorsqu'elle",
@@ -309,6 +311,7 @@
     "unitless",
     "untappd",
     "USERPROFILE",
+    "userscripts",
     "vcredist",
     "Vecteezy",
     "verlingue",
@@ -616,18 +619,7 @@
   "typescript.format.semicolons": "remove",
   "typescript.preferences.quoteStyle": "single",
   "typescript.updateImportsOnFileMove.enabled": "always",
-  "vetur.completion.autoImport": true,
-  "vetur.format.defaultFormatter.css": "none",
-  "vetur.format.defaultFormatter.js": "vscode-typescript",
-  "vetur.format.defaultFormatter.ts": "vscode-typescript",
-  "vetur.format.defaultFormatterOptions": {
-    "prettier": {
-      "printWidth": 200,
-      "singleQuote": false
-    }
-  },
-  "vetur.format.enable": true,
-  "vue.features.codeActions.savingTimeLimit": 1000,
+  "vue.codeActions.savingTimeLimit": 2000,
   "window.titleBarStyle": "custom",
   "window.zoomLevel": 1,
   "workbench.colorTheme": "Default Dark+"
