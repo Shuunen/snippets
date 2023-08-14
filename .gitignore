@@ -6,8 +6,9 @@
 *.mp4
 *.tgz
 /cypress/screenshots
-/one-file/take-screenshot-last-input.txt
+check-screens.json
 coverage
 dist
 node_modules
 sample.*
+take-screenshot-last-input.txt
