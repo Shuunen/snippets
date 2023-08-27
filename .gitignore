@@ -2,6 +2,7 @@
 .DS_Store
 .env
 .eslintcache
+*.bak
 *.log
 *.mp4
 *.tgz

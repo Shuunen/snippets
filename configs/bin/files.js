@@ -2,7 +2,7 @@ import { existsSync, readFileSync, writeFileSync } from 'fs'
 import { writeFile } from 'fs/promises'
 import path from 'path'
 import { fileURLToPath } from 'url'
-import { clean } from './utils.js'
+import { clean, useUnixCarriageReturn } from './utils.js'
 
 const currentFilePath = fileURLToPath(import.meta.url)
 const currentFolderPath = path.dirname(currentFilePath)
@@ -35,7 +35,7 @@ const configs = [
 
 const windowsConfigs = [
   { source: `${home}/.bashrc`, renameTo: '.bashrc-windows' },
-  { source: `${appData}/Launchy/launchy.ini`, removeLinesAfter: /\[History\]/u },
+  { source: `${appData}/Launchy/launchy.ini`, removeLinesAfter: /\[History\]/u, removeLinesMatching: [/^(?:pos=|proxyType=)/u] },
   { source: `${appData}/Greenshot/Greenshot.ini`, removeLinesAfter: /\[Editor\]/u, removeLinesMatching: [/^(?:ImgurUploadHistory|LastCapturedRegion|LastUpdateCheck|OutputFileAsFull|Commands=)/u, /MS Paint/u] },
 ]
 
@@ -64,15 +64,6 @@ configs.push(...(onWindows ? windowsConfigs : linuxConfigs))
 const currentFolder = path.dirname(fileURLToPath(import.meta.url))
 
 /**
- * Convert carriage return to unix line endings
- * @param {string} content the content to be processed
- * @returns the processed content with unix line endings
- */
-function useUnixCarriageReturn (content) {
-  return content.replace(/\r\n/gu, '\n')
-}
-
-/**
  * Transform a file path to a FileDetails object
  * @param {string} filepath the file path
  * @returns the file details
@@ -81,7 +72,8 @@ function getDetails (filepath) {
   const exists = existsSync(filepath)
   const content = exists ? readFileSync(filepath, 'utf8') : ''
   const updatedContent = /\r/u.test(content) && !filepath.includes('.qbtheme') ? useUnixCarriageReturn(content) : content // qbtheme files does not like \n
-  if (content !== updatedContent) writeFile(filepath, updatedContent)
+  const isContentEquals = content === updatedContent
+  if (!isContentEquals) writeFile(filepath, updatedContent)
   return { filepath, exists, content: updatedContent }
 }
 

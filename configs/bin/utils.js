@@ -39,6 +39,15 @@ export function removeLinesAfter (content, regex) {
 }
 
 /**
+ * Convert carriage return to unix line endings
+ * @param {string} content the content to be processed
+ * @returns the processed content with unix line endings
+ */
+export function useUnixCarriageReturn (content) {
+  return content.replace(/\r\n/gu, '\n')
+}
+
+/**
  * Clean a file details content
  * @param {string} content the file content to clean
  * @param {RegExp} [linesAfter] a regex to remove lines after

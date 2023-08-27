@@ -1,6 +1,6 @@
 {
   "[css]": {
-    "editor.defaultFormatter": "stylelint.vscode-stylelint"
+    "editor.defaultFormatter": "aeschli.vscode-css-formatter"
   },
   "[html]": {
     "editor.defaultFormatter": "vscode.html-language-features"
@@ -253,6 +253,7 @@
     "remarkise",
     "renamer",
     "repo",
+    "Roboto",
     "Romain",
     "royalblue",
     "rulesets",
@@ -319,6 +320,8 @@
     "viewports",
     "visualstudio",
     "vitepress",
+    "vuejs",
+    "vuetify",
     "Vuex",
     "wario",
     "watchlist",
@@ -398,6 +401,7 @@
   "html.format.wrapLineLength": 150,
   "i18n-ally.displayLanguage": "fr",
   "i18n-ally.sourceLanguage": "fr",
+  "iconify.inplace": false,
   "importCost.bundleSizeDecoration": "minified",
   "importCost.mediumPackageSize": 10,
   "importCost.smallPackageSize": 5,
@@ -408,6 +412,7 @@
   "javascript.preferences.quoteStyle": "single",
   "javascript.updateImportsOnFileMove.enabled": "always",
   "json.format.enable": true,
+  "keyboard.dispatch": "keyCode",
   "markdown.extension.toc.levels": "1..3",
   "npm.autoDetect": "off",
   "npm.validate.enable": false,
@@ -415,6 +420,7 @@
     "properties-order": "alphabetical"
   },
   "redhat.telemetry.enabled": false,
+  "security.restrictUNCAccess": false,
   "security.workspace.trust.untrustedFiles": "open",
   "sortJSON.contextMenu": {
     "sortJSON": true,
@@ -591,6 +597,13 @@
     "small\\(['`]([^'`]*)",
     "tw\\(['`]([^'`]*)",
     "h\\d\\(['`]([^'`]*)"
+  ],
+  "tailwindCSS.files.exclude": [
+    "**/.git/**",
+    "**/node_modules/**",
+    "**/.hg/**",
+    "**/.svn/**",
+    "**/pnpm-lock.yaml"
   ],
   "telemetry.telemetryLevel": "off",
   "terminal.integrated.cursorBlinking": true,
