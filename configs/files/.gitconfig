@@ -61,6 +61,8 @@ st = status -sbu
 tool = winmerge
 [difftool]
 prompt = false
+keepBackup = false
+keepTemporaries = false
 [difftool "winmerge"]
 name = WinMerge
 trustExitCode = true
