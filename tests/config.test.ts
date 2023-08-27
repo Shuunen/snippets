@@ -1,5 +1,7 @@
-import { clean, filename, normalizePathWithSlash, removeLinesAfter, removeLinesMatching } from '../configs/bin/utils'
+import { expect, it } from 'vitest'
+import { clean, filename, normalizePathWithSlash, removeLinesAfter, removeLinesMatching, useUnixCarriageReturn } from '../configs/bin/utils'
 import { check } from './utils'
+
 
 const content = `
 ; How many days between every update check? (0=no checks)
@@ -68,3 +70,19 @@ check('filename A', filename(winPath), 'tests')
 check('filename B', filename('C:\\Users\\me\\file.txt'), 'file.txt')
 check('filename C', filename('file.txt'), '')
 check('filename D', filename('file'), '')
+
+it('useUnixCarriageReturn A', () => {
+  expect(useUnixCarriageReturn('a\nb\nc')).toMatchInlineSnapshot(`
+    "a
+    b
+    c"
+  `)
+})
+
+it('useUnixCarriageReturn B', () => {
+  expect(useUnixCarriageReturn('a\r\nb\nc')).toMatchInlineSnapshot(`
+    "a
+    b
+    c"
+  `)
+})
