@@ -1,6 +1,6 @@
 {
   "[css]": {
-    "editor.defaultFormatter": "aeschli.vscode-css-formatter"
+    "editor.defaultFormatter": "bradlc.vscode-tailwindcss"
   },
   "[html]": {
     "editor.defaultFormatter": "vscode.html-language-features"
@@ -596,6 +596,7 @@
     "italic\\(['`]([^'`]*)",
     "small\\(['`]([^'`]*)",
     "tw\\(['`]([^'`]*)",
+    "utils\\.tw\\(['`]([^'`]*)",
     "h\\d\\(['`]([^'`]*)"
   ],
   "tailwindCSS.files.exclude": [
