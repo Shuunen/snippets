@@ -5,7 +5,7 @@
   "description": "My personal snippets",
   "devDependencies": {
     "@types/node": "18",
-    "@vitest/coverage-c8": "0.31",
+    "@vitest/coverage-c8": "0.33",
     "clipboardy": "3",
     "eslint": "8.48",
     "eslint-config-hardcore": "36",
@@ -14,7 +14,7 @@
     "shuutils": "7.3",
     "ts-node": "10",
     "typescript": "5.1",
-    "vitest": "0.31"
+    "vitest": "0.34"
   },
   "files": [
     "bookmarklets",
