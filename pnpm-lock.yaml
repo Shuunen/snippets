@@ -24,8 +24,8 @@ devDependencies:
     specifier: '48'
     version: 48.0.0(eslint@8.48.0)
   repo-check:
-    specifier: '1.31'
-    version: 1.31.0
+    specifier: '1.33'
+    version: 1.33.0
   shuutils:
     specifier: '7.3'
     version: 7.3.0
@@ -6899,12 +6899,12 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  /repo-check@1.31.0:
-    resolution: {integrity: sha512-mMXPcw4bD4PzIed2E3Uh00dEVG7WFPDCEpjHnHCz3KmJXMrBK1SFbKnO+sny0xoXeHB8OnDyTa7+ZMakWFNy6w==}
+  /repo-check@1.33.0:
+    resolution: {integrity: sha512-PhoLWdABA/YkUfo4LH1TNoH0aZG/ELbVt14IF5aRdwQLQFCALI9PX/NlXDcnhf7UsLKdI2Dduhc1rCQwmJDjqA==}
     hasBin: true
     dependencies:
       arg: 5.0.2
-      shuutils: 7.2.0
+      shuutils: 7.3.0
       sort-json: 2.0.1
     dev: true
 
@@ -7107,14 +7107,6 @@ packages:
   /shebang-regex@3.0.0:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
-    dev: true
-
-  /shuutils@7.2.0:
-    resolution: {integrity: sha512-iJ8BPnmJrujHO5bfreBg2V71KjKnvM+NXibKXM3f3MizRM9sofLntCGgKoUU7XmGXVZuu9oUsA5Y4F21oLxDhg==}
-    hasBin: true
-    dependencies:
-      tiny-glob: 0.2.9
-      uvu: 0.5.6
     dev: true
 
   /shuutils@7.3.0:
