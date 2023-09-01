@@ -8,7 +8,7 @@
     "@vitest/coverage-c8": "0.31",
     "clipboardy": "3",
     "eslint": "8.48",
-    "eslint-config-hardcore": "36",
+    "eslint-config-hardcore": "41",
     "eslint-plugin-unicorn": "48",
     "repo-check": "1.31",
     "shuutils": "7.3",
