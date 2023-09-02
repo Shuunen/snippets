@@ -65,9 +65,9 @@ nfc.on('reader', (/** @type {{ name: any; aid: string; on: (arg0: string, arg1: 
   reader.aid = 'F222222222'
 
   reader.on('card', async card => {
-    if (card.type === TAG_ISO_14443_3) console.info('card 3 detected', { reader: reader.name, card }) // standard nfc tags like Mifare
-    else if (card.type === TAG_ISO_14443_4) console.info('card 4 detected', { reader: reader.name, card: { ...card, data: card.data.toString('utf8') } }) // Android HCE
-    else console.info('card detected', { reader: reader.name, card }) // not possible, just to be sure
+    if (card.type === TAG_ISO_14443_3) console.info('card 3 detected', { card, reader: reader.name }) // standard nfc tags like Mifare
+    else if (card.type === TAG_ISO_14443_4) console.info('card 4 detected', { card: { ...card, data: card.data.toString('utf8') }, reader: reader.name }) // Android HCE
+    else console.info('card detected', { card, reader: reader.name }) // not possible, just to be sure
 
     // Notice: reading data from Mifare Classic cards (e.g. Mifare 1K) requires,
     // that the data block must be authenticated first
@@ -89,7 +89,7 @@ nfc.on('reader', (/** @type {{ name: any; aid: string; on: (arg0: string, arg1: 
 
       console.info('blocks successfully authenticated')
     } catch (error) {
-      console.error('error when authenticating data', { reader: reader.name, card, error })
+      console.error('error when authenticating data', { card, error, reader: reader.name })
       return
     }
 
@@ -115,12 +115,12 @@ nfc.on('reader', (/** @type {{ name: any; aid: string; on: (arg0: string, arg1: 
       const payload = data.toString() // utf8 is default encoding
       console.log('data converted', payload)
     } catch (error) {
-      console.error('error when reading data', { reader: reader.name, error })
+      console.error('error when reading data', { error, reader: reader.name })
     }
   })
 
   reader.on('error', (error) => {
-    console.error('an error occurred', { reader: reader.name, error })
+    console.error('an error occurred', { error, reader: reader.name })
   })
 
   reader.on('end', () => {

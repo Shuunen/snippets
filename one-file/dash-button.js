@@ -3,12 +3,12 @@ import dashBtn from 'node-dash-button'
 
 const buttons = [
   {
-    name: 'white',
     mac: 'fc:a6:67:8f:42:7c',
+    name: 'white',
   },
   {
-    name: 'red',
     mac: '34:d2:70:18:10:cc',
+    name: 'red',
   },
 ]
 

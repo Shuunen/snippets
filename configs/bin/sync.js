@@ -10,7 +10,7 @@ const relativeBackupPath = normalizePathWithSlash(backupPath).replace(normalizeP
 /**
  * @type {import('./types').Report}
  */
-const report = { errors: [], warnings: [], infos: [], success: [], suggestions: [] }
+const report = { errors: [], infos: [], success: [], suggestions: [], warnings: [] }
 
 /**
  * Synchronize a file
@@ -20,7 +20,7 @@ const report = { errors: [], warnings: [], infos: [], success: [], suggestions: 
 // eslint-disable-next-line max-statements, sonarjs/cognitive-complexity
 async function sync (file) {
   process.stdout.write('.')
-  const { source, destination, equals } = file
+  const { destination, equals, source } = file
   if (!source.exists) {
     if (!setup) return report.infos.push(`source file does not exists : ${source.filepath}`)
     if (dry) return report.infos.push(`would copy ${filename(destination.filepath)} to ${source.filepath}`)

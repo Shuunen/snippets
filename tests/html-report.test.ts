@@ -4,39 +4,38 @@ import { check, checkSnapshot } from './utils.js'
 
 const samples = [
   {
-    title: 'empty',
     input: '',
     output: { attr: 0, css: 0, styles: 0, tags: 0, text: 0, total: 0 },
+    title: 'empty',
   },
   {
-    title: 'empty',
     input: '<br/><style>h1 { color: red; font-size: 2rem }</style>',
     output: { attr: 0, css: 34, styles: 0, tags: 20, text: 0, total: 54 },
+    title: 'empty',
   },
   {
-    title: 'empty',
     input: '<h1 style="color: red">Super top !</h1>',
     output: { attr: 1, css: 0, styles: 18, tags: 9, text: 11, total: 39 },
+    title: 'empty',
   },
   {
-    title: 'empty',
     input: '<p><small>ah</small></p> ',
     output: { attr: 0, css: 0, styles: 0, tags: 22, text: 3, total: 25 },
+    title: 'empty',
   },
   {
-    title: 'empty',
     input: '<p style="font-weight: bold; color: black;"><small style="font-style: italic">ah</small></p> ',
     output: { attr: 2, css: 0, styles: 66, tags: 22, text: 3, total: 93 },
+    title: 'empty',
   },
   {
-    title: 'empty',
     input: `<p>
 <small>ah... !!</small>
 </p>`,
     output: { attr: 0, css: 0, styles: 0, tags: 22, text: 10, total: 32 },
+    title: 'empty',
   },
   {
-    title: 'empty',
     input: `<style data-vue-ssr-id="d706d280:0 2a082f94:0">
 *,
 ::after,
@@ -46,10 +45,11 @@ const samples = [
 </style>
 <link rel="preload" href="/_nuxt/static/1626092993/state.js" as="script">`,
     output: { attr: 67, css: 92, styles: 0, tags: 22, text: 0, total: 181 },
+    title: 'empty',
   },
 ] as const
 
-samples.forEach(({ title, input, output }) => {
+samples.forEach(({ input, output, title }) => {
   const actual = new HtmlReporter(input)
   check(`html-report ${title} attr`, actual.attr, output.attr)
   check(`html-report ${title} css`, actual.css, output.css)
@@ -60,7 +60,7 @@ samples.forEach(({ title, input, output }) => {
 })
 
 // eslint-disable-next-line prefer-destructuring
-const { title, input, output } = samples[5]
+const { input, output, title } = samples[5]
 const actualDebug = new HtmlReporter(input, true)
 check(`html-report debug ${title} attr`, actualDebug.attr, output.attr)
 check(`html-report debug ${title} css`, actualDebug.css, output.css)

@@ -4,7 +4,7 @@ import { copyFileSync, readFileSync, readdirSync, renameSync, statSync, unlinkSy
 import path from 'path'
 
 // Go into the Downloads\Azerty.S01.1080p.WEBRip.x265-RARBG folder
-// then use me like : ts-node-esm -T ~/Projects/github/snippets/one-file/rename-subs.cli.ts
+// then use me like : ts-node-esm --transpileOnly ~/Projects/github/snippets/one-file/rename-subs.cli.ts
 
 const isDebug = process.argv.includes('--debug')
 const currentFolder = process.cwd()

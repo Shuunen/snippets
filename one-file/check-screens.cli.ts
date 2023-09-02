@@ -4,12 +4,12 @@ import path from 'path'
 import { blue, ellipsis, green, red, slugify, yellow } from 'shuutils'
 import { fileURLToPath } from 'url'
 
-// Use me like : ts-node-esm -T one-file/check-screens.cli.ts "U:\Screens"
+// Use me like : ts-node-esm --transpileOnly one-file/check-screens.cli.ts "U:\Screens"
 
 // eslint-disable-next-line @typescript-eslint/unbound-method
 const { argv, cwd } = process
 const expectedNbParameters = 2
-if (argv.length <= expectedNbParameters) console.log('Targeting current folder, you can also specify a specific path, ex : ts-node-esm -T one-file/check-screens.cli.ts "U:\\Screens\\" \n')
+if (argv.length <= expectedNbParameters) console.log('Targeting current folder, you can also specify a specific path, ex : ts-node-esm --transpileOnly one-file/check-screens.cli.ts "U:\\Screens\\" \n')
 const screensPath = path.normalize(argv[expectedNbParameters] ?? cwd())
 const isImage = /\.(?:jpg|png)$/u
 const colors = [red, green, blue, yellow] as const
@@ -70,7 +70,6 @@ class CheckScreens {
   }
 
   private report (groups: Record<string, string[]>, singles: number) {
-    // eslint-disable-next-line putout/putout
     if (singles === 0) console.log(`\n${color('No')} screenshot seems to be alone, ${color('well done ^^')}`)
     else console.log(`\nFound ${color(singles.toString())} screenshot(s) that seems to be alone`)
     writeFileSync(path.join(currentFolder, 'check-screens.json'), JSON.stringify(groups, undefined, nbSpaces))

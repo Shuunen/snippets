@@ -17,10 +17,10 @@ logger.info('Target folder :', currentWorkingFolder)
  * Data extraction
  */
 interface PackageJson {
-  name: string
   description: string
+  name: string
 }
-const defaults = { color: '#024eb8', scope: 'JohnDoe', name: 'unknown', description: 'A placeholder description' }
+const defaults = { color: '#024eb8', description: 'A placeholder description', name: 'unknown', scope: 'JohnDoe' }
 const rawJson = readFileSync(path.join(currentWorkingFolder, 'package.json'), 'utf8')
 const { error, value: packageJson } = parseJson<PackageJson>(rawJson)
 if (error) { logger.error(error); process.exit(1) }
@@ -34,7 +34,7 @@ if (description === defaults.description) logger.error('Could not find a descrip
 // eslint-disable-next-line security/detect-unsafe-regex
 const color = /#(?:[\da-f]{3}){1,2}/iu.exec(rawJson)?.[0] ?? defaults.color
 if (color === defaults.color) logger.warn('Could not find a color for the project, using the default one :', color)
-const data = { color, scope, name, description }
+const data = { color, description, name, scope }
 
 /**
  * SVG generation

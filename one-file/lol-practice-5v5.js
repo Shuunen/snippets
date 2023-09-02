@@ -14,7 +14,7 @@ const data = {
   },
   isCustom: true,
 }
-const options = { hostname: '127.0.0.1', path: '/lol-lobby/v2/lobby', method: 'POST', headers: { 'Content-Type': 'application/json', 'Authorization': '' }, port: 0 }
+const options = { headers: { 'Authorization': '', 'Content-Type': 'application/json' }, hostname: '127.0.0.1', method: 'POST', path: '/lol-lobby/v2/lobby', port: 0 }
 
 // @ts-ignore
 const currentFolder = path.dirname(fileURLToPath(import.meta.url))

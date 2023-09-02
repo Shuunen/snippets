@@ -1,5 +1,4 @@
 #!/usr/bin/env node
-/* eslint-disable putout/putout */
 /* eslint-disable max-statements */
 /* eslint-disable complexity */
 /* eslint-disable sonarjs/cognitive-complexity */
@@ -31,17 +30,9 @@ const DRY_RUN = argv.includes('--dry-run') || argv.includes('--dry')
 let listing = 'name,title\n'
 
 const utils = {
-  /**
-   * Execute a command and return the output
-   * @param {string} cmd
-   * @returns {Promise<string>}
-   */
-  shellCommand: async cmd => new Promise(resolve => {
-    exec(cmd, (/** @type {Error|null} */ error, /** @type {string} */ stdout, /** @type {string} */ stderr) => {
-      if (error) console.error(error)
-      resolve(stdout || stderr)
-    })
-  }),
+  cleanTitle: (title = '') => title.replace('PSArips.com | ', '').replace(/[,:]/gu, ' ').replace(/\s+/gu, ' ').trim(),
+  ellipsis: (string = '', length = 0) => string.length > length ? (`${string.slice(0, Math.max(0, length - 3))}...`) : string,
+  folderName: (filepath = '') => /\W([\s\w]+)\W?$/u.exec(filepath)?.[1] || '',
   /**
    * Get the size of a file in megabytes
    * @param {string} filepath
@@ -82,19 +73,6 @@ const utils = {
     }
   },
   /**
-   * Set the title of a video in its metadata
-   * @param {string} filepath The filepath of the video
-   * @param {string} filename The filename of the video
-   * @returns {Promise<void>}
-   */
-  setVideoTitle: async (filepath, filename) => {
-    if (filepath.includes('.mp4') || filepath.includes('.avi')) return
-    const title = utils.cleanTitle(filename.replace(/\.[^.]+$/u, ''))
-    if (DRY_RUN) console.log(`Would set title to ${blue(title)}\n`)
-    else await utils.shellCommand(`mkvpropedit "${filepath}" -e info -s title="${title}"`)
-  },
-  ellipsis: (string = '', length = 0) => string.length > length ? (`${string.slice(0, Math.max(0, length - 3))}...`) : string,
-  /**
    * List the files in a directory
    * @param {string} filepath The directory to list
    * @returns {Promise<string[]>}
@@ -106,7 +84,7 @@ const utils = {
    * Display a pretty-printed JSON object
    * @param {{}} object
    */
-  prettyPrint: object => inspect(object, { depth: 2, colors: true }),
+  prettyPrint: object => inspect(object, { colors: true, depth: 2 }),
   /**
    * Read the contents of a file
    * @param {string} filepath
@@ -115,8 +93,29 @@ const utils = {
   readFile: async filepath => new Promise(resolve => {
     readFile(filepath, 'utf8', (/** @type {Error|null} */ error, /** @type {string} */ content) => (error ? resolve('') : resolve(content)))
   }),
-  cleanTitle: (title = '') => title.replace('PSArips.com | ', '').replace(/[,:]/gu, ' ').replace(/\s+/gu, ' ').trim(),
-  folderName: (filepath = '') => /\W([\s\w]+)\W?$/u.exec(filepath)?.[1] || '',
+  /**
+   * Set the title of a video in its metadata
+   * @param {string} filepath The filepath of the video
+   * @param {string} filename The filename of the video
+   * @returns {Promise<void>}
+   */
+  setVideoTitle: async (filepath, filename) => {
+    if (filepath.includes('.mp4') || filepath.includes('.avi')) return
+    const title = utils.cleanTitle(filename.replace(/\.[^.]+$/u, ''))
+    if (DRY_RUN) console.log(`Would set title to ${blue(title)}\n`)
+    else await utils.shellCommand(`mkvpropedit "${filepath}" -e info -s title="${title}"`)
+  },
+  /**
+   * Execute a command and return the output
+   * @param {string} cmd
+   * @returns {Promise<string>}
+   */
+  shellCommand: async cmd => new Promise(resolve => {
+    exec(cmd, (/** @type {Error|null} */ error, /** @type {string} */ stdout, /** @type {string} */ stderr) => {
+      if (error) console.error(error)
+      resolve(stdout || stderr)
+    })
+  }),
 }
 
 class CheckVideos {

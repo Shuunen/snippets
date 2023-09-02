@@ -24,7 +24,11 @@
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "strict": true,
-    "target": "ESNext"
+    "target": "ESNext",
+    "types": [
+      "node/fs/promises"
+    ],
+    "verbatimModuleSyntax": true
   },
   "include": [
     "configs",

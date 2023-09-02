@@ -8,7 +8,7 @@ export function isolateLines (list: string) {
   let lines = list.replace(/ /gu, '').split('\n')
   lines = mergeUnique(lines)
   lines = lines.filter(line => line.length > 0)
-  // eslint-disable-next-line @typescript-eslint/require-array-sort-compare, etc/no-assign-mutated-array
+  // eslint-disable-next-line etc/no-assign-mutated-array
   return lines.sort()
 }
 

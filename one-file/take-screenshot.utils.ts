@@ -1,20 +1,19 @@
 import { nbMsInSecond, nbSecondsInMinute } from 'shuutils'
 
 export interface FfProbeOutput {
-  format: { filename: string; tags: { title: string }; size: number; duration: number }
+  format: { duration: number; filename: string; size: number; tags: { title: string } }
   // eslint-disable-next-line @typescript-eslint/naming-convention
-  streams: { codec_type: string; width: number; height: number; duration: string }[]
+  streams: { codec_type: string; duration: string; height: number; width: number }[]
 }
 
-export interface Task { totalSeconds: number; videoPath: string; screenPath: string }
+export interface Task { screenPath: string; totalSeconds: number; videoPath: string }
 
-export interface Metadata { title: string; size: number; height: number; duration: number; filepath?: string }
+export interface Metadata { duration: number; filepath?: string; height: number; size: number; title: string }
 
-export const emptyMetadata: Metadata = { title: '', duration: 0, size: 0, height: 0 }
+export const emptyMetadata: Metadata = { duration: 0, height: 0, size: 0, title: '' }
 
 export function parseVideoMetadata (ffProbeOutput?: Partial<FfProbeOutput>): Metadata {
-  // eslint-disable-next-line putout/putout
-  if (ffProbeOutput === undefined || ffProbeOutput.streams === undefined || ffProbeOutput.streams.length === 0) return emptyMetadata
+  if (ffProbeOutput?.streams === undefined || ffProbeOutput.streams.length === 0) return emptyMetadata
   const video = ffProbeOutput.streams.find((stream) => stream.codec_type === 'video')
   if (!video) return emptyMetadata
   const { height } = video
@@ -22,7 +21,7 @@ export function parseVideoMetadata (ffProbeOutput?: Partial<FfProbeOutput>): Met
   const duration = media?.duration ?? 0
   const title = media?.tags.title ?? ''
   const size = media?.size ?? 0
-  return { title, size, height, duration }
+  return { duration, height, size, title }
 }
 
 export interface Target { minutes: number; seconds: number }
@@ -54,7 +53,7 @@ export function getTargets (modulo: number, minutesBase: number, secondsBase: nu
  * @returns [{ minutes: 0, seconds: 12 }], [{minutes: 0, seconds: 11}, {minutes: 0, seconds: 12}, {minutes: 0, seconds: 13}] or [{minutes: 21, seconds: 4}, {minutes: 21, seconds: 5}, {minutes: 21, seconds: 6},{minutes: 21, seconds: 7}, {minutes: 21, seconds: 8}]
  */
 export function parseUserInput (userInput: string): Target[] {
-  const { minutesOrSeconds = '', secondsMaybe = '', moduloMarker = '', moduloMaybe = '' } = (/^(?<minutesOrSeconds>\d{1,2})(?<secondsMaybe>\d{0,2})(?<moduloMarker>[+-]*)(?<moduloMaybe>\d{0,2})$/u.exec(userInput))?.groups ?? {}
+  const { minutesOrSeconds = '', moduloMarker = '', moduloMaybe = '', secondsMaybe = '' } = (/^(?<minutesOrSeconds>\d{1,2})(?<secondsMaybe>\d{0,2})(?<moduloMarker>[+-]*)(?<moduloMaybe>\d{0,2})$/u.exec(userInput))?.groups ?? {}
   if (minutesOrSeconds === '') return []
   const secondsBase = Number.parseInt(secondsMaybe || minutesOrSeconds, 10)
   const minutesBase = secondsMaybe === '' ? 0 : Number.parseInt(minutesOrSeconds, 10)
@@ -78,7 +77,7 @@ export function readableSize (size: number): string {
 }
 
 export function getScreenshotFilename (totalSeconds: number, metadata: Metadata): string {
-  const { size, height, duration, title } = metadata
+  const { duration, height, size, title } = metadata
   const screenName = `${[
     title.replace(/\./gu, ' '),
     readableDuration(totalSeconds),
@@ -92,6 +91,6 @@ export function getScreenshotFilename (totalSeconds: number, metadata: Metadata)
 }
 
 export function getFfmpegCommand (task: Task): string {
-  const { totalSeconds, videoPath, screenPath } = task
+  const { screenPath, totalSeconds, videoPath } = task
   return `ffmpeg -ss ${totalSeconds} -i "${videoPath}" -frames:v 1 -q:v 1 "${screenPath}"`
 }

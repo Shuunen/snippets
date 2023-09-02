@@ -24,7 +24,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v2
         with:
-          version: 7
+          version: 8
 
       - name: Setup node env 🏗
         uses: actions/setup-node@v3
@@ -33,7 +33,7 @@ jobs:
           cache: "pnpm"
 
       - name: Install dependencies 👨🏻‍💻
-        run: pnpm install --no-frozen-lockfile
+        run: pnpm install
 
       - name: Run check task 👀
         run: pnpm run check

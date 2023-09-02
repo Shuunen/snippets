@@ -17,8 +17,8 @@ function check () {
       const nb = Number.parseInt(data.info.split(' ')[0] ?? '0', 10)
       if (lastNb !== nb) {
         notifier.notify({
-          title: 'New like',
           message: `Total : ${nb} likes`,
+          title: 'New like',
         })
         console.log(`Total : ${nb} likes`)
       }

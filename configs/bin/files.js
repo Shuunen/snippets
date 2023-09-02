@@ -13,6 +13,7 @@ const appData = process.env.APPDATA || (process.platform === 'darwin' ? `${home}
 const onWindows = process.env.APPDATA === appData
 // const prgFiles = 'C:/Program Files'
 
+/* eslint-disable perfectionist/sort-objects */
 /** @type {import('./types').Config[]} */
 const configs = [
   { source: `${home}/.bash_aliases` },
@@ -57,6 +58,7 @@ const linuxConfigs = [
   // { source: `${home}/.local/share/nautilus/scripts/Shrink all pdf`},
   // { source: `${home}/.local/share/nautilus/scripts/Take screenshot`},
 ]
+/* eslint-enable perfectionist/sort-objects */
 
 configs.push(...(onWindows ? windowsConfigs : linuxConfigs))
 
@@ -74,7 +76,7 @@ function getDetails (filepath) {
   const updatedContent = /\r/u.test(content) && !filepath.includes('.qbtheme') ? useUnixCarriageReturn(content) : content // qbtheme files does not like \n
   const isContentEquals = content === updatedContent
   if (!isContentEquals) writeFile(filepath, updatedContent)
-  return { filepath, exists, content: updatedContent }
+  return { content: updatedContent, exists, filepath }
 }
 
 /**
@@ -93,7 +95,7 @@ function getFilename ({ renameTo, source }) {
  * @returns true if the files are equals
  */
 function isEquals (file, config) {
-  const { source, destination } = file
+  const { destination, source } = file
   const { removeLinesAfter, removeLinesMatching } = config
   const filename = getFilename(config)
   const areEquals = clean(source.content, removeLinesAfter, removeLinesMatching) === clean(destination.content, removeLinesAfter, removeLinesMatching)
@@ -111,7 +113,7 @@ export const files = configs.map(config => {
   const filename = getFilename(config)
   const source = getDetails(config.source)
   const destination = getDetails(path.join(backupPath, filename))
-  const /** @type {import('./types').File} */ file = { source, destination, equals: false }
+  const /** @type {import('./types').File} */ file = { destination, equals: false, source }
   file.equals = isEquals(file, config)
   if (config.removeLinesMatching) file.removeLinesMatching = config.removeLinesMatching
   if (config.removeLinesAfter) file.removeLinesAfter = config.removeLinesAfter

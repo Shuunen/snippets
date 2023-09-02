@@ -1,4 +1,3 @@
-/* eslint-disable total-functions/no-unsafe-readonly-mutable-assignment */
 /* eslint-disable no-await-in-loop, no-console */
 import { exec } from 'child_process'
 import { promises as fs } from 'fs'
@@ -49,7 +48,6 @@ async function getVideoMetadata (filepath: string) {
   // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
   const data = JSON.parse(output) as Partial<FfProbeOutput>
   const metadata = parseVideoMetadata(data)
-  // eslint-disable-next-line putout/putout
   if (metadata.size === 0) metadata.size = await getFileSize(filepath)
   metadata.filepath = filepath
   return metadata
@@ -68,7 +66,7 @@ function getTask (totalSeconds: number, metadata: Metadata): Task {
   const screenName = getScreenshotFilename(totalSeconds, metadata)
   // eslint-disable-next-line @typescript-eslint/prefer-nullish-coalescing, @typescript-eslint/strict-boolean-expressions
   const screenPath = path.join(process.env.HOME || process.env.USERPROFILE || '', 'Pictures', screenName)
-  return { totalSeconds, videoPath: metadata.filepath, screenPath }
+  return { screenPath, totalSeconds, videoPath: metadata.filepath }
 }
 
 async function getTasks (input: string) {

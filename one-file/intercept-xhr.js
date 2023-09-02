@@ -1,6 +1,6 @@
 /* eslint-disable no-magic-numbers */
 /* eslint-disable import/unambiguous */
-const lastRequest = { url: '', method: '' }
+const lastRequest = { method: '', url: '' }
 
 // @ts-ignore
 const OldXHR = window.XMLHttpRequest
@@ -15,7 +15,7 @@ function XhrProxy () {
 }
 
 const originalOpen = OldXHR.prototype.open
-// eslint-disable-next-line func-name-matching
+// eslint-disable-next-line func-name-matching, sonar/class-prototype
 OldXHR.prototype.open = function openProxy (/** @type {string} */ method, /** @type {string} */ url) {
   lastRequest.method = method
   lastRequest.url = url

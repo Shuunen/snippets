@@ -4,17 +4,17 @@
   "bugs": "https://github.com/Shuunen/snippets/issues",
   "description": "My personal snippets",
   "devDependencies": {
-    "@types/node": "18",
-    "@vitest/coverage-c8": "0.31",
-    "clipboardy": "3",
+    "@types/node": "18.17",
+    "@vitest/coverage-v8": "0.34",
+    "clipboardy": "3.0",
     "eslint": "8.48",
-    "eslint-config-hardcore": "36",
-    "eslint-plugin-unicorn": "48",
-    "repo-check": "1.31",
+    "eslint-config-hardcore": "41.2",
+    "eslint-plugin-unicorn": "48.0",
+    "repo-check": "1.33",
     "shuutils": "7.3",
-    "ts-node": "10",
+    "ts-node": "10.9",
     "typescript": "5.1",
-    "vitest": "0.31"
+    "vitest": "0.34"
   },
   "files": [
     "bookmarklets",
@@ -39,9 +39,9 @@
     "url": "https://github.com/Shuunen/snippets.git"
   },
   "scripts": {
-    "check": "pnpm lint && repo-check && pnpm test && echo check success",
+    "check": "pnpm install && pnpm lint && repo-check && pnpm test && echo check success",
     "config:sync": "node configs/bin/sync",
-    "lint": "tsc --noEmit && eslint --cache --fix --ext .js,.ts . && echo lint success",
+    "lint": "tsc --noEmit && echo tsc success && eslint --cache --fix --ext .js,.ts . && echo lint success",
     "postversion": "git push && git push --tags",
     "preversion": "pnpm check",
     "test": "pnpm test:watch --run && echo test success",

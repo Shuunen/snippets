@@ -6,54 +6,54 @@ const ffProbeOutputA = { streams: [] }
 check('parseVideoMetadata A', parseVideoMetadata(ffProbeOutputA), emptyMetadata)
 
 const ffProbeOutputB = {
-  streams: [{
-    // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
-    codec_type: 'audio',
-    width: 0,
-    height: 0,
-    duration: '',
-  }, {
-    // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
-    codec_type: 'video',
-    width: 1920,
-    height: 1080,
-    duration: '00:00:00.000000',
-  }],
   format: {
+    duration: 789,
     filename: 'plop.mp4',
+    size: 123_456,
     tags: {
       title: 'plop and the doe',
     },
-    size: 123_456,
-    duration: 789,
   },
+  streams: [{
+    // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
+    codec_type: 'audio',
+    duration: '',
+    height: 0,
+    width: 0,
+  }, {
+    // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
+    codec_type: 'video',
+    duration: '00:00:00.000000',
+    height: 1080,
+    width: 1920,
+  }],
 }
 
 const expectedMetadataB = {
-  title: 'plop and the doe',
-  size: 123_456,
-  height: 1080,
   duration: 789,
+  height: 1080,
+  size: 123_456,
+  title: 'plop and the doe',
 }
 
 check('parseVideoMetadata B', parseVideoMetadata(ffProbeOutputB), expectedMetadataB)
 
 const ffProbeOutputCnoVideo = {
-  streams: [{
-    // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
-    codec_type: 'audio',
-    width: 0,
-    height: 0,
-    duration: '',
-  }],
   format: {
+    duration: 123,
     filename: 'jazz.mp3',
+    size: 698_765,
     tags: {
       title: 'couch jazz',
     },
-    size: 698_765,
-    duration: 123,
   },
+  streams: [{
+    // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
+    codec_type: 'audio',
+    duration: '',
+    height: 0,
+    width: 0,
+  }],
 }
 
 check('parseVideoMetadata C', parseVideoMetadata(ffProbeOutputCnoVideo), emptyMetadata)
@@ -62,17 +62,17 @@ const ffProbeOutputDnoFormat = {
   streams: [{
     // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
     codec_type: 'video',
-    width: 1280,
-    height: 720,
     duration: '12',
+    height: 720,
+    width: 1280,
   }],
 }
 
 const expectedMetadataD = {
-  title: '',
-  size: 0,
-  height: 720,
   duration: 0,
+  height: 720,
+  size: 0,
+  title: '',
 }
 
 check('parseVideoMetadata D', parseVideoMetadata(ffProbeOutputDnoFormat), expectedMetadataD)
@@ -106,10 +106,10 @@ check('readableSize D', readableSize(1_000_000_000), '954mo')
 check('readableSize E', readableSize(1_000_000_000_000), '931,3go')
 check('readableSize F', readableSize(1_924_654_000), '1,8go')
 
-check('getScreenshotFilename A', getScreenshotFilename(3600, { title: 'plop', size: 123_456_789, height: 1080, duration: 789 }), 'plop 01h00m00s 118mo 1080p 00h13m09s.jpg')
-check('getScreenshotFilename B', getScreenshotFilename(126, { title: 'The little John and the Doe are awaiting the arrival of the big John (2013) Encoded by HurrayXXX_36 x265 10bit HDR DTS-HD-MA', size: 1_000_000_000, height: 720, duration: 1_000_000 }), 'The little John and the Doe are awaiting the arrival of the big John (2013) Encoded by HurrayXXX_36 x265 10bit HDR DTS-HD-MA 00h02m06s 954mo 720p 13h46m40s.jpg')
-check('getScreenshotFilename C', getScreenshotFilename(0, { title: '', size: 0, height: 0, duration: 0 }), '00h00m00s 0mo 0p 00h00m00s.jpg')
+check('getScreenshotFilename A', getScreenshotFilename(3600, { duration: 789, height: 1080, size: 123_456_789, title: 'plop' }), 'plop 01h00m00s 118mo 1080p 00h13m09s.jpg')
+check('getScreenshotFilename B', getScreenshotFilename(126, { duration: 1_000_000, height: 720, size: 1_000_000_000, title: 'The little John and the Doe are awaiting the arrival of the big John (2013) Encoded by HurrayXXX_36 x265 10bit HDR DTS-HD-MA' }), 'The little John and the Doe are awaiting the arrival of the big John (2013) Encoded by HurrayXXX_36 x265 10bit HDR DTS-HD-MA 00h02m06s 954mo 720p 13h46m40s.jpg')
+check('getScreenshotFilename C', getScreenshotFilename(0, { duration: 0, height: 0, size: 0, title: '' }), '00h00m00s 0mo 0p 00h00m00s.jpg')
 
-check('getFfmpegCommand A', getFfmpegCommand({ totalSeconds: 120, videoPath: 'plop.mp4', screenPath: 'plop.jpg' }), 'ffmpeg -ss 120 -i "plop.mp4" -frames:v 1 -q:v 1 "plop.jpg"')
+check('getFfmpegCommand A', getFfmpegCommand({ screenPath: 'plop.jpg', totalSeconds: 120, videoPath: 'plop.mp4' }), 'ffmpeg -ss 120 -i "plop.mp4" -frames:v 1 -q:v 1 "plop.jpg"')
 
 checkSnapshot('getTargets A', getTargets(5, 2, 30))
