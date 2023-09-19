@@ -125,4 +125,5 @@ esac
 	
 # go
 test -r /usr/local/go/bin && export PATH=$PATH:/usr/local/go/bin
+test -r ~/go/bin && export PATH=$PATH:~/go/bin
 # go end
