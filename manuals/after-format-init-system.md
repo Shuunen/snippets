@@ -156,6 +156,7 @@ Avoid :
 
 ## Misc
 
+- [ ] press Win+R , type `shell:startup`, hit Enter, go up one level & drag Launchy shortcut to Startup folder to make it start with windows
 - [ ] use autoruns to remove useless things at startup
 - [ ] start & setup Stretchly
 
