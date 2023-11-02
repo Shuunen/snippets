@@ -10,4 +10,4 @@ SET thisFolder=%~dp0
 
 REM DO NOT try to pipe the output of this script to a file
 REM because we need the user input in the console
-ts-node-esm --transpileOnly %thisFolder%/take-screenshot.cli.ts %targetFile%
+node %thisFolder%/take-screenshot.cli.js %targetFile%

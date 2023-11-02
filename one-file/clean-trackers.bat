@@ -1,3 +1,3 @@
 @echo off
 
-ts-node-esm --transpileOnly clean-trackers.cli.ts --clipboard > clean-trackers.log
+node clean-trackers.cli.js --clipboard > clean-trackers.log

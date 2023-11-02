@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import clipboard from 'clipboardy'
 import { isolateLines, linesToList } from './isolate-lines.utils.js' // js extension is required here
 

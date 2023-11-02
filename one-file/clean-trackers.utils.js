@@ -6,7 +6,10 @@ const trackersToClean = [
   'tracker.auctor.tv',
 ]
 
-export function cleanTrackers (input: string) {
+/**
+ * @param {string} input the list of trackers to clean
+ */
+export function cleanTrackers (input) {
   const lines = isolateLines(input).filter(line => trackersToClean.every(tracker => !line.includes(tracker)))
   return linesToList(lines)
 }

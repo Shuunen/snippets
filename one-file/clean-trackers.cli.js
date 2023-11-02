@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import clipboard from 'clipboardy'
 import { cleanTrackers } from './clean-trackers.utils.js'
 

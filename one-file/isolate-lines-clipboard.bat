@@ -1,3 +1,3 @@
 @echo off
 
-ts-node-esm --transpileOnly isolate-lines.cli.ts --clipboard > isolate-lines.log
+node isolate-lines.cli.js --clipboard > isolate-lines.log
