@@ -24,8 +24,8 @@ devDependencies:
     specifier: '49.0'
     version: 49.0.0(eslint@8.53.0)
   repo-check:
-    specifier: '1.33'
-    version: 1.33.0
+    specifier: '1.34'
+    version: 1.34.0
   shuutils:
     specifier: '7.3'
     version: 7.3.2
@@ -7140,8 +7140,8 @@ packages:
     engines: {node: '>=4'}
     dev: true
 
-  /repo-check@1.33.0:
-    resolution: {integrity: sha512-PhoLWdABA/YkUfo4LH1TNoH0aZG/ELbVt14IF5aRdwQLQFCALI9PX/NlXDcnhf7UsLKdI2Dduhc1rCQwmJDjqA==}
+  /repo-check@1.34.0:
+    resolution: {integrity: sha512-jdOkk9EEYvpTOSiKha7MKdnymQA53+Tjxb7u5kFWMTO4iWvA4R4RUDAX6gXZ0E8+7ZGh8CLnmL1tlM93swnOgg==}
     hasBin: true
     dependencies:
       arg: 5.0.2
