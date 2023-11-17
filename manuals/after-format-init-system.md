@@ -22,13 +22,8 @@ audacity ^
 autohotkey.portable ^
 autoruns ^
 avidemux ^
+balcon ^
 bulk-crap-uninstaller ^
-chocolatey ^
-chocolatey-compatibility.extension ^
-chocolatey-core.extension ^
-chocolatey-dotnetfx.extension ^
-chocolatey-misc-helpers.extension ^
-chocolatey-windowsupdate.extension ^
 chocolateygui ^
 clavier-plus.install ^
 cpu-z.install ^
@@ -38,21 +33,20 @@ digikam ^
 directx ^
 discord.install ^
 dnsjumper ^
-dotnet-6.0-desktopruntime ^
-dotnet-7.0-desktopruntime ^
+dotnet ^
 dotnet-desktopruntime ^
-DotNet3.5 ^
-DotNet4.5.2 ^
+dotnet-runtime ^
+dotnetcore ^
+dotnetcore-runtime ^
 dotnetfx ^
 exiftool ^
 exiftoolgui ^
 ffmpeg ^
 filebot ^
 filezilla ^
-geekbench5 ^
+Firefox ^
+geekbench ^
 geforce-experience ^
-Ghostscript ^
-Ghostscript.app ^
 git.install ^
 gnumeric ^
 GoogleChrome ^
@@ -69,29 +63,26 @@ irfanviewplugins ^
 javaruntime ^
 jbs ^
 jre8 ^
-KB2919355 ^
-KB2919442 ^
-KB2999226 ^
-KB3033929 ^
-KB3035131 ^
-KB3063858 ^
 launchyqt ^
 lockhunter ^
 lossless-cut ^
 makemkv ^
 mediainfo ^
+mkcert ^
 mkvtoolnix ^
 mpv.install ^
-netfx-4.7.2 ^
+mRemoteNG ^
+NETworkManager ^
 nodejs-lts ^
 notepadplusplus.install ^
 onlyoffice ^
 openhardwaremonitor ^
 paint.net ^
 picard ^
-pnpm ^
+pnggauntlet ^
 powertoys ^
 procexp ^
+python2 ^
 python3 ^
 qbittorrent ^
 rapidee ^
@@ -107,29 +98,22 @@ steam ^
 streamlabs-obs ^
 stretchly ^
 subtitleedit ^
-sumatrapdf.portable ^
+sumatrapdf.install ^
+sunshine ^
 svg-explorer-extension ^
 tagscanner ^
 teamviewer ^
 treesizefree ^
 usbdeview ^
 vcredist-all ^
-vcredist140 ^
-vcredist2005 ^
-vcredist2008 ^
-vcredist2010 ^
-vcredist2012 ^
-vcredist2013 ^
-vcredist2015 ^
-vcredist2017 ^
 virtualdub ^
 virustotaluploader ^
-vlc.install ^
+vlc ^
 vscode.install ^
 webview2-runtime ^
 winfetch ^
-yarn ^
-winmerge
+winmerge ^
+yarn
 ```
 
 Remember last line should not have any `^`, the special char that tells windows cmd to process a multi line command.
@@ -137,6 +121,7 @@ Remember last line should not have any `^`, the special char that tells windows 
 Avoid :
 
 - geforce-game-ready-driver : each choco update rollback to old graphic drivers
+- pnpm : use npm instead
 
 ## Chrome or other
 
