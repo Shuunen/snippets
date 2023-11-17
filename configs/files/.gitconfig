@@ -6,6 +6,10 @@ filemode = false
 eol = lf
 ignorecase = false
 
+[user]
+email = romain.racamier@gmail.com
+name = Romain
+
 [pull]
 rebase = true
 
