@@ -266,6 +266,7 @@ export PATH="~/.npm-global/bin:$PATH"
 pnpm setup
 mkdir ~/Projects/github -p
 cd ~/Projects/github
+git clone git@github.com:Mamas-Rescue/website.git mama-rescue-website
 git clone git@github.com:Shuunen/c-est-donne.git
 git clone git@github.com:Shuunen/eslint-plugin-shuunen.git
 git clone git@github.com:Shuunen/finga.git
@@ -273,6 +274,7 @@ git clone git@github.com:Shuunen/flood-it.git
 git clone git@github.com:Shuunen/folio.git
 git clone git@github.com:Shuunen/ging.git
 git clone git@github.com:Shuunen/goals.git
+git clone git@github.com:Shuunen/jozzo.git
 git clone git@github.com:Shuunen/musiblox.git
 git clone git@github.com:Shuunen/ntlite-configs.git
 git clone git@github.com:Shuunen/recipes.git
@@ -282,6 +284,7 @@ git clone git@github.com:Shuunen/shuutils.git
 git clone git@github.com:Shuunen/snippets.git
 git clone git@github.com:Shuunen/stuff-finder.git
 git clone git@github.com:Shuunen/user-scripts.git
+git clone git@github.com:Shuunen/video-sense.git
 git clone git@github.com:Shuunen/vue-image-compare.git
 git clone git@github.com:Shuunen/wcs-demo.git
 git clone git@github.com:Shuunen/wcs.git
