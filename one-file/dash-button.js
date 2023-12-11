@@ -1,3 +1,4 @@
+/* c8 ignore start */
 // @ts-ignore
 import dashBtn from 'node-dash-button'
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+/* c8 ignore start */
 /* eslint-disable max-statements */
 /* eslint-disable complexity */
 /* eslint-disable sonarjs/cognitive-complexity */

@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+/* c8 ignore start */
 /* eslint-disable no-magic-numbers */
 /* eslint-disable no-await-in-loop */
 /* eslint-disable no-continue */

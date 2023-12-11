@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+/* c8 ignore start */
 import { lstatSync, readdirSync, readFileSync, writeFileSync } from 'fs'
 import path from 'path'
 

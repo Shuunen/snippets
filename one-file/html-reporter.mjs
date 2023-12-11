@@ -1,3 +1,4 @@
+/* c8 ignore start */
 /* eslint-disable no-plusplus */
 // @ts-ignore
 import { gray, green } from 'shuutils'

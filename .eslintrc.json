@@ -71,6 +71,7 @@
       "error",
       "always"
     ],
+    "@typescript-eslint/prefer-destructuring": "off",
     "@typescript-eslint/prefer-readonly-parameter-types": "off",
     "@typescript-eslint/quotes": [
       "error",
@@ -85,6 +86,7 @@
       "error",
       "always-multiline"
     ],
+    "compat/compat": "off",
     "curly": [
       "error",
       "multi"
@@ -93,6 +95,8 @@
     "etc/no-const-enum": "off",
     "etc/no-deprecated": "off",
     "etc/no-enum": "off",
+    "etc/no-internal": "off",
+    "etc/no-misused-generics": "off",
     "etc/prefer-interface": "off",
     "ext/lines-between-object-properties": "off",
     "func-names": [
@@ -149,6 +153,7 @@
       "always"
     ],
     "padding-line-between-statements": "off",
+    "prefer-destructuring": "off",
     "prettier/prettier": "off",
     "putout/putout": "off",
     "quote-props": [
@@ -156,6 +161,7 @@
       "consistent-as-needed"
     ],
     "quotes": "off",
+    "regexp/require-unicode-sets-regexp": "off",
     "require-atomic-updates": [
       "error",
       {

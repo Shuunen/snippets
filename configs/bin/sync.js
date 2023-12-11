@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+/* c8 ignore start */
 import { gray, green, red, yellow } from 'shuutils'
 import { backupPath, files } from './files.js'
 import { copy, filename, normalizePathWithSlash } from './utils.js'

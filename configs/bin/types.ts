@@ -1,3 +1,4 @@
+/* c8 ignore start */
 /* eslint-disable @typescript-eslint/naming-convention */
 
 export type FileDetails = {

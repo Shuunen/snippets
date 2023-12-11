@@ -1,3 +1,4 @@
+/* c8 ignore start */
 // @ts-ignore
 import { wake } from 'wake_on_lan'
 

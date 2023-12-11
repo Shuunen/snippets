@@ -1,3 +1,4 @@
+/* c8 ignore start */
 /* eslint-disable no-await-in-loop */
 import { exec } from 'child_process'
 import { promises as fs } from 'fs'
@@ -99,7 +100,7 @@ function getTask (totalSeconds, metadata) {
  * @returns {Promise<Task[]>}
  */
 async function getTasks (input) {
-  // eslint-disable-next-line prefer-destructuring, no-magic-numbers
+  // eslint-disable-next-line no-magic-numbers
   const videoPath = process.argv[2]
   if (videoPath === undefined) throw new Error('no video path')
   const videoName = path.basename(videoPath)

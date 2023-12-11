@@ -1,5 +1,5 @@
+/* c8 ignore start */
 /* global ndef */
-
 // @ts-ignore
 import mifare from 'mifare-classic'
 

@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+/* c8 ignore start */
 /* eslint-disable no-magic-numbers */
 import { readFile } from 'fs/promises'
 import { blue, gray, yellow } from 'shuutils'

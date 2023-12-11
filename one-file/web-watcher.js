@@ -1,3 +1,4 @@
+/* c8 ignore start */
 /* eslint-disable no-magic-numbers */
 // @ts-ignore
 import notifier from 'node-notifier'

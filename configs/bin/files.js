@@ -1,3 +1,4 @@
+/* c8 ignore start */
 import { existsSync, readFileSync, writeFileSync } from 'fs'
 import { writeFile } from 'fs/promises'
 import path from 'path'

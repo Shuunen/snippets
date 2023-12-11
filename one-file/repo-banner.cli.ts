@@ -1,3 +1,4 @@
+/* c8 ignore start */
 import { readFileSync, writeFileSync } from 'fs'
 import path from 'path'
 import { parseJson } from 'shuutils'

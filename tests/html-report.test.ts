@@ -59,7 +59,6 @@ samples.forEach(({ input, output, title }) => {
   check(`html-report ${title} total`, actual.total, output.total)
 })
 
-// eslint-disable-next-line prefer-destructuring
 const { input, output, title } = samples[5]
 const actualDebug = new HtmlReporter(input, true)
 check(`html-report debug ${title} attr`, actualDebug.attr, output.attr)

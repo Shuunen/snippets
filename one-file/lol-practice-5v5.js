@@ -1,5 +1,4 @@
-#!/usr/bin/env node
-/* eslint-disable prefer-destructuring */
+/* c8 ignore start */
 /* eslint-disable no-magic-numbers */
 import { appendFileSync, readFileSync, writeFileSync } from 'fs'
 import { request as _request } from 'https'

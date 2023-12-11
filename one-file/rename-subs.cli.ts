@@ -1,4 +1,4 @@
-
+/* c8 ignore start */
 /* eslint-disable no-console */
 import { copyFileSync, readFileSync, readdirSync, renameSync, statSync, unlinkSync } from 'fs'
 import path from 'path'

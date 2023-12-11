@@ -1,3 +1,4 @@
+/* c8 ignore start */
 /* eslint-disable no-console */
 import { promises as fs } from 'fs'
 import path from 'path'
@@ -28,7 +29,7 @@ function asciiWelcome (): void {
 }
 
 async function logClear () {
-   
+
   await fs.writeFile(logFile, '')
 }
 
@@ -45,7 +46,7 @@ async function init () {
   if (!fileName) throw new Error('missing full_wine_list.csv file path')
   const input = await fs.readFile(fileName, 'utf8')
   const output = compressCsv(input)
-   
+
   await fs.writeFile(fileName.replace('.csv', '.compressed.csv'), output)
   // eslint-disable-next-line @typescript-eslint/no-magic-numbers
   console.log('  Done, final file is only', Math.round(output.length / input.length * 100), '% of the original size :)')

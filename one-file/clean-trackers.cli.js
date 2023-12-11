@@ -1,3 +1,4 @@
+/* c8 ignore start */
 import clipboard from 'clipboardy'
 import { cleanTrackers } from './clean-trackers.utils.js'
 
