@@ -22,6 +22,7 @@ PS: nothing to do with steam app, steam guard will be overwrite with the new ins
 
 ## General
 
+- [ ] connections configs from FileZilla, mRemoteNG, Putty, WinSCP, etc
 - [ ] desktop folder
 - [ ] downloads folder (should be on another partition)
 - [ ] hostname & hosts file
@@ -36,6 +37,8 @@ PS: nothing to do with steam app, steam guard will be overwrite with the new ins
 
 ## Windows only
 
+- [ ] `%AppData%\FileZilla\sitemanager.xml`
+- [ ] `%AppData%\mRemoteNG\confCons.xml`
 - [ ] copy useful installed apps to a `_previously-installed-apps` folder
 - [ ] backup portable apps folder
 - [ ] go to `~\AppData` and for each Local, LocalLow, Roaming => update snippet/config with missing configs
