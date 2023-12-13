@@ -1,10 +1,10 @@
 /* c8 ignore start */
-/* eslint-disable no-console */
+
 import { copyFileSync, readFileSync, readdirSync, renameSync, statSync, unlinkSync } from 'fs'
 import path from 'path'
 
 // Go into the Downloads\Azerty.S01.1080p.WEBRip.x265-RARBG folder
-// then use me like : ts-node-esm --transpileOnly ~/Projects/github/snippets/one-file/rename-subs.cli.ts
+// then use me like : node ~/Projects/github/snippets/one-file/rename-subs.cli.js
 
 const isDebug = process.argv.includes('--debug')
 const currentFolder = process.cwd()
@@ -14,7 +14,11 @@ const subsFolder = path.join(currentFolder, 'Subs')
 const subsStat = statSync(subsFolder)
 if (!subsStat.isDirectory()) throw new Error(`Could not find subs folder ${subsFolder}`)
 
-function isFullCaption (filepath: string) {
+/**
+ * Check if a subtitle file is a full caption
+ * @param {string} filepath
+ */
+function isFullCaption (filepath) {
   const content = readFileSync(filepath, 'utf8')
   const nbBlocks = content.match(/\[[a-z\s]+\]/giu)?.length ?? 0
   const minBlocks = 10
@@ -24,16 +28,16 @@ function isFullCaption (filepath: string) {
 
 /**
  * Bring a sub to the top of the folder
- * @param fromPath the actual path of the sub like "D:\Downloads\Azerty.S01.1080p.WEBRip.x265-RARBG\Subs\Azerty.S01E01.1080p.WEBRip.x265-RARBG\4_French.srt"
- * @param language the language of the sub like "fr"
+ * @param {string} fromPath the actual path of the sub like "D:\Downloads\Azerty.S01.1080p.WEBRip.x265-RARBG\Subs\Azerty.S01E01.1080p.WEBRip.x265-RARBG\4_French.srt"
+ * @param {string} language the language of the sub like "fr"
  * @returns {void}
  */
 // eslint-disable-next-line max-statements
-function bringSubTop (fromPath: string, language: string) {
+function bringSubTop (fromPath, language) {
   const episodeLocation = -2
   const toFilename = `${fromPath.split('\\').at(episodeLocation) ?? ''}.${language}.srt`
   const toPath = path.join(currentFolder, toFilename)
-  const toStat = statSync(toPath, { throwIfNoEntry: false }) // eslint-disable-line @typescript-eslint/naming-convention
+  const toStat = statSync(toPath, { throwIfNoEntry: false })
   if (toStat?.isFile() ?? false) {
     if (isDebug) console.log(`File ${toPath} already exists`)
     return
@@ -60,12 +64,18 @@ subfolders.forEach(subfolder => {
   })
 })
 
+/**
+ * Check subtitle
+ * @param {string} filename
+ * @param {string} language
+ * @returns {void}
+ */
 // eslint-disable-next-line max-statements, complexity, sonarjs/cognitive-complexity
-function checkSubtitle (filename: string, language: string) {
+function checkSubtitle (filename, language) {
   const subPath = path.join(currentFolder, `${filename}.${language}.srt`)
-  const subStat = statSync(subPath, { throwIfNoEntry: false }) // eslint-disable-line @typescript-eslint/naming-convention
+  const subStat = statSync(subPath, { throwIfNoEntry: false })
   const subFcPath = `${subPath}.fc`
-  const subFcStat = statSync(subFcPath, { throwIfNoEntry: false }) // eslint-disable-line @typescript-eslint/naming-convention
+  const subFcStat = statSync(subFcPath, { throwIfNoEntry: false })
   const hasSub = subStat?.isFile() ?? false
   const hasSubFc = subFcStat?.isFile() ?? false
   if (hasSub && hasSubFc) { unlinkSync(subFcPath); return }
