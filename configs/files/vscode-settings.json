@@ -208,6 +208,7 @@
     "nuxt",
     "nuxtjs",
     "nvmrc",
+    "NZXL",
     "NZXT",
     "oeuf",
     "oeufs",
@@ -369,8 +370,8 @@
   "diffEditor.ignoreTrimWhitespace": false,
   "editor.accessibilitySupport": "off",
   "editor.codeActionsOnSave": {
-    "source.fixAll": true,
-    "source.organizeImports": true
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit"
   },
   "editor.formatOnSave": true,
   "editor.inlineSuggest.enabled": true,
