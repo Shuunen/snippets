@@ -2,42 +2,11 @@
 import { nbMsInSecond, nbSecondsInMinute } from 'shuutils'
 
 /**
- * @typedef {Object} FfProbeOutput
- * @property {Object} format
- * @property {number} format.duration
- * @property {string} format.filename
- * @property {number} format.size
- * @property {Object} format.tags
- * @property {string} format.tags.title
- * @property {Object[]} streams
- * @property {string} streams.codec_type
- * @property {string} streams.duration
- * @property {number} streams.height
- * @property {number} streams.width
+ * @typedef {import('./take-screenshot.types').FfProbeOutput} FfProbeOutput
+ * @typedef {import('./take-screenshot.types').Metadata} Metadata
+ * @typedef {import('./take-screenshot.types').Target} Target
+ * @typedef {import('./take-screenshot.types').Task} Task
  */
-
-/**
- * @typedef {Object} Task
- * @property {string} screenPath
- * @property {number} totalSeconds
- * @property {string} videoPath
- */
-
-/**
- * @typedef {Object} Metadata
- * @property {number} duration
- * @property {string} [filepath]
- * @property {number} height
- * @property {number} size
- * @property {string} title
- */
-
-/**
- * @typedef {Object} Target
- * @property {number} minutes
- * @property {number} seconds
- */
-
 
 export const /** @type Metadata */ emptyMetadata = { duration: 0, height: 0, size: 0, title: '' }
 

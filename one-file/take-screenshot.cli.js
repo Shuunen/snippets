@@ -9,8 +9,8 @@ import { fileURLToPath } from 'url'
 import { getFfmpegCommand, getScreenshotFilename, parseUserInput, parseVideoMetadata } from './take-screenshot.utils.js' // js extension is required here
 
 /**
- * @typedef {import('./take-screenshot.utils.js').Metadata} Metadata
- * @typedef {import('./take-screenshot.utils.js').Task} Task
+ * @typedef {import('./take-screenshot.types').Metadata} Metadata
+ * @typedef {import('./take-screenshot.types').Task} Task
  */
 
 const thisFilePath = fileURLToPath(import.meta.url)
