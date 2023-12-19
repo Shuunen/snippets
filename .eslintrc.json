@@ -148,6 +148,13 @@
     "max-statements-per-line": "off",
     "no-console": "error",
     "no-inline-comments": "off",
+    "no-restricted-syntax": [
+      "error",
+      {
+        "message": "Avoid using Class, just use unit-testable functions :)",
+        "selector": "ClassDeclaration"
+      }
+    ],
     "object-curly-spacing": [
       "error",
       "always"

@@ -18,6 +18,8 @@ import path from 'path'
 import { blue, red, slugify } from 'shuutils'
 import { inspect } from 'util'
 
+// use me like : node ~/Projects/github/snippets/one-file/check-videos.js "/u/A Voir/" --set-title
+
 const { argv, cwd } = process
 const expectedNbParameters = 2
 if (argv.length <= expectedNbParameters) console.log('Targeting current folder, you can also specify a specific path, ex : check-videos.js "U:\\Movies\\" \n')
@@ -118,6 +120,7 @@ const utils = {
   }),
 }
 
+// eslint-disable-next-line no-restricted-syntax
 class CheckVideos {
   constructor () {
     /**

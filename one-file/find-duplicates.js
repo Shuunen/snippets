@@ -12,6 +12,7 @@ import path from 'path'
 const maxResults = 10
 const sizeGrain = 10_000
 
+// eslint-disable-next-line no-restricted-syntax
 class CheckDuplicates {
   constructor () {
     /**
