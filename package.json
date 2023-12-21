@@ -9,7 +9,7 @@
     "clipboardy": "4.0",
     "eslint": "8.56",
     "eslint-config-hardcore": "45.1",
-    "eslint-plugin-unicorn": "49.0",
+    "eslint-plugin-unicorn": "50.0",
     "repo-check": "1.34",
     "shuutils": "7.4",
     "ts-node": "10.9",
