@@ -120,7 +120,7 @@ fi
 # debian 12 end
 
 # fnm
-export PATH="/home/huei/.local/share/fnm:$PATH"
+test -r ~/.local/share/fnm && export PATH="$HOME/.local/share/fnm:$PATH"
 eval "$(fnm env)"
 # fnm end
 
