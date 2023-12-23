@@ -37,6 +37,7 @@ PS: nothing to do with steam app, steam guard will be overwrite with the new ins
 
 ## Windows only
 
+- [ ] if re-installing windows and need to keep a partition alive like `D:/`, don't forget to disable BitLocker before format
 - [ ] `%AppData%\FileZilla\sitemanager.xml`
 - [ ] `%AppData%\mRemoteNG\confCons.xml`
 - [ ] copy useful installed apps to a `_previously-installed-apps` folder
