@@ -45,10 +45,12 @@ ffmpeg ^
 filebot ^
 filezilla ^
 Firefox ^
-geekbench ^
+geekbench5 ^
+geekbench6 ^
 geforce-experience ^
 git.install ^
 gnumeric ^
+golang ^
 GoogleChrome ^
 gpu-z ^
 greenshot ^
