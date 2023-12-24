@@ -8,6 +8,8 @@
 
 - [ ] install [chocolatey](https://chocolatey.org/install)
 
+Please **use choco to install Chrome**, else file association can be broken, just experienced it with a fresh Win 11 install :/
+
 ## Cmd as admin
 
 ```bash
@@ -124,6 +126,14 @@ Avoid :
 
 - geforce-game-ready-driver : each choco update rollback to old graphic drivers
 - pnpm : use npm instead
+
+## Environment variables
+
+Open Rapidee & add these to the user path :
+
+- `C:\Program Files\WinMerge`
+- `C:\Users\Huei\.npm-global`
+- `C:\ProgramData\chocolatey\bin`
 
 ## Chrome or other
 
@@ -248,8 +258,7 @@ lsmod | grep xpad # should return nothing, if not : sudo rmmod xpad / sudo rmmod
 sudo chmod 700 ~/.ssh/ -R
 mkdir ~/.npm-global
 npm config set prefix '~/.npm-global'
-npm i pnpm ts-node -g # remember to use --transpileOnly
-export PATH="~/.npm-global/bin:$PATH"
+npm i pnpm -g
 pnpm setup
 mkdir ~/Projects/github -p
 cd ~/Projects/github
