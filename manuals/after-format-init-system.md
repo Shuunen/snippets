@@ -131,9 +131,12 @@ Avoid :
 
 Open Rapidee & add these to the user path :
 
+- `%USERPROFILE%\.npm-global`
+- `%USERPROFILE%\Projects\github\snippets\one-file`
 - `C:\Program Files\WinMerge`
-- `C:\Users\Huei\.npm-global`
 - `C:\ProgramData\chocolatey\bin`
+- `D:\Apps\_Globals`
+- `D:\Apps`
 
 ## Chrome or other
 
