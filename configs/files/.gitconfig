@@ -21,6 +21,8 @@ default = current
 path = .gitconfig-github
 [includeIf "gitdir:~/Projects/anatec/"]
 path = .gitconfig-anatec
+[includeIf "gitdir:~/Projects/collectif-energie"]
+path = .gitconfig-collectif-energie
 
 [filter "lfs"]
 clean = git-lfs clean -- %f

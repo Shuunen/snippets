@@ -27,6 +27,7 @@ const configs = [
   { source: `${appData}/mpv/mpv.conf` },
   { source: `${appData}/qBittorrent/qBittorrent.conf` },
   { source: `${home}/.gitconfig-anatec` },
+  { source: `${home}/.gitconfig-collectif-energie` },
   { source: `${home}/.gitconfig-github` },
   { source: `${home}/.gitconfig` },
   { source: `${home}/.gitignore` },
