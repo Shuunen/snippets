@@ -172,13 +172,14 @@ Open Rapidee & add these to the user path :
 - [ ] remove sound notifications
 - [ ] open advanced power settings to prevent hibernation exit via shitty timers
 - [ ] open device manager, open settings of ethernet network card, disable ability to exit from hibernation
+- [ ] install [ExplorerPatcher](https://github.com/valinet/ExplorerPatcher/releases)
 - [ ] remove more shit with [O&O ShutUp10](https://www.oo-software.com/en/shutup10)
 - [ ] restart
 - [ ] as a user, open cmd and `C:\tools\winfetch\winfetch.bat > fetch-once.log`, open & check that `fetch-once.log` is correct
 
 ## Git bash
 
-- [ ] options : Looks -> dracula theme, Text -> font size to 11, Mouse -> right btn paste, Window 120 x 30
+- [ ] options : Looks -> Dracula theme, Text -> font size to 11, Mouse -> right btn paste, Window 120 x 30
 
 ### Android development environnement
   
