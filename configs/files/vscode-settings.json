@@ -5,6 +5,15 @@
   "[html]": {
     "editor.defaultFormatter": "vscode.html-language-features"
   },
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
   "[markdown]": {
     "editor.defaultFormatter": "yzhang.markdown-all-in-one",
     "editor.wordWrap": "off"
@@ -70,6 +79,7 @@
     "codir",
     "colorette",
     "commitlint",
+    "compat",
     "cyclomatic",
     "d’oeil",
     "daisyui",
@@ -201,6 +211,7 @@
     "Netlify",
     "Nobara",
     "nocheck",
+    "noninteractive",
     "Noty",
     "Npmjs",
     "npmrc",
@@ -386,8 +397,19 @@
     "javascriptreact",
     "typescript"
   ],
+  "explorer.compactFolders": false,
   "explorer.confirmDelete": false,
   "explorer.confirmDragAndDrop": false,
+  "explorer.expandSingleFolderWorkspaces": false,
+  "explorer.fileNesting.enabled": false,
+  "explorer.fileNesting.patterns": {
+    "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
+    "*.jsx": "${capture}.js",
+    "*.ts": "${capture}.js",
+    "*.tsx": "${capture}.ts",
+    "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb",
+    "tsconfig.json": "tsconfig.*.json"
+  },
   "extensions.ignoreRecommendations": true,
   "files.autoSave": "onFocusChange",
   "files.eol": "\n",
@@ -395,6 +417,7 @@
   "git.confirmSync": false,
   "git.defaultBranchName": "master",
   "git.enableSmartCommit": true,
+  "git.openRepositoryInParentFolders": "never",
   "github.copilot.enable": {
     "*": true,
     "csv": false,
@@ -509,5 +532,6 @@
   "vue.codeActions.savingTimeLimit": 2000,
   "window.titleBarStyle": "custom",
   "window.zoomLevel": 1,
-  "workbench.colorTheme": "Default Dark+"
+  "workbench.colorTheme": "Default Dark+",
+  "xstate.nestTypegenFiles": false
 }
