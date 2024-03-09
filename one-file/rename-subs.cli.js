@@ -70,7 +70,7 @@ subfolders.forEach(subfolder => {
  * @param {string} language
  * @returns {void}
  */
-// eslint-disable-next-line max-statements, complexity, sonarjs/cognitive-complexity
+// eslint-disable-next-line max-statements, complexity
 function checkSubtitle (filename, language) {
   const subPath = path.join(currentFolder, `${filename}.${language}.srt`)
   const subStat = statSync(subPath, { throwIfNoEntry: false })
