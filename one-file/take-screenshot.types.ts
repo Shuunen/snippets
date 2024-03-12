@@ -1,3 +1,12 @@
+type FfProbeOutputStream = {
+  avg_frame_rate: string // eslint-disable-line @typescript-eslint/naming-convention
+  codec_name: string // eslint-disable-line @typescript-eslint/naming-convention
+  codec_type: string // eslint-disable-line @typescript-eslint/naming-convention
+  duration: string
+  height: number
+  width: number
+}
+
 export type Task = {
   screenPath: string
   totalSeconds: number
@@ -6,6 +15,7 @@ export type Task = {
 
 export type FfProbeOutput = {
   format: {
+    bit_rate: number // eslint-disable-line @typescript-eslint/naming-convention
     duration: number
     filename: string
     size: number
@@ -13,12 +23,7 @@ export type FfProbeOutput = {
       title: string
     }
   }
-  streams: {
-    codec_type: string // eslint-disable-line @typescript-eslint/naming-convention
-    duration: string
-    height: number
-    width: number
-  }[]
+  streams?: FfProbeOutputStream[] | undefined
 }
 
 export type Metadata = {

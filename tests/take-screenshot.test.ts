@@ -7,6 +7,7 @@ check('parseVideoMetadata A', parseVideoMetadata(ffProbeOutputA), emptyMetadata)
 
 const ffProbeOutputB = {
   format: {
+    bit_rate: 123_456, // eslint-disable-line @typescript-eslint/naming-convention, camelcase
     duration: 789,
     filename: 'plop.mp4',
     size: 123_456,
@@ -15,14 +16,16 @@ const ffProbeOutputB = {
     },
   },
   streams: [{
-    // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
-    codec_type: 'audio',
+    avg_frame_rate: '25/1', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
+    codec_name: 'aac', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
+    codec_type: 'audio', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
     duration: '',
     height: 0,
     width: 0,
   }, {
-    // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
-    codec_type: 'video',
+    avg_frame_rate: '25/1', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
+    codec_name: 'h264', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
+    codec_type: 'video', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
     duration: '00:00:00.000000',
     height: 1080,
     width: 1920,
@@ -40,6 +43,7 @@ check('parseVideoMetadata B', parseVideoMetadata(ffProbeOutputB), expectedMetada
 
 const ffProbeOutputCnoVideo = {
   format: {
+    bit_rate: 123_456, // eslint-disable-line @typescript-eslint/naming-convention, camelcase
     duration: 123,
     filename: 'jazz.mp3',
     size: 698_765,
@@ -48,8 +52,9 @@ const ffProbeOutputCnoVideo = {
     },
   },
   streams: [{
-    // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
-    codec_type: 'audio',
+    avg_frame_rate: '25/1', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
+    codec_name: 'aac', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
+    codec_type: 'audio', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
     duration: '',
     height: 0,
     width: 0,
@@ -60,8 +65,9 @@ check('parseVideoMetadata C', parseVideoMetadata(ffProbeOutputCnoVideo), emptyMe
 
 const ffProbeOutputDnoFormat = {
   streams: [{
-    // eslint-disable-next-line @typescript-eslint/naming-convention, camelcase
-    codec_type: 'video',
+    avg_frame_rate: '25/1', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
+    codec_name: 'h264', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
+    codec_type: 'video', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
     duration: '12',
     height: 720,
     width: 1280,

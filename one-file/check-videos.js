@@ -14,10 +14,14 @@
 import { exec } from 'node:child_process'
 import { readdir, readFile, renameSync, stat, writeFileSync } from 'node:fs'
 import path from 'node:path'
-import { blue, red, slugify } from 'shuutils'
 import { inspect } from 'node:util'
+import { blue, red, slugify } from 'shuutils'
 
 // use me like : node ~/Projects/github/snippets/one-file/check-videos.js "/u/A Voir/" --set-title
+
+/**
+ * @typedef {import('./take-screenshot.types').FfProbeOutput} FfProbeOutput
+ */
 
 const { argv } = process
 const expectedNbParameters = 2
@@ -50,10 +54,11 @@ const utils = {
   getVideoMetadata: async filepath => {
     const output = await utils.shellCommand(`ffprobe -show_format -show_streams -print_format json -v quiet -i "${filepath}" `)
     if (!output.startsWith('{')) throw new Error(`ffprobe output should be JSON but got :${output}`)
+    /** @type {FfProbeOutput} */
     const data = JSON.parse(output)
     // console.log(utils.prettyPrint(data))
     const media = data.format || {}
-    const video = data.streams.find((/** @type {{ codec_type: string; }} */ stream) => stream.codec_type === 'video') || {}
+    const video = data.streams?.find((/** @type {{ codec_type: string; }} */ stream) => stream.codec_type === 'video') || { avg_frame_rate: '', codec_name: '', height: 0, width: 0 } // eslint-disable-line @typescript-eslint/naming-convention, camelcase
     const title = utils.cleanTitle(media.tags?.title)
     const extension = path.extname(filepath).slice(1)
     const filename = title.length > 0 ? `${title}.${extension}` : ''
@@ -65,12 +70,12 @@ const utils = {
       extension,
       filename,
       fps: video.avg_frame_rate ? Math.round(eval(video.avg_frame_rate)) : 0,
-      height: Number.parseInt(video.height || 0, 10),
+      height: video.height,
       isDvdRip: title.toLowerCase().includes('dvdrip'),
       sizeGb: media.size > 0 ? (Math.round(media.size / 100_000_000) / 10).toFixed(1) : 0,
       sizeMb: media.size > 0 ? Math.round(media.size / 1_000_000) : 0,
       title,
-      width: Number.parseInt(video.width || 0, 10),
+      width: video.width,
     }
   },
   /**
