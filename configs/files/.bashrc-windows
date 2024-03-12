@@ -8,6 +8,18 @@ alias merge='C:/Program\ Files/WinMerge/WinMergeU.exe'
 alias ll="ls -lv --almost-all --no-group --human-readable --classify --group-directories-first --time-style=long-iso --color=auto"
 alias regenLock="rm node_modules/ -rf && rm pnpm-lock.yaml && pnpm i && pnpm outdated"
 alias updateLock="pnpm update && git checkout package.json && pnpm i && pnpm outdated"
+alias p="pnpm"
+alias pc="pnpm check"
+alias pd="pnpm dev"
+alias pt="pnpm test"
+alias ptw="pnpm test:watch"
+alias ptu="pnpm test:update"
+alias pl="pnpm lint"
+alias ps="pnpm start"
+alias pi="pnpm install"
+alias pb="pnpm build"
+alias po="pnpm outdated"
+alias pu="pnpm update"
 
 export no_proxy=".specific-domain.com,localhost"
 
