@@ -9,7 +9,7 @@ export type FfProbeOutput = {
     duration: number
     filename: string
     size: number
-    tags: {
+    tags?: {
       title: string
     }
   }

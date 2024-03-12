@@ -21,7 +21,7 @@ export function parseVideoMetadata (ffProbeOutput) {
   const { height } = video
   const media = ffProbeOutput.format
   const duration = media?.duration ?? 0
-  const title = media?.tags.title ?? ''
+  const title = media?.tags?.title ?? ''
   const size = media?.size ?? 0
   return { duration, height, size, title }
 }
