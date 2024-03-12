@@ -1,6 +1,6 @@
 [Desktop Entry]
 Comment=Split each line into a unique list with double carriage returns
-Exec=ts-node-esm --transpileOnly ~/Projects/github/snippets/one-file/isolate-lines.cli.ts --clipboard > ~/Projects/github/snippets/one-file/isolate-lines.log
+Exec=node ~/Projects/github/snippets/one-file/isolate-lines.cli.js --clipboard > ~/Projects/github/snippets/one-file/isolate-lines.log
 Icon=gnome-stock-text-indent
 Name=Isolate clipboard lines
 Terminal=false
