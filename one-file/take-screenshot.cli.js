@@ -118,6 +118,7 @@ async function takeScreenAt (input) {
   await logAdd(`Input : "${input}"`)
   fs.writeFile(lastInputFile, input)
   const tasks = await getTasks(input)
+  await logAdd(`Tasks prepared : ${tasks.length}`)
   for (const task of tasks) {
     const cmd = getFfmpegCommand(task)
     await deleteFile(task.screenPath)
@@ -134,7 +135,8 @@ async function init () {
   if (process.argv[2] === undefined) throw new Error('missing videoPath') // eslint-disable-line no-magic-numbers
   if (process.argv[3] !== undefined) { takeScreenAt(process.argv[3]); return } // eslint-disable-line no-magic-numbers
   const lastInput = await fs.readFile(lastInputFile, 'utf8').catch(() => '60')
-  ask.question(`  Please type the time in mmss or ss (enter to use "${lastInput}") : `, (time) => { takeScreenAt(time || lastInput) })
+  await logAdd('Last input :', lastInput)
+  ask.question(`  Please type the time in mmss or ss (enter to use "${lastInput}") : `, async (time) => { await takeScreenAt(time || lastInput) })
 }
 
-await init()
+await init().catch(async error => await logAdd(`Init global error : ${error}`))
