@@ -1,6 +1,6 @@
 /* c8 ignore start */
 /* eslint-disable no-magic-numbers */
-import { readFile } from 'fs/promises'
+import { readFile } from 'node:fs/promises'
 import { blue, gray, yellow } from 'shuutils'
 import { HtmlReporter } from './html-reporter.mjs'
 
@@ -26,10 +26,9 @@ const /** @type Record<string, string> */ examples = {
 function showReport (stats) {
   let report = 'Scan detected :\n'
   for (const [key, value] of Object.entries(stats)) {
-    // eslint-disable-next-line no-continue
     if (key === 'total') continue
     const percent = `${Math.round(value / stats.total * 100)} %`
-    report += `- ${blue(percent.padStart(4))} of ${explanations[key]?.padEnd(25)} ${examples[key]}\n`
+    report += `- ${blue(percent.padStart(4))} of ${explanations[key]?.padEnd(25) ?? 'err-no-explanation-found'} ${examples[key] ?? 'err-no-example-found'}\n`
   }
   console.log(report)
 }
@@ -37,8 +36,8 @@ function showReport (stats) {
 async function startReport (input = '') {
   let content = input // lets assume input is some html
   // eslint-disable-next-line regexp/no-super-linear-move
-  const seemsLikeAPath = /[\w-]+\.\w{2,4}$/u.test(input)
-  if (seemsLikeAPath) {
+  const isLikeAPath = /[\w-]+\.\w{2,4}$/u.test(input)
+  if (isLikeAPath) {
     console.log('Scanning file', gray(input))
     content = await readFile(input, 'utf8')
   }

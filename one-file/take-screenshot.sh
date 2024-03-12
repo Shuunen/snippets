@@ -1,3 +1,3 @@
 #!/bin/sh
 
-ts-node-esm --transpileOnly "$HOME/Projects/github/snippets/one-file/take-screenshot.cli.ts" "$1" "$2"
+node "$HOME/Projects/github/snippets/one-file/take-screenshot.cli.js" "$1" "$2"

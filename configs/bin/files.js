@@ -1,17 +1,17 @@
 /* c8 ignore start */
-import { existsSync, readFileSync, writeFileSync } from 'fs'
-import { writeFile } from 'fs/promises'
-import path from 'path'
-import { fileURLToPath } from 'url'
+import { existsSync, readFileSync, writeFileSync } from 'node:fs'
+import { writeFile } from 'node:fs/promises'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { clean, useUnixCarriageReturn } from './utils.js'
 
 const currentFilePath = fileURLToPath(import.meta.url)
 const currentFolderPath = path.dirname(currentFilePath)
 const changesFolderPath = path.join(currentFolderPath, '..', 'changes')
 
-const home = process.env.HOME
+const home = process.env.HOME ?? ''
 const appData = process.env.APPDATA || (process.platform === 'darwin' ? `${home}Library/Preferences` : `${home}/.config`)
-const onWindows = process.env.APPDATA === appData
+const isWindows = process.env.APPDATA === appData
 // const prgFiles = 'C:/Program Files'
 
 /* eslint-disable perfectionist/sort-objects */
@@ -62,7 +62,7 @@ const linuxConfigs = [
 ]
 /* eslint-enable perfectionist/sort-objects */
 
-configs.push(...(onWindows ? windowsConfigs : linuxConfigs))
+configs.push(...(isWindows ? windowsConfigs : linuxConfigs))
 
 // @ts-ignore
 const currentFolder = path.dirname(fileURLToPath(import.meta.url))
@@ -70,15 +70,15 @@ const currentFolder = path.dirname(fileURLToPath(import.meta.url))
 /**
  * Transform a file path to a FileDetails object
  * @param {string} filepath the file path
- * @returns the file details
+ * @returns {import('./types').FileDetails} the file details
  */
 function getDetails (filepath) {
-  const exists = existsSync(filepath)
-  const content = exists ? readFileSync(filepath, 'utf8') : ''
-  const updatedContent = /\r/u.test(content) && !filepath.includes('.qbtheme') ? useUnixCarriageReturn(content) : content // qbtheme files does not like \n
+  const isExisting = existsSync(filepath)
+  const content = isExisting ? readFileSync(filepath, 'utf8') : ''
+  const updatedContent = content.includes('\r') && !filepath.includes('.qbtheme') ? useUnixCarriageReturn(content) : content // qbtheme files does not like \n
   const isContentEquals = content === updatedContent
-  if (!isContentEquals) writeFile(filepath, updatedContent)
-  return { content: updatedContent, exists, filepath }
+  if (!isContentEquals) void writeFile(filepath, updatedContent)
+  return { content: updatedContent, filepath, isExisting }
 }
 
 /**
@@ -115,8 +115,8 @@ export const files = configs.map(config => {
   const filename = getFilename(config)
   const source = getDetails(config.source)
   const destination = getDetails(path.join(backupPath, filename))
-  const /** @type {import('./types').File} */ file = { destination, equals: false, source }
-  file.equals = isEquals(file, config)
+  const /** @type {import('./types').File} */ file = { areEquals: false, destination, source }
+  file.areEquals = isEquals(file, config)
   if (config.removeLinesMatching) file.removeLinesMatching = config.removeLinesMatching
   if (config.removeLinesAfter) file.removeLinesAfter = config.removeLinesAfter
   return file

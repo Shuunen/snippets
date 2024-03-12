@@ -1,15 +1,15 @@
 /* c8 ignore start */
-import { readdirSync, writeFileSync } from 'fs'
-import path from 'path'
+import { readdirSync, writeFileSync } from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { blue, ellipsis, green, red, slugify, yellow } from 'shuutils'
-import { fileURLToPath } from 'url'
 
 // Use me like : node ~/Projects/github/snippets/one-file/check-screens.cli.js "/u/Screens/"
 
-const { argv, cwd } = process
+const parameters = process.argv
 const expectedNbParameters = 2
-if (argv.length <= expectedNbParameters) console.log('Targeting current folder, you can also specify a specific path, ex : ts-node-esm --transpileOnly one-file/check-screens.cli.ts "U:\\Screens\\" \n')
-const screensPath = path.normalize(argv[expectedNbParameters] ?? cwd())
+if (parameters.length <= expectedNbParameters) console.log('Targeting current folder, you can also specify a specific path, ex : node one-file/check-screens.cli.js "U:\\Screens\\" \n')
+const screensPath = path.normalize(parameters[expectedNbParameters] ?? process.cwd())
 const isImage = /\.(?:jpg|png)$/u
 const colors = [red, green, blue, yellow]
 let colorIndex = 0

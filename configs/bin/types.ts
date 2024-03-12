@@ -1,15 +1,14 @@
 /* c8 ignore start */
-/* eslint-disable @typescript-eslint/naming-convention */
 
 export type FileDetails = {
   /** the file content */ content: string
-  /** whether the file exists */ exists: boolean
   /** the file path */ filepath: string
+  /** whether the file exists */ isExisting: boolean
 }
 
 export type File = {
+  /** true if the source and destination files are the same */ areEquals: boolean
   /** the destination file details */ destination: FileDetails
-  /** true if the source and destination files are the same */ equals: boolean
   /** a regex to remove lines after */ removeLinesAfter?: RegExp
   /** a list of regex to remove lines matching */ removeLinesMatching?: RegExp[]
   /** the source file details */ source: FileDetails

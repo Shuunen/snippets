@@ -11,18 +11,30 @@
   ],
   "overrides": [
     {
-      "files": [
-        "**/*.js",
-        "**/*.mjs"
+      "extends": [
+        "plugin:unicorn/all",
+        "hardcore/ts-for-js"
       ],
+      "files": [
+        "*.js",
+        "*.mjs"
+      ],
+      "parserOptions": {
+        "project": true
+      },
       "rules": {
         "@typescript-eslint/ban-ts-comment": "off",
-        "no-console": "off"
+        "etc/no-commented-out-code": "off",
+        "no-console": "off",
+        "no-continue": "off",
+        "regexp/prefer-regexp-exec": "off",
+        "unicorn/no-process-exit": "off",
+        "unicorn/prefer-string-replace-all": "off"
       }
     }
   ],
   "parserOptions": {
-    "project": "./tsconfig.json"
+    "project": true
   },
   "rules": {
     "@typescript-eslint/brace-style": [
@@ -46,10 +58,7 @@
       }
     ],
     "@typescript-eslint/explicit-function-return-type": "off",
-    "@typescript-eslint/indent": [
-      "error",
-      2
-    ],
+    "@typescript-eslint/indent": "off",
     "@typescript-eslint/lines-around-comment": "off",
     "@typescript-eslint/member-delimiter-style": [
       "error",
@@ -73,14 +82,8 @@
     ],
     "@typescript-eslint/prefer-destructuring": "off",
     "@typescript-eslint/prefer-readonly-parameter-types": "off",
-    "@typescript-eslint/quotes": [
-      "error",
-      "single"
-    ],
-    "@typescript-eslint/semi": [
-      "error",
-      "never"
-    ],
+    "@typescript-eslint/quotes": "off",
+    "@typescript-eslint/semi": "off",
     "capitalized-comments": "off",
     "comma-dangle": [
       "error",
@@ -175,21 +178,15 @@
         "allowProperties": true
       }
     ],
-    "semi": [
-      "error",
-      "never"
-    ],
+    "semi": "off",
     "simple-import-sort/imports": "off",
-    "space-before-function-paren": [
-      "error",
-      "always"
-    ],
+    "space-before-function-paren": "off",
     "total-functions/no-partial-division": "off",
     "total-functions/no-unsafe-readonly-mutable-assignment": "off",
     "unicorn/no-array-for-each": "off",
     "unicorn/no-process-exit": "off",
     "unicorn/prefer-module": "off",
-    "unicorn/prefer-node-protocol": "off",
+    "unicorn/prefer-spread": "off",
     "unicorn/prefer-string-replace-all": "off",
     "unicorn/prefer-switch": "off",
     "unicorn/prevent-abbreviations": [

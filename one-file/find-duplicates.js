@@ -1,13 +1,12 @@
 /* c8 ignore start */
+/* eslint-disable @shopify/prefer-class-properties */
 /* eslint-disable no-magic-numbers */
 /* eslint-disable no-await-in-loop */
-/* eslint-disable no-continue */
-/* eslint-disable no-plusplus */
 /* eslint-disable sonarjs/cognitive-complexity */
 /* eslint-disable max-statements */
 /* eslint-disable no-warning-comments */
-import { readdir, stat } from 'fs/promises'
-import path from 'path'
+import { readdir, stat } from 'node:fs/promises'
+import path from 'node:path'
 
 const maxResults = 10
 const sizeGrain = 10_000
@@ -28,18 +27,29 @@ class CheckDuplicates {
     this.results = {}
   }
 
-  async start () {
-    console.log('\nCheck duplicates is starting !')
-    await this.args()
-    await this.find()
-    await this.check()
-    await this.report()
-    console.log('Check duplicates ended.')
-  }
-
   args () {
     if (process.argv.length < 4) throw new Error('this script need a path as argument like : find-duplicates.js "U:\\Movies\\"')
     this.target = path.normalize(process.argv[3] || '')
+  }
+  ellipsis (string = '', length = 40) {
+    return string.length > length ? (`${string.slice(0, Math.max(0, length - 3))}...`) : string
+  }
+  distance (stringA = '', stringB = '') {
+    // todo: something like levenshtein
+    return stringA.length + stringB.length
+  }
+  report () {
+    // eslint-disable-next-line @typescript-eslint/require-array-sort-compare, sonar/no-alphabetical-sort
+    const list = Object.keys(this.results).map(key => this.results[key]).sort()
+    console.log(list.splice(0, maxResults))
+  }
+  async start () {
+    console.log('\nCheck duplicates is starting !')
+    this.args()
+    await this.find()
+    await this.check()
+    this.report()
+    console.log('Check duplicates ended.')
   }
 
   async find () {
@@ -49,19 +59,10 @@ class CheckDuplicates {
     console.log('Found', this.nbElements, 'elements')
   }
 
-  ellipsis (string = '', length = 40) {
-    return string.length > length ? (`${string.slice(0, Math.max(0, length - 3))}...`) : string
-  }
-
-  distance (stringA = '', stringB = '') {
-    // todo: something like levenshtein
-    return stringA.length + stringB.length
-  }
-
   async check () {
     this.results = {}
-    for (let aIndex = 0; aIndex < this.nbElements; aIndex++)
-      for (let bIndex = 0; bIndex < this.nbElements; bIndex++) {
+    for (let aIndex = 0; aIndex < this.nbElements; aIndex += 1)
+      for (let bIndex = 0; bIndex < this.nbElements; bIndex += 1) {
         if (aIndex === bIndex) continue
         const itemA = String(this.elements[aIndex])
         const itemB = String(this.elements[bIndex])
@@ -77,12 +78,7 @@ class CheckDuplicates {
         this.results[key] = `${amountString} (${sizeDiff}) : ${this.ellipsis(itemA)} VS ${this.ellipsis(itemB)}`
       }
   }
-
-  report () {
-    const list = Object.keys(this.results).map(key => this.results[key]).sort()
-    console.log(list.splice(0, maxResults))
-  }
 }
 
 const instance = new CheckDuplicates()
-instance.start()
+await instance.start()

@@ -16,7 +16,7 @@ export function isolateLines (list) {
   let lines = list.replace(/ /gu, '').split('\n')
   lines = mergeUnique(lines)
   lines = lines.filter((line) => line.length > 0)
-  return lines.sort()
+  return lines.toSorted((lineA, lineB) => lineA.localeCompare(lineB))
 }
 
 /**

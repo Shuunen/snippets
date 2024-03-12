@@ -1,7 +1,7 @@
 /* c8 ignore start */
 
-import { copyFileSync, readFileSync, readdirSync, renameSync, statSync, unlinkSync } from 'fs'
-import path from 'path'
+import { copyFileSync, readFileSync, readdirSync, renameSync, statSync, unlinkSync } from 'node:fs'
+import path from 'node:path'
 
 // Go into the Downloads\Azerty.S01.1080p.WEBRip.x265-RARBG folder
 // then use me like : node ~/Projects/github/snippets/one-file/rename-subs.cli.js
@@ -37,7 +37,7 @@ function bringSubTop (fromPath, language) {
   const episodeLocation = -2
   const toFilename = `${fromPath.split('\\').at(episodeLocation) ?? ''}.${language}.srt`
   const toPath = path.join(currentFolder, toFilename)
-  const toStat = statSync(toPath, { throwIfNoEntry: false })
+  const toStat = statSync(toPath, { throwIfNoEntry: false }) // eslint-disable-line @typescript-eslint/naming-convention
   if (toStat?.isFile() ?? false) {
     if (isDebug) console.log(`File ${toPath} already exists`)
     return
@@ -52,17 +52,17 @@ function bringSubTop (fromPath, language) {
 }
 
 const subfolders = readdirSync(subsFolder)
-subfolders.forEach(subfolder => {
+for (const subfolder of subfolders) {
   const folderPath = path.join(subsFolder, subfolder)
   const folderStat = statSync(folderPath)
   if (!folderStat.isDirectory()) throw new Error(`Could not find folder ${folderPath}`)
   const folderFiles = readdirSync(folderPath)
-  folderFiles.forEach(file => {
+  for (const file of folderFiles) {
     const filePath = path.join(folderPath, file)
     if (file.toLowerCase().includes('french')) bringSubTop(filePath, 'fr')
     if (file.toLowerCase().includes('english')) bringSubTop(filePath, 'en')
-  })
-})
+  }
+}
 
 /**
  * Check subtitle
@@ -73,9 +73,9 @@ subfolders.forEach(subfolder => {
 // eslint-disable-next-line max-statements, complexity
 function checkSubtitle (filename, language) {
   const subPath = path.join(currentFolder, `${filename}.${language}.srt`)
-  const subStat = statSync(subPath, { throwIfNoEntry: false })
+  const subStat = statSync(subPath, { throwIfNoEntry: false }) // eslint-disable-line @typescript-eslint/naming-convention
   const subFcPath = `${subPath}.fc`
-  const subFcStat = statSync(subFcPath, { throwIfNoEntry: false })
+  const subFcStat = statSync(subFcPath, { throwIfNoEntry: false }) // eslint-disable-line @typescript-eslint/naming-convention
   const hasSub = subStat?.isFile() ?? false
   const hasSubFc = subFcStat?.isFile() ?? false
   if (hasSub && hasSubFc) { unlinkSync(subFcPath); return }
@@ -89,12 +89,12 @@ function checkSubtitle (filename, language) {
 
 const videoFile = /(?:\.mkv|\.mp4|\.avi|\.webm|\.mov|\.wmv|\.flv)$/iu
 const files = readdirSync(currentFolder)
-files.forEach(file => {
-  if (!videoFile.test(file)) return
+for (const file of files) {
+  if (!videoFile.test(file)) continue
   const extensionLocation = -1
   const filenameWithoutExtension = file.split('.').slice(0, extensionLocation).join('.')
   checkSubtitle(filenameWithoutExtension, 'fr')
   checkSubtitle(filenameWithoutExtension, 'en')
-})
+}
 
 console.log('Copy and/or check done, every episode has fr/en subtitles !')

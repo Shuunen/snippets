@@ -4,6 +4,7 @@
 const lastRequest = { method: '', url: '' }
 
 // @ts-ignore
+// eslint-disable-next-line @typescript-eslint/naming-convention
 const OldXHR = window.XMLHttpRequest
 
 function XhrProxy () {
@@ -16,7 +17,7 @@ function XhrProxy () {
 }
 
 const originalOpen = OldXHR.prototype.open
-// eslint-disable-next-line func-name-matching, sonar/class-prototype
+// eslint-disable-next-line func-name-matching
 OldXHR.prototype.open = function openProxy (/** @type {string} */ method, /** @type {string} */ url) {
   lastRequest.method = method
   lastRequest.url = url

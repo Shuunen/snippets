@@ -1,6 +1,6 @@
 /* eslint-disable max-params */
-import { copyFile, mkdir } from 'fs/promises'
-import path from 'path'
+import { copyFile, mkdir } from 'node:fs/promises'
+import path from 'node:path'
 
 /**
  * Get the filename from a filepath
@@ -9,7 +9,7 @@ import path from 'path'
  * @example filename('C:\\Users\\me\\file.txt') // 'file.txt'
  */
 export function filename (filepath = '') {
-  return (/[/\\](?<name>[\w.-]+)$/u.exec(filepath) || {}).groups?.name || ''
+  return /[/\\](?<name>[\w.-]+)$/u.exec(filepath)?.groups?.name ?? ''
 }
 
 /**
@@ -54,25 +54,25 @@ export function useUnixCarriageReturn (content) {
  * @param {RegExp[]} [linesMatching] a list of regex to remove lines matching
  * @returns {string} the cleaned file content
  */
-export function clean (content, linesAfter, linesMatching, clearSpaces = true) {
+export function clean (content, linesAfter, linesMatching, shouldClearSpaces = true) {
   if (!content) return ''
   let output = content
   if (linesAfter) output = removeLinesAfter(output, linesAfter)
   if (linesMatching) output = removeLinesMatching(output, linesMatching)
-  if (clearSpaces) output = output.replace(/\s*/gu, '')
+  if (shouldClearSpaces) output = output.replace(/\s*/gu, '')
   return output
 }
 
 /**
  * Normalize a filepath with slash style
  * @param {string} filepath 
- * @param {boolean} useTilde use tilde will replace the home directory with ~
+ * @param {boolean} shouldUseTilde use tilde will replace the home directory with ~
  * @param {string} home the home directory path
 */
 /* c8 ignore next */
-export function normalizePathWithSlash (filepath, useTilde = false, home = process.env.HOME ?? '') {
+export function normalizePathWithSlash (filepath, shouldUseTilde = false, home = process.env.HOME ?? '') {
   let outPath = path.normalize(filepath).replace(/\\/gu, '/')
-  if (useTilde) outPath = outPath.replace(normalizePathWithSlash(home), '~')
+  if (shouldUseTilde) outPath = outPath.replace(normalizePathWithSlash(home), '~')
   return outPath
 }
 
@@ -85,9 +85,10 @@ export function normalizePathWithSlash (filepath, useTilde = false, home = proce
 export async function copy (source, destination) {
   // destination will be created or overwritten by default.
   const destinationFolder = destination.replace(filename(destination) ?? '', '')
+  // eslint-disable-next-line @typescript-eslint/naming-convention
   await mkdir(destinationFolder, { recursive: true })
-  // eslint-disable-next-line promise/prefer-await-to-then
-  return copyFile(source, destination).then(() => true).catch(error => {
+
+  return await copyFile(source, destination).then(() => true).catch(error => {
     console.log(error)
     return false
   })

@@ -1,11 +1,11 @@
 /* c8 ignore start */
 /* eslint-disable no-await-in-loop */
-import { exec } from 'child_process'
-import { promises as fs } from 'fs'
-import path from 'path'
-import { createInterface } from 'readline'
+import { exec } from 'node:child_process'
+import { promises as fs } from 'node:fs'
+import path from 'node:path'
+import { createInterface } from 'node:readline'
+import { fileURLToPath } from 'node:url'
 import { nbSecondsInMinute } from 'shuutils'
-import { fileURLToPath } from 'url'
 import { getFfmpegCommand, getScreenshotFilename, parseUserInput, parseVideoMetadata } from './take-screenshot.utils.js' // js extension is required here
 
 /**
@@ -116,7 +116,7 @@ async function getTasks (input) {
  */
 async function takeScreenAt (input) {
   await logAdd(`Input : "${input}"`)
-  fs.writeFile(lastInputFile, input)
+  void fs.writeFile(lastInputFile, input)
   const tasks = await getTasks(input)
   await logAdd(`Tasks prepared : ${tasks.length}`)
   for (const task of tasks) {
@@ -133,10 +133,10 @@ async function init () {
   await logClear()
   await logAdd('Take screenshot starts @', new Date().toISOString())
   if (process.argv[2] === undefined) throw new Error('missing videoPath') // eslint-disable-line no-magic-numbers
-  if (process.argv[3] !== undefined) { takeScreenAt(process.argv[3]); return } // eslint-disable-line no-magic-numbers
+  if (process.argv[3] !== undefined) { await takeScreenAt(process.argv[3]); return } // eslint-disable-line no-magic-numbers
   const lastInput = await fs.readFile(lastInputFile, 'utf8').catch(() => '60')
   await logAdd('Last input :', lastInput)
-  ask.question(`  Please type the time in mmss or ss (enter to use "${lastInput}") : `, async (time) => { await takeScreenAt(time || lastInput) })
+  ask.question(`  Please type the time in mmss or ss (enter to use "${lastInput}") : `, async (time) => { await takeScreenAt(time || lastInput) }) // eslint-disable-line @typescript-eslint/no-misused-promises
 }
 
-await init().catch(async error => await logAdd(`Init global error : ${error}`))
+await init().catch(async error => { await logAdd(`Init global error : ${error}`) })

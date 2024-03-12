@@ -1,8 +1,8 @@
 /* c8 ignore start */
-import { readFileSync, writeFileSync } from 'fs'
-import path from 'path'
+import { readFileSync, writeFileSync } from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { parseJson } from 'shuutils'
-import { fileURLToPath } from 'url'
 import { logger, replaceAndCheck, replaceAndCheckById } from './repo-banner.utils.js'
 
 // usage : ts-node-esm one-file/repo-banner.cli.ts --transpileOnly

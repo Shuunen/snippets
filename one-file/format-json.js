@@ -1,6 +1,6 @@
 /* c8 ignore start */
-import { lstatSync, readdirSync, readFileSync, writeFileSync } from 'fs'
-import path from 'path'
+import { lstatSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
+import path from 'node:path'
 
 const spaces = 2
 const expectedNbParameters = 2

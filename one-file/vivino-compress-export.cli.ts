@@ -1,8 +1,8 @@
 /* c8 ignore start */
 /* eslint-disable no-console */
-import { promises as fs } from 'fs'
-import path from 'path'
-import { fileURLToPath } from 'url'
+import { promises as fs } from 'node:fs'
+import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { compressCsv } from './vivino-compress-export.utils.js'
 
 // usage : ts-node-esm --transpileOnly ~/Projects/github/snippets/one-file/vivino-compress-export.cli.ts full_wine_list.csv
@@ -11,8 +11,7 @@ const thisFilePath = fileURLToPath(import.meta.url)
 const currentFolder = path.dirname(thisFilePath)
 const logFile = path.join(currentFolder, 'vivino-compress-export.log')
 
-
-function asciiWelcome (): void {
+function asciiWelcome () {
   console.log(`
   o     o  o         o                .oPYo.
   8     8                             8    8
