@@ -376,6 +376,7 @@
     "typescript",
     "vue"
   ],
+  "console-ninja.featureSet": "Community",
   "coverage-gutters.customizable.context-menu": false,
   "css.format.enable": false,
   "css.validate": false,
@@ -509,6 +510,8 @@
   "terminal.integrated.cursorWidth": 3,
   "terminal.integrated.defaultProfile.windows": "Git Bash",
   "terminal.integrated.enableMultiLinePasteWarning": false,
+  "terminal.integrated.env.linux": {},
+  "terminal.integrated.env.windows": {},
   "terminal.integrated.fontSize": 16,
   "terminal.integrated.profiles.windows": {
     "Command Prompt": {

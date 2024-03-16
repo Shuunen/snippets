@@ -136,3 +136,7 @@ esac
 test -r /usr/local/go/bin && export PATH=$PATH:/usr/local/go/bin
 test -r ~/go/bin && export PATH=$PATH:~/go/bin
 # go end
+
+# console-ninja
+test -r ~/.console-ninja/.bin && export PATH=$PATH:~/.console-ninja/.bin
+# console-ninja end
