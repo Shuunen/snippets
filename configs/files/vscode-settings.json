@@ -344,6 +344,7 @@
     "viewports",
     "visualstudio",
     "vitepress",
+    "vitest",
     "vuejs",
     "vuetify",
     "Vuex",
