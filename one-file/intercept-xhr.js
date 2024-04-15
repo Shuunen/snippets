@@ -1,4 +1,5 @@
 /* c8 ignore start */
+/* eslint-disable @typescript-eslint/unbound-method */
 /* eslint-disable no-magic-numbers */
 /* eslint-disable import/unambiguous */
 const lastRequest = { method: '', url: '' }
@@ -22,7 +23,7 @@ OldXHR.prototype.open = function openProxy (/** @type {string} */ method, /** @t
   lastRequest.method = method
   lastRequest.url = url
   // @ts-ignore
-  // eslint-disable-next-line prefer-rest-params
+  // eslint-disable-next-line prefer-rest-params, @typescript-eslint/no-confusing-void-expression
   return originalOpen.apply(this, Array.prototype.slice.call(arguments))
 }
 

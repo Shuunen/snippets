@@ -37,13 +37,6 @@
     "project": true
   },
   "rules": {
-    "@typescript-eslint/brace-style": [
-      "error",
-      "1tbs",
-      {
-        "allowSingleLine": true
-      }
-    ],
     "@typescript-eslint/comma-dangle": [
       "error",
       "always-multiline"
@@ -75,10 +68,6 @@
         "argsIgnorePattern": "^_",
         "varsIgnorePattern": "^(_|global)"
       }
-    ],
-    "@typescript-eslint/object-curly-spacing": [
-      "error",
-      "always"
     ],
     "@typescript-eslint/prefer-destructuring": "off",
     "@typescript-eslint/prefer-readonly-parameter-types": "off",

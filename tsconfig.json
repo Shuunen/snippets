@@ -8,7 +8,8 @@
     "exactOptionalPropertyTypes": true,
     "forceConsistentCasingInFileNames": true,
     "lib": [
-      "ESNext"
+      "ESNext",
+      "DOM"
     ],
     "module": "ESNext",
     "moduleResolution": "Node",
@@ -25,9 +26,6 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "ESNext",
-    "types": [
-      "node/fs/promises"
-    ],
     "verbatimModuleSyntax": true
   },
   "include": [

@@ -84,9 +84,7 @@ nfc.on('reader', (/** @type {{ name: any; aid: string; on: (arg0: string, arg1: 
       const keyType = KEY_TYPE_B
 
       // we will authenticate block 4, ... (which we want to read)
-      await Promise.all([
-        reader.authenticate(startRead, keyType, key),
-      ])
+      await reader.authenticate(startRead, keyType, key)
 
       console.info('blocks successfully authenticated')
     } catch (error) {
