@@ -1,6 +1,6 @@
 import { expect, it } from 'vitest'
-import { clean, filename, normalizePathWithSlash, removeLinesAfter, removeLinesMatching, useUnixCarriageReturn } from '../configs/bin/utils'
-import { check } from './utils'
+import { check } from '../tests/test-utils'
+import { clean, filename, normalizePathWithSlash, removeLinesAfter, removeLinesMatching, useUnixCarriageReturn } from './bin/utils'
 
 
 const content = `

@@ -63,6 +63,7 @@ export function parseUserInput (userInput) {
   if (minutesOrSeconds === '') return []
   const secondsBase = Number.parseInt(secondsMaybe || minutesOrSeconds, 10)
   const minutesBase = secondsMaybe === '' ? 0 : Number.parseInt(minutesOrSeconds, 10)
+  // eslint-disable-next-line no-nested-ternary
   const modulo = moduloMaybe === '' ? (moduloMarker === '' ? 0 : 5) : Number.parseInt(moduloMaybe.replace(/\D/gu, ''), 10)
   return getTargets(modulo, minutesBase, secondsBase)
 }

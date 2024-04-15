@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest'
-import { extractData, logger, replaceAndCheck, replaceAndCheckById, safeRead } from '../one-file/repo-banner.utils'
+import { extractData, logger, replaceAndCheck, replaceAndCheckById, safeRead } from './repo-banner.utils'
 import { svgMockA } from './repo-banner.mock'
 
 it('replaceAndCheck A', () => {

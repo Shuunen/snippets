@@ -1,5 +1,5 @@
-import { emptyMetadata, getFfmpegCommand, getScreenshotFilename, getTargets, parseUserInput, parseVideoMetadata, readableDuration, readableSize } from '../one-file/take-screenshot.utils'
-import { check, checkSnapshot } from './utils'
+import { check, checkSnapshot } from '../tests/test-utils'
+import { emptyMetadata, getFfmpegCommand, getScreenshotFilename, getTargets, parseUserInput, parseVideoMetadata, readableDuration, readableSize } from './take-screenshot.utils'
 
 const ffProbeOutputA = { streams: [] }
 

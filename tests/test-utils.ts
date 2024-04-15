@@ -1,3 +1,4 @@
+/* c8 ignore start */
 import { expect, it } from 'vitest'
 
 /**

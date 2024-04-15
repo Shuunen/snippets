@@ -218,7 +218,6 @@ class CheckVideos {
     const isVideo = /\.(?:avi|m4v|mkv|mp4|mpg|wmv)$/u
     const list = await utils.readFile(path.join(videosPath, '.check-videos-ignore'))
     const isIgnored = list.split('\n')
-    // eslint-disable-next-line unicorn/no-array-for-each
     isIgnored.forEach((line = '') => {
       if (line.trim().length > 0 && !line.startsWith('//')) listing += `${line},\n`
     })

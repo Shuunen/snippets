@@ -1,5 +1,5 @@
 import { expect, it } from 'vitest'
-import { cleanTrackers } from '../one-file/clean-trackers.utils'
+import { cleanTrackers } from './clean-trackers.utils'
 
 it('clean trackers A', () => {
   expect(cleanTrackers(`udp://tracker.bitsearch.to:1337/announce

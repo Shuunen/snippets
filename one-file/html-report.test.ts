@@ -1,6 +1,6 @@
 import { gray } from 'shuutils'
-import { HtmlReporter } from '../one-file/html-reporter.mjs'
-import { check, checkSnapshot } from './utils.js'
+import { check, checkSnapshot } from '../tests/test-utils.js'
+import { HtmlReporter } from './html-reporter.mjs'
 
 const samples = [
   {

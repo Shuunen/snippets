@@ -1,0 +1,8 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`compressCsv A 1`] = `
+"domaine des bergeonnieres saint nicolas de bourgueil vielles vignes,3.6
+fabrice petit brut recoltant manipulant montier en l isle,4.0
+domaine de saint guirons pauillac,2.5
+domaine jean marc bouley vieilles vignes volnay,3.5"
+`;

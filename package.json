@@ -42,7 +42,7 @@
     "check": "pnpm install && echo install success && pnpm lint && repo-check && echo repo-check success && pnpm test && echo check success",
     "config:sync": "node configs/bin/sync",
     "lint": "pnpm lint:tsc && pnpm lint:eslint && echo lint:eslint success && echo lint success",
-    "lint:eslint": "eslint --cache --max-warnings 0 --ext .js,.ts .",
+    "lint:eslint": "eslint --cache --max-warnings 0 --ext .js,.ts configs one-file",
     "lint:tsc": "tsc --noEmit && echo lint:tsc success",
     "postversion": "git push && git push --tags",
     "preversion": "pnpm check",

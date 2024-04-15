@@ -1,21 +1,23 @@
 /* c8 ignore start */
+/* eslint-disable @shopify/prefer-class-properties */
 /* eslint-disable no-plusplus */
 // @ts-ignore
 import { gray, green } from 'shuutils'
 
 const states = {
-  lookingForATag: 'lookingForATag',
+  lookingForTag: 'lookingForATag',
   onTagAttr: 'onTagAttr',
   onTagName: 'onTagName',
   scanComplete: 'scanComplete',
 }
 
+// eslint-disable-next-line no-restricted-syntax
 export class HtmlReporter {
   // eslint-disable-next-line max-statements
-  constructor (input = '', debug = false) {
+  constructor (input = '', isDebug = false) {
     this.input = input
     this.index = -1
-    this.debug = debug
+    this.debug = isDebug
     this.attr = 0
     this.css = 0
     this.styles = 0
@@ -23,21 +25,19 @@ export class HtmlReporter {
     this.text = 0
     this.total = input.length
     this.state = ''
-    this.setState(states.lookingForATag)
+    this.setState(states.lookingForTag)
     this.scan()
   }
 
-  // eslint-disable-next-line sonarjs/cognitive-complexity, max-statements, consistent-return, complexity
+  // eslint-disable-next-line sonarjs/cognitive-complexity, max-statements, complexity
   scan () {
     /* eslint-disable curly */
     this.index++
     const char = this.input[this.index]
-    if (!char || this.index === this.total)
-      return this.onScanComplete()
-
+    if (!char || this.index === this.total) { this.onScanComplete(); return }
     if (char === '>') {
       this.tags++
-      this.setState(states.lookingForATag)
+      this.setState(states.lookingForTag)
     } else if (this.state === states.onTagName && char === ' ') {
       this.attr++
       this.setState(states.onTagAttr)
@@ -63,7 +63,7 @@ export class HtmlReporter {
         this.attr++
     } else if (this.state === states.onTagAttr && char !== '>') {
       this.attr++
-    } else if (this.state === states.lookingForATag && char !== '<') {
+    } else if (this.state === states.lookingForTag && char !== '<') {
       this.text++
       // eslint-disable-next-line sonarjs/elseif-without-else
     } else if (char === '<') {
