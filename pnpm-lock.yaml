@@ -6,7 +6,7 @@ settings:
 
 devDependencies:
   '@types/node':
-    specifier: 20.12.7
+    specifier: '20.12'
     version: 20.12.7
   '@vitest/coverage-v8':
     specifier: '1.5'
@@ -33,7 +33,7 @@ devDependencies:
     specifier: '10.9'
     version: 10.9.2(@types/node@20.12.7)(typescript@5.4.5)
   typescript:
-    specifier: 5.4.5
+    specifier: '5.4'
     version: 5.4.5
   vitest:
     specifier: '1.5'
