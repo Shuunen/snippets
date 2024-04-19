@@ -21,6 +21,9 @@
   "[typescript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
   "[xml]": {
     "editor.defaultFormatter": "mikeburgh.xml-format"
   },
@@ -130,6 +133,7 @@
     "geekbench",
     "Geekbench",
     "geforce",
+    "geiger",
     "Geolocation",
     "gifs",
     "giftcard",
@@ -219,6 +223,7 @@
     "nuxt",
     "nuxtjs",
     "nvmrc",
+    "nzxl",
     "NZXL",
     "NZXT",
     "oeuf",
@@ -536,7 +541,6 @@
   "terminal.integrated.cursorStyle": "line",
   "terminal.integrated.cursorWidth": 3,
   "terminal.integrated.defaultProfile.windows": "Git Bash",
-  "terminal.integrated.enableMultiLinePasteWarning": false,
   "terminal.integrated.env.linux": {},
   "terminal.integrated.env.windows": {},
   "terminal.integrated.fontSize": 16,
@@ -561,8 +565,14 @@
   "typescript.preferences.quoteStyle": "single",
   "typescript.updateImportsOnFileMove.enabled": "always",
   "vue.codeActions.savingTimeLimit": 2000,
+  "window.commandCenter": false,
   "window.titleBarStyle": "custom",
   "window.zoomLevel": 1,
   "workbench.colorTheme": "Default Dark+",
+  "workbench.editor.enablePreview": false,
+  "workbench.editorAssociations": {
+    "*.csv": "default",
+    "*.md": "default"
+  },
   "xstate.nestTypegenFiles": false
 }
