@@ -19,7 +19,6 @@ choco install ^
 adb ^
 airexplorer ^
 ant-renamer ^
-araxismerge ^
 audacity ^
 autohotkey.portable ^
 autoruns ^
