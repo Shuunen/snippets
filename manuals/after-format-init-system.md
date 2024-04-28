@@ -155,6 +155,14 @@ espanso install tableflip-package
 espanso install kaimoji
 ```
 
+## Tweaks
+
+Open a terminal as admin & run :
+
+```bash
+irm https://christitus.com/win | iex
+```
+
 ## Explorer
 
 - [ ] pin explorer to task bar
