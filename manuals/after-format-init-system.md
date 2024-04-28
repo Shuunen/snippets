@@ -40,6 +40,7 @@ dotnet-runtime ^
 dotnetcore ^
 dotnetcore-runtime ^
 dotnetfx ^
+espanso ^
 exiftool ^
 exiftoolgui ^
 ffmpeg ^
@@ -143,6 +144,16 @@ Open Rapidee & add these to the user path :
 - [ ] settings > set as default browser
 - [ ] login to github & edit this manual to add missing steps (so meta)
 - [ ] setup violent-monkey settings > sync > google drive > authorize
+
+## Espanso
+
+Open a terminal as user & run :
+
+```bash
+espanso install actually-all-emojis-spaces
+espanso install tableflip-package
+espanso install kaimoji
+```
 
 ## Explorer
 

@@ -1,0 +1,50 @@
+# espanso match file
+
+# For a complete introduction, visit the official docs at: https://espanso.org/docs/
+
+# You can use this file to define the base matches (aka snippets)
+# that will be available in every application when using espanso.
+
+# Matches are substitution rules: when you type the "trigger" string
+# it gets replaced by the "replace" string.
+matches:
+  # Simple text replacement
+  - regex: ":(mail|email)"
+    label: "romain.racamier@gmail.com"
+    replace: "romain.racamier@gmail.com"
+
+  - regex: ":(adr|addr|address)"
+    label: "21 rue du Berry 67100 Strasbourg"
+    replace: "21 rue du Berry 67100 Strasbourg"
+
+  - regex: ":(tel|phone)"
+    label: "0658476788"
+    replace: "0658476788"
+
+  - trigger: ":linkedin"
+    label: "My LinkedIn profile"
+    replace: "https://www.linkedin.com/in/romain-racamier"
+
+  # NOTE: espanso uses YAML to define matches, so pay attention to the indentation!
+
+  # But matches can also be dynamic:
+
+  # Print the current date
+  - trigger: ":date"
+    replace: "{{today}}"
+    vars:
+      - name: today
+        type: date
+        params:
+          format: "%m/%d/%Y"
+
+  # Print the output of a shell command
+  - trigger: ":shell"
+    replace: "{{output}}"
+    vars:
+      - name: output
+        type: shell
+        params:
+          cmd: "echo 'Hello from your shell'"
+
+  # And much more! For more information, visit the docs: https://espanso.org/docs/
