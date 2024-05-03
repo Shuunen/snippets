@@ -6,10 +6,14 @@ Just replace this : `\)(: [^\{]+ )\{` with this : `) {`
 
 ## Check tests to vitest
 
-Replace
+Replace :
 
 ```text
-check\('([^']+)', ([\w.]+|[\w.]+\([^\)]+\)|.+), (\{[^}]+\}|\[[^\]]+\]|true|false|[a-z]*[A-Z]+.+|'.*'|[\d_]+)\)
+check\(([`'][^']+[`']), ([\w.]+|[\w.]+\([^\)]+\)|.+), (`[\s\S]+`|\[\]|\{[^}]+\}|\[[^\]]+\]|true|false|[a-z]*[A-Z]+.+|'.*'|[\d_]+)\)
 ```
 
-with `it('$1', () => { expect($2).toBe($3) })`
+with :
+
+```text
+it($1, () => { expect($2).toBe($3) })
+```

@@ -48,3 +48,52 @@ exports[`getTargets A 1`] = `
   },
 ]
 `;
+
+exports[`parseUserInput N default to modulo 5 if marker exists 1`] = `
+[
+  {
+    "minutes": 12,
+    "seconds": 29,
+  },
+  {
+    "minutes": 12,
+    "seconds": 30,
+  },
+  {
+    "minutes": 12,
+    "seconds": 31,
+  },
+  {
+    "minutes": 12,
+    "seconds": 32,
+  },
+  {
+    "minutes": 12,
+    "seconds": 33,
+  },
+  {
+    "minutes": 12,
+    "seconds": 34,
+  },
+  {
+    "minutes": 12,
+    "seconds": 35,
+  },
+  {
+    "minutes": 12,
+    "seconds": 36,
+  },
+  {
+    "minutes": 12,
+    "seconds": 37,
+  },
+  {
+    "minutes": 12,
+    "seconds": 38,
+  },
+  {
+    "minutes": 12,
+    "seconds": 39,
+  },
+]
+`;

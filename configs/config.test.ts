@@ -1,5 +1,4 @@
 import { expect, it } from 'vitest'
-import { check } from '../tests/test-utils'
 import { clean, filename, normalizePathWithSlash, removeLinesAfter, removeLinesMatching, useUnixCarriageReturn } from './bin/utils'
 
 
@@ -13,29 +12,44 @@ LastUpdateCheck=10/20/2022 08:59:59
 DisableSettings=False
 `
 
-check('remove lines matching A', removeLinesMatching(content, [/^LastUpdateCheck=/u]), `; How many days between every update check? (0=no checks)
-UpdateCheckInterval=14
-; Last update check
-[History]
-; Enable/disable the access to the settings, can only be changed manually in this .ini
-DisableSettings=False`)
+it('remove lines matching A', () => {
+  expect(removeLinesMatching(content, [/^LastUpdateCheck=/u])).toMatchInlineSnapshot(`
+    "; How many days between every update check? (0=no checks)
+    UpdateCheckInterval=14
+    ; Last update check
+    [History]
+    ; Enable/disable the access to the settings, can only be changed manually in this .ini
+    DisableSettings=False"
+  `)
+})
 
-check('remove lines matching B', removeLinesMatching(content, [/\b=\b/u]), `; Last update check
-[History]
-; Enable/disable the access to the settings, can only be changed manually in this .ini`)
+it('remove lines matching B', () => {
+  expect(removeLinesMatching(content, [/\b=\b/u])).toMatchInlineSnapshot(`
+    "; Last update check
+    [History]
+    ; Enable/disable the access to the settings, can only be changed manually in this .ini"
+  `)
+})
 
-check('remove lines matching C should catch all', removeLinesMatching(content, [/^;/u, /^\[/u, /\b=\b/u]), '')
+it('remove lines matching C should catch all', () => { expect(removeLinesMatching(content, [/^;/u, /^\[/u, /\b=\b/u])).toBe('') })
 
+it('remove lines after A', () => {
+  expect(removeLinesAfter(content, /^; Last/u)).toMatchInlineSnapshot(`
+    "; How many days between every update check? (0=no checks)
+    UpdateCheckInterval=14"
+  `)
+})
 
-check('remove lines after A', removeLinesAfter(content, /^; Last/u), `; How many days between every update check? (0=no checks)
-UpdateCheckInterval=14`)
+it('remove lines after B failed should return all', () => { expect(removeLinesAfter(content, /^Does not exists/u)).toBe(content.trim()) })
 
-check('remove lines after B failed should return all', removeLinesAfter(content, /^Does not exists/u), content.trim())
-
-check('remove lines after C', removeLinesAfter(content, /^\[History\]/u), `; How many days between every update check? (0=no checks)
-UpdateCheckInterval=14
-; Last update check
-LastUpdateCheck=10/20/2022 08:59:59`)
+it('remove lines after C', () => {
+  expect(removeLinesAfter(content, /^\[History\]/u)).toMatchInlineSnapshot(`
+    "; How many days between every update check? (0=no checks)
+    UpdateCheckInterval=14
+    ; Last update check
+    LastUpdateCheck=10/20/2022 08:59:59"
+  `)
+})
 
 const contentGreenShot = `
 ; Greenshot core configuration
@@ -49,27 +63,27 @@ RunInbackground.MS Paint=True
 TornEdgeEffectSettings=Darkness
 `
 
-check('clean A', clean(contentGreenShot, /\[Editor\]/u, [/^(?:LastCapturedRegion|LastUpdateCheck|OutputFileAsFull|Commands=)/u, /(?:MS Paint)/u]), ';Greenshotcoreconfiguration[Core];Greenshoteditorconfiguration')
-check('clean B', clean('', /test/u, [/^test/u]), '')
+it('clean A', () => { expect(clean(contentGreenShot, /\[Editor\]/u, [/^(?:LastCapturedRegion|LastUpdateCheck|OutputFileAsFull|Commands=)/u, /(?:MS Paint)/u])).toBe(';Greenshotcoreconfiguration[Core];Greenshoteditorconfiguration') })
+it('clean B', () => { expect(clean('', /test/u, [/^test/u])).toBe('') })
 
 const winHome = 'C:/Users/Johnny'
 const winPath = 'C:/Users/Johnny/Projects/github/snippets/tests'
 
-check('normalizePathWithSlash A', normalizePathWithSlash(winPath, undefined, winHome), 'C:/Users/Johnny/Projects/github/snippets/tests')
-check('normalizePathWithSlash B', normalizePathWithSlash(winPath, undefined, winHome), 'C:/Users/Johnny/Projects/github/snippets/tests')
-check('normalizePathWithSlash C', normalizePathWithSlash(winPath, true, winHome), '~/Projects/github/snippets/tests')
-check('normalizePathWithSlash D', normalizePathWithSlash(winPath, true, winHome), '~/Projects/github/snippets/tests')
-check('normalizePathWithSlash E', normalizePathWithSlash(winPath, true, winHome), '~/Projects/github/snippets/tests')
-check('normalizePathWithSlash F', normalizePathWithSlash(winPath, true, winHome), '~/Projects/github/snippets/tests')
-check('normalizePathWithSlash G', normalizePathWithSlash(winPath), 'C:/Users/Johnny/Projects/github/snippets/tests')
-check('normalizePathWithSlash H', normalizePathWithSlash(winPath), 'C:/Users/Johnny/Projects/github/snippets/tests')
-check('normalizePathWithSlash I', normalizePathWithSlash(winPath), 'C:/Users/Johnny/Projects/github/snippets/tests')
-check('normalizePathWithSlash J', normalizePathWithSlash(winPath, true), 'C:/Users/Johnny/Projects/github/snippets/tests')
+it('normalizePathWithSlash A', () => { expect(normalizePathWithSlash(winPath, undefined, winHome)).toBe('C:/Users/Johnny/Projects/github/snippets/tests') })
+it('normalizePathWithSlash B', () => { expect(normalizePathWithSlash(winPath, undefined, winHome)).toBe('C:/Users/Johnny/Projects/github/snippets/tests') })
+it('normalizePathWithSlash C', () => { expect(normalizePathWithSlash(winPath, true, winHome)).toBe('~/Projects/github/snippets/tests') })
+it('normalizePathWithSlash D', () => { expect(normalizePathWithSlash(winPath, true, winHome)).toBe('~/Projects/github/snippets/tests') })
+it('normalizePathWithSlash E', () => { expect(normalizePathWithSlash(winPath, true, winHome)).toBe('~/Projects/github/snippets/tests') })
+it('normalizePathWithSlash F', () => { expect(normalizePathWithSlash(winPath, true, winHome)).toBe('~/Projects/github/snippets/tests') })
+it('normalizePathWithSlash G', () => { expect(normalizePathWithSlash(winPath)).toBe('C:/Users/Johnny/Projects/github/snippets/tests') })
+it('normalizePathWithSlash H', () => { expect(normalizePathWithSlash(winPath)).toBe('C:/Users/Johnny/Projects/github/snippets/tests') })
+it('normalizePathWithSlash I', () => { expect(normalizePathWithSlash(winPath)).toBe('C:/Users/Johnny/Projects/github/snippets/tests') })
+it('normalizePathWithSlash J', () => { expect(normalizePathWithSlash(winPath, true)).toBe('C:/Users/Johnny/Projects/github/snippets/tests') })
 
-check('filename A', filename(winPath), 'tests')
-check('filename B', filename('C:\\Users\\me\\file.txt'), 'file.txt')
-check('filename C', filename('file.txt'), '')
-check('filename D', filename('file'), '')
+it('filename A', () => { expect(filename(winPath)).toBe('tests') })
+it('filename B', () => { expect(filename('C:\\Users\\me\\file.txt')).toBe('file.txt') })
+it('filename C', () => { expect(filename('file.txt')).toBe('') })
+it('filename D', () => { expect(filename('file')).toBe('') })
 
 it('useUnixCarriageReturn A', () => {
   expect(useUnixCarriageReturn('a\nb\nc')).toMatchInlineSnapshot(`

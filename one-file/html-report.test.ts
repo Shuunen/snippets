@@ -1,5 +1,5 @@
 import { gray } from 'shuutils'
-import { check, checkSnapshot } from '../tests/test-utils.js'
+import { expect, it } from 'vitest'
 import { HtmlReporter } from './html-reporter.mjs'
 
 const samples = [
@@ -51,21 +51,21 @@ const samples = [
 
 samples.forEach(({ input, output, title }) => {
   const actual = new HtmlReporter(input)
-  check(`html-report ${title} attr`, actual.attr, output.attr)
-  check(`html-report ${title} css`, actual.css, output.css)
-  check(`html-report ${title} styles`, actual.styles, output.styles)
-  check(`html-report ${title} tags`, actual.tags, output.tags)
-  check(`html-report ${title} text`, actual.text, output.text)
-  check(`html-report ${title} total`, actual.total, output.total)
+  it(`html-report ${title} attr`, () => { expect(actual.attr).toBe(output.attr) })
+  it(`html-report ${title} css`, () => { expect(actual.css).toBe(output.css) })
+  it(`html-report ${title} styles`, () => { expect(actual.styles).toBe(output.styles) })
+  it(`html-report ${title} tags`, () => { expect(actual.tags).toBe(output.tags) })
+  it(`html-report ${title} text`, () => { expect(actual.text).toBe(output.text) })
+  it(`html-report ${title} total`, () => { expect(actual.total).toBe(output.total) })
 })
 
 const { input, output, title } = samples[5]
 const actualDebug = new HtmlReporter(input, true)
-check(`html-report debug ${title} attr`, actualDebug.attr, output.attr)
-check(`html-report debug ${title} css`, actualDebug.css, output.css)
-check(`html-report debug ${title} styles`, actualDebug.styles, output.styles)
-check(`html-report debug ${title} tags`, actualDebug.tags, output.tags)
-check(`html-report debug ${title} text`, actualDebug.text, output.text)
-check(`html-report debug ${title} total`, actualDebug.total, output.total)
-checkSnapshot('html-report debug readable A', actualDebug.readable(3, gray))
-checkSnapshot('html-report debug readable B', actualDebug.readable(16, gray))
+it(`html-report debug ${title} attr`, () => { expect(actualDebug.attr).toBe(output.attr) })
+it(`html-report debug ${title} css`, () => { expect(actualDebug.css).toBe(output.css) })
+it(`html-report debug ${title} styles`, () => { expect(actualDebug.styles).toBe(output.styles) })
+it(`html-report debug ${title} tags`, () => { expect(actualDebug.tags).toBe(output.tags) })
+it(`html-report debug ${title} text`, () => { expect(actualDebug.text).toBe(output.text) })
+it(`html-report debug ${title} total`, () => { expect(actualDebug.total).toBe(output.total) })
+it('html-report debug readable A', () => { expect(actualDebug.readable(3, gray)).toMatchInlineSnapshot(`"[90m\\n[39m"`) })
+it('html-report debug readable B', () => { expect(actualDebug.readable(16, gray)).toMatchInlineSnapshot(`"[90m\\s[39m"`) })

@@ -1,9 +1,9 @@
-import { check, checkSnapshot } from '../tests/test-utils'
+import { expect, it } from 'vitest'
 import { emptyMetadata, getFfmpegCommand, getScreenshotFilename, getTargets, parseUserInput, parseVideoMetadata, readableDuration, readableSize } from './take-screenshot.utils'
 
 const ffProbeOutputA = { streams: [] }
 
-check('parseVideoMetadata A', parseVideoMetadata(ffProbeOutputA), emptyMetadata)
+it('parseVideoMetadata A', () => { expect(parseVideoMetadata(ffProbeOutputA)).toBe(emptyMetadata) })
 
 const ffProbeOutputB = {
   format: {
@@ -39,7 +39,7 @@ const expectedMetadataB = {
   title: 'plop and the doe',
 }
 
-check('parseVideoMetadata B', parseVideoMetadata(ffProbeOutputB), expectedMetadataB)
+it('parseVideoMetadata B', () => { expect(parseVideoMetadata(ffProbeOutputB)).toStrictEqual(expectedMetadataB) })
 
 const ffProbeOutputCnoVideo = {
   format: {
@@ -61,7 +61,7 @@ const ffProbeOutputCnoVideo = {
   }],
 }
 
-check('parseVideoMetadata C', parseVideoMetadata(ffProbeOutputCnoVideo), emptyMetadata)
+it('parseVideoMetadata C', () => { expect(parseVideoMetadata(ffProbeOutputCnoVideo)).toBe(emptyMetadata) })
 
 const ffProbeOutputDnoFormat = {
   streams: [{
@@ -81,41 +81,41 @@ const expectedMetadataD = {
   title: '',
 }
 
-check('parseVideoMetadata D', parseVideoMetadata(ffProbeOutputDnoFormat), expectedMetadataD)
+it('parseVideoMetadata D', () => { expect(parseVideoMetadata(ffProbeOutputDnoFormat)).toStrictEqual(expectedMetadataD) })
 
-check('parseUserInput A specific ss', parseUserInput('12'), [{ minutes: 0, seconds: 12 }])
-check('parseUserInput B ss+-1', parseUserInput('12+-1'), [{ minutes: 0, seconds: 11 }, { minutes: 0, seconds: 12 }, { minutes: 0, seconds: 13 }])
-check('parseUserInput C mmss+-2', parseUserInput('2106+-2'), [{ minutes: 21, seconds: 4 }, { minutes: 21, seconds: 5 }, { minutes: 21, seconds: 6 }, { minutes: 21, seconds: 7 }, { minutes: 21, seconds: 8 }])
-check('parseUserInput D mmss around minute gaps', parseUserInput('0100-+1'), [{ minutes: 0, seconds: 59 }, { minutes: 1, seconds: 0 }, { minutes: 1, seconds: 1 }])
-check('parseUserInput E mmss around minute gaps', parseUserInput('0100-+2'), [{ minutes: 0, seconds: 58 }, { minutes: 0, seconds: 59 }, { minutes: 1, seconds: 0 }, { minutes: 1, seconds: 1 }, { minutes: 1, seconds: 2 }])
-check('parseUserInput F mmss around minute gaps', parseUserInput('0100-+3'), [{ minutes: 0, seconds: 57 }, { minutes: 0, seconds: 58 }, { minutes: 0, seconds: 59 }, { minutes: 1, seconds: 0 }, { minutes: 1, seconds: 1 }, { minutes: 1, seconds: 2 }, { minutes: 1, seconds: 3 }])
-check('parseUserInput G mmss around minute gaps', parseUserInput('2201-+2'), [{ minutes: 21, seconds: 59 }, { minutes: 22, seconds: 0 }, { minutes: 22, seconds: 1 }, { minutes: 22, seconds: 2 }, { minutes: 22, seconds: 3 }])
-check('parseUserInput H mmss around minute gaps', parseUserInput('2259-+2'), [{ minutes: 22, seconds: 57 }, { minutes: 22, seconds: 58 }, { minutes: 22, seconds: 59 }, { minutes: 23, seconds: 0 }, { minutes: 23, seconds: 1 }])
-check('parseUserInput I empty input', parseUserInput(''), [])
-check('parseUserInput J invalid input', parseUserInput('plop'), [])
-check('parseUserInput K invalid input', parseUserInput('12plop'), [])
-check('parseUserInput L invalid input', parseUserInput('plop12'), [])
-check('parseUserInput M specific mmss', parseUserInput('1234'), [{ minutes: 12, seconds: 34 }])
-check('parseUserInput N default to modulo 5 if marker exists', parseUserInput('1234+-'), [{ minutes: 12, seconds: 29 }, { minutes: 12, seconds: 30 }, { minutes: 12, seconds: 31 }, { minutes: 12, seconds: 32 }, { minutes: 12, seconds: 33 }, { minutes: 12, seconds: 34 }, { minutes: 12, seconds: 35 }, { minutes: 12, seconds: 36 }, { minutes: 12, seconds: 37 }, { minutes: 12, seconds: 38 }, { minutes: 12, seconds: 39 }])
+it('parseUserInput A specific ss', () => { expect(parseUserInput('12')).toStrictEqual([{ minutes: 0, seconds: 12 }]) })
+it('parseUserInput B ss+-1', () => { expect(parseUserInput('12+-1')).toStrictEqual([{ minutes: 0, seconds: 11 }, { minutes: 0, seconds: 12 }, { minutes: 0, seconds: 13 }]) })
+it('parseUserInput C mmss+-2', () => { expect(parseUserInput('2106+-2')).toStrictEqual([{ minutes: 21, seconds: 4 }, { minutes: 21, seconds: 5 }, { minutes: 21, seconds: 6 }, { minutes: 21, seconds: 7 }, { minutes: 21, seconds: 8 }]) })
+it('parseUserInput D mmss around minute gaps', () => { expect(parseUserInput('0100-+1')).toStrictEqual([{ minutes: 0, seconds: 59 }, { minutes: 1, seconds: 0 }, { minutes: 1, seconds: 1 }]) })
+it('parseUserInput E mmss around minute gaps', () => { expect(parseUserInput('0100-+2')).toStrictEqual([{ minutes: 0, seconds: 58 }, { minutes: 0, seconds: 59 }, { minutes: 1, seconds: 0 }, { minutes: 1, seconds: 1 }, { minutes: 1, seconds: 2 }]) })
+it('parseUserInput F mmss around minute gaps', () => { expect(parseUserInput('0100-+3')).toStrictEqual([{ minutes: 0, seconds: 57 }, { minutes: 0, seconds: 58 }, { minutes: 0, seconds: 59 }, { minutes: 1, seconds: 0 }, { minutes: 1, seconds: 1 }, { minutes: 1, seconds: 2 }, { minutes: 1, seconds: 3 }]) })
+it('parseUserInput G mmss around minute gaps', () => { expect(parseUserInput('2201-+2')).toStrictEqual([{ minutes: 21, seconds: 59 }, { minutes: 22, seconds: 0 }, { minutes: 22, seconds: 1 }, { minutes: 22, seconds: 2 }, { minutes: 22, seconds: 3 }]) })
+it('parseUserInput H mmss around minute gaps', () => { expect(parseUserInput('2259-+2')).toStrictEqual([{ minutes: 22, seconds: 57 }, { minutes: 22, seconds: 58 }, { minutes: 22, seconds: 59 }, { minutes: 23, seconds: 0 }, { minutes: 23, seconds: 1 }]) })
+it('parseUserInput I empty input', () => { expect(parseUserInput('')).toStrictEqual([]) })
+it('parseUserInput J invalid input', () => { expect(parseUserInput('plop')).toStrictEqual([]) })
+it('parseUserInput K invalid input', () => { expect(parseUserInput('12plop')).toStrictEqual([]) })
+it('parseUserInput L invalid input', () => { expect(parseUserInput('plop12')).toStrictEqual([]) })
+it('parseUserInput M specific mmss', () => { expect(parseUserInput('1234')).toStrictEqual([{ minutes: 12, seconds: 34 }]) })
+it('parseUserInput N default to modulo 5 if marker exists', () => { expect(parseUserInput('1234+-')).toMatchSnapshot() })
 
-check('readableDuration A', readableDuration(0), '00h00m00s')
-check('readableDuration B', readableDuration(28), '00h00m28s')
-check('readableDuration C', readableDuration(60), '00h01m00s')
-check('readableDuration D', readableDuration(61), '00h01m01s')
-check('readableDuration E', readableDuration(3600), '01h00m00s')
-check('readableDuration F', readableDuration(3612), '01h00m12s')
+it('readableDuration A', () => { expect(readableDuration(0)).toBe('00h00m00s') })
+it('readableDuration B', () => { expect(readableDuration(28)).toBe('00h00m28s') })
+it('readableDuration C', () => { expect(readableDuration(60)).toBe('00h01m00s') })
+it('readableDuration D', () => { expect(readableDuration(61)).toBe('00h01m01s') })
+it('readableDuration E', () => { expect(readableDuration(3600)).toBe('01h00m00s') })
+it('readableDuration F', () => { expect(readableDuration(3612)).toBe('01h00m12s') })
 
-check('readableSize A', readableSize(0), '0mo')
-check('readableSize B', readableSize(1000), '0mo')
-check('readableSize C', readableSize(1_000_000), '1mo')
-check('readableSize D', readableSize(1_000_000_000), '954mo')
-check('readableSize E', readableSize(1_000_000_000_000), '931,3go')
-check('readableSize F', readableSize(1_924_654_000), '1,8go')
+it('readableSize A', () => { expect(readableSize(0)).toBe('0mo') })
+it('readableSize B', () => { expect(readableSize(1000)).toBe('0mo') })
+it('readableSize C', () => { expect(readableSize(1_000_000)).toBe('1mo') })
+it('readableSize D', () => { expect(readableSize(1_000_000_000)).toBe('954mo') })
+it('readableSize E', () => { expect(readableSize(1_000_000_000_000)).toBe('931,3go') })
+it('readableSize F', () => { expect(readableSize(1_924_654_000)).toBe('1,8go') })
 
-check('getScreenshotFilename A', getScreenshotFilename(3600, { duration: 789, height: 1080, size: 123_456_789, title: 'plop' }), 'plop 01h00m00s 118mo 1080p 00h13m09s.jpg')
-check('getScreenshotFilename B', getScreenshotFilename(126, { duration: 1_000_000, height: 720, size: 1_000_000_000, title: 'The little John and the Doe are awaiting the arrival of the big John (2013) Encoded by HurrayXXX_36 x265 10bit HDR DTS-HD-MA' }), 'The little John and the Doe are awaiting the arrival of the big John (2013) Encoded by HurrayXXX_36 x265 10bit HDR DTS-HD-MA 00h02m06s 954mo 720p 13h46m40s.jpg')
-check('getScreenshotFilename C', getScreenshotFilename(0, { duration: 0, height: 0, size: 0, title: '' }), '00h00m00s 0mo 0p 00h00m00s.jpg')
+it('getScreenshotFilename A', () => { expect(getScreenshotFilename(3600, { duration: 789, height: 1080, size: 123_456_789, title: 'plop' })).toBe('plop 01h00m00s 118mo 1080p 00h13m09s.jpg') })
+it('getScreenshotFilename B', () => { expect(getScreenshotFilename(126, { duration: 1_000_000, height: 720, size: 1_000_000_000, title: 'The little John and the Doe are awaiting the arrival of the big John (2013) Encoded by HurrayXXX_36 x265 10bit HDR DTS-HD-MA' })).toBe('The little John and the Doe are awaiting the arrival of the big John (2013) Encoded by HurrayXXX_36 x265 10bit HDR DTS-HD-MA 00h02m06s 954mo 720p 13h46m40s.jpg') })
+it('getScreenshotFilename C', () => { expect(getScreenshotFilename(0, { duration: 0, height: 0, size: 0, title: '' })).toBe('00h00m00s 0mo 0p 00h00m00s.jpg') })
 
-check('getFfmpegCommand A', getFfmpegCommand({ screenPath: 'plop.jpg', totalSeconds: 120, videoPath: 'plop.mp4' }), 'ffmpeg -ss 120 -i "plop.mp4" -frames:v 1 -q:v 1 "plop.jpg"')
+it('getFfmpegCommand A', () => { expect(getFfmpegCommand({ screenPath: 'plop.jpg', totalSeconds: 120, videoPath: 'plop.mp4' })).toBe('ffmpeg -ss 120 -i "plop.mp4" -frames:v 1 -q:v 1 "plop.jpg"') })
 
-checkSnapshot('getTargets A', getTargets(5, 2, 30))
+it('getTargets A', () => { expect(getTargets(5, 2, 30)).toMatchSnapshot() })

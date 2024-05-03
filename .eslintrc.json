@@ -204,7 +204,6 @@
           }
         ],
         "@typescript-eslint/explicit-function-return-type": "off",
-        "@typescript-eslint/indent": "off",
         "@typescript-eslint/lines-around-comment": "off",
         "@typescript-eslint/member-delimiter-style": [
           "error",
