@@ -140,3 +140,8 @@ test -r ~/go/bin && export PATH=$PATH:~/go/bin
 # console-ninja
 test -r ~/.console-ninja/.bin && export PATH=$PATH:~/.console-ninja/.bin
 # console-ninja end
+
+echo '' 
+neofetch 
+echo ' Hey there ^^ Have a nice day!' 
+echo ''

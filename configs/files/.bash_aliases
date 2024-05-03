@@ -21,11 +21,21 @@ alias pb="pnpm build"
 alias po="pnpm outdated"
 alias pu="pnpm update"
 
-if ! [[ "$PATH" =~ .npm-global/bin ]]; then PATH="$PATH:$HOME/.npm-global/bin"; elif ! [[ "$PATH" =~ .npm-global ]]; then PATH="$PATH:$HOME/.npm-global"; fi
-if ! [[ "$PATH" =~ .local/share/applications ]]; then PATH="$PATH:$HOME/.local/share/applications"; fi
-if ! [[ "$PATH" =~ snippets/one-file ]]; then PATH="$PATH:$HOME/Projects/github/snippets/one-file"; fi
+export no_proxy=".specific-domain.com,localhost"
 
-echo '' 
-neofetch 
-echo ' Hey there ^^ Have a nice day!' 
-echo ''
+function setProxy() {
+  url="http://user1:pass2@proxy-web.specific-domain.com:8080"
+  echo "Using proxy : ${url}"
+  export http_proxy="${url}"
+  export https_proxy="${http_proxy}"
+  export ftp_proxy="${http_proxy}"
+  export HTTP_PROXY="${http_proxy}"
+  export HTTPS_PROXY="${https_proxy}"
+  export FTP_PROXY="${ftp_proxy}"
+}
+
+if ! [[ "$PATH" =~ .npm-global/bin ]] && [ -d "$HOME/.npm-global/bin" ]; then PATH="$PATH:$HOME/.npm-global/bin"; elif [ -d "$HOME/.npm-global" ]; then PATH="$PATH:$HOME/.npm-global"; fi
+if ! [[ "$PATH" =~ .local/share/applications ]] && [ -d "$HOME/.local/share/applications" ]; then PATH="$PATH:$HOME/.local/share/applications"; fi
+if ! [[ "$PATH" =~ snippets/one-file ]] && [ -d "$HOME/Projects/github/snippets/one-file" ]; then PATH="$PATH:$HOME/Projects/github/snippets/one-file"; fi
+
+echo Bash aliases loaded.
