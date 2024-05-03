@@ -8,20 +8,78 @@
 # Matches are substitution rules: when you type the "trigger" string
 # it gets replaced by the "replace" string.
 matches:
-  # Simple text replacement
-  - regex: ":(mail|email)"
+  # prénom, first name
+  - regex: ":(pr|fi)"
+    label: "Romain"
+    replace: "Romain"
+
+  # nom, last name
+  - regex: ":(no|la)"
+    label: "Racamier"
+    replace: "Racamier"
+
+  # name
+  - regex: ":(na)"
+    label: "Romain Racamier"
+    replace: "Romain Racamier"
+
+  # entreprise, company
+  - regex: ":(en|co)"
+    label: "Collectif Energie"
+    replace: "Collectif Energie"
+
+  # raison sociale
+  - regex: ":(ra)"
+    label: "HumaCode"
+    replace: "HumaCode"
+
+  # poste, job
+  - regex: ":(po|jo)"
+    label: "Développeur Web"
+    replace: "Développeur Web"
+
+  # tva
+  - regex: ":(tv)"
+    label: "FR41982417594"
+    replace: "FR41982417594"
+
+  # mail, email
+  - regex: ":(ma|em)"
     label: "romain.racamier@gmail.com"
     replace: "romain.racamier@gmail.com"
 
+  # mail pro, pro mail
+  - regex: ":(mp|pm)"
+    label: "r.racamier@collectifenergie.com"
+    replace: "r.racamier@collectifenergie.com"
+
+  # adresse, address
   - regex: ":(adr|addr|address)"
     label: "21 rue du Berry 67100 Strasbourg"
     replace: "21 rue du Berry 67100 Strasbourg"
 
-  - regex: ":(tel|phone)"
+  # ville, city
+  - regex: ":(vi|ci)"
+    label: "Strasbourg"
+    replace: "Strasbourg"
+
+  # code postal, postal code, zip code
+  - regex: ":(co|cp|zi|po)"
+    label: "67100"
+    replace: "67100"
+
+  # rue, street
+  - regex: ":(ru|st)"
+    label: "21 rue du Berry"
+    replace: "21 rue du Berry"
+
+  # téléphone, phone
+  - regex: ":(te|ph)"
     label: "0658476788"
     replace: "0658476788"
 
-  - trigger: ":linkedin"
+  # linked-in
+  - trigger: ":li"
     label: "My LinkedIn profile"
     replace: "https://www.linkedin.com/in/romain-racamier"
 
@@ -30,7 +88,7 @@ matches:
   # But matches can also be dynamic:
 
   # Print the current date
-  - trigger: ":date"
+  - trigger: ":da"
     replace: "{{today}}"
     vars:
       - name: today
@@ -39,7 +97,7 @@ matches:
           format: "%m/%d/%Y"
 
   # Print the output of a shell command
-  - trigger: ":shell"
+  - trigger: ":sh"
     replace: "{{output}}"
     vars:
       - name: output
