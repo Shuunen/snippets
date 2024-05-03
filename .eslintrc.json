@@ -158,6 +158,7 @@
         "space-before-function-paren": "off",
         "total-functions/no-partial-division": "off",
         "total-functions/no-unsafe-readonly-mutable-assignment": "off",
+        "typescript-compat/compat": "off",
         "unicorn/no-array-for-each": "off",
         "unicorn/no-process-exit": "off",
         "unicorn/prefer-module": "off",
