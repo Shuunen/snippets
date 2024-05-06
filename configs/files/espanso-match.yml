@@ -43,6 +43,16 @@ matches:
     label: "FR41982417594"
     replace: "FR41982417594"
 
+  # siret
+  - regex: ":(siret)"
+    label: "98241759400016"
+    replace: "98241759400016"
+
+  # siren
+  - regex: ":(siren)"
+    label: "982417594"
+    replace: "982417594"
+
   # mail, email
   - regex: ":(ma|em)"
     label: "romain.racamier@gmail.com"
