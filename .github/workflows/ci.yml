@@ -1,8 +1,6 @@
 name: ci
 
-on:
-  - push
-  - pull_request
+on: push
 
 jobs:
   ci:
@@ -20,7 +18,7 @@ jobs:
       - name: Setup pnpm
         uses: pnpm/action-setup@v3
         with:
-          version: 9
+          version: 8
 
       - name: Run check 👀
         run: pnpm run check
