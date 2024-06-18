@@ -53,7 +53,7 @@ function readLock () {
   const lockPath = process.argv[2]
   if (!lockPath) throw new Error('missing lockfile path, use me like : \n\n lol-practice-5v5.js "D:\\Games\\Riot Games\\League of Legends\\lockfile" "My game lobby name"')
   logAdd(`Summoner lockfile located at : ${lockPath}`)
-  if (!lockPath.includes('lockfile')) throw new Error('lockfile path invalid, should looks like "D:\\Games\\Riot Games\\League of Legends\\lockfile"')
+  if (!lockPath.includes('lockfile')) throw new Error(String.raw`lockfile path invalid, should looks like "D:\Games\Riot Games\League of Legends\lockfile"`)
   logAdd('Reading lockfile...')
   const content = readFileSync(lockPath, 'utf8').split(':') || []
   logAdd('Lockfile read successfully')

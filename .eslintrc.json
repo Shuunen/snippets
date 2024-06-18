@@ -19,6 +19,52 @@
         "project": true
       },
       "rules": {
+        "@stylistic/array-element-newline": "off",
+        "@stylistic/arrow-parens": "off",
+        "@stylistic/brace-style": "off",
+        "@stylistic/comma-dangle": [
+          "error",
+          "always-multiline"
+        ],
+        "@stylistic/dot-location": "off",
+        "@stylistic/function-call-argument-newline": "off",
+        "@stylistic/indent": [
+          "error",
+          2
+        ],
+        "@stylistic/lines-around-comment": "off",
+        "@stylistic/lines-between-class-members": "off",
+        "@stylistic/max-len": "off",
+        "@stylistic/member-delimiter-style": [
+          "error",
+          {
+            "multiline": {
+              "delimiter": "none"
+            }
+          }
+        ],
+        "@stylistic/multiline-comment-style": "off",
+        "@stylistic/multiline-ternary": "off",
+        "@stylistic/no-extra-parens": "off",
+        "@stylistic/object-curly-spacing": [
+          "error",
+          "always"
+        ],
+        "@stylistic/object-property-newline": "off",
+        "@stylistic/padded-blocks": "off",
+        "@stylistic/padding-line-between-statements": "off",
+        "@stylistic/quote-props": [
+          "error",
+          "consistent-as-needed"
+        ],
+        "@stylistic/quotes": [
+          "error",
+          "single"
+        ],
+        "@stylistic/semi": [
+          "error",
+          "never"
+        ],
         "@typescript-eslint/ban-ts-comment": "off",
         "@typescript-eslint/comma-dangle": [
           "error",
@@ -190,6 +236,52 @@
         "project": true
       },
       "rules": {
+        "@stylistic/array-element-newline": "off",
+        "@stylistic/arrow-parens": "off",
+        "@stylistic/brace-style": "off",
+        "@stylistic/comma-dangle": [
+          "error",
+          "always-multiline"
+        ],
+        "@stylistic/dot-location": "off",
+        "@stylistic/function-call-argument-newline": "off",
+        "@stylistic/indent": [
+          "error",
+          2
+        ],
+        "@stylistic/lines-around-comment": "off",
+        "@stylistic/lines-between-class-members": "off",
+        "@stylistic/max-len": "off",
+        "@stylistic/member-delimiter-style": [
+          "error",
+          {
+            "multiline": {
+              "delimiter": "none"
+            }
+          }
+        ],
+        "@stylistic/multiline-comment-style": "off",
+        "@stylistic/multiline-ternary": "off",
+        "@stylistic/no-extra-parens": "off",
+        "@stylistic/object-curly-spacing": [
+          "error",
+          "always"
+        ],
+        "@stylistic/object-property-newline": "off",
+        "@stylistic/padded-blocks": "off",
+        "@stylistic/padding-line-between-statements": "off",
+        "@stylistic/quote-props": [
+          "error",
+          "consistent-as-needed"
+        ],
+        "@stylistic/quotes": [
+          "error",
+          "single"
+        ],
+        "@stylistic/semi": [
+          "error",
+          "never"
+        ],
         "@typescript-eslint/comma-dangle": [
           "error",
           "always-multiline"

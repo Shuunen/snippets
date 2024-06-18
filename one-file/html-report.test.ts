@@ -67,5 +67,5 @@ it(`html-report debug ${title} styles`, () => { expect(actualDebug.styles).toBe(
 it(`html-report debug ${title} tags`, () => { expect(actualDebug.tags).toBe(output.tags) })
 it(`html-report debug ${title} text`, () => { expect(actualDebug.text).toBe(output.text) })
 it(`html-report debug ${title} total`, () => { expect(actualDebug.total).toBe(output.total) })
-it('html-report debug readable A', () => { expect(actualDebug.readable(3, gray)).toMatchInlineSnapshot(`"[90m\\n[39m"`) })
-it('html-report debug readable B', () => { expect(actualDebug.readable(16, gray)).toMatchInlineSnapshot(`"[90m\\s[39m"`) })
+it('html-report debug readable A', () => { expect(actualDebug.readable(3, gray)).toMatchInlineSnapshot(String.raw`"[90m\n[39m"`) })
+it('html-report debug readable B', () => { expect(actualDebug.readable(16, gray)).toMatchInlineSnapshot(String.raw`"[90m\s[39m"`) })

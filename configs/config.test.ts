@@ -81,7 +81,7 @@ it('normalizePathWithSlash I', () => { expect(normalizePathWithSlash(winPath)).t
 it('normalizePathWithSlash J', () => { expect(normalizePathWithSlash(winPath, true)).toBe('C:/Users/Johnny/Projects/github/snippets/tests') })
 
 it('filename A', () => { expect(filename(winPath)).toBe('tests') })
-it('filename B', () => { expect(filename('C:\\Users\\me\\file.txt')).toBe('file.txt') })
+it('filename B', () => { expect(filename(String.raw`C:\Users\me\file.txt`)).toBe('file.txt') })
 it('filename C', () => { expect(filename('file.txt')).toBe('') })
 it('filename D', () => { expect(filename('file')).toBe('') })
 

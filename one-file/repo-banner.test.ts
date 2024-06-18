@@ -1,15 +1,15 @@
 import { expect, it } from 'vitest'
-import { extractData, logger, replaceAndCheck, replaceAndCheckById, safeRead } from './repo-banner.utils'
 import { svgMockA } from './repo-banner.mock'
+import { extractData, logger, replaceAndCheck, replaceAndCheckById, safeRead } from './repo-banner.utils'
 
 it('replaceAndCheck A', () => {
-  expect(replaceAndCheck('Hello world !', /(?<before>Hello )world(?<after> !)/gu, 'there')).toMatchInlineSnapshot(`"Hello there !"`)
+  expect(replaceAndCheck('Hello world !', /(?<before>Hello )world(?<after> !)/gu, 'there')).toMatchInlineSnapshot('"Hello there !"')
 })
 
 logger.info('Dont worry, the following error is expected')
 
 it('replaceAndCheck B generate error', () => {
-  expect(replaceAndCheck('Hello world !', /(?<before>Hello )world(?<after> !)/gu, 'world')).toMatchInlineSnapshot(`"Hello world !"`)
+  expect(replaceAndCheck('Hello world !', /(?<before>Hello )world(?<after> !)/gu, 'world')).toMatchInlineSnapshot('"Hello world !"')
 })
 
 logger.info('That was it, are you good ?')

@@ -28,7 +28,7 @@ class CheckDuplicates {
   }
 
   args () {
-    if (process.argv.length < 4) throw new Error('this script need a path as argument like : find-duplicates.js "U:\\Movies\\"')
+    if (process.argv.length < 4) throw new Error(String.raw`this script need a path as argument like : find-duplicates.js "U:\Movies\"`)
     this.target = path.normalize(process.argv[3] || '')
   }
   ellipsis (string = '', length = 40) {
