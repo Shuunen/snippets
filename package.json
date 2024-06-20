@@ -10,7 +10,7 @@
     "eslint": "8.57",
     "eslint-config-hardcore": "46.0",
     "eslint-plugin-unicorn": "54.0",
-    "repo-check": "1.35",
+    "repo-check": "1.36",
     "shuutils": "8.0",
     "ts-node": "10.9",
     "typescript": "5.5",
