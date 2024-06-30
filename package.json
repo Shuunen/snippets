@@ -11,7 +11,7 @@
     "eslint-config-hardcore": "47.0",
     "eslint-plugin-unicorn": "54.0",
     "repo-check": "1.36",
-    "shuutils": "8.0",
+    "shuutils": "8.1",
     "ts-node": "10.9",
     "typescript": "5.5",
     "vitest": "1.6"
