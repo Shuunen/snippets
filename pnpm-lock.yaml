@@ -27,8 +27,8 @@ devDependencies:
     specifier: '1.36'
     version: 1.36.0
   shuutils:
-    specifier: '8.0'
-    version: 8.0.0
+    specifier: '8.1'
+    version: 8.1.0
   ts-node:
     specifier: '10.9'
     version: 10.9.2(@types/node@20.14.5)(typescript@5.5.2)
@@ -8151,6 +8151,13 @@ packages:
 
   /shuutils@8.0.0:
     resolution: {integrity: sha512-dXfLqTOxYh1eugoidZ/5TyuDWqd7pfPaUFV1WzPvDs53UPya9BYifN8lc2YaDRzOXAcGMeMjpivOy4czUNduJw==}
+    hasBin: true
+    dependencies:
+      tiny-glob: 0.2.9
+    dev: true
+
+  /shuutils@8.1.0:
+    resolution: {integrity: sha512-SWco5obeba5ZtL4WVyPv6TS90HXSJQJPR9gY1U4E+ceKDaZ3Buq6UMaCjALp4u2g4uy6SS49LwP0TFFLAPCYGg==}
     hasBin: true
     dependencies:
       tiny-glob: 0.2.9
