@@ -1,18 +1,18 @@
 /* c8 ignore start */
-/* eslint-disable no-unused-expressions */
-/* eslint-disable max-statements */
+/* eslint-disable @typescript-eslint/class-methods-use-this */
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
+/* eslint-disable @typescript-eslint/no-magic-numbers */
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 /* eslint-disable complexity */
-/* eslint-disable sonarjs/cognitive-complexity */
-/* eslint-disable prefer-named-capture-group */
-/* eslint-disable regexp/prefer-named-capture-group */
-/* eslint-disable regexp/no-super-linear-move */
+/* eslint-disable jsdoc/require-param-description */
+/* eslint-disable jsdoc/require-returns */
+/* eslint-disable jsdoc/require-returns-description */
+/* eslint-disable max-lines */
+/* eslint-disable max-statements */
 /* eslint-disable no-eval */
-/* eslint-disable security/detect-eval-with-expression */
-/* eslint-disable no-magic-numbers */
-/* eslint-disable promise/avoid-new */
-/* eslint-disable security/detect-child-process */
+/* eslint-disable prefer-named-capture-group */
 import { exec } from 'node:child_process'
-import { readdir, readFile, renameSync, stat, writeFileSync } from 'node:fs'
+import { readFile, readdir, renameSync, stat, writeFileSync } from 'node:fs'
 import path from 'node:path'
 import { inspect } from 'node:util'
 import { blue, red, slugify } from 'shuutils'
@@ -26,7 +26,7 @@ import { blue, red, slugify } from 'shuutils'
 const { argv } = process
 const expectedNbParameters = 2
 if (argv.length <= expectedNbParameters) console.log('Targeting current folder, you can also specify a specific path, ex : check-videos.js "U:\\Movies\\" \n')
-const videosPath = path.normalize(argv[expectedNbParameters] || process.cwd())
+const videosPath = path.normalize(argv[expectedNbParameters] ?? process.cwd())
 const willRename = argv.includes('--rename') || argv.includes('--fix')
 const willProcessOnlyOne = argv.includes('--process-one') || argv.includes('--one')
 const willSetTitle = argv.includes('--set-title') || argv.includes('--fix')
@@ -35,45 +35,60 @@ const willDryRun = argv.includes('--dry-run') || argv.includes('--dry')
 let listing = 'name,title\n'
 
 const utils = {
+  /**
+   *
+   * @param title
+   */
   cleanTitle: (title = '') => title.replace('PSArips.com | ', '').replace(/[,:]/gu, ' ').replace(/\s+/gu, ' ').trim(),
+  /**
+   *
+   * @param string
+   * @param length
+   */
   ellipsis: (string = '', length = 0) => string.length > length ? (`${string.slice(0, Math.max(0, length - 3))}...`) : string,
-  folderName: (filepath = '') => /\W([\s\w]+)\W?$/u.exec(filepath)?.[1] || '',
+  /**
+   *
+   * @param filepath
+   */
+  folderName: (filepath = '') => /\W([\s\w]+)\W?$/u.exec(filepath)?.[1] ?? '',
   /**
    * Get the size of a file in megabytes
    * @param {string} filepath
-   * @returns {Promise<number>}
+   * @returns {Promise<number>} size in mb
    */
-  getFileSizeInMb: async filepath => await new Promise((resolve, reject) => {
+  getFileSizeInMb: async filepath => new Promise((resolve, reject) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     stat(filepath, (/** @type {Error|null} */ error, /** @type {{ size: number; }} */ stats) => { error ? reject(error) : resolve(Math.round(stats.size / 1_000_000)) })
   }),
   /**
    * Get the video metadata from a filepath
    * @param {string} filepath
-   * @returns {Promise<{bitrateKbps: number; codec: any; durationSeconds: number; extension: any; filename: string; fps: number; height: number; isDvdRip: any; sizeGb: string | number; sizeMb: number; title: any; width: number; }>}
    */
   getVideoMetadata: async filepath => {
     const output = await utils.shellCommand(`ffprobe -show_format -show_streams -print_format json -v quiet -i "${filepath}" `)
     if (!output.startsWith('{')) throw new Error(`ffprobe output should be JSON but got :${output}`)
     /** @type {FfProbeOutput} */
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const data = JSON.parse(output)
     // console.log(utils.prettyPrint(data))
-    const media = data.format || {}
-    const video = data.streams?.find((/** @type {{ codec_type: string; }} */ stream) => stream.codec_type === 'video') || { avg_frame_rate: '', codec_name: '', height: 0, width: 0 } // eslint-disable-line @typescript-eslint/naming-convention, camelcase
-    const title = utils.cleanTitle(media.tags?.title)
+    const media = data.format
+    const video = data.streams?.find((/** @type {{ codec_type: string; }} */ stream) => stream.codec_type === 'video') ?? { avg_frame_rate: '', codec_name: '', height: 0, width: 0 } // eslint-disable-line @typescript-eslint/naming-convention, camelcase
+    const title = utils.cleanTitle(media?.tags?.title)
     const extension = path.extname(filepath).slice(1)
     const filename = title.length > 0 ? `${title}.${extension}` : ''
     // console.log(utils.prettyPrint(video))
     return {
-      bitrateKbps: media.bit_rate ? Math.round(media.bit_rate / 1024) : 0,
+      bitrateKbps: (media?.bit_rate === undefined) ? 0 : Math.round(media.bit_rate / 1024),
       codec: video.codec_name.replace('video', '') || 'unknown codec',
-      durationSeconds: media.duration ? Math.round(media.duration) : 0,
+      durationSeconds: (media?.duration === undefined) ? 0 : Math.round(media.duration),
       extension,
       filename,
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       fps: video.avg_frame_rate ? Math.round(eval(video.avg_frame_rate)) : 0,
       height: video.height,
       isDvdRip: title.toLowerCase().includes('dvdrip'),
-      sizeGb: media.size > 0 ? (Math.round(media.size / 100_000_000) / 10).toFixed(1) : 0,
-      sizeMb: media.size > 0 ? Math.round(media.size / 1_000_000) : 0,
+      sizeGb: media?.size === undefined ? 0 : (Math.round(media.size / 100_000_000) / 10).toFixed(1),
+      sizeMb: media?.size === undefined ? 0 : Math.round(media.size / 1_000_000),
       title,
       width: video.width,
     }
@@ -83,7 +98,8 @@ const utils = {
    * @param {string} filepath The directory to list
    * @returns {Promise<string[]>}
    */
-  listFiles: async filepath => await new Promise((resolve, reject) => {
+  listFiles: async filepath => new Promise((resolve, reject) => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     readdir(filepath, (/** @type {Error|null} */ error, /** @type {string[]} */ filenames) => { error ? reject(error) : resolve(filenames) })
   }),
   /**
@@ -95,9 +111,10 @@ const utils = {
   /**
    * Read the contents of a file
    * @param {string} filepath
-   * @returns
+   * @returns {Promise<string>}
    */
-  readFile: async filepath => await new Promise(resolve => {
+  readFile: async filepath => new Promise(resolve => {
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     readFile(filepath, 'utf8', (/** @type {Error|null} */ error, /** @type {string} */ content) => { error ? resolve('') : resolve(content) })
   }),
   /**
@@ -117,7 +134,7 @@ const utils = {
    * @param {string} cmd
    * @returns {Promise<string>}
    */
-  shellCommand: async cmd => await new Promise(resolve => {
+  shellCommand: async cmd => new Promise(resolve => {
     exec(cmd, (/** @type {Error|null} */ error, /** @type {string} */ stdout, /** @type {string} */ stderr) => {
       if (error) console.error(error)
       resolve(stdout || stderr)
@@ -125,26 +142,21 @@ const utils = {
   }),
 }
 
+/**
+ *
+ */
 // eslint-disable-next-line no-restricted-syntax
 class CheckVideos {
-  /**
-   * The files to check
-   * @type {string[]}
-   */
-  files = []
   /**
    * The incorrect videos detected
    * @type {Record<string, string[]>}
    */
   detected = {}
   /**
-   * @param {string} string
-   * @returns {number}
+   * The files to check
+   * @type {string[]}
    */
-  getReportValue (string) {
-    const matches = string.match(/\[(\d+)\]/u) || []
-    return matches[1] ? Number.parseInt(matches[1], 10) : 0
-  }
+  files = []
   /**
    * @param {string} valueA
    * @param {string} valueB
@@ -152,6 +164,87 @@ class CheckVideos {
    */
   byValueAsc (valueA, valueB) {
     return this.getReportValue(valueA) - this.getReportValue(valueB)
+  }
+  /**
+   *
+   */
+  async check () {
+    const total = this.files.length
+    // console.log('in checkAll with a total of', total)
+    for (let index = 0; index < total; index += 1) {
+      const filename = this.files[index]
+      if (filename === undefined) continue
+      console.log(`checking file ${(String(index + 1)).padStart((String(total)).length)} / ${total} : ${filename}`)
+      // eslint-disable-next-line no-await-in-loop
+      await this.checkOne(filename)
+    }
+    const listingFilename = `.${slugify(utils.folderName(videosPath) || 'check')}-videos-listing.csv`
+    writeFileSync(path.join(videosPath, listingFilename), listing)
+  }
+  /**
+   * Check one video
+   * @param {string} filename
+   * @returns {Promise<void>}
+   */
+  async checkOne (filename) {
+    const filepath = path.join(videosPath, filename)
+    const meta = await utils.getVideoMetadata(filepath)
+    if (willSetTitle && filename !== meta.filename) await utils.setVideoTitle(filepath, filename.length > meta.filename.length ? filename : meta.filename)
+    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
+    if (this.shouldRename(filename, meta.filename)) willDryRun ? console.log(`Would rename file to ${red(meta.filename)}\n`) : renameSync(filepath, path.join(videosPath, meta.filename))
+    listing += `${filename},${meta.title}\n`
+    const entry = `${utils.ellipsis(filename, 50).padEnd(50)}  ${(String(meta.sizeGb)).padStart(4)} Gb  ${(meta.codec).padEnd(5)} ${(String(meta.height)).padStart(4)}p  ${(String(meta.bitrateKbps)).padStart(4)} kbps  ${(String(meta.fps)).padStart(2)} fps`
+    if (meta.isDvdRip) {
+      if (meta.height < 300) { this.detect('DvdRip under 300p', entry, meta.height); return }
+      if (meta.bitrateKbps < 1000) { this.detect('DvdRip with low bitrate', entry, meta.bitrateKbps); return }
+      if (meta.bitrateKbps > 2000) { this.detect('DvdRip with high bitrate', entry, meta.bitrateKbps); return }
+    } else {
+      if (meta.height < 800) { this.detect('BlurayRip under 800p', entry, meta.height); return }
+      if (meta.bitrateKbps < 2100) { this.detect('BlurayRip with low bitrate', entry, meta.bitrateKbps); return }
+      if (meta.bitrateKbps > 10_000) { this.detect('BlurayRip with high bitrate', entry, meta.bitrateKbps); return }
+    }
+    if (meta.fps < 24) { this.detect('Low fps', entry, meta.fps); return }
+    if (meta.fps > 60) this.detect('High fps', entry, meta.fps)
+  }
+  /**
+   * Add a video to the list of detected videos
+   * @param {string} type The type of problem detected
+   * @param {string} entry
+   * @param {string|number} value
+   */
+  detect (type, entry, value) {
+    if (!this.detected[type]) this.detected[type] = []
+    this.detected[type].push(`${entry}  [${value}]`)
+  }
+  /**
+   *
+   */
+  async find () {
+    console.log(`Scanning dir ${videosPath}`)
+    const isVideo = /\.(?:avi|m4v|mkv|mp4|mpg|wmv)$/u
+    const list = await utils.readFile(path.join(videosPath, '.check-videos-ignore'))
+    const isIgnored = list.split('\n')
+    // eslint-disable-next-line unicorn/no-array-for-each
+    isIgnored.forEach((line = '') => {
+      if (line.trim().length > 0 && !line.startsWith('//')) listing += `${line},\n`
+    })
+    const files = await utils.listFiles(videosPath)
+    this.files = files.filter(entry => (!isIgnored.includes(entry) && isVideo.test(entry)))
+    if (this.files.length === 0) throw new Error(`no files found with these extensions ${String(isVideo)}`)
+    console.log(this.files.length, 'files found\n')
+    if (!willProcessOnlyOne || this.files.length === 0) return
+    console.log('--process-one flag active : only one file will be processed\n')
+    const [first] = this.files
+    if (first === undefined) throw new Error('no files found')
+    this.files = [first]
+  }
+  /**
+   * @param {string} string
+   * @returns {number}
+   */
+  getReportValue (string) {
+    const matches = (/\[(\d+)\]/u.exec(string)) ?? []
+    return matches[1] === undefined ? 0 : Number.parseInt(matches[1], 10)
   }
   /**
    *
@@ -164,8 +257,7 @@ class CheckVideos {
     console.log('\u001B[1m%s\u001B[0m', '\nReport :')
     for (const type of types) {
       console.log('\u001B[100m%s\u001B[0m', `\n${type} :`)
-      const videos = this.detected[type] || []
-      // eslint-disable-next-line etc/no-assign-mutated-array
+      const videos = this.detected[type] ?? []
       for (const [index, file] of videos.sort((videoA, videoB) => this.byValueAsc(videoA, videoB)).entries()) {
         const isEven = !(index % 2)
         const line = ` - ${file}`
@@ -179,16 +271,6 @@ class CheckVideos {
     console.log(`╔${'═'.repeat(line.length)}╗`)
     console.log(`║${line}║`)
     console.log(`╚${'═'.repeat(line.length)}╝`)
-  }
-  /**
-   * Add a video to the list of detected videos
-   * @param {string} type The type of problem detected
-   * @param {string} entry
-   * @param {string|number} value
-   */
-  detect (type, entry, value) {
-    if (!this.detected[type]) this.detected[type] = []
-    this.detected[type]?.push(`${entry}  [${value}]`)
   }
   /**
    * Detect if a video should be renamed
@@ -207,66 +289,14 @@ class CheckVideos {
     console.log(`Avoid renaming, too much diff between : \n - actual filename : ${actual} \n - expected filename : ${expected}`)
     return false
   }
+  /**
+   *
+   */
   async start () {
     console.log('\nCheck Videos is starting !\n')
     await this.find()
     await this.check()
     this.report()
-  }
-  async find () {
-    console.log(`Scanning dir ${videosPath}`)
-    const isVideo = /\.(?:avi|m4v|mkv|mp4|mpg|wmv)$/u
-    const list = await utils.readFile(path.join(videosPath, '.check-videos-ignore'))
-    const isIgnored = list.split('\n')
-    isIgnored.forEach((line = '') => {
-      if (line.trim().length > 0 && !line.startsWith('//')) listing += `${line},\n`
-    })
-    const files = await utils.listFiles(videosPath)
-    this.files = files.filter(entry => (!isIgnored.includes(entry) && isVideo.test(entry)))
-    if (this.files.length === 0) throw new Error(`no files found with these extensions ${String(isVideo)}`)
-    console.log(this.files.length, 'files found\n')
-    if (!willProcessOnlyOne || this.files.length === 0) return
-    console.log('--process-one flag active : only one file will be processed\n')
-    const [first] = this.files
-    if (!first) throw new Error('no files found')
-    this.files = [first]
-  }
-  async check () {
-    const total = this.files.length
-    // console.log('in checkAll with a total of', total)
-    for (let index = 0; index < total; index += 1) {
-      const filename = this.files[index]
-      if (!filename) continue
-      console.log(`checking file ${(String(index + 1)).padStart((String(total)).length)} / ${total} : ${filename}`)
-      // eslint-disable-next-line no-await-in-loop
-      await this.checkOne(filename)
-    }
-    const listingFilename = `.${slugify(utils.folderName(videosPath) || 'check')}-videos-listing.csv`
-    writeFileSync(path.join(videosPath, listingFilename), listing)
-  }
-  /**
-   * Check one video
-   * @param {string} filename
-   * @returns {Promise<void>}
-   */
-  async checkOne (filename) {
-    const filepath = path.join(videosPath, filename)
-    const meta = await utils.getVideoMetadata(filepath)
-    if (willSetTitle && filename !== meta.filename) await utils.setVideoTitle(filepath, filename.length > meta.filename.length ? filename : meta.filename)
-    if (this.shouldRename(filename, meta.filename)) willDryRun ? console.log(`Would rename file to ${red(meta.filename)}\n`) : renameSync(filepath, path.join(videosPath, meta.filename))
-    listing += `${filename},${meta.title}\n`
-    const entry = `${utils.ellipsis(filename, 50).padEnd(50)}  ${(String(meta.sizeGb)).padStart(4)} Gb  ${(meta.codec).padEnd(5)} ${(String(meta.height)).padStart(4)}p  ${(String(meta.bitrateKbps)).padStart(4)} kbps  ${(String(meta.fps)).padStart(2)} fps`
-    if (meta.isDvdRip) {
-      if (meta.height < 300) { this.detect('DvdRip under 300p', entry, meta.height); return }
-      if (meta.bitrateKbps < 1000) { this.detect('DvdRip with low bitrate', entry, meta.bitrateKbps); return }
-      if (meta.bitrateKbps > 2000) { this.detect('DvdRip with high bitrate', entry, meta.bitrateKbps); return }
-    } else {
-      if (meta.height < 800) { this.detect('BlurayRip under 800p', entry, meta.height); return }
-      if (meta.bitrateKbps < 2100) { this.detect('BlurayRip with low bitrate', entry, meta.bitrateKbps); return }
-      if (meta.bitrateKbps > 10_000) { this.detect('BlurayRip with high bitrate', entry, meta.bitrateKbps); return }
-    }
-    if (meta.fps < 24) { this.detect('Low fps', entry, meta.fps); return }
-    if (meta.fps > 60) this.detect('High fps', entry, meta.fps)
   }
 }
 

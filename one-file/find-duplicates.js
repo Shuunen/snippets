@@ -1,10 +1,16 @@
 /* c8 ignore start */
-/* eslint-disable @shopify/prefer-class-properties */
-/* eslint-disable no-magic-numbers */
-/* eslint-disable no-await-in-loop */
-/* eslint-disable sonarjs/cognitive-complexity */
+/* eslint-disable @typescript-eslint/class-methods-use-this */
+/* eslint-disable @typescript-eslint/explicit-member-accessibility */
+/* eslint-disable @typescript-eslint/no-magic-numbers */
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
+/* eslint-disable @typescript-eslint/require-array-sort-compare */
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
+/* eslint-disable jsdoc/require-jsdoc */
 /* eslint-disable max-statements */
+/* eslint-disable no-await-in-loop */
 /* eslint-disable no-warning-comments */
+/* eslint-disable perfectionist/sort-classes */
 import { readdir, stat } from 'node:fs/promises'
 import path from 'node:path'
 
@@ -39,7 +45,6 @@ class CheckDuplicates {
     return stringA.length + stringB.length
   }
   report () {
-    // eslint-disable-next-line @typescript-eslint/require-array-sort-compare, sonar/no-alphabetical-sort
     const list = Object.keys(this.results).map(key => this.results[key]).sort()
     console.log(list.splice(0, maxResults))
   }

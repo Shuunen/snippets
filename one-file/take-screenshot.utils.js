@@ -1,4 +1,6 @@
-/* eslint-disable no-magic-numbers */
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
+/* eslint-disable jsdoc/require-returns-description */
+/* eslint-disable jsdoc/require-param-description */
 import { nbMsInSecond, nbSecondsInMinute } from 'shuutils'
 
 /**
@@ -8,12 +10,13 @@ import { nbMsInSecond, nbSecondsInMinute } from 'shuutils'
  * @typedef {import('./take-screenshot.types').Task} Task
  */
 
-export const /** @type Metadata */ emptyMetadata = { duration: 0, height: 0, size: 0, title: '' }
+export const /** @type {Metadata} */ emptyMetadata = { duration: 0, height: 0, size: 0, title: '' }
 
 /**
  * @param {Partial<FfProbeOutput>?} ffProbeOutput
  * @returns {Metadata}
  */
+// eslint-disable-next-line complexity
 export function parseVideoMetadata (ffProbeOutput) {
   if (ffProbeOutput?.streams === undefined || ffProbeOutput.streams.length === 0) return emptyMetadata
   const video = ffProbeOutput.streams.find((stream) => stream.codec_type === 'video')
@@ -35,6 +38,7 @@ export function parseVideoMetadata (ffProbeOutput) {
 // eslint-disable-next-line max-statements
 export function getTargets (modulo, minutesBase, secondsBase) {
   const targets = []
+  // eslint-disable-next-line no-useless-assignment
   let seconds = 0
   let minutes = minutesBase
   for (let step = -modulo; step <= modulo; step += 1) {
@@ -42,7 +46,6 @@ export function getTargets (modulo, minutesBase, secondsBase) {
     if (seconds < 0) {
       minutes = minutesBase - 1
       seconds += nbSecondsInMinute
-      // eslint-disable-next-line sonarjs/elseif-without-else
     } else if (seconds > (nbSecondsInMinute - 1)) {
       minutes = minutesBase + 1
       seconds -= nbSecondsInMinute
@@ -58,12 +61,13 @@ export function getTargets (modulo, minutesBase, secondsBase) {
  * @param {string} userInput string like "12", "12+-1" or "2106+-2"
  * @returns {Target[]} like [{ minutes: 0, seconds: 12 }], [{minutes: 0, seconds: 11}, {minutes: 0, seconds: 12}, {minutes: 0, seconds: 13}] or [{minutes: 21, seconds: 4}, {minutes: 21, seconds: 5}, {minutes: 21, seconds: 6},{minutes: 21, seconds: 7}, {minutes: 21, seconds: 8}]
  */
+// eslint-disable-next-line complexity
 export function parseUserInput (userInput) {
   const { minutesOrSeconds = '', moduloMarker = '', moduloMaybe = '', secondsMaybe = '' } = (/^(?<minutesOrSeconds>\d{1,2})(?<secondsMaybe>\d{0,2})(?<moduloMarker>[+-]*)(?<moduloMaybe>\d{0,2})$/u.exec(userInput))?.groups ?? {}
   if (minutesOrSeconds === '') return []
   const secondsBase = Number.parseInt(secondsMaybe || minutesOrSeconds, 10)
   const minutesBase = secondsMaybe === '' ? 0 : Number.parseInt(minutesOrSeconds, 10)
-  // eslint-disable-next-line no-nested-ternary
+  // eslint-disable-next-line @typescript-eslint/no-magic-numbers
   const modulo = moduloMaybe === '' ? (moduloMarker === '' ? 0 : 5) : Number.parseInt(moduloMaybe.replace(/\D/gu, ''), 10)
   return getTargets(modulo, minutesBase, secondsBase)
 }
@@ -73,6 +77,7 @@ export function parseUserInput (userInput) {
  * @returns {string}
  */
 export function readableDuration (seconds) {
+  // eslint-disable-next-line @typescript-eslint/no-magic-numbers
   return `${new Date(seconds * nbMsInSecond).toISOString().slice(11, 19).replace(':', 'h').replace(':', 'm')}s`
 }
 
@@ -82,9 +87,11 @@ export function readableDuration (seconds) {
  */
 export function readableSize (size) {
   let unit = 'go'
+  // eslint-disable-next-line @typescript-eslint/no-magic-numbers
   let nb = (size / 1024 / 1024 / 1024).toFixed(1)
   if (nb.startsWith('0')) {
     unit = 'mo'
+    // eslint-disable-next-line @typescript-eslint/no-magic-numbers
     nb = String(Math.round(size / 1024 / 1024))
   }
   return nb.replace('.', ',') + unit

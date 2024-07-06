@@ -1,6 +1,13 @@
 /* c8 ignore start */
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
+/* eslint-disable @typescript-eslint/no-magic-numbers */
+/* eslint-disable max-lines-per-function */
+/* eslint-disable @typescript-eslint/no-array-delete */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 /* eslint-disable @typescript-eslint/no-misused-promises */
-/* eslint-disable no-magic-numbers */
 /* eslint-disable max-statements */
 
 // #############
@@ -62,7 +69,6 @@ nfc.on('reader', (/** @type {{ name: any; aid: string; on: (arg0: string, arg1: 
 
   // needed for reading tags emulated with Android HCE AID
   // see https://developer.android.com/guide/topics/connectivity/nfc/hce.html
-  // eslint-disable-next-line no-param-reassign
   reader.aid = 'F222222222'
 
   reader.on('card', async card => {
@@ -125,7 +131,7 @@ nfc.on('reader', (/** @type {{ name: any; aid: string; on: (arg0: string, arg1: 
   reader.on('end', () => {
     console.info('device removed', { reader: reader.name })
 
-    // eslint-disable-next-line sonar/no-array-delete, @typescript-eslint/no-dynamic-delete
+    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
     delete readers[readers.indexOf(reader)]
 
     console.log(readers)

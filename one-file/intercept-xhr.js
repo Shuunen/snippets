@@ -1,7 +1,8 @@
 /* c8 ignore start */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
+/* eslint-disable @typescript-eslint/no-magic-numbers */
 /* eslint-disable @typescript-eslint/unbound-method */
-/* eslint-disable no-magic-numbers */
-/* eslint-disable import/unambiguous */
+/* eslint-disable jsdoc/require-jsdoc */
 const lastRequest = { method: '', url: '' }
 
 // @ts-ignore

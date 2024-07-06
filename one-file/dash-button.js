@@ -1,4 +1,8 @@
 /* c8 ignore start */
+/* eslint-disable @typescript-eslint/no-unsafe-member-access */
+/* eslint-disable @typescript-eslint/no-unsafe-call */
+/* eslint-disable @typescript-eslint/no-unsafe-assignment */
+/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-ignore
 import dashBtn from 'node-dash-button'
 

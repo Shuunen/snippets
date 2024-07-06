@@ -1,4 +1,5 @@
 /* c8 ignore start */
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { writeFile } from 'node:fs/promises'
 import path from 'node:path'
@@ -10,7 +11,7 @@ const currentFolderPath = path.dirname(currentFilePath)
 const changesFolderPath = path.join(currentFolderPath, '..', 'changes')
 
 const home = process.env.HOME ?? ''
-const appData = process.env.APPDATA || (process.platform === 'darwin' ? `${home}Library/Preferences` : `${home}/.config`)
+const appData = process.env.APPDATA ?? (process.platform === 'darwin' ? `${home}Library/Preferences` : `${home}/.config`)
 const isWindows = process.env.APPDATA === appData
 // const prgFiles = 'C:/Program Files'
 
@@ -65,7 +66,6 @@ const linuxConfigs = [
 
 configs.push(...(isWindows ? windowsConfigs : linuxConfigs))
 
-// @ts-ignore
 const currentFolder = path.dirname(fileURLToPath(import.meta.url))
 
 /**

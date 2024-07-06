@@ -8,6 +8,7 @@ const trackersToClean = [
 
 /**
  * @param {string} input the list of trackers to clean
+ * @returns {string} the cleaned list
  */
 export function cleanTrackers (input) {
   const lines = isolateLines(input).filter(line => trackersToClean.every(tracker => !line.includes(tracker)))

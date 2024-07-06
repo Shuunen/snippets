@@ -1,12 +1,12 @@
 /* c8 ignore start */
-import { lstatSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { lstatSync, readFileSync, readdirSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 
 const spaces = 2
 const expectedNbParameters = 2
 
 /**
- * @param {string} filePath
+ * @param {string} filePath the filepath
  */
 function formatFile (filePath) {
   const jsonIn = readFileSync(filePath, 'utf8')
@@ -15,7 +15,8 @@ function formatFile (filePath) {
 }
 
 /**
- * @param {string} folderPath
+ * @param {string} folderPath the folder path
+ * @returns the files
  */
 function getFiles (folderPath) {
   const stats = lstatSync(folderPath)
@@ -26,13 +27,16 @@ function getFiles (folderPath) {
 
 /**
  * The path to format
- * @returns {string}
+ * @returns {string} the path
  */
 function getPath () {
   if (process.argv.length <= expectedNbParameters) throw new Error(String.raw`this script need a path as argument like : format-json.js my-file.json or format-json.js "C:\My Folder\"`)
-  return path.normalize(process.argv[expectedNbParameters] || '')
+  return path.normalize(process.argv[expectedNbParameters] ?? '')
 }
 
+/**
+ *
+ */
 function start () {
   const folderPath = getPath()
   const files = getFiles(folderPath)

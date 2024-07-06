@@ -32,6 +32,7 @@
     "configs",
     "one-file",
     "tests",
-    "*.ts"
+    "*.ts",
+    "*.js"
   ]
 }

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import { readFileSync, statSync } from 'node:fs'
 import path from 'node:path'
 import { Logger } from 'shuutils'
@@ -26,7 +27,6 @@ export function replaceAndCheck (string, regex, replacement) {
  * @returns The replaced string
  */
 export function replaceAndCheckById (string, id, replacement) {
-  // eslint-disable-next-line security/detect-non-literal-regexp
   const regex = new RegExp(`(?<before>id="${id}"[^>]+>)(?<content>[^<]+)(?<after></)`, 'gu')
   return replaceAndCheck(string, regex, replacement)
 }
@@ -34,18 +34,25 @@ export function replaceAndCheckById (string, id, replacement) {
 /**
  * File reading
  * @param {string} relativeFilepath The relative path to the file
+ * @param folderPath the folder path
  * @returns The file content
  */
 export function safeRead (relativeFilepath, folderPath = process.cwd()) {
   const filepath = path.join(folderPath, relativeFilepath)
   // eslint-disable-next-line @typescript-eslint/naming-convention
   const stats = statSync(filepath, { throwIfNoEntry: false })
-  if (stats?.isDirectory()) { logger.warn('The file', filepath, 'is a directory, will not be used'); return '' }
-  if (!stats?.isFile()) { logger.warn('The file', filepath, 'is not a file, will not be used'); return '' }
+  if (stats === undefined) { logger.warn('Failed to get stats for', filepath); return '' }
+  if (stats.isDirectory()) { logger.warn('The file', filepath, 'is a directory, will not be used'); return '' }
   return readFileSync(filepath, 'utf8')
 }
 
-// eslint-disable-next-line max-statements
+
+// eslint-disable-next-line jsdoc/require-returns
+/**
+ * Extract data
+ * @param folderPath the folder to extract data from
+ */
+// eslint-disable-next-line max-statements, complexity
 export function extractData (folderPath = process.cwd()) {
   const defaults = { color: '#024eb8', description: 'A placeholder description', name: 'unknown', scope: 'JohnDoe' }
   const infos = [safeRead('.vscode/settings.json', folderPath), safeRead('package.json', folderPath)].join('\n')
@@ -56,7 +63,6 @@ export function extractData (folderPath = process.cwd()) {
   if (name === defaults.name) logger.error('Could not find a name for the project, using the default one :', name)
   const description = /"description": "(?<description>[^"]+)"/u.exec(infos)?.groups?.description ?? defaults.description
   if (description === defaults.description) logger.error('Could not find a description for the project, using the default one :', description)
-  // eslint-disable-next-line security/detect-unsafe-regex
   const color = /#(?:[\da-f]{3}){1,2}/iu.exec(infos)?.[0] ?? defaults.color
   if (color === defaults.color) logger.warn('Could not find a color for the project, using the default one :', color)
   return { color, description, name, scope }

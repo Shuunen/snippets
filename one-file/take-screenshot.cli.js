@@ -1,4 +1,8 @@
 /* c8 ignore start */
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
+/* eslint-disable jsdoc/require-param-description */
+/* eslint-disable jsdoc/require-returns */
+/* eslint-disable jsdoc/require-returns-description */
 /* eslint-disable no-await-in-loop */
 import { exec } from 'node:child_process'
 import { promises as fs } from 'node:fs'
@@ -18,12 +22,15 @@ const currentFolder = path.dirname(thisFilePath)
 const logFile = path.join(currentFolder, 'take-screenshot.log')
 const lastInputFile = path.join(currentFolder, 'take-screenshot-last-input.txt')
 
+/**
+ *
+ */
 async function logClear () {
   await fs.writeFile(logFile, '')
 }
 
 /**
- * @param  {Date[] | string[]} stuff
+ * @param  {Date[] | string[]} stuff things to add to the log
  */
 async function logAdd (...stuff) {
   await fs.appendFile(logFile, `${stuff.join(' ')}\n`)
@@ -36,9 +43,7 @@ const ask = createInterface({ input: process.stdin, output: process.stdout })
  * @returns {Promise<string>}
  */
 async function shellCommand (cmd) {
-  // eslint-disable-next-line promise/avoid-new
-  return await new Promise((resolve) => {
-    // eslint-disable-next-line security/detect-child-process
+  return new Promise((resolve) => {
     exec(cmd, (error, stdout, stderr) => {
       if (error) console.error(error)
       resolve(stdout || stderr)
@@ -67,13 +72,18 @@ async function getFileSize (filePath) {
 async function getVideoMetadata (filePath) {
   const output = await shellCommand(`ffprobe -show_format -show_streams -print_format json -v quiet -i "${filePath}" `)
   if (!output.startsWith('{')) throw new Error(`ffprobe output should be JSON but got :${output}`)
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const data = JSON.parse(output)
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   const metadata = parseVideoMetadata(data)
   if (metadata.size === 0) metadata.size = await getFileSize(filePath)
   metadata.filepath = filePath
   return metadata
 }
 
+/**
+ *
+ */
 function asciiWelcome () {
   console.log(`
   ~|~ _ |  _   (~ _ _ _  _  _  _|_  _ _|_
@@ -91,7 +101,7 @@ function getTask (totalSeconds, metadata) {
     throw new Error('missing filepath')
   const screenName = getScreenshotFilename(totalSeconds, metadata)
 
-  const screenPath = path.join(process.env.HOME || process.env.USERPROFILE || '', 'Pictures', screenName)
+  const screenPath = path.join(process.env.HOME ?? process.env.USERPROFILE ?? '', 'Pictures', screenName)
   return { screenPath, totalSeconds, videoPath: metadata.filepath }
 }
 
@@ -100,7 +110,7 @@ function getTask (totalSeconds, metadata) {
  * @returns {Promise<Task[]>}
  */
 async function getTasks (input) {
-  // eslint-disable-next-line no-magic-numbers
+  // eslint-disable-next-line @typescript-eslint/no-magic-numbers
   const videoPath = process.argv[2]
   if (videoPath === undefined) throw new Error('no video path')
   const videoName = path.basename(videoPath)
@@ -125,18 +135,25 @@ async function takeScreenAt (input) {
     await logAdd('Command :', cmd)
     await logAdd(await shellCommand(cmd))
   }
+  // eslint-disable-next-line unicorn/no-process-exit
   process.exit(0)
 }
 
+/**
+ *
+ */
 async function init () {
   asciiWelcome()
   await logClear()
   await logAdd('Take screenshot starts @', new Date().toISOString())
-  if (process.argv[2] === undefined) throw new Error('missing videoPath') // eslint-disable-line no-magic-numbers
-  if (process.argv[3] !== undefined) { await takeScreenAt(process.argv[3]); return } // eslint-disable-line no-magic-numbers
+  // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+  if (process.argv[2] === undefined) throw new Error('missing videoPath')
+  // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+  if (process.argv[3] !== undefined) { await takeScreenAt(process.argv[3]); return }
   const lastInput = await fs.readFile(lastInputFile, 'utf8').catch(() => '60')
   await logAdd('Last input :', lastInput)
   ask.question(`  Please type the time in mmss or ss (enter to use "${lastInput}") : `, async (time) => { await takeScreenAt(time || lastInput) }) // eslint-disable-line @typescript-eslint/no-misused-promises
 }
 
+// eslint-disable-next-line @typescript-eslint/use-unknown-in-catch-callback-variable
 await init().catch(async error => { await logAdd(`Init global error : ${error}`) })

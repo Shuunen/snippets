@@ -1,5 +1,5 @@
 /* c8 ignore start */
-/* eslint-disable no-console */
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import { promises as fs } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -11,6 +11,9 @@ const thisFilePath = fileURLToPath(import.meta.url)
 const currentFolder = path.dirname(thisFilePath)
 const logFile = path.join(currentFolder, 'vivino-compress-export.log')
 
+/**
+ *
+ */
 function asciiWelcome () {
   console.log(`
   o     o  o         o                .oPYo.
@@ -27,15 +30,24 @@ function asciiWelcome () {
   `)
 }
 
+/**
+ *
+ */
 async function logClear () {
-
   await fs.writeFile(logFile, '')
 }
 
+/**
+ *
+ * @param {...any} stuff things to add to the log
+ */
 async function logAdd (...stuff: Date[] | string[]) {
   await fs.appendFile(logFile, `${stuff.join(' ')}\n`)
 }
 
+/**
+ *
+ */
 async function init () {
   asciiWelcome()
   await logClear()

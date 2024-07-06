@@ -1,4 +1,5 @@
 /* c8 ignore start */
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import { readdirSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -40,6 +41,10 @@ function getGroupFromName (name) {
   return slugs.slice(0, maxSlugs + 1).join('-')
 }
 
+/**
+ * Get files
+ * @returns {string[]} list of files
+ */
 function getFiles () {
   console.log(`Scanning dir ${screensPath}...`)
   const files = readdirSync(screensPath).filter(name => isImage.test(name))
@@ -55,7 +60,7 @@ function getFiles () {
 /**
  * Group files by group name
  * @param {string[]} files the files to group
- * @returns
+ * @returns {Groups} the groups
  */
 function getGroups (files) {
   /** @type {Groups} */
@@ -63,7 +68,7 @@ function getGroups (files) {
   for (const file of files) {
     const group = getGroupFromName(file)
     if (!groups[group]) groups[group] = []
-    groups[group]?.push(file)
+    groups[group].push(file)
   }
   return groups
 }
@@ -95,6 +100,9 @@ function report (groups, singles) {
   writeFileSync(path.join(currentFolder, 'check-screens.json'), JSON.stringify(groups, undefined, nbSpaces))
 }
 
+/**
+ *
+ */
 function start () {
   console.log('\nCheck Videos is starting !\n')
   const files = getFiles()

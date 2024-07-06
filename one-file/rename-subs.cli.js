@@ -16,7 +16,8 @@ if (!subsStat.isDirectory()) throw new Error(`Could not find subs folder ${subsF
 
 /**
  * Check if a subtitle file is a full caption
- * @param {string} filepath
+ * @param {string} filepath the filepath to sub
+ * @returns {boolean} true if full caption
  */
 function isFullCaption (filepath) {
   const content = readFileSync(filepath, 'utf8')
@@ -66,8 +67,8 @@ for (const subfolder of subfolders) {
 
 /**
  * Check subtitle
- * @param {string} filename
- * @param {string} language
+ * @param {string} filename the filename
+ * @param {string} language the lang to check
  * @returns {void}
  */
 // eslint-disable-next-line max-statements, complexity

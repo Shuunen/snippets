@@ -1,4 +1,5 @@
 /* c8 ignore start */
+/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import { gray, green, red, yellow } from 'shuutils'
 import { backupPath, files } from './files.js'
 import { copy, filename, normalizePathWithSlash } from './utils.js'
@@ -15,9 +16,9 @@ const report = { errors: [], infos: [], success: [], suggestions: [], warnings: 
 /**
  * Synchronize a file
  * @param {import('./types').File} file the file to synchronize
- * @returns {Promise<number>}
+ * @returns {Promise<number>} the number of things you have to do in Life
  */
-// eslint-disable-next-line max-statements, sonarjs/cognitive-complexity
+// eslint-disable-next-line max-statements
 async function sync (file) {
   process.stdout.write('.')
   const { areEquals, destination, source } = file
@@ -39,9 +40,12 @@ async function sync (file) {
   return report.suggestions.push(`merge ${relativeBackupPath}/${filename(destination.filepath)} ${normalizePathWithSlash(source.filepath, true)}`)
 }
 
+/**
+ *
+ */
 async function start () {
   process.stdout.write('\nSyncing')
-  await Promise.all(files.map(async file => await sync(file)))
+  await Promise.all(files.map(async file => sync(file)))
   for (const error of report.errors) console.error(red(error))
   for (const warning of report.warnings) console.warn(yellow(warning))
   if (isDebug) for (const info of report.infos) console.info(info)
@@ -50,5 +54,5 @@ async function start () {
   else console.log(green('\n\nSync done, no actions required :)'))
 }
 
-// eslint-disable-next-line unicorn/prefer-top-level-await
+// eslint-disable-next-line unicorn/prefer-top-level-await, @typescript-eslint/use-unknown-in-catch-callback-variable
 start().catch(error => { console.error(error) })

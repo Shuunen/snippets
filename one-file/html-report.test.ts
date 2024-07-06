@@ -49,7 +49,7 @@ const samples = [
   },
 ] as const
 
-samples.forEach(({ input, output, title }) => {
+for (const { input, output, title } of samples) {
   const actual = new HtmlReporter(input)
   it(`html-report ${title} attr`, () => { expect(actual.attr).toBe(output.attr) })
   it(`html-report ${title} css`, () => { expect(actual.css).toBe(output.css) })
@@ -57,7 +57,7 @@ samples.forEach(({ input, output, title }) => {
   it(`html-report ${title} tags`, () => { expect(actual.tags).toBe(output.tags) })
   it(`html-report ${title} text`, () => { expect(actual.text).toBe(output.text) })
   it(`html-report ${title} total`, () => { expect(actual.total).toBe(output.total) })
-})
+}
 
 const { input, output, title } = samples[5]
 const actualDebug = new HtmlReporter(input, true)

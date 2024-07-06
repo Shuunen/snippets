@@ -14,7 +14,7 @@ export type Task = {
 }
 
 export type FfProbeOutput = {
-  format: {
+  format?: {
     bit_rate: number // eslint-disable-line @typescript-eslint/naming-convention
     duration: number
     filename: string
