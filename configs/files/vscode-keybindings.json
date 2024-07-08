@@ -60,6 +60,11 @@
     "when": "breadcrumbsPossible"
   },
   {
+    "command": "editor.action.commentLine",
+    "key": "ctrl+[Period]",
+    "when": "editorTextFocus && !editorReadonly"
+  },
+  {
     "command": "-editor.action.commentLine",
     "key": "ctrl+shift+[Period]",
     "when": "editorTextFocus && !editorReadonly"

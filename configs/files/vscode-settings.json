@@ -1,11 +1,14 @@
 {
   "[css]": {
-    "editor.defaultFormatter": "bradlc.vscode-tailwindcss"
+    "editor.defaultFormatter": "biomejs.biome"
   },
   "[html]": {
     "editor.defaultFormatter": "vscode.html-language-features"
   },
   "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[javascriptreact]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
   "[json]": {
@@ -24,11 +27,14 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
+  "[vue]": {
+    "editor.defaultFormatter": "Vue.volar"
+  },
   "[xml]": {
     "editor.defaultFormatter": "mikeburgh.xml-format"
   },
   "breadcrumbs.enabled": true,
-  "cSpell.language": "en,en-US,fr,fr-FR",
+  "cSpell.language": "en,fr",
   "cSpell.userWords": [
     "accès",
     "actionbar",
@@ -60,6 +66,7 @@
     "barcode",
     "Battlestar",
     "Beesly",
+    "biomejs",
     "birthtime",
     "Bluray",
     "bookmarklets",
@@ -128,9 +135,12 @@
     "filebot",
     "filepath",
     "finga",
+    "firefox",
     "firestore",
     "Firestore",
+    "firstname",
     "flowbite",
+    "forestgreen",
     "france",
     "geekbench",
     "Geekbench",
@@ -181,6 +191,7 @@
     "kupfer",
     "lafon",
     "Lafon",
+    "lastname",
     "launchy",
     "lazyload",
     "lcov",
@@ -236,6 +247,7 @@
     "outfile",
     "Paginator",
     "paren",
+    "parens",
     "Paylib",
     "pentium",
     "Phomemo",
@@ -243,6 +255,7 @@
     "Picasa",
     "Pixabay",
     "pkgroll",
+    "plusplus",
     "pnpm",
     "polyfill",
     "portabler",
@@ -309,8 +322,10 @@
     "shuutils",
     "Shuutils",
     "sidenav",
+    "Sindre",
     "singleline",
     "sonarjs",
+    "Sorhus",
     "spek",
     "spotify",
     "steelblue",
@@ -390,6 +405,7 @@
   "coverage-gutters.customizable.context-menu": false,
   "css.format.enable": false,
   "css.validate": false,
+  "debug.allowBreakpointsEverywhere": true,
   "diffEditor.ignoreTrimWhitespace": false,
   "editor.accessibilitySupport": "off",
   "editor.codeActionsOnSave": {
@@ -412,6 +428,7 @@
   "explorer.compactFolders": false,
   "explorer.confirmDelete": false,
   "explorer.confirmDragAndDrop": false,
+  "explorer.confirmPasteNative": false,
   "explorer.expandSingleFolderWorkspaces": false,
   "explorer.fileNesting.enabled": false,
   "extensions.ignoreRecommendations": true,
@@ -447,6 +464,7 @@
   "git.defaultBranchName": "master",
   "git.enableSmartCommit": true,
   "git.openRepositoryInParentFolders": "never",
+  "github.copilot.editor.enableAutoCompletions": true,
   "github.copilot.enable": {
     "*": true,
     "csv": false,
@@ -456,6 +474,7 @@
     "scminput": false,
     "yaml": true
   },
+  "githubPullRequests.pullBranch": "never",
   "headwind.classRegex": {
     "css": "\\B@apply\\s+([_a-zA-Z0-9\\s\\-\\:\\/]+);",
     "html": "\\bclass\\s*=\\s*[\\\"\\']([_a-zA-Z0-9\\s\\-\\:\\/]+)[\\\"\\']",
