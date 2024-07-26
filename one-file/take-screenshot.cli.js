@@ -1,5 +1,4 @@
 /* c8 ignore start */
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 /* eslint-disable jsdoc/require-param-description */
 /* eslint-disable jsdoc/require-returns */
 /* eslint-disable jsdoc/require-returns-description */
@@ -155,5 +154,4 @@ async function init () {
   ask.question(`  Please type the time in mmss or ss (enter to use "${lastInput}") : `, async (time) => { await takeScreenAt(time || lastInput) }) // eslint-disable-line @typescript-eslint/no-misused-promises
 }
 
-// eslint-disable-next-line @typescript-eslint/use-unknown-in-catch-callback-variable
 await init().catch(async error => { await logAdd(`Init global error : ${error}`) })

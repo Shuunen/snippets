@@ -1,5 +1,4 @@
 /* c8 ignore start */
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 /* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */

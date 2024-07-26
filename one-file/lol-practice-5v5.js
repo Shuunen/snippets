@@ -1,5 +1,4 @@
 /* c8 ignore start */
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 import { appendFileSync, readFileSync, writeFileSync } from 'node:fs'
 import { request as _request } from 'node:https'

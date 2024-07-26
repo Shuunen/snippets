@@ -1,5 +1,4 @@
 /* c8 ignore start */
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 import { readFile } from 'node:fs/promises'
 import { blue, gray, yellow } from 'shuutils'

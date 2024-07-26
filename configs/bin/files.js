@@ -1,5 +1,4 @@
 /* c8 ignore start */
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { writeFile } from 'node:fs/promises'
 import path from 'node:path'

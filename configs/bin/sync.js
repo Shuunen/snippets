@@ -1,5 +1,4 @@
 /* c8 ignore start */
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import { gray, green, red, yellow } from 'shuutils'
 import { backupPath, files } from './files.js'
 import { copy, filename, normalizePathWithSlash } from './utils.js'
@@ -54,5 +53,5 @@ async function start () {
   else console.log(green('\n\nSync done, no actions required :)'))
 }
 
-// eslint-disable-next-line unicorn/prefer-top-level-await, @typescript-eslint/use-unknown-in-catch-callback-variable
+// eslint-disable-next-line unicorn/prefer-top-level-await
 start().catch(error => { console.error(error) })

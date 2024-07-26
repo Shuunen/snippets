@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 /* eslint-disable jsdoc/require-returns-description */
 /* eslint-disable jsdoc/require-param-description */
 import { nbMsInSecond, nbSecondsInMinute } from 'shuutils'

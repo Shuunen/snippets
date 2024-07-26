@@ -1,8 +1,6 @@
 /* c8 ignore start */
 /* eslint-disable @typescript-eslint/class-methods-use-this */
-/* eslint-disable @typescript-eslint/explicit-member-accessibility */
 /* eslint-disable @typescript-eslint/no-magic-numbers */
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 /* eslint-disable complexity */
 /* eslint-disable jsdoc/require-param-description */
 /* eslint-disable jsdoc/require-returns */

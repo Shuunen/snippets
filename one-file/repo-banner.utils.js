@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import { readFileSync, statSync } from 'node:fs'
 import path from 'node:path'
 import { Logger } from 'shuutils'

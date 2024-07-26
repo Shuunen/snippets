@@ -1,10 +1,5 @@
 /* c8 ignore start */
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
-/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
-/* eslint-disable @typescript-eslint/prefer-regexp-exec */
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
-/* eslint-disable @typescript-eslint/no-magic-numbers */
-/* eslint-disable @typescript-eslint/explicit-member-accessibility */
+/* eslint-disable no-magic-numbers */
 /* eslint-disable jsdoc/require-jsdoc */
 /* eslint-disable no-plusplus */
 import { gray, green } from 'shuutils'
@@ -50,7 +45,6 @@ export class HtmlReporter {
     if (!char) return ' '
     if (char === '\n') char = String.raw`\n`
     if (char === ' ') char = String.raw`\s`
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-return
     return color(char)
   }
 

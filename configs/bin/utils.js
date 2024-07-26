@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import { copyFile, mkdir } from 'node:fs/promises'
 import path from 'node:path'
 
@@ -90,7 +89,7 @@ export async function copy (source, destination) {
   const destinationFolder = destination.replace(filename(destination), '')
   // eslint-disable-next-line @typescript-eslint/naming-convention
   await mkdir(destinationFolder, { recursive: true })
-  // eslint-disable-next-line @typescript-eslint/use-unknown-in-catch-callback-variable
+
   return copyFile(source, destination).then(() => true).catch(error => {
     console.log(error)
     return false

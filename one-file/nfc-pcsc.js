@@ -1,5 +1,4 @@
 /* c8 ignore start */
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 /* eslint-disable max-lines-per-function */
 /* eslint-disable @typescript-eslint/no-array-delete */

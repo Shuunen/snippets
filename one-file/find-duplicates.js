@@ -1,9 +1,7 @@
 /* c8 ignore start */
 /* eslint-disable @typescript-eslint/class-methods-use-this */
-/* eslint-disable @typescript-eslint/explicit-member-accessibility */
 /* eslint-disable @typescript-eslint/no-magic-numbers */
 /* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 /* eslint-disable @typescript-eslint/require-array-sort-compare */
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 /* eslint-disable jsdoc/require-jsdoc */
