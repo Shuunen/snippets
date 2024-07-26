@@ -1,5 +1,4 @@
 /* c8 ignore start */
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import { readdirSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -11,6 +10,7 @@ const parameters = process.argv
 const expectedNbParameters = 2
 if (parameters.length <= expectedNbParameters) console.log('Targeting current folder, you can also specify a specific path, ex : node one-file/check-screens.cli.js "U:\\Screens\\" \n')
 const screensPath = path.normalize(parameters[expectedNbParameters] ?? process.cwd())
+const shouldShowFirst = parameters.includes('--first')
 const isImage = /\.(?:jpg|png)$/u
 const colors = [red, green, blue, yellow]
 let colorIndex = 0
@@ -35,8 +35,13 @@ function color (text) {
  */
 function getGroupFromName (name) {
   const slugs = slugify(name.replace(/[_.]/gu, ' ')).split('-')
-  const minLength = 8 // increase this to be more precise
-  const maxSlugs = 2
+  if (slugs[0] === undefined) throw new Error(`No first slug found for ${name}`)
+  if (slugs[1] === undefined) throw new Error(`No second slug found for ${name}`)
+  // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+  const isShort = slugs[0].length <= 5 && /\d{4}/u.test(slugs[1]) // short like "Taxi 1998"
+  // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+  const minLength = isShort ? 8 : 10 // hard to increase, like below comment
+  const maxSlugs = 2 // dont increase this because after slugs n°3 it's not relevant, this will be specific to the release
   if (slugs.slice(0, maxSlugs).join('-').length > minLength) return slugs.slice(0, maxSlugs).join('-')
   return slugs.slice(0, maxSlugs + 1).join('-')
 }
@@ -46,10 +51,10 @@ function getGroupFromName (name) {
  * @returns {string[]} list of files
  */
 function getFiles () {
-  console.log(`Scanning dir ${screensPath}...`)
+  console.log(`Scanning dir ${screensPath}...\n`)
   const files = readdirSync(screensPath).filter(name => isImage.test(name))
   console.log(`Found ${files.length} files`)
-  console.log('First file is :', ellipsis(files[0]))
+  if (shouldShowFirst) console.log('First file is :', ellipsis(files[0]))
   return files
 }
 
