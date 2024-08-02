@@ -62,12 +62,14 @@ hpusbdisk ^
 hyperfine ^
 imageglass ^
 InkScape ^
+io-unlocker ^
 irfanview ^
 irfanviewplugins ^
 javaruntime ^
 jbs ^
 jre8 ^
 launchyqt ^
+LinkShellExtension ^
 lockhunter ^
 lossless-cut ^
 makemkv ^
@@ -77,13 +79,11 @@ mkvtoolnix ^
 mpv.install ^
 mRemoteNG ^
 NETworkManager ^
-nodejs-lts ^
 notepadplusplus.install ^
 onlyoffice ^
 openhardwaremonitor ^
 paint.net ^
 picard ^
-pnggauntlet ^
 powertoys ^
 procexp ^
 python2 ^
@@ -93,7 +93,6 @@ rapidee ^
 riot ^
 rufus ^
 shutup10 ^
-slack ^
 soulseek ^
 speccy ^
 spek ^
