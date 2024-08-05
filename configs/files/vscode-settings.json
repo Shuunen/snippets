@@ -507,7 +507,6 @@
     "properties-order": "alphabetical"
   },
   "redhat.telemetry.enabled": false,
-  "security.restrictUNCAccess": false,
   "security.workspace.trust.untrustedFiles": "open",
   "sortJSON.contextMenu": {
     "sortJSON": true,
@@ -583,7 +582,6 @@
   "vue.codeActions.savingTimeLimit": 2000,
   "window.commandCenter": false,
   "window.titleBarStyle": "custom",
-  "window.zoomLevel": 1,
   "workbench.colorTheme": "Default Dark+",
   "workbench.editorAssociations": {
     "*.csv": "default",

@@ -12,6 +12,18 @@ Please **use choco to install Chrome**, else file association can be broken, jus
 
 ## Cmd as admin
 
+Minimal install :
+
+```bash
+choco feature enable -n allowGlobalConfirmation
+choco install ^
+chocolateygui ^
+nvidia-display-driver ^
+spotify
+```
+
+Full install :
+
 ```bash
 choco feature enable -n allowGlobalConfirmation
 choco install ^
@@ -132,9 +144,11 @@ Open Rapidee & add these to the user path :
 
 - `%USERPROFILE%\.npm-global`
 - `%USERPROFILE%\Projects\github\snippets\one-file`
-- `C:\Program Files\WinMerge`
 - `C:\ProgramData\chocolatey\bin`
 - `D:\Apps\_Globals`
+- `D:\Apps\NodeJs\node-v20.14.0-win-x64`
+- `D:\Apps\VS.Code`
+- `D:\Apps\WinMerge`
 - `D:\Apps`
 
 ## Chrome or other
@@ -146,7 +160,7 @@ Open Rapidee & add these to the user path :
 
 ## Espanso
 
-Open a terminal as user & run :
+Open a cmd in `D:\Apps\Espanso` as user & run :
 
 ```bash
 espanso install actually-all-emojis-spaces
@@ -192,7 +206,7 @@ irm https://christitus.com/win | iex
 - [ ] install [ExplorerPatcher](https://github.com/valinet/ExplorerPatcher/releases)
 - [ ] remove more shit with [O&O ShutUp10](https://www.oo-software.com/en/shutup10)
 - [ ] restart
-- [ ] as a user, open cmd and `C:\tools\winfetch\winfetch.bat > fetch-once.log`, open & check that `fetch-once.log` is correct
+- [ ] as a user, open cmd and `D:\Apps\_Globals\winfetch.bat > fetch-once.log`, open & check that `fetch-once.log` is correct
 
 ## Git bash
 
