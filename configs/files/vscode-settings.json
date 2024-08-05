@@ -507,6 +507,7 @@
     "properties-order": "alphabetical"
   },
   "redhat.telemetry.enabled": false,
+  "security.restrictUNCAccess": false,
   "security.workspace.trust.untrustedFiles": "open",
   "sortJSON.contextMenu": {
     "sortJSON": true,

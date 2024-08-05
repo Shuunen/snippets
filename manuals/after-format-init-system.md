@@ -243,15 +243,11 @@ Install these deb :
 - [Stretchly](https://github.com/hovancik/stretchly/releases)
 
 ```bash  
-wget -qO- https://deb.nodesource.com/setup_18.x | sudo -E bash -
-sudo apt install -y nodejs screenfetch
-echo -e "alias ..='cd ..' \n alias install='sudo apt install' \n alias apt='sudo apt' \n alias mkdir='mkdir -pv' \n alias merge=meld \n alias whatsmyip='curl http://ipecho.net/plain; echo' \n alias psg='ps aux | grep -v grep | grep -i -e VSZ -e' \n echo '' \n screenfetch \n echo ' Welcome ${USER} ^^' \n echo ''" > ~/.bash_aliases # make sure bash_aliases is sourced in ~/.bashrc
-source ~/.bash_aliases
-sudo apt install git aria2 nano curl -y # vvv below is for desktop only vvv
-sudo apt install pinta gparted meld mediainfo mkvtoolnix mkvtoolnix-gui mpv xsel shotwell synaptic vlc ffmpeg -y
-sudo add-apt-repository ppa:qbittorrent-team/qbittorrent-stable
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+nvm install 20
+sudo apt install -y screenfetch git aria2 nano curl -y # vvv below is for desktop only vvv
+sudo apt install gparted meld mediainfo mkvtoolnix mkvtoolnix-gui mpv xsel shotwell synaptic vlc ffmpeg -y
 sudo apt update
-sudo apt install qbittorrent -y
 sudo apt autoremove -y
 echo -e "optional : you can manually run 'sudo apt install ttf-mscorefonts-installer' & 'sudo fc-cache -f -v' to get win fonts & clear font cache"
 ```
@@ -290,11 +286,10 @@ lsmod | grep xpad # should return nothing, if not : sudo rmmod xpad / sudo rmmod
   Copy ssh keys then :
   
   ```bash
-sudo chmod 700 ~/.ssh/ -R
-mkdir ~/.npm-global
-npm config set prefix '~/.npm-global'
-npm i pnpm -g
-pnpm setup
+sudo chmod 700 ~/.ssh/ -R # remove 'sudo' on windows
+mkdir ~/.npm-global # if not using nvm
+npm config set prefix '~/.npm-global' # if not using nvm
+npm i pnpm@8 -g
 mkdir ~/Projects/github -p
 cd ~/Projects/github
 git clone git@github.com:Shuunen/c-est-donne.git
