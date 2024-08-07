@@ -22,8 +22,6 @@ const configs = [
   { source: `${appData}/Code/User/settings.json`, renameTo: 'vscode-settings.json' },
   // { source: `${appData}/HandBrake/presets.json`, renameTo: 'handbrake-presets.json' },
   // { source: `${appData}/HandBrake/settings.json`, renameTo: 'handbrake-settings.json' },
-  { source: `${appData}/espanso/config/default.yml`, renameTo: 'espanso-config.yml' },
-  { source: `${appData}/espanso/match/base.yml`, renameTo: 'espanso-match.yml' },
   { source: `${appData}/kupfer/kupfer.cfg` },
   { source: `${appData}/mpv/mpv.conf` },
   { source: `${appData}/qBittorrent/qBittorrent.conf` },
@@ -40,6 +38,8 @@ const configs = [
 const windowsConfigs = [
   { source: `${home}/.bashrc`, renameTo: '.bashrc-windows' },
   { source: `${appData}/Launchy/launchy.ini`, removeLinesAfter: /\[History\]/u, removeLinesMatching: [/^(?:pos=|proxyType=)/u] },
+  { source: `D:/Apps/Espanso/.espanso/config/default.yml`, renameTo: 'espanso-config.yml' },
+  { source: `D:/Apps/Espanso/.espanso/match/base.yml`, renameTo: 'espanso-match.yml' },
   { source: `${appData}/Greenshot/Greenshot.ini`, removeLinesAfter: /PowerpointSlideLayout=ppLayoutPictureWithCaption/u, removeLinesMatching: [/^(?:BaseIconSize|ImgurUploadHistory|LastCapturedRegion|LastSaveWithVersion|LastUpdateCheck|OutputFileAsFull|OutputFilePath|Win10BorderCrop|Commands=)/u, /MS Paint/u] },
 ]
 
