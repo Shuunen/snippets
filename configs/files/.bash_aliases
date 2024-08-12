@@ -8,6 +8,7 @@ alias psg='ps aux | grep -v grep | grep -i -e VSZ -e'
 alias regenLock="rm node_modules/ -rf && rm pnpm-lock.yaml && pnpm i && pnpm outdated"
 alias updateLock="pnpm update && git checkout package.json && pnpm i && pnpm outdated"
 alias whatsmyip='curl http://ipecho.net/plain; echo'
+alias treesize='ncdu'
 alias p="pnpm"
 alias pc="pnpm check"
 alias pd="pnpm dev"
