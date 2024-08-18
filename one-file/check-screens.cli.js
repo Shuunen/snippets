@@ -1,8 +1,8 @@
 /* c8 ignore start */
-import { readdirSync, writeFileSync } from 'node:fs'
+import { readdirSync, renameSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { blue, ellipsis, green, red, slugify, yellow } from 'shuutils'
+import { blue, ellipsis, green, isTestEnvironment, red, slugify, yellow } from 'shuutils'
 
 // Use me like : node ~/Projects/github/snippets/one-file/check-screens.cli.js "/u/Screens/"
 
@@ -29,14 +29,36 @@ function color (text) {
 }
 
 /**
+ * Rename a file if badly named
+ * @param {string} name the file name, like "Taxi_1998.DVDRip.jpg"
+ * @returns {string} the group name, like "Taxi 1998 DVDRip.jpg"
+ */
+function renameIfNecessary (name) {
+  const baseName = path.basename(name)
+  const extensionName = path.extname(baseName)
+  const nameWithoutExtension = baseName.slice(0, -extensionName.length)
+  const cleanName = nameWithoutExtension
+    .replace(/[_.]/gu, ' ')
+    .replace(/\((?<year>\d{4})\)/gu, ' $<year> ')
+    .replace('!qB', ' ')
+    .replace(/(?<letter>[a-zA-Z0-9])(?<bracket>\[|\()/gu, '$<letter> $<bracket>')
+    .replace(/ +/gu, ' ') + extensionName
+  if (baseName === cleanName || isTestEnvironment()) return cleanName
+  console.log(`Renaming : \n - ${red(name)}\nto : \n - ${green(cleanName)}\n`)
+  renameSync(path.join(screensPath, name), path.join(screensPath, cleanName))
+  return cleanName
+}
+
+/**
  * Generate a group name from a file name
  * @param {string} name the file name
  * @returns {string} the group name
  */
 function getGroupFromName (name) {
-  const slugs = slugify(name.replace(/[_.]/gu, ' ')).split('-')
-  if (slugs[0] === undefined) throw new Error(`No first slug found for ${name}`)
-  if (slugs[1] === undefined) throw new Error(`No second slug found for ${name}`)
+  const cleanName = renameIfNecessary(name)
+  const slugs = slugify(cleanName).split('-')
+  if (slugs[0] === undefined) throw new Error(`No first slug found for ${cleanName}`)
+  if (slugs[1] === undefined) throw new Error(`No second slug found for ${cleanName}`)
   // eslint-disable-next-line @typescript-eslint/no-magic-numbers
   const isShort = slugs[0].length <= 5 && /\d{4}/u.test(slugs[1]) // short like "Taxi 1998"
   // eslint-disable-next-line @typescript-eslint/no-magic-numbers
@@ -109,7 +131,7 @@ function report (groups, singles) {
  *
  */
 function start () {
-  console.log('\nCheck Videos is starting !\n')
+  console.log('\nCheck screens is starting !\n')
   const files = getFiles()
   const groups = getGroups(files)
   const singles = getSingles(groups)
