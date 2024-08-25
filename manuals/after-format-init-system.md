@@ -146,6 +146,7 @@ Open Rapidee & add these to the user path :
 - `%USERPROFILE%\Projects\github\snippets\one-file`
 - `C:\ProgramData\chocolatey\bin`
 - `D:\Apps\_Globals`
+- `D:\Apps\MKVToolNix`
 - `D:\Apps\NodeJs\node-v20.14.0-win-x64`
 - `D:\Apps\VS.Code`
 - `D:\Apps\WinMerge`
