@@ -1,3 +1,3 @@
 @echo off
 
-node clean-trackers.cli.js --clipboard > clean-trackers.log
+node clean-trackers.cli.js > clean-trackers.log

@@ -134,7 +134,6 @@ async function takeScreenAt (input) {
     await logAdd('Command :', cmd)
     await logAdd(await shellCommand(cmd))
   }
-  // eslint-disable-next-line unicorn/no-process-exit
   process.exit(0)
 }
 

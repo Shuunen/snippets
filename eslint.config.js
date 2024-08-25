@@ -13,4 +13,10 @@ export default [
       "no-console": "off",
     },
   },
+  {
+    files: ['**/*.cli.*'],
+    rules: {
+      'unicorn/no-process-exit': 'off',
+    },
+  },
 ]
