@@ -409,6 +409,7 @@
   "css.validate": false,
   "debug.allowBreakpointsEverywhere": true,
   "diffEditor.ignoreTrimWhitespace": false,
+  "diffEditor.renderSideBySide": true,
   "editor.accessibilitySupport": "off",
   "editor.codeActionsOnSave": {
     "source.fixAll": "explicit",
@@ -527,6 +528,7 @@
   "tailwindCSS.experimental.classRegex": [
     " +[a-z_]+: '([^']*)',",
     "tw`([^`]*)",
+    "cn\\(['`]([^'`]*)",
     "className\\s=\\s['`]([^'`]*)",
     "dom\\([^\\s]+\\s['`]([^'`]*)",
     "div\\(['`]([^'`]*)",

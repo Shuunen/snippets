@@ -40,7 +40,7 @@ const windowsConfigs = [
   { source: `${appData}/Launchy/launchy.ini`, removeLinesAfter: /\[History\]/u, removeLinesMatching: [/^(?:pos=|proxyType=)/u] },
   { source: `D:/Apps/Espanso/.espanso/config/default.yml`, renameTo: 'espanso-config.yml' },
   { source: `D:/Apps/Espanso/.espanso/match/base.yml`, renameTo: 'espanso-match.yml' },
-  { source: `${appData}/Greenshot/Greenshot.ini`, removeLinesAfter: /PowerpointSlideLayout=ppLayoutPictureWithCaption/u, removeLinesMatching: [/^(?:BaseIconSize|ImgurUploadHistory|LastCapturedRegion|LastSaveWithVersion|LastUpdateCheck|OutputFileAsFull|OutputFilePath|Win10BorderCrop|Commands=)/u, /MS Paint/u] },
+  { source: `${appData}/Greenshot/Greenshot.ini`, removeLinesAfter: /PowerpointSlideLayout=ppLayoutPictureWithCaption/u, removeLinesMatching: [/^(?:BaseIconSize|ImgurUploadHistory|LastCapturedRegion|LastSaveWithVersion|LastUpdateCheck|OutputFileAsFull|OutputFilePath|DeletedBuildInCommands|Win10BorderCrop|Commands=)/u, /MS Paint/u, /Paint\.NET/u] },
 ]
 
 const linuxConfigs = [
