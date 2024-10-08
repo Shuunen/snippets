@@ -171,7 +171,7 @@ espanso install kaimoji
 
 ## Tweaks
 
-Open a terminal as admin & run :
+Open a powershell as admin & run :
 
 ```bash
 irm https://christitus.com/win | iex
@@ -244,9 +244,11 @@ Install these deb :
 - [Stretchly](https://github.com/hovancik/stretchly/releases)
 
 ```bash  
+sudo apt install -y neofetch git aria2 nano curl -y
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+bash # reload shell to be able to invoke nvm
 nvm install 20
-sudo apt install -y screenfetch git aria2 nano curl -y # vvv below is for desktop only vvv
+# vvv below is for desktop only vvv
 sudo apt install gparted meld mediainfo mkvtoolnix mkvtoolnix-gui mpv xsel shotwell synaptic vlc ffmpeg -y
 sudo apt update
 sudo apt autoremove -y
@@ -288,8 +290,8 @@ lsmod | grep xpad # should return nothing, if not : sudo rmmod xpad / sudo rmmod
   
   ```bash
 sudo chmod 700 ~/.ssh/ -R # remove 'sudo' on windows
-mkdir ~/.npm-global # if not using nvm
-npm config set prefix '~/.npm-global' # if not using nvm
+# mkdir ~/.npm-global # if not using nvm
+# npm config set prefix '~/.npm-global' # if not using nvm
 npm i pnpm@8 -g
 mkdir ~/Projects/github -p
 cd ~/Projects/github
