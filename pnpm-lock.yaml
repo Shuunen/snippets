@@ -24,8 +24,8 @@ devDependencies:
     specifier: '1.37'
     version: 1.37.1
   shuutils:
-    specifier: '9.0'
-    version: 9.0.0
+    specifier: '9.1'
+    version: 9.1.0
   ts-node:
     specifier: '10.9'
     version: 10.9.2(@types/node@20.16.0)(typescript@5.6.2)
@@ -2579,8 +2579,8 @@ packages:
       tiny-glob: 0.2.9
     dev: true
 
-  /shuutils@9.0.0:
-    resolution: {integrity: sha512-MfWfhceiekvjZV5PFF3CTWjVBBNOPaREQZ72cBPt3W2WFJ8OMorHuRgaCgqdl7UGQzA651u0xNH3ZZAfm4t+sA==}
+  /shuutils@9.1.0:
+    resolution: {integrity: sha512-tPvbm0in2AXSkvem2Nt/l+/exocBh/EtnKahE2r9BkOVe4JDFVppfQ2tYsQBAvnjN3KsyjeB1MiKoHAXvcIZww==}
     hasBin: true
     dependencies:
       tiny-glob: 0.2.9
