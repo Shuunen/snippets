@@ -4,7 +4,7 @@
   "bugs": "https://github.com/Shuunen/snippets/issues",
   "description": "My personal snippets",
   "devDependencies": {
-    "@types/node": "20.16",
+    "@types/node": "20.17",
     "@vitest/coverage-v8": "2.1",
     "clipboardy": "4.0",
     "eslint": "*",
