@@ -27,9 +27,6 @@
   "[typescriptreact]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
-  "[vue]": {
-    "editor.defaultFormatter": "Vue.volar"
-  },
   "[xml]": {
     "editor.defaultFormatter": "mikeburgh.xml-format"
   },
@@ -131,6 +128,7 @@
     "ethernet",
     "EURL",
     "europe",
+    "extralight",
     "ffprobe",
     "filebot",
     "filepath",
@@ -167,6 +165,7 @@
     "halloumi",
     "Halpert",
     "Hueï",
+    "HUMACODE",
     "hyperpower",
     "iife",
     "Imgur",
@@ -206,6 +205,7 @@
     "localstorage",
     "lorsqu'elle",
     "Lumia",
+    "Madelin",
     "markdownlint",
     "maxlength",
     "mediainfo",

@@ -15,21 +15,21 @@ matches:
 
   # nom, last name
   - regex: ":(no|la)"
-    label: "Racamier"
-    replace: "Racamier"
+    label: "Racamier-Lafon"
+    replace: "Racamier-Lafon"
 
   # name
   - regex: ":(na)"
-    label: "Romain Racamier"
-    replace: "Romain Racamier"
+    label: "Romain Racamier-Lafon"
+    replace: "Romain Racamier-Lafon"
 
   # entreprise, company
-  - regex: ":(en|co)"
-    label: "Collectif Energie"
-    replace: "Collectif Energie"
+  - regex: ":(ent|com)"
+    label: "HumaCode"
+    replace: "HumaCode"
 
   # raison sociale
-  - regex: ":(ra)"
+  - regex: ":(rai|denom)"
     label: "HumaCode"
     replace: "HumaCode"
 
@@ -38,15 +38,15 @@ matches:
     label: "Développeur Web"
     replace: "Développeur Web"
 
-  # tva
+  # tva intracommunautaire
   - regex: ":(tv)"
     label: "FR41982417594"
     replace: "FR41982417594"
 
-  # siret
+  # siret, Paris MAJ
   - regex: ":(siret)"
-    label: "98241759400016"
-    replace: "98241759400016"
+    label: "98241759400024"
+    replace: "98241759400024"
 
   # siren
   - regex: ":(siren)"
@@ -60,8 +60,8 @@ matches:
 
   # mail pro, pro mail
   - regex: ":(mp|pm)"
-    label: "r.racamier@collectifenergie.com"
-    replace: "r.racamier@collectifenergie.com"
+    label: "humacode.fr@gmail.com"
+    replace: "humacode.fr@gmail.com"
 
   # adresse, address
   - regex: ":(adr|addr|address)"
@@ -79,19 +79,29 @@ matches:
     replace: "67100"
 
   # rue, street
-  - regex: ":(ru|st)"
+  - regex: ":(ru|stre)"
     label: "21 rue du Berry"
     replace: "21 rue du Berry"
 
   # téléphone, phone
-  - regex: ":(te|ph)"
+  - regex: ":(tel|ph)"
     label: "0658476788"
     replace: "0658476788"
 
   # linked-in
-  - trigger: ":li"
+  - trigger: ":lin"
     label: "My LinkedIn profile"
     replace: "https://www.linkedin.com/in/romain-racamier"
+
+  # personal website
+  - trigger: ":web"
+    label: "My personal website"
+    replace: "https://romain.cloud"
+
+  # professional website
+  - trigger: ":pweb"
+    label: "HumaCode website"
+    replace: "https://humacode.fr"
 
   # thumbs up and down
   - trigger: ":tu"
