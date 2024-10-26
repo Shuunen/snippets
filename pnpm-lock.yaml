@@ -21,8 +21,8 @@ devDependencies:
     specifier: '0.3'
     version: 0.3.0(eslint@9.8.0)(tailwindcss@3.4.7)(typescript@5.6.2)
   repo-check:
-    specifier: '1.37'
-    version: 1.37.1
+    specifier: '1.38'
+    version: 1.38.0
   shuutils:
     specifier: '9.1'
     version: 9.1.0
@@ -2489,12 +2489,12 @@ packages:
       jsesc: 0.5.0
     dev: true
 
-  /repo-check@1.37.1:
-    resolution: {integrity: sha512-aiLpMAv4knJ2aSykWQPc09k71bet8QTEpjuGHBLreFOHWuYPdd2hcMOfwlhh1EoTnFLLSyq7+hRB8IAOElTPag==}
+  /repo-check@1.38.0:
+    resolution: {integrity: sha512-FzzKsLBqPfZfc7O7J0wh3lvaDw7p09uvtiZ8Fm3mgFkToxdleswLGan9u5oDeeQ8VC9gkXHzpBCUTCnXDdtqkQ==}
     hasBin: true
     dependencies:
       arg: 5.0.2
-      shuutils: 8.1.0
+      shuutils: 9.1.0
       sort-json: 2.0.1
     dev: true
 
@@ -2570,13 +2570,6 @@ packages:
   /shebang-regex@3.0.0:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
-    dev: true
-
-  /shuutils@8.1.0:
-    resolution: {integrity: sha512-SWco5obeba5ZtL4WVyPv6TS90HXSJQJPR9gY1U4E+ceKDaZ3Buq6UMaCjALp4u2g4uy6SS49LwP0TFFLAPCYGg==}
-    hasBin: true
-    dependencies:
-      tiny-glob: 0.2.9
     dev: true
 
   /shuutils@9.1.0:
