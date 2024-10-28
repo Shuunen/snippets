@@ -24,8 +24,8 @@ devDependencies:
     specifier: '1.39'
     version: 1.39.0
   shuutils:
-    specifier: '10.0'
-    version: 10.0.0
+    specifier: '10.1'
+    version: 10.1.0
   ts-node:
     specifier: '10.9'
     version: 10.9.2(@types/node@20.17.0)(typescript@5.6.2)
@@ -2570,13 +2570,6 @@ packages:
   /shebang-regex@3.0.0:
     resolution: {integrity: sha512-7++dFhtcx3353uBaq8DDR4NuxBetBzC7ZQOhmTQInHEd6bSrXdiEyzCvG07Z44UYdLShWUyXt5M/yhz8ekcb1A==}
     engines: {node: '>=8'}
-    dev: true
-
-  /shuutils@10.0.0:
-    resolution: {integrity: sha512-A5/PcShJU4VsJ2l6CIFNRz6INFWMeBZDd0memALTy5LY4RUyNlhZIIzyi5yl7Pjk5uyQG5SIbycvAj546YNonQ==}
-    hasBin: true
-    dependencies:
-      tiny-glob: 0.2.9
     dev: true
 
   /shuutils@10.1.0:
