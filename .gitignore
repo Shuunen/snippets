@@ -7,7 +7,7 @@
 *.mp4
 *.tgz
 /cypress/screenshots
-check-screens.json
+check-*.json
 coverage
 dist
 node_modules
