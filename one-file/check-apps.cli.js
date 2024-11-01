@@ -1,4 +1,5 @@
 /* c8 ignore start */
+import sevenZip from '7zip-min'
 import { readdirSync, statSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -21,6 +22,7 @@ const thisFilePath = fileURLToPath(import.meta.url)
 const currentFolder = path.dirname(thisFilePath)
 const nbSpaces = 2
 const archivesExtensions = new Set(['7z', 'exe', 'rar', 'zip'])
+const readableExtensions = new Set(['7z', 'zip'])
 
 /**
  * Calculate the similarity between two strings
@@ -159,16 +161,41 @@ function checkCloseName (groupNames, groupName) {
 }
 
 /**
+ * Check an archive for containing the same name, like "Clavier.Plus.Plus_108.7z" should contain a "Clavier.Plus.Plus_108" folder
+ * @param {string} archive the archive to check, like "Clavier.Plus.Plus_108.7z"
+ * @returns {Promise<void>} a promise that resolves to true if the archive contains the same name
+ */
+async function checkArchive (archive) {
+  const pathToArchive = path.join(appsPath, archive)
+  const extension = getExtension(archive)
+  if (!readableExtensions.has(extension)) return
+  const expectedFolder = archive.replace(`.${extension}`, '')
+  return new Promise((resolve) => {
+    sevenZip.list(pathToArchive, (error, content) => {
+      if (error) logger.error(`Error while listing ${color(archive)}`, error)
+      const firstFolder = content.find(item => ['D', 'DA'].includes(item.attr))
+      if (firstFolder === undefined) logger.error(`Failed to find a folder in : ${color(archive)}`)
+      else logger.debug(`${archive} content`, firstFolder)
+      const isValid = firstFolder?.name === expectedFolder
+      if (!isValid && firstFolder) logger.warn(`Found ${color(firstFolder.name)} instead of ${color(expectedFolder)} in ${color(archive)}`)
+      if (!isValid) writeFileSync(path.join(currentFolder, `check-apps-error-${expectedFolder}.json`), JSON.stringify(content, undefined, nbSpaces))
+      resolve()
+    })
+  })
+}
+
+/**
  * Check if a group has a missing archive
  * @param {string[]} items the items to check, like ["Clavier.Plus.Plus_108" (folder), "Clavier.Plus.Plus_108.exe", "Clavier.Plus.Plus_108.7z"]
  * @param {string} groupName the group name to check, like "Clavier.Plus.Plus_108"
  */
-function checkMissingArchive (items, groupName) {
+async function checkMissingArchive (items, groupName) {
   if (groupName.startsWith('_')) return
-  const hasArchive = items.some(item => archivesExtensions.has(getExtension(item)))
-  if (!hasArchive) logger.warn(`Missing archive for ${color(groupName)}`)
-  const expectedItems = 2 // one folder and one archive
-  if (items.length > expectedItems) logger.warn(`Too many archives for ${color(groupName)}`)
+  const archive = items.find(item => archivesExtensions.has(getExtension(item)))
+  if (archive === undefined) logger.warn(`Missing archive for ${color(groupName)}`)
+  else await checkArchive(archive)
+  const maxItems = 2 // one folder and one archive
+  if (items.length > maxItems) logger.warn(`Too many archives for ${color(groupName)}`)
 }
 
 const invalidCharsRegex = /(?<invalid>[^a-zA-Z0-9._-])/u
@@ -198,7 +225,7 @@ function checkNameFormat (name) {
  * Check the groups
  * @param {Groups} groups the groups to check
  */
-function checkGroups (groups) {
+async function checkGroups (groups) {
   const groupNames = Object.keys(groups)
   for (const groupName of groupNames) {
     checkNameFormat(groupName)
@@ -208,7 +235,8 @@ function checkGroups (groups) {
       logger.warn(`Empty group : ${color(groupName)}`)
       continue
     }
-    checkMissingArchive(items, groupName)
+    // eslint-disable-next-line no-await-in-loop
+    await checkMissingArchive(items, groupName)
   }
 }
 
@@ -216,15 +244,15 @@ function checkGroups (groups) {
 /**
  * Start the check
  */
-function start () {
+async function start () {
   logger.info('Check apps is starting !')
   const files = getFiles()
   const groups = getGroups(files)
-  checkGroups(groups)
+  await checkGroups(groups)
   const nbWarnings = logger.inMemoryLogs.filter(log => log.includes('warn')).length
   if (nbWarnings === 0) logger.success('No warning found ( ͡° ͜ʖ ͡°)')
   else logger.warn(`${nbWarnings} warnings found ಠ_ಠ`)
   logger.info(`Check apps is done`)
 }
 
-start()
+await start()
