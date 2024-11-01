@@ -24,3 +24,11 @@
 - [Shuutils](https://github.com/Shuunen/shuutils) : collection of pure JS utils
 - [V8](https://github.com/demurgos/v8-coverage) : simple & effective cli for code coverage
 - [Vitest](https://github.com/vitest-dev/vitest) : super fast vite-native testing framework
+
+## Stargazers over time
+
+[![Stargazers over time](https://starchart.cc/Shuunen/snippets.svg?variant=adaptive)](https://starchart.cc/Shuunen/snippets)
+
+## Page views
+
+[![Free Website Counter](https://www.websitecounterfree.com/c.php?d=9&id=REPLACE_ME&s=12)](https://www.websitecounterfree.com)
