@@ -146,11 +146,20 @@ Open Rapidee & add these to the user path :
 - `%USERPROFILE%\Projects\github\snippets\one-file`
 - `C:\ProgramData\chocolatey\bin`
 - `D:\Apps\_Globals`
-- `D:\Apps\MKVToolNix`
-- `D:\Apps\NodeJs\node-v20.14.0-win-x64`
-- `D:\Apps\VS.Code`
-- `D:\Apps\WinMerge`
+- `D:\Apps\Espanso_221_2024-08`
+- `D:\Apps\Java-JDK_220_2024-06\bin`
+- `D:\Apps\MKVToolNix_860_2024-07`
+- `D:\Apps\Node_221_2024-11`
+- `D:\Apps\Python_310_2024-10\Scripts`
+- `D:\Apps\Python_310_2024-10`
+- `D:\Apps\VS.Code_2024-11`
+- `D:\Apps\WinMerge_216_2024-07`
 - `D:\Apps`
+
+Also for Java add these user variables :
+
+- `JAVA_HOME` : `D:\Apps\Java-JDK_220_2024-06`
+- `EXE4J_JAVA_HOME` : `D:\Apps\Java-JDK_220_2024-06`
 
 ## Chrome or other
 
