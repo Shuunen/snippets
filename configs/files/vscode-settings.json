@@ -1,4 +1,7 @@
 {
+  "[astro]": {
+    "editor.defaultFormatter": "astro-build.astro-vscode"
+  },
   "[css]": {
     "editor.defaultFormatter": "biomejs.biome"
   },
@@ -26,6 +29,9 @@
   },
   "[typescriptreact]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "[vue]": {
+    "editor.defaultFormatter": "Vue.volar"
   },
   "[xml]": {
     "editor.defaultFormatter": "mikeburgh.xml-format"
@@ -165,6 +171,7 @@
     "halloumi",
     "Halpert",
     "Hueï",
+    "humacode",
     "HUMACODE",
     "hyperpower",
     "iife",
@@ -410,10 +417,6 @@
   "diffEditor.ignoreTrimWhitespace": false,
   "diffEditor.renderSideBySide": true,
   "editor.accessibilitySupport": "off",
-  "editor.codeActionsOnSave": {
-    "source.fixAll": "explicit",
-    "source.organizeImports": "explicit"
-  },
   "editor.formatOnSave": true,
   "editor.inlineSuggest.enabled": true,
   "editor.linkedEditing": true,
@@ -492,11 +495,6 @@
   "importCost.bundleSizeDecoration": "minified",
   "importCost.mediumPackageSize": 10,
   "importCost.smallPackageSize": 5,
-  "javascript.format.insertSpaceAfterConstructor": true,
-  "javascript.format.insertSpaceAfterFunctionKeywordForAnonymousFunctions": false,
-  "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
-  "javascript.format.semicolons": "remove",
-  "javascript.preferences.quoteStyle": "single",
   "javascript.updateImportsOnFileMove.enabled": "always",
   "json.format.enable": true,
   "keyboard.dispatch": "keyCode",
