@@ -16,7 +16,7 @@
     "repo-check": "1.39",
     "shuutils": "10.1",
     "ts-node": "10.9",
-    "typescript": "5.6",
+    "typescript": "5.7",
     "vitest": "2.1"
   },
   "files": [
