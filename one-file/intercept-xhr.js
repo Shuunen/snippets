@@ -7,7 +7,7 @@ const lastRequest = { method: '', url: '' }
 
 // @ts-ignore
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const OldXHR = window.XMLHttpRequest
+const OldXHR = globalThis.XMLHttpRequest
 
 function XhrProxy () {
   // @ts-ignore
@@ -29,5 +29,5 @@ OldXHR.prototype.open = function openProxy (/** @type {string} */ method, /** @t
 }
 
 // @ts-ignore
-window.XMLHttpRequest = XhrProxy
+globalThis.XMLHttpRequest = XhrProxy
 
