@@ -38,7 +38,7 @@ PS: nothing to do with steam app, steam guard will be overwrite with the new ins
 ## Windows only
 
 - [ ] if re-installing windows and need to keep a partition alive like `D:/`, don't forget to disable BitLocker before format
-- [ ] do not install any Windows N versions, it will bring issues with Spotify, webcam, etc, thanks windows 
+- [ ] do not install any Windows N versions, it will bring issues with Spotify, webcam, etc, thanks windows
 - [ ] `%AppData%\FileZilla\sitemanager.xml`
 - [ ] `%AppData%\mRemoteNG\confCons.xml`
 - [ ] copy useful installed apps to a `_previously-installed-apps` folder
