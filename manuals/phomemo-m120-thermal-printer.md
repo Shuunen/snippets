@@ -27,6 +27,8 @@
   
 ## Setup
 
+### Windows
+
 1. Turn on the printer
 2. Connect it via USB
 3. Download & execute `QY_Printer Driver Setup v1.2.10.exe` from [Phomemo](https://phomemo.com/en-fr/pages/download-for-phomemo-m120-label-printer), [direct link](https://oss.qu-in.life/app/M120-win.zip)
@@ -48,6 +50,14 @@ For example, I created :
 
 - a `40 x 30mm` paper size with `38 x 30mm` dimensions
 - a `40 x 20mm` paper size with `38 x 20mm` dimensions
+
+### Linux
+
+1. Turn on the printer
+2. Connect it via USB
+3. Install the provided `Phomemo-M120.ppd`
+4. Open `Printers` settings
+5. Go to `Printer options` set `Media tracking` to `Gap` and `Vertical offset` to `-1mm`
 
 ## Printing from a webpage
 
