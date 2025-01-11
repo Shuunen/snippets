@@ -6,8 +6,8 @@ ssh-add ~/.ssh/id_rsa_gh
 source ~/.bash_aliases
 
 # override the merge alias from .bash_aliases
-alias merge='D:/Apps/WinMerge/WinMergeU.exe'
+alias merge='D:/Apps/WinMerge_216_2024-07/WinMergeU.exe'
 
 echo ""
-test -f ~/fetch-once.log && cat ~/fetch-once.log 
+test -f ~/fetch-once.log && cat ~/fetch-once.log
 echo "Welcome ${USERNAME} ^^"
