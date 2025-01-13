@@ -3,10 +3,13 @@
 .env
 .eslintcache
 *.bak
+*.crt
+*.endpoint
+*.key
 *.log
 *.mp4
+*.pem
 *.tgz
-/cypress/screenshots
 check-*.json
 coverage
 dist
