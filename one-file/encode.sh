@@ -39,7 +39,7 @@ ffmpeg -hide_banner -y \
 # -i "$1" \
 # -metadata title="$2" \
 
-# enable video convertion in x265, preset slow and some custom params
+# enable video conversion in x265, preset slow and some custom params
 # -c:v libx265 -preset slow -x265-params $rarbg \
 # https://x265.readthedocs.io/en/master/presets.html
 # here use the default medium preset (same quality but bigger file size and faster encodes)
@@ -80,7 +80,7 @@ ffmpeg -hide_banner -y \
 
 # take-screenshot.sh "$title.mkv" 5
 
-# to check croppable area
+# to check crop-able area
 # ffplay -ss 00:10:00 -t 2 -i "input.mkv" -vf cropdetect=24:16:0
 # then in ffmpeg
 # -vf crop=1920:816:0:132 \
