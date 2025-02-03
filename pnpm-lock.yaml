@@ -34,8 +34,8 @@ importers:
         specifier: '1.40'
         version: 1.40.0
       shuutils:
-        specifier: '10.2'
-        version: 10.2.1
+        specifier: '10.3'
+        version: 10.3.0
       ts-node:
         specifier: '10.9'
         version: 10.9.2(@types/node@22.13.0)(typescript@5.7.2)
@@ -1443,6 +1443,9 @@ packages:
     engines: {node: '>= 0.4'}
     hasBin: true
 
+  resultx@2.0.2:
+    resolution: {integrity: sha512-wWaAwKrlQlIa4IIGkQi7UE4tt3XwoDI+XRDTYY8hVVaqQSwnQR4tDkLweSSvjtKNsUC86MKfok65+hNNLbZW4Q==}
+
   reusify@1.0.4:
     resolution: {integrity: sha512-U9nH88a3fc/ekCF1l0/UP1IosiuIjyTh7hBvXVMHYgVcfGvt897Xguj2UOLDeI5BG2m7/uwyaLVT6fbtCwTyzw==}
     engines: {iojs: '>=1.0.0', node: '>=0.10.0'}
@@ -1476,8 +1479,8 @@ packages:
     resolution: {integrity: sha512-Q+8PaUIik4W3bEE2xtDMZvYC7y4B8mnh3x7cneXPJmry0esVRir+hSZHh5Kjh6rtV0pYj+eKtAXBxJ8LDqPZhA==}
     hasBin: true
 
-  shuutils@10.2.1:
-    resolution: {integrity: sha512-jYwaBGltqZQaXc39y1xSUcwWW528gnH98vUwqNVqK5M+mFvmtEM8ZMd7FW1S0QqIj8ob7TXIIzg+01RbAe13pg==}
+  shuutils@10.3.0:
+    resolution: {integrity: sha512-Vo4USo3D0W59T2qAojxWx9BDnIZQrzhVh+8rnSXN757MpQ9gPr396HAYsO1jP+lkqjlxKOqbnk7IiFtfJOpyKQ==}
     hasBin: true
 
   siginfo@2.0.0:
@@ -3123,6 +3126,8 @@ snapshots:
       path-parse: 1.0.7
       supports-preserve-symlinks-flag: 1.0.0
 
+  resultx@2.0.2: {}
+
   reusify@1.0.4: {}
 
   rollup@4.29.1:
@@ -3168,8 +3173,9 @@ snapshots:
     dependencies:
       tiny-glob: 0.2.9
 
-  shuutils@10.2.1:
+  shuutils@10.3.0:
     dependencies:
+      resultx: 2.0.2
       tiny-glob: 0.2.9
 
   siginfo@2.0.0: {}
