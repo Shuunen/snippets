@@ -301,7 +301,7 @@ lsmod | grep xpad # should return nothing, if not : sudo rmmod xpad / sudo rmmod
 sudo chmod 700 ~/.ssh/ -R # remove 'sudo' on windows
 # mkdir ~/.npm-global # if not using nvm
 # npm config set prefix '~/.npm-global' # if not using nvm
-npm i pnpm@8 -g
+npm i pnpm -g
 mkdir ~/Projects/github -p
 cd ~/Projects/github
 git clone git@github.com:Shuunen/c-est-donne.git

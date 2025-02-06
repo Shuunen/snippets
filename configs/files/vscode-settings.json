@@ -52,6 +52,7 @@
     "antialiased",
     "antiquewhite",
     "Antutu",
+    "appwrite",
     "Appwrite",
     "Aquara",
     "araxis",
@@ -71,6 +72,7 @@
     "Beesly",
     "biomejs",
     "birthtime",
+    "bitrate",
     "Bluray",
     "bookmarklets",
     "brainz",
@@ -104,6 +106,7 @@
     "Dealabs",
     "Debounced",
     "deeppink",
+    "deno",
     "Deno",
     "depcruise",
     "deployer",
@@ -203,11 +206,13 @@
     "lcov",
     "lcovonly",
     "LGTM",
+    "libx",
     "lightcoral",
     "lightgray",
     "lightgreen",
     "linebreak",
     "linkedin",
+    "linux",
     "listitem",
     "localstorage",
     "lorsqu'elle",
@@ -295,6 +300,7 @@
     "racamier",
     "Racamier",
     "RACAMIRO",
+    "rarbg",
     "RARBG",
     "rawgit",
     "readonly",
@@ -398,6 +404,7 @@
     "Zorin",
     "zurb"
   ],
+  "chat.editing.alwaysSaveWithGeneratedChanges": true,
   "colorize.languages": [
     "css",
     "html",
@@ -417,6 +424,9 @@
   "diffEditor.ignoreTrimWhitespace": false,
   "diffEditor.renderSideBySide": true,
   "editor.accessibilitySupport": "off",
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
   "editor.formatOnSave": true,
   "editor.inlineSuggest.enabled": true,
   "editor.linkedEditing": true,
@@ -469,6 +479,7 @@
   "git.defaultBranchName": "master",
   "git.enableSmartCommit": true,
   "git.openRepositoryInParentFolders": "never",
+  "git.replaceTagsWhenPull": true,
   "github.copilot.editor.enableAutoCompletions": true,
   "github.copilot.enable": {
     "*": true,
@@ -582,10 +593,14 @@
   "vue.codeActions.savingTimeLimit": 2000,
   "window.commandCenter": false,
   "window.titleBarStyle": "custom",
+  "window.zoomLevel": 1,
   "workbench.colorTheme": "Default Dark+",
   "workbench.editorAssociations": {
+    "*.copilotmd": "vscode.markdown.preview.editor",
     "*.csv": "default",
-    "*.md": "default"
+    "*.lnk": "default",
+    "*.md": "default",
+    "{git,gitlens,git-graph}:/**/*.{md,csv,svg}": "default"
   },
   "xstate.nestTypegenFiles": false
 }
