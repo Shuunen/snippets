@@ -26,7 +26,8 @@ function updateClipboard (content) {
   log(`will copy this to clipboard :\n---\n${content}\n---`)
   clipboard.writeSync(content)
   logger.info('cleaned clipboard content at', new Date().toLocaleString())
-  execSync('wsay "trackers clean"')
+  const isLinux = process.platform === 'linux'
+  execSync(`${isLinux ? 'espeak' : 'wsay'} "trackers clean"`)
 }
 
 /**
