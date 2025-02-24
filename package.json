@@ -14,7 +14,7 @@
     "eslint": "*",
     "eslint-plugin-shuunen": "0.4",
     "repo-check": "1.42",
-    "shuutils": "10.4",
+    "shuutils": "10.5",
     "ts-node": "10.9",
     "typescript": "5.7",
     "vitest": "3.0"
