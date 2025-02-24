@@ -13,7 +13,7 @@
     "clipboardy": "4.0",
     "eslint": "*",
     "eslint-plugin-shuunen": "0.4",
-    "repo-check": "1.40",
+    "repo-check": "1.42",
     "shuutils": "10.4",
     "ts-node": "10.9",
     "typescript": "5.7",
