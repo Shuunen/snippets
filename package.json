@@ -12,7 +12,7 @@
     "@vitest/coverage-v8": "3.0",
     "clipboardy": "4.0",
     "eslint": "*",
-    "eslint-plugin-shuunen": "0.4",
+    "eslint-plugin-shuunen": "1.1",
     "repo-check": "1.42",
     "shuutils": "10.6",
     "ts-node": "10.9",
