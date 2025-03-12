@@ -21,6 +21,7 @@ function formatFile (filePath) {
 function getFiles (folderPath) {
   const stats = lstatSync(folderPath)
   if (stats.isFile()) return [folderPath]
+  // eslint-disable-next-line no-restricted-syntax
   if (!stats.isDirectory()) throw new Error('path must be a file or folder')
   return readdirSync(folderPath).filter((/** @type {string} */ file) => file.includes('.json')).map((/** @type {string} */ file) => path.join(folderPath, file))
 }
@@ -30,6 +31,7 @@ function getFiles (folderPath) {
  * @returns {string} the path
  */
 function getPath () {
+  // eslint-disable-next-line no-restricted-syntax
   if (process.argv.length <= expectedNbParameters) throw new Error(String.raw`this script need a path as argument like : format-json.js my-file.json or format-json.js "C:\My Folder\"`)
   return path.normalize(process.argv[expectedNbParameters] ?? '')
 }

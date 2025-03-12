@@ -3,6 +3,7 @@
  * @param input the text to clean
  * @returns {string} the readable string
  */
+// eslint-disable-next-line unicorn/prevent-abbreviations
 function readable (input = '') {
   return input
     .replace(/\([^(]+\)/gu, ' ') // remove parenthesis content(s)

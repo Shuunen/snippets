@@ -32,6 +32,7 @@ const willDryRun = argv.includes('--dry-run') || argv.includes('--dry')
 
 let listing = 'name,title\n'
 
+// eslint-disable-next-line unicorn/prevent-abbreviations
 const utils = {
   /**
    *
@@ -64,6 +65,7 @@ const utils = {
    */
   getVideoMetadata: async filepath => {
     const output = await utils.shellCommand(`ffprobe -show_format -show_streams -print_format json -v quiet -i "${filepath}" `)
+    // eslint-disable-next-line no-restricted-syntax
     if (!output.startsWith('{')) throw new Error(`ffprobe output should be JSON but got :${output}`)
     /** @type {FfProbeOutput} */
     // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -228,11 +230,13 @@ class CheckVideos {
     })
     const files = await utils.listFiles(videosPath)
     this.files = files.filter(entry => (!isIgnored.includes(entry) && isVideo.test(entry)))
+    // eslint-disable-next-line no-restricted-syntax
     if (this.files.length === 0) throw new Error(`no files found with these extensions ${String(isVideo)}`)
     console.log(this.files.length, 'files found\n')
     if (!willProcessOnlyOne || this.files.length === 0) return
     console.log('--process-one flag active : only one file will be processed\n')
     const [first] = this.files
+    // eslint-disable-next-line no-restricted-syntax
     if (first === undefined) throw new Error('no files found')
     this.files = [first]
   }

@@ -4,6 +4,7 @@
  * Merges an array of strings into a new array with unique values
  * @param {string[]} array the array to merge
  */
+// eslint-disable-next-line unicorn/prevent-abbreviations
 function mergeUnique (array) {
   return [...new Set(array)]
 }

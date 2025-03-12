@@ -17,7 +17,7 @@ const sizeGrain = 10_000
 
 // eslint-disable-next-line no-restricted-syntax
 class CheckDuplicates {
-  constructor () {
+  constructor() {
     /**
      * @type {string[]}
      */
@@ -32,6 +32,7 @@ class CheckDuplicates {
   }
 
   args () {
+    // eslint-disable-next-line no-restricted-syntax
     if (process.argv.length < 4) throw new Error(String.raw`this script need a path as argument like : find-duplicates.js "U:\Movies\"`)
     this.target = path.normalize(process.argv[3] || '')
   }

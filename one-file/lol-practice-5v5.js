@@ -38,6 +38,7 @@ function logAdd (/** @type {string[]} */ ...stuff) {
  *
  */
 function doRequest () {
+  // eslint-disable-next-line no-restricted-syntax
   if (!options.port) throw new Error('cannot make the request without port')
   logAdd('Making request...')
   const request = _request(options, (response) => {
@@ -50,6 +51,7 @@ function doRequest () {
   logAdd('Request made successfully, listening for error...')
   request.on('error', (/** @type {string} */ error) => {
     logAdd(error)
+    // eslint-disable-next-line no-restricted-syntax
     throw new Error(`Request error : ${error}`)
   })
   logAdd('Request error listened successfully, writing data...')
@@ -65,12 +67,15 @@ function doRequest () {
 // eslint-disable-next-line max-statements
 function readLock () {
   const lockPath = process.argv[2]
+  // eslint-disable-next-line no-restricted-syntax
   if (lockPath === undefined) throw new Error('missing lockfile path, use me like : \n\n lol-practice-5v5.js "D:\\Games\\Riot Games\\League of Legends\\lockfile" "My game lobby name"')
   logAdd(`Summoner lockfile located at : ${lockPath}`)
+  // eslint-disable-next-line no-restricted-syntax
   if (!lockPath.includes('lockfile')) throw new Error(String.raw`lockfile path invalid, should looks like "D:\Games\Riot Games\League of Legends\lockfile"`)
   logAdd('Reading lockfile...')
   const content = readFileSync(lockPath, 'utf8').split(':')
   logAdd('Lockfile read successfully')
+  // eslint-disable-next-line no-restricted-syntax
   if (content[2] === undefined || content[3] === undefined) throw new Error('lockfile does not contains expected data or is not formatted as usual')
   logAdd('Lockfile data parsed successfully')
   options.port = Number.parseInt(content[2], 10)

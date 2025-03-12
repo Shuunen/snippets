@@ -70,6 +70,7 @@ async function getFileSize (filePath) {
  */
 async function getVideoMetadata (filePath) {
   const output = await shellCommand(`ffprobe -show_format -show_streams -print_format json -v quiet -i "${filePath}" `)
+  // eslint-disable-next-line no-restricted-syntax
   if (!output.startsWith('{')) throw new Error(`ffprobe output should be JSON but got :${output}`)
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
   const data = JSON.parse(output)
@@ -97,6 +98,7 @@ function asciiWelcome () {
  */
 function getTask (totalSeconds, metadata) {
   if (metadata.filepath === undefined)
+    // eslint-disable-next-line no-restricted-syntax
     throw new Error('missing filepath')
   const screenName = getScreenshotFilename(totalSeconds, metadata)
 
@@ -111,6 +113,7 @@ function getTask (totalSeconds, metadata) {
 async function getTasks (input) {
   // eslint-disable-next-line @typescript-eslint/no-magic-numbers
   const videoPath = process.argv[2]
+  // eslint-disable-next-line no-restricted-syntax
   if (videoPath === undefined) throw new Error('no video path')
   const videoName = path.basename(videoPath)
   const meta = await getVideoMetadata(videoPath)
@@ -144,7 +147,7 @@ async function init () {
   asciiWelcome()
   await logClear()
   await logAdd('Take screenshot starts @', new Date().toISOString())
-  // eslint-disable-next-line @typescript-eslint/no-magic-numbers
+  // eslint-disable-next-line @typescript-eslint/no-magic-numbers, no-restricted-syntax
   if (process.argv[2] === undefined) throw new Error('missing videoPath')
   // eslint-disable-next-line @typescript-eslint/no-magic-numbers
   if (process.argv[3] !== undefined) { await takeScreenAt(process.argv[3]); return }

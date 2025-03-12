@@ -57,7 +57,9 @@ function renameIfNecessary (name) {
 function getGroupFromName (name) {
   const cleanName = renameIfNecessary(name)
   const slugs = slugify(cleanName).split('-')
+  // eslint-disable-next-line no-restricted-syntax
   if (slugs[0] === undefined) throw new Error(`No first slug found for ${cleanName}`)
+  // eslint-disable-next-line no-restricted-syntax
   if (slugs[1] === undefined) throw new Error(`No second slug found for ${cleanName}`)
   // eslint-disable-next-line @typescript-eslint/no-magic-numbers
   const isShort = slugs[0].length <= 5 && /\d{4}/u.test(slugs[1]) // short like "Taxi 1998"

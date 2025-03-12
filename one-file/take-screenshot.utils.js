@@ -1,5 +1,6 @@
 /* eslint-disable jsdoc/require-returns-description */
 /* eslint-disable jsdoc/require-param-description */
+// eslint-disable-next-line unicorn/prevent-abbreviations
 import { nbMsInSecond, nbSecondsInMinute } from 'shuutils'
 
 /**

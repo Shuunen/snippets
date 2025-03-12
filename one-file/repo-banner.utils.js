@@ -1,3 +1,4 @@
+// eslint-disable-next-line unicorn/prevent-abbreviations
 import { readFileSync, statSync } from 'node:fs'
 import path from 'node:path'
 import { Logger } from 'shuutils'

@@ -1,3 +1,4 @@
+// eslint-disable-next-line unicorn/prevent-abbreviations
 import { copyFile, mkdir } from 'node:fs/promises'
 import path from 'node:path'
 

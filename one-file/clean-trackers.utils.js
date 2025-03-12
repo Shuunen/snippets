@@ -1,3 +1,4 @@
+// eslint-disable-next-line unicorn/prevent-abbreviations
 import { isolateLines, linesToList } from './isolate-lines.utils.js'
 
 const trackersToClean = [

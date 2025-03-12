@@ -12,6 +12,7 @@ const kb = 1024
 const nbDecimals = 2
 const subsFolder = path.join(currentFolder, 'Subs')
 const subsStat = statSync(subsFolder)
+// eslint-disable-next-line no-restricted-syntax
 if (!subsStat.isDirectory()) throw new Error(`Could not find subs folder ${subsFolder}`)
 
 /**
@@ -56,6 +57,7 @@ const subfolders = readdirSync(subsFolder)
 for (const subfolder of subfolders) {
   const folderPath = path.join(subsFolder, subfolder)
   const folderStat = statSync(folderPath)
+  // eslint-disable-next-line no-restricted-syntax
   if (!folderStat.isDirectory()) throw new Error(`Could not find folder ${folderPath}`)
   const folderFiles = readdirSync(folderPath)
   for (const file of folderFiles) {

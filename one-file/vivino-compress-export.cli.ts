@@ -54,6 +54,7 @@ async function init () {
   await logAdd('Vivino compress starts @', new Date().toISOString())
   // eslint-disable-next-line unicorn/no-unreadable-array-destructuring
   const [, , fileName = ''] = process.argv
+  // eslint-disable-next-line no-restricted-syntax
   if (!fileName) throw new Error('missing full_wine_list.csv file path')
   const input = await fs.readFile(fileName, 'utf8')
   const output = compressCsv(input)
