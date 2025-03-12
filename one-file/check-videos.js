@@ -176,9 +176,9 @@ class CheckVideos {
       if (filename === undefined) continue
       console.log(`checking file ${(String(index + 1)).padStart((String(total)).length)} / ${total} : ${filename}`)
       // eslint-disable-next-line no-await-in-loop
-      await this.checkOne(filename)
+      await this.checkOne(path.normalize(filename))
     }
-    const listingFilename = `.${slugify(utils.folderName(videosPath) || 'check')}-videos-listing.csv`
+    const listingFilename = path.normalize(`.${slugify(utils.folderName(videosPath) || 'check')}-videos-listing.csv`)
     writeFileSync(path.join(videosPath, listingFilename), listing)
   }
   /**
@@ -187,11 +187,11 @@ class CheckVideos {
    * @returns {Promise<void>}
    */
   async checkOne (filename) {
-    const filepath = path.join(videosPath, filename)
+    const filepath = path.join(videosPath, path.normalize(filename))
     const meta = await utils.getVideoMetadata(filepath)
     if (willSetTitle && filename !== meta.filename) await utils.setVideoTitle(filepath, filename.length > meta.filename.length ? filename : meta.filename)
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
-    if (this.shouldRename(filename, meta.filename)) willDryRun ? console.log(`Would rename file to ${red(meta.filename)}\n`) : renameSync(filepath, path.join(videosPath, meta.filename))
+    if (this.shouldRename(filename, meta.filename)) willDryRun ? console.log(`Would rename file to ${red(meta.filename)}\n`) : renameSync(filepath, path.join(videosPath, path.normalize(meta.filename)))
     listing += `${filename},${meta.title}\n`
     const entry = `${utils.ellipsis(filename, 50).padEnd(50)}  ${(String(meta.sizeGb)).padStart(4)} Gb  ${(meta.codec).padEnd(5)} ${(String(meta.height)).padStart(4)}p  ${(String(meta.bitrateKbps)).padStart(4)} kbps  ${(String(meta.fps)).padStart(2)} fps`
     if (meta.isDvdRip) {
