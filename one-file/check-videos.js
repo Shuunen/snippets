@@ -176,10 +176,11 @@ class CheckVideos {
       if (filename === undefined) continue
       console.log(`checking file ${(String(index + 1)).padStart((String(total)).length)} / ${total} : ${filename}`)
       // eslint-disable-next-line no-await-in-loop
-      await this.checkOne(path.normalize(filename))
+      await this.checkOne(filename)
     }
-    const listingFilename = path.normalize(`.${slugify(utils.folderName(videosPath) || 'check')}-videos-listing.csv`)
-    writeFileSync(path.join(videosPath, listingFilename), listing)
+    const listingFilename = `.${slugify(utils.folderName(videosPath) || 'check')}-videos-listing.csv`
+    const filePath = path.normalize(path.join(videosPath, listingFilename))
+    writeFileSync(filePath, listing)
   }
   /**
    * Check one video
