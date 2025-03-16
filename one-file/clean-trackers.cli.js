@@ -1,6 +1,5 @@
 /* c8 ignore start */
 import clipboard from 'clipboardy'
-import { execSync } from 'node:child_process'
 import { Logger, nbMsInSecond, stringSum } from 'shuutils'
 import { cleanTrackers } from './clean-trackers.utils.js'
 
@@ -8,6 +7,13 @@ const willWatch = process.argv.includes('--watch')
 const isVerbose = process.argv.includes('--verbose')
 const logger = new Logger({ minimumLevel: isVerbose ? '1-debug' : '3-info' })
 let lastSum = 0
+
+/**
+ * Emit a beep sound
+ */
+function beep () {
+  console.log('\u0007');
+}
 
 /**
  * Log a message depending on the watch mode
@@ -26,8 +32,7 @@ function updateClipboard (content) {
   log(`will copy this to clipboard :\n---\n${content}\n---`)
   clipboard.writeSync(content)
   logger.info('cleaned clipboard content at', new Date().toLocaleString())
-  const isLinux = process.platform === 'linux'
-  execSync(`${isLinux ? 'espeak' : 'wsay'} "trackers clean"`)
+  beep()
 }
 
 /**
@@ -62,6 +67,7 @@ logger.info(`clean-trackers.cli start, watch is ${willWatch ? 'on' : 'off'}`)
 
 if (!willWatch) {
   doClean()
+  beep()
   process.exit(0)
 }
 
