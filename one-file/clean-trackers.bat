@@ -1,3 +1,3 @@
 @echo off
 
-node clean-trackers.cli.js > clean-trackers.log
+node "%USERPROFILE%\Projects\github\snippets\one-file\clean-trackers.cli.js" > "%USERPROFILE%\Projects\github\snippets\one-file\clean-trackers.log"
