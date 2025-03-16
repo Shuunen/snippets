@@ -1,6 +1,6 @@
 /* c8 ignore start */
 import clipboard from 'clipboardy'
-import { Logger, nbMsInSecond, stringSum } from 'shuutils'
+import { Logger, nbMsInSecond, nbRgbMax, sleep, stringSum } from 'shuutils'
 import { cleanTrackers } from './clean-trackers.utils.js'
 
 // use me like :
@@ -18,8 +18,9 @@ let lastSum = 0
 /**
  * Emit a beep sound
  */
-function beep () {
+async function beep () {
   console.log('\u0007');
+  await sleep(nbRgbMax)
 }
 
 /**
@@ -35,11 +36,11 @@ function log (message) {
  * Update the clipboard content
  * @param {string} content the content to copy to clipboard
  */
-function updateClipboard (content) {
+async function updateClipboard (content) {
   log(`will copy this to clipboard :\n---\n${content}\n---`)
   clipboard.writeSync(content)
   logger.info('cleaned clipboard content at', new Date().toLocaleString())
-  beep()
+  await beep()
 }
 
 /**
@@ -55,7 +56,7 @@ function hash (input) {
  * Clean the clipboard content
  */
 // eslint-disable-next-line max-statements
-function doClean () {
+async function doClean () {
   log('cleaning trackers...')
   const input = clipboard.readSync()
   if (!input.includes('http') && !input.includes('udp')) { log('no trackers in clipboard'); return }
@@ -67,16 +68,16 @@ function doClean () {
   const outputSum = hash(output)
   if (outputSum === actualSum) { log('output content is the same'); return }
   logger.debug(`input sum : ${actualSum}, output sum : ${outputSum}`)
-  updateClipboard(output)
+  await updateClipboard(output)
 }
 
 logger.info(`clean-trackers.cli start, watch is ${willWatch ? 'on' : 'off'}`)
 
 if (!willWatch) {
-  doClean()
-  beep()
+  await doClean()
+  await beep()
   process.exit(0)
 }
 
 logger.info('watching clipboard...')
-setInterval(doClean, nbMsInSecond)
+setInterval(() => doClean, nbMsInSecond)
