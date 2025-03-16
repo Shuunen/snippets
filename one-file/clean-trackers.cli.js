@@ -3,6 +3,13 @@ import clipboard from 'clipboardy'
 import { Logger, nbMsInSecond, stringSum } from 'shuutils'
 import { cleanTrackers } from './clean-trackers.utils.js'
 
+// use me like :
+// 1) copy a list of trackers in clipboard
+// 2) bun ~/Projects/github/snippets/one-file/clean-trackers.cli.js
+// 3) the cleaned list is now in clipboard
+
+// you can also use --watch to keep the script running and clean the clipboard each time it changes
+
 const willWatch = process.argv.includes('--watch')
 const isVerbose = process.argv.includes('--verbose')
 const logger = new Logger({ minimumLevel: isVerbose ? '1-debug' : '3-info' })
