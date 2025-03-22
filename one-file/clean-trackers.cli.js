@@ -80,4 +80,5 @@ if (!willWatch) {
 }
 
 logger.info('watching clipboard...')
-setInterval(() => doClean, nbMsInSecond)
+// eslint-disable-next-line @typescript-eslint/no-misused-promises
+setInterval(doClean, nbMsInSecond)
