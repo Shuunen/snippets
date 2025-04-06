@@ -2,33 +2,18 @@
   "[astro]": {
     "editor.defaultFormatter": "astro-build.astro-vscode"
   },
-  "[css]": {
-    "editor.defaultFormatter": "biomejs.biome"
-  },
   "[html]": {
     "editor.defaultFormatter": "vscode.html-language-features"
   },
-  "[javascript]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
+  "[javascript][javascriptreact][typescript][typescriptreact][css]": {
+    "editor.defaultFormatter": "biomejs.biome"
   },
-  "[javascriptreact]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
-  },
-  "[json]": {
-    "editor.defaultFormatter": "vscode.json-language-features"
-  },
-  "[jsonc]": {
+  "[json][jsonc]": {
     "editor.defaultFormatter": "vscode.json-language-features"
   },
   "[markdown]": {
     "editor.defaultFormatter": "yzhang.markdown-all-in-one",
     "editor.wordWrap": "off"
-  },
-  "[typescript]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
-  },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
   },
   "[vue]": {
     "editor.defaultFormatter": "Vue.volar"
@@ -93,6 +78,7 @@
     "cmyk",
     "codir",
     "colorette",
+    "Colour",
     "commitlint",
     "compat",
     "cyclomatic",
@@ -404,6 +390,7 @@
     "Zorin",
     "zurb"
   ],
+  "chat.agent.enabled": true,
   "chat.editing.alwaysSaveWithGeneratedChanges": true,
   "colorize.languages": [
     "css",
@@ -421,7 +408,7 @@
   "css.format.enable": false,
   "css.validate": false,
   "debug.allowBreakpointsEverywhere": true,
-  "diffEditor.ignoreTrimWhitespace": false,
+  "diffEditor.ignoreTrimWhitespace": true,
   "diffEditor.renderSideBySide": true,
   "editor.accessibilitySupport": "off",
   "editor.codeActionsOnSave": {
