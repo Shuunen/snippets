@@ -174,7 +174,7 @@ async function checkArchive(archive) {
   return new Promise(resolve => {
     sevenZip.list(pathToArchive, (error, content) => {
       if (error) logger.error(`Error while listing ${color(archive)}`, error)
-      const firstFolder = content.find(item => ['D', 'DA'].includes(item.attr))
+      const firstFolder = content?.find(item => ['D', 'DA'].includes(item.attr))
       if (firstFolder === undefined) logger.error(`Failed to find a folder in : ${color(archive)}`)
       else logger.debug(`${archive} content`, firstFolder)
       const isValid = firstFolder?.name === expectedFolder
