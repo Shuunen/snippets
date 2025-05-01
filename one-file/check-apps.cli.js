@@ -32,7 +32,7 @@ const readableExtensions = new Set(['7z', 'zip'])
  * @returns {number} the similarity between the two strings
  */
 // eslint-disable-next-line max-statements, complexity
-function stringsSimilarity (firstString, secondString) {
+function stringsSimilarity(firstString, secondString) {
   const first = firstString.replace(/\s+/gu, '')
   const second = secondString.replace(/\s+/gu, '')
   if (first === second) return 1 // identical or empty
@@ -41,13 +41,13 @@ function stringsSimilarity (firstString, secondString) {
   const firstSet = new Map()
   for (let index = 0; index < first.length - 1; index += 1) {
     const key = first.slice(index, index + nbThird)
-    const count = firstSet.has(key) ? firstSet.get(key) ?? 0 + 1 : 1
+    const count = firstSet.has(key) ? (firstSet.get(key) ?? 0 + 1) : 1
     firstSet.set(key, count)
-  };
+  }
   let intersectionSize = 0
   for (let index = 0; index < second.length - 1; index += 1) {
     const key = second.slice(index, index + nbThird)
-    const count = firstSet.has(key) ? firstSet.get(key) ?? 0 : 0
+    const count = firstSet.has(key) ? (firstSet.get(key) ?? 0) : 0
     if (count > 0) {
       firstSet.set(key, count - 1)
       intersectionSize += 1
@@ -62,7 +62,7 @@ function stringsSimilarity (firstString, secondString) {
  * @param {string} text the text to colorize
  * @returns {string} the colorized text
  */
-function color (text) {
+function color(text) {
   colorIndex = (colorIndex + 1) % colors.length
   return colors[colorIndex]?.(text) ?? text
 }
@@ -72,7 +72,7 @@ function color (text) {
  * @param {string} name the name to check, like "Clavier.Plus.Plus_108.exe", "AviDeMux_280.7z" or "Uni.Extract_200_2024-11"
  * @returns {boolean} true if the name is a file
  */
-function isFile (name) {
+function isFile(name) {
   return statSync(path.join(appsPath, name)).isFile()
 }
 
@@ -81,7 +81,7 @@ function isFile (name) {
  * @param {string} name the name to get the extension from, like "Clavier.Plus.Plus_108.exe", "AviDeMux_280.7z" or "Uni.Extract_200_2024-11" (folder)
  * @returns {string} the extension, like "exe", "7z" or ""
  */
-function getExtension (name) {
+function getExtension(name) {
   if (!isFile(name)) return ''
   const extension = path.extname(name).replace('.', '')
   return extension
@@ -92,9 +92,9 @@ function getExtension (name) {
  * @param {string} name the file name, like "Clavier.Plus.Plus_108.exe", "AviDeMux_280.7z" or "Uni.Extract_200_2024-11"
  * @returns {string} the group name
  */
-function getGroupFromName (name) {
+function getGroupFromName(name) {
   const extension = getExtension(name) // like "exe", "7z" or ""
-  const baseName = extension === "" ? name : name.replace(`.${extension}`, '') // like "Clavier.Plus.Plus_108", "AviDeMux_280" or "Uni.Extract_200_2024-11"
+  const baseName = extension === '' ? name : name.replace(`.${extension}`, '') // like "Clavier.Plus.Plus_108", "AviDeMux_280" or "Uni.Extract_200_2024-11"
   return baseName
 }
 
@@ -103,13 +103,14 @@ function getGroupFromName (name) {
  * @param {string} name the name to check, like "Clavier.Plus.Plus_108.exe", "AviDeMux_280.7z" or "Uni.Extract_200_2024-11"
  * @returns {boolean} true if the name should be checked
  */
-function shouldCheck (name) {
+function shouldCheck(name) {
+  if (name.startsWith('Java-')) return false // ignore Java related files
   const extension = getExtension(name) // like "exe", "7z" or ""
   if (extension === '') return true // we want to check folders
   const isValid = archivesExtensions.has(extension)
   if (isValid) {
     if (extension === 'rar') logger.warn(`Use 7z instead of ${color(extension)} for ${color(name)}`)
-    return true  // we want to check these archives files
+    return true // we want to check these archives files
   }
   logger.debug(`Ignoring : ${color(name)}`, { extension, name })
   return false
@@ -119,7 +120,7 @@ function shouldCheck (name) {
  * Get files
  * @returns {string[]} list of files
  */
-function getFiles () {
+function getFiles() {
   logger.info(`Scanning dir ${appsPath}...`)
   const files = readdirSync(appsPath).filter(name => shouldCheck(name))
   logger.info(`Found ${files.length} files`)
@@ -131,7 +132,7 @@ function getFiles () {
  * @param {string[]} files the files to group
  * @returns {Groups} the groups
  */
-function getGroups (files) {
+function getGroups(files) {
   /** @type {Groups} */
   const groups = {}
   for (const file of files) {
@@ -148,7 +149,7 @@ function getGroups (files) {
  * @param {string[]} groupNames the groups names to check
  * @param {string} groupName the group name to check
  */
-function checkCloseName (groupNames, groupName) {
+function checkCloseName(groupNames, groupName) {
   const minSimilarity = 0.65
   for (const groupNameA of groupNames) {
     if (groupName === groupNameA) continue
@@ -165,12 +166,12 @@ function checkCloseName (groupNames, groupName) {
  * @param {string} archive the archive to check, like "Clavier.Plus.Plus_108.7z"
  * @returns {Promise<void>} a promise that resolves to true if the archive contains the same name
  */
-async function checkArchive (archive) {
+async function checkArchive(archive) {
   const pathToArchive = path.join(appsPath, archive)
   const extension = getExtension(archive)
   if (!readableExtensions.has(extension)) return
   const expectedFolder = archive.replace(`.${extension}`, '')
-  return new Promise((resolve) => {
+  return new Promise(resolve => {
     sevenZip.list(pathToArchive, (error, content) => {
       if (error) logger.error(`Error while listing ${color(archive)}`, error)
       const firstFolder = content.find(item => ['D', 'DA'].includes(item.attr))
@@ -189,7 +190,7 @@ async function checkArchive (archive) {
  * @param {string[]} items the items to check, like ["Clavier.Plus.Plus_108" (folder), "Clavier.Plus.Plus_108.exe", "Clavier.Plus.Plus_108.7z"]
  * @param {string} groupName the group name to check, like "Clavier.Plus.Plus_108"
  */
-async function checkMissingArchive (items, groupName) {
+async function checkMissingArchive(items, groupName) {
   if (groupName.startsWith('_')) return
   const archive = items.find(item => archivesExtensions.has(getExtension(item)))
   if (archive === undefined) logger.warn(`Missing archive for ${color(groupName)}`)
@@ -207,7 +208,7 @@ const invalidVersionRegex = /[\b_](?<invalid>\d+\.\d*\.?\d*)/u
  * @param {string} name the group name to check, like "Clavier.Plus.Plus_108"
  */
 // eslint-disable-next-line complexity, max-statements
-function checkNameFormat (name) {
+function checkNameFormat(name) {
   if (name.startsWith('_')) return
   const parts = name.split('_')
   const minParts = 2
@@ -225,7 +226,7 @@ function checkNameFormat (name) {
  * Check the groups
  * @param {Groups} groups the groups to check
  */
-async function checkGroups (groups) {
+async function checkGroups(groups) {
   const groupNames = Object.keys(groups)
   for (const groupName of groupNames) {
     checkNameFormat(groupName)
@@ -240,11 +241,10 @@ async function checkGroups (groups) {
   }
 }
 
-
 /**
  * Start the check
  */
-async function start () {
+async function start() {
   logger.info('Check apps is starting !')
   const files = getFiles()
   const groups = getGroups(files)
@@ -252,7 +252,7 @@ async function start () {
   const nbWarnings = logger.inMemoryLogs.filter(log => log.includes('warn')).length
   if (nbWarnings === 0) logger.success('No warning found ( ͡° ͜ʖ ͡°)')
   else logger.warn(`${nbWarnings} warnings found ಠ_ಠ`)
-  logger.info(`Check apps is done`)
+  logger.info('Check apps is done')
 }
 
 await start()
