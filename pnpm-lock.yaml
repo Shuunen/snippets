@@ -9,15 +9,15 @@ importers:
   .:
     dependencies:
       7zip-min:
-        specifier: '1.4'
-        version: 1.4.5
+        specifier: '2.1'
+        version: 2.1.0
     devDependencies:
       '@biomejs/biome':
         specifier: 1.9.4
         version: 1.9.4
       '@types/7zip-min':
-        specifier: '1.3'
-        version: 1.3.3
+        specifier: '2.0'
+        version: 2.0.0
       '@types/node':
         specifier: '22.15'
         version: 22.15.3
@@ -54,8 +54,8 @@ packages:
   7zip-bin@5.1.1:
     resolution: {integrity: sha512-sAP4LldeWNz0lNzmTird3uWfFDWWTeg6V/MsmyyLR9X1idwKBWIgt/ZvinqQldJm3LecKEs1emkbquO6PCiLVQ==}
 
-  7zip-min@1.4.5:
-    resolution: {integrity: sha512-S+FzNwJFKF5LgQYs+hPQo+qeffdi+259Ak63rWEfkHP9arsU8gbe5K+4HscuWN1ih1lP1gTjDNPddbU0qhPtHQ==}
+  7zip-min@2.1.0:
+    resolution: {integrity: sha512-6uoMmPaasBQOyEuMIuNnASA6mF6ZfNmhsKdxJiEbtkHt9DkrJ0w1cZwyNdkDeOKjR2c5gOQAEkvMN3gyZ9MEBw==}
 
   '@alloc/quick-lru@5.2.0':
     resolution: {integrity: sha512-UrcABB+4bUrFABwbluTIBErXwvbsU/V7TZWfmbgJfbkwiBuziS9gxdODUyuiecfdGQ85jglMW6juS3+z5TsKLw==}
@@ -516,8 +516,9 @@ packages:
   '@tsconfig/node16@1.0.4':
     resolution: {integrity: sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY+A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==}
 
-  '@types/7zip-min@1.3.3':
-    resolution: {integrity: sha512-mzQE/AHuiRy4SQMYXTw4ggGiixpaH/wkCNHq+5cGjgmK88sz9zc7wRS2LOfiflBaVf2wQcl98Cm16zRqzKdJzQ==}
+  '@types/7zip-min@2.0.0':
+    resolution: {integrity: sha512-O1RSXPCUj9RruwsVkSYeLB76Q6hU8CC8AumDNbgyuUS2oTjdSymLzT/XxuURt6eJ+NA4JDtgGgizsInubb53hQ==}
+    deprecated: This is a stub types definition. 7zip-min provides its own type definitions, so you do not need this installed.
 
   '@types/estree@1.0.7':
     resolution: {integrity: sha512-w28IoSUCJpidD/TGviZwwMJckNESJZXFu7NBZ5YJ4mEUnNraUn9Pm8HSZm/jDF1pDWYKspWE7oVphigUPRakIQ==}
@@ -1847,7 +1848,7 @@ snapshots:
 
   7zip-bin@5.1.1: {}
 
-  7zip-min@1.4.5:
+  7zip-min@2.1.0:
     dependencies:
       7zip-bin: 5.1.1
 
@@ -2172,7 +2173,9 @@ snapshots:
 
   '@tsconfig/node16@1.0.4': {}
 
-  '@types/7zip-min@1.3.3': {}
+  '@types/7zip-min@2.0.0':
+    dependencies:
+      7zip-min: 2.1.0
 
   '@types/estree@1.0.7': {}
 
