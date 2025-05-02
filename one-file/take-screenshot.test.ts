@@ -1,5 +1,6 @@
 import { expect, it } from 'vitest'
 import { emptyMetadata, getFfmpegCommand, getScreenshotFilename, getTargets, parseUserInput, parseVideoMetadata, readableDuration, readableSize } from './take-screenshot.utils'
+import type { FfProbeOutput } from './take-screenshot.types'
 
 const ffProbeOutputA = { streams: [] }
 
@@ -19,6 +20,7 @@ const ffProbeOutputB = {
     avg_frame_rate: '25/1', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
     codec_name: 'aac', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
     codec_type: 'audio', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
+    color_transfer: '', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
     duration: '',
     height: 0,
     width: 0,
@@ -26,11 +28,12 @@ const ffProbeOutputB = {
     avg_frame_rate: '25/1', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
     codec_name: 'h264', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
     codec_type: 'video', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
+    color_transfer: '', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
     duration: '00:00:00.000000',
     height: 1080,
     width: 1920,
   }],
-}
+} satisfies null | Partial<FfProbeOutput>
 
 const expectedMetadataB = {
   duration: 789,
@@ -55,11 +58,12 @@ const ffProbeOutputCnoVideo = {
     avg_frame_rate: '25/1', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
     codec_name: 'aac', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
     codec_type: 'audio', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
+    color_transfer: '', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
     duration: '',
     height: 0,
     width: 0,
   }],
-}
+} satisfies null | Partial<FfProbeOutput>
 
 it('parseVideoMetadata C', () => { expect(parseVideoMetadata(ffProbeOutputCnoVideo)).toBe(emptyMetadata) })
 
@@ -68,11 +72,12 @@ const ffProbeOutputDnoFormat = {
     avg_frame_rate: '25/1', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
     codec_name: 'h264', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
     codec_type: 'video', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
+    color_transfer: '', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
     duration: '12',
     height: 720,
     width: 1280,
   }],
-}
+} satisfies null | Partial<FfProbeOutput>
 
 const expectedMetadataD = {
   duration: 0,

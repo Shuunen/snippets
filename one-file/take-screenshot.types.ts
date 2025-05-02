@@ -1,9 +1,13 @@
-type FfProbeOutputStream = {
+export type FfProbeOutputStream = {
   avg_frame_rate: string // eslint-disable-line @typescript-eslint/naming-convention
   codec_name: string // eslint-disable-line @typescript-eslint/naming-convention
   codec_type: string // eslint-disable-line @typescript-eslint/naming-convention
+  color_transfer: string // eslint-disable-line @typescript-eslint/naming-convention
   duration: string
   height: number
+  side_data_list?: { // eslint-disable-line @typescript-eslint/naming-convention
+    side_data_type: string // eslint-disable-line @typescript-eslint/naming-convention
+  }[]
   width: number
 }
 
