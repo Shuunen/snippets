@@ -2,7 +2,6 @@
 import sevenZip from '7zip-min'
 import { readdirSync, statSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
-import { fileURLToPath } from 'node:url'
 import { Logger, blue, green, nbPercentMax, nbThird, red, yellow } from 'shuutils'
 
 // Use me like : node ~/Projects/github/snippets/one-file/check-apps.cli.js "/d/Apps/"
@@ -18,8 +17,7 @@ if (parameters.length <= expectedNbParameters) logger.info(String.raw`Targeting 
 const appsPath = path.normalize(parameters[expectedNbParameters] ?? process.cwd())
 const colors = [red, green, blue, yellow]
 let colorIndex = 0
-const thisFilePath = fileURLToPath(import.meta.url)
-const currentFolder = path.dirname(thisFilePath)
+const currentFolder = import.meta.dirname
 const nbSpaces = 2
 const archivesExtensions = new Set(['7z', 'exe', 'rar', 'zip'])
 const readableExtensions = new Set(['7z', 'zip'])
@@ -137,7 +135,7 @@ function getGroups(files) {
   const groups = {}
   for (const file of files) {
     const group = getGroupFromName(file)
-    if (!groups[group]) groups[group] = []
+    groups[group] ??= []
     groups[group].push(file)
   }
   writeFileSync(path.join(currentFolder, 'check-apps.json'), JSON.stringify(groups, undefined, nbSpaces))

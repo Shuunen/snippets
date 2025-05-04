@@ -35,7 +35,6 @@ const willDryRun = argv.includes('--dry-run') || argv.includes('--dry')
 
 let listing = 'name,title\n'
 
-// eslint-disable-next-line unicorn/prevent-abbreviations
 const utils = {
   /**
    *
@@ -268,7 +267,7 @@ class CheckVideos {
    * @param {string|number} value
    */
   detect(type, entry, value) {
-    if (!this.detected[type]) this.detected[type] = []
+    this.detected[type] ??= []
     this.detected[type].push(`${entry}  [${value}]`)
   }
   /**

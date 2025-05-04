@@ -1,4 +1,3 @@
-// eslint-disable-next-line unicorn/prevent-abbreviations
 import { copyFile, mkdir } from 'node:fs/promises'
 import path from 'node:path'
 
@@ -8,7 +7,7 @@ import path from 'node:path'
  * @returns {string} the filename
  * @example filename('C:\\Users\\me\\file.txt') // 'file.txt'
  */
-export function filename (filepath = '') {
+export function filename(filepath = '') {
   return /[/\\](?<name>[\w.-]+)$/u.exec(filepath)?.groups?.name ?? ''
 }
 
@@ -18,7 +17,7 @@ export function filename (filepath = '') {
  * @param {RegExp[]} regexList the regex list to match
  * @returns {string} the cleaned content
  */
-export function removeLinesMatching (content, regexList) {
+export function removeLinesMatching(content, regexList) {
   const lines = content.split('\n')
   const filteredLines = lines.filter(line => !regexList.some(regex => regex.test(line)))
   return filteredLines.join('\n').trim()
@@ -30,7 +29,7 @@ export function removeLinesMatching (content, regexList) {
  * @param {RegExp} regex the regexp to match the line after which to remove content
  * @returns {string} the content without the lines after the matching line
  */
-export function removeLinesAfter (content, regex) {
+export function removeLinesAfter(content, regex) {
   const lines = content.split('\n')
   const index = lines.findIndex(line => regex.test(line))
   if (index === -1) return content.trim()
@@ -42,7 +41,7 @@ export function removeLinesAfter (content, regex) {
  * @param {string} content the content to be processed
  * @returns the processed content with unix line endings
  */
-export function useUnixCarriageReturn (content) {
+export function useUnixCarriageReturn(content) {
   return content.replace(/\r\n/gu, '\n')
 }
 
@@ -55,7 +54,7 @@ export function useUnixCarriageReturn (content) {
  * @returns {string} the cleaned file content
  */
 // eslint-disable-next-line @typescript-eslint/max-params
-export function clean (content, linesAfter, linesMatching, shouldClearSpaces = true) {
+export function clean(content, linesAfter, linesMatching, shouldClearSpaces = true) {
   if (!content) return ''
   let output = content
   if (linesAfter) output = removeLinesAfter(output, linesAfter)
@@ -73,7 +72,7 @@ export function clean (content, linesAfter, linesMatching, shouldClearSpaces = t
  * @param {string} home the home directory path
  * @returns the normalized path
  */
-export function normalizePathWithSlash (filepath, shouldUseTilde = false, home = process.env.HOME ?? '') {
+export function normalizePathWithSlash(filepath, shouldUseTilde = false, home = process.env.HOME ?? '') {
   let outPath = path.normalize(filepath).replace(/\\/gu, '/')
   if (shouldUseTilde) outPath = outPath.replace(normalizePathWithSlash(home), '~')
   return outPath
@@ -85,15 +84,17 @@ export function normalizePathWithSlash (filepath, shouldUseTilde = false, home =
  * @param {string} destination the destination file
  * @returns {Promise<boolean>} some bool result; i dont know im in the train to Paris
  */
-export async function copy (source, destination) {
+export async function copy(source, destination) {
   // destination will be created or overwritten by default.
   const destinationFolder = destination.replace(filename(destination), '')
   // eslint-disable-next-line @typescript-eslint/naming-convention
   await mkdir(destinationFolder, { recursive: true })
 
-  return copyFile(source, destination).then(() => true).catch(error => {
-    console.log(error)
-    return false
-  })
+  return copyFile(source, destination)
+    .then(() => true)
+    .catch(error => {
+      console.log(error)
+      return false
+    })
 }
 /* c8 ignore stop */

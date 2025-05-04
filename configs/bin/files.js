@@ -2,11 +2,9 @@
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { writeFile } from 'node:fs/promises'
 import path from 'node:path'
-import { fileURLToPath } from 'node:url'
 import { clean, useUnixCarriageReturn } from './utils.js'
 
-const currentFilePath = fileURLToPath(import.meta.url)
-const currentFolderPath = path.dirname(currentFilePath)
+const currentFolderPath = import.meta.dirname
 const changesFolderPath = path.join(currentFolderPath, '..', 'changes')
 
 const home = process.env.HOME ?? ''
@@ -38,9 +36,13 @@ const configs = [
 const windowsConfigs = [
   { source: `${home}/.bashrc`, renameTo: '.bashrc-windows' },
   { source: `${appData}/Launchy/launchy.ini`, removeLinesAfter: /\[History\]/u, removeLinesMatching: [/^(?:pos=|proxyType=)/u] },
-  { source: `D:/Apps/Espanso/.espanso/config/default.yml`, renameTo: 'espanso-config.yml' },
-  { source: `D:/Apps/Espanso/.espanso/match/base.yml`, renameTo: 'espanso-match.yml' },
-  { source: `${appData}/Greenshot/Greenshot.ini`, removeLinesAfter: /PowerpointSlideLayout=ppLayoutPictureWithCaption/u, removeLinesMatching: [/^(?:BaseIconSize|ImgurUploadHistory|LastCapturedRegion|LastSaveWithVersion|LastUpdateCheck|OutputFileAsFull|OutputFilePath|DeletedBuildInCommands|Win10BorderCrop|Commands=)/u, /MS Paint/u, /Paint\.NET/u] },
+  { source: 'D:/Apps/Espanso/.espanso/config/default.yml', renameTo: 'espanso-config.yml' },
+  { source: 'D:/Apps/Espanso/.espanso/match/base.yml', renameTo: 'espanso-match.yml' },
+  {
+    source: `${appData}/Greenshot/Greenshot.ini`,
+    removeLinesAfter: /PowerpointSlideLayout=ppLayoutPictureWithCaption/u,
+    removeLinesMatching: [/^(?:BaseIconSize|ImgurUploadHistory|LastCapturedRegion|LastSaveWithVersion|LastUpdateCheck|OutputFileAsFull|OutputFilePath|DeletedBuildInCommands|Win10BorderCrop|Commands=)/u, /MS Paint/u, /Paint\.NET/u],
+  },
 ]
 
 const linuxConfigs = [
@@ -65,14 +67,14 @@ const linuxConfigs = [
 
 configs.push(...(isWindows ? windowsConfigs : linuxConfigs))
 
-const currentFolder = path.dirname(fileURLToPath(import.meta.url))
+const currentFolder = import.meta.dirname
 
 /**
  * Transform a file path to a FileDetails object
  * @param {string} filepath the file path
  * @returns {import('./types').FileDetails} the file details
  */
-function getDetails (filepath) {
+function getDetails(filepath) {
   const isExisting = existsSync(filepath)
   const content = isExisting ? readFileSync(filepath, 'utf8') : ''
   const updatedContent = content.includes('\r') && !filepath.includes('.qbtheme') ? useUnixCarriageReturn(content) : content // qbtheme files does not like \n
@@ -86,7 +88,7 @@ function getDetails (filepath) {
  * @param {import('./types').Config} config the config
  * @returns the filename
  */
-function getFilename ({ renameTo, source }) {
+function getFilename({ renameTo, source }) {
   return renameTo ?? path.basename(source)
 }
 
@@ -96,7 +98,7 @@ function getFilename ({ renameTo, source }) {
  * @param {import('./types').Config} config the config
  * @returns true if the files are equals
  */
-function isEquals (file, config) {
+function isEquals(file, config) {
   const { destination, source } = file
   const { removeLinesAfter, removeLinesMatching } = config
   const filename = getFilename(config)
@@ -121,4 +123,3 @@ export const files = configs.map(config => {
   if (config.removeLinesAfter) file.removeLinesAfter = config.removeLinesAfter
   return file
 })
-

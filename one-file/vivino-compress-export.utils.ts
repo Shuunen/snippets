@@ -1,10 +1,8 @@
 /**
- *
  * @param input the text to clean
  * @returns {string} the readable string
  */
-// eslint-disable-next-line unicorn/prevent-abbreviations
-function readable (input = '') {
+function readable(input = '') {
   return input
     .replace(/\([^(]+\)/gu, ' ') // remove parenthesis content(s)
     .replace(/['’-]/gu, ' ').normalize('NFD').replace(/[^\d\sa-z]/giu, '').toLowerCase() // from shuutils sanitize
@@ -12,11 +10,10 @@ function readable (input = '') {
 }
 
 /**
- *
  * @param input the csv string
  * @returns {string} the compressed csv
  */
-export function compressCsv (input: string) {
+export function compressCsv(input: string) {
   return input
     .replace(/"[^"]*"/gu, '') // remove double quotes content(s)
     .split('\n')

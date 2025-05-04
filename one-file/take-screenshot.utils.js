@@ -1,6 +1,5 @@
 /* eslint-disable jsdoc/require-returns-description */
 /* eslint-disable jsdoc/require-param-description */
-// eslint-disable-next-line unicorn/prevent-abbreviations
 import { nbMsInSecond, nbSecondsInMinute } from 'shuutils'
 
 /**
@@ -17,9 +16,9 @@ export const /** @type {Metadata} */ emptyMetadata = { duration: 0, height: 0, s
  * @returns {Metadata}
  */
 // eslint-disable-next-line complexity
-export function parseVideoMetadata (ffProbeOutput) {
+export function parseVideoMetadata(ffProbeOutput) {
   if (ffProbeOutput?.streams === undefined || ffProbeOutput.streams.length === 0) return emptyMetadata
-  const video = ffProbeOutput.streams.find((stream) => stream.codec_type === 'video')
+  const video = ffProbeOutput.streams.find(stream => stream.codec_type === 'video')
   if (!video) return emptyMetadata
   const { height } = video
   const media = ffProbeOutput.format
@@ -36,7 +35,7 @@ export function parseVideoMetadata (ffProbeOutput) {
  * @returns {Target[]}
  */
 // eslint-disable-next-line max-statements
-export function getTargets (modulo, minutesBase, secondsBase) {
+export function getTargets(modulo, minutesBase, secondsBase) {
   const targets = []
   // eslint-disable-next-line no-useless-assignment
   let seconds = 0
@@ -46,12 +45,12 @@ export function getTargets (modulo, minutesBase, secondsBase) {
     if (seconds < 0) {
       minutes = minutesBase - 1
       seconds += nbSecondsInMinute
-    } else if (seconds > (nbSecondsInMinute - 1)) {
+    } else if (seconds > nbSecondsInMinute - 1) {
       minutes = minutesBase + 1
       seconds -= nbSecondsInMinute
     }
     targets.push({ minutes, seconds })
-    if (seconds === (nbSecondsInMinute - 1)) minutes += 1
+    if (seconds === nbSecondsInMinute - 1) minutes += 1
   }
   return targets
 }
@@ -62,8 +61,8 @@ export function getTargets (modulo, minutesBase, secondsBase) {
  * @returns {Target[]} like [{ minutes: 0, seconds: 12 }], [{minutes: 0, seconds: 11}, {minutes: 0, seconds: 12}, {minutes: 0, seconds: 13}] or [{minutes: 21, seconds: 4}, {minutes: 21, seconds: 5}, {minutes: 21, seconds: 6},{minutes: 21, seconds: 7}, {minutes: 21, seconds: 8}]
  */
 // eslint-disable-next-line complexity
-export function parseUserInput (userInput) {
-  const { minutesOrSeconds = '', moduloMarker = '', moduloMaybe = '', secondsMaybe = '' } = (/^(?<minutesOrSeconds>\d{1,2})(?<secondsMaybe>\d{0,2})(?<moduloMarker>[+-]*)(?<moduloMaybe>\d{0,2})$/u.exec(userInput))?.groups ?? {}
+export function parseUserInput(userInput) {
+  const { minutesOrSeconds = '', moduloMarker = '', moduloMaybe = '', secondsMaybe = '' } = /^(?<minutesOrSeconds>\d{1,2})(?<secondsMaybe>\d{0,2})(?<moduloMarker>[+-]*)(?<moduloMaybe>\d{0,2})$/u.exec(userInput)?.groups ?? {}
   if (minutesOrSeconds === '') return []
   const secondsBase = Number.parseInt(secondsMaybe || minutesOrSeconds, 10)
   const minutesBase = secondsMaybe === '' ? 0 : Number.parseInt(minutesOrSeconds, 10)
@@ -76,7 +75,7 @@ export function parseUserInput (userInput) {
  * @param {number} seconds
  * @returns {string}
  */
-export function readableDuration (seconds) {
+export function readableDuration(seconds) {
   // eslint-disable-next-line @typescript-eslint/no-magic-numbers
   return `${new Date(seconds * nbMsInSecond).toISOString().slice(11, 19).replace(':', 'h').replace(':', 'm')}s`
 }
@@ -85,7 +84,7 @@ export function readableDuration (seconds) {
  * @param {number} size
  * @returns {string}
  */
-export function readableSize (size) {
+export function readableSize(size) {
   let unit = 'go'
   // eslint-disable-next-line @typescript-eslint/no-magic-numbers
   let nb = (size / 1024 / 1024 / 1024).toFixed(1)
@@ -102,15 +101,9 @@ export function readableSize (size) {
  * @param {Metadata} metadata
  * @returns {string}
  */
-export function getScreenshotFilename (totalSeconds, metadata) {
+export function getScreenshotFilename(totalSeconds, metadata) {
   const { duration, height, size, title } = metadata
-  const screenName = `${[
-    title.replace(/\./gu, ' '),
-    readableDuration(totalSeconds),
-    readableSize(size),
-    `${height}p`,
-    readableDuration(duration),
-  ].join(' ').trim()}.jpg`
+  const screenName = `${[title.replace(/\./gu, ' '), readableDuration(totalSeconds), readableSize(size), `${height}p`, readableDuration(duration)].join(' ').trim()}.jpg`
 
   // replace un-authorized characters in filename
   return screenName.replace(/\s?["*/:<>?\\|]+\s?/gu, ' ').replace(/\s+/gu, ' ')
@@ -120,7 +113,7 @@ export function getScreenshotFilename (totalSeconds, metadata) {
  * @param {Task} task
  * @returns {string}
  */
-export function getFfmpegCommand (task) {
+export function getFfmpegCommand(task) {
   const { screenPath, totalSeconds, videoPath } = task
   return `ffmpeg -ss ${totalSeconds} -i "${videoPath}" -frames:v 1 -q:v 1 "${screenPath}"`
 }

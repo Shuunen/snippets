@@ -1,7 +1,6 @@
 /* c8 ignore start */
 import { readdirSync, renameSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
-import { fileURLToPath } from 'node:url'
 import { blue, ellipsis, green, isTestEnvironment, red, slugify, yellow } from 'shuutils'
 
 // Use me like : node ~/Projects/github/snippets/one-file/check-screens.cli.js "/u/Screens/"
@@ -14,8 +13,7 @@ const shouldShowFirst = parameters.includes('--first')
 const isImage = /\.(?:jpg|png)$/u
 const colors = [red, green, blue, yellow]
 let colorIndex = 0
-const thisFilePath = fileURLToPath(import.meta.url)
-const currentFolder = path.dirname(thisFilePath)
+const currentFolder = import.meta.dirname
 const nbSpaces = 2
 
 /**
@@ -23,7 +21,7 @@ const nbSpaces = 2
  * @param {string} text the text to colorize
  * @returns {string} the colorized text
  */
-function color (text) {
+function color(text) {
   colorIndex = (colorIndex + 1) % colors.length
   return colors[colorIndex]?.(text) ?? text
 }
@@ -33,16 +31,17 @@ function color (text) {
  * @param {string} name the file name, like "Taxi_1998.DVDRip.jpg"
  * @returns {string} the group name, like "Taxi 1998 DVDRip.jpg"
  */
-function renameIfNecessary (name) {
+function renameIfNecessary(name) {
   const baseName = path.basename(name)
   const extensionName = path.extname(baseName)
   const nameWithoutExtension = baseName.slice(0, -extensionName.length)
-  const cleanName = nameWithoutExtension
-    .replace(/[_.]/gu, ' ')
-    .replace(/\((?<year>\d{4})\)/gu, ' $<year> ')
-    .replace('!qB', ' ')
-    .replace(/(?<letter>[a-zA-Z0-9])(?<bracket>\[|\()/gu, '$<letter> $<bracket>')
-    .replace(/ +/gu, ' ') + extensionName
+  const cleanName =
+    nameWithoutExtension
+      .replace(/[_.]/gu, ' ')
+      .replace(/\((?<year>\d{4})\)/gu, ' $<year> ')
+      .replace('!qB', ' ')
+      .replace(/(?<letter>[a-zA-Z0-9])(?<bracket>\[|\()/gu, '$<letter> $<bracket>')
+      .replace(/ +/gu, ' ') + extensionName
   if (baseName === cleanName || isTestEnvironment()) return cleanName
   console.log(`Renaming : \n - ${red(name)}\nto : \n - ${green(cleanName)}\n`)
   renameSync(path.join(screensPath, name), path.join(screensPath, cleanName))
@@ -54,7 +53,7 @@ function renameIfNecessary (name) {
  * @param {string} name the file name
  * @returns {string} the group name
  */
-function getGroupFromName (name) {
+function getGroupFromName(name) {
   const cleanName = renameIfNecessary(name)
   const slugs = slugify(cleanName).split('-')
   // eslint-disable-next-line no-restricted-syntax
@@ -74,7 +73,7 @@ function getGroupFromName (name) {
  * Get files
  * @returns {string[]} list of files
  */
-function getFiles () {
+function getFiles() {
   console.log(`Scanning dir ${screensPath}...\n`)
   const files = readdirSync(screensPath).filter(name => isImage.test(name))
   console.log(`Found ${files.length} files`)
@@ -91,12 +90,12 @@ function getFiles () {
  * @param {string[]} files the files to group
  * @returns {Groups} the groups
  */
-function getGroups (files) {
+function getGroups(files) {
   /** @type {Groups} */
   const groups = {}
   for (const file of files) {
     const group = getGroupFromName(file)
-    if (!groups[group]) groups[group] = []
+    groups[group] ??= []
     groups[group].push(file)
   }
   return groups
@@ -107,7 +106,7 @@ function getGroups (files) {
  * @param {Groups} groups the groups to get singles from
  * @returns {number} the number of singles found
  */
-function getSingles (groups) {
+function getSingles(groups) {
   let singles = 0
   for (const [group, names] of Object.entries(groups))
     if (names.length === 1) {
@@ -123,7 +122,7 @@ function getSingles (groups) {
  * @param {number} singles the number of singles found
  * @returns {void}
  */
-function report (groups, singles) {
+function report(groups, singles) {
   if (singles === 0) console.log(`\n${color('No')} screenshot seems to be alone, ${color('well done ^^')}`)
   else console.log(`\nFound ${color(singles.toString())} screenshot(s) that seems to be alone`)
   writeFileSync(path.join(currentFolder, 'check-screens.json'), JSON.stringify(groups, undefined, nbSpaces))
@@ -132,7 +131,7 @@ function report (groups, singles) {
 /**
  *
  */
-function start () {
+function start() {
   console.log('\nCheck screens is starting !\n')
   const files = getFiles()
   const groups = getGroups(files)

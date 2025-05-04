@@ -2,19 +2,17 @@
 /* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import { promises as fs } from 'node:fs'
 import path from 'node:path'
-import { fileURLToPath } from 'node:url'
 import { compressCsv } from './vivino-compress-export.utils.js'
 
 // usage : ts-node-esm --transpileOnly ~/Projects/github/snippets/one-file/vivino-compress-export.cli.ts full_wine_list.csv
 
-const thisFilePath = fileURLToPath(import.meta.url)
-const currentFolder = path.dirname(thisFilePath)
+const currentFolder = import.meta.dirname
 const logFile = path.join(currentFolder, 'vivino-compress-export.log')
 
 /**
  *
  */
-function asciiWelcome () {
+function asciiWelcome() {
   console.log(`
   o     o  o         o                .oPYo.
   8     8                             8    8
@@ -33,7 +31,7 @@ function asciiWelcome () {
 /**
  *
  */
-async function logClear () {
+async function logClear() {
   await fs.writeFile(logFile, '')
 }
 
@@ -41,14 +39,14 @@ async function logClear () {
  *
  * @param {...any} stuff things to add to the log
  */
-async function logAdd (...stuff: Date[] | string[]) {
+async function logAdd(...stuff: Date[] | string[]) {
   await fs.appendFile(logFile, `${stuff.join(' ')}\n`)
 }
 
 /**
  *
  */
-async function init () {
+async function init() {
   asciiWelcome()
   await logClear()
   await logAdd('Vivino compress starts @', new Date().toISOString())

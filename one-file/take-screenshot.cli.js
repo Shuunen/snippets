@@ -7,8 +7,7 @@ import { exec } from 'node:child_process'
 import { promises as fs } from 'node:fs'
 import path from 'node:path'
 import { createInterface } from 'node:readline'
-import { fileURLToPath } from 'node:url'
-import { nbSecondsInMinute } from 'shuutils'
+import { nbFourth, nbSecondsInMinute, nbThird } from 'shuutils'
 import { getFfmpegCommand, getScreenshotFilename, parseUserInput, parseVideoMetadata } from './take-screenshot.utils.js' // js extension is required here
 
 /**
@@ -16,22 +15,21 @@ import { getFfmpegCommand, getScreenshotFilename, parseUserInput, parseVideoMeta
  * @typedef {import('./take-screenshot.types').Task} Task
  */
 
-const thisFilePath = fileURLToPath(import.meta.url)
-const currentFolder = path.dirname(thisFilePath)
+const currentFolder = import.meta.dirname
 const logFile = path.join(currentFolder, 'take-screenshot.log')
 const lastInputFile = path.join(currentFolder, 'take-screenshot-last-input.txt')
 
 /**
  *
  */
-async function logClear () {
+async function logClear() {
   await fs.writeFile(logFile, '')
 }
 
 /**
  * @param  {Date[] | string[]} stuff things to add to the log
  */
-async function logAdd (...stuff) {
+async function logAdd(...stuff) {
   await fs.appendFile(logFile, `${stuff.join(' ')}\n`)
 }
 
@@ -41,8 +39,8 @@ const ask = createInterface({ input: process.stdin, output: process.stdout })
  * @param {string} cmd
  * @returns {Promise<string>}
  */
-async function shellCommand (cmd) {
-  return new Promise((resolve) => {
+async function shellCommand(cmd) {
+  return new Promise(resolve => {
     exec(cmd, (error, stdout, stderr) => {
       if (error) console.error(error)
       resolve(stdout || stderr)
@@ -53,14 +51,14 @@ async function shellCommand (cmd) {
 /**
  * @param {string} filePath
  */
-async function deleteFile (filePath) {
+async function deleteFile(filePath) {
   await fs.unlink(filePath).catch(() => 'ok')
 }
 
 /**
  * @param {string} filePath
  */
-async function getFileSize (filePath) {
+async function getFileSize(filePath) {
   const stats = await fs.stat(filePath)
   return stats.size
 }
@@ -68,7 +66,7 @@ async function getFileSize (filePath) {
 /**
  * @param {string} filePath
  */
-async function getVideoMetadata (filePath) {
+async function getVideoMetadata(filePath) {
   const output = await shellCommand(`ffprobe -show_format -show_streams -print_format json -v quiet -i "${filePath}" `)
   // eslint-disable-next-line no-restricted-syntax
   if (!output.startsWith('{')) throw new Error(`ffprobe output should be JSON but got :${output}`)
@@ -84,7 +82,7 @@ async function getVideoMetadata (filePath) {
 /**
  *
  */
-function asciiWelcome () {
+function asciiWelcome() {
   console.log(`
   ~|~ _ |  _   (~ _ _ _  _  _  _|_  _ _|_
    | (_||<(/_  _)(_| (/_(/_| |_\\| |(_) |
@@ -96,7 +94,7 @@ function asciiWelcome () {
  * @param {Metadata} metadata
  * @returns {Task}
  */
-function getTask (totalSeconds, metadata) {
+function getTask(totalSeconds, metadata) {
   if (metadata.filepath === undefined)
     // eslint-disable-next-line no-restricted-syntax
     throw new Error('missing filepath')
@@ -110,7 +108,7 @@ function getTask (totalSeconds, metadata) {
  * @param {string} input
  * @returns {Promise<Task[]>}
  */
-async function getTasks (input) {
+async function getTasks(input) {
   // eslint-disable-next-line @typescript-eslint/no-magic-numbers
   const videoPath = process.argv[2]
   // eslint-disable-next-line no-restricted-syntax
@@ -126,7 +124,7 @@ async function getTasks (input) {
 /**
  * @param {string} input
  */
-async function takeScreenAt (input) {
+async function takeScreenAt(input) {
   await logAdd(`Input : "${input}"`)
   void fs.writeFile(lastInputFile, input)
   const tasks = await getTasks(input)
@@ -143,17 +141,24 @@ async function takeScreenAt (input) {
 /**
  *
  */
-async function init () {
+async function init() {
   asciiWelcome()
   await logClear()
   await logAdd('Take screenshot starts @', new Date().toISOString())
-  // eslint-disable-next-line @typescript-eslint/no-magic-numbers, no-restricted-syntax
-  if (process.argv[2] === undefined) throw new Error('missing videoPath')
-  // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-  if (process.argv[3] !== undefined) { await takeScreenAt(process.argv[3]); return }
+  // eslint-disable-next-line no-restricted-syntax
+  if (process.argv[nbThird] === undefined) throw new Error('missing videoPath')
+  if (process.argv[nbFourth] !== undefined) {
+    await takeScreenAt(process.argv[nbFourth])
+    return
+  }
   const lastInput = await fs.readFile(lastInputFile, 'utf8').catch(() => '60')
   await logAdd('Last input :', lastInput)
-  ask.question(`  Please type the time in mmss or ss (enter to use "${lastInput}") : `, async (time) => { await takeScreenAt(time || lastInput) }) // eslint-disable-line @typescript-eslint/no-misused-promises
+  // eslint-disable-next-line @typescript-eslint/no-misused-promises
+  ask.question(`  Please type the time in mmss or ss (enter to use "${lastInput}") : `, async time => {
+    await takeScreenAt(time || lastInput)
+  })
 }
 
-await init().catch(async error => { await logAdd(`Init global error : ${error}`) })
+await init().catch(async error => {
+  await logAdd(`Init global error : ${error}`)
+})

@@ -3,7 +3,6 @@
 import { appendFileSync, readFileSync, writeFileSync } from 'node:fs'
 import { request as _request } from 'node:https'
 import path from 'node:path'
-import { fileURLToPath } from 'node:url'
 
 const data = {
   customGameLobby: {
@@ -14,22 +13,21 @@ const data = {
   isCustom: true,
 }
 // eslint-disable-next-line @typescript-eslint/naming-convention
-const options = { headers: { 'Authorization': '', 'Content-Type': 'application/json' }, hostname: '127.0.0.1', method: 'POST', path: '/lol-lobby/v2/lobby', port: 0 }
-
-const currentFolder = path.dirname(fileURLToPath(import.meta.url))
+const options = { headers: { Authorization: '', 'Content-Type': 'application/json' }, hostname: '127.0.0.1', method: 'POST', path: '/lol-lobby/v2/lobby', port: 0 }
+const currentFolder = import.meta.dirname
 const logFile = path.join(currentFolder, 'lol-practice-5v5.log')
 let logCount = 0
 /**
  *
  */
-function logClear () {
+function logClear() {
   writeFileSync(logFile, '')
 }
 /**
  *
  * @param {...any} stuff the things to log
  */
-function logAdd (/** @type {string[]} */ ...stuff) {
+function logAdd(/** @type {string[]} */ ...stuff) {
   logCount += 1
   appendFileSync(logFile, `\n${logCount}) ${stuff.join(' ')}\n`)
 }
@@ -37,16 +35,20 @@ function logAdd (/** @type {string[]} */ ...stuff) {
 /**
  *
  */
-function doRequest () {
+function doRequest() {
   // eslint-disable-next-line no-restricted-syntax
   if (!options.port) throw new Error('cannot make the request without port')
   logAdd('Making request...')
-  const request = _request(options, (response) => {
+  const request = _request(options, response => {
     logAdd(`Game api response status code : ${response.statusCode?.toString() ?? 'unknown-response-statusCode'}`)
     let requestData = ''
-    response.on('data', chunk => { requestData += chunk })
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
-    response.on('end', () => { logAdd(`5v5 Practice created successfully by ${JSON.parse(requestData).localMember.summonerName}`) })
+    response.on('data', chunk => {
+      requestData += chunk
+    })
+    response.on('end', () => {
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+      logAdd(`5v5 Practice created successfully by ${JSON.parse(requestData).localMember.summonerName}`)
+    })
   })
   logAdd('Request made successfully, listening for error...')
   request.on('error', (/** @type {string} */ error) => {
@@ -60,12 +62,11 @@ function doRequest () {
   request.end()
 }
 
-
 /**
  *
  */
 // eslint-disable-next-line max-statements
-function readLock () {
+function readLock() {
   const lockPath = process.argv[2]
   // eslint-disable-next-line no-restricted-syntax
   if (lockPath === undefined) throw new Error('missing lockfile path, use me like : \n\n lol-practice-5v5.js "D:\\Games\\Riot Games\\League of Legends\\lockfile" "My game lobby name"')
@@ -88,7 +89,7 @@ function readLock () {
 /**
  *
  */
-function handleCustomName () {
+function handleCustomName() {
   const customName = process.argv[3]
   if (customName !== undefined) data.customGameLobby.lobbyName = customName
 }
@@ -96,7 +97,7 @@ function handleCustomName () {
 /**
  *
  */
-function init () {
+function init() {
   logClear()
   logAdd('LoL Practice 5v5 maker starts @', String(new Date()))
   logAdd('Checking process.env.NODE_TLS_REJECT_UNAUTHORIZED status', process.env.NODE_TLS_REJECT_UNAUTHORIZED === '0' ? 'OK, disabled as expected' : 'KO, not disabled, this script should not work without it')

@@ -1,13 +1,11 @@
 /* c8 ignore start */
 import { readFileSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
-import { fileURLToPath } from 'node:url'
 import { extractData, logger, replaceAndCheck, replaceAndCheckById } from './repo-banner.utils.js'
 
 // usage : node one-file/repo-banner.cli.js
 
-const thisFilePath = fileURLToPath(import.meta.url)
-const thisFileFolder = path.dirname(thisFilePath)
+const thisFileFolder = import.meta.dirname
 logger.info('Repo banner generator start @', new Date().toLocaleString())
 logger.info('Generator folder :', thisFileFolder)
 logger.info('Target folder :', process.cwd())
