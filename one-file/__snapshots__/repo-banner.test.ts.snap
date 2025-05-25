@@ -1,6 +1,6 @@
 // Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
 
-exports[`replaceAndCheckById A 1`] = `
+exports[`repo-banner > replaceAndCheckById A 1`] = `
 "<svg viewBox="0 0 388 240" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:xhtml="http://www.w3.org/1999/xhtml">
 <defs>
   <linearGradient gradientUnits="userSpaceOnUse" x1="200" y1="150" x2="200" y2="200" id="triangle-gradient" >
