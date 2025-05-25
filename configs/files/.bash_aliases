@@ -38,5 +38,6 @@ function setProxy() {
 if ! [[ "$PATH" =~ .npm-global/bin ]] && [ -d "$HOME/.npm-global/bin" ]; then PATH="$PATH:$HOME/.npm-global/bin"; elif [ -d "$HOME/.npm-global" ]; then PATH="$PATH:$HOME/.npm-global"; fi
 if ! [[ "$PATH" =~ .local/share/applications ]] && [ -d "$HOME/.local/share/applications" ]; then PATH="$PATH:$HOME/.local/share/applications"; fi
 if ! [[ "$PATH" =~ snippets/one-file ]] && [ -d "$HOME/Projects/github/snippets/one-file" ]; then PATH="$PATH:$HOME/Projects/github/snippets/one-file"; fi
+if ! [[ "$PATH" =~ Node_22_Final ]] && [ -d "/d/Apps/Node_22_Final" ]; then PATH="$PATH:/d/Apps/Node_22_Final"; fi
 
 echo Bash aliases loaded.
