@@ -7,9 +7,26 @@
 
 > My personal snippets, tests, and things that are too small to have their own repo :)
 
+## Tools
+
+### Repo Banner
+
+In a terminal, cd to the root of your repo and run:
+
+```bash
+node path/to/one-file/repo-banner.cli.js
+```
+
+Here is the output of the cli running on this repository :
+
+![demo](docs/demo-repo-banner.jpg)
+
+It will generate a `<project-name>-banner.svg` file that you can use in your README.md file, here is the output for this repository :
+
+![demo](docs/banner.svg)
+
 ## Todo
 
-- [ ] add a demo
 - [ ] compress repo-banner output with svgo
 - [ ] let repo-banner find the color in manifest.json or index.html files
 - [ ] banner is displayed full width, so the height should be reduced by 40%
@@ -18,6 +35,7 @@
 ## Thanks
 
 - [Boxy Svg](https://boxy-svg.com) : simple & effective svg editor
+- [Bun](https://bun.sh) : super fast runtime for JavaScript and TypeScript
 - [Eslint](https://eslint.org) : super tool to find & fix problems
 - [Github](https://github.com) : for all their great work year after year, pushing OSS forward
 - [Repo-checker](https://github.com/Shuunen/repo-checker) : eslint cover /src code and this tool the rest ^^
@@ -33,4 +51,4 @@
 
 ## Page views
 
-[![Free Website Counter](https://www.websitecounterfree.com/c.php?d=9&id=63984&s=12)](https://www.websitecounterfree.com)
+[![Views Counter](https://views-counter.vercel.app/badge?pageId=Shuunen%2Fsnippets&leftColor=5c5c5c&rightColor=07a62f&type=total&label=Visitors&style=none)](https://github.com/Kumara2mahe/Views-Counter)
