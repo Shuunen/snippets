@@ -24,4 +24,4 @@ svg = replaceAndCheckById(svg, 'projectDescription', description)
 logger.info('SVG code prepared, writing to file...')
 const outFile = `${name}-banner.svg`
 writeFileSync(outFile, svg)
-logger.test(true, 'SVG code written to', outFile)
+logger.success('SVG code written to', outFile)
