@@ -9,5 +9,6 @@ export default defineConfig({
         100: true,
       },
     },
+    pool: 'threads',
   },
 })
