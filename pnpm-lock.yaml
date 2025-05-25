@@ -31,8 +31,8 @@ importers:
         specifier: '1.3'
         version: 1.3.0(eslint@9.27.0(jiti@1.21.7))(tailwindcss@3.4.16(ts-node@10.9.2(@types/node@22.15.18)(typescript@5.8.3)))(typescript@5.8.3)(vue-eslint-parser@9.4.3(eslint@9.27.0(jiti@1.21.7)))
       repo-check:
-        specifier: '1.43'
-        version: 1.43.0
+        specifier: '1.44'
+        version: 1.44.0
       shuutils:
         specifier: '10.6'
         version: 10.6.0
@@ -1452,8 +1452,8 @@ packages:
     resolution: {integrity: sha512-cnE+y8bz4NhMjISKbgeVJtqNbtf5QpjZP+Bslo+UqkIt9QPnX9q095eiRRASJG1/tz6dlNr6Z5NsBiWYokp6EQ==}
     hasBin: true
 
-  repo-check@1.43.0:
-    resolution: {integrity: sha512-vKeQysGHFjT27m8kXUnspSdoIPnvXh+VXzj/XZHJzXbCCAWnn/pIUyJTWjtO5JhJcOeT+C0PyfloN7aBZHhXiA==}
+  repo-check@1.44.0:
+    resolution: {integrity: sha512-b5SSQ05OQP8LymPiGcfMPe2gVhrto7l/V6hRlL6oWrlTej0fdfcSp6dDk0uYyVQsWkHRcNkCWyNzGO1A7BfJqg==}
     hasBin: true
 
   resolve-from@4.0.0:
@@ -3099,7 +3099,7 @@ snapshots:
     dependencies:
       jsesc: 3.0.2
 
-  repo-check@1.43.0:
+  repo-check@1.44.0:
     dependencies:
       arg: 5.0.2
       shuutils: 10.6.0
