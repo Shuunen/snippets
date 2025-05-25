@@ -1,26 +1,58 @@
 #!/bin/bash
 
+# Helper function to detect package manager
+pkgm() {
+  if [ -f "bun.lock" ] || [ -f "bun.lockb" ]; then
+    echo "bun"
+  elif [ -f "pnpm-lock.yaml" ]; then
+    echo "pnpm"
+  else
+    echo "npm"
+  fi
+}
+pkgmVersion="$($(pkgm) --version)"
+
 alias ..='cd ..' 
 alias ll="ls -lv --almost-all --no-group --human-readable --classify --group-directories-first --time-style=long-iso --color=auto"
 alias merge=meld 
 alias mkdir='mkdir -pv' 
 alias psg='ps aux | grep -v grep | grep -i -e VSZ -e'
-alias regenLock="rm node_modules/ -rf && rm pnpm-lock.yaml && pnpm i && pnpm outdated"
-alias updateLock="pnpm update && git checkout package.json && pnpm i && pnpm outdated"
+
+# Improved regenLock to handle bun, pnpm, and npm
+regenLock() {
+  rm -rf node_modules/
+  if [ -f "bun.lock" ] || [ -f "bun.lockb" ]; then
+    rm -f bun.lock bun.lockb
+    bun install
+    bun outdated
+  elif [ -f "pnpm-lock.yaml" ]; then
+    rm -f pnpm-lock.yaml
+    pnpm install
+    pnpm outdated
+  else
+    rm -f package-lock.json
+    npm install
+    npm outdated
+  fi
+}
+alias regenLock=regenLock
+
+alias updateLock="$(pkgm) update && git checkout package.json && $(pkgm) install && $(pkgm) outdated"
 alias whatsmyip='curl http://ipecho.net/plain; echo'
 alias treesize='ncdu'
-alias p="pnpm"
-alias pc="pnpm check"
-alias pd="pnpm dev"
-alias pt="pnpm test"
-alias ptw="pnpm test:watch"
-alias ptu="pnpm test:update"
-alias pl="pnpm lint"
-alias ps="pnpm start"
-alias pi="pnpm install"
-alias pb="pnpm build"
-alias po="pnpm outdated"
-alias pu="pnpm update"
+alias p="$(pkgm)"
+alias pp="echo && echo Using $(pkgm) $pkgmVersion 🚀 && echo"
+alias pc="$(pkgm) check"
+alias pd="$(pkgm) dev"
+alias pt="$(pkgm) run test"
+alias ptw="$(pkgm) test:watch"
+alias ptu="$(pkgm) test:update"
+alias pl="$(pkgm) lint"
+alias ps="$(pkgm) start"
+alias pi="$(pkgm) install"
+alias pb="$(pkgm) run build"
+alias po="$(pkgm) outdated"
+alias pu="$(pkgm) update"
 
 export no_proxy=".specific-domain.com,localhost"
 
@@ -40,4 +72,4 @@ if ! [[ "$PATH" =~ .local/share/applications ]] && [ -d "$HOME/.local/share/appl
 if ! [[ "$PATH" =~ snippets/one-file ]] && [ -d "$HOME/Projects/github/snippets/one-file" ]; then PATH="$PATH:$HOME/Projects/github/snippets/one-file"; fi
 if ! [[ "$PATH" =~ Node_22_Final ]] && [ -d "/d/Apps/Node_22_Final" ]; then PATH="$PATH:/d/Apps/Node_22_Final"; fi
 
-echo Bash aliases loaded.
+echo Bash aliases loaded 🧭
