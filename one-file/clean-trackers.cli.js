@@ -61,7 +61,7 @@ function hash(input) {
 async function doClean() {
   log('cleaning trackers...')
   const input = clipboard.readSync()
-  if (!input.includes('http') && !input.includes('udp')) {
+  if (!(input.includes('http') || input.includes('udp'))) {
     log('no trackers in clipboard')
     return
   }

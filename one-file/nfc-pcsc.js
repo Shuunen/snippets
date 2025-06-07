@@ -9,8 +9,10 @@
 // #############
 
 // @ts-ignore
+// biome-ignore lint/correctness/noUndeclaredDependencies: i know
 import consola from 'consola'
 // @ts-ignore
+// biome-ignore lint/correctness/noUndeclaredDependencies: i know
 import { KEY_TYPE_B, NFC, TAG_ISO_14443_3, TAG_ISO_14443_4 } from 'nfc-pcsc'
 
 consola.wrapConsole()

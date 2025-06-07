@@ -115,7 +115,7 @@ async function getTasks(input) {
  */
 async function takeScreenAt(input) {
   await logAdd(`Input : "${input}"`)
-  void fs.writeFile(lastInputFile, input)
+  fs.writeFile(lastInputFile, input)
   const tasks = await getTasks(input)
   await logAdd(`Tasks prepared : ${tasks.length}`)
   for (const task of tasks) {

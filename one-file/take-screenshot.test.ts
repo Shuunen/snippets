@@ -10,7 +10,7 @@ it('parseVideoMetadata A', () => {
 
 const ffProbeOutputB = {
   format: {
-    bit_rate: 123_456, // eslint-disable-line @typescript-eslint/naming-convention, camelcase
+    bit_rate: 123_456,
     duration: 789,
     filename: 'plop.mp4',
     size: 123_456,
@@ -20,19 +20,19 @@ const ffProbeOutputB = {
   },
   streams: [
     {
-      avg_frame_rate: '25/1', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
-      codec_name: 'aac', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
-      codec_type: 'audio', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
-      color_transfer: '', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
+      avg_frame_rate: '25/1',
+      codec_name: 'aac',
+      codec_type: 'audio',
+      color_transfer: '',
       duration: '',
       height: 0,
       width: 0,
     },
     {
-      avg_frame_rate: '25/1', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
-      codec_name: 'h264', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
-      codec_type: 'video', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
-      color_transfer: '', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
+      avg_frame_rate: '25/1',
+      codec_name: 'h264',
+      codec_type: 'video',
+      color_transfer: '',
       duration: '00:00:00.000000',
       height: 1080,
       width: 1920,
@@ -53,7 +53,7 @@ it('parseVideoMetadata B', () => {
 
 const ffProbeOutputCnoVideo = {
   format: {
-    bit_rate: 123_456, // eslint-disable-line @typescript-eslint/naming-convention, camelcase
+    bit_rate: 123_456,
     duration: 123,
     filename: 'jazz.mp3',
     size: 698_765,
@@ -63,10 +63,10 @@ const ffProbeOutputCnoVideo = {
   },
   streams: [
     {
-      avg_frame_rate: '25/1', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
-      codec_name: 'aac', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
-      codec_type: 'audio', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
-      color_transfer: '', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
+      avg_frame_rate: '25/1',
+      codec_name: 'aac',
+      codec_type: 'audio',
+      color_transfer: '',
       duration: '',
       height: 0,
       width: 0,
@@ -81,10 +81,10 @@ it('parseVideoMetadata C', () => {
 const ffProbeOutputDnoFormat = {
   streams: [
     {
-      avg_frame_rate: '25/1', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
-      codec_name: 'h264', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
-      codec_type: 'video', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
-      color_transfer: '', // eslint-disable-line @typescript-eslint/naming-convention, camelcase
+      avg_frame_rate: '25/1',
+      codec_name: 'h264',
+      codec_type: 'video',
+      color_transfer: '',
       duration: '12',
       height: 720,
       width: 1280,

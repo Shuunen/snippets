@@ -2,6 +2,7 @@
 const lastRequest = { method: '', url: '' }
 
 // @ts-ignore
+// biome-ignore lint/style/useNamingConvention: it's a Class
 const OldXHR = globalThis.XMLHttpRequest
 
 function XhrProxy() {

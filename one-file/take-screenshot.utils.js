@@ -9,6 +9,10 @@ import { nbMsInSecond, nbSecondsInMinute } from 'shuutils'
 
 export const /** @type {Metadata} */ emptyMetadata = { duration: 0, height: 0, size: 0, title: '' }
 
+const regex = {
+  userInput: /^(?<minutesOrSeconds>\d{1,2})(?<secondsMaybe>\d{0,2})(?<moduloMarker>[+-]*)(?<moduloMaybe>\d{0,2})$/u,
+}
+
 /**
  * @param {Partial<FfProbeOutput>?} ffProbeOutput
  * @returns {Metadata}
@@ -56,7 +60,7 @@ export function getTargets(modulo, minutesBase, secondsBase) {
  * @returns {Target[]} like [{ minutes: 0, seconds: 12 }], [{minutes: 0, seconds: 11}, {minutes: 0, seconds: 12}, {minutes: 0, seconds: 13}] or [{minutes: 21, seconds: 4}, {minutes: 21, seconds: 5}, {minutes: 21, seconds: 6},{minutes: 21, seconds: 7}, {minutes: 21, seconds: 8}]
  */
 export function parseUserInput(userInput) {
-  const { minutesOrSeconds = '', moduloMarker = '', moduloMaybe = '', secondsMaybe = '' } = /^(?<minutesOrSeconds>\d{1,2})(?<secondsMaybe>\d{0,2})(?<moduloMarker>[+-]*)(?<moduloMaybe>\d{0,2})$/u.exec(userInput)?.groups ?? {}
+  const { minutesOrSeconds = '', moduloMarker = '', moduloMaybe = '', secondsMaybe = '' } = regex.userInput.exec(userInput)?.groups ?? {}
   if (minutesOrSeconds === '') return []
   const secondsBase = Number.parseInt(secondsMaybe || minutesOrSeconds, 10)
   const minutesBase = secondsMaybe === '' ? 0 : Number.parseInt(minutesOrSeconds, 10)

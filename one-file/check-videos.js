@@ -25,12 +25,21 @@ const willDryRun = argv.includes('--dry-run') || argv.includes('--dry')
 
 let listing = 'name,title\n'
 
+const regex = {
+  cleanTitle: /[,:]/gu,
+  cleanTitleSpaces: /\s+/gu,
+  folderName: /\W([\s\w]+)\W?$/u,
+  setVideoTitle: /\.[^.]+$/u,
+  isVideo: /\.(?:avi|m4v|mkv|mp4|mpg|wmv)$/u,
+  getReportValue: /\[(\d+)\]/u,
+}
+
 const utils = {
   /**
    *
    * @param title
    */
-  cleanTitle: (title = '') => title.replace('PSArips.com | ', '').replace(/[,:]/gu, ' ').replace(/\s+/gu, ' ').trim(),
+  cleanTitle: (title = '') => title.replace('PSArips.com | ', '').replace(regex.cleanTitle, ' ').replace(regex.cleanTitleSpaces, ' ').trim(),
   /**
    *
    * @param string
@@ -41,7 +50,7 @@ const utils = {
    *
    * @param filepath
    */
-  folderName: (filepath = '') => /\W([\s\w]+)\W?$/u.exec(filepath)?.[1] ?? '',
+  folderName: (filepath = '') => regex.folderName.exec(filepath)?.[1] ?? '',
   /**
    * Get the size of a file in megabytes
    * @param {string} filepath
@@ -65,7 +74,8 @@ const utils = {
     const data = JSON.parse(output)
     // console.log(utils.prettyPrint(data))
     const media = data.format
-    const video = data.streams?.find((/** @type {{ codec_type: string; }} */ stream) => stream.codec_type === 'video') ?? { avg_frame_rate: '', codec_name: '', codec_type: '', color_transfer: '', duration: '', height: 0, width: 0 } // eslint-disable-line @typescript-eslint/naming-convention, camelcase
+    // biome-ignore lint/style/useNamingConvention: ffprobe uses snake_case
+    const video = data.streams?.find((/** @type {{ codec_type: string; }} */ stream) => stream.codec_type === 'video') ?? { avg_frame_rate: '', codec_name: '', codec_type: '', color_transfer: '', duration: '', height: 0, width: 0 }
     const title = utils.cleanTitle(media?.tags?.title)
     const extension = path.extname(filepath).slice(1)
     const filename = title.length > 0 ? `${title}.${extension}` : ''
@@ -95,11 +105,11 @@ const utils = {
    */
   isHdrVideo: (/** @type {FfProbeOutputStream | undefined} */ video) => {
     if (typeof video?.codec_type === 'undefined') return false
-    const hasPQ = video.color_transfer === 'smpte2084'
-    const hasHLG = video.color_transfer === 'arib-std-b67'
+    const hasPq = video.color_transfer === 'smpte2084'
+    const hasHlg = video.color_transfer === 'arib-std-b67'
     const hasDolbyVision = video.side_data_list?.some(data => data.side_data_type === 'DOVI configuration record') ?? false
-    const hasHDR10Plus = video.side_data_list?.some(data => data.side_data_type === 'HDR Dynamic Metadata SMPTE2094-40 (HDR10+)') ?? false
-    return hasPQ || hasHLG || hasDolbyVision || hasHDR10Plus
+    const hasHdr10Plus = video.side_data_list?.some(data => data.side_data_type === 'HDR Dynamic Metadata SMPTE2094-40 (HDR10+)') ?? false
+    return hasPq || hasHlg || hasDolbyVision || hasHdr10Plus
   },
   /**
    * List the files in a directory
@@ -138,7 +148,7 @@ const utils = {
    */
   setVideoTitle: async (filepath, filename) => {
     if (filepath.includes('.mp4') || filepath.includes('.avi')) return
-    const title = utils.cleanTitle(filename.replace(/\.[^.]+$/u, ''))
+    const title = utils.cleanTitle(filename.replace(regex.setVideoTitle, ''))
     if (willDryRun) console.log(`Would set title to ${blue(title)}\n`)
     else await utils.shellCommand(`mkvpropedit "${filepath}" -e info -s title="${title}"`)
   },
@@ -206,43 +216,76 @@ class CheckVideos {
     if (this.shouldRename(filename, meta.filename)) willDryRun ? console.log(`Would rename file to ${red(meta.filename)}\n`) : renameSync(filepath, path.join(videosPath, path.normalize(meta.filename)))
     listing += `${filename},${meta.title}\n`
     const entry = `${utils.ellipsis(filename, 50).padEnd(50)}  ${(String(meta.sizeGb)).padStart(4)} Gb  ${(meta.codec).padEnd(5)} ${(String(meta.height)).padStart(4)}p  ${(String(meta.bitrateKbps)).padStart(4)} kbps  ${(String(meta.fps)).padStart(2)} fps`
-    if (meta.isDvdRip) {
-      if (meta.height < 300) {
-        this.detect('DvdRip under 300p', entry, meta.height)
-        return
-      }
-      if (meta.bitrateKbps < 1000) {
-        this.detect('DvdRip with low bitrate', entry, meta.bitrateKbps)
-        return
-      }
-      if (meta.bitrateKbps > 2000) {
-        this.detect('DvdRip with high bitrate', entry, meta.bitrateKbps)
-        return
-      }
-    } else {
-      if (meta.height < 800) {
-        this.detect('BlurayRip under 800p', entry, meta.height)
-        return
-      }
-      if (meta.bitrateKbps < 3000) {
-        this.detect('BlurayRip with low bitrate', entry, meta.bitrateKbps)
-        return
-      }
-      if (meta.bitrateKbps > 10_000) {
-        this.detect('BlurayRip with high bitrate', entry, meta.bitrateKbps)
-        return
-      }
-      if (!meta.isHdr) {
-        this.detect('Not HDR', entry, 'SDR')
-        return
-      }
+    if (meta.isDvdRip ? this.checkDvdRip(meta, entry) : this.checkBlurayRip(meta, entry)) return
+    if (this.checkFps(meta, entry)) return
+  }
+
+  /**
+   * Check DVD rip specific conditions
+   * @param {any} meta - expects {height:number, bitrateKbps:number}
+   * @param {string} entry
+   * @returns {boolean} true if a problem was detected
+   */
+  checkDvdRip(meta, entry) {
+    if (meta.height < 300) {
+      this.detect('DvdRip under 300p', entry, meta.height)
+      return true
     }
+    if (meta.bitrateKbps < 1000) {
+      this.detect('DvdRip with low bitrate', entry, meta.bitrateKbps)
+      return true
+    }
+    if (meta.bitrateKbps > 2000) {
+      this.detect('DvdRip with high bitrate', entry, meta.bitrateKbps)
+      return true
+    }
+    return false
+  }
+
+  /**
+   * Check Bluray rip specific conditions
+   * @param {any} meta - expects {height:number, bitrateKbps:number, isHdr:boolean}
+   * @param {string} entry
+   * @returns {boolean} true if a problem was detected
+   */
+  checkBlurayRip(meta, entry) {
+    if (meta.height < 800) {
+      this.detect('BlurayRip under 800p', entry, meta.height)
+      return true
+    }
+    if (meta.bitrateKbps < 3000) {
+      this.detect('BlurayRip with low bitrate', entry, meta.bitrateKbps)
+      return true
+    }
+    if (meta.bitrateKbps > 10_000) {
+      this.detect('BlurayRip with high bitrate', entry, meta.bitrateKbps)
+      return true
+    }
+    if (!meta.isHdr) {
+      this.detect('Not HDR', entry, 'SDR')
+      return true
+    }
+    return false
+  }
+
+  /**
+   * Check FPS conditions
+   * @param {any} meta - expects {fps:number}
+   * @param {string} entry
+   * @returns {boolean} true if a problem was detected
+   */
+  checkFps(meta, entry) {
     if (meta.fps < 24) {
       this.detect('Low fps', entry, meta.fps)
-      return
+      return true
     }
-    if (meta.fps > 60) this.detect('High fps', entry, meta.fps)
+    if (meta.fps > 60) {
+      this.detect('High fps', entry, meta.fps)
+      return true
+    }
+    return false
   }
+
   /**
    * Add a video to the list of detected videos
    * @param {string} type The type of problem detected
@@ -258,13 +301,12 @@ class CheckVideos {
    */
   async find() {
     console.log(`Scanning dir ${videosPath}`)
-    const isVideo = /\.(?:avi|m4v|mkv|mp4|mpg|wmv)$/u
     const list = await utils.readFile(path.join(videosPath, '.check-videos-ignore'))
     const isIgnored = list.split('\n')
     for (const line of isIgnored) if (line.trim().length > 0 && !line.startsWith('//')) listing += `${line},\n`
     const files = await utils.listFiles(videosPath)
-    this.files = files.filter(entry => !isIgnored.includes(entry) && isVideo.test(entry))
-    if (this.files.length === 0) throw new Error(`no files found with these extensions ${String(isVideo)}`)
+    this.files = files.filter(entry => !isIgnored.includes(entry) && regex.isVideo.test(entry))
+    if (this.files.length === 0) throw new Error(`no files found with these extensions ${String(regex.isVideo)}`)
     console.log(this.files.length, 'files found\n')
     if (!willProcessOnlyOne || this.files.length === 0) return
     console.log('--process-one flag active : only one file will be processed\n')
@@ -277,7 +319,7 @@ class CheckVideos {
    * @returns {number}
    */
   getReportValue(string) {
-    const matches = /\[(\d+)\]/u.exec(string) ?? []
+    const matches = regex.getReportValue.exec(string) ?? []
     return matches[1] === undefined ? 0 : Number.parseInt(matches[1], 10)
   }
   /**

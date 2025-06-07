@@ -1,6 +1,12 @@
 import { copyFile, mkdir } from 'node:fs/promises'
 import path from 'node:path'
 
+const regex = {
+  filename: /[/\\](?<name>[\w.-]+)$/u,
+  carriageReturn: /\r\n/gu,
+  clearSpaces: /\s*/gu,
+}
+
 /**
  * Get the filename from a filepath
  * @param {string} filepath the filepath to get the filename from
@@ -8,7 +14,7 @@ import path from 'node:path'
  * @example filename('C:\\Users\\me\\file.txt') // 'file.txt'
  */
 export function filename(filepath = '') {
-  return /[/\\](?<name>[\w.-]+)$/u.exec(filepath)?.groups?.name ?? ''
+  return regex.filename.exec(filepath)?.groups?.name ?? ''
 }
 
 /**
@@ -42,7 +48,7 @@ export function removeLinesAfter(content, regex) {
  * @returns the processed content with unix line endings
  */
 export function useUnixCarriageReturn(content) {
-  return content.replace(/\r\n/gu, '\n')
+  return content.replace(regex.carriageReturn, '\n')
 }
 
 /**
@@ -58,7 +64,7 @@ export function clean(content, linesAfter, linesMatching, shouldClearSpaces = tr
   let output = content
   if (linesAfter) output = removeLinesAfter(output, linesAfter)
   if (linesMatching) output = removeLinesMatching(output, linesMatching)
-  if (shouldClearSpaces) output = output.replace(/\s*/gu, '')
+  if (shouldClearSpaces) output = output.replace(regex.clearSpaces, '')
   return output
 }
 

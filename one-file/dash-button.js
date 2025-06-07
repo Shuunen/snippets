@@ -1,5 +1,6 @@
 /* c8 ignore start */
 // @ts-ignore
+// biome-ignore lint/correctness/noUndeclaredDependencies: that's ok
 import dashBtn from 'node-dash-button'
 
 const buttons = [

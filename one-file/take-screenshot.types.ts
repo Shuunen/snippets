@@ -1,13 +1,18 @@
 export type FfProbeOutputStream = {
-  avg_frame_rate: string // eslint-disable-line @typescript-eslint/naming-convention
-  codec_name: string // eslint-disable-line @typescript-eslint/naming-convention
-  codec_type: string // eslint-disable-line @typescript-eslint/naming-convention
-  color_transfer: string // eslint-disable-line @typescript-eslint/naming-convention
+  // biome-ignore lint/style/useNamingConvention: ffprobe uses snake_case
+  avg_frame_rate: string
+  // biome-ignore lint/style/useNamingConvention: ffprobe uses snake_case
+  codec_name: string
+  // biome-ignore lint/style/useNamingConvention: ffprobe uses snake_case
+  codec_type: string
+  // biome-ignore lint/style/useNamingConvention: ffprobe uses snake_case
+  color_transfer: string
   duration: string
   height: number
+  // biome-ignore lint/style/useNamingConvention: ffprobe uses snake_case
   side_data_list?: {
-    // eslint-disable-line @typescript-eslint/naming-convention
-    side_data_type: string // eslint-disable-line @typescript-eslint/naming-convention
+    // biome-ignore lint/style/useNamingConvention: ffprobe uses snake_case
+    side_data_type: string
   }[]
   width: number
 }
@@ -20,7 +25,8 @@ export type Task = {
 
 export type FfProbeOutput = {
   format?: {
-    bit_rate: number // eslint-disable-line @typescript-eslint/naming-convention
+    // biome-ignore lint/style/useNamingConvention: ffprobe uses snake_case
+    bit_rate: number
     duration: number
     filename: string
     size: number

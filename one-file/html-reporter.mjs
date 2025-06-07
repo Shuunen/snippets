@@ -8,6 +8,11 @@ const states = {
   scanComplete: 'scanComplete',
 }
 
+const regex = {
+  styleTag: /^style[\s\S]*?<\/style>/u,
+  styleAttr: /^style="[^"]+"/u,
+}
+
 export class HtmlReporter {
   constructor(input = '', isDebug = false) {
     this.input = input
@@ -43,6 +48,7 @@ export class HtmlReporter {
     return color(char)
   }
 
+  // biome-ignore lint/complexity/noExcessiveCognitiveComplexity: it's just a POC
   scan() {
     this.index++
     const char = this.input[this.index]
@@ -57,7 +63,7 @@ export class HtmlReporter {
       this.attr++
       this.setState(states.onTagAttr)
     } else if (this.state === states.onTagName && char === 's') {
-      const [match] = this.input.slice(this.index).match(/^style[\s\S]*?<\/style>/u) || []
+      const [match] = this.input.slice(this.index).match(regex.styleTag) || []
 
       if (match) {
         this.tags += 14 // the "<" has already been count on stats.tags, it remains "style></style>" to be count as stats.tags
@@ -67,7 +73,7 @@ export class HtmlReporter {
     } else if (this.state === states.onTagName) {
       this.tags++
     } else if (this.state === states.onTagAttr && char === 's') {
-      const [match] = this.input.slice(this.index).match(/^style="[^"]+"/u) || []
+      const [match] = this.input.slice(this.index).match(regex.styleAttr) || []
       if (match) {
         this.styles += match.length
         this.index += match.length - 1

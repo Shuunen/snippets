@@ -67,7 +67,7 @@ export const state = reactive({
 
 export function watch (stateProperty: keyof typeof state, callback: () => unknown): () => void {
   const runner = effect(() => state[stateProperty], {
-    scheduler: callback, // eslint-disable-line putout/putout
+    scheduler: callback, 
   })
   return () => { stopRunner(runner) }
 }
@@ -105,9 +105,9 @@ const data = {
 
 type Properties = keyof typeof data
 
-type Listener = () => void // eslint-disable-line etc/prefer-interface
+type Listener = () => void 
 
-const listeners: Partial<Record<Properties, Listener[]>> = {} // eslint-disable-line @typescript-eslint/consistent-indexed-object-style
+const listeners: Partial<Record<Properties, Listener[]>> = {} 
 
 const handler = {
   set (target: typeof data, key: Properties, value: unknown): boolean {

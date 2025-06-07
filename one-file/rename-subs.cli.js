@@ -37,7 +37,7 @@ function bringSubTop(fromPath, language) {
   const episodeLocation = -2
   const toFilename = `${fromPath.split('\\').at(episodeLocation) ?? ''}.${language}.srt`
   const toPath = path.join(currentFolder, toFilename)
-  const toStat = statSync(toPath, { throwIfNoEntry: false }) // eslint-disable-line @typescript-eslint/naming-convention
+  const toStat = statSync(toPath, { throwIfNoEntry: false })
   if (toStat?.isFile() ?? false) {
     if (isDebug) console.log(`File ${toPath} already exists`)
     return
@@ -72,9 +72,9 @@ for (const subfolder of subfolders) {
  */
 function checkSubtitle(filename, language) {
   const subPath = path.join(currentFolder, `${filename}.${language}.srt`)
-  const subStat = statSync(subPath, { throwIfNoEntry: false }) // eslint-disable-line @typescript-eslint/naming-convention
+  const subStat = statSync(subPath, { throwIfNoEntry: false })
   const subFcPath = `${subPath}.fc`
-  const subFcStat = statSync(subFcPath, { throwIfNoEntry: false }) // eslint-disable-line @typescript-eslint/naming-convention
+  const subFcStat = statSync(subFcPath, { throwIfNoEntry: false })
   const hasSub = subStat?.isFile() ?? false
   const hasSubFc = subFcStat?.isFile() ?? false
   if (hasSub && hasSubFc) {
@@ -85,7 +85,7 @@ function checkSubtitle(filename, language) {
     renameSync(subFcPath, subPath)
     return
   }
-  if (!hasSub && !hasSubFc) {
+  if (!(hasSub || hasSubFc)) {
     console.error(`Could not find ${subPath}`)
     return
   }

@@ -10,7 +10,16 @@ const expectedNbParameters = 2
 if (parameters.length <= expectedNbParameters) console.log('Targeting current folder, you can also specify a specific path, ex : node one-file/check-screens.cli.js "U:\\Screens\\" \n')
 const screensPath = path.normalize(parameters[expectedNbParameters] ?? process.cwd())
 const shouldShowFirst = parameters.includes('--first')
-const isImage = /\.(?:jpg|png)$/u
+const regex = {
+  image: /\.(?:jpg|png)$/u,
+  underscoreOrDot: /[_.]/gu,
+  yearInParens: /\((?<year>\d{4})\)/gu,
+  qb: /!qB/,
+  letterBracket: /(?<letter>[a-zA-Z0-9])(?<bracket>\[|\()/gu,
+  spaces: / +/gu,
+  shortYear: /\d{4}/u,
+}
+const isImage = regex.image
 const colors = [red, green, blue, yellow]
 let colorIndex = 0
 const currentFolder = import.meta.dirname
@@ -35,13 +44,7 @@ function renameIfNecessary(name) {
   const baseName = path.basename(name)
   const extensionName = path.extname(baseName)
   const nameWithoutExtension = baseName.slice(0, -extensionName.length)
-  const cleanName =
-    nameWithoutExtension
-      .replace(/[_.]/gu, ' ')
-      .replace(/\((?<year>\d{4})\)/gu, ' $<year> ')
-      .replace('!qB', ' ')
-      .replace(/(?<letter>[a-zA-Z0-9])(?<bracket>\[|\()/gu, '$<letter> $<bracket>')
-      .replace(/ +/gu, ' ') + extensionName
+  const cleanName = nameWithoutExtension.replace(regex.underscoreOrDot, ' ').replace(regex.yearInParens, ' $<year> ').replace(regex.qb, ' ').replace(regex.letterBracket, '$<letter> $<bracket>').replace(regex.spaces, ' ') + extensionName
   if (baseName === cleanName || isTestEnvironment()) return cleanName
   console.log(`Renaming : \n - ${red(name)}\nto : \n - ${green(cleanName)}\n`)
   renameSync(path.join(screensPath, name), path.join(screensPath, cleanName))
@@ -58,7 +61,7 @@ function getGroupFromName(name) {
   const slugs = slugify(cleanName).split('-')
   if (slugs[0] === undefined) throw new Error(`No first slug found for ${cleanName}`)
   if (slugs[1] === undefined) throw new Error(`No second slug found for ${cleanName}`)
-  const isShort = slugs[0].length <= 5 && /\d{4}/u.test(slugs[1]) // short like "Taxi 1998"
+  const isShort = slugs[0].length <= 5 && regex.shortYear.test(slugs[1]) // short like "Taxi 1998"
   const minLength = isShort ? 8 : 10 // hard to increase, like below comment
   const maxSlugs = 2 // dont increase this because after slugs n°3 it's not relevant, this will be specific to the release
   if (slugs.slice(0, maxSlugs).join('-').length > minLength) return slugs.slice(0, maxSlugs).join('-')

@@ -1,7 +1,9 @@
 /* c8 ignore start */
 // @ts-expect-error missing types
+// biome-ignore lint/correctness/noUndeclaredDependencies: I know
 import notifier from 'node-notifier'
 // @ts-expect-error missing types
+// biome-ignore lint/correctness/noUndeclaredDependencies: I know
 import osmosis from 'osmosis'
 
 const url = 'https://www.facebook.com/some-page/'

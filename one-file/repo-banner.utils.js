@@ -50,6 +50,13 @@ export function safeRead(relativeFilepath, folderPath = process.cwd()) {
   return readFileSync(filepath, 'utf8')
 }
 
+const regex = {
+  packageName: /"name": "(?<name>[^"]+)"/u,
+  scopeAndName: /\.com\/(?<scope>[^/]+)\/(?<name>[\w-]+)/iu,
+  description: /"description": "(?<description>[^"]+)"/u,
+  color: /#(?:[\da-f]{3}){1,2}/iu,
+}
+
 /**
  * Extract data
  * @param folderPath the folder to extract data from
@@ -57,14 +64,14 @@ export function safeRead(relativeFilepath, folderPath = process.cwd()) {
 export function extractData(folderPath = process.cwd()) {
   const defaults = { color: '#024eb8', description: 'A placeholder description', name: 'unknown', scope: 'JohnDoe' }
   const infos = [safeRead('.vscode/settings.json', folderPath), safeRead('package.json', folderPath)].join('\n')
-  const packageName = /"name": "(?<name>[^"]+)"/u.exec(infos)?.groups?.name?.split('/').toReversed()[0]
-  const scopeAndName = /\.com\/(?<scope>[^/]+)\/(?<name>[\w-]+)/iu.exec(infos)?.groups
+  const packageName = regex.packageName.exec(infos)?.groups?.name?.split('/')?.toReversed?.()[0]
+  const scopeAndName = regex.scopeAndName.exec(infos)?.groups
   const name = packageName ?? /* c8 ignore next */ scopeAndName?.name ?? defaults.name
   const scope = scopeAndName?.scope ?? defaults.scope
   if (name === defaults.name) logger.error('Could not find a name for the project, using the default one :', name)
-  const description = /"description": "(?<description>[^"]+)"/u.exec(infos)?.groups?.description ?? defaults.description
+  const description = regex.description.exec(infos)?.groups?.description ?? defaults.description
   if (description === defaults.description) logger.error('Could not find a description for the project, using the default one :', description)
-  const color = /#(?:[\da-f]{3}){1,2}/iu.exec(infos)?.[0] ?? defaults.color
+  const color = regex.color.exec(infos)?.[0] ?? defaults.color
   if (color === defaults.color) logger.warn('Could not find a color for the project, using the default one :', color)
   return { color, description, name, scope }
 }

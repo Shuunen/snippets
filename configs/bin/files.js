@@ -76,9 +76,10 @@ const currentFolder = import.meta.dirname
 function getDetails(filepath) {
   const isExisting = existsSync(filepath)
   const content = isExisting ? readFileSync(filepath, 'utf8') : ''
+  // biome-ignore lint/correctness/useHookAtTopLevel: ??
   const updatedContent = content.includes('\r') && !filepath.includes('.qbtheme') ? useUnixCarriageReturn(content) : content // qbtheme files does not like \n
   const isContentEquals = content === updatedContent
-  if (!isContentEquals) void writeFile(filepath, updatedContent)
+  if (!isContentEquals) writeFile(filepath, updatedContent)
   return { content: updatedContent, filepath, isExisting }
 }
 

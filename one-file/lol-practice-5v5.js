@@ -11,6 +11,7 @@ const data = {
   },
   isCustom: true,
 }
+// biome-ignore lint/style/useNamingConvention: it's ok buddy
 const options = { headers: { Authorization: '', 'Content-Type': 'application/json' }, hostname: '127.0.0.1', method: 'POST', path: '/lol-lobby/v2/lobby', port: 0 }
 const currentFolder = import.meta.dirname
 const logFile = path.join(currentFolder, 'lol-practice-5v5.log')
