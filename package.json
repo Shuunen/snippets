@@ -10,7 +10,7 @@
     "@biomejs/biome": "1.9",
     "@vitest/coverage-v8": "3.2",
     "clipboardy": "4.0",
-    "repo-check": "1.44",
+    "repo-check": "1.45",
     "shuutils": "10.6",
     "typescript": "5.8",
     "vitest": "3.2"

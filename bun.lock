@@ -10,7 +10,7 @@
         "@biomejs/biome": "1.9",
         "@vitest/coverage-v8": "3.2",
         "clipboardy": "4.0",
-        "repo-check": "1.44",
+        "repo-check": "1.45",
         "shuutils": "10.6",
         "typescript": "5.8",
         "vitest": "3.2",
@@ -327,7 +327,7 @@
 
     "postcss": ["postcss@8.5.3", "", { "dependencies": { "nanoid": "^3.3.8", "picocolors": "^1.1.1", "source-map-js": "^1.2.1" } }, "sha512-dle9A3yYxlBSrt8Fu+IpjGT8SY8hN0mlaA6GY8t0P5PjIOZemULz/E2Bnm/2dcUOena75OTNkHI76uZBNUUq3A=="],
 
-    "repo-check": ["repo-check@1.44.0", "", { "dependencies": { "arg": "5.0", "shuutils": "10.6", "sort-json": "2.0" }, "bin": { "repo-check": "dist/repo-check.cjs" } }, "sha512-b5SSQ05OQP8LymPiGcfMPe2gVhrto7l/V6hRlL6oWrlTej0fdfcSp6dDk0uYyVQsWkHRcNkCWyNzGO1A7BfJqg=="],
+    "repo-check": ["repo-check@1.45.0", "", { "dependencies": { "arg": "5.0", "shuutils": "10.6", "sort-json": "2.0" }, "bin": { "repo-check": "dist/repo-check.cjs" } }, "sha512-H1TjmpbOWImWMFsJKsWSzdhfDQWCPlmiIUKhybpFGen0WtlShB5QsnGKPBSVpCV95b7KfQFRt4x0w9/pnxtQKw=="],
 
     "rollup": ["rollup@4.41.1", "", { "dependencies": { "@types/estree": "1.0.7" }, "optionalDependencies": { "@rollup/rollup-android-arm-eabi": "4.41.1", "@rollup/rollup-android-arm64": "4.41.1", "@rollup/rollup-darwin-arm64": "4.41.1", "@rollup/rollup-darwin-x64": "4.41.1", "@rollup/rollup-freebsd-arm64": "4.41.1", "@rollup/rollup-freebsd-x64": "4.41.1", "@rollup/rollup-linux-arm-gnueabihf": "4.41.1", "@rollup/rollup-linux-arm-musleabihf": "4.41.1", "@rollup/rollup-linux-arm64-gnu": "4.41.1", "@rollup/rollup-linux-arm64-musl": "4.41.1", "@rollup/rollup-linux-loongarch64-gnu": "4.41.1", "@rollup/rollup-linux-powerpc64le-gnu": "4.41.1", "@rollup/rollup-linux-riscv64-gnu": "4.41.1", "@rollup/rollup-linux-riscv64-musl": "4.41.1", "@rollup/rollup-linux-s390x-gnu": "4.41.1", "@rollup/rollup-linux-x64-gnu": "4.41.1", "@rollup/rollup-linux-x64-musl": "4.41.1", "@rollup/rollup-win32-arm64-msvc": "4.41.1", "@rollup/rollup-win32-ia32-msvc": "4.41.1", "@rollup/rollup-win32-x64-msvc": "4.41.1", "fsevents": "~2.3.2" }, "bin": { "rollup": "dist/bin/rollup" } }, "sha512-cPmwD3FnFv8rKMBc1MxWCwVQFxwf1JEmSX3iQXrRVVG15zerAIXRjMFVWnd5Q5QvgKF7Aj+5ykXFhUl+QGnyOw=="],
 
