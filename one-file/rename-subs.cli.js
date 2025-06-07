@@ -12,7 +12,6 @@ const kb = 1024
 const nbDecimals = 2
 const subsFolder = path.join(currentFolder, 'Subs')
 const subsStat = statSync(subsFolder)
-// eslint-disable-next-line no-restricted-syntax
 if (!subsStat.isDirectory()) throw new Error(`Could not find subs folder ${subsFolder}`)
 
 /**
@@ -20,7 +19,7 @@ if (!subsStat.isDirectory()) throw new Error(`Could not find subs folder ${subsF
  * @param {string} filepath the filepath to sub
  * @returns {boolean} true if full caption
  */
-function isFullCaption (filepath) {
+function isFullCaption(filepath) {
   const content = readFileSync(filepath, 'utf8')
   const nbBlocks = content.match(/\[[a-z\s]+\]/giu)?.length ?? 0
   const minBlocks = 10
@@ -34,8 +33,7 @@ function isFullCaption (filepath) {
  * @param {string} language the language of the sub like "fr"
  * @returns {void}
  */
-// eslint-disable-next-line max-statements
-function bringSubTop (fromPath, language) {
+function bringSubTop(fromPath, language) {
   const episodeLocation = -2
   const toFilename = `${fromPath.split('\\').at(episodeLocation) ?? ''}.${language}.srt`
   const toPath = path.join(currentFolder, toFilename)
@@ -57,7 +55,6 @@ const subfolders = readdirSync(subsFolder)
 for (const subfolder of subfolders) {
   const folderPath = path.join(subsFolder, subfolder)
   const folderStat = statSync(folderPath)
-  // eslint-disable-next-line no-restricted-syntax
   if (!folderStat.isDirectory()) throw new Error(`Could not find folder ${folderPath}`)
   const folderFiles = readdirSync(folderPath)
   for (const file of folderFiles) {
@@ -73,20 +70,31 @@ for (const subfolder of subfolders) {
  * @param {string} language the lang to check
  * @returns {void}
  */
-// eslint-disable-next-line max-statements, complexity
-function checkSubtitle (filename, language) {
+function checkSubtitle(filename, language) {
   const subPath = path.join(currentFolder, `${filename}.${language}.srt`)
   const subStat = statSync(subPath, { throwIfNoEntry: false }) // eslint-disable-line @typescript-eslint/naming-convention
   const subFcPath = `${subPath}.fc`
   const subFcStat = statSync(subFcPath, { throwIfNoEntry: false }) // eslint-disable-line @typescript-eslint/naming-convention
   const hasSub = subStat?.isFile() ?? false
   const hasSubFc = subFcStat?.isFile() ?? false
-  if (hasSub && hasSubFc) { unlinkSync(subFcPath); return }
-  if (!hasSub && hasSubFc) { renameSync(subFcPath, subPath); return }
-  if (!hasSub && !hasSubFc) { console.error(`Could not find ${subPath}`); return }
+  if (hasSub && hasSubFc) {
+    unlinkSync(subFcPath)
+    return
+  }
+  if (!hasSub && hasSubFc) {
+    renameSync(subFcPath, subPath)
+    return
+  }
+  if (!hasSub && !hasSubFc) {
+    console.error(`Could not find ${subPath}`)
+    return
+  }
   const sizeInKb = (subStat?.size ?? 0) / kb
   const minSizeInKb = 4
-  if (sizeInKb < minSizeInKb) { console.error(`File ${path.basename(subPath)} seems weirdly small (${sizeInKb.toFixed(nbDecimals)}Kb)`); return }
+  if (sizeInKb < minSizeInKb) {
+    console.error(`File ${path.basename(subPath)} seems weirdly small (${sizeInKb.toFixed(nbDecimals)}Kb)`)
+    return
+  }
   if (isDebug) console.log(`File ${subPath} seems ok`)
 }
 

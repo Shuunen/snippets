@@ -1,7 +1,7 @@
 /* c8 ignore start */
-import sevenZip from '7zip-min'
 import { readdirSync, statSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
+import sevenZip from '7zip-min'
 import { Logger, blue, green, nbPercentMax, nbThird, red, yellow } from 'shuutils'
 
 // Use me like : node ~/Projects/github/snippets/one-file/check-apps.cli.js "/d/Apps/"
@@ -29,7 +29,6 @@ const readableExtensions = new Set(['7z', 'zip'])
  * @param {string} secondString the second string
  * @returns {number} the similarity between the two strings
  */
-// eslint-disable-next-line max-statements, complexity
 function stringsSimilarity(firstString, secondString) {
   const first = firstString.replace(/\s+/gu, '')
   const second = secondString.replace(/\s+/gu, '')
@@ -205,7 +204,6 @@ const invalidVersionRegex = /[\b_](?<invalid>\d+\.\d*\.?\d*)/u
  * Check the name format
  * @param {string} name the group name to check, like "Clavier.Plus.Plus_108"
  */
-// eslint-disable-next-line complexity, max-statements
 function checkNameFormat(name) {
   if (name.startsWith('_')) return
   const parts = name.split('_')
@@ -234,7 +232,6 @@ async function checkGroups(groups) {
       logger.warn(`Empty group : ${color(groupName)}`)
       continue
     }
-    // eslint-disable-next-line no-await-in-loop
     await checkMissingArchive(items, groupName)
   }
 }

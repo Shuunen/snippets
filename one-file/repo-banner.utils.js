@@ -38,7 +38,6 @@ export function replaceAndCheckById(string, id, replacement) {
  */
 export function safeRead(relativeFilepath, folderPath = process.cwd()) {
   const filepath = path.join(folderPath, relativeFilepath)
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   const stats = statSync(filepath, { throwIfNoEntry: false })
   if (stats === undefined) {
     logger.warn('Failed to get stats for', filepath)
@@ -51,12 +50,10 @@ export function safeRead(relativeFilepath, folderPath = process.cwd()) {
   return readFileSync(filepath, 'utf8')
 }
 
-// eslint-disable-next-line jsdoc/require-returns
 /**
  * Extract data
  * @param folderPath the folder to extract data from
  */
-// eslint-disable-next-line max-statements, complexity
 export function extractData(folderPath = process.cwd()) {
   const defaults = { color: '#024eb8', description: 'A placeholder description', name: 'unknown', scope: 'JohnDoe' }
   const infos = [safeRead('.vscode/settings.json', folderPath), safeRead('package.json', folderPath)].join('\n')

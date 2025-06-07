@@ -1,10 +1,9 @@
 /* c8 ignore start */
-/* eslint-disable @typescript-eslint/prefer-readonly-parameter-types */
 import { promises as fs } from 'node:fs'
 import path from 'node:path'
 import { compressCsv } from './vivino-compress-export.utils.js'
 
-// usage : ts-node-esm --transpileOnly ~/Projects/github/snippets/one-file/vivino-compress-export.cli.ts full_wine_list.csv
+// usage : bun ~/Projects/github/snippets/one-file/vivino-compress-export.cli.ts full_wine_list.csv
 
 const currentFolder = import.meta.dirname
 const logFile = path.join(currentFolder, 'vivino-compress-export.log')
@@ -50,18 +49,14 @@ async function init() {
   asciiWelcome()
   await logClear()
   await logAdd('Vivino compress starts @', new Date().toISOString())
-  // eslint-disable-next-line unicorn/no-unreadable-array-destructuring
   const [, , fileName = ''] = process.argv
-  // eslint-disable-next-line no-restricted-syntax
   if (!fileName) throw new Error('missing full_wine_list.csv file path')
   const input = await fs.readFile(fileName, 'utf8')
   const output = compressCsv(input)
 
   await fs.writeFile(fileName.replace('.csv', '.compressed.csv'), output)
-  // eslint-disable-next-line @typescript-eslint/no-magic-numbers
-  console.log('  Done, final file is only', Math.round(output.length / input.length * 100), '% of the original size :)')
+  console.log('  Done, final file is only', Math.round((output.length / input.length) * 100), '% of the original size :)')
   await logAdd('Vivino compress ends @', new Date().toISOString())
 }
 
 await init()
-

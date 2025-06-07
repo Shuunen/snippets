@@ -1,13 +1,4 @@
 /* c8 ignore start */
-/* eslint-disable @typescript-eslint/no-magic-numbers */
-/* eslint-disable max-lines-per-function */
-/* eslint-disable @typescript-eslint/no-array-delete */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
-/* eslint-disable @typescript-eslint/no-misused-promises */
-/* eslint-disable max-statements */
 
 // #############
 // Basic example
@@ -71,8 +62,10 @@ nfc.on('reader', (/** @type {{ name: any; aid: string; on: (arg0: string, arg1: 
   reader.aid = 'F222222222'
 
   reader.on('card', async card => {
-    if (card.type === TAG_ISO_14443_3) console.info('card 3 detected', { card, reader: reader.name }) // standard nfc tags like Mifare
-    else if (card.type === TAG_ISO_14443_4) console.info('card 4 detected', { card: { ...card, data: card.data.toString('utf8') }, reader: reader.name }) // Android HCE
+    if (card.type === TAG_ISO_14443_3)
+      console.info('card 3 detected', { card, reader: reader.name }) // standard nfc tags like Mifare
+    else if (card.type === TAG_ISO_14443_4)
+      console.info('card 4 detected', { card: { ...card, data: card.data.toString('utf8') }, reader: reader.name }) // Android HCE
     else console.info('card detected', { card, reader: reader.name }) // not possible, just to be sure
 
     // Notice: reading data from Mifare Classic cards (e.g. Mifare 1K) requires,
@@ -123,14 +116,13 @@ nfc.on('reader', (/** @type {{ name: any; aid: string; on: (arg0: string, arg1: 
     }
   })
 
-  reader.on('error', (error) => {
+  reader.on('error', error => {
     console.error('an error occurred', { error, reader: reader.name })
   })
 
   reader.on('end', () => {
     console.info('device removed', { reader: reader.name })
 
-    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
     delete readers[readers.indexOf(reader)]
 
     console.log(readers)

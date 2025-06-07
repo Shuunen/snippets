@@ -1,5 +1,4 @@
 /* c8 ignore start */
-/* eslint-disable @typescript-eslint/no-magic-numbers */
 import { appendFileSync, readFileSync, writeFileSync } from 'node:fs'
 import { request as _request } from 'node:https'
 import path from 'node:path'
@@ -12,7 +11,6 @@ const data = {
   },
   isCustom: true,
 }
-// eslint-disable-next-line @typescript-eslint/naming-convention
 const options = { headers: { Authorization: '', 'Content-Type': 'application/json' }, hostname: '127.0.0.1', method: 'POST', path: '/lol-lobby/v2/lobby', port: 0 }
 const currentFolder = import.meta.dirname
 const logFile = path.join(currentFolder, 'lol-practice-5v5.log')
@@ -36,7 +34,6 @@ function logAdd(/** @type {string[]} */ ...stuff) {
  *
  */
 function doRequest() {
-  // eslint-disable-next-line no-restricted-syntax
   if (!options.port) throw new Error('cannot make the request without port')
   logAdd('Making request...')
   const request = _request(options, response => {
@@ -46,14 +43,12 @@ function doRequest() {
       requestData += chunk
     })
     response.on('end', () => {
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
       logAdd(`5v5 Practice created successfully by ${JSON.parse(requestData).localMember.summonerName}`)
     })
   })
   logAdd('Request made successfully, listening for error...')
   request.on('error', (/** @type {string} */ error) => {
     logAdd(error)
-    // eslint-disable-next-line no-restricted-syntax
     throw new Error(`Request error : ${error}`)
   })
   logAdd('Request error listened successfully, writing data...')
@@ -65,18 +60,14 @@ function doRequest() {
 /**
  *
  */
-// eslint-disable-next-line max-statements
 function readLock() {
   const lockPath = process.argv[2]
-  // eslint-disable-next-line no-restricted-syntax
   if (lockPath === undefined) throw new Error('missing lockfile path, use me like : \n\n lol-practice-5v5.js "D:\\Games\\Riot Games\\League of Legends\\lockfile" "My game lobby name"')
   logAdd(`Summoner lockfile located at : ${lockPath}`)
-  // eslint-disable-next-line no-restricted-syntax
   if (!lockPath.includes('lockfile')) throw new Error(String.raw`lockfile path invalid, should looks like "D:\Games\Riot Games\League of Legends\lockfile"`)
   logAdd('Reading lockfile...')
   const content = readFileSync(lockPath, 'utf8').split(':')
   logAdd('Lockfile read successfully')
-  // eslint-disable-next-line no-restricted-syntax
   if (content[2] === undefined || content[3] === undefined) throw new Error('lockfile does not contains expected data or is not formatted as usual')
   logAdd('Lockfile data parsed successfully')
   options.port = Number.parseInt(content[2], 10)

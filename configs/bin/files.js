@@ -12,7 +12,6 @@ const appData = process.env.APPDATA ?? (process.platform === 'darwin' ? `${home}
 const isWindows = process.env.APPDATA === appData
 // const prgFiles = 'C:/Program Files'
 
-/* eslint-disable perfectionist/sort-objects */
 /** @type {import('./types').Config[]} */
 const configs = [
   { source: `${home}/.bash_aliases` },

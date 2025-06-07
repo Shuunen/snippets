@@ -1,7 +1,4 @@
 /* c8 ignore start */
-/* eslint-disable no-magic-numbers */
-/* eslint-disable jsdoc/require-jsdoc */
-/* eslint-disable no-plusplus */
 import { gray, green } from 'shuutils'
 
 const states = {
@@ -11,10 +8,8 @@ const states = {
   scanComplete: 'scanComplete',
 }
 
-// eslint-disable-next-line no-restricted-syntax
 export class HtmlReporter {
-  // eslint-disable-next-line max-statements
-  constructor (input = '', isDebug = false) {
+  constructor(input = '', isDebug = false) {
     this.input = input
     this.index = -1
     this.debug = isDebug
@@ -29,9 +24,9 @@ export class HtmlReporter {
     this.scan()
   }
 
-  onScanComplete () {
+  onScanComplete() {
     this.setState(states.scanComplete)
-    console.assert(this.total === (this.tags + this.attr + this.text + this.styles + this.css), 'sub-stats does not adds up to the total')
+    console.assert(this.total === this.tags + this.attr + this.text + this.styles + this.css, 'sub-stats does not adds up to the total')
   }
 
   /**
@@ -40,7 +35,7 @@ export class HtmlReporter {
    * @param {Function} color the color to use
    * @returns {string} the readable string
    */
-  readable (index, color) {
+  readable(index, color) {
     let char = this.input[index]
     if (!char) return ' '
     if (char === '\n') char = String.raw`\n`
@@ -48,13 +43,13 @@ export class HtmlReporter {
     return color(char)
   }
 
-
-  // eslint-disable-next-line max-statements, complexity
-  scan () {
-    /* eslint-disable curly */
+  scan() {
     this.index++
     const char = this.input[this.index]
-    if (!char || this.index === this.total) { this.onScanComplete(); return }
+    if (!char || this.index === this.total) {
+      this.onScanComplete()
+      return
+    }
     if (char === '>') {
       this.tags++
       this.setState(states.lookingForTag)
@@ -68,8 +63,7 @@ export class HtmlReporter {
         this.tags += 14 // the "<" has already been count on stats.tags, it remains "style></style>" to be count as stats.tags
         this.css += match.length - 14 // here stats.css is only the content
         this.index += match.length - 1
-      } else
-        this.tags++
+      } else this.tags++
     } else if (this.state === states.onTagName) {
       this.tags++
     } else if (this.state === states.onTagAttr && char === 's') {
@@ -77,8 +71,7 @@ export class HtmlReporter {
       if (match) {
         this.styles += match.length
         this.index += match.length - 1
-      } else
-        this.attr++
+      } else this.attr++
     } else if (this.state === states.onTagAttr && char !== '>') {
       this.attr++
     } else if (this.state === states.lookingForTag && char !== '<') {
@@ -95,23 +88,13 @@ export class HtmlReporter {
    * Set the state of the scanner
    * @param {string} newState the new state
    */
-  // eslint-disable-next-line unicorn/no-keyword-prefix
-  setState (newState) {
+  setState(newState) {
     if (this.debug) {
       const context = this.readable(this.index - 2, gray) + this.readable(this.index - 1, gray) + this.readable(this.index, green) + this.readable(this.index + 1, gray) + this.readable(this.index + 2, gray)
-      // eslint-disable-next-line unicorn/no-keyword-prefix
       const stateChange = `${this.state} ${gray('=>')} ${newState}`
-      const stats = `tags:${this
-        .tags
-        .toString()
-        .padEnd(3)} attr:${this.attr.toString().padEnd(3)} text:${this.text.toString().padEnd(3)}`
-      console.log(`${this
-        .index
-        .toString()
-        .padEnd(4)} ${stateChange.padEnd(28)} ${stats.padEnd(24)} ${context}`)
+      const stats = `tags:${this.tags.toString().padEnd(3)} attr:${this.attr.toString().padEnd(3)} text:${this.text.toString().padEnd(3)}`
+      console.log(`${this.index.toString().padEnd(4)} ${stateChange.padEnd(28)} ${stats.padEnd(24)} ${context}`)
     }
-    // eslint-disable-next-line unicorn/no-keyword-prefix
     this.state = newState
   }
 }
-

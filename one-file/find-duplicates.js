@@ -1,21 +1,10 @@
 /* c8 ignore start */
-/* eslint-disable @typescript-eslint/class-methods-use-this */
-/* eslint-disable @typescript-eslint/no-magic-numbers */
-/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
-/* eslint-disable @typescript-eslint/require-array-sort-compare */
-/* eslint-disable @typescript-eslint/strict-boolean-expressions */
-/* eslint-disable jsdoc/require-jsdoc */
-/* eslint-disable max-statements */
-/* eslint-disable no-await-in-loop */
-/* eslint-disable no-warning-comments */
-/* eslint-disable perfectionist/sort-classes */
 import { readdir, stat } from 'node:fs/promises'
 import path from 'node:path'
 
 const maxResults = 10
 const sizeGrain = 10_000
 
-// eslint-disable-next-line no-restricted-syntax
 class CheckDuplicates {
   constructor() {
     /**
@@ -31,23 +20,24 @@ class CheckDuplicates {
     this.results = {}
   }
 
-  args () {
-    // eslint-disable-next-line no-restricted-syntax
+  args() {
     if (process.argv.length < 4) throw new Error(String.raw`this script need a path as argument like : find-duplicates.js "U:\Movies\"`)
     this.target = path.normalize(process.argv[3] || '')
   }
-  ellipsis (string = '', length = 40) {
-    return string.length > length ? (`${string.slice(0, Math.max(0, length - 3))}...`) : string
+  ellipsis(string = '', length = 40) {
+    return string.length > length ? `${string.slice(0, Math.max(0, length - 3))}...` : string
   }
-  distance (stringA = '', stringB = '') {
+  distance(stringA = '', stringB = '') {
     // todo: something like levenshtein
     return stringA.length + stringB.length
   }
-  report () {
-    const list = Object.keys(this.results).map(key => this.results[key]).sort()
+  report() {
+    const list = Object.keys(this.results)
+      .map(key => this.results[key])
+      .sort()
     console.log(list.splice(0, maxResults))
   }
-  async start () {
+  async start() {
     console.log('\nCheck duplicates is starting !')
     this.args()
     await this.find()
@@ -56,14 +46,14 @@ class CheckDuplicates {
     console.log('Check duplicates ended.')
   }
 
-  async find () {
+  async find() {
     console.log(`Scanning dir ${this.target}`)
     this.elements = await readdir(this.target)
     this.nbElements = this.elements.length
     console.log('Found', this.nbElements, 'elements')
   }
 
-  async check () {
+  async check() {
     this.results = {}
     for (let aIndex = 0; aIndex < this.nbElements; aIndex += 1)
       for (let bIndex = 0; bIndex < this.nbElements; bIndex += 1) {

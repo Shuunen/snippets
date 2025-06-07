@@ -53,7 +53,6 @@ export function useUnixCarriageReturn(content) {
  * @param shouldClearSpaces if true will also clear spaces
  * @returns {string} the cleaned file content
  */
-// eslint-disable-next-line @typescript-eslint/max-params
 export function clean(content, linesAfter, linesMatching, shouldClearSpaces = true) {
   if (!content) return ''
   let output = content
@@ -87,7 +86,6 @@ export function normalizePathWithSlash(filepath, shouldUseTilde = false, home = 
 export async function copy(source, destination) {
   // destination will be created or overwritten by default.
   const destinationFolder = destination.replace(filename(destination), '')
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   await mkdir(destinationFolder, { recursive: true })
 
   return copyFile(source, destination)

@@ -36,7 +36,6 @@ It will generate a `<project-name>-banner.svg` file that you can use in your REA
 
 - [Boxy Svg](https://boxy-svg.com) : simple & effective svg editor
 - [Bun](https://bun.sh) : super fast runtime for JavaScript and TypeScript
-- [Eslint](https://eslint.org) : super tool to find & fix problems
 - [Github](https://github.com) : for all their great work year after year, pushing OSS forward
 - [Repo-checker](https://github.com/Shuunen/repo-checker) : eslint cover /src code and this tool the rest ^^
 - [Shields.io](https://shields.io) : nice looking badges to be proud of

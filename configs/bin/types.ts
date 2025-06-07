@@ -14,7 +14,6 @@ export type File = {
   /** the source file details */ source: FileDetails
 }
 
-
 export type Config = {
   /** a regex to remove lines after */ removeLinesAfter?: RegExp
   /** a list of regex to remove lines matching */ removeLinesMatching?: RegExp[]

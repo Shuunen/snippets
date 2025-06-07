@@ -1,15 +1,10 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.9.4/schema.json",
-  "files": {
-    "ignore": [
-      "node_modules/**",
-      "dist/**",
-      "coverage/**"
-    ],
-    "ignoreUnknown": false
-  },
+  "$schema": "./node_modules/@biomejs/biome/configuration_schema.json",
   "formatter": {
     "enabled": true,
+    "ignore": [
+      "configs/files/**/*"
+    ],
     "indentStyle": "space",
     "indentWidth": 2,
     "lineEnding": "lf",
@@ -21,6 +16,12 @@
       "bracketSpacing": true,
       "quoteStyle": "single",
       "semicolons": "asNeeded"
+    }
+  },
+  "json": {
+    "parser": {
+      "allowComments": false,
+      "allowTrailingCommas": false
     }
   },
   "linter": {
@@ -35,7 +36,7 @@
   "overrides": [],
   "vcs": {
     "clientKind": "git",
-    "enabled": false,
-    "useIgnoreFile": false
+    "enabled": true,
+    "useIgnoreFile": true
   }
 }

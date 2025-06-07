@@ -18,8 +18,8 @@ let lastSum = 0
 /**
  * Emit a beep sound
  */
-async function beep () {
-  console.log('\u0007');
+async function beep() {
+  console.log('\u0007')
   await sleep(nbRgbMax)
 }
 
@@ -27,8 +27,11 @@ async function beep () {
  * Log a message depending on the watch mode
  * @param {string} message the message to log
  */
-function log (message) {
-  if (willWatch) { logger.debug(message); return }
+function log(message) {
+  if (willWatch) {
+    logger.debug(message)
+    return
+  }
   logger.info(message)
 }
 
@@ -36,7 +39,7 @@ function log (message) {
  * Update the clipboard content
  * @param {string} content the content to copy to clipboard
  */
-async function updateClipboard (content) {
+async function updateClipboard(content) {
   log(`will copy this to clipboard :\n---\n${content}\n---`)
   clipboard.writeSync(content)
   logger.info('cleaned clipboard content at', new Date().toLocaleString())
@@ -48,25 +51,33 @@ async function updateClipboard (content) {
  * @param {string} input the input to hash
  * @returns {number} the hash sum
  */
-function hash (input) {
+function hash(input) {
   return stringSum(input.trim())
 }
 
 /**
  * Clean the clipboard content
  */
-// eslint-disable-next-line max-statements
-async function doClean () {
+async function doClean() {
   log('cleaning trackers...')
   const input = clipboard.readSync()
-  if (!input.includes('http') && !input.includes('udp')) { log('no trackers in clipboard'); return }
+  if (!input.includes('http') && !input.includes('udp')) {
+    log('no trackers in clipboard')
+    return
+  }
   const actualSum = hash(input)
-  if (actualSum === lastSum) { log('actual content is the same'); return }
+  if (actualSum === lastSum) {
+    log('actual content is the same')
+    return
+  }
   logger.debug(`actual sum : ${actualSum}, last sum : ${lastSum}`)
   lastSum = actualSum
   const output = cleanTrackers(input)
   const outputSum = hash(output)
-  if (outputSum === actualSum) { log('output content is the same'); return }
+  if (outputSum === actualSum) {
+    log('output content is the same')
+    return
+  }
   logger.debug(`input sum : ${actualSum}, output sum : ${outputSum}`)
   await updateClipboard(output)
 }
@@ -80,5 +91,4 @@ if (!willWatch) {
 }
 
 logger.info('watching clipboard...')
-// eslint-disable-next-line @typescript-eslint/no-misused-promises
 setInterval(doClean, nbMsInSecond)

@@ -5,7 +5,9 @@ import { copy, filename, normalizePathWithSlash } from './utils.js'
 const isDryRun = process.argv.includes('--dry')
 const isSetup = process.argv.includes('--setup')
 const isDebug = process.argv.includes('--debug')
-const relativeBackupPath = normalizePathWithSlash(backupPath).replace(normalizePathWithSlash(process.env.PWD ?? '').replace('/c/', 'C:/'), '').slice(1)
+const relativeBackupPath = normalizePathWithSlash(backupPath)
+  .replace(normalizePathWithSlash(process.env.PWD ?? '').replace('/c/', 'C:/'), '')
+  .slice(1)
 
 /**
  * @type {import('./types').Report}
@@ -17,8 +19,7 @@ const report = { errors: [], infos: [], success: [], suggestions: [], warnings: 
  * @param {import('./types').File} file the file to synchronize
  * @returns {Promise<number>} the number of things you have to do in Life
  */
-// eslint-disable-next-line max-statements
-async function sync (file) {
+async function sync(file) {
   process.stdout.write('.')
   const { areEquals, destination, source } = file
   if (!source.isExisting) {
@@ -42,7 +43,7 @@ async function sync (file) {
 /**
  *
  */
-async function start () {
+async function start() {
   process.stdout.write('\nSyncing')
   await Promise.all(files.map(async file => sync(file)))
   for (const error of report.errors) console.error(red(error))
@@ -53,5 +54,6 @@ async function start () {
   else console.log(green('\n\nSync done, no actions required :)'))
 }
 
-// eslint-disable-next-line unicorn/prefer-top-level-await
-start().catch(error => { console.error(error) })
+start().catch(error => {
+  console.error(error)
+})

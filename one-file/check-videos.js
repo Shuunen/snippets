@@ -1,14 +1,4 @@
 /* c8 ignore start */
-/* eslint-disable @typescript-eslint/class-methods-use-this */
-/* eslint-disable @typescript-eslint/no-magic-numbers */
-/* eslint-disable complexity */
-/* eslint-disable jsdoc/require-param-description */
-/* eslint-disable jsdoc/require-returns */
-/* eslint-disable jsdoc/require-returns-description */
-/* eslint-disable max-lines */
-/* eslint-disable max-statements */
-/* eslint-disable no-eval */
-/* eslint-disable prefer-named-capture-group */
 import { exec } from 'node:child_process'
 import { readFile, readdir, renameSync, stat, writeFileSync } from 'node:fs'
 import path from 'node:path'
@@ -70,10 +60,8 @@ const utils = {
    */
   getVideoMetadata: async filepath => {
     const output = await utils.shellCommand(`ffprobe -show_format -show_streams -print_format json -v quiet -i "${filepath}" `)
-    // eslint-disable-next-line no-restricted-syntax
     if (!output.startsWith('{')) throw new Error(`ffprobe output should be JSON but got :${output}`)
     /** @type {FfProbeOutput} */
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
     const data = JSON.parse(output)
     // console.log(utils.prettyPrint(data))
     const media = data.format
@@ -106,7 +94,6 @@ const utils = {
    * @returns {boolean} true if the video is HDR
    */
   isHdrVideo: (/** @type {FfProbeOutputStream | undefined} */ video) => {
-    // eslint-disable-next-line unicorn/no-typeof-undefined
     if (typeof video?.codec_type === 'undefined') return false
     const hasPQ = video.color_transfer === 'smpte2084'
     const hasHLG = video.color_transfer === 'arib-std-b67'
@@ -130,7 +117,6 @@ const utils = {
    * Display a pretty-printed JSON object
    * @param {{}} object
    */
-  // eslint-disable-next-line @typescript-eslint/naming-convention
   prettyPrint: object => inspect(object, { colors: true, depth: 2 }),
   /**
    * Read the contents of a file
@@ -173,7 +159,6 @@ const utils = {
 /**
  *
  */
-// eslint-disable-next-line no-restricted-syntax
 class CheckVideos {
   /**
    * The incorrect videos detected
@@ -203,7 +188,6 @@ class CheckVideos {
       const filename = this.files[index]
       if (filename === undefined) continue
       console.log(`checking file ${(String(index + 1)).padStart(String(total).length)} / ${total} : ${filename}`)
-      // eslint-disable-next-line no-await-in-loop
       await this.checkOne(filename)
     }
     const listingFilename = `.${slugify(utils.folderName(videosPath) || 'check')}-videos-listing.csv`
@@ -219,7 +203,6 @@ class CheckVideos {
     const filepath = path.join(videosPath, path.normalize(filename))
     const meta = await utils.getVideoMetadata(filepath)
     if (willSetTitle && filename !== meta.filename) await utils.setVideoTitle(filepath, filename.length > meta.filename.length ? filename : meta.filename)
-    // eslint-disable-next-line @typescript-eslint/no-unused-expressions
     if (this.shouldRename(filename, meta.filename)) willDryRun ? console.log(`Would rename file to ${red(meta.filename)}\n`) : renameSync(filepath, path.join(videosPath, path.normalize(meta.filename)))
     listing += `${filename},${meta.title}\n`
     const entry = `${utils.ellipsis(filename, 50).padEnd(50)}  ${(String(meta.sizeGb)).padStart(4)} Gb  ${(meta.codec).padEnd(5)} ${(String(meta.height)).padStart(4)}p  ${(String(meta.bitrateKbps)).padStart(4)} kbps  ${(String(meta.fps)).padStart(2)} fps`
@@ -281,13 +264,11 @@ class CheckVideos {
     for (const line of isIgnored) if (line.trim().length > 0 && !line.startsWith('//')) listing += `${line},\n`
     const files = await utils.listFiles(videosPath)
     this.files = files.filter(entry => !isIgnored.includes(entry) && isVideo.test(entry))
-    // eslint-disable-next-line no-restricted-syntax
     if (this.files.length === 0) throw new Error(`no files found with these extensions ${String(isVideo)}`)
     console.log(this.files.length, 'files found\n')
     if (!willProcessOnlyOne || this.files.length === 0) return
     console.log('--process-one flag active : only one file will be processed\n')
     const [first] = this.files
-    // eslint-disable-next-line no-restricted-syntax
     if (first === undefined) throw new Error('no files found')
     this.files = [first]
   }

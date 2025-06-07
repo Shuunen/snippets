@@ -56,13 +56,9 @@ function renameIfNecessary(name) {
 function getGroupFromName(name) {
   const cleanName = renameIfNecessary(name)
   const slugs = slugify(cleanName).split('-')
-  // eslint-disable-next-line no-restricted-syntax
   if (slugs[0] === undefined) throw new Error(`No first slug found for ${cleanName}`)
-  // eslint-disable-next-line no-restricted-syntax
   if (slugs[1] === undefined) throw new Error(`No second slug found for ${cleanName}`)
-  // eslint-disable-next-line @typescript-eslint/no-magic-numbers
   const isShort = slugs[0].length <= 5 && /\d{4}/u.test(slugs[1]) // short like "Taxi 1998"
-  // eslint-disable-next-line @typescript-eslint/no-magic-numbers
   const minLength = isShort ? 8 : 10 // hard to increase, like below comment
   const maxSlugs = 2 // dont increase this because after slugs n°3 it's not relevant, this will be specific to the release
   if (slugs.slice(0, maxSlugs).join('-').length > minLength) return slugs.slice(0, maxSlugs).join('-')

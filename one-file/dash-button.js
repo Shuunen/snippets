@@ -1,8 +1,4 @@
 /* c8 ignore start */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-ignore
 import dashBtn from 'node-dash-button'
 
@@ -22,5 +18,7 @@ for (const button of buttons) {
   // @ts-ignore
   button.instance = dashBtn(button.mac, undefined, undefined, 'arp')
   // @ts-ignore
-  button.instance.on('detected', () => { console.log(`"${button.name}" has been clicked`) })
+  button.instance.on('detected', () => {
+    console.log(`"${button.name}" has been clicked`)
+  })
 }

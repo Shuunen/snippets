@@ -1,5 +1,4 @@
 /* c8 ignore start */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access, @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-assignment, no-bitwise, @typescript-eslint/naming-convention, max-statements, max-lines-per-function, @typescript-eslint/no-magic-numbers */
 import { createHash } from 'node:crypto'
 import { readFileSync } from 'node:fs'
 import { createServer } from 'node:http'
@@ -85,7 +84,6 @@ server.on('upgrade', (request, socket) => {
   socket.on('data', buffer => {
     try {
       const masked = (buffer[1] & 0x80) === 0x80
-      // eslint-disable-next-line unicorn/number-literal-case
       let length = buffer[1] & 0x7f
       let maskStart = 2
 

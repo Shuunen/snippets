@@ -1,5 +1,4 @@
 /* c8 ignore start */
-/* eslint-disable @typescript-eslint/no-unsafe-member-access */
 // @ts-expect-error missing types
 import notifier from 'node-notifier'
 // @ts-expect-error missing types
@@ -13,15 +12,13 @@ let lastNb = 0
 /**
  *
  */
-function check () {
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+function check() {
   osmosis
     .get(url)
     .set({ info })
     .data((/** @type {{ info: string; }} */ data) => {
       const nb = Number.parseInt(data.info.split(' ')[0] ?? '0', 10)
       if (lastNb !== nb) {
-        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         notifier.notify({
           message: `Total : ${nb} likes`,
           title: 'New like',
@@ -33,6 +30,4 @@ function check () {
     .error(console.log)
 }
 
-// eslint-disable-next-line @typescript-eslint/no-magic-numbers
 setInterval(check, everySeconds * 1000)
-

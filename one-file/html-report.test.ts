@@ -51,21 +51,49 @@ const samples = [
 
 for (const { input, output, title } of samples) {
   const actual = new HtmlReporter(input)
-  it(`html-report ${title} attr`, () => { expect(actual.attr).toBe(output.attr) })
-  it(`html-report ${title} css`, () => { expect(actual.css).toBe(output.css) })
-  it(`html-report ${title} styles`, () => { expect(actual.styles).toBe(output.styles) })
-  it(`html-report ${title} tags`, () => { expect(actual.tags).toBe(output.tags) })
-  it(`html-report ${title} text`, () => { expect(actual.text).toBe(output.text) })
-  it(`html-report ${title} total`, () => { expect(actual.total).toBe(output.total) })
+  it(`html-report ${title} attr`, () => {
+    expect(actual.attr).toBe(output.attr)
+  })
+  it(`html-report ${title} css`, () => {
+    expect(actual.css).toBe(output.css)
+  })
+  it(`html-report ${title} styles`, () => {
+    expect(actual.styles).toBe(output.styles)
+  })
+  it(`html-report ${title} tags`, () => {
+    expect(actual.tags).toBe(output.tags)
+  })
+  it(`html-report ${title} text`, () => {
+    expect(actual.text).toBe(output.text)
+  })
+  it(`html-report ${title} total`, () => {
+    expect(actual.total).toBe(output.total)
+  })
 }
 
 const { input, output, title } = samples[5]
 const actualDebug = new HtmlReporter(input, true)
-it(`html-report debug ${title} attr`, () => { expect(actualDebug.attr).toBe(output.attr) })
-it(`html-report debug ${title} css`, () => { expect(actualDebug.css).toBe(output.css) })
-it(`html-report debug ${title} styles`, () => { expect(actualDebug.styles).toBe(output.styles) })
-it(`html-report debug ${title} tags`, () => { expect(actualDebug.tags).toBe(output.tags) })
-it(`html-report debug ${title} text`, () => { expect(actualDebug.text).toBe(output.text) })
-it(`html-report debug ${title} total`, () => { expect(actualDebug.total).toBe(output.total) })
-it('html-report debug readable A', () => { expect(actualDebug.readable(3, gray)).toMatchInlineSnapshot(String.raw`"[90m\n[39m"`) })
-it('html-report debug readable B', () => { expect(actualDebug.readable(16, gray)).toMatchInlineSnapshot(String.raw`"[90m\s[39m"`) })
+it(`html-report debug ${title} attr`, () => {
+  expect(actualDebug.attr).toBe(output.attr)
+})
+it(`html-report debug ${title} css`, () => {
+  expect(actualDebug.css).toBe(output.css)
+})
+it(`html-report debug ${title} styles`, () => {
+  expect(actualDebug.styles).toBe(output.styles)
+})
+it(`html-report debug ${title} tags`, () => {
+  expect(actualDebug.tags).toBe(output.tags)
+})
+it(`html-report debug ${title} text`, () => {
+  expect(actualDebug.text).toBe(output.text)
+})
+it(`html-report debug ${title} total`, () => {
+  expect(actualDebug.total).toBe(output.total)
+})
+it('html-report debug readable A', () => {
+  expect(actualDebug.readable(3, gray)).toMatchInlineSnapshot(String.raw`"[90m\n[39m"`)
+})
+it('html-report debug readable B', () => {
+  expect(actualDebug.readable(16, gray)).toMatchInlineSnapshot(String.raw`"[90m\s[39m"`)
+})
