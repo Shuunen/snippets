@@ -10,7 +10,6 @@ pkgm() {
     echo "npm"
   fi
 }
-pkgmVersion="$($(pkgm) --version)"
 
 alias ..='cd ..' 
 alias ll="ls -lv --almost-all --no-group --human-readable --classify --group-directories-first --time-style=long-iso --color=auto"
@@ -37,22 +36,23 @@ regenLock() {
 }
 alias regenLock=regenLock
 
-alias updateLock="$(pkgm) update && git checkout package.json && $(pkgm) install && $(pkgm) outdated"
+alias updateLock='$(pkgm) update && git checkout package.json && $(pkgm) install && $(pkgm) outdated'
 alias whatsmyip='curl http://ipecho.net/plain; echo'
 alias treesize='ncdu'
-alias p="$(pkgm)"
-alias pp="echo && echo Using $(pkgm) $pkgmVersion 🚀 && echo"
-alias pc="$(pkgm) check"
-alias pd="$(pkgm) dev"
-alias pt="$(pkgm) run test"
-alias ptw="$(pkgm) test:watch"
-alias ptu="$(pkgm) test:update"
-alias pl="$(pkgm) lint"
-alias ps="$(pkgm) start"
-alias pi="$(pkgm) install"
-alias pb="$(pkgm) run build"
-alias po="$(pkgm) outdated"
-alias pu="$(pkgm) update"
+alias p='$(pkgm)'
+alias pp='echo && echo "Using $(pkgm) $($(pkgm) --version) 🚀" && echo'
+alias pc='$(pkgm) check'
+alias pd='$(pkgm) dev'
+alias pt='$(pkgm) run test'
+alias ptw='$(pkgm) test:watch'
+alias ptu='$(pkgm) test:update'
+alias pl='$(pkgm) lint'
+alias ps='$(pkgm) start'
+alias pi='$(pkgm) install'
+alias pb='$(pkgm) run build'
+alias po='$(pkgm) outdated'
+alias pu='$(pkgm) update'
+alias pv='$(pkgm) validate'
 
 export no_proxy=".specific-domain.com,localhost"
 
@@ -72,4 +72,4 @@ if ! [[ "$PATH" =~ .local/share/applications ]] && [ -d "$HOME/.local/share/appl
 if ! [[ "$PATH" =~ snippets/one-file ]] && [ -d "$HOME/Projects/github/snippets/one-file" ]; then PATH="$PATH:$HOME/Projects/github/snippets/one-file"; fi
 if ! [[ "$PATH" =~ Node_22_Final ]] && [ -d "/d/Apps/Node_22_Final" ]; then PATH="$PATH:/d/Apps/Node_22_Final"; fi
 
-echo Bash aliases loaded 🧭
+echo Bash aliases v1 loaded 🧭
