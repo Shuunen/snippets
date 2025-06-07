@@ -419,6 +419,7 @@
   },
   "editor.formatOnSave": true,
   "editor.inlineSuggest.enabled": true,
+  "editor.inlineSuggest.suppressSuggestions": true,
   "editor.linkedEditing": true,
   "editor.minimap.enabled": false,
   "editor.minimap.maxColumn": 300,
