@@ -7,6 +7,13 @@
 
 > My personal snippets, tests, and things that are too small to have their own repo :)
 
+## Archived
+
+This project is archived since it migrated to :
+
+- [Shuunen/monorepo config-sync](https://github.com/Shuunen/monorepo/tree/master/apps/config-sync)
+- [Shuunen/monorepo one-file](https://github.com/Shuunen/monorepo/tree/master/apps/one-file)
+
 ## Tools
 
 ### Repo Banner
