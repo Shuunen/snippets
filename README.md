@@ -25,12 +25,15 @@ It will generate a `<project-name>-banner.svg` file that you can use in your REA
 
 ![demo](docs/banner.svg)
 
-## Todo
+## Development
 
-- [ ] compress repo-banner output with svgo
-- [ ] let repo-banner find the color in manifest.json or index.html files
-- [ ] banner is displayed full width, so the height should be reduced by 40%
-- [ ] banner should be able to show something else than github + ts : vue + ts, vue + js, js, ts, etc
+```bash
+pnpm install
+pnpm check
+pnpm run test:unit
+```
+
+Linting and formatting use [oxlint](https://oxc.rs/docs/guide/usage/linter) + [oxfmt](https://github.com/nicolo-ribaudo/oxfmt), replacing the previous Biome setup.
 
 ## Thanks
 
