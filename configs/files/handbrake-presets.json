@@ -4,16 +4,7 @@
       "ChildrenArray": [
         {
           "AlignAVStart": false,
-          "AudioCopyMask": [
-            "copy:aac",
-            "copy:ac3",
-            "copy:dtshd",
-            "copy:dts",
-            "copy:mp3",
-            "copy:truehd",
-            "copy:flac",
-            "copy:eac3"
-          ],
+          "AudioCopyMask": ["copy:aac", "copy:ac3", "copy:dtshd", "copy:dts", "copy:mp3", "copy:truehd", "copy:flac", "copy:eac3"],
           "AudioEncoderFallback": "ac3",
           "AudioLanguageList": [],
           "AudioList": [
@@ -113,16 +104,7 @@
         },
         {
           "AlignAVStart": false,
-          "AudioCopyMask": [
-            "copy:aac",
-            "copy:ac3",
-            "copy:dtshd",
-            "copy:dts",
-            "copy:mp3",
-            "copy:truehd",
-            "copy:flac",
-            "copy:eac3"
-          ],
+          "AudioCopyMask": ["copy:aac", "copy:ac3", "copy:dtshd", "copy:dts", "copy:mp3", "copy:truehd", "copy:flac", "copy:eac3"],
           "AudioEncoderFallback": "ac3",
           "AudioLanguageList": [],
           "AudioList": [
@@ -222,16 +204,7 @@
         },
         {
           "AlignAVStart": false,
-          "AudioCopyMask": [
-            "copy:aac",
-            "copy:ac3",
-            "copy:dtshd",
-            "copy:dts",
-            "copy:mp3",
-            "copy:truehd",
-            "copy:flac",
-            "copy:eac3"
-          ],
+          "AudioCopyMask": ["copy:aac", "copy:ac3", "copy:dtshd", "copy:dts", "copy:mp3", "copy:truehd", "copy:flac", "copy:eac3"],
           "AudioEncoderFallback": "ac3",
           "AudioLanguageList": [],
           "AudioList": [
@@ -303,10 +276,7 @@
           "SubtitleBurnBDSub": false,
           "SubtitleBurnBehavior": "foreign",
           "SubtitleBurnDVDSub": false,
-          "SubtitleLanguageList": [
-            "fra",
-            "eng"
-          ],
+          "SubtitleLanguageList": ["fra", "eng"],
           "SubtitleTrackSelectionBehavior": "all",
           "Type": 1,
           "UsesPictureFilters": true,
@@ -334,21 +304,9 @@
         },
         {
           "AlignAVStart": false,
-          "AudioCopyMask": [
-            "copy:aac",
-            "copy:ac3",
-            "copy:dtshd",
-            "copy:dts",
-            "copy:mp3",
-            "copy:truehd",
-            "copy:flac",
-            "copy:eac3"
-          ],
+          "AudioCopyMask": ["copy:aac", "copy:ac3", "copy:dtshd", "copy:dts", "copy:mp3", "copy:truehd", "copy:flac", "copy:eac3"],
           "AudioEncoderFallback": "ac3",
-          "AudioLanguageList": [
-            "eng",
-            "fra"
-          ],
+          "AudioLanguageList": ["eng", "fra"],
           "AudioList": [
             {
               "AudioBitrate": 160,
@@ -418,9 +376,7 @@
           "SubtitleBurnBDSub": false,
           "SubtitleBurnBehavior": "none",
           "SubtitleBurnDVDSub": false,
-          "SubtitleLanguageList": [
-            "any"
-          ],
+          "SubtitleLanguageList": ["any"],
           "SubtitleTrackSelectionBehavior": "all",
           "Type": 1,
           "UsesPictureFilters": true,
@@ -448,18 +404,9 @@
         },
         {
           "AlignAVStart": false,
-          "AudioCopyMask": [
-            "copy:aac",
-            "copy:ac3",
-            "copy:dts",
-            "copy:mp3",
-            "copy:eac3"
-          ],
+          "AudioCopyMask": ["copy:aac", "copy:ac3", "copy:dts", "copy:mp3", "copy:eac3"],
           "AudioEncoderFallback": "none",
-          "AudioLanguageList": [
-            "eng",
-            "fra"
-          ],
+          "AudioLanguageList": ["eng", "fra"],
           "AudioList": [
             {
               "AudioBitrate": 160,
@@ -529,9 +476,7 @@
           "SubtitleBurnBDSub": false,
           "SubtitleBurnBehavior": "none",
           "SubtitleBurnDVDSub": false,
-          "SubtitleLanguageList": [
-            "any"
-          ],
+          "SubtitleLanguageList": ["any"],
           "SubtitleTrackSelectionBehavior": "all",
           "Type": 1,
           "UsesPictureFilters": true,
@@ -567,16 +512,7 @@
       "ChildrenArray": [
         {
           "AlignAVStart": true,
-          "AudioCopyMask": [
-            "copy:aac",
-            "copy:ac3",
-            "copy:dtshd",
-            "copy:dts",
-            "copy:mp3",
-            "copy:truehd",
-            "copy:flac",
-            "copy:eac3"
-          ],
+          "AudioCopyMask": ["copy:aac", "copy:ac3", "copy:dtshd", "copy:dts", "copy:mp3", "copy:truehd", "copy:flac", "copy:eac3"],
           "AudioEncoderFallback": "ac3",
           "AudioLanguageList": [],
           "AudioList": [
@@ -676,16 +612,7 @@
         },
         {
           "AlignAVStart": true,
-          "AudioCopyMask": [
-            "copy:aac",
-            "copy:ac3",
-            "copy:dtshd",
-            "copy:dts",
-            "copy:mp3",
-            "copy:truehd",
-            "copy:flac",
-            "copy:eac3"
-          ],
+          "AudioCopyMask": ["copy:aac", "copy:ac3", "copy:dtshd", "copy:dts", "copy:mp3", "copy:truehd", "copy:flac", "copy:eac3"],
           "AudioEncoderFallback": "ac3",
           "AudioLanguageList": [],
           "AudioList": [
@@ -798,16 +725,7 @@
         },
         {
           "AlignAVStart": true,
-          "AudioCopyMask": [
-            "copy:aac",
-            "copy:ac3",
-            "copy:dtshd",
-            "copy:dts",
-            "copy:mp3",
-            "copy:truehd",
-            "copy:flac",
-            "copy:eac3"
-          ],
+          "AudioCopyMask": ["copy:aac", "copy:ac3", "copy:dtshd", "copy:dts", "copy:mp3", "copy:truehd", "copy:flac", "copy:eac3"],
           "AudioEncoderFallback": "ac3",
           "AudioLanguageList": [],
           "AudioList": [
@@ -928,16 +846,7 @@
       "ChildrenArray": [
         {
           "AlignAVStart": false,
-          "AudioCopyMask": [
-            "copy:aac",
-            "copy:ac3",
-            "copy:dtshd",
-            "copy:dts",
-            "copy:mp3",
-            "copy:truehd",
-            "copy:flac",
-            "copy:eac3"
-          ],
+          "AudioCopyMask": ["copy:aac", "copy:ac3", "copy:dtshd", "copy:dts", "copy:mp3", "copy:truehd", "copy:flac", "copy:eac3"],
           "AudioEncoderFallback": "ac3",
           "AudioLanguageList": [],
           "AudioList": [
@@ -1037,16 +946,7 @@
         },
         {
           "AlignAVStart": false,
-          "AudioCopyMask": [
-            "copy:aac",
-            "copy:ac3",
-            "copy:dtshd",
-            "copy:dts",
-            "copy:mp3",
-            "copy:truehd",
-            "copy:flac",
-            "copy:eac3"
-          ],
+          "AudioCopyMask": ["copy:aac", "copy:ac3", "copy:dtshd", "copy:dts", "copy:mp3", "copy:truehd", "copy:flac", "copy:eac3"],
           "AudioEncoderFallback": "ac3",
           "AudioLanguageList": [],
           "AudioList": [
@@ -1146,16 +1046,7 @@
         },
         {
           "AlignAVStart": false,
-          "AudioCopyMask": [
-            "copy:aac",
-            "copy:ac3",
-            "copy:dtshd",
-            "copy:dts",
-            "copy:mp3",
-            "copy:truehd",
-            "copy:flac",
-            "copy:eac3"
-          ],
+          "AudioCopyMask": ["copy:aac", "copy:ac3", "copy:dtshd", "copy:dts", "copy:mp3", "copy:truehd", "copy:flac", "copy:eac3"],
           "AudioEncoderFallback": "ac3",
           "AudioLanguageList": [],
           "AudioList": [

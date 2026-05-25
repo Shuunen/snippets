@@ -1,15 +1,15 @@
-/* c8 ignore start */
-
-import { copyFileSync, readFileSync, readdirSync, renameSync, statSync, unlinkSync } from 'node:fs'
+/* v8 ignore start */
+import { copyFileSync, readdirSync, readFileSync, renameSync, statSync, unlinkSync } from 'node:fs'
 import path from 'node:path'
+import { Logger } from 'shuutils'
 
 // Go into the Downloads\Azerty.S01.1080p.WEBRip.x265-RARBG folder
-// then use me like : node ~/Projects/github/snippets/one-file/rename-subs.cli.js
+// then use me like : node ~/Projects/github/snippets/src/rename-subs.cli.js
 
-const isDebug = process.argv.includes('--debug')
 const currentFolder = process.cwd()
 const kb = 1024
 const nbDecimals = 2
+const logger = new Logger()
 const subsFolder = path.join(currentFolder, 'Subs')
 const subsStat = statSync(subsFolder)
 if (!subsStat.isDirectory()) throw new Error(`Could not find subs folder ${subsFolder}`)
@@ -23,7 +23,7 @@ function isFullCaption(filepath) {
   const content = readFileSync(filepath, 'utf8')
   const nbBlocks = content.match(/\[[a-z\s]+\]/giu)?.length ?? 0
   const minBlocks = 10
-  if (isDebug) console.log(`File ${path.basename(filepath)} has ${nbBlocks} blocks`)
+  logger.debug(`File ${path.basename(filepath)} has ${nbBlocks} blocks`)
   return nbBlocks > minBlocks
 }
 
@@ -39,12 +39,12 @@ function bringSubTop(fromPath, language) {
   const toPath = path.join(currentFolder, toFilename)
   const toStat = statSync(toPath, { throwIfNoEntry: false })
   if (toStat?.isFile() ?? false) {
-    if (isDebug) console.log(`File ${toPath} already exists`)
+    logger.debug(`File ${toPath} already exists`)
     return
   }
   if (isFullCaption(fromPath)) {
-    if (isDebug) console.log(`File ${fromPath} seems to be a full caption`)
-    if (isDebug) console.log(`Copy ${fromPath} to ${toPath}.fc`)
+    logger.debug(`File ${fromPath} seems to be a full caption`)
+    logger.debug(`Copy ${fromPath} to ${toPath}.fc`)
     copyFileSync(fromPath, `${toPath}.fc`)
     return
   }
@@ -70,6 +70,7 @@ for (const subfolder of subfolders) {
  * @param {string} language the lang to check
  * @returns {void}
  */
+// oxlint-disable-next-line max-statements
 function checkSubtitle(filename, language) {
   const subPath = path.join(currentFolder, `${filename}.${language}.srt`)
   const subStat = statSync(subPath, { throwIfNoEntry: false })
@@ -86,16 +87,16 @@ function checkSubtitle(filename, language) {
     return
   }
   if (!(hasSub || hasSubFc)) {
-    console.error(`Could not find ${subPath}`)
+    logger.error(`Could not find ${subPath}`)
     return
   }
   const sizeInKb = (subStat?.size ?? 0) / kb
   const minSizeInKb = 4
   if (sizeInKb < minSizeInKb) {
-    console.error(`File ${path.basename(subPath)} seems weirdly small (${sizeInKb.toFixed(nbDecimals)}Kb)`)
+    logger.error(`File ${path.basename(subPath)} seems weirdly small (${sizeInKb.toFixed(nbDecimals)}Kb)`)
     return
   }
-  if (isDebug) console.log(`File ${subPath} seems ok`)
+  logger.debug(`File ${subPath} seems ok`)
 }
 
 const videoFile = /(?:\.mkv|\.mp4|\.avi|\.webm|\.mov|\.wmv|\.flv)$/iu
@@ -108,4 +109,4 @@ for (const file of files) {
   checkSubtitle(filenameWithoutExtension, 'en')
 }
 
-console.log('Copy and/or check done, every episode has fr/en subtitles !')
+logger.info('Copy and/or check done, every episode has fr/en subtitles !')

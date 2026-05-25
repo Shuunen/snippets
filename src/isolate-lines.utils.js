@@ -1,6 +1,7 @@
 /**
  * Merges an array of strings into a new array with unique values
  * @param {string[]} array the array to merge
+ * @returns {string[]} a new array with unique values
  */
 function mergeUnique(array) {
   return [...new Set(array)]
@@ -9,9 +10,10 @@ function mergeUnique(array) {
 /**
  * Isolates lines from a string, removes duplicates and sorts them
  * @param {string} list the list
+ * @returns {string[]} the isolated and sorted lines
  */
 export function isolateLines(list) {
-  let lines = list.replace(/ /gu, '').split('\n')
+  let lines = list.replaceAll(' ', '').split('\n')
   lines = mergeUnique(lines)
   lines = lines.filter(line => line.length > 0)
   return lines.toSorted((lineA, lineB) => lineA.localeCompare(lineB))
@@ -20,7 +22,11 @@ export function isolateLines(list) {
 /**
  * Converts an array of strings into a single string with line breaks
  * @param {string[]} lines the lines
+ * @returns {string} the list as a string with line breaks
  */
 export function linesToList(lines) {
-  return lines.join('\n\n').trim()
+  return lines
+    .map(line => line.trim())
+    .join('\n\n')
+    .trim()
 }

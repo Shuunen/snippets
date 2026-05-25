@@ -48,10 +48,12 @@ ffmpeg -hide_banner -y \
 # https://x265.readthedocs.io/en/master/presets.html#film-grain
 
 # set 10bit instead of the 8bit by default
-# -pix_fmt yuv420p10le
+# -pix_fmt yuv420p10le \
 
 # apply video filter, here a light sharpening filter
 # -vf unsharp=3:3:1.5 \
+# and even lighter :
+# -vf unsharp=3:3:1 \
 # for a stronger filter, use simply : -vf unsharp \
 
 # copy metadata & chapters as is
@@ -82,5 +84,11 @@ ffmpeg -hide_banner -y \
 
 # to check crop-able area
 # ffplay -ss 00:10:00 -t 2 -i "input.mkv" -vf cropdetect=24:16:0
-# then in ffmpeg
+# look at the logs in the bash and then copy/paste the detected crop values into ffmpeg parameters, here for example :
 # -vf crop=1920:816:0:132 \
+
+# to crop without re-encoding the video :
+# mkvpropedit "input.mkv" --edit track:v1 --set pixel-crop-left=310 --set pixel-crop-right=200 --set pixel-crop-top=0 --set pixel-crop-bottom=0
+
+# to just extract the audio use this ffmpeg command :
+# ffmpeg -hide_banner -y -i "video.mkv" -map 0:a -c:a copy "audio.mka"

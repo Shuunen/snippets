@@ -1,4 +1,5 @@
-/* c8 ignore start */
+/* v8 ignore start */
+
 const socket = new WebSocket('ws://localhost:54430')
 // const socket = new WebSocket("ws://192.168.1.188:54430");
 
@@ -18,3 +19,5 @@ socket.addEventListener('message', event => {
 socket.addEventListener('error', error => {
   console.error('WebSocket error:', error)
 })
+
+export const amazing = true

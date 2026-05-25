@@ -14,8 +14,8 @@ const regex = {
 }
 
 /**
- * @param {Partial<FfProbeOutput>?} ffProbeOutput
- * @returns {Metadata}
+ * @param {Partial<FfProbeOutput>?} ffProbeOutput output from ffprobe
+ * @returns {Metadata} parsed metadata with duration, height, size and title
  */
 export function parseVideoMetadata(ffProbeOutput) {
   if (ffProbeOutput?.streams === undefined || ffProbeOutput.streams.length === 0) return emptyMetadata
@@ -30,10 +30,10 @@ export function parseVideoMetadata(ffProbeOutput) {
 }
 
 /**
- * @param {number} modulo
- * @param {number} minutesBase
- * @param {number} secondsBase
- * @returns {Target[]}
+ * @param {number} modulo in seconds
+ * @param {number} minutesBase in minutes
+ * @param {number} secondsBase in seconds
+ * @returns {Target[]} targets with minutes and seconds
  */
 export function getTargets(modulo, minutesBase, secondsBase) {
   const targets = []
@@ -64,50 +64,54 @@ export function parseUserInput(userInput) {
   if (minutesOrSeconds === '') return []
   const secondsBase = Number.parseInt(secondsMaybe || minutesOrSeconds, 10)
   const minutesBase = secondsMaybe === '' ? 0 : Number.parseInt(minutesOrSeconds, 10)
-  const modulo = moduloMaybe === '' ? (moduloMarker === '' ? 0 : 5) : Number.parseInt(moduloMaybe.replace(/\D/gu, ''), 10)
+  const modulo =
+    // oxlint-disable-next-line no-nested-ternary, no-magic-numbers
+    moduloMaybe === '' ? (moduloMarker === '' ? 0 : 5) : Number.parseInt(moduloMaybe.replaceAll(/\D/gu, ''), 10)
   return getTargets(modulo, minutesBase, secondsBase)
 }
 
 /**
- * @param {number} seconds
- * @returns {string}
+ * @param {number} seconds in seconds
+ * @returns {string} readable duration like "00h00m12s"
  */
 export function readableDuration(seconds) {
+  // oxlint-disable-next-line no-magic-numbers
   return `${new Date(seconds * nbMsInSecond).toISOString().slice(11, 19).replace(':', 'h').replace(':', 'm')}s`
 }
 
 /**
- * @param {number} size
- * @returns {string}
+ * @param {number} size in bytes
+ * @returns {string} readable size like "1,2go" or "123mo"
  */
 export function readableSize(size) {
   let unit = 'go'
-  let nb = (size / 1024 / 1024 / 1024).toFixed(1)
+  const bytes = 1024
+  let nb = (size / bytes / bytes / bytes).toFixed(1)
   if (nb.startsWith('0')) {
     unit = 'mo'
-    nb = String(Math.round(size / 1024 / 1024))
+    nb = String(Math.round(size / bytes / bytes))
   }
   return nb.replace('.', ',') + unit
 }
 
 /**
- * @param {number} totalSeconds
- * @param {Metadata} metadata
- * @returns {string}
+ * @param {number} totalSeconds in seconds
+ * @param {Metadata} metadata metadata
+ * @returns {string} screenshot filename
  */
 export function getScreenshotFilename(totalSeconds, metadata) {
   const { duration, height, size, title } = metadata
-  const screenName = `${[title.replace(/\./gu, ' '), readableDuration(totalSeconds), readableSize(size), `${height}p`, readableDuration(duration)].join(' ').trim()}.jpg`
+  const screenName = `${[title.replaceAll(String.raw`\.`, ' '), readableDuration(totalSeconds), readableSize(size), `${height}p`, readableDuration(duration)].join(' ').trim()}.jpg`
 
   // replace un-authorized characters in filename
-  return screenName.replace(/\s?["*/:<>?\\|]+\s?/gu, ' ').replace(/\s+/gu, ' ')
+  return screenName.replaceAll(/\s?["*/:<>?\\|]+\s?/gu, ' ').replaceAll(/\s+/gu, ' ')
 }
 
 /**
- * @param {Task} task
- * @returns {string}
+ * @param {Task} task task with screenPath, totalSeconds and videoPath
+ * @returns {string} ffmpeg command to take a screenshot
  */
 export function getFfmpegCommand(task) {
   const { screenPath, totalSeconds, videoPath } = task
-  return `ffmpeg -ss ${totalSeconds} -i "${videoPath}" -frames:v 1 -q:v 1 "${screenPath}"`
+  return `ffmpeg -ss ${totalSeconds} -i "${videoPath}" -frames:v 1 -q:v 1 -update 1 "${screenPath}"`
 }

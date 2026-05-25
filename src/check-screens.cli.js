@@ -1,23 +1,24 @@
-/* c8 ignore start */
+/* v8 ignore start */
 import { readdirSync, renameSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
-import { blue, ellipsis, green, isTestEnvironment, red, slugify, yellow } from 'shuutils'
+import { blue, ellipsis, green, isTestEnvironment, Logger, red, slugify, yellow } from 'shuutils'
 
-// Use me like : node ~/Projects/github/snippets/one-file/check-screens.cli.js "/u/Screens/"
+// Use me like : node ~/Projects/github/snippets/src/check-screens.cli.js "/u/Screens/"
 
 const parameters = process.argv
 const expectedNbParameters = 2
-if (parameters.length <= expectedNbParameters) console.log('Targeting current folder, you can also specify a specific path, ex : node one-file/check-screens.cli.js "U:\\Screens\\" \n')
+const logger = new Logger()
+if (parameters.length <= expectedNbParameters) logger.info('Targeting current folder, you can also specify a specific path, ex : node src/check-screens.cli.js "U:\\Screens\\" \n')
 const screensPath = path.normalize(parameters[expectedNbParameters] ?? process.cwd())
 const shouldShowFirst = parameters.includes('--first')
 const regex = {
   image: /\.(?:jpg|png)$/u,
+  letterBracket: /(?<letter>[a-zA-Z0-9])(?<bracket>\[|\()/gu,
+  qb: /!qB/,
+  shortYear: /\d{4}/u,
+  spaces: / +/gu,
   underscoreOrDot: /[_.]/gu,
   yearInParens: /\((?<year>\d{4})\)/gu,
-  qb: /!qB/,
-  letterBracket: /(?<letter>[a-zA-Z0-9])(?<bracket>\[|\()/gu,
-  spaces: / +/gu,
-  shortYear: /\d{4}/u,
 }
 const isImage = regex.image
 const colors = [red, green, blue, yellow]
@@ -46,7 +47,7 @@ function renameIfNecessary(name) {
   const nameWithoutExtension = baseName.slice(0, -extensionName.length)
   const cleanName = nameWithoutExtension.replace(regex.underscoreOrDot, ' ').replace(regex.yearInParens, ' $<year> ').replace(regex.qb, ' ').replace(regex.letterBracket, '$<letter> $<bracket>').replace(regex.spaces, ' ') + extensionName
   if (baseName === cleanName || isTestEnvironment()) return cleanName
-  console.log(`Renaming : \n - ${red(name)}\nto : \n - ${green(cleanName)}\n`)
+  logger.info(`Renaming : \n - ${red(name)}\nto : \n - ${green(cleanName)}\n`)
   renameSync(path.join(screensPath, name), path.join(screensPath, cleanName))
   return cleanName
 }
@@ -61,7 +62,9 @@ function getGroupFromName(name) {
   const slugs = slugify(cleanName).split('-')
   if (slugs[0] === undefined) throw new Error(`No first slug found for ${cleanName}`)
   if (slugs[1] === undefined) throw new Error(`No second slug found for ${cleanName}`)
+  // oxlint-disable-next-line no-magic-numbers
   const isShort = slugs[0].length <= 5 && regex.shortYear.test(slugs[1]) // short like "Taxi 1998"
+  // oxlint-disable-next-line no-magic-numbers
   const minLength = isShort ? 8 : 10 // hard to increase, like below comment
   const maxSlugs = 2 // dont increase this because after slugs n°3 it's not relevant, this will be specific to the release
   if (slugs.slice(0, maxSlugs).join('-').length > minLength) return slugs.slice(0, maxSlugs).join('-')
@@ -73,10 +76,10 @@ function getGroupFromName(name) {
  * @returns {string[]} list of files
  */
 function getFiles() {
-  console.log(`Scanning dir ${screensPath}...\n`)
+  logger.info(`Scanning dir ${screensPath}...\n`)
   const files = readdirSync(screensPath).filter(name => isImage.test(name))
-  console.log(`Found ${files.length} files`)
-  if (shouldShowFirst) console.log('First file is :', ellipsis(files[0]))
+  logger.info(`Found ${files.length} files`)
+  if (shouldShowFirst) logger.info('First file is :', ellipsis(files[0]))
   return files
 }
 
@@ -109,7 +112,7 @@ function getSingles(groups) {
   let singles = 0
   for (const [group, names] of Object.entries(groups))
     if (names.length === 1) {
-      console.log(`\nGroup ${group} has only one file name : ${color(names[0] ?? 'undefined')}`)
+      logger.info(`\nGroup ${group} has only one file name : ${color(names[0] ?? 'undefined')}`)
       singles += 1
     }
   return singles
@@ -122,16 +125,16 @@ function getSingles(groups) {
  * @returns {void}
  */
 function report(groups, singles) {
-  if (singles === 0) console.log(`\n${color('No')} screenshot seems to be alone, ${color('well done ^^')}`)
-  else console.log(`\nFound ${color(singles.toString())} screenshot(s) that seems to be alone`)
-  writeFileSync(path.join(currentFolder, 'check-screens.json'), JSON.stringify(groups, undefined, nbSpaces))
+  if (singles === 0) logger.info(`\n${color('No')} screenshot seems to be alone, ${color('well done ^^')}`)
+  else logger.info(`\nFound ${color(singles.toString())} screenshot(s) that seems to be alone`)
+  writeFileSync(path.join(currentFolder, 'check-screens.local.json'), JSON.stringify(groups, undefined, nbSpaces))
 }
 
 /**
  *
  */
 function start() {
-  console.log('\nCheck screens is starting !\n')
+  logger.info('\nCheck screens is starting !\n')
   const files = getFiles()
   const groups = getGroups(files)
   const singles = getSingles(groups)

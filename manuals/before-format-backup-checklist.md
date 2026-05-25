@@ -43,11 +43,12 @@ PS: nothing to do with steam app, steam guard will be overwrite with the new ins
 - [ ] `%AppData%\mRemoteNG\confCons.xml`
 - [ ] copy useful installed apps to a `_previously-installed-apps` folder
 - [ ] backup portable apps folder
-- [ ] go to `~\AppData` and for each Local, LocalLow, Roaming => update snippet/config with missing configs
+- [ ] go to `%AppData%` and for each Local, LocalLow, Roaming => update snippet/config with missing configs
 - [ ] start cmd as admin & list installed choco packages `choco list --id-only`, then update `after-format-init-system.md` on this repo if needed
 - [ ] list other apps that need manual installation
 - [ ] check games in `C:\Games` and if needed, backup saved games in `C:\Users\User\Documents\...`
 - [ ] if using a custom windows, update `Projects\github\ntlite-configs\readme.md` with feedbacks
+- [ ] `node ~/Projects/github/snippets/src/check-apps.cli.js "/d/Apps/"`
 
 ## Linux only
 

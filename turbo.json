@@ -1,0 +1,25 @@
+{
+  "$schema": "https://turborepo.dev/schema.json",
+  "globalDependencies": ["package.json", "pnpm-lock.yaml"],
+  "tasks": {
+    "build:tsc": {
+      "inputs": ["src/**", "tsconfig*.json"]
+    },
+    "lint:format": {
+      "inputs": ["src/**", "configs/**", ".github/**", ".oxfmtrc.jsonc", "*.{ts,js,json,md,yaml,yml}"]
+    },
+    "lint:issues": {
+      "inputs": ["src/**/*.{ts,js}", ".oxlintrc.json", "tsconfig*.json"]
+    },
+    "lint:snippets": {
+      "inputs": ["manuals/**/*.md", "src/bin/lint.*.ts"]
+    },
+    "lint:types": {
+      "inputs": ["src/**/*.{ts,js}", "tsconfig*.json"]
+    },
+    "test:unit": {
+      "inputs": ["src/**/*.{ts,js}", "vite.config.ts"],
+      "outputs": ["coverage/**"]
+    }
+  }
+}

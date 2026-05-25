@@ -1,9 +1,16 @@
-/* c8 ignore start */
+/* v8 ignore start */
 import { readFileSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 import { extractData, logger, replaceAndCheck, replaceAndCheckById } from './repo-banner.utils.js'
 
-// usage : node one-file/repo-banner.cli.js
+// this script will generate a `<project-name>-banner.svg` file that you can use in your README.md file for example
+// usage : bun snippets/src/repo-banner.cli.js
+
+// TODO :
+// - compress repo-banner output with svgo
+// - let repo-banner find the color in manifest.json or index.html files
+// - banner is displayed full width, so the height should be reduced by 40%
+// - banner should be able to show something else than github + ts : vue + ts, vue + js, js, ts, etc
 
 const thisFileFolder = import.meta.dirname
 logger.info('Repo banner generator start @', new Date().toLocaleString())

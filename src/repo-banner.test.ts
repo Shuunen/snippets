@@ -1,4 +1,3 @@
-import { afterAll, beforeAll, describe, expect, it } from 'vitest'
 import { svgMockA } from './repo-banner.mock'
 import { extractData, logger, replaceAndCheck, replaceAndCheckById, safeRead } from './repo-banner.utils'
 

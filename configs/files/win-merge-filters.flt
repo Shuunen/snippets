@@ -23,3 +23,5 @@ d: \\build$
 d: \\coverage$
 d: \\dist$
 d: \\logs$
+d: \\.nx$
+d: \\.tanstack$

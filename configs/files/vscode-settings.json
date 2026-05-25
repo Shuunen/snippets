@@ -2,26 +2,93 @@
   "[astro]": {
     "editor.defaultFormatter": "astro-build.astro-vscode"
   },
+  "[css]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
   "[html]": {
     "editor.defaultFormatter": "vscode.html-language-features"
   },
-  "[javascript][javascriptreact][typescript][typescriptreact][css]": {
-    "editor.defaultFormatter": "biomejs.biome"
+  "[javascript]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
   },
-  "[json][jsonc]": {
-    "editor.defaultFormatter": "vscode.json-language-features"
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[json]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[jsonc]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
   },
   "[markdown]": {
-    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint",
+    "editor.defaultFormatter": "yzhang.markdown-all-in-one",
     "editor.wordWrap": "on"
   },
+  "[typescript]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "oxc.oxc-vscode"
+  },
   "[vue]": {
-    "editor.defaultFormatter": "Vue.volar"
+    "editor.defaultFormatter": "oxc.oxc-vscode"
   },
   "[xml]": {
-    "editor.defaultFormatter": "mikeburgh.xml-format"
+    "editor.defaultFormatter": "oxc.oxc-vscode"
   },
   "breadcrumbs.enabled": true,
+  "chat.agent.enabled": true,
+  "chat.agent.maxRequests": 100,
+  "chat.editing.autoAcceptDelay": 1,
+  "chat.editing.confirmEditRequestRemoval": false,
+  "chat.mcp.gallery.enabled": true,
+  "chat.tools.terminal.autoApprove": {
+    "break": true,
+    "bun": true,
+    "cat": true,
+    "cd": true,
+    "chmod": false,
+    "chown": false,
+    "curl": false,
+    "del": false,
+    "do": true,
+    "done": true,
+    "eval": false,
+    "Failed": true,
+    "for": true,
+    "jq": true,
+    "kill": false,
+    "node": true,
+    "npm": true,
+    "npx": true,
+    "nvm": true,
+    "nx": true,
+    "pnpm": true,
+    "rm": false,
+    "rmdir": false,
+    "Tests": true,
+    "timeout": true,
+    "tsgo": true,
+    "wget": false
+  },
+  "chat.tools.urls.autoApprove": {
+    "https://*.visualstudio.com": true,
+    "https://code.visualstudio.com": true,
+    "https://daisyui.com": true,
+    "https://github.com/microsoft/vscode/wiki/*": true,
+    "https://marketplace.visualstudio.com": true,
+    "https://marketplace.visualstudio.com/items": true,
+    "https://oxc.rs": true,
+    "https://oxc.rs/docs": true,
+    "https://oxc.rs/docs/guide": true,
+    "https://oxc.rs/docs/guide/usage": true,
+    "https://oxc.rs/docs/guide/usage/linter": true,
+    "https://oxc.rs/docs/guide/usage/linter/editors": true
+  },
+  "codium.git.showCommitNotification": false,
+  "colorize.languages": ["css", "html", "javascript", "json", "markdown", "php", "scss", "typescript", "vue"],
+  "console-ninja.featureSet": "Community",
+  "coverage-gutters.customizable.context-menu": false,
   "cSpell.language": "en,fr",
   "cSpell.userWords": [
     "accès",
@@ -66,6 +133,7 @@
     "buildtools",
     "bulma",
     "bundlephobia",
+    "bunx",
     "callees",
     "camelcase",
     "carafer",
@@ -90,6 +158,7 @@
     "darkred",
     "Datepicker",
     "Dealabs",
+    "debian",
     "Debounced",
     "deeppink",
     "deno",
@@ -133,6 +202,7 @@
     "Firestore",
     "firstname",
     "flowbite",
+    "FNIRSI",
     "forestgreen",
     "Fortuneo",
     "france",
@@ -172,10 +242,12 @@
     "Interop",
     "inversify",
     "Invision",
+    "isin",
     "jdownloader",
     "Jira",
     "Juliane",
     "kaspersky",
+    "Katleen",
     "Kbps",
     "keymaps",
     "keypress",
@@ -216,6 +288,7 @@
     "minmax",
     "mixins",
     "mkdir",
+    "mkvpropedit",
     "mkvtoolnix",
     "mockserver",
     "multiline",
@@ -325,7 +398,6 @@
     "sidenav",
     "Sindre",
     "singleline",
-    "sonarjs",
     "Sorhus",
     "spek",
     "spotify",
@@ -341,10 +413,14 @@
     "taglist",
     "taiko",
     "tailwindcss",
+    "Takeout",
+    "taze",
     "Temu",
     "tensorflow",
+    "testid",
     "tetris",
     "tfjs",
+    "Tiime",
     "timey",
     "tmux",
     "todos",
@@ -357,10 +433,12 @@
     "typeof",
     "typestrict",
     "Unigine",
+    "Unisys",
     "unitless",
     "untappd",
     "USERPROFILE",
     "userscripts",
+    "valibot",
     "vcredist",
     "Vecteezy",
     "verlingue",
@@ -391,31 +469,14 @@
     "Zorin",
     "zurb"
   ],
-  "chat.agent.enabled": true,
-  "chat.editing.alwaysSaveWithGeneratedChanges": true,
-  "colorize.languages": [
-    "css",
-    "html",
-    "javascript",
-    "json",
-    "markdown",
-    "php",
-    "scss",
-    "typescript",
-    "vue"
-  ],
-  "console-ninja.featureSet": "Community",
-  "coverage-gutters.customizable.context-menu": false,
   "css.format.enable": false,
   "css.validate": false,
-  "debug.allowBreakpointsEverywhere": true,
-  "diffEditor.ignoreTrimWhitespace": true,
+  "diffEditor.ignoreTrimWhitespace": false,
   "diffEditor.renderSideBySide": true,
   "editor.accessibilitySupport": "off",
   "editor.codeActionsOnSave": {
-    "source.fixAll.biome": "explicit",
-    "source.fixAll.eslint": "explicit",
-    "source.organizeImports": "explicit"
+    "source.fixAll": "explicit",
+    "source.removeUnusedImports": "explicit"
   },
   "editor.formatOnSave": true,
   "editor.inlineSuggest.enabled": true,
@@ -423,14 +484,6 @@
   "editor.linkedEditing": true,
   "editor.minimap.enabled": false,
   "editor.minimap.maxColumn": 300,
-  "editor.tabSize": 2,
-  "eslint.validate": [
-    "html",
-    "vue",
-    "javascript",
-    "javascriptreact",
-    "typescript"
-  ],
   "explorer.compactFolders": false,
   "explorer.confirmDelete": false,
   "explorer.confirmDragAndDrop": false,
@@ -438,93 +491,55 @@
   "explorer.expandSingleFolderWorkspaces": false,
   "explorer.fileNesting.enabled": false,
   "extensions.ignoreRecommendations": true,
+  "files.associations": {
+    "*.json": "json"
+  },
   "files.autoSave": "onFocusChange",
   "files.eol": "\n",
-  "formatAll.excludeFolders": [
-    ".cache",
-    ".data",
-    ".next",
-    ".nitro",
-    ".nuxt",
-    ".output",
-    "coverage",
-    "dist",
-    "node_modules",
-    "out"
-  ],
-  "formatAll.includeFileExtensions": [
-    ".cjs",
-    ".css",
-    ".html",
-    ".js",
-    ".json",
-    ".jsx",
-    ".md",
-    ".mjs",
-    ".ts",
-    ".tsx",
-    ".vue"
-  ],
   "git.autofetch": true,
   "git.confirmSync": false,
   "git.defaultBranchName": "master",
   "git.enableSmartCommit": true,
   "git.openRepositoryInParentFolders": "never",
   "git.replaceTagsWhenPull": true,
-  "github.copilot.editor.enableAutoCompletions": true,
+  "github.copilot.chat.codesearch.enabled": true,
   "github.copilot.enable": {
     "*": true,
     "csv": false,
-    "jsonc": true,
     "markdown": true,
     "plaintext": false,
-    "scminput": false,
-    "yaml": true
+    "scminput": false
   },
-  "githubPullRequests.pullBranch": "never",
-  "headwind.classRegex": {
-    "css": "\\B@apply\\s+([_a-zA-Z0-9\\s\\-\\:\\/]+);",
-    "html": "\\bclass\\s*=\\s*[\\\"\\']([_a-zA-Z0-9\\s\\-\\:\\/]+)[\\\"\\']",
-    "javascript": "(?:\\bclassName\\s*=\\s*[\\\"\\']([_a-zA-Z0-9\\s\\-\\:\\/]+)[\\\"\\'])|(?:\\btw\\s*`([_a-zA-Z0-9\\s\\-\\:\\/]*)`)",
-    "typescript": "\\bclassName\\s\\+?=\\s[`']([^`']+)[`']|class=\\\"([^\"]+)|dom\\([^,]+,\\s['`]([^'`]*)|div\\(['`]([^'`]*)|icon\\(['`]([^'`]*)|link\\(['`]([^'`]*)|text\\(['`]([^'`]*)|strong\\(['`]([^'`]*)|bold\\(['`]([^'`]*)|em\\(['`]([^'`]*)|italic\\(['`]([^'`]*)|small\\(['`]([^'`]*)|\\bp\\(['`]([^'`]*)|image\\(['`]([^'`]*)|img\\(['`]([^'`]*)|\\ba\\(['`]([^'`]*)|add\\(['`]([^'`]*)|genClass\\([^,]+,[^\\]]+],\\s\\[['`]([^'`]*)"
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "js/ts.experimental.useTsgo": true,
+  "js/ts.updateImportsOnFileMove.enabled": "always",
+  "json.schemaDownload.trustedDomains": {
+    "https://biomejs.dev": true,
+    "https://developer.microsoft.com/json-schemas/": true,
+    "https://json-schema.org/": true,
+    "https://json.schemastore.org/": true,
+    "https://raw.githubusercontent.com/": true,
+    "https://raw.githubusercontent.com/devcontainers/spec/": true,
+    "https://raw.githubusercontent.com/microsoft/vscode/": true,
+    "https://schemastore.azurewebsites.net/": true,
+    "https://turborepo.dev": true,
+    "https://ui.shadcn.com": true,
+    "https://www.schemastore.org/": true
   },
-  "headwind.prependCustomClasses": true,
-  "headwind.runOnSave": true,
-  "html.format.wrapLineLength": 150,
-  "i18n-ally.displayLanguage": "fr",
-  "i18n-ally.sourceLanguage": "fr",
-  "iconify.inplace": false,
-  "importCost.bundleSizeDecoration": "minified",
-  "importCost.mediumPackageSize": 10,
-  "importCost.smallPackageSize": 5,
-  "javascript.updateImportsOnFileMove.enabled": "always",
-  "json.format.enable": true,
-  "keyboard.dispatch": "keyCode",
   "markdown.extension.toc.levels": "1..3",
+  "mcpServers": {},
   "npm.autoDetect": "off",
-  "npm.validate.enable": false,
   "oxc.configPath": ".oxlintrc.json",
-  "postcssSorting.config": {
-    "properties-order": "alphabetical"
-  },
-  "redhat.telemetry.enabled": false,
+  "oxc.fixKind": "all",
+  "oxc.typeAware": true,
+  "ridiculousCoding.blips": false,
+  "ridiculousCoding.chars": false,
+  "ridiculousCoding.explosions": false,
+  "ridiculousCoding.fireworks": false,
+  "ridiculousCoding.shake": false,
+  "ridiculousCoding.sound": false,
   "security.restrictUNCAccess": false,
   "security.workspace.trust.untrustedFiles": "open",
-  "sortJSON.contextMenu": {
-    "sortJSON": true,
-    "sortJSONAlphaNum": false,
-    "sortJSONAlphaNumReverse": false,
-    "sortJSONKeyLength": false,
-    "sortJSONKeyLengthReverse": false,
-    "sortJSONReverse": false,
-    "sortJSONType": false,
-    "sortJSONTypeReverse": false,
-    "sortJSONValues": false,
-    "sortJSONValuesReverse": false
-  },
-  "stylelint.reportInvalidScopeDisables": true,
-  "stylelint.reportNeedlessDisables": true,
-  "svelte.enable-ts-plugin": true,
   "tailwindCSS.experimental.classRegex": [
     " +[a-z_]+: '([^']*)',",
     "tw`([^`]*)",
@@ -547,52 +562,17 @@
     "utils\\.tw\\(['`]([^'`]*)",
     "h\\d\\(['`]([^'`]*)"
   ],
-  "tailwindCSS.files.exclude": [
-    "**/.git/**",
-    "**/node_modules/**",
-    "**/.hg/**",
-    "**/.svn/**",
-    "**/pnpm-lock.yaml"
-  ],
+  "tailwindCSS.files.exclude": ["**/.git/**", "**/node_modules/**", "**/.hg/**", "**/.svn/**", "**/pnpm-lock.yaml"],
   "telemetry.telemetryLevel": "off",
   "terminal.integrated.cursorBlinking": true,
   "terminal.integrated.cursorStyle": "line",
   "terminal.integrated.cursorWidth": 3,
   "terminal.integrated.defaultProfile.windows": "Git Bash",
-  "terminal.integrated.env.linux": {},
-  "terminal.integrated.env.windows": {},
   "terminal.integrated.fontSize": 16,
-  "terminal.integrated.profiles.windows": {
-    "Command Prompt": {
-      "path": "C:\\Windows\\System32\\cmd.exe"
-    },
-    "Git Bash": {
-      "args": [
-        "--login"
-      ],
-      "path": "C:\\Program Files\\Git\\bin\\bash.exe",
-      "source": "Git Bash"
-    },
-    "PowerShell": null
-  },
+  "terminal.integrated.initialHint": false,
   "totalTypeScript.hideAllTips": true,
   "totalTypeScript.hideBasicTips": true,
-  "typescript.format.insertSpaceAfterConstructor": true,
-  "typescript.format.insertSpaceBeforeFunctionParenthesis": true,
-  "typescript.format.semicolons": "remove",
-  "typescript.preferences.quoteStyle": "single",
-  "typescript.updateImportsOnFileMove.enabled": "always",
-  "vue.codeActions.savingTimeLimit": 2000,
   "window.commandCenter": false,
-  "window.titleBarStyle": "custom",
-  "window.zoomLevel": 1,
-  "workbench.colorTheme": "Default Dark+",
-  "workbench.editorAssociations": {
-    "*.copilotmd": "vscode.markdown.preview.editor",
-    "*.csv": "default",
-    "*.lnk": "default",
-    "*.md": "default",
-    "{git,gitlens,git-graph}:/**/*.{md,csv,svg}": "default"
-  },
+  "workbench.colorTheme": "Dark+",
   "xstate.nestTypegenFiles": false
 }

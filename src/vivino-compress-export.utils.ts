@@ -4,12 +4,12 @@
  */
 function readable(input = '') {
   return input
-    .replace(/\([^(]+\)/gu, ' ') // remove parenthesis content(s)
-    .replace(/['’-]/gu, ' ')
+    .replaceAll(/\([^(]+\)/gu, ' ') // remove parenthesis content(s)
+    .replaceAll(/['’-]/gu, ' ')
     .normalize('NFD')
-    .replace(/[^\d\sa-z]/giu, '')
+    .replaceAll(/[^\d\sa-z]/giu, '')
     .toLowerCase() // from shuutils sanitize
-    .replace(/ {2,}/gu, ' ')
+    .replaceAll(/ {2,}/gu, ' ')
 }
 
 /**
@@ -18,7 +18,7 @@ function readable(input = '') {
  */
 export function compressCsv(input: string) {
   return input
-    .replace(/"[^"]*"/gu, '') // remove double quotes content(s)
+    .replaceAll(/"[^"]*"/gu, '') // remove double quotes content(s)
     .split('\n')
     .slice(1)
     .map(line => {

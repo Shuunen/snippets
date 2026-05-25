@@ -1,0 +1,22 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "arrowParens": "avoid",
+  "bracketSameLine": false,
+  "bracketSpacing": true,
+  "endOfLine": "lf",
+  "ignorePatterns": ["**/.git", "**/coverage", "**/dist", "**/node_modules", "**/out-tsc", "**/test-output", "**/test-results"],
+  "objectWrap": "preserve",
+  "printWidth": 240,
+  "quoteProps": "as-needed",
+  "semi": false,
+  "singleAttributePerLine": false,
+  "singleQuote": true,
+  "sortImports": {
+    "ignoreCase": true,
+    "newlinesBetween": false,
+  },
+  "sortPackageJson": false,
+  "tabWidth": 2,
+  "trailingComma": "all",
+  "useTabs": false,
+}

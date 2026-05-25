@@ -7,126 +7,129 @@
 
 # Matches are substitution rules: when you type the "trigger" string
 # it gets replaced by the "replace" string.
-matches:
-  # prénom, first name
-  - regex: ":(pr|fi)"
-    label: "Romain"
-    replace: "Romain"
 
-  # nom, last name
-  - regex: ":(no|la)"
-    label: "Racamier-Lafon"
-    replace: "Racamier-Lafon"
+# yaml-language-server: $schema=https://raw.githubusercontent.com/espanso/espanso/dev/schemas/match.schema.json
+
+matches:
+  # first name
+  - regex: ':(fi)'
+    label: 'Romain'
+    replace: 'Romain'
+
+  # last name
+  - regex: ':(la)'
+    label: 'Racamier-Lafon'
+    replace: 'Racamier-Lafon'
 
   # name
-  - regex: ":(na)"
-    label: "Romain Racamier-Lafon"
-    replace: "Romain Racamier-Lafon"
+  - regex: ':(na)'
+    label: 'Romain Racamier-Lafon'
+    replace: 'Romain Racamier-Lafon'
 
-  # entreprise, company
-  - regex: ":(ent|com)"
-    label: "HumaCode"
-    replace: "HumaCode"
+  # company
+  - regex: ':(com)'
+    label: 'HumaCode'
+    replace: 'HumaCode'
 
   # raison sociale
-  - regex: ":(rai|denom)"
-    label: "HumaCode"
-    replace: "HumaCode"
+  - regex: ':(rai|denom)'
+    label: 'HumaCode'
+    replace: 'HumaCode'
 
-  # poste, job
-  - regex: ":(po|jo)"
-    label: "Développeur Web"
-    replace: "Développeur Web"
+  # job
+  - regex: ':(job)'
+    label: 'Développeur Web'
+    replace: 'Développeur Web'
 
   # tva intracommunautaire
-  - regex: ":(tv)"
-    label: "FR41982417594"
-    replace: "FR41982417594"
+  - regex: ':(tv)'
+    label: 'FR41982417594'
+    replace: 'FR41982417594'
 
   # siret, Paris MAJ
-  - regex: ":(siret)"
-    label: "98241759400024"
-    replace: "98241759400024"
+  - regex: ':(siret)'
+    label: '98241759400024'
+    replace: '98241759400024'
 
   # siren
-  - regex: ":(siren)"
-    label: "982417594"
-    replace: "982417594"
+  - regex: ':(siren)'
+    label: '982417594'
+    replace: '982417594'
 
   # mail, email
-  - regex: ":(ma|em)"
-    label: "romain.racamier@gmail.com"
-    replace: "romain.racamier@gmail.com"
+  - regex: ':(ma|em)'
+    label: 'romain.racamier@gmail.com'
+    replace: 'romain.racamier@gmail.com'
 
   # mail pro, pro mail
-  - regex: ":(mp|pm)"
-    label: "humacode.fr@gmail.com"
-    replace: "humacode.fr@gmail.com"
+  - regex: ':(mp|pm)'
+    label: 'humacode.fr@gmail.com'
+    replace: 'humacode.fr@gmail.com'
 
   # adresse, address
-  - regex: ":(adr|addr|address)"
-    label: "21 rue du Berry 67100 Strasbourg"
-    replace: "21 rue du Berry 67100 Strasbourg"
+  - regex: ':(adr|addr|address)'
+    label: '21 rue du Berry 67100 Strasbourg'
+    replace: '21 rue du Berry 67100 Strasbourg'
 
   # ville, city
-  - regex: ":(vi|ci)"
-    label: "Strasbourg"
-    replace: "Strasbourg"
+  - regex: ':(vi|ci)'
+    label: 'Strasbourg'
+    replace: 'Strasbourg'
 
   # code postal, postal code, zip code
-  - regex: ":(co|cp|zi|po)"
-    label: "67100"
-    replace: "67100"
+  - regex: ':(co|cp|zi|po)'
+    label: '67100'
+    replace: '67100'
 
   # rue, street
-  - regex: ":(ru|stre)"
-    label: "21 rue du Berry"
-    replace: "21 rue du Berry"
+  - regex: ':(ru|stre)'
+    label: '21 rue du Berry'
+    replace: '21 rue du Berry'
 
   # téléphone, phone
-  - regex: ":(tel|ph)"
-    label: "0658476788"
-    replace: "0658476788"
+  - regex: ':(tel|ph)'
+    label: '0658476788'
+    replace: '0658476788'
 
   # linked-in
-  - trigger: ":lin"
-    label: "My LinkedIn profile"
-    replace: "https://www.linkedin.com/in/romain-racamier"
+  - trigger: ':lin'
+    label: 'My LinkedIn profile'
+    replace: 'https://www.linkedin.com/in/romain-racamier'
 
   # personal website
-  - trigger: ":web"
-    label: "My personal website"
-    replace: "https://romain.cloud"
+  - trigger: ':web'
+    label: 'My personal website'
+    replace: 'https://romain.cloud'
 
   # professional website
-  - trigger: ":pweb"
-    label: "HumaCode website"
-    replace: "https://humacode.fr"
+  - trigger: ':pweb'
+    label: 'HumaCode website'
+    replace: 'https://humacode.fr'
 
   # thumbs up and down
-  - trigger: ":tu"
-    label: "👍"
-    replace: "👍"
-  - trigger: ":td"
-    label: "👎"
-    replace: "👎"
+  - trigger: ':tu'
+    label: '👍'
+    replace: '👍'
+  - trigger: ':td'
+    label: '👎'
+    replace: '👎'
 
   # NOTE: espanso uses YAML to define matches, so pay attention to the indentation!
 
   # But matches can also be dynamic:
 
   # Print the current date
-  - trigger: ":da"
-    replace: "{{today}}"
+  - trigger: ':date'
+    replace: '{{mydate}}'
     vars:
-      - name: today
+      - name: mydate
         type: date
         params:
-          format: "%m/%d/%Y"
+          format: '%m/%d/%Y'
 
   # Print the output of a shell command
-  - trigger: ":sh"
-    replace: "{{output}}"
+  - trigger: ':shell'
+    replace: '{{output}}'
     vars:
       - name: output
         type: shell

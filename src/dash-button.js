@@ -1,8 +1,8 @@
-/* c8 ignore start */
-// @ts-ignore
-// biome-ignore lint/correctness/noUndeclaredDependencies: that's ok
+/* v8 ignore start */
 import dashBtn from 'node-dash-button'
+import { Logger } from 'shuutils'
 
+const logger = new Logger()
 const buttons = [
   {
     mac: 'fc:a6:67:8f:42:7c',
@@ -15,11 +15,9 @@ const buttons = [
 ]
 
 for (const button of buttons) {
-  console.log(`listening to button "${button.name}" with mac ${button.mac}`)
-  // @ts-ignore
+  logger.info(`listening to button "${button.name}" with mac ${button.mac}`)
   button.instance = dashBtn(button.mac, undefined, undefined, 'arp')
-  // @ts-ignore
   button.instance.on('detected', () => {
-    console.log(`"${button.name}" has been clicked`)
+    logger.info(`"${button.name}" has been clicked`)
   })
 }

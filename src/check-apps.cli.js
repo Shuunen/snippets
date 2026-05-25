@@ -1,19 +1,21 @@
-/* c8 ignore start */
+/* v8 ignore start */
 import { readdirSync, statSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
-import sevenZip from '7zip-min'
-import { Logger, blue, green, nbPercentMax, nbThird, red, yellow } from 'shuutils'
+import { list } from '7zip-min'
+import { blue, green, Logger, nbPercentMax, nbThird, red, Result, yellow } from 'shuutils'
+import { createInMemoryDriver } from './utils/index.ts'
 
-// Use me like : node ~/Projects/github/snippets/one-file/check-apps.cli.js "/d/Apps/"
+// Use me like : node ~/Projects/github/snippets/src/check-apps.cli.js "/d/Apps/"
 
 /**
  * @typedef {Record<string, string[]>} Groups
  */
 
 const parameters = process.argv
+const minSimilarity = 0.68 // 68% similarity is the minimum to consider two names as similar
 const expectedNbParameters = 2
-const logger = new Logger({ willOutputToMemory: true })
-if (parameters.length <= expectedNbParameters) logger.info(String.raw`Targeting current folder, you can also specify a specific path, ex : node one-file/check-screens.cli.js "U:\Screens\"`)
+const logger = new Logger({ storage: createInMemoryDriver() })
+if (parameters.length <= expectedNbParameters) logger.info(String.raw`Targeting current folder, you can also specify a specific path, ex : node src/check-screens.cli.js "U:\Screens\"`)
 const appsPath = path.normalize(parameters[expectedNbParameters] ?? process.cwd())
 const colors = [red, green, blue, yellow]
 let colorIndex = 0
@@ -21,6 +23,7 @@ const currentFolder = import.meta.dirname
 const nbSpaces = 2
 const archivesExtensions = new Set(['7z', 'exe', 'rar', 'zip'])
 const readableExtensions = new Set(['7z', 'zip'])
+const checkArchives = parameters.includes('--check')
 
 /**
  * Calculate the similarity between two strings
@@ -30,8 +33,8 @@ const readableExtensions = new Set(['7z', 'zip'])
  * @returns {number} the similarity between the two strings
  */
 function stringsSimilarity(firstString, secondString) {
-  const first = firstString.replace(/\s+/gu, '')
-  const second = secondString.replace(/\s+/gu, '')
+  const first = firstString.replaceAll(/\s+/gu, '')
+  const second = secondString.replaceAll(/\s+/gu, '')
   if (first === second) return 1 // identical or empty
   if (first.length < nbThird || second.length < nbThird) return 0 // if either is a 0-letter or 1-letter string
   /** @type {Map<string, number>} */
@@ -137,7 +140,7 @@ function getGroups(files) {
     groups[group] ??= []
     groups[group].push(file)
   }
-  writeFileSync(path.join(currentFolder, 'check-apps.json'), JSON.stringify(groups, undefined, nbSpaces))
+  writeFileSync(path.join(currentFolder, 'check-apps.local.json'), JSON.stringify(groups, undefined, nbSpaces))
   return groups
 }
 
@@ -147,7 +150,6 @@ function getGroups(files) {
  * @param {string} groupName the group name to check
  */
 function checkCloseName(groupNames, groupName) {
-  const minSimilarity = 0.65
   for (const groupNameA of groupNames) {
     if (groupName === groupNameA) continue
     if (groupName.startsWith('_')) continue
@@ -168,18 +170,18 @@ async function checkArchive(archive) {
   const extension = getExtension(archive)
   if (!readableExtensions.has(extension)) return
   const expectedFolder = archive.replace(`.${extension}`, '')
-  return new Promise(resolve => {
-    sevenZip.list(pathToArchive, (error, content) => {
-      if (error) logger.error(`Error while listing ${color(archive)}`, error)
-      const firstFolder = content?.find(item => ['D', 'DA'].includes(item.attr))
-      if (firstFolder === undefined) logger.error(`Failed to find a folder in : ${color(archive)}`)
-      else logger.debug(`${archive} content`, firstFolder)
-      const isValid = firstFolder?.name === expectedFolder
-      if (!isValid && firstFolder) logger.warn(`Found ${color(firstFolder.name)} instead of ${color(expectedFolder)} in ${color(archive)}`)
-      if (!isValid) writeFileSync(path.join(currentFolder, `check-apps-error-${expectedFolder}.json`), JSON.stringify(content, undefined, nbSpaces))
-      resolve()
-    })
-  })
+  const result = await Result.trySafe(list(pathToArchive))
+  if (!result.ok) {
+    logger.error(`Error while listing ${color(archive)}`, result.error)
+    return
+  }
+  const content = result.value
+  const firstFolder = content.find(item => ['D', 'DA'].includes(item.attr))
+  if (firstFolder === undefined) logger.error(`Failed to find a folder in : ${color(archive)}`)
+  else logger.debug(`${archive} content`, firstFolder)
+  const isValid = firstFolder?.name === expectedFolder
+  if (!isValid && firstFolder) logger.warn(`Found ${color(firstFolder.name)} instead of ${color(expectedFolder)} in ${color(archive)}`)
+  if (!isValid) writeFileSync(path.join(currentFolder, `check-apps-error-${expectedFolder}.json`), JSON.stringify(content, undefined, nbSpaces))
 }
 
 /**
@@ -191,7 +193,7 @@ async function checkMissingArchive(items, groupName) {
   if (groupName.startsWith('_')) return
   const archive = items.find(item => archivesExtensions.has(getExtension(item)))
   if (archive === undefined) logger.warn(`Missing archive for ${color(groupName)}`)
-  else await checkArchive(archive)
+  else if (checkArchives) await checkArchive(archive)
   const maxItems = 2 // one folder and one archive
   if (items.length > maxItems) logger.warn(`Too many archives for ${color(groupName)}`)
 }
@@ -232,6 +234,7 @@ async function checkGroups(groups) {
       logger.warn(`Empty group : ${color(groupName)}`)
       continue
     }
+    // oxlint-disable-next-line no-await-in-loop
     await checkMissingArchive(items, groupName)
   }
 }
@@ -244,7 +247,8 @@ async function start() {
   const files = getFiles()
   const groups = getGroups(files)
   await checkGroups(groups)
-  const nbWarnings = logger.inMemoryLogs.filter(log => log.includes('warn')).length
+  const logs = await logger.getLogs()
+  const nbWarnings = logs.filter(log => log.includes('warn')).length
   if (nbWarnings === 0) logger.success('No warning found ( ͡° ͜ʖ ͡°)')
   else logger.warn(`${nbWarnings} warnings found ಠ_ಠ`)
   logger.info('Check apps is done')

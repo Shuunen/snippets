@@ -1,7 +1,5 @@
 {
-  "cSpell.ignoreWords": [
-    "neval"
-  ],
+  "cSpell.ignoreWords": ["neval"],
   "cSpell.words": [
     "APPDATA",
     "appimagekit",
@@ -70,7 +68,6 @@
     "winfetch",
     "yeelight"
   ],
-  "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
   "workbench.colorCustomizations": {
     "activityBar.background": "#54143A",
     "titleBar.activeBackground": "#751C51",

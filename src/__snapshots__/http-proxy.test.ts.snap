@@ -1,0 +1,40 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`http-proxy > makeProxyRequest A should make POST request with JSON body 1`] = `
+{
+  "data": {
+    "success": true,
+  },
+  "response": {
+    "headers": {
+      "get": [MockFunction] {
+        "calls": [
+          [
+            "content-type",
+          ],
+        ],
+        "results": [
+          {
+            "type": "return",
+            "value": "application/json",
+          },
+        ],
+      },
+    },
+    "json": [MockFunction] {
+      "calls": [
+        [],
+      ],
+      "results": [
+        {
+          "type": "return",
+          "value": Promise {},
+        },
+      ],
+    },
+    "status": 200,
+    "statusText": "OK",
+    "text": [MockFunction],
+  },
+}
+`;

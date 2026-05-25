@@ -1,8 +1,9 @@
+// oxlint-disable import/no-nodejs-modules
 import { readFileSync, statSync } from 'node:fs'
 import path from 'node:path'
 import { Logger } from 'shuutils'
 
-export const logger = new Logger()
+export const logger = new Logger({ willOutputToConsole: process.env.NODE_ENV !== 'test' })
 
 /**
  * Replace a placeholder in a string and check if it was replaced
@@ -51,22 +52,23 @@ export function safeRead(relativeFilepath, folderPath = process.cwd()) {
 }
 
 const regex = {
+  color: /#(?:[\da-f]{3}){1,2}/iu,
+  description: /"description": "(?<description>[^"]+)"/u,
   packageName: /"name": "(?<name>[^"]+)"/u,
   scopeAndName: /\.com\/(?<scope>[^/]+)\/(?<name>[\w-]+)/iu,
-  description: /"description": "(?<description>[^"]+)"/u,
-  color: /#(?:[\da-f]{3}){1,2}/iu,
 }
 
 /**
  * Extract data
  * @param folderPath the folder to extract data from
+ * @returns {Object} the extracted data with color, description, name, and scope
  */
 export function extractData(folderPath = process.cwd()) {
   const defaults = { color: '#024eb8', description: 'A placeholder description', name: 'unknown', scope: 'JohnDoe' }
   const infos = [safeRead('.vscode/settings.json', folderPath), safeRead('package.json', folderPath)].join('\n')
-  const packageName = regex.packageName.exec(infos)?.groups?.name?.split('/')?.toReversed?.()[0]
+  const packageName = regex.packageName.exec(infos)?.groups?.name.split('/').toReversed?.()[0]
   const scopeAndName = regex.scopeAndName.exec(infos)?.groups
-  const name = packageName ?? /* c8 ignore next */ scopeAndName?.name ?? defaults.name
+  const name = packageName ?? /* v8 ignore next */ scopeAndName?.name ?? defaults.name
   const scope = scopeAndName?.scope ?? defaults.scope
   if (name === defaults.name) logger.error('Could not find a name for the project, using the default one :', name)
   const description = regex.description.exec(infos)?.groups?.description ?? defaults.description

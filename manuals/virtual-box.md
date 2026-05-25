@@ -1,4 +1,3 @@
-
 # How to configure network adapter
 
 1. Go to vm network conf
@@ -6,19 +5,19 @@
 3. Add and set a second card to private host network
 4. Log into the vm and edit network interfaces
 
-````
+```bash
 sudo -s
 nano /etc/network/interfaces
-````
+```
 
 5. Configure the second interface eth1 to a static ip address
 
-```
+```text
 The primary network interface
 auto eth0
 iface eth0 inet dhcp
 
-# The secondary network interface
+## The secondary network interface
 auto eth1
 iface eth1 inet static
         address 192.168.56.2
@@ -29,8 +28,8 @@ iface eth1 inet static
 
 6. Restart
 
-````
+```bash
 reboot
-````
+```
 
 7. Now you should be able to log into your vm via putty for example on 192.168.56.2

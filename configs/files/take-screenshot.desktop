@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Service
+ServiceTypes=KonqPopupMenu/Plugin
+MimeType=video/mp4;video/x-msvideo;video/x-matroska;video/quicktime;video/x-ms-wmv;video/webm;video/3gpp;video/x-flv;video/ogg;
+Actions=takeScreenshot;
+
+[Desktop Action takeScreenshot]
+Name=Take Screenshot
+Name[en_US]=Take Screenshot
+Icon=camera-photo
+Exec=~/Projects/github/snippets/src/take-screenshot.sh %f
+Terminal=false
