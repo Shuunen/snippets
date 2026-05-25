@@ -81,11 +81,6 @@ if ! [[ "$PATH" =~ .local/share/applications ]] && [ -d "$HOME/.local/share/appl
 if ! [[ "$PATH" =~ snippets/src ]] && [ -d "$HOME/Projects/github/snippets/src" ]; then PATH="$PATH:$HOME/Projects/github/snippets/src"; fi
 if ! [[ "$PATH" =~ Node_22_Final ]] && [ -d "/d/Apps/Node_22_Final" ]; then PATH="$PATH:/d/Apps/Node_22_Final"; fi
 
-if ! command -v nx >/dev/null 2>&1; then
-  npm i nx -g
-  echo "nx installed globally :)"
-fi
-
 if ! [[ "$PATH" =~ .pyenv/bin ]] && [ -d "$HOME/.pyenv/pyenv-win" ]; then
   export PYENV="$HOME/.pyenv/pyenv-win"
   export PATH="$PYENV/bin:$PYENV/shims:$PATH"

@@ -62,7 +62,6 @@
     "npm": true,
     "npx": true,
     "nvm": true,
-    "nx": true,
     "pnpm": true,
     "rm": false,
     "rmdir": false,
