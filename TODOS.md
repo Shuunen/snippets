@@ -1,5 +1,12 @@
 # TODOS
 
+## Open
+
+- Update README: replace `Bun` credit with `pnpm` / `Node.js`
+- Add README dev section: `pnpm install`, `pnpm check`, `pnpm run test:unit`
+- Document new CLIs in README: `http-proxy`, `check-souvenirs`, `eslint-cleaner`, `stock-infos`
+- Mention oxlint + oxfmt replacing biome in README dev section
+
 ## Completed
 
 - **Migrate from monorepo** — moved `one-file/` → `src/`, switched to pnpm + turbo, oxlint + oxfmt, TypeScript 6
