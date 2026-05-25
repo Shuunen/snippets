@@ -310,9 +310,11 @@ git clone git@github.com:Shuunen/flood-it.git
 git clone git@github.com:Shuunen/folio.git
 git clone git@github.com:Shuunen/ging.git
 git clone git@github.com:Shuunen/goals.git
+git clone git@github.com:Shuunen/jozzo.git
 git clone git@github.com:Shuunen/recipes.git
 git clone git@github.com:Shuunen/regex-converter.git
 git clone git@github.com:Shuunen/snippets.git
+git clone git@github.com:Shuunen/shuutils.git
 git clone git@github.com:Shuunen/stuff-finder.git
 git clone git@github.com:Shuunen/user-scripts.git
 git clone git@github.com:Shuunen/what-now.git
