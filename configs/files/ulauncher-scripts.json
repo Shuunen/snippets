@@ -1,9 +1,6 @@
 [
   {
-    "default_arguments": [
-      "~/Projects/github/snippets/one-file/lol-practice-5v5.js",
-      "~/Games/league-of-legends/drive_c/Riot\\ Games/League\\ of\\ Legends/lockfile"
-    ],
+    "default_arguments": ["~/Projects/github/snippets/src/lol-practice-5v5.js", "~/Games/league-of-legends/drive_c/Riot\\ Games/League\\ of\\ Legends/lockfile"],
     "description": "Starts a LoL Practice 5v5 game",
     "icon": "lutris_league-of-legends",
     "name": "LoL Practice 5v5",

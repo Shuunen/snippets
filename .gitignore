@@ -1,7 +1,13 @@
 .cache
+.claude/
 .DS_Store
 .env
 .eslintcache
+.fallow-baselines/
+.fallow/
+.github/
+.gstack/
+.turbo/
 *.bak
 *.crt
 *.endpoint
@@ -16,3 +22,5 @@ dist
 node_modules
 sample.*
 take-screenshot-last-input.txt
+test-results
+tsconfig.tsbuildinfo

@@ -30,16 +30,6 @@
     "when": "editorTextFocus && !editorReadonly"
   },
   {
-    "args": {
-      "commands": [
-        "typescript.restartTsServer",
-        "eslint.restart"
-      ]
-    },
-    "command": "runCommands",
-    "key": "ctrl+oem_8"
-  },
-  {
     "command": "-filesExplorer.findInFolder",
     "key": "shift+alt+f",
     "when": "explorerResourceIsFolder && explorerViewletVisible && filesExplorerFocus && !inputFocus"
@@ -75,8 +65,16 @@
     "when": "terminalProcessSupported || terminalWebExtensionContributedProfile"
   },
   {
-    "command": "sortJSON.sortJSON",
-    "key": "ctrl+s",
-    "when": "editorTextFocus && !editorReadonly && resourceExtname == .json"
+    "args": {
+      "text": "\\\r\n"
+    },
+    "command": "workbench.action.terminal.sendSequence",
+    "key": "shift+enter",
+    "when": "terminalFocus"
+  },
+  {
+    "key": "ctrl+.",
+    "command": "editor.action.commentLine",
+    "when": "editorTextFocus && !editorReadonly"
   }
 ]

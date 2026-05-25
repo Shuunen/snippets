@@ -1,0 +1,307 @@
+*PPD-Adobe: "4.3"
+*%
+*%
+*%
+*%
+*FormatVersion: "4.3"
+*FileVersion:"2.0.0"
+*LanguageVersion: English
+*LanguageEncoding: ISOLatin1
+*PCFileName: "phomemo-m120.ppd"
+*Manufacturer: ""
+*cupsModelNumber: 6201
+*Product: "(M120)"
+*ModelName: "M120"
+
+*ShortNickName: "M120"
+*NickName: "M120"
+*PSVersion: "(3010.000) 550"
+*PSVersion: "(3010.000) 651"
+*PSVersion: "(3010.000) 652"
+*PSVersion: "(3010.000) 653"
+*PSVersion: "(3010.000) 704"
+*PSVersion: "(3010.000) 705"
+*PSVersion: "(3010.000) 800"
+*LanguageLevel: "3"
+*ColorDevice: False
+*DefaultColorSpace: Gray
+*FileSystem: False
+*Throughput: "1"
+*LandscapeOrientation: Plus90
+*TTRasterizer: Type42
+*cupsVersion: 1.2
+*cupsManualCopies: True
+*cupsFilter: "application/vnd.cups-raster 0 rastertolabelmxxx"
+*cupsLanguages: "en"
+
+
+*OpenUI *PageSize/Media Size: PickOne
+*OrderDependency: 10 AnySetup *PageSize
+*DefaultPageSize: 40x20
+*PageSize w136h85/58(48mm)x30mm: "<</PageSize[136 85]/ImagingBBox null>>setpagedevice"
+*PageSize w136h198/58(48mm)x70mm: "<</PageSize[136 198]/ImagingBBox null>>setpagedevice"
+*PageSize 40x20: "<</PageSize[108 57]/ImagingBBox null>>setpagedevice"
+*CloseUI: *PageSize
+
+*OpenUI *PageRegion/Media Size: PickOne
+*OrderDependency: 10 AnySetup *PageRegion
+*DefaultPageRegion: 40x20
+*PageRegion w136h85/58(48mm)x30mm: "<</PageSize[136 85]/ImagingBBox null>>setpagedevice"
+*PageRegion w136h198/58(48mm)x70mm: "<</PageSize[136 198]/ImagingBBox null>>setpagedevice"
+*PageRegion 40x20: "<</PageSize[108 57]/ImagingBBox null>>setpagedevice"
+*CloseUI: *PageRegion
+
+*DefaultImageableArea: w136h85
+*ImageableArea w136h85/58(48mm)x30mm: "0 0 136 85"
+*ImageableArea w136h198/58(48mm)x70mm: "0 0 136 198"
+*ImageableArea 40x20: "0 0 108 57"
+
+*DefaultPaperDimension: w136h85
+*PaperDimension w136h85/58(48mm)x30mm: "136 85"
+*PaperDimension w136h198/58(48mm)x70mm: "136 198"
+*PaperDimension 40x20: "108 57"
+
+*MaxMediaWidth: "142"
+*MaxMediaHeight: "1418"
+*HWMargins: 0 0 0 0
+*CustomPageSize True: "pop pop pop <</PageSize[5 -2 roll]/ImagingBBox null>>setpagedevice"
+*ParamCustomPageSize Width: 1 points 28 142
+*ParamCustomPageSize Height: 2 points 28 1418
+*ParamCustomPageSize WidthOffset: 3 points 0 0
+*ParamCustomPageSize HeightOffset: 4 points 0 0
+*ParamCustomPageSize Orientation: 5 int 0 0
+
+
+*OpenUI *Resolution/Resolution: PickOne
+*OrderDependency: 10 AnySetup *Resolution
+*DefaultResolution: 203dpi
+*Resolution 203dpi/203 dpi x 203 dpi: "<</HWResolution[203 203]/cupsBitsPerColor 8/cupsRowCount 8/cupsRowFeed 0/cupsRowStep 0/cupsColorSpace 0>>setpagedevice"
+*CloseUI: *Resolution
+
+
+
+*OpenGroup: PrinterSettings/Printer Settings
+
+*OpenUI *zeMediaTracking/Media Tracking: PickOne
+*OrderDependency: 20 AnySetup *zeMediaTracking
+*DefaultzeMediaTracking: Default
+*zeMediaTracking Default/Printer Default: ""
+*zeMediaTracking Continuous/Continuous: ""
+*zeMediaTracking Gap/Gap: ""
+*zeMediaTracking BLine/Black Line: ""
+*CloseUI: *zeMediaTracking
+
+
+*OpenUI *Darkness/Darkness: PickOne
+*OrderDependency: 20 AnySetup *Darkness
+*DefaultDarkness: Default
+*Darkness Default/Printer Default: ""
+*Darkness 1: "%%"
+*Darkness 2: "%%"
+*Darkness 3: "%%"
+*Darkness 4: "%%"
+*Darkness 5: "%%"
+*Darkness 6: "%%"
+*Darkness 7: "%%"
+*Darkness 8: "%%"
+*Darkness 9: "%%"
+*Darkness 10: "%%"
+*Darkness 11: "%%"
+*Darkness 12: "%%"
+*Darkness 13: "%%"
+*Darkness 14: "%%"
+*Darkness 15: "%%"
+*CloseUI: *Darkness
+
+*OpenUI *zePrintRate/Print Speed: PickOne
+*OrderDependency: 20 AnySetup *zePrintRate
+*DefaultzePrintRate: Default
+*zePrintRate Default/Printer Default: ""
+*zePrintRate 1/1: ""
+*zePrintRate 2/2: ""
+*zePrintRate 3/3: ""
+*zePrintRate 4/4: ""
+*zePrintRate 5/5: ""
+*zePrintRate 6/6: ""
+*CloseUI: *zePrintRate
+
+*OpenUI *ColorOption/ColorOption: PickOne
+*OrderDependency: 20 AnySetup *ColorOption
+*DefaultColorOption: None
+*ColorOption None/None: ""
+*ColorOption GrayScale/GrayScale: ""
+*CloseUI: *ColorOption
+
+*OpenUI *DegreeOfBlackRecognition/DegreeOfBlackRecognition: PickOne
+*OrderDependency: 20 AnySetup *DegreeOfBlackRecognition
+*DefaultDegreeOfBlackRecognition: 4
+*DegreeOfBlackRecognition 1/1: ""
+*DegreeOfBlackRecognition 2/2: ""
+*DegreeOfBlackRecognition 3/3: ""
+*DegreeOfBlackRecognition 4/4: ""
+*DegreeOfBlackRecognition 5/5: ""
+*DegreeOfBlackRecognition 6/6: ""
+*DegreeOfBlackRecognition 7/7: ""
+*CloseUI: *DegreeOfBlackRecognition
+
+*OpenUI *DegreeOfGrayRecognition/DegreeOfGrayRecognition: PickOne
+*OrderDependency: 20 AnySetup *DegreeOfGrayRecognition
+*DefaultDegreeOfGrayRecognition: 7
+*DegreeOfGrayRecognition 1/1: ""
+*DegreeOfGrayRecognition 2/2: ""
+*DegreeOfGrayRecognition 3/3: ""
+*DegreeOfGrayRecognition 4/4: ""
+*DegreeOfGrayRecognition 5/5: ""
+*DegreeOfGrayRecognition 6/6: ""
+*DegreeOfGrayRecognition 7/7: ""
+*CloseUI: *DegreeOfGrayRecognition
+
+*CloseGroup: PrinterSettings
+
+*OpenGroup: PageSet/Page Options
+
+*OpenUI *AdjustHoriaontal/Horizontal Offset:PickOne
+*OrderDependency: 130 AnySetup *AdjustHoriaontal
+*DefaultAdjustHoriaontal: 0
+*AdjustHoriaontal -20/-20mm: "%%"
+*AdjustHoriaontal -19/-19mm: "%%"
+*AdjustHoriaontal -18/-18mm: "%%"
+*AdjustHoriaontal -17/-17mm: "%%"
+*AdjustHoriaontal -16/-16mm: "%%"
+*AdjustHoriaontal -15/-15mm: "%%"
+*AdjustHoriaontal -14/-14mm: "%%"
+*AdjustHoriaontal -13/-13mm: "%%"
+*AdjustHoriaontal -12/-12mm: "%%"
+*AdjustHoriaontal -11/-11mm: "%%"
+*AdjustHoriaontal -10/-10mm: "%%"
+*AdjustHoriaontal -9/-9mm: "%%"
+*AdjustHoriaontal -8/-8mm: "%%"
+*AdjustHoriaontal -7/-7mm: "%%"
+*AdjustHoriaontal -6/-6mm: "%%"
+*AdjustHoriaontal -5/-5mm: "%%"
+*AdjustHoriaontal -4/-4mm: "%%"
+*AdjustHoriaontal -3/-3mm: "%%"
+*AdjustHoriaontal -2/-2mm: "%%"
+*AdjustHoriaontal -1/-1mm: "%%"
+*AdjustHoriaontal 0/0mm: "%%"
+*AdjustHoriaontal 1/1mm: "%%"
+*AdjustHoriaontal 2/2mm: "%%"
+*AdjustHoriaontal 3/3mm: "%%"
+*AdjustHoriaontal 4/4mm: "%%"
+*AdjustHoriaontal 5/5mm: "%%"
+*AdjustHoriaontal 6/6mm: "%%"
+*AdjustHoriaontal 7/7mm: "%%"
+*AdjustHoriaontal 8/8mm: "%%"
+*AdjustHoriaontal 9/9mm: "%%"
+*AdjustHoriaontal 10/10mm: "%%"
+*AdjustHoriaontal 11/11mm: "%%"
+*AdjustHoriaontal 12/12mm: "%%"
+*AdjustHoriaontal 13/13mm: "%%"
+*AdjustHoriaontal 14/14mm: "%%"
+*AdjustHoriaontal 15/15mm: "%%"
+*AdjustHoriaontal 16/16mm: "%%"
+*AdjustHoriaontal 17/17mm: "%%"
+*AdjustHoriaontal 18/18mm: "%%"
+*AdjustHoriaontal 19/19mm: "%%"
+*AdjustHoriaontal 20/20mm: "%%"
+*CloseUI: *AdjustHoriaontal
+
+*OpenUI *AdjustVertical/Vertical Offset:PickOne
+*OrderDependency: 130 AnySetup *AdjustVertical
+*DefaultAdjustVertical: 0
+*AdjustVertical -20/-20mm: "%%"
+*AdjustVertical -19/-19mm: "%%"
+*AdjustVertical -18/-18mm: "%%"
+*AdjustVertical -17/-17mm: "%%"
+*AdjustVertical -16/-16mm: "%%"
+*AdjustVertical -15/-15mm: "%%"
+*AdjustVertical -14/-14mm: "%%"
+*AdjustVertical -13/-13mm: "%%"
+*AdjustVertical -12/-12mm: "%%"
+*AdjustVertical -11/-11mm: "%%"
+*AdjustVertical -10/-10mm: "%%"
+*AdjustVertical -9/-9mm: "%%"
+*AdjustVertical -8/-8mm: "%%"
+*AdjustVertical -7/-7mm: "%%"
+*AdjustVertical -6/-6mm: "%%"
+*AdjustVertical -5/-5mm: "%%"
+*AdjustVertical -4/-4mm: "%%"
+*AdjustVertical -3/-3mm: "%%"
+*AdjustVertical -2/-2mm: "%%"
+*AdjustVertical -1/-1mm: "%%"
+*AdjustVertical 0/0mm: "%%"
+*AdjustVertical 1/1mm: "%%"
+*AdjustVertical 2/2mm: "%%"
+*AdjustVertical 3/3mm: "%%"
+*AdjustVertical 4/4mm: "%%"
+*AdjustVertical 5/5mm: "%%"
+*AdjustVertical 6/6mm: "%%"
+*AdjustVertical 7/7mm: "%%"
+*AdjustVertical 8/8mm: "%%"
+*AdjustVertical 9/9mm: "%%"
+*AdjustVertical 10/10mm: "%%"
+*AdjustVertical 11/11mm: "%%"
+*AdjustVertical 12/12mm: "%%"
+*AdjustVertical 13/13mm: "%%"
+*AdjustVertical 14/14mm: "%%"
+*AdjustVertical 15/15mm: "%%"
+*AdjustVertical 16/16mm: "%%"
+*AdjustVertical 17/17mm: "%%"
+*AdjustVertical 18/18mm: "%%"
+*AdjustVertical 19/19mm: "%%"
+*AdjustVertical 20/20mm: "%%"
+*CloseUI: *AdjustVertical
+
+
+
+*OpenUI *Rotate/Rotate: PickOne
+*OrderDependency: 160 AnySetup *Rotate
+*DefaultRotate: 0
+*Rotate 0/0: "%%"
+*Rotate 1/180: "%%"
+*Rotate 2/90: "%%"
+*Rotate 3/270: "%%"
+*CloseUI: *Rotate
+
+
+*CloseGroup: PageSet
+
+
+*DefaultFont: Courier
+*Font AvantGarde-Book: Standard "(1.05)" Standard ROM
+*Font AvantGarde-BookOblique: Standard "(1.05)" Standard ROM
+*Font AvantGarde-Demi: Standard "(1.05)" Standard ROM
+*Font AvantGarde-DemiOblique: Standard "(1.05)" Standard ROM
+*Font Bookman-Demi: Standard "(1.05)" Standard ROM
+*Font Bookman-DemiItalic: Standard "(1.05)" Standard ROM
+*Font Bookman-Light: Standard "(1.05)" Standard ROM
+*Font Bookman-LightItalic: Standard "(1.05)" Standard ROM
+*Font Courier: Standard "(1.05)" Standard ROM
+*Font Courier-Bold: Standard "(1.05)" Standard ROM
+*Font Courier-BoldOblique: Standard "(1.05)" Standard ROM
+*Font Courier-Oblique: Standard "(1.05)" Standard ROM
+*Font Helvetica: Standard "(1.05)" Standard ROM
+*Font Helvetica-Bold: Standard "(1.05)" Standard ROM
+*Font Helvetica-BoldOblique: Standard "(1.05)" Standard ROM
+*Font Helvetica-Narrow: Standard "(1.05)" Standard ROM
+*Font Helvetica-Narrow-Bold: Standard "(1.05)" Standard ROM
+*Font Helvetica-Narrow-BoldOblique: Standard "(1.05)" Standard ROM
+*Font Helvetica-Narrow-Oblique: Standard "(1.05)" Standard ROM
+*Font Helvetica-Oblique: Standard "(1.05)" Standard ROM
+*Font NewCenturySchlbk-Bold: Standard "(1.05)" Standard ROM
+*Font NewCenturySchlbk-BoldItalic: Standard "(1.05)" Standard ROM
+*Font NewCenturySchlbk-Italic: Standard "(1.05)" Standard ROM
+*Font NewCenturySchlbk-Roman: Standard "(1.05)" Standard ROM
+*Font Palatino-Bold: Standard "(1.05)" Standard ROM
+*Font Palatino-BoldItalic: Standard "(1.05)" Standard ROM
+*Font Palatino-Italic: Standard "(1.05)" Standard ROM
+*Font Palatino-Roman: Standard "(1.05)" Standard ROM
+*Font Symbol: Special "(001.005)" Special ROM
+*Font Times-Bold: Standard "(1.05)" Standard ROM
+*Font Times-BoldItalic: Standard "(1.05)" Standard ROM
+*Font Times-Italic: Standard "(1.05)" Standard ROM
+*Font Times-Roman: Standard "(1.05)" Standard ROM
+*Font ZapfChancery-MediumItalic: Standard "(1.05)" Standard ROM
+*Font ZapfDingbats: Special "(001.005)" Special ROM
+
+*% End of PPD

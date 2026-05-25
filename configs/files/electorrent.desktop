@@ -1,7 +1,11 @@
 [Desktop Entry]
-Comment=Rtorrent remote gui
-Exec="Electorrent.AppImage"
-Icon=network-transmit
-Name=Electorrent 
+Name=Electorrent
+Exec=/opt/Electorrent/electorrent --gtk-version=3 %U
 Terminal=false
 Type=Application
+Icon=electorrent
+StartupWMClass=Electorrent
+MimeType=application/x-bittorrent;x-scheme-handler/magnet;
+Keywords=p2p;bittorrent;
+Comment=A thin client for your torrenting needs
+Categories=Network;FileTransfer;P2P;

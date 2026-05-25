@@ -61,7 +61,7 @@ Now that we have input codes let's have a look at udev conf :
 sudo gedit /lib/udev/hwdb.d/60-keyboard.hwdb
 ```
 
-Search for "R400" and replace *presentation* & *displaytoggle* by what you want, here *playpause* & *stopcd* arrow keys :
+Search for "R400" and replace _presentation_ & _displaytoggle_ by what you want, here _playpause_ & _stopcd_ arrow keys :
 
 ```bash
 # Logitech Presenter R400
@@ -71,7 +71,7 @@ evdev:input:b0003v046DpC52D*
  KEYBOARD_KEY_070037=stopcd       # bottom right [ ] was "displaytoggle"
 ```
 
-As previously noted, because 07003e & 070029 are the same button, I gaved them the same output *up* key.
+As previously noted, because 07003e & 070029 are the same button, I gaved them the same output _up_ key.
 The 7004b & 7004e does not appears here by default, maybe because they are native PAGEUP & PAGEDOWN inputs and not related to "Logitech Presenter R400". Let's add them :
 
 ```bash
@@ -89,7 +89,7 @@ Here is my final conf :
  KEYBOARD_KEY_070037=stopcd       # bottom right [ ] was "displaytoggle"
 ```
 
-## 3. Reloading *(new)* rules
+## 3. Reloading _(new)_ rules
 
 ```bash
 sudo udevadm hwdb --update
@@ -106,7 +106,9 @@ The end :)
 You can check this new mapping in browser for example :
 
 ```js
-$('body').on('keydown', function(e){ console.log(e.key) })
+$('body').on('keydown', function (e) {
+  console.log(e.key)
+})
 ```
 
 That gave me :
@@ -118,9 +120,9 @@ That gave me :
  >  ArrowRight
 ```
 
-## TODO
+## Note
 
-- Follow udev 60-keyboard.hwdb documentation & create a new conf file in /etc/udev/hwdb.d/70-keyboard.hwdb instead of modifying /lib/udev/hwdb.d/60-keyboard.hwdb
+- Best practice: create a new conf file in /etc/udev/hwdb.d/70-keyboard.hwdb instead of modifying /lib/udev/hwdb.d/60-keyboard.hwdb
 
 ## Some of my tests
 

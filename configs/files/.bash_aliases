@@ -1,5 +1,14 @@
 #!/bin/bash
 
+# stash untracked files by default when using git stash
+git() {
+  if [[ "$1" == "stash" && "$2" == "" ]]; then
+    command git stash -u
+  else
+    command git "$@"
+  fi
+}
+
 # Helper function to detect package manager
 pkgm() {
   if [ -f "bun.lock" ] || [ -f "bun.lockb" ]; then
@@ -11,10 +20,10 @@ pkgm() {
   fi
 }
 
-alias ..='cd ..' 
+alias ..='cd ..'
 alias ll="ls -lv --almost-all --no-group --human-readable --classify --group-directories-first --time-style=long-iso --color=auto"
-alias merge=meld 
-alias mkdir='mkdir -pv' 
+alias merge=meld
+alias mkdir='mkdir -pv'
 alias psg='ps aux | grep -v grep | grep -i -e VSZ -e'
 
 # Improved regenLock to handle bun, pnpm, and npm
@@ -47,7 +56,7 @@ alias pt='$(pkgm) run test'
 alias ptw='$(pkgm) test:watch'
 alias ptu='$(pkgm) test:update'
 alias pl='$(pkgm) lint'
-alias ps='$(pkgm) start'
+# alias ps='$(pkgm) start' # interfere with native ps bin
 alias pi='$(pkgm) install'
 alias pb='$(pkgm) run build'
 alias po='$(pkgm) outdated'
@@ -69,7 +78,12 @@ function setProxy() {
 
 if ! [[ "$PATH" =~ .npm-global/bin ]] && [ -d "$HOME/.npm-global/bin" ]; then PATH="$PATH:$HOME/.npm-global/bin"; elif [ -d "$HOME/.npm-global" ]; then PATH="$PATH:$HOME/.npm-global"; fi
 if ! [[ "$PATH" =~ .local/share/applications ]] && [ -d "$HOME/.local/share/applications" ]; then PATH="$PATH:$HOME/.local/share/applications"; fi
-if ! [[ "$PATH" =~ snippets/one-file ]] && [ -d "$HOME/Projects/github/snippets/one-file" ]; then PATH="$PATH:$HOME/Projects/github/snippets/one-file"; fi
+if ! [[ "$PATH" =~ snippets/src ]] && [ -d "$HOME/Projects/github/snippets/src" ]; then PATH="$PATH:$HOME/Projects/github/snippets/src"; fi
 if ! [[ "$PATH" =~ Node_22_Final ]] && [ -d "/d/Apps/Node_22_Final" ]; then PATH="$PATH:/d/Apps/Node_22_Final"; fi
 
-echo Bash aliases v1 loaded 🧭
+if ! [[ "$PATH" =~ .pyenv/bin ]] && [ -d "$HOME/.pyenv/pyenv-win" ]; then
+  export PYENV="$HOME/.pyenv/pyenv-win"
+  export PATH="$PYENV/bin:$PYENV/shims:$PATH"
+fi
+
+echo ' Bash aliases v1 loaded 🧭'

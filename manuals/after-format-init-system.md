@@ -1,4 +1,5 @@
 <!-- markdownlint-disable MD033 -->
+
 # Init
 
 <details>
@@ -143,7 +144,7 @@ Avoid :
 Open Rapidee & add these to the user path :
 
 - `%USERPROFILE%\.npm-global`
-- `%USERPROFILE%\Projects\github\snippets\one-file`
+- `%USERPROFILE%\Projects\github\snippets\src`
 - `C:\ProgramData\chocolatey\bin`
 - `D:\Apps\_Globals`
 - `D:\Apps\Espanso_221_2024-08`
@@ -223,7 +224,7 @@ irm https://christitus.com/win | iex
 - [ ] options : Looks -> Dracula theme, Text -> font size to 11, Mouse -> right btn paste, Window 120 x 30
 
 ### Android development environnement
-  
+
 Set env variables with this but copy/paste to notepad to have CRLF & copy/paste into CMD after (thx m$) :
 
 ```batch
@@ -252,13 +253,13 @@ Install these deb :
 - [Steam](https://store.steampowered.com/about)
 - [Stretchly](https://github.com/hovancik/stretchly/releases)
 
-```bash  
-sudo apt install -y neofetch git aria2 nano curl -y
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
+```bash
+sudo apt install -y neofetch btop tldr git aria2 nano curl -y
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
 bash # reload shell to be able to invoke nvm
-nvm install 20
+nvm install --lts
 # vvv below is for desktop only vvv
-sudo apt install gparted meld mediainfo mkvtoolnix mkvtoolnix-gui mpv xsel shotwell synaptic vlc ffmpeg -y
+sudo apt install gparted meld mediainfo mkvtoolnix mkvtoolnix-gui mpv xsel shotwell synaptic vlc ffmpeg thunar -y
 sudo apt update
 sudo apt autoremove -y
 echo -e "optional : you can manually run 'sudo apt install ttf-mscorefonts-installer' & 'sudo fc-cache -f -v' to get win fonts & clear font cache"
@@ -270,15 +271,15 @@ echo -e "optional : you can manually run 'sudo apt install ttf-mscorefonts-insta
   <summary>CentOS, Fedora and Red Hat based : Nobara</summary>
   <br>
 
-  Install these rpm :
+Install these rpm :
 
 - [Chrome](https://www.google.com/intl/fr_fr/chrome)
 - [VsCode](https://code.visualstudio.com/download)
 
 ```bash
 sudo snap install node --classic --channel=18 # sudo dnf module install nodejs:18/common # not working on Nobara 38
-sudo dnf install neofetch git aria2 nano curl -y # vvv below is for desktop only vvv
-sudo dnf install pinta gparted meld mediainfo mkvtoolnix mkvtoolnix-gui mpv xsel shotwell vlc ffmpeg qbittorrent -y
+sudo dnf install neofetch git aria2 nano curl golang -y # vvv below is for desktop only vvv
+sudo dnf install pinta qimgv gparted meld mediainfo mkvtoolnix mkvtoolnix-gui mpv xsel shotwell vlc ffmpeg thunar qbittorrent -y
 ```
 
 To use XBox 360 controller on Nobara :
@@ -295,53 +296,66 @@ lsmod | grep xpad # should return nothing, if not : sudo rmmod xpad / sudo rmmod
 <details>
   <summary>All</summary>
 
-  Copy ssh keys then :
-  
-  ```bash
+Copy ssh keys then in a **bash terminal** :
+
+```bash
 sudo chmod 700 ~/.ssh/ -R # remove 'sudo' on windows
 # mkdir ~/.npm-global # if not using nvm
 # npm config set prefix '~/.npm-global' # if not using nvm
-npm i pnpm -g
+npm i pnpm bun -g
 mkdir ~/Projects/github -p
 cd ~/Projects/github
 git clone git@github.com:Shuunen/c-est-donne.git
-git clone git@github.com:Shuunen/eslint-plugin-shuunen.git
 git clone git@github.com:Shuunen/flood-it.git
 git clone git@github.com:Shuunen/folio.git
 git clone git@github.com:Shuunen/ging.git
 git clone git@github.com:Shuunen/goals.git
-git clone git@github.com:Shuunen/jozzo.git
 git clone git@github.com:Shuunen/recipes.git
 git clone git@github.com:Shuunen/regex-converter.git
-git clone git@github.com:Shuunen/repo-checker.git
-git clone git@github.com:Shuunen/shuutils.git
 git clone git@github.com:Shuunen/snippets.git
 git clone git@github.com:Shuunen/stuff-finder.git
 git clone git@github.com:Shuunen/user-scripts.git
-git clone git@github.com:Shuunen/vue-image-compare.git
 git clone git@github.com:Shuunen/what-now.git
 find . -maxdepth 1 -type d \( ! -name . \) -exec bash -c "cd '{}' && git checkout master && git pull && pnpm i" \;
-node snippets/configs/bin/sync.js --setup
+cd ~/Projects/github/snippets
+pnpm run cs --setup
 ```
 
 - [ ] install my recommended extensions
 - [ ] set display screen refresh rate to max
-- [ ] Do Geekbench && `geekbench6 --gpu`, `geekbench5 --compute`, Cinebench, UserBenchmark
+- [ ] Do Geekbench && `geekbench6 --gpu`, `geekbench6 --gpu Vulkan`, `geekbench5 --compute`, Cinebench, UserBenchmark
 - [ ] [pimp with a 2k wallpaper](https://www.google.com/search?q=wallpaper+2k)
 - [ ] encrypt drive
 
+Setup Jackett :
+
+1. Check [readme](https://github.com/Jackett/Jackett) for install guide
+2. Go to your [web dashboard](http://localhost:9117/) and copy your API key (you'll need it in the next steps)
+3. Download [latest qBittorrent search plugin for Jackett](https://raw.githubusercontent.com/qbittorrent/search-plugins/refs/heads/master/nova3/engines/jackett.py)
+4. Edit the plugin, replace `API_KEY` with the one you copied, then save it
+5. In qBittorrent, go to Search > Search plugins > Install a new one, select the plugin file you just edited, then install it
+6. You should now see Jackett in the list of search engines, you can use it to search for torrents from the indexers you added in Jackett
+7. You may need to run `bash ~/Projects/github/snippets/src/dns-bench.sh` to check the best DNS server for your location, then update it in your network settings
+8. Also use your flare solver local instance if any : `http://127.0.0.1:8191`
+9. Click on add indexers, filter by public and lang and select the ones you want, then add them all at once
+10. Redo the process with FR lang :p
+11. Test all indexers with the test button, if some are not working remove them
+
 Nice app to keep in mind :
 
+- [Apostrophe](https://flathub.org/en/apps/org.gnome.gitlab.somas.Apostrophe) : efficient Markdown MD editor
 - [Boxy SVG](https://boxy-svg.com/) : simple & effective svg editor
 - [Breaktimer](https://breaktimer.app/) : break reminder & eye care
 - [Czkawka](https://github.com/qarmin/czkawka/releases/) : duplicate finder & cleaner
 - [Digikam](https://www.digikam.org/) : photo collection manager
 - [Electorrent](https://github.com/tympanix/Electorrent) : remote torrent gui
+- [Espanso](https://espanso.org/) : great cross platform text expander [deb](https://github.com/espanso/espanso/releases/download/v2.3.0/espanso-debian-x11-amd64.deb)
 - [Filebot](https://www.filebot.net/) : rename & organize movie/tv shows files
 - [FontBase](https://fontba.se/downloads/linux) : font manager
 - [FontFinder](https://github.com/mmstick/fontfinder) : font viewer & manager, install fonts from google fonts
 - [FSearch](https://github.com/cboxdoerfer/fsearch) : ultra fast search
 - [Gdevelop](https://gdevelop.io/) : game development tool
+- [GPU Screen Recorder](https://flathub.org/en/apps/com.dec05eba.gpu_screen_recorder) : GPU accelerated screen recorder
 - [Identity](https://gitlab.gnome.org/YaLTeR/identity) : compare images & videos
 - [Imagine](https://github.com/meowtec/Imagine) : batch image compressor
 - [JDownloader2](https://jdownloader.org/) : download manager
@@ -349,10 +363,15 @@ Nice app to keep in mind :
 - [LosslessCut](https://github.com/mifi/lossless-cut/releases) : cut videos
 - [MetaGrabber](https://github.com/andreaswilli/meta-grabber/releases) : get metadata from videos
 - [Picard](https://picard.musicbrainz.org/) : music tagger
+- [Pinta](https://flathub.org/en/apps/com.github.PintaProject.Pinta) : simple & effective image editor
+- [Recoll](https://www.recoll.org/) : desktop gui indexer and search engine
 - [Spek](https://github.com/alexkay/spek) : audio spectrum analyzer
+- [Teams for Linux](https://github.com/IsmaelMartinez/teams-for-linux) : unofficial teams client
 - [ULauncher](https://ulauncher.io) : great app launcher
 - [ULauncher Adwaita-gtk4](https://github.com/lighttigerXIV/ulauncher-adwaita-gtk4) : great dark theme for ULauncher
 - [ULauncher Custom Scripts](https://github.com/NastuzziSamy/ulauncher-custom-scripts) : allow to run custom scripts from ULauncher
 - [Upscayl](https://github.com/upscayl/upscayl) : great image upscale tool
+- [Xmind](https://flathub.org/en/apps/net.xmind.XMind) : mind mapping tool
+- [ZapZap](https://rtosta.com/zapzap/) : whatsapp desktop client with native notifications
 
 </details>

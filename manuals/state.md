@@ -23,11 +23,14 @@ Then use it :
 import { watch } from 'vue'
 import { state } from '../state'
 // react to initial state
-if (state.isLoading) // do something 
-// update it
-state.isLoading = true
+if (state.isLoading) state.isLoading = true
 // react to async state changes
-watch(() => state.isLoading, (isLoading: boolean) => { message.textContent = isLoading ? 'Loading... please wait' : 'Not loading' })
+watch(
+  () => state.isLoading,
+  (isLoading: boolean) => {
+    message.textContent = isLoading ? 'Loading... please wait' : 'Not loading'
+  },
+)
 ```
 
 Problem is the added size to the build :
@@ -65,11 +68,13 @@ export const state = reactive({
   isLoading: false,
 })
 
-export function watch (stateProperty: keyof typeof state, callback: () => unknown): () => void {
+export function watch(stateProperty: keyof typeof state, callback: () => unknown): () => void {
   const runner = effect(() => state[stateProperty], {
-    scheduler: callback, 
+    scheduler: callback,
   })
-  return () => { stopRunner(runner) }
+  return () => {
+    stopRunner(runner)
+  }
 }
 ```
 
@@ -80,11 +85,14 @@ Now we can use it :
 ```ts
 import { state, watch } from '../state'
 // react to initial state
-if (state.isLoading) // do something 
-// update it
-state.isLoading = true
+if (state.isLoading)
+  // do something
+  // update it
+  state.isLoading = true
 // react to async state changes
-watch('isLoading', () => { console.log('isLoading', state.isLoading) })
+watch('isLoading', () => {
+  console.log('isLoading', state.isLoading)
+})
 ```
 
 And the size is much smaller :
@@ -105,18 +113,20 @@ const data = {
 
 type Properties = keyof typeof data
 
-type Listener = () => void 
+type Listener = () => void
 
-const listeners: Partial<Record<Properties, Listener[]>> = {} 
+const listeners: Partial<Record<Properties, Listener[]>> = {}
 
 const handler = {
-  set (target: typeof data, key: Properties, value: unknown): boolean {
-    listeners[key]?.forEach(callback => { callback() })
+  set(target: typeof data, key: Properties, value: unknown): boolean {
+    listeners[key]?.forEach(callback => {
+      callback()
+    })
     return Reflect.set(target, key, value)
   },
 }
 
-export function watch (key: Properties, callback: () => void): void {
+export function watch(key: Properties, callback: () => void): void {
   listeners[key] ||= []
   listeners[key]?.push(callback)
 }
@@ -129,11 +139,14 @@ Then use it the same way as before :
 ```ts
 import { state, watch } from '../state'
 // react to initial state
-if (state.isLoading) // do something 
-// update it
-state.isLoading = true
+if (state.isLoading)
+  // do something
+  // update it
+  state.isLoading = true
 // react to async state changes
-watch('isLoading', () => { console.log('isLoading', state.isLoading) })
+watch('isLoading', () => {
+  console.log('isLoading', state.isLoading)
+})
 ```
 
 And the size is even smaller :
@@ -143,8 +156,6 @@ And the size is even smaller :
 ## Improved homemade vanilla state migrated to shuutils
 
 > Tested with Shuutils 7.0.0
-
-I've migrated the homemade vanilla state management to [Shuutils](https://github.com/Shuunen/shuutils).
 
 Super simple to use, just install `shuutils` and create a state :
 
@@ -162,11 +173,14 @@ Then use it :
 ```ts
 import { state, watch } from '../state'
 // react to initial state
-if (state.isLoading) // do something 
-// update it
-state.isLoading = true
+if (state.isLoading)
+  // do something
+  // update it
+  state.isLoading = true
 // react to async state changes
-watch('isLoading', () => { console.log('isLoading', state.isLoading) })
+watch('isLoading', () => {
+  console.log('isLoading', state.isLoading)
+})
 ```
 
 Added size to the build : 0.8 kB ^^
@@ -177,23 +191,30 @@ And this version is packaged with more features, you can persist the state in lo
 // state.ts
 import { createState, storage } from 'shuutils'
 
-export const { state, watch } = createState({
-  isLoading: false,
-}, storage)
+export const { state, watch } = createState(
+  {
+    isLoading: false,
+  },
+  storage,
+)
 ```
 
 That's it :)
 
 Want to persists fooBar and not isLoading ?
-  
+
 ```ts
 // state.ts
 import { createState, storage } from 'shuutils'
 
-export const { state, watch } = createState({
-  isLoading: false,
-  fooBar: 'foo',
-}, storage, ['fooBar'])
+export const { state, watch } = createState(
+  {
+    isLoading: false,
+    fooBar: 'foo',
+  },
+  storage,
+  ['fooBar'],
+)
 ```
 
 This way isLoading will always be false on page reload, but fooBar will take the last value from local storage if it exists (or the default "foo" value here).

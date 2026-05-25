@@ -34,11 +34,7 @@
   "PlaySoundWhenDone": false,
   "PlaySoundWhenQueueDone": false,
   "PresetDisplayMode": 1,
-  "PresetExpandedStateList": [
-    "Custom Presets",
-    "General",
-    "Matroska"
-  ],
+  "PresetExpandedStateList": ["Custom Presets", "General", "Matroska"],
   "PreventSleep": true,
   "PreviewRotationFlip": false,
   "PreviewShowPictureSettingsOverlay": false,

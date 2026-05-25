@@ -8,15 +8,21 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
-      - name: Setup node
-        uses: actions/setup-node@v4
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v6
         with:
-          node-version: 22
+          run_install: false
 
-      - name: Setup bun
-        uses: oven-sh/setup-bun@v2
+      - name: Setup Node 24 with pnpm cache
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: "pnpm"
 
-      - name: Run check 👀
-        run: bun run check
+      - name: Install Dependencies
+        run: pnpm install --frozen-lockfile && echo install dependencies ok ✅
+
+      - name: Run Check
+        run: pnpm run check
