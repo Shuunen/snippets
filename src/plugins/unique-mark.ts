@@ -1,7 +1,7 @@
 // oxlint-disable import/no-nodejs-modules
 import { execSync } from 'node:child_process'
 import { readFileSync } from 'node:fs'
-import { join } from 'node:path'
+import path from 'node:path'
 import type { Plugin } from 'vite'
 
 function addColorCode(from: number, to: number, string: string) {
@@ -84,7 +84,7 @@ function injectMarkInAssets(assets: Record<string, Record<string, string>>, plac
 /* v8 ignore start */
 function getProjectVersion(projectRoot: string) {
   try {
-    const pkg = JSON.parse(readFileSync(join(projectRoot, 'package.json'), 'utf8')) as { version?: string }
+    const pkg = JSON.parse(readFileSync(path.join(projectRoot, 'package.json'), 'utf8')) as { version?: string }
     return pkg.version ?? ''
   } catch (error) {
     if (error instanceof Error) console.error('Could not read project package.json for version', error.message)
