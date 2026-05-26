@@ -1,7 +1,7 @@
 /* v8 ignore start */
+// @ts-expect-error missing types
 import mifare from 'mifare-classic'
 // oxlint-disable no-undef
-// @ts-expect-error missing types
 import { Logger } from 'shuutils'
 
 const logger = new Logger()

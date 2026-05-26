@@ -1,8 +1,10 @@
 /* v8 ignore start */
+// @ts-expect-error missing types
 import dashBtn from 'node-dash-button'
 import { Logger } from 'shuutils'
 
 const logger = new Logger()
+/** @type {{ mac: string, name: string, instance?: any }[]} */
 const buttons = [
   {
     mac: 'fc:a6:67:8f:42:7c',

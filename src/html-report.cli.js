@@ -1,7 +1,7 @@
 /* v8 ignore start */
 import { readFile } from 'node:fs/promises'
 import { blue, gray, Logger, nbPercentMax, nbThird, yellow } from 'shuutils'
-import { HtmlReporter } from './html-reporter.mjs'
+import { HtmlReporter } from './html-reporter.js'
 
 const /** @type {Record<string, string>} */ explanations = {
     attr: blue('attributes'),

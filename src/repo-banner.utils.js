@@ -61,7 +61,7 @@ const regex = {
 /**
  * Extract data
  * @param folderPath the folder to extract data from
- * @returns {Object} the extracted data with color, description, name, and scope
+ * @returns {{ color: string, description: string, name: string, scope: string }} the extracted data with color, description, name, and scope
  */
 export function extractData(folderPath = process.cwd()) {
   const defaults = { color: '#024eb8', description: 'A placeholder description', name: 'unknown', scope: 'JohnDoe' }

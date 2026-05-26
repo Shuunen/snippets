@@ -1,12 +1,11 @@
 /* v8 ignore start */
 // oxlint-disable no-await-in-loop
-import { exec } from 'node:child_process'
+import { execSync } from 'node:child_process'
 import { promises as fs } from 'node:fs'
 import path from 'node:path'
 import { createInterface } from 'node:readline'
 import { Logger, nbFourth, nbPixelSm, nbSecondsInMinute, nbThird, Result, sleep } from 'shuutils'
 import { getFfmpegCommand, getScreenshotFilename, parseUserInput, parseVideoMetadata } from './take-screenshot.utils.js'
-import { consoleLog, stringify } from './utils/index.ts'
 
 // usage :
 // bun ~/Projects/github/snippets/src/take-screenshot.cli.js /path/to/video.mp4 mmss
@@ -25,7 +24,7 @@ const logger = new Logger()
  * Emit a beep sound
  */
 async function beep() {
-  consoleLog('\u0007')
+  process.stdout.write('\u0007')
   await sleep(nbPixelSm)
 }
 
@@ -48,12 +47,12 @@ async function logAdd(...stuff) {
  * @returns {string} the output of the command whether it's stdout or stderr
  */
 function shellCommand(cmd) {
-  const result = Result.trySafe(() => exec(cmd))
-  if (result.error) {
+  const result = Result.trySafe(() => execSync(cmd, { encoding: 'utf8' }))
+  if (!result.ok) {
     logger.error(result.error)
-    return result.error.message
+    return result.error instanceof Error ? result.error.message : String(result.error)
   }
-  return stringify(result.value.stdout) || result.value.stderr
+  return result.value
 }
 
 /**

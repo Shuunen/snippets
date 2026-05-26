@@ -2,6 +2,10 @@ import { isolateLines, linesToList } from './isolate-lines.utils.js'
 
 const trackersToClean = ['tr.ready4.icu', 'exodus.desync.com', 'tracker.auctor.tv']
 
+/**
+ * @param {string} line the line to check
+ * @returns {boolean} true if the line is not a tracker
+ */
 function isNotTracker(line) {
   return trackersToClean.every(tracker => !line.includes(tracker))
 }

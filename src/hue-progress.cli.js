@@ -40,7 +40,7 @@ function getHueColorBody(percent = 0) {
 /**
  * Emit a hue color based on the progress percentage
  * @param {number} percent the progress percentage
- * @returns {void} a promise that resolves when the hue color is emitted
+ * @returns {Promise<void>} a promise that resolves when the hue color is emitted
  */
 async function setProgress(percent = 0) {
   logger.info(`Setting progress to ${percent}%`)

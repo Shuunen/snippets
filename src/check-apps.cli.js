@@ -3,7 +3,6 @@ import { readdirSync, statSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 import { list } from '7zip-min'
 import { blue, green, Logger, nbPercentMax, nbThird, red, Result, yellow } from 'shuutils'
-import { createInMemoryDriver } from './utils/index.ts'
 
 // Use me like : node ~/Projects/github/snippets/src/check-apps.cli.js "/d/Apps/"
 
@@ -14,7 +13,7 @@ import { createInMemoryDriver } from './utils/index.ts'
 const parameters = process.argv
 const minSimilarity = 0.68 // 68% similarity is the minimum to consider two names as similar
 const expectedNbParameters = 2
-const logger = new Logger({ storage: createInMemoryDriver() })
+const logger = new Logger({ willOutputToMemory: true })
 if (parameters.length <= expectedNbParameters) logger.info(String.raw`Targeting current folder, you can also specify a specific path, ex : node src/check-screens.cli.js "U:\Screens\"`)
 const appsPath = path.normalize(parameters[expectedNbParameters] ?? process.cwd())
 const colors = [red, green, blue, yellow]
@@ -176,7 +175,7 @@ async function checkArchive(archive) {
     return
   }
   const content = result.value
-  const firstFolder = content.find(item => ['D', 'DA'].includes(item.attr))
+  const firstFolder = content.find(item => ['D', 'DA'].includes(item.attr ?? ''))
   if (firstFolder === undefined) logger.error(`Failed to find a folder in : ${color(archive)}`)
   else logger.debug(`${archive} content`, firstFolder)
   const isValid = firstFolder?.name === expectedFolder
@@ -247,7 +246,7 @@ async function start() {
   const files = getFiles()
   const groups = getGroups(files)
   await checkGroups(groups)
-  const logs = await logger.getLogs()
+  const logs = logger.inMemoryLogs
   const nbWarnings = logs.filter(log => log.includes('warn')).length
   if (nbWarnings === 0) logger.success('No warning found ( ͡° ͜ʖ ͡°)')
   else logger.warn(`${nbWarnings} warnings found ಠ_ಠ`)

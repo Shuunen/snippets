@@ -4,7 +4,6 @@ import path from 'node:path'
 import clipboardy from 'clipboardy'
 import { Logger, nbMsInSecond, nbPixelSm, sleep, stringSum } from 'shuutils'
 import { cleanTrackers } from './clean-trackers.utils.js'
-import { consoleLog } from './utils/index.ts'
 
 // use me like :
 // 1) copy a list of trackers in clipboard
@@ -24,7 +23,7 @@ let lastSum = 0
  * Emit a beep sound
  */
 async function beep() {
-  consoleLog('\u0007')
+  console.log('\u0007')
   await sleep(nbPixelSm)
 }
 

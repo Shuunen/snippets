@@ -2,6 +2,7 @@
   "compilerOptions": {
     "allowImportingTsExtensions": true,
     "allowJs": true,
+    "checkJs": true,
     "erasableSyntaxOnly": true,
     "lib": ["ES2023", "DOM"],
     "module": "esnext",
