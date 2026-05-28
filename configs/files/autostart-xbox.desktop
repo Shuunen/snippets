@@ -1,0 +1,8 @@
+[Desktop Entry]
+Comment=Load Xbox Gamepad driver
+Exec=sudo xboxdrv --detach-kernel-driver --daemon
+Hidden=false
+Name=Xbox Gamepad driver loader
+NoDisplay=false
+Type=Application
+X-GNOME-Autostart-enabled=true

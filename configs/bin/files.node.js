@@ -35,6 +35,11 @@ const configs = [
   { source: `${home}/.gitignore` },
   { source: `${home}/.local/share/qBittorrent/themes/qbittorrent-darkstylesheet.qbtheme` },
   { source: `${home}/.profile` },
+  { renameTo: 'claude-md.md', source: `${home}/.claude/CLAUDE.md` },
+  { renameTo: 'claude-rtk.md', source: `${home}/.claude/RTK.md` },
+  { renameTo: 'claude-settings.json', source: `${home}/.claude/settings.json` },
+  { renameTo: 'claude-status-line.sh', source: `${home}/.claude/statusline-command.sh` },
+  { renameTo: 'autostart-xbox.desktop', source: `${home}/.config/autostart/xbox-controller-driver.desktop` },
   // { source: `${home}/repo-checker.config.js` },
 ]
 
