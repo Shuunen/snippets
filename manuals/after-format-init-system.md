@@ -348,6 +348,7 @@ Nice app to keep in mind :
 - [Apostrophe](https://flathub.org/en/apps/org.gnome.gitlab.somas.Apostrophe) : efficient Markdown MD editor
 - [Boxy SVG](https://boxy-svg.com/) : simple & effective svg editor
 - [Breaktimer](https://breaktimer.app/) : break reminder & eye care
+- [BleachBit](https://flathub.org/en/apps/org.bleachbit.BleachBit) : system cleaner
 - [Czkawka](https://github.com/qarmin/czkawka/releases/) : duplicate finder & cleaner
 - [Digikam](https://www.digikam.org/) : photo collection manager
 - [Electorrent](https://github.com/tympanix/Electorrent) : remote torrent gui
@@ -368,6 +369,7 @@ Nice app to keep in mind :
 - [Pinta](https://flathub.org/en/apps/com.github.PintaProject.Pinta) : simple & effective image editor
 - [Recoll](https://www.recoll.org/) : desktop gui indexer and search engine
 - [Spek](https://github.com/alexkay/spek) : audio spectrum analyzer
+- [Stacer](https://github.com/oguzhaninan/Stacer/releases?ref=itsfoss.com) : system cleaner, optimizer, monitoring
 - [Teams for Linux](https://github.com/IsmaelMartinez/teams-for-linux) : unofficial teams client
 - [ULauncher](https://ulauncher.io) : great app launcher
 - [ULauncher Adwaita-gtk4](https://github.com/lighttigerXIV/ulauncher-adwaita-gtk4) : great dark theme for ULauncher
