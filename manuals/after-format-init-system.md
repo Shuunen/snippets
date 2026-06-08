@@ -376,6 +376,5 @@ Nice app to keep in mind :
 - [ULauncher Custom Scripts](https://github.com/NastuzziSamy/ulauncher-custom-scripts) : allow to run custom scripts from ULauncher
 - [Upscayl](https://github.com/upscayl/upscayl) : great image upscale tool
 - [Xmind](https://flathub.org/en/apps/net.xmind.XMind) : mind mapping tool
-- [ZapZap](https://rtosta.com/zapzap/) : whatsapp desktop client with native notifications
 
 </details>
