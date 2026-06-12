@@ -25,7 +25,7 @@ const configs = [
   { source: `${appData}/kupfer/kupfer.cfg` },
   { source: `${appData}/mpv/mpv.conf` },
   {
-    removeLinesMatching: [/@Size/, /(Qt6|qt5)/, /(Cookies|CurrentTab|geometry|LastViewedPage|Sizes|Width)=/],
+    removeLinesMatching: [/@Size/, /(?<qt>Qt6|qt5)/, /(?<setting>Cookies|CurrentTab|geometry|LastViewedPage|Sizes|Width)=/],
     source: `${appData}/qBittorrent/qBittorrent.conf`,
   },
   { source: `${home}/.gitconfig-anatec` },

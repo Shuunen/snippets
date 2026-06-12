@@ -75,13 +75,13 @@ export function cleanFileName(file: string): string {
       // remove parenthesis, brackets, exclamation marks, and other special characters
       .replaceAll(/[()[\]_'¿]/g, ' ')
       // remove emojis
-      .replaceAll(/([\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, '')
+      .replaceAll(/(?<emoji>[\u2700-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF])/g, '')
       // rollback apostrophes
       .replaceAll('@APOSTROPHE@', '’')
       // remove extra spaces
       .replaceAll(/\s+/g, ' ')
       // remove spaces before extension(s), like " .en.srt" => ".en.srt" or " .mp4" => ".mp4"
-      .replace(/\s+(\.(?:\w{2,4}\.)*\w{2,4})$/, '$1')
+      .replace(/\s+(?<ext>\.(?:\w{2,4}\.)*\w{2,4})$/, '$<ext>')
       // trim spaces
       .trim()
   )
