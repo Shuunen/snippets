@@ -25,8 +25,8 @@ let listing = 'name,title\n'
 const regex = {
   cleanTitle: /[,:]/gu,
   cleanTitleSpaces: /\s+/gu,
-  folderName: /\W([\s\w]+)\W?$/u,
-  getReportValue: /\[(\d+)\]/u,
+  folderName: /\W(?<name>[\s\w]+)\W?$/u,
+  getReportValue: /\[(?<value>\d+)\]/u,
   isVideo: /\.(?:avi|m4v|mkv|mp4|mpg|wmv)$/u,
   setVideoTitle: /\.[^.]+$/u,
 }
