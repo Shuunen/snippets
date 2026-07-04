@@ -19,7 +19,7 @@ function check() {
     .get(url)
     .set({ info })
     .data((/** @type {{ info: string; }} */ data) => {
-      const nb = Number.parseInt(data.info.split(' ')[0] ?? '0', 10)
+      const nb = Math.trunc(Number(data.info.split(' ')[0] ?? '0'))
       if (lastNb !== nb) {
         notifier.notify({
           message: `Total : ${nb} likes`,

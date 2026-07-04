@@ -75,7 +75,7 @@ describe('http-proxy', () => {
   it('makeProxyRequest A should make POST request with JSON body', async () => {
     const mockFetchResponse = createMockFetchResponse('application/json', { success: true })
     // @ts-expect-error non important typing issue
-    vi.mocked(fetch).mockResolvedValue(mockFetchResponse as unknown as Response)
+    vi.mocked(fetch).mockResolvedValue(mockFetchResponse)
 
     const result = await makeProxyRequest('https://example.com', { test: 'data' })
 
@@ -90,7 +90,7 @@ describe('http-proxy', () => {
   it('makeProxyRequest B should handle text response', async () => {
     const mockFetchResponse = createMockFetchResponse('text/plain', 'plain text response')
     // @ts-expect-error non important typing issue
-    vi.mocked(fetch).mockResolvedValue(mockFetchResponse as unknown as Response)
+    vi.mocked(fetch).mockResolvedValue(mockFetchResponse)
 
     const result = await makeProxyRequest('https://example.com', { test: 'data' })
 
@@ -100,7 +100,7 @@ describe('http-proxy', () => {
   it('makeProxyRequest C should handle response parsing error', async () => {
     const mockFetchResponse = createErrorMockFetchResponse()
     // @ts-expect-error non important typing issue
-    vi.mocked(fetch).mockResolvedValue(mockFetchResponse as unknown as Response)
+    vi.mocked(fetch).mockResolvedValue(mockFetchResponse)
 
     const result = await makeProxyRequest('https://example.com', { test: 'data' })
 
@@ -110,7 +110,7 @@ describe('http-proxy', () => {
   it('handleProxyResponse A should log and respond with proxy data', async () => {
     const mockFetchResponse = createMockFetchResponse('application/json', { success: true })
     // @ts-expect-error non important typing issue
-    vi.mocked(fetch).mockResolvedValue(mockFetchResponse as unknown as Response)
+    vi.mocked(fetch).mockResolvedValue(mockFetchResponse)
 
     await handleProxyResponse('https://example.com', { test: 'data' }, mockResponse as Response)
 
@@ -153,7 +153,7 @@ describe('http-proxy', () => {
   it('webhookHandler E should handle valid request', async () => {
     const mockFetchResponse = createMockFetchResponse('application/json', { success: true })
     // @ts-expect-error non important typing issue
-    vi.mocked(fetch).mockResolvedValue(mockFetchResponse as unknown as Response)
+    vi.mocked(fetch).mockResolvedValue(mockFetchResponse)
 
     mockRequest.query = { url: 'https://example.com' }
     mockRequest.body = { test: 'data' }
@@ -189,7 +189,7 @@ describe('http-proxy', () => {
   it('webhookRoute should handle webhook requests and errors', async () => {
     const mockFetchResponse = createMockFetchResponse('application/json', { success: true })
     // @ts-expect-error non important typing issue
-    vi.mocked(fetch).mockResolvedValue(mockFetchResponse as unknown as Response)
+    vi.mocked(fetch).mockResolvedValue(mockFetchResponse)
     mockRequest.query = { url: 'https://example.com' }
     mockRequest.body = { test: 'data' }
     webhookRoute(mockRequest as Request, mockResponse as Response)

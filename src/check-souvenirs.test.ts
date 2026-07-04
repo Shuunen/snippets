@@ -70,8 +70,8 @@ vi.mock('exiftool-vendored', () => ({
       let tzoffsetMinutes: number | undefined = undefined
       if (tzMatch) {
         const sign = tzMatch.groups?.sign === '+' ? 1 : -1
-        const hours = Number.parseInt(tzMatch.groups?.hours ?? '0', 10)
-        const minutes = Number.parseInt(tzMatch.groups?.minutes ?? '0', 10)
+        const hours = Math.trunc(Number(tzMatch.groups?.hours ?? '0'))
+        const minutes = Math.trunc(Number(tzMatch.groups?.minutes ?? '0'))
         tzoffsetMinutes = sign * (hours * 60 + minutes)
       }
       return new ExifDateTime(date.getFullYear(), date.getMonth() + 1, date.getDate(), date.getHours(), date.getMinutes(), date.getSeconds(), date.getMilliseconds(), tzoffsetMinutes)
@@ -464,7 +464,7 @@ describe('check-souvenirs.cli', () => {
 
   it('setFileDate D should handle undefined date', async () => {
     mockWrite.mockResolvedValue(undefined)
-    await setFileDate('test.jpg', undefined as never)
+    await setFileDate('test.jpg', undefined)
     expect(mockWrite).not.toHaveBeenCalled()
   })
 

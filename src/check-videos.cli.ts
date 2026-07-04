@@ -55,7 +55,7 @@ function shouldRename(actual = '', expected = '') {
  */
 function getReportValue(string: string) {
   const matches = regex.getReportValue.exec(string) ?? []
-  return matches[1] === undefined ? 0 : Number.parseInt(matches[1], 10)
+  return matches[1] === undefined ? 0 : Math.trunc(Number(matches[1]))
 }
 
 /**

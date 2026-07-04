@@ -86,7 +86,7 @@ function readLock() {
   logAdd('Lockfile read successfully')
   if (content[nbThird] === undefined || content[nbFourth] === undefined) throw new Error('lockfile does not contains expected data or is not formatted as usual')
   logAdd('Lockfile data parsed successfully')
-  options.port = Number.parseInt(content[nbThird], 10)
+  options.port = Math.trunc(Number(content[nbThird]))
   logAdd(`Game api port : ${options.port}`)
   const auth = Buffer.from(`riot:${content[nbFourth]}`).toString('base64')
   logAdd('Authorization header generated successfully')

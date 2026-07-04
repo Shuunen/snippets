@@ -62,11 +62,11 @@ export function getTargets(modulo, minutesBase, secondsBase) {
 export function parseUserInput(userInput) {
   const { minutesOrSeconds = '', moduloMarker = '', moduloMaybe = '', secondsMaybe = '' } = regex.userInput.exec(userInput)?.groups ?? {}
   if (minutesOrSeconds === '') return []
-  const secondsBase = Number.parseInt(secondsMaybe || minutesOrSeconds, 10)
-  const minutesBase = secondsMaybe === '' ? 0 : Number.parseInt(minutesOrSeconds, 10)
+  const secondsBase = Math.trunc(Number(secondsMaybe || minutesOrSeconds))
+  const minutesBase = secondsMaybe === '' ? 0 : Math.trunc(Number(minutesOrSeconds))
   const modulo =
     // oxlint-disable-next-line no-nested-ternary, no-magic-numbers
-    moduloMaybe === '' ? (moduloMarker === '' ? 0 : 5) : Number.parseInt(moduloMaybe.replaceAll(/\D/gu, ''), 10)
+    moduloMaybe === '' ? (moduloMarker === '' ? 0 : 5) : Math.trunc(Number(moduloMaybe.replaceAll(/\D/gu, '')))
   return getTargets(modulo, minutesBase, secondsBase)
 }
 

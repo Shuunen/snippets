@@ -224,8 +224,8 @@ export function getNewExifDateBasedOnExistingDate({
   exifMonthIncorrect: boolean
   exifDate: Date
 }) {
-  const newYear = exifYearIncorrect && pathYear ? Number.parseInt(pathYear, 10) : (originalExifDate?.year ?? exifDate.getFullYear())
-  const newMonth = exifMonthIncorrect && pathMonth ? Number.parseInt(pathMonth, 10) : (originalExifDate?.month ?? exifDate.getMonth() + 1)
+  const newYear = exifYearIncorrect && pathYear ? Math.trunc(Number(pathYear)) : (originalExifDate?.year ?? exifDate.getFullYear())
+  const newMonth = exifMonthIncorrect && pathMonth ? Math.trunc(Number(pathMonth)) : (originalExifDate?.month ?? exifDate.getMonth() + 1)
   let day = originalExifDate?.day ?? exifDate.getDate()
   const daysInMonth = new Date(newYear, newMonth, 0).getDate()
   if (day > daysInMonth) day = daysInMonth
