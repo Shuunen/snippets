@@ -37,12 +37,7 @@ ffmpeg -hide_banner -y -loglevel warning -stats \
   -c:v libx265 -preset "$preset" -crf "$crf" -tune "$tune" \
   -c:a copy \
   -c:s copy \
-  "$title.mkv"
-
-if [ $? -ne 0 ]; then
-  echo "ffmpeg failed, aborting" >&2
-  exit 1
-fi
+  "$title.mkv" || { echo "ffmpeg failed, aborting" >&2; exit 1; }
 
 encode_elapsed="$(($(date +%s) - encode_start))"
 
