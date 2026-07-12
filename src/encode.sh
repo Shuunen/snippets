@@ -92,23 +92,76 @@ encode_elapsed="$(($(date +%s) - encode_start))"
 # to just extract the audio use this ffmpeg command :
 # ffmpeg -hide_banner -y -i "video.mkv" -map 0:a -c:a copy "audio.mka"
 
+human_time() { # $1 = seconds
+  s=$1
+  if [ "$s" -lt 60 ]; then
+    echo "${s}s"
+    return
+  fi
+  if [ "$s" -lt 3600 ]; then
+    m=$((s / 60))
+    rem=$((s % 60))
+    [ "$rem" -eq 0 ] && echo "${m}min" || echo "${m}min ${rem}s"
+    return
+  fi
+  h=$((s / 3600))
+  rem=$((s % 3600))
+  m=$(((rem + 30) / 60)) # round(rem / 60)
+  if [ "$m" -eq 60 ]; then
+    h=$((h + 1))
+    m=0
+  fi
+  [ "$m" -eq 0 ] && echo "${h}h" || echo "${h}h ${m}min"
+}
+
+human_size() { # $1 = bytes
+  b=$1
+  mb_unit=$((1024 * 1024))
+  gb_unit=$((1024 * 1024 * 1024))
+  if [ "$b" -lt "$mb_unit" ]; then
+    kb=$(((b + 512) / 1024)) # round(b / 1024)
+    echo "${kb}KB"
+    return
+  fi
+  if [ "$b" -lt "$gb_unit" ]; then
+    mb=$((b / mb_unit))
+    rem=$((b % mb_unit))
+    kb=$(((rem + 512) / 1024)) # round(rem / 1024)
+    if [ "$kb" -eq 1024 ]; then
+      mb=$((mb + 1))
+      kb=0
+    fi
+    [ "$kb" -eq 0 ] && echo "${mb}MB" || echo "${mb}MB ${kb}KB"
+    return
+  fi
+  gb=$((b / gb_unit))
+  rem=$((b % gb_unit))
+  mb=$(((rem + mb_unit / 2) / mb_unit)) # round(rem / mb_unit)
+  if [ "$mb" -eq 1024 ]; then
+    gb=$((gb + 1))
+    mb=0
+  fi
+  [ "$mb" -eq 0 ] && echo "${gb}GB" || echo "${gb}GB ${mb}MB"
+}
+
 # evaluate the size of a full-length encoding when only an extract was encoded
 source_duration="$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$1")"
 output_duration="$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$title.mkv")"
 source_size="$(wc -c < "$1")"
 output_size="$(wc -c < "$title.mkv")"
-sample_mode="$([ -n "$sample" ] && echo 1 || echo 0)"
 
-awk -v src="$source_duration" -v out="$output_duration" -v srcSize="$source_size" -v size="$output_size" -v elapsed="$encode_elapsed" -v sampleMode="$sample_mode" '
-BEGIN {
-  printf "Encoding done in %d h %d min %d sec\n", elapsed / 3600, (elapsed / 60) % 60, elapsed % 60
-  printf "Source size : %d GB %d MB\n", srcSize / 1024 / 1024 / 1024, (srcSize / 1024 / 1024) % 1024
-  printf "Encode size : %d GB %d MB\n", size / 1024 / 1024 / 1024, (size / 1024 / 1024) % 1024
-  if (sampleMode) {
-    ratio = src / out
-    expected_size = size * ratio
-    expected_time = elapsed * ratio
-    printf "Expected full encoding time : %d h %d min %d sec\n", expected_time / 3600, (expected_time / 60) % 60, expected_time % 60
-    printf "Expected full encoding size : %d GB %d MB\n", expected_size / 1024 / 1024 / 1024, (expected_size / 1024 / 1024) % 1024
-  }
-}'
+echo ""
+echo "Encoding done in $(human_time "$encode_elapsed")"
+echo "Source size : $(human_size "$source_size")"
+echo "Encode size : $(human_size "$output_size")"
+
+if [ -n "$sample" ]; then
+  # durations from ffprobe are floats (e.g. 57.033333); truncate to whole
+  # seconds since this is only an estimate for the full-length encoding
+  source_duration_int="${source_duration%.*}"
+  output_duration_int="${output_duration%.*}"
+  expected_size=$((output_size * source_duration_int / output_duration_int))
+  expected_time=$((encode_elapsed * source_duration_int / output_duration_int))
+  echo "Expected full encoding time : $(human_time "$expected_time")"
+  echo "Expected full encoding size : $(human_size "$expected_size")"
+fi
