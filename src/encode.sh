@@ -164,4 +164,5 @@ if [ -n "$sample" ]; then
   expected_time=$((encode_elapsed * source_duration_int / output_duration_int))
   echo "Expected full encoding time : $(human_time "$expected_time")"
   echo "Expected full encoding size : $(human_size "$expected_size")"
+  mv "$title.mkv" "$title - expected $(human_size "$expected_size") in $(human_time "$expected_time").mkv"
 fi
