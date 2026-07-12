@@ -21,11 +21,13 @@ input="$(echo "${1%.*}" | sed -E 's/^([^. _]+([. _][^. _]+)?).*/\1/')" # get the
 title="$input-$preset-crf$crf-$tune"
 encode_start="$(date +%s)"
 sample="" # use `-ss 00:00:57 -t 10` for example to extract 10s starting at 57s
+
 meta=""
 if [ -n "$sample" ]; then
   meta="-metadata title=$title"
 fi
 
+# shellcheck disable=SC2086 # $sample and $meta are meant to expand into multiple ffmpeg args (or nothing)
 ffmpeg -hide_banner -y -loglevel warning -stats \
   $sample \
   -i "$1" \
@@ -35,6 +37,11 @@ ffmpeg -hide_banner -y -loglevel warning -stats \
   -c:a copy \
   -c:s copy \
   "$title.mkv"
+
+if [ $? -ne 0 ]; then
+  echo "ffmpeg failed, aborting" >&2
+  exit 1
+fi
 
 encode_elapsed="$(($(date +%s) - encode_start))"
 
@@ -160,9 +167,13 @@ if [ -n "$sample" ]; then
   # seconds since this is only an estimate for the full-length encoding
   source_duration_int="${source_duration%.*}"
   output_duration_int="${output_duration%.*}"
-  expected_size=$((output_size * source_duration_int / output_duration_int))
-  expected_time=$((encode_elapsed * source_duration_int / output_duration_int))
-  echo "Expected full encoding time : $(human_time "$expected_time")"
-  echo "Expected full encoding size : $(human_size "$expected_size")"
-  mv "$title.mkv" "$title - expected $(human_size "$expected_size") in $(human_time "$expected_time").mkv"
+  if [ -z "$output_duration_int" ] || [ "$output_duration_int" -eq 0 ]; then
+    echo "Could not determine sample duration, skipping full-length estimate" >&2
+  else
+    expected_size=$((output_size * source_duration_int / output_duration_int))
+    expected_time=$((encode_elapsed * source_duration_int / output_duration_int))
+    echo "Expected full encoding time : $(human_time "$expected_time")"
+    echo "Expected full encoding size : $(human_size "$expected_size")"
+    mv "$title.mkv" "$title - expected $(human_size "$expected_size") in $(human_time "$expected_time").mkv"
+  fi
 fi
