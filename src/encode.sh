@@ -17,27 +17,29 @@
 crf="${2:-24}"
 preset="${3:-medium}" # fast / medium / slow
 tune="grain"
-input="$(echo "$1" | sed 's/[\. \_].*//')" # get the first word of the input filename
+input="$(basename -- "${1%.*}")" # get the filename without directory and without extension
+input="$(printf '%s\n' "$input" | sed -E 's/^([^. _]+([. _][^. _]+)?).*/\1/')" # get the first two words of the filename
 title="$input-$preset-crf$crf-$tune"
+encode_start="$(date +%s)"
+sample="" # use `-ss 00:00:57 -t 10` for example to extract 10s starting at 57s
 
-ffmpeg -hide_banner -y \
+meta=""
+if [ -n "$sample" ]; then
+  meta="-metadata title=$title"
+fi
+
+# shellcheck disable=SC2086 # $sample and $meta are meant to expand into multiple ffmpeg args (or nothing)
+ffmpeg -hide_banner -y -loglevel warning -stats \
+  $sample \
   -i "$1" \
-  -metadata title="$title" \
+  $meta \
   -map 0 \
   -c:v libx265 -preset "$preset" -crf "$crf" -tune "$tune" \
   -c:a copy \
   -c:s copy \
-  "$title.mkv"
+  "$title.mkv" || { echo "ffmpeg failed, aborting" >&2; exit 1; }
 
-# only extract 60 seconds starting at 8 min 30 sec
-# -ss 00:08:30 -t 60 \
-#   / \                                  / \
-#  / ! \  needs to be placed before -i  / ! \
-# -------                              -------
-
-# input file & output file metadata title
-# -i "$1" \
-# -metadata title="$2" \
+encode_elapsed="$(($(date +%s) - encode_start))"
 
 # enable video conversion in x265, preset slow and some custom params
 # -c:v libx265 -preset slow -x265-params $rarbg \
@@ -92,3 +94,82 @@ ffmpeg -hide_banner -y \
 
 # to just extract the audio use this ffmpeg command :
 # ffmpeg -hide_banner -y -i "video.mkv" -map 0:a -c:a copy "audio.mka"
+
+human_time() { # $1 = seconds
+  s=$1
+  if [ "$s" -lt 60 ]; then
+    echo "${s}s"
+    return
+  fi
+  if [ "$s" -lt 3600 ]; then
+    m=$((s / 60))
+    rem=$((s % 60))
+    [ "$rem" -eq 0 ] && echo "${m}min" || echo "${m}min ${rem}s"
+    return
+  fi
+  h=$((s / 3600))
+  rem=$((s % 3600))
+  m=$(((rem + 30) / 60)) # round(rem / 60)
+  if [ "$m" -eq 60 ]; then
+    h=$((h + 1))
+    m=0
+  fi
+  [ "$m" -eq 0 ] && echo "${h}h" || echo "${h}h ${m}min"
+}
+
+human_size() { # $1 = bytes
+  b=$1
+  mb_unit=$((1024 * 1024))
+  gb_unit=$((1024 * 1024 * 1024))
+  if [ "$b" -lt "$mb_unit" ]; then
+    kb=$(((b + 512) / 1024)) # round(b / 1024)
+    echo "${kb}KB"
+    return
+  fi
+  if [ "$b" -lt "$gb_unit" ]; then
+    mb=$((b / mb_unit))
+    rem=$((b % mb_unit))
+    kb=$(((rem + 512) / 1024)) # round(rem / 1024)
+    if [ "$kb" -eq 1024 ]; then
+      mb=$((mb + 1))
+      kb=0
+    fi
+    [ "$kb" -eq 0 ] && echo "${mb}MB" || echo "${mb}MB ${kb}KB"
+    return
+  fi
+  gb=$((b / gb_unit))
+  rem=$((b % gb_unit))
+  mb=$(((rem + mb_unit / 2) / mb_unit)) # round(rem / mb_unit)
+  if [ "$mb" -eq 1024 ]; then
+    gb=$((gb + 1))
+    mb=0
+  fi
+  [ "$mb" -eq 0 ] && echo "${gb}GB" || echo "${gb}GB ${mb}MB"
+}
+
+# evaluate the size of a full-length encoding when only an extract was encoded
+source_duration="$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$1")"
+output_duration="$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$title.mkv")"
+source_size="$(wc -c < "$1")"
+output_size="$(wc -c < "$title.mkv")"
+
+echo ""
+echo "Encoding done in $(human_time "$encode_elapsed")"
+echo "Source size : $(human_size "$source_size")"
+echo "Encode size : $(human_size "$output_size")"
+
+if [ -n "$sample" ]; then
+  # durations from ffprobe are floats (e.g. 57.033333); truncate to whole
+  # seconds since this is only an estimate for the full-length encoding
+  source_duration_int="${source_duration%.*}"
+  output_duration_int="${output_duration%.*}"
+  if [ -z "$output_duration_int" ] || [ "$output_duration_int" -eq 0 ]; then
+    echo "Could not determine sample duration, skipping full-length estimate" >&2
+  else
+    expected_size=$((output_size * source_duration_int / output_duration_int))
+    expected_time=$((encode_elapsed * source_duration_int / output_duration_int))
+    echo "Expected full encoding time : $(human_time "$expected_time")"
+    echo "Expected full encoding size : $(human_size "$expected_size")"
+    mv "$title.mkv" "$title - expected $(human_size "$expected_size") in $(human_time "$expected_time").mkv"
+  fi
+fi
