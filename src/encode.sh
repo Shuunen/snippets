@@ -20,7 +20,7 @@ tune="grain"
 input="$(echo "${1%.*}" | sed -E 's/^([^. _]+([. _][^. _]+)?).*/\1/')" # get the first two words of the input filename (extension stripped)
 title="$input-$preset-crf$crf-$tune"
 encode_start="$(date +%s)"
-sample="-ss 00:00:57 -t 10" # use `-ss 00:00:57 -t 10` for example to extract 10s starting at 57s
+sample="" # use `-ss 00:00:57 -t 10` for example to extract 10s starting at 57s
 meta=""
 if [ -n "$sample" ]; then
   meta="-metadata title=$title"
