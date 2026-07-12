@@ -17,27 +17,26 @@
 crf="${2:-24}"
 preset="${3:-medium}" # fast / medium / slow
 tune="grain"
-input="$(echo "$1" | sed 's/[\. \_].*//')" # get the first word of the input filename
+input="$(echo "${1%.*}" | sed -E 's/^([^. _]+([. _][^. _]+)?).*/\1/')" # get the first two words of the input filename (extension stripped)
 title="$input-$preset-crf$crf-$tune"
+encode_start="$(date +%s)"
+sample="-ss 00:00:57 -t 10" # use `-ss 00:00:57 -t 10` for example to extract 10s starting at 57s
+meta=""
+if [ -n "$sample" ]; then
+  meta="-metadata title=$title"
+fi
 
-ffmpeg -hide_banner -y \
+ffmpeg -hide_banner -y -loglevel warning -stats \
+  $sample \
   -i "$1" \
-  -metadata title="$title" \
+  $meta \
   -map 0 \
   -c:v libx265 -preset "$preset" -crf "$crf" -tune "$tune" \
   -c:a copy \
   -c:s copy \
   "$title.mkv"
 
-# only extract 60 seconds starting at 8 min 30 sec
-# -ss 00:08:30 -t 60 \
-#   / \                                  / \
-#  / ! \  needs to be placed before -i  / ! \
-# -------                              -------
-
-# input file & output file metadata title
-# -i "$1" \
-# -metadata title="$2" \
+encode_elapsed="$(($(date +%s) - encode_start))"
 
 # enable video conversion in x265, preset slow and some custom params
 # -c:v libx265 -preset slow -x265-params $rarbg \
@@ -92,3 +91,24 @@ ffmpeg -hide_banner -y \
 
 # to just extract the audio use this ffmpeg command :
 # ffmpeg -hide_banner -y -i "video.mkv" -map 0:a -c:a copy "audio.mka"
+
+# evaluate the size of a full-length encoding when only an extract was encoded
+source_duration="$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$1")"
+output_duration="$(ffprobe -v error -show_entries format=duration -of csv=p=0 "$title.mkv")"
+source_size="$(wc -c < "$1")"
+output_size="$(wc -c < "$title.mkv")"
+sample_mode="$([ -n "$sample" ] && echo 1 || echo 0)"
+
+awk -v src="$source_duration" -v out="$output_duration" -v srcSize="$source_size" -v size="$output_size" -v elapsed="$encode_elapsed" -v sampleMode="$sample_mode" '
+BEGIN {
+  printf "Encoding done in %d h %d min %d sec\n", elapsed / 3600, (elapsed / 60) % 60, elapsed % 60
+  printf "Source size : %d GB %d MB\n", srcSize / 1024 / 1024 / 1024, (srcSize / 1024 / 1024) % 1024
+  printf "Encode size : %d GB %d MB\n", size / 1024 / 1024 / 1024, (size / 1024 / 1024) % 1024
+  if (sampleMode) {
+    ratio = src / out
+    expected_size = size * ratio
+    expected_time = elapsed * ratio
+    printf "Expected full encoding time : %d h %d min %d sec\n", expected_time / 3600, (expected_time / 60) % 60, expected_time % 60
+    printf "Expected full encoding size : %d GB %d MB\n", expected_size / 1024 / 1024 / 1024, (expected_size / 1024 / 1024) % 1024
+  }
+}'
