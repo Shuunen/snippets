@@ -17,7 +17,8 @@
 crf="${2:-24}"
 preset="${3:-medium}" # fast / medium / slow
 tune="grain"
-input="$(echo "${1%.*}" | sed -E 's/^([^. _]+([. _][^. _]+)?).*/\1/')" # get the first two words of the input filename (extension stripped)
+input="$(basename -- "${1%.*}")"
+input="$(printf '%s\n' "$input" | sed -E 's/^([^. _]+([. _][^. _]+)?).*/\1/')"
 title="$input-$preset-crf$crf-$tune"
 encode_start="$(date +%s)"
 sample="" # use `-ss 00:00:57 -t 10` for example to extract 10s starting at 57s
