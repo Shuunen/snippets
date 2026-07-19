@@ -5,7 +5,11 @@ if ! command -v ffprobe >/dev/null 2>&1; then
   exit 1
 fi
 
-time=$(zenity --entry --title="Take screenshot" --text="Please type the time in mmss or ss :" --entry-text="")
+if [ -n "$2" ]; then
+  time="$2"
+else
+  time=$(zenity --entry --title="Take screenshot" --text="Please type the time in mmss or ss :" --entry-text="")
+fi
 
 bun ~/Projects/github/snippets/src/take-screenshot.cli.js "$1" "$time"
 
