@@ -113,5 +113,5 @@ export function getScreenshotFilename(totalSeconds, metadata) {
  */
 export function getFfmpegCommand(task) {
   const { screenPath, totalSeconds, videoPath } = task
-  return `ffmpeg -ss ${totalSeconds} -i "${videoPath}" -frames:v 1 -q:v 1 -update 1 "${screenPath}"`
+  return `ffmpeg -hide_banner -y -loglevel warning -ss ${totalSeconds} -i "${videoPath}" -frames:v 1 -q:v 1 -update 1 "${screenPath}"`
 }
