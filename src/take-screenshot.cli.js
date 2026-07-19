@@ -4,7 +4,7 @@ import { execSync } from 'node:child_process'
 import { promises as fs } from 'node:fs'
 import path from 'node:path'
 import { createInterface } from 'node:readline'
-import { Logger, nbFourth, nbPixelSm, nbSecondsInMinute, nbThird, Result, sleep } from 'shuutils'
+import { green, Logger, nbFourth, nbPixelSm, nbSecondsInMinute, nbThird, Result, sleep } from 'shuutils'
 import { getFfmpegCommand, getScreenshotFilename, parseUserInput, parseVideoMetadata } from './take-screenshot.utils.js'
 
 // usage :
@@ -127,6 +127,7 @@ async function takeScreenAt(input) {
     await deleteFile(task.screenPath)
     await logAdd('Command :', cmd)
     await logAdd(shellCommand(cmd))
+    logger.info(`Screenshot taken at ${task.totalSeconds} seconds and saved to ${green(task.screenPath)}`)
   }
 }
 
@@ -134,7 +135,7 @@ async function takeScreenAt(input) {
  *
  */
 async function init() {
-  logger.info('\nTake screenshot is starting !\n')
+  logger.info('Take screenshot is starting !')
   await logClear()
   await logAdd('Take screenshot starts @', new Date().toISOString())
   if (process.argv[nbThird] === undefined) throw new Error('missing videoPath')
