@@ -4,7 +4,7 @@
 
 <details>
   <summary>Windows</summary>
-  
+
 ## Choco
 
 - [ ] install [chocolatey](https://chocolatey.org/install)
@@ -245,7 +245,7 @@ Then :
 <details>
   <summary>Debian based : Ubuntu, Mint, PopOs...</summary>
   <br>
-  
+
 Install these deb :
 
 - [Chrome](https://www.google.com/intl/fr_fr/chrome)
