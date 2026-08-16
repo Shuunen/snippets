@@ -47,11 +47,13 @@ usage() {
   exit "${1:-0}"
 }
 
+require_arg() { if [ $# -lt 2 ] || [ -z "$2" ]; then echo "Option $1 requires a value" >&2; usage 1; fi; }
+
 while [ $# -gt 0 ]; do
   case "$1" in
-    -q | --quality) quality="$2"; shift 2 ;;
-    -g | --gate) psnr_gate="$2"; shift 2 ;;
-    -j | --jobs) jobs="$2"; shift 2 ;;
+    -q | --quality) require_arg "$1" "${2:-}"; quality="$2"; shift 2 ;;
+    -g | --gate) require_arg "$1" "${2:-}"; psnr_gate="$2"; shift 2 ;;
+    -j | --jobs) require_arg "$1" "${2:-}"; jobs="$2"; shift 2 ;;
     -d | --dry-run) dry_run=1; shift ;;
     -s | --strip-metadata) keep_metadata=0; shift ;;
     -n | --no-prompt) prompt_install=0; shift ;;
@@ -357,9 +359,18 @@ compress_jpeg() {
 }
 
 compress_png() {
-  local img="$1" rec="$2" before="$3" fmt="$4" uid="$5" cls="${6:-}" colors="${7:-}"
+  local img="$1" rec="$2" before="$3" fmt="$4" uid="$5"
   local base="${img%.*}" ext="${img##*.}" target cand best="" best_size best_note size gate_note
-  local quantized=0
+  local quantized=0 cls="" colors=""
+
+  # Retrieve class and color count — only needed for the PNG path.
+  local png_probe
+  png_probe=$("${im_identify[@]}" -format '%r|%k\n' "$img" 2>/dev/null | head -1)
+  if [ -n "$png_probe" ]; then
+    cls="${png_probe%%|*}"
+    colors="${png_probe#*|}"
+    [[ "$colors" =~ ^[0-9]+$ ]] || colors=""
+  fi
 
   # An image that already holds at most 256 distinct colors has nothing left to
   # gain from a quantizer: it either came out of one on an earlier run, or it is
@@ -439,7 +450,7 @@ compress_png() {
 
 process_one() {
   local img="$1" rec="$2"
-  local before ext probe fmt alpha srcq cls colors uid
+  local before ext probe fmt alpha srcq uid
 
   # $$ is the parent shell PID even inside a background job, so temp files must
   # be keyed on something unique per image instead.
@@ -452,7 +463,7 @@ process_one() {
     return
   fi
 
-  probe=$("${im_identify[@]}" -format '%m|%A|%Q|%r|%k\n' "$img" 2>/dev/null | head -1)
+  probe=$("${im_identify[@]}" -format '%m|%A|%Q\n' "$img" 2>/dev/null | head -1)
   if [ -z "$probe" ]; then
     write_rec "$rec" unhandled "$img" "$before" "$before" "File not handled (not a readable image)"
     return
@@ -461,15 +472,12 @@ process_one() {
   fmt="${probe%%|*}"
   alpha=$(printf '%s' "$probe" | cut -d'|' -f2)
   srcq=$(printf '%s' "$probe" | cut -d'|' -f3)
-  cls=$(printf '%s' "$probe" | cut -d'|' -f4)
-  colors=$(printf '%s' "$probe" | cut -d'|' -f5)
   [[ "$srcq" =~ ^[0-9]+$ ]] || srcq=""
-  [[ "$colors" =~ ^[0-9]+$ ]] || colors=""
 
   # Transparency decides the container: anything with an alpha channel goes
   # down the PNG path so it can never be flattened onto a black background.
   if [ "${ext,,}" = "png" ] || [ "$alpha" = "True" ] || [ "$alpha" = "Blend" ]; then
-    compress_png "$img" "$rec" "$before" "$fmt" "$uid" "$cls" "$colors"
+    compress_png "$img" "$rec" "$before" "$fmt" "$uid"
   else
     compress_jpeg "$img" "$rec" "$before" "$fmt" "$srcq" "$uid"
   fi
