@@ -15,6 +15,7 @@
 #   -j, --jobs N        images compressed in parallel (default: CPU count)
 #   -d, --dry-run       report what would happen, change nothing
 #   -s, --strip-metadata  drop EXIF/ICC data (capture date, GPS, camera)
+#   -k, --keep-metadata keep EXIF/ICC data (the default)
 #   -n, --no-prompt     never ask about installing missing optional tools
 #       --no-color      disable coloured output (also honours NO_COLOR)
 #   -h, --help          show this help
@@ -24,6 +25,10 @@
 #
 # Requires: ImageMagick (`magick` or `convert`, plus `identify` and `compare`)
 # Optional: pngquant and jpegoptim are used automatically when installed
+#
+# Linux only: this needs GNU find (`-printf`) and bash 4+ (`mapfile`, `${x,,}`,
+# `wait -n`). macOS ships BSD find and bash 3.2, where the file scan would come
+# back empty rather than fail, so that platform is deliberately not supported.
 
 set -uo pipefail
 
@@ -94,8 +99,6 @@ elif command -v zypper &>/dev/null; then
   pkg_install="sudo zypper install"; pkg_imagemagick="ImageMagick"
 elif command -v apk &>/dev/null; then
   pkg_install="sudo apk add"
-elif command -v brew &>/dev/null; then
-  pkg_install="brew install"
 fi
 
 install_hint() {
@@ -257,10 +260,14 @@ write_rec() {
 # Replaces the original with the compressed candidate (or reports the plan
 # when running with --dry-run).
 commit_result() {
-  local img="$1" cand="$2" target="$3"
+  local img="$1" cand="$2" target="$3" backup_path
   if [ "$dry_run" -eq 1 ]; then rm -f "$cand"; return 0; fi
   mkdir -p "$backup_dir"
-  cp -p "$img" "$backup_dir/$(basename "$img")" || return 1
+  # An existing backup is never overwritten: on a second run the file on disk is
+  # already the compressed one, and copying it over would destroy the only
+  # pristine original the script ever kept.
+  backup_path="$backup_dir/$(basename "$img")"
+  [ -e "$backup_path" ] || cp -p "$img" "$backup_path" || return 1
   # Carry the original modification time over, so a compressed library keeps
   # the same file dates it had before. Must happen while the source still
   # exists. EXIF is untouched by this: only the filesystem date is copied.
@@ -352,8 +359,19 @@ compress_jpeg() {
 }
 
 compress_png() {
-  local img="$1" rec="$2" before="$3" fmt="$4" uid="$5"
+  local img="$1" rec="$2" before="$3" fmt="$4" uid="$5" cls="${6:-}" colors="${7:-}"
   local base="${img%.*}" ext="${img##*.}" target cand best="" best_size best_note size gate_note
+  local quantized=0
+
+  # An image that already holds at most 256 distinct colors has nothing left to
+  # gain from a quantizer: it either came out of one on an earlier run, or it is
+  # flat-color art to begin with. Re-quantizing it would shave a few bytes while
+  # degrading it a little more on every re-run, so only the lossless candidate
+  # is considered and repeated runs converge instead of eroding the picture.
+  case "$cls" in
+    *PseudoClass*) quantized=1 ;;
+  esac
+  [ -n "$colors" ] && [ "$colors" -le 256 ] && quantized=1
 
   case "${ext,,}" in
     png) target="$img" ;;
@@ -373,9 +391,9 @@ compress_png() {
   # Candidate 2: 256-color palette without dithering. Dithering costs both
   # fidelity and size on the flat-color art that PNG is usually used for.
   cand="$tmp_root/$uid.quant.png"
-  "${im_convert[@]}" "$img" "${strip_args[@]}" -dither None -colors 256 \
+  [ "$quantized" -eq 1 ] || "${im_convert[@]}" "$img" "${strip_args[@]}" -dither None -colors 256 \
     -define png:compression-level=9 "$cand" &>/dev/null
-  if [ -s "$cand" ]; then
+  if [ "$quantized" -eq 0 ] && [ -s "$cand" ]; then
     size=$(file_size "$cand")
     if [ -z "$best" ] || [ "$size" -lt "$best_size" ]; then
       if gate_note=$(passes_quality_gate "$img" "$cand"); then
@@ -389,7 +407,7 @@ compress_png() {
   fi
 
   # Candidate 3: pngquant, when installed, usually beats ImageMagick's palette.
-  if [ "$has_pngquant" -eq 1 ]; then
+  if [ "$has_pngquant" -eq 1 ] && [ "$quantized" -eq 0 ]; then
     cand="$tmp_root/$uid.pngquant.png"
     pngquant --quality=70-100 --speed 1 "${pngquant_strip[@]}" --force --output "$cand" -- "$img" &>/dev/null
     if [ -s "$cand" ]; then
@@ -423,7 +441,7 @@ compress_png() {
 
 process_one() {
   local img="$1" rec="$2"
-  local before ext probe fmt alpha srcq uid
+  local before ext probe fmt alpha srcq cls colors uid
 
   # $$ is the parent shell PID even inside a background job, so temp files must
   # be keyed on something unique per image instead.
@@ -436,7 +454,7 @@ process_one() {
     return
   fi
 
-  probe=$("${im_identify[@]}" -format '%m|%A|%Q\n' "$img" 2>/dev/null | head -1)
+  probe=$("${im_identify[@]}" -format '%m|%A|%Q|%r|%k\n' "$img" 2>/dev/null | head -1)
   if [ -z "$probe" ]; then
     write_rec "$rec" unhandled "$img" "$before" "$before" "File not handled (not a readable image)"
     return
@@ -445,12 +463,15 @@ process_one() {
   fmt="${probe%%|*}"
   alpha=$(printf '%s' "$probe" | cut -d'|' -f2)
   srcq=$(printf '%s' "$probe" | cut -d'|' -f3)
+  cls=$(printf '%s' "$probe" | cut -d'|' -f4)
+  colors=$(printf '%s' "$probe" | cut -d'|' -f5)
   [[ "$srcq" =~ ^[0-9]+$ ]] || srcq=""
+  [[ "$colors" =~ ^[0-9]+$ ]] || colors=""
 
   # Transparency decides the container: anything with an alpha channel goes
   # down the PNG path so it can never be flattened onto a black background.
   if [ "${ext,,}" = "png" ] || [ "$alpha" = "True" ] || [ "$alpha" = "Blend" ]; then
-    compress_png "$img" "$rec" "$before" "$fmt" "$uid"
+    compress_png "$img" "$rec" "$before" "$fmt" "$uid" "$cls" "$colors"
   else
     compress_jpeg "$img" "$rec" "$before" "$fmt" "$srcq" "$uid"
   fi
@@ -587,7 +608,7 @@ printf ' %s%d compressed%s %s|%s %s%d already optimal%s %s|%s %s%d kept as-is%s 
   "$c_yellow" "$n_kept" "$c_reset" "$c_dim" "$c_reset" \
   "$c_dim" "$n_unhandled" "$c_reset"
 
-if [ "$n_compressed" -gt 0 ]; then
+if [ "$n_compressed" -gt 0 ] && [ "$dry_run" -eq 0 ]; then
   printf ' %sOriginals of the %d modified file(s) are in ./%s%s\n' \
     "$c_dim" "$n_compressed" "$backup_dir" "$c_reset"
 fi
