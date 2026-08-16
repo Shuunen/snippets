@@ -17,6 +17,9 @@
     "lint:types": {
       "inputs": ["src/**/*.{ts,js}", "tsconfig*.json"]
     },
+    "test:shell": {
+      "inputs": ["src/**/*.{sh,bats}"]
+    },
     "test:unit": {
       "inputs": ["src/**/*.{ts,js}", "vite.config.ts"],
       "outputs": ["coverage/**"]

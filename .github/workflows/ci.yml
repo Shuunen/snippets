@@ -21,6 +21,9 @@ jobs:
           node-version: 24
           cache: "pnpm"
 
+      - name: Install image tooling for the shell tests
+        run: sudo apt-get update && sudo apt-get install --yes imagemagick pngquant jpegoptim && echo install image tooling ok ✅
+
       - name: Install Dependencies
         run: pnpm install --frozen-lockfile && echo install dependencies ok ✅
 
