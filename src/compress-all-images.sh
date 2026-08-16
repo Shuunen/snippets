@@ -15,7 +15,6 @@
 #   -j, --jobs N        images compressed in parallel (default: CPU count)
 #   -d, --dry-run       report what would happen, change nothing
 #   -s, --strip-metadata  drop EXIF/ICC data (capture date, GPS, camera)
-#   -k, --keep-metadata keep EXIF/ICC data (the default)
 #   -n, --no-prompt     never ask about installing missing optional tools
 #       --no-color      disable coloured output (also honours NO_COLOR)
 #   -h, --help          show this help
@@ -57,7 +56,6 @@ while [ $# -gt 0 ]; do
     -s | --strip-metadata) keep_metadata=0; shift ;;
     -n | --no-prompt) prompt_install=0; shift ;;
     --no-color) use_color=0; shift ;;
-    -k | --keep-metadata) keep_metadata=1; shift ;;
     -h | --help) usage 0 ;;
     -*) echo "Unknown option: $1" >&2; usage 1 ;;
     *) folder="$1"; shift ;;
