@@ -68,6 +68,21 @@ make_alpha_png() {
   [[ "$output" == *"Unknown option: --bogus"* ]]
 }
 
+@test "a value-taking option with no value is rejected instead of crashing" {
+  for flag in -q --quality -g --gate -j --jobs; do
+    run bash "$script" "$flag"
+    [ "$status" -eq 1 ]
+    [[ "$output" == *"Option $flag requires a value"* ]]
+    [[ "$output" != *"unbound variable"* ]]
+  done
+}
+
+@test "a value-taking option with an empty value is rejected too" {
+  run bash "$script" --quality "" "$work"
+  [ "$status" -eq 1 ]
+  [[ "$output" == *"Option --quality requires a value"* ]]
+}
+
 @test "a folder that does not exist is rejected" {
   run bash "$script" "$BATS_TEST_TMPDIR/absent" --no-prompt --no-color
   [ "$status" -eq 1 ]
