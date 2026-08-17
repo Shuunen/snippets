@@ -27,6 +27,10 @@ Always invoke a skill FIRST for matching requests — do not answer directly.
 
 Run `pnpm check` (types, formatting, lint, build, tests). Fix all failures before done.
 
+## PR review comments
+
+After addressing a PR review comment, reply on its thread (`gh api -X POST /repos/{owner}/{repo}/pulls/{n}/comments/{id}/replies`) saying how it was fixed — commit + `file:line` — then resolve the thread (`gh api graphql` → `resolveReviewThread`). Never resolve a thread whose feedback is not actually fixed in the branch, and never resolve silently.
+
 ## Linting rules
 
 Never disable a lint rule without asking the user. Try to fix the code first then if too complex, ask the user if they want to disable the rule for that line/file.

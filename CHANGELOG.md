@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.2.0] - 2026-08-16
+
+### Added
+
+- `src/compress-all-images.sh` — batch image compressor: backs each file up, then re-compresses it in place. JPEG stays JPEG and PNG stays PNG so transparency is never flattened, lossy PNG candidates must clear a PSNR gate, and EXIF is kept unless `--strip-metadata` is passed. Supports `--dry-run`, `--quality`, `--gate`, and parallel jobs.
+- `src/compress-all-images.bats` — 23 black-box tests covering the CLI surface, compression behaviour, transparency, files the script must not touch, and re-run safety
+- `test:shell` task (bats) wired into `pnpm check`, turbo, and CI, with ImageMagick/pngquant/jpegoptim installed in the CI job
+
 ## [0.1.0] - 2026-05-25
 
 ### Added
