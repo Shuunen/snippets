@@ -198,7 +198,7 @@ const utils = {
 }
 
 /**
- *
+ * Class for checking video files
  */
 class CheckVideos {
   /**
@@ -211,7 +211,7 @@ class CheckVideos {
   public files: string[] = []
 
   /**
-   *
+   * Check all videos
    */
   public async check() {
     const total = this.files.length
@@ -367,7 +367,7 @@ class CheckVideos {
   }
 
   /**
-   *
+   * Start the check videos process
    */
   public async start() {
     logger.info('\nCheck Videos is starting !\n')

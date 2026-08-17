@@ -72,27 +72,35 @@ for (const { input, output, title } of samples) {
 // oxlint-disable-next-line prefer-destructuring
 const { input, output, title } = samples[5]
 const actualDebug = new HtmlReporter(input, true)
+
 test(`html-report debug ${title} attr`, () => {
   expect(actualDebug.attr).toBe(output.attr)
 })
+
 test(`html-report debug ${title} css`, () => {
   expect(actualDebug.css).toBe(output.css)
 })
+
 test(`html-report debug ${title} styles`, () => {
   expect(actualDebug.styles).toBe(output.styles)
 })
+
 test(`html-report debug ${title} tags`, () => {
   expect(actualDebug.tags).toBe(output.tags)
 })
+
 test(`html-report debug ${title} text`, () => {
   expect(actualDebug.text).toBe(output.text)
 })
+
 test(`html-report debug ${title} total`, () => {
   expect(actualDebug.total).toBe(output.total)
 })
+
 test('html-report debug readable A', () => {
   expect(actualDebug.readable(3, gray)).toMatchInlineSnapshot(String.raw`"[90m\n[39m"`)
 })
+
 test('html-report debug readable B', () => {
   expect(actualDebug.readable(16, gray)).toMatchInlineSnapshot(String.raw`"[90m\s[39m"`)
 })

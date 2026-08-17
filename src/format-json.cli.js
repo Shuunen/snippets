@@ -37,7 +37,7 @@ function getPath() {
 }
 
 /**
- *
+ * Start the format JSON process
  */
 function start() {
   const folderPath = getPath()

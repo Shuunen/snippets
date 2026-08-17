@@ -69,6 +69,7 @@ TornEdgeEffectSettings=Darkness
   it('clean A', () => {
     expect(clean(contentGreenShot, /\[Editor\]/u, [/^(?:LastCapturedRegion|LastUpdateCheck|OutputFileAsFull|Commands=)/u, /(?:MS Paint)/u])).toBe(';Greenshotcoreconfiguration[Core];Greenshoteditorconfiguration')
   })
+
   it('clean B', () => {
     expect(clean('', /test/u, [/^test/u])).toBe('')
   })
@@ -79,30 +80,39 @@ TornEdgeEffectSettings=Darkness
   it('normalizePathWithSlash A', () => {
     expect(normalizePathWithSlash(winPath, undefined, winHome)).toBe('C:/Users/Johnny/Projects/github/snippets/tests')
   })
+
   it('normalizePathWithSlash B', () => {
     expect(normalizePathWithSlash(winPath, undefined, winHome)).toBe('C:/Users/Johnny/Projects/github/snippets/tests')
   })
+
   it('normalizePathWithSlash C', () => {
     expect(normalizePathWithSlash(winPath, true, winHome)).toBe('~/Projects/github/snippets/tests')
   })
+
   it('normalizePathWithSlash D', () => {
     expect(normalizePathWithSlash(winPath, true, winHome)).toBe('~/Projects/github/snippets/tests')
   })
+
   it('normalizePathWithSlash E', () => {
     expect(normalizePathWithSlash(winPath, true, winHome)).toBe('~/Projects/github/snippets/tests')
   })
+
   it('normalizePathWithSlash F', () => {
     expect(normalizePathWithSlash(winPath, true, winHome)).toBe('~/Projects/github/snippets/tests')
   })
+
   it('normalizePathWithSlash G', () => {
     expect(normalizePathWithSlash(winPath)).toBe('C:/Users/Johnny/Projects/github/snippets/tests')
   })
+
   it('normalizePathWithSlash H', () => {
     expect(normalizePathWithSlash(winPath)).toBe('C:/Users/Johnny/Projects/github/snippets/tests')
   })
+
   it('normalizePathWithSlash I', () => {
     expect(normalizePathWithSlash(winPath)).toBe('C:/Users/Johnny/Projects/github/snippets/tests')
   })
+
   it('normalizePathWithSlash J', () => {
     expect(normalizePathWithSlash(winPath, true)).toBe('C:/Users/Johnny/Projects/github/snippets/tests')
   })
@@ -110,12 +120,15 @@ TornEdgeEffectSettings=Darkness
   it('filename A', () => {
     expect(filename(winPath)).toBe('tests')
   })
+
   it('filename B', () => {
     expect(filename(String.raw`C:\Users\me\file.txt`)).toBe('file.txt')
   })
+
   it('filename C', () => {
     expect(filename('file.txt')).toBe('')
   })
+
   it('filename D', () => {
     expect(filename('file')).toBe('')
   })

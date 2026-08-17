@@ -11,7 +11,7 @@ const logFile = path.join(currentFolder, 'vivino-compress-export.log')
 const logger = new Logger()
 
 /**
- *
+ * Clear the log file
  */
 async function logClear() {
   await fs.writeFile(logFile, '')
@@ -26,7 +26,7 @@ async function logAdd(...stuff: Date[] | string[]) {
 }
 
 /**
- *
+ * Initialize the Vivino compress process
  */
 async function init() {
   logger.info('Vivino Compress, will compress your Vivino full_wine_list.csv export file from 170kB to 17kB in seconds')

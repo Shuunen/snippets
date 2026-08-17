@@ -29,7 +29,7 @@ async function beep() {
 }
 
 /**
- *
+ * Clear the log file
  */
 async function logClear() {
   await fs.writeFile(logFile, '')
@@ -132,7 +132,7 @@ async function takeScreenAt(input) {
 }
 
 /**
- *
+ * Initialize the take screenshot process
  */
 async function init() {
   logger.info('Take screenshot is starting !')

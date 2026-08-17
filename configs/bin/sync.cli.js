@@ -42,7 +42,7 @@ async function sync(file) {
 }
 
 /**
- *
+ * Start the sync process
  */
 async function start() {
   process.stdout.write('\nSyncing')

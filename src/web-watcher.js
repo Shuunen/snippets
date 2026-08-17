@@ -12,7 +12,7 @@ let lastNb = 0
 const logger = new Logger()
 
 /**
- *
+ * Check the number of likes on a Facebook page and notify if it changes
  */
 function check() {
   osmosis

@@ -31,8 +31,9 @@ const options = {
 const currentFolder = import.meta.dirname
 const logFile = path.join(currentFolder, 'lol-practice-5v5.log')
 let logCount = 0
+
 /**
- *
+ * Clear the log file
  */
 function logClear() {
   writeFileSync(logFile, '')
@@ -74,7 +75,7 @@ function doRequest() {
 }
 
 /**
- *
+ * Read the lockfile to get the port and authorization header
  */
 function readLock() {
   const lockPath = process.argv[nbThird]
@@ -94,7 +95,7 @@ function readLock() {
 }
 
 /**
- *
+ * Handle the custom game lobby name
  */
 function handleCustomName() {
   const customName = process.argv[nbFourth]
@@ -102,7 +103,7 @@ function handleCustomName() {
 }
 
 /**
- *
+ * Initialize the lol-practice-5v5 process
  */
 function init() {
   logClear()

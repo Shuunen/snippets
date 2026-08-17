@@ -131,7 +131,8 @@ function report(groups, singles) {
 }
 
 /**
- *
+ * Initialize the check screens process
+ * @returns {void}
  */
 function start() {
   logger.info('\nCheck screens is starting !\n')
