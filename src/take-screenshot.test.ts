@@ -267,7 +267,7 @@ test('getScreenshotFilename C', () => {
 
 test('getFfmpegCommand A', () => {
   const cmd = getFfmpegCommand({ screenPath: 'plop.jpg', totalSeconds: 120, videoPath: 'plop.mp4' })
-  expect(cmd).toMatchInlineSnapshot(`"ffmpeg -hide_banner -y -loglevel warning -ss 120 -i "plop.mp4" -frames:v 1 -q:v 1 -update 1 "plop.jpg""`)
+  expect(cmd).toMatchInlineSnapshot(`"ffmpeg -hide_banner -y -loglevel error -ss 120 -i "plop.mp4" -frames:v 1 -q:v 1 -update 1 "plop.jpg""`)
 })
 
 test('getTargets A', () => {
