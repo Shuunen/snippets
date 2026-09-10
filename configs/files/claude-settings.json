@@ -1,47 +1,68 @@
 {
+  "agentPushNotifEnabled": true,
   "attribution": {
     "commit": "",
     "pr": ""
   },
-  "permissions": {
-    "defaultMode": "auto"
+  "awaySummaryEnabled": false,
+  "effortLevel": "medium",
+  "enabledPlugins": {
+    "convex@claude-plugins-official": true
   },
   "hooks": {
     "PreToolUse": [
       {
-        "matcher": "Bash",
         "hooks": [
           {
-            "type": "command",
-            "command": "rtk hook claude"
+            "command": "bash $HOME/.claude/hooks/rtk-wrapper.sh",
+            "type": "command"
           }
-        ]
+        ],
+        "matcher": "Bash"
       }
     ],
     "SessionStart": [
       {
         "hooks": [
           {
-            "type": "command",
-            "command": "$HOME/.gstack/ship-no-pr-override.sh"
+            "command": "$HOME/.gstack/ship-no-pr-override.sh",
+            "type": "command"
+          },
+          {
+            "command": "bash $HOME/.claude/hooks/headroom-autostart.sh",
+            "type": "command"
+          }
+        ]
+      }
+    ],
+    "Stop": [
+      {
+        "_gstack_source": "gstack-timeline-stop",
+        "hooks": [
+          {
+            "command": "$HOME/.claude/skills/gstack/hosts/claude/hooks/timeline-stop-hook",
+            "timeout": 5,
+            "type": "command"
           }
         ]
       }
     ]
   },
-  "statusLine": {
-    "type": "command",
-    "command": "bash /home/rominou/.claude/statusline-command.sh"
+  "model": "opus",
+  "permissions": {
+    "defaultMode": "auto"
   },
-  "model": "claude-sonnet-4-6",
-  "effortLevel": "medium",
+  "remoteControlAtStartup": true,
+  "skipAutoPermissionPrompt": true,
+  "skipDangerousModePermissionPrompt": true,
+  "statusLine": {
+    "command": "bash $HOME/.claude/statusline-command.sh",
+    "type": "command"
+  },
+  "tui": "fullscreen",
   "voice": {
-    "enabled": true,
+    "enabled": false,
     "mode": "hold"
   },
-  "skipDangerousModePermissionPrompt": true,
-  "remoteControlAtStartup": true,
-  "agentPushNotifEnabled": true,
-  "voiceEnabled": true,
-  "skipAutoPermissionPrompt": true
+  "voiceEnabled": false
 }

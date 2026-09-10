@@ -6,7 +6,7 @@
     "editor.defaultFormatter": "oxc.oxc-vscode"
   },
   "[html]": {
-    "editor.defaultFormatter": "vscode.html-language-features"
+    "editor.defaultFormatter": "oxc.oxc-vscode"
   },
   "[javascript]": {
     "editor.defaultFormatter": "oxc.oxc-vscode"
@@ -84,6 +84,7 @@
     "https://oxc.rs/docs/guide/usage/linter": true,
     "https://oxc.rs/docs/guide/usage/linter/editors": true
   },
+  "claudeCode.preferredLocation": "panel",
   "codium.git.showCommitNotification": false,
   "colorize.languages": ["css", "html", "javascript", "json", "markdown", "php", "scss", "typescript", "vue"],
   "console-ninja.featureSet": "Community",

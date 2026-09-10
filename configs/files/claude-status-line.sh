@@ -8,6 +8,7 @@ model=$(echo "$input" | jq -r '.model.display_name // "Unknown"')
 
 # Rate limits (Claude.ai subscription)
 five_pct=$(echo "$input" | jq -r '.rate_limits.five_hour.used_percentage // empty')
+five_resets_at=$(echo "$input" | jq -r '.rate_limits.five_hour.resets_at // empty')
 
 # Session duration (from cost data, in ms)
 duration_ms=$(echo "$input" | jq -r '.cost.total_duration_ms // empty')
@@ -25,6 +26,25 @@ make_bar() {
   for i in $(seq 1 $filled); do bar="${bar}█"; done
   for i in $(seq 1 $empty); do bar="${bar}░"; done
   echo "$bar"
+}
+
+# Format seconds-until as "reset in Xh Ymin" / "reset in Ymin"
+format_reset_in() {
+  local resets_at="$1"
+  local now
+  now=$(date +%s)
+  local diff=$((resets_at - now))
+  if [ "$diff" -le 0 ]; then
+    echo "reset in 0min"
+    return
+  fi
+  local hrs=$((diff / 3600))
+  local mins=$(((diff % 3600) / 60))
+  if [ "$hrs" -gt 0 ]; then
+    printf "reset in %dh %02dmin" "$hrs" "$mins"
+  else
+    printf "reset in %dmin" "$mins"
+  fi
 }
 
 # Format duration from milliseconds to readable
@@ -53,7 +73,12 @@ parts+=("$model")
 if [ -n "$five_pct" ] && [ "$five_pct" != "null" ]; then
   bar=$(make_bar "$five_pct")
   pct_int=$(printf '%.0f' "$five_pct")
-  parts+=("session $bar ${pct_int}%")
+  if [ -n "$five_resets_at" ] && [ "$five_resets_at" != "null" ]; then
+    reset_str=$(format_reset_in "$five_resets_at")
+    parts+=("session $bar ${pct_int}% ${reset_str}")
+  else
+    parts+=("session $bar ${pct_int}%")
+  fi
 elif [ -n "$duration_ms" ] && [ "$duration_ms" != "null" ]; then
   duration_str=$(format_duration "$duration_ms")
   parts+=("session ${duration_str}")
