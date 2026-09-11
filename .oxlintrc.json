@@ -10,6 +10,7 @@
     "suspicious": "warn"
   },
   "globals": {
+    "AbortSignal": "readonly",
     "Buffer": "readonly",
     "clearInterval": "readonly",
     "clearTimeout": "readonly",
