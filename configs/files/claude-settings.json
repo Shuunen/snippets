@@ -1,68 +1,96 @@
 {
-  "agentPushNotifEnabled": true,
+  "env": {
+    "ANTHROPIC_BASE_URL": "http://127.0.0.1:8787",
+    "ENABLE_TOOL_SEARCH": "true"
+  },
   "attribution": {
     "commit": "",
     "pr": ""
   },
-  "awaySummaryEnabled": false,
-  "effortLevel": "medium",
-  "enabledPlugins": {
-    "convex@claude-plugins-official": true
+  "permissions": {
+    "defaultMode": "auto"
   },
+  "model": "opus",
   "hooks": {
     "PreToolUse": [
       {
+        "matcher": "Bash",
         "hooks": [
           {
-            "command": "bash $HOME/.claude/hooks/rtk-wrapper.sh",
-            "type": "command"
+            "type": "command",
+            "command": "$HOME/.local/bin/rtk hook claude"
           }
-        ],
-        "matcher": "Bash"
+        ]
+      },
+      {
+        "matcher": "Bash",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "$HOME/.local/bin/headroom init hook ensure --profile init-user --marker headroom-init-claude",
+            "timeout": 15
+          }
+        ]
       }
     ],
     "SessionStart": [
       {
         "hooks": [
           {
-            "command": "$HOME/.gstack/ship-no-pr-override.sh",
-            "type": "command"
-          },
+            "type": "command",
+            "command": "$HOME/.gstack/ship-no-pr-override.sh"
+          }
+        ]
+      },
+      {
+        "matcher": "startup|resume",
+        "hooks": [
           {
-            "command": "bash $HOME/.claude/hooks/headroom-autostart.sh",
-            "type": "command"
+            "type": "command",
+            "command": "$HOME/.local/bin/headroom init hook ensure --profile init-user --marker headroom-init-claude",
+            "timeout": 15
           }
         ]
       }
     ],
     "Stop": [
       {
-        "_gstack_source": "gstack-timeline-stop",
         "hooks": [
           {
+            "type": "command",
             "command": "$HOME/.claude/skills/gstack/hosts/claude/hooks/timeline-stop-hook",
-            "timeout": 5,
-            "type": "command"
+            "timeout": 5
           }
         ]
       }
     ]
   },
-  "model": "opus",
-  "permissions": {
-    "defaultMode": "auto"
-  },
-  "remoteControlAtStartup": true,
-  "skipAutoPermissionPrompt": true,
-  "skipDangerousModePermissionPrompt": true,
   "statusLine": {
-    "command": "bash $HOME/.claude/statusline-command.sh",
-    "type": "command"
+    "type": "command",
+    "command": "bash $HOME/.claude/statusline-command.sh"
   },
+  "enabledPlugins": {
+    "convex@claude-plugins-official": true,
+    "headroom@headroom-marketplace": true
+  },
+  "extraKnownMarketplaces": {
+    "headroom-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "chopratejas/headroom"
+      }
+    }
+  },
+  "effortLevel": "medium",
+  "awaySummaryEnabled": false,
   "tui": "fullscreen",
   "voice": {
     "enabled": false,
     "mode": "hold"
   },
+  "skipDangerousModePermissionPrompt": true,
+  "remoteControlAtStartup": true,
+  "agentPushNotifEnabled": true,
+  "skipAutoPermissionPrompt": true,
   "voiceEnabled": false
 }
