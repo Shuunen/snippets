@@ -86,4 +86,7 @@ if ! [[ "$PATH" =~ .pyenv/bin ]] && [ -d "$HOME/.pyenv/pyenv-win" ]; then
   export PATH="$PYENV/bin:$PYENV/shims:$PATH"
 fi
 
+# Token savings summary : rtk (bash output filtering) + Headroom (API-side compression)
+alias token-saved='bun $HOME/Projects/github/snippets/src/token-saved.cli.ts'
+
 echo ' Bash aliases v1 loaded 🧭'
