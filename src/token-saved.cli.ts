@@ -7,7 +7,8 @@ import { type HeadroomReport, millions, type Row, type RtkReport, rollingWindow,
 
 // use me like : bun ~/Projects/github/snippets/src/token-saved.cli.ts
 // rtk filters bash output before it reaches the model, Headroom compresses the API payload
-// itself, both keep their own ledger so this reads each one and prints a single table
+// itself, Ponytail makes the model write less in the first place, so this reads each one
+// and prints a single table
 
 // the delay column would prefix every line with 7 gray characters, too noisy for a one-shot report
 export const logger = new Logger({ willLogDelay: false, willOutputToMemory: true })
@@ -15,6 +16,9 @@ export const logger = new Logger({ willLogDelay: false, willOutputToMemory: true
 const healthUrl = 'http://127.0.0.1:8787/health'
 const settingsPath = path.join(homedir(), '.claude', 'settings.json')
 const rtkHookMarker = 'rtk hook claude'
+/** Ponytail ships as a plugin, its version lives in the marketplace checkout rather than in a binary */
+const ponytailManifestPath = path.join(homedir(), '.claude', 'plugins', 'marketplaces', 'ponytail', '.claude-plugin', 'plugin.json')
+const ponytailPluginId = 'ponytail@ponytail'
 /** Both tools print their version as the last token, like "headroom, version 0.37.0" */
 const lastToken = /(?<token>\S+)$/
 const nbSecondsBeforeCommandTimeout = 15
@@ -79,7 +83,16 @@ export function versionOf(tool: string) {
 export function updatedOn(tool: string) {
   const found = binaryPath(tool)
   if (!found.ok) return unknownValue
-  const stat = Result.trySafe(() => statSync(found.value))
+  return updatedOnFile(found.value)
+}
+
+/**
+ * Date a file was last written, for tools that ship as files rather than as a binary on the path
+ * @param target the absolute file path
+ * @returns an iso date or a dash
+ */
+export function updatedOnFile(target: string) {
+  const stat = Result.trySafe(() => statSync(target))
   if (!stat.ok) return unknownValue
   return dateIso10(stat.value.mtime)
 }
@@ -104,6 +117,17 @@ export function isRtkWired() {
   const read = Result.trySafe(() => readFileSync(settingsPath, 'utf8'))
   if (!read.ok) return false
   return read.value.includes(rtkHookMarker)
+}
+
+/**
+ * The plugin only injects its ruleset while it is enabled, an installed but disabled one changes nothing
+ * @returns true when Ponytail is enabled in the settings
+ */
+export function isPonytailEnabled() {
+  const read = Result.trySafe(() => readFileSync(settingsPath, 'utf8'))
+  if (!read.ok) return false
+  const { value } = parseJson<{ enabledPlugins?: Record<string, boolean> }>(read.value)
+  return value?.enabledPlugins?.[ponytailPluginId] === true
 }
 
 /**
@@ -155,6 +179,33 @@ export function buildHeadroomRow(report: HeadroomReport, isHealthy: boolean) {
     isHealthy ? 'live on :8787' : 'proxy down',
   ]
   return { month: windows.last_30_days.tokens_saved, row }
+}
+
+/**
+ * Read the Ponytail plugin state, it has no ledger to read : the savings happen upstream of every
+ * counter, in code that was never written, so there is no baseline to subtract from and the
+ * window columns stay empty rather than carrying a number this cannot honestly measure
+ * @returns the row and a month total of zero
+ */
+export function collectPonytail() {
+  const read = Result.trySafe(() => readFileSync(ponytailManifestPath, 'utf8'))
+  if (!read.ok) {
+    logger.debug('ponytail is not installed')
+    return { month: 0, row: missingRow('ponytail') }
+  }
+  const { value } = parseJson<{ version?: string }>(read.value)
+  const isEnabled = isPonytailEnabled()
+  const row: Row = [
+    'ponytail',
+    isEnabled ? 'active' : 'idle',
+    value?.version ?? unknownValue,
+    unknownValue,
+    ...windowsInDays.map(() => unknownValue),
+    unknownValue,
+    updatedOnFile(ponytailManifestPath),
+    isEnabled ? 'no ledger, not counted here' : 'plugin disabled',
+  ]
+  return { month: 0, row }
 }
 
 /**
@@ -225,8 +276,9 @@ export function renderTable(rows: Row[]) {
 export async function start() {
   const rtk = collectRtk()
   const headroom = await collectHeadroom()
+  const ponytail = collectPonytail()
   // a single log call keeps the table as one block, the logger prefixes would break the alignment line by line
-  console.log(`\n${renderTable([rtk.row, headroom.row]).join('\n')}\n`)
+  console.log(`\n${renderTable([rtk.row, headroom.row, ponytail.row]).join('\n')}\n`)
   console.log(` Saved ${bold(millions(rtk.month + headroom.month))} tokens over the last ${nbDaysInMonth} days\n`)
 }
 

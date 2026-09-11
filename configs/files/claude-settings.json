@@ -71,13 +71,20 @@
   },
   "enabledPlugins": {
     "convex@claude-plugins-official": true,
-    "headroom@headroom-marketplace": true
+    "headroom@headroom-marketplace": true,
+    "ponytail@ponytail": true
   },
   "extraKnownMarketplaces": {
     "headroom-marketplace": {
       "source": {
         "source": "github",
         "repo": "chopratejas/headroom"
+      }
+    },
+    "ponytail": {
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail"
       }
     }
   },

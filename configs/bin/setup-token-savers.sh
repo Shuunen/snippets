@@ -91,8 +91,35 @@ else
   exit 1
 fi
 
+# ── Ponytail ─────────────────────────────────────────────────────────────────
+printf '\n\033[1mPonytail\033[0m\n'
+
+# Ponytail is not a proxy or a filter, it is a Claude Code plugin holding a ruleset that
+# keeps the model from over-building. It saves tokens upstream of both other tools, in
+# output that never gets generated, so it has no ledger and nothing to keep running.
+if ! command -v claude >/dev/null 2>&1; then
+  fail 'claude CLI not found, skipping — install it then re-run this script'
+elif claude plugin list 2>/dev/null | grep -q 'ponytail@ponytail'; then
+  ok 'plugin already installed'
+else
+  # Two separate commands, the marketplace has to be registered before the install resolves it.
+  info 'installing plugin ponytail@ponytail…'
+  claude plugin marketplace add DietrichGebert/ponytail >/dev/null
+  claude plugin install ponytail@ponytail >/dev/null
+  if claude plugin list 2>/dev/null | grep -q 'ponytail@ponytail'; then
+    ok 'plugin installed'
+  else
+    fail 'ponytail install failed'
+  fi
+fi
+
+# The plugin runs two Node lifecycle hooks. Without node the skills still work, the
+# always-on activation just stays quiet, so this is a warning and never a hard failure.
+command -v node >/dev/null 2>&1 || info 'node is not on PATH, ponytail activation will stay quiet'
+
 # ── Verify ─────────────────────────────────────────────────────────────────
 printf '\n\033[1mVerify\033[0m\n'
 headroom doctor || true
 printf '\nThe "claude" and "shell env" rows above must both pass.\n'
-printf 'Then restart Claude Code and confirm savings accrue: headroom savings\n\n'
+printf 'Then restart Claude Code and confirm savings accrue: headroom savings\n'
+printf 'For the combined picture across the three tools: token-saved\n\n'

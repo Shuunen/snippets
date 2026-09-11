@@ -16,7 +16,27 @@ vi.mock(import('node:fs'), () => ({
   statSync: mockStatSync,
 }))
 
-const { binaryPath, buildHeadroomRow, buildRtkRow, collectHeadroom, collectRtk, headers, isProxyHealthy, isRtkWired, logger, missingRow, pad, renderTable, runJson, start, updatedOn, versionOf } = await import('./token-saved.cli')
+const {
+  binaryPath,
+  buildHeadroomRow,
+  buildRtkRow,
+  collectHeadroom,
+  collectPonytail,
+  collectRtk,
+  headers,
+  isPonytailEnabled,
+  isProxyHealthy,
+  isRtkWired,
+  logger,
+  missingRow,
+  pad,
+  renderTable,
+  runJson,
+  start,
+  updatedOn,
+  updatedOnFile,
+  versionOf,
+} = await import('./token-saved.cli')
 
 const rtkReport = {
   daily: [
@@ -27,6 +47,9 @@ const rtkReport = {
   ],
   summary: { total_commands: 42 },
 }
+
+const ponytailManifest = JSON.stringify({ name: 'ponytail', version: '4.9.0' })
+const enabledSettings = JSON.stringify({ enabledPlugins: { 'ponytail@ponytail': true } })
 
 const headroomReport = {
   lifetime: { calls: 12 },
@@ -44,6 +67,14 @@ const headroomReport = {
  */
 function spawnResult(overrides: Record<string, unknown> = {}) {
   return { error: undefined, status: 0, stderr: '', stdout: '', ...overrides }
+}
+
+/**
+ * Queue the two reads collectPonytail does, in order : its plugin manifest, then the settings
+ * @param settings the settings payload
+ */
+function mockPonytailReads(settings = enabledSettings) {
+  mockReadFileSync.mockReturnValueOnce(ponytailManifest).mockReturnValueOnce(settings)
 }
 
 beforeEach(() => {
@@ -389,6 +420,87 @@ describe('renderTable', () => {
   })
 })
 
+describe('isPonytailEnabled', () => {
+  it('isPonytailEnabled A detects the enabled plugin', () => {
+    mockReadFileSync.mockReturnValue(enabledSettings)
+    expect(isPonytailEnabled()).toBe(true)
+  })
+
+  it('isPonytailEnabled B returns false when the plugin is disabled', () => {
+    mockReadFileSync.mockReturnValue(JSON.stringify({ enabledPlugins: { 'ponytail@ponytail': false } }))
+    expect(isPonytailEnabled()).toBe(false)
+  })
+
+  it('isPonytailEnabled C returns false when no plugin is enabled at all', () => {
+    mockReadFileSync.mockReturnValue('{}')
+    expect(isPonytailEnabled()).toBe(false)
+  })
+
+  it('isPonytailEnabled D returns false when the settings cannot be read', () => {
+    mockReadFileSync.mockImplementation(() => {
+      throw new Error('ENOENT')
+    })
+    expect(isPonytailEnabled()).toBe(false)
+  })
+})
+
+describe('updatedOnFile', () => {
+  it('updatedOnFile A reads the write date', () => {
+    mockStatSync.mockReturnValue({ mtime: new Date('2026-09-10T12:00:00') })
+    expect(updatedOnFile('/some/file.json')).toBe('2026-09-10')
+  })
+
+  it('updatedOnFile B returns a dash when the file cannot be read', () => {
+    mockStatSync.mockImplementation(() => {
+      throw new Error('ENOENT')
+    })
+    expect(updatedOnFile('/some/file.json')).toBe('-')
+  })
+})
+
+describe('collectPonytail', () => {
+  it('collectPonytail A falls back to a missing row when the plugin is not installed', () => {
+    mockReadFileSync.mockImplementation(() => {
+      throw new Error('ENOENT')
+    })
+    const { month, row } = collectPonytail()
+    expect(month).toBe(0)
+    expect(row[1]).toBe('missing')
+  })
+
+  it('collectPonytail B builds a row from the plugin manifest', () => {
+    mockPonytailReads()
+    mockStatSync.mockReturnValue({ mtime: new Date('2026-09-11T12:00:00') })
+    const { row } = collectPonytail()
+    expect(row[0]).toBe('ponytail')
+    expect(row[2]).toBe('4.9.0')
+    expect(row[8]).toBe('2026-09-11')
+  })
+
+  it('collectPonytail C never reports a savings figure it cannot measure', () => {
+    mockPonytailReads()
+    mockStatSync.mockReturnValue({ mtime: new Date('2026-09-11T12:00:00') })
+    const { month, row } = collectPonytail()
+    expect(month).toBe(0)
+    expect(row.slice(3, 8)).toStrictEqual(['-', '-', '-', '-', '-'])
+    expect(row.at(-1)).toBe('no ledger, not counted here')
+  })
+
+  it('collectPonytail D reads idle when the plugin is installed but disabled', () => {
+    mockPonytailReads('{}')
+    mockStatSync.mockReturnValue({ mtime: new Date('2026-09-11T12:00:00') })
+    const { row } = collectPonytail()
+    expect(row[1]).toBe('idle')
+    expect(row.at(-1)).toBe('plugin disabled')
+  })
+
+  it('collectPonytail E has one cell per header', () => {
+    mockPonytailReads()
+    mockStatSync.mockReturnValue({ mtime: new Date('2026-09-11T12:00:00') })
+    expect(collectPonytail().row).toHaveLength(headers.length)
+  })
+})
+
 describe('collectRtk', () => {
   it('collectRtk A falls back to a missing row when rtk is not installed', () => {
     mockSpawnSync.mockReturnValue(spawnResult({ error: new Error('ENOENT') }))
@@ -428,12 +540,15 @@ describe('collectHeadroom', () => {
 describe('start', () => {
   it('start A logs the table and the rolling month total', async () => {
     mockSpawnSync.mockReturnValue(spawnResult({ error: new Error('ENOENT') }))
+    mockReadFileSync.mockImplementation(() => {
+      throw new Error('ENOENT')
+    })
     const log = vi.spyOn(console, 'log').mockImplementation(noop)
     await start()
     const logs = log.mock.calls.map(([line]) => logger.clean(String(line)))
     const table = logs.find(line => line.includes('|'))
     invariant(table !== undefined, 'the table should be logged')
-    expect(table.split('\n').filter(line => line.includes('|'))).toHaveLength(4)
+    expect(table.split('\n').filter(line => line.includes('|'))).toHaveLength(5)
     expect(logs.at(-1)).toContain('Saved 0 millions tokens over the last 30 days')
   })
 })
