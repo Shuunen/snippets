@@ -31,6 +31,7 @@ const windowsInDays = [1, nbDaysInWeek, nbDaysInMonth]
 export const headers = ['tool', 'status', 'version', 'usage', 'today', `${nbDaysInWeek} days`, `${nbDaysInMonth} days`, '% saved', 'updated on', 'notes']
 /** Columns rendered centered, the rest stay left aligned */
 const centered = new Set(['status', 'version', 'today', `${nbDaysInWeek} days`, `${nbDaysInMonth} days`, '% saved', 'updated on'])
+const statusIndex = headers.indexOf('status')
 const nbFixedCells = 3 // the tool name, the status and the notes
 const missingCells = headers.length - nbFixedCells
 /** Shown when a value cannot be read */
@@ -46,6 +47,8 @@ export function runJson<Type>(command: string, args: string[]) {
   const spawn = Result.trySafe(() => spawnSync(command, args, { encoding: 'utf8', timeout: commandTimeout }))
   if (!spawn.ok) return Result.error(`cannot run ${command} : ${String(spawn.error)}`)
   if (spawn.value.error) return Result.error(`${command} is not available`)
+  // an older binary that does not know the flags exits non-zero, sometimes still printing json : trust the exit code over the payload
+  if (spawn.value.status !== 0) return Result.error(`${command} exited with ${String(spawn.value.status)}`)
   const { error, value } = parseJson<Type>(spawn.value.stdout)
   if (error) return Result.error(`${command} did not return json : ${error}`)
   return Result.ok(value)
@@ -59,7 +62,8 @@ export function runJson<Type>(command: string, args: string[]) {
 export function binaryPath(tool: string) {
   const spawn = Result.trySafe(() => spawnSync(process.platform === 'win32' ? 'where' : 'which', [tool], { encoding: 'utf8', timeout: commandTimeout }))
   if (!spawn.ok || spawn.value.error || spawn.value.status !== 0) return Result.error(`${tool} is not installed`)
-  const [target] = spawn.value.stdout.trim().split('\n')
+  // windows `where` prints CRLF and can return several matches, so the first one keeps a trailing \r that would break statSync
+  const [target] = spawn.value.stdout.trim().split(/\r?\n/)
   if (!target) return Result.error(`${tool} is not installed`)
   return Result.ok(target)
 }
@@ -260,7 +264,7 @@ export function renderTable(rows: Row[]) {
   const lines = [`${indent}| ${headers.map((header, index) => pad(header, widths[index] ?? 0, header)).join(' | ')} |`, `${indent}|-${widths.map(width => '-'.repeat(width)).join('-|-')}-|`]
   // color is applied after padding, never before : escape codes have no display width so measuring them would throw every column off
   for (const row of rows) {
-    const color = row[1] === 'active' ? green : red
+    const color = row[statusIndex] === 'active' ? green : red
     const cells = row.map((cell, index) => {
       const padded = pad(headers[index] ?? '', widths[index] ?? 0, cell)
       return headers[index] === 'status' ? color(padded) : padded

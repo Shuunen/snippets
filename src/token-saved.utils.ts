@@ -60,7 +60,9 @@ export function short(count: number) {
  */
 function withinWindow(daily: RtkDay[], days: number) {
   const oldest = daysAgoIso10(days - 1)
-  return daily.filter(day => day.date >= oldest)
+  // upper bound too : a future-dated row, from clock skew or a restored backup, would otherwise land in every window at once
+  const newest = daysAgoIso10(0)
+  return daily.filter(day => day.date >= oldest && day.date <= newest)
 }
 
 /**

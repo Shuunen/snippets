@@ -50,6 +50,8 @@ const rtkReport = {
 
 const ponytailManifest = JSON.stringify({ name: 'ponytail', version: '4.9.0' })
 const enabledSettings = JSON.stringify({ enabledPlugins: { 'ponytail@ponytail': true } })
+/** Both savers wired : the rtk PreToolUse hook and the ponytail plugin */
+const activeSettings = JSON.stringify({ enabledPlugins: { 'ponytail@ponytail': true }, hooks: { PreToolUse: [{ hooks: [{ command: '$HOME/.local/bin/rtk hook claude' }] }] } })
 
 const headroomReport = {
   lifetime: { calls: 12 },
@@ -145,6 +147,12 @@ describe('rollingWindow', () => {
   it('rollingWindow D returns zero on an empty ledger', () => {
     expect(rollingWindow([], 30)).toBe(0)
   })
+
+  it('rollingWindow E ignores future dated rows coming from clock skew', () => {
+    const skewed = [...rtkReport.daily, { date: daysAgoIso10(-2), input_tokens: 9999, saved_tokens: 500_000 }]
+    expect(rollingWindow(skewed, 1)).toBe(1000)
+    expect(rollingWindow(skewed, 30)).toBe(7000)
+  })
 })
 
 describe('windowSavingsPct', () => {
@@ -192,6 +200,13 @@ describe('runJson', () => {
     const result = runJson('rtk', ['gain'])
     expect(result.ok).toBe(false)
   })
+
+  it('runJson E fails on a non zero exit even with json on stdout', () => {
+    // rtk still prints a payload while exiting 1, parsing it would report stale numbers as fresh
+    mockSpawnSync.mockReturnValue(spawnResult({ status: 1, stdout: '{"count":42}' }))
+    const result = runJson<{ count: number }>('rtk', ['gain'])
+    expect(result.ok).toBe(false)
+  })
 })
 
 describe('binaryPath', () => {
@@ -210,6 +225,29 @@ describe('binaryPath', () => {
   it('binaryPath C fails on an empty output', () => {
     mockSpawnSync.mockReturnValue(spawnResult({ stdout: '   ' }))
     expect(binaryPath('nope').ok).toBe(false)
+  })
+
+  it('binaryPath D asks windows where instead of which', () => {
+    const commands: string[] = []
+    mockSpawnSync.mockImplementation((...args: unknown[]) => {
+      commands.push(String(args[0]))
+      return spawnResult({ stdout: 'C:\\Users\\me\\rtk.exe' })
+    })
+    const { platform } = process
+    Object.defineProperty(process, 'platform', { configurable: true, value: 'win32' })
+    const result = binaryPath('rtk')
+    Object.defineProperty(process, 'platform', { configurable: true, value: platform })
+    invariant(result.ok, 'result should be ok')
+    expect(commands).toStrictEqual(['where'])
+  })
+
+  it('binaryPath E drops the carriage return windows where appends', () => {
+    // where separates its matches with CRLF, splitting on \n alone would keep a trailing \r in the path
+    const first = String.raw`C:\bin\rtk.exe`
+    mockSpawnSync.mockReturnValue(spawnResult({ stdout: `${first}\r\nC:\\other\\rtk.exe\r\n` }))
+    const result = binaryPath('rtk')
+    invariant(result.ok, 'result should be ok')
+    expect(result.value).toBe(first)
   })
 })
 
@@ -233,7 +271,7 @@ describe('versionOf', () => {
 describe('updatedOn', () => {
   it('updatedOn A returns the binary modification date', () => {
     mockSpawnSync.mockReturnValue(spawnResult({ stdout: '/usr/bin/rtk\n' }))
-    mockStatSync.mockReturnValue({ mtime: new Date('2026-09-10T12:00:00') })
+    mockStatSync.mockReturnValue({ mtime: new Date('2026-09-10T12:00:00Z') })
     expect(updatedOn('rtk')).toBe('2026-09-10')
   })
 
@@ -324,7 +362,7 @@ describe('buildRtkRow', () => {
   it('buildRtkRow A reports an active tool', () => {
     mockReadFileSync.mockReturnValue('rtk hook claude')
     mockSpawnSync.mockReturnValue(spawnResult({ stdout: 'rtk 0.48.0' }))
-    mockStatSync.mockReturnValue({ mtime: new Date('2026-09-10T12:00:00') })
+    mockStatSync.mockReturnValue({ mtime: new Date('2026-09-10T12:00:00Z') })
     const { month, row } = buildRtkRow(rtkReport)
     expect(month).toBe(7000)
     expect(row).toStrictEqual(['rtk', 'active', '0.48.0', '42 commands', '1k', '3k', '7k', '30%', '2026-09-10', ''])
@@ -333,7 +371,7 @@ describe('buildRtkRow', () => {
   it('buildRtkRow B reports an idle tool when the hook is not wired', () => {
     mockReadFileSync.mockReturnValue('{}')
     mockSpawnSync.mockReturnValue(spawnResult({ stdout: 'rtk 0.48.0' }))
-    mockStatSync.mockReturnValue({ mtime: new Date('2026-09-10T12:00:00') })
+    mockStatSync.mockReturnValue({ mtime: new Date('2026-09-10T12:00:00Z') })
     const { row } = buildRtkRow(rtkReport)
     expect(row[1]).toBe('idle')
     expect(row.at(-1)).toBe('hook not wired')
@@ -342,7 +380,7 @@ describe('buildRtkRow', () => {
   it('buildRtkRow C has one cell per header', () => {
     mockReadFileSync.mockReturnValue('{}')
     mockSpawnSync.mockReturnValue(spawnResult({ stdout: 'rtk 0.48.0' }))
-    mockStatSync.mockReturnValue({ mtime: new Date('2026-09-10T12:00:00') })
+    mockStatSync.mockReturnValue({ mtime: new Date('2026-09-10T12:00:00Z') })
     expect(buildRtkRow(rtkReport).row).toHaveLength(headers.length)
   })
 })
@@ -350,7 +388,7 @@ describe('buildRtkRow', () => {
 describe('buildHeadroomRow', () => {
   it('buildHeadroomRow A reports a live proxy', () => {
     mockSpawnSync.mockReturnValue(spawnResult({ stdout: 'headroom, version 0.37.0' }))
-    mockStatSync.mockReturnValue({ mtime: new Date('2026-09-10T12:00:00') })
+    mockStatSync.mockReturnValue({ mtime: new Date('2026-09-10T12:00:00Z') })
     const { month, row } = buildHeadroomRow(headroomReport, true)
     expect(month).toBe(3_139_318)
     expect(row).toStrictEqual(['headroom', 'active', '0.37.0', '12 requests', '94,1k', '2M', '3,1M', '16%', '2026-09-10', 'live on :8787'])
@@ -358,7 +396,7 @@ describe('buildHeadroomRow', () => {
 
   it('buildHeadroomRow B reports a dead proxy', () => {
     mockSpawnSync.mockReturnValue(spawnResult({ stdout: 'headroom, version 0.37.0' }))
-    mockStatSync.mockReturnValue({ mtime: new Date('2026-09-10T12:00:00') })
+    mockStatSync.mockReturnValue({ mtime: new Date('2026-09-10T12:00:00Z') })
     const { row } = buildHeadroomRow(headroomReport, false)
     expect(row[1]).toBe('inactive')
     expect(row.at(-1)).toBe('proxy down')
@@ -395,7 +433,7 @@ describe('renderTable', () => {
     expect(renderTable([missingRow('rtk')])).toHaveLength(3)
   })
 
-  it('renderTable C colours the status cell only', () => {
+  it('renderTable C colors the status cell only', () => {
     const line = renderTable([missingRow('rtk')]).at(-1)
     invariant(line !== undefined, 'table should have a row')
     expect(line).toContain('\u001B[31m')
@@ -403,7 +441,7 @@ describe('renderTable', () => {
 
   it('renderTable D renders the expected layout', () => {
     mockSpawnSync.mockReturnValue(spawnResult({ stdout: 'rtk 0.48.0' }))
-    mockStatSync.mockReturnValue({ mtime: new Date('2026-09-10T12:00:00') })
+    mockStatSync.mockReturnValue({ mtime: new Date('2026-09-10T12:00:00Z') })
     mockReadFileSync.mockReturnValue('rtk hook claude')
     const lines = renderTable([buildRtkRow(rtkReport).row, buildHeadroomRow(headroomReport, true).row])
     // the indent is trimmed here to keep the snapshot readable, it gets its own assertion below
@@ -417,6 +455,19 @@ describe('renderTable', () => {
 
   it('renderTable E indents every line so the table breathes in the terminal', () => {
     expect(renderTable([missingRow('rtk')]).every(line => line.startsWith(' |'))).toBe(true)
+  })
+
+  it('renderTable F sizes columns on the headers when a row is shorter than them', () => {
+    const [header, separator, row] = renderTable([['rtk', 'active']])
+    invariant(header !== undefined && separator !== undefined && row !== undefined, 'table should have a header, a separator and a row')
+    expect(header).toHaveLength(separator.length)
+    expect(logger.clean(row)).toBe(' | rtk  | active |')
+  })
+
+  it('renderTable G renders a cell that has no header left', () => {
+    const row = renderTable([[...missingRow('rtk'), 'extra']]).at(-1)
+    invariant(row !== undefined, 'table should have a row')
+    expect(logger.clean(row)).toContain('| extra |')
   })
 })
 
@@ -446,7 +497,7 @@ describe('isPonytailEnabled', () => {
 
 describe('updatedOnFile', () => {
   it('updatedOnFile A reads the write date', () => {
-    mockStatSync.mockReturnValue({ mtime: new Date('2026-09-10T12:00:00') })
+    mockStatSync.mockReturnValue({ mtime: new Date('2026-09-10T12:00:00Z') })
     expect(updatedOnFile('/some/file.json')).toBe('2026-09-10')
   })
 
@@ -470,7 +521,7 @@ describe('collectPonytail', () => {
 
   it('collectPonytail B builds a row from the plugin manifest', () => {
     mockPonytailReads()
-    mockStatSync.mockReturnValue({ mtime: new Date('2026-09-11T12:00:00') })
+    mockStatSync.mockReturnValue({ mtime: new Date('2026-09-11T12:00:00Z') })
     const { row } = collectPonytail()
     expect(row[0]).toBe('ponytail')
     expect(row[2]).toBe('4.9.0')
@@ -479,7 +530,7 @@ describe('collectPonytail', () => {
 
   it('collectPonytail C never reports a savings figure it cannot measure', () => {
     mockPonytailReads()
-    mockStatSync.mockReturnValue({ mtime: new Date('2026-09-11T12:00:00') })
+    mockStatSync.mockReturnValue({ mtime: new Date('2026-09-11T12:00:00Z') })
     const { month, row } = collectPonytail()
     expect(month).toBe(0)
     expect(row.slice(3, 8)).toStrictEqual(['-', '-', '-', '-', '-'])
@@ -488,7 +539,7 @@ describe('collectPonytail', () => {
 
   it('collectPonytail D reads idle when the plugin is installed but disabled', () => {
     mockPonytailReads('{}')
-    mockStatSync.mockReturnValue({ mtime: new Date('2026-09-11T12:00:00') })
+    mockStatSync.mockReturnValue({ mtime: new Date('2026-09-11T12:00:00Z') })
     const { row } = collectPonytail()
     expect(row[1]).toBe('idle')
     expect(row.at(-1)).toBe('plugin disabled')
@@ -496,8 +547,14 @@ describe('collectPonytail', () => {
 
   it('collectPonytail E has one cell per header', () => {
     mockPonytailReads()
-    mockStatSync.mockReturnValue({ mtime: new Date('2026-09-11T12:00:00') })
+    mockStatSync.mockReturnValue({ mtime: new Date('2026-09-11T12:00:00Z') })
     expect(collectPonytail().row).toHaveLength(headers.length)
+  })
+
+  it('collectPonytail F falls back to a dash when the manifest has no version', () => {
+    mockReadFileSync.mockReturnValueOnce('{}').mockReturnValueOnce(enabledSettings)
+    mockStatSync.mockReturnValue({ mtime: new Date('2026-09-11T12:00:00Z') })
+    expect(collectPonytail().row[2]).toBe('-')
   })
 })
 
@@ -512,7 +569,7 @@ describe('collectRtk', () => {
   it('collectRtk B builds a row from the json report', () => {
     mockSpawnSync.mockReturnValue(spawnResult({ stdout: JSON.stringify(rtkReport) }))
     mockReadFileSync.mockReturnValue('rtk hook claude')
-    mockStatSync.mockReturnValue({ mtime: new Date('2026-09-10T12:00:00') })
+    mockStatSync.mockReturnValue({ mtime: new Date('2026-09-10T12:00:00Z') })
     const { month, row } = collectRtk()
     expect(month).toBe(7000)
     expect(row[0]).toBe('rtk')
@@ -529,7 +586,7 @@ describe('collectHeadroom', () => {
 
   it('collectHeadroom B builds a row from the durable ledger', async () => {
     mockSpawnSync.mockReturnValue(spawnResult({ stdout: JSON.stringify(headroomReport) }))
-    mockStatSync.mockReturnValue({ mtime: new Date('2026-09-10T12:00:00') })
+    mockStatSync.mockReturnValue({ mtime: new Date('2026-09-10T12:00:00Z') })
     vi.spyOn(globalThis, 'fetch').mockResolvedValue({ json: () => Promise.resolve({ status: 'healthy' }), ok: true } as never)
     const { month, row } = await collectHeadroom()
     expect(month).toBe(3_139_318)
@@ -550,5 +607,19 @@ describe('start', () => {
     invariant(table !== undefined, 'the table should be logged')
     expect(table.split('\n').filter(line => line.includes('|'))).toHaveLength(5)
     expect(logs.at(-1)).toContain('Saved 0 millions tokens over the last 30 days')
+  })
+
+  it('start B sums rtk and headroom, never ponytail', async () => {
+    // rtk saves a whole million here so that dropping either addend moves the rounded total
+    const fatRtkReport = { daily: [{ date: daysAgoIso10(0), input_tokens: 5_000_000, saved_tokens: 1_000_000 }], summary: { total_commands: 42 } }
+    mockSpawnSync.mockImplementation(((tool: string) => spawnResult({ stdout: tool === 'headroom' ? JSON.stringify(headroomReport) : JSON.stringify(fatRtkReport) })) as never)
+    mockReadFileSync.mockImplementation(((target: string) => (target.includes('plugin.json') ? ponytailManifest : activeSettings)) as never)
+    mockStatSync.mockReturnValue({ mtime: new Date('2026-09-10T12:00:00Z') })
+    vi.spyOn(globalThis, 'fetch').mockResolvedValue({ json: () => Promise.resolve({ status: 'healthy' }), ok: true } as never)
+    const log = vi.spyOn(console, 'log').mockImplementation(noop)
+    await start()
+    const logs = log.mock.calls.map(([line]) => logger.clean(String(line)))
+    // 1 000 000 saved by rtk + 3 139 318 by headroom, ponytail contributes nothing by design
+    expect(logs.at(-1)).toContain('Saved 4,1 millions tokens over the last 30 days')
   })
 })
