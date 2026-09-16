@@ -9,6 +9,9 @@
 
 ## Completed
 
+- **Report token savings across rtk, Headroom and Ponytail** — `src/token-saved.cli.ts` table plus a `setup-token-savers.sh` bootstrap for a fresh machine
+  **Completed:** v0.3.0 (2026-09-16)
+
 - **Add README dev section** — added `pnpm install`, `pnpm check`, `pnpm run test:unit` commands and oxlint + oxfmt mention
   **Completed:** v0.1.0 (2026-05-25)
 - **Migrate from monorepo** — moved `one-file/` → `src/`, switched to pnpm + turbo, oxlint + oxfmt, TypeScript 6

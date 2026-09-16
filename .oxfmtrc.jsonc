@@ -4,7 +4,9 @@
   "bracketSameLine": false,
   "bracketSpacing": true,
   "endOfLine": "lf",
-  "ignorePatterns": ["**/.git", "**/coverage", "**/dist", "**/node_modules", "**/out-tsc", "**/test-output", "**/test-results"],
+  // configs/files holds verbatim backups of other software's config files, restored as-is onto a
+  // fresh machine — reformatting them to this repo's house style only creates sync drift.
+  "ignorePatterns": ["**/.git", "**/configs/files", "**/coverage", "**/dist", "**/node_modules", "**/out-tsc", "**/test-output", "**/test-results"],
   "objectWrap": "preserve",
   "printWidth": 240,
   "quoteProps": "as-needed",
