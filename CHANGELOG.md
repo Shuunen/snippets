@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.0] - 2026-09-16
+
+### Added
+
+- `src/token-saved.cli.ts` — a combined savings report for the three token savers: rtk (bash output filtering), Headroom (API-side compression) and Ponytail (output never generated). Prints a table with version, status, lifetime and rolling 1 / 7 / 30 day figures per tool, then a one-line total for the month.
+- `src/token-saved.utils.ts` — the number formatting (`millions`, `short`) and the rolling window math (`rollingWindow`, `windowSavingsPct`), with windows bounded on both ends so a future dated row cannot land in every window at once
+- `configs/bin/setup-token-savers.sh` — fresh machine bootstrap installing and wiring rtk, Headroom and Ponytail, idempotent so a re-run is a no-op
+- `configs/files/rtk-config.toml` and `configs/files/rtk-filters.toml` backups, plus a `token-saved` bash alias
+
+### Changed
+
+- Claude hooks now call rtk and Headroom natively: a bare `rtk hook claude` PreToolUse hook, and Headroom wired by `headroom init claude -g` only
+- `oxfmt` ignores `configs/files`, those are backups of foreign formats
+
 ## [0.2.0] - 2026-08-16
 
 ### Added
