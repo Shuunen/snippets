@@ -80,7 +80,7 @@ async function start() {
       '\n',
       gray('tip : you can check the configs/changes folder to see the cleaned changes'),
     )
-  else if (!isReport && !isDryRun && outOfSyncPaths.length > 0) logger.info(green('\n\nMerge session done, review the changes in this repo, then commit & push manually :)'))
+  else if (!isReport && !isDryRun && outOfSyncPaths.length > 0) logger.info(green('\n\nMerge session done, review the changes in this repo, then commit & push manually :)\n'))
   else logger.info(green('\n\nSync done, no actions required :)'))
 }
 
