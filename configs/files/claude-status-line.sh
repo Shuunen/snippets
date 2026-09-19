@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+export LC_ALL=C  # fr_FR LC_NUMERIC breaks printf %.0f on floats
 # Claude Code status line: model name, session usage, context % with progress bar
 
 input=$(cat)

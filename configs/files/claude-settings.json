@@ -1,68 +1,116 @@
 {
-  "agentPushNotifEnabled": true,
+  "env": {
+    "ENABLE_TOOL_SEARCH": "true"
+  },
   "attribution": {
     "commit": "",
     "pr": ""
   },
-  "awaySummaryEnabled": false,
-  "effortLevel": "medium",
-  "enabledPlugins": {
-    "convex@claude-plugins-official": true
+  "permissions": {
+    "defaultMode": "auto"
   },
   "hooks": {
     "PreToolUse": [
       {
+        "matcher": "Bash",
         "hooks": [
           {
-            "command": "bash $HOME/.claude/hooks/rtk-wrapper.sh",
-            "type": "command"
+            "type": "command",
+            "command": "$HOME/.local/bin/rtk hook claude"
           }
-        ],
-        "matcher": "Bash"
+        ]
       }
     ],
     "SessionStart": [
       {
         "hooks": [
           {
-            "command": "$HOME/.gstack/ship-no-pr-override.sh",
-            "type": "command"
-          },
-          {
-            "command": "bash $HOME/.claude/hooks/headroom-autostart.sh",
-            "type": "command"
+            "type": "command",
+            "command": "$HOME/.gstack/ship-no-pr-override.sh"
           }
         ]
       }
     ],
     "Stop": [
       {
-        "_gstack_source": "gstack-timeline-stop",
         "hooks": [
           {
+            "type": "command",
             "command": "$HOME/.claude/skills/gstack/hosts/claude/hooks/timeline-stop-hook",
-            "timeout": 5,
-            "type": "command"
+            "timeout": 5
           }
         ]
       }
     ]
   },
-  "model": "opus",
-  "permissions": {
-    "defaultMode": "auto"
-  },
-  "remoteControlAtStartup": true,
-  "skipAutoPermissionPrompt": true,
-  "skipDangerousModePermissionPrompt": true,
   "statusLine": {
-    "command": "bash $HOME/.claude/statusline-command.sh",
-    "type": "command"
+    "type": "command",
+    "command": "bash $HOME/.claude/statusline-command.sh"
   },
+  "enabledPlugins": {
+    "convex@claude-plugins-official": true,
+    "headroom@headroom-marketplace": false,
+    "ponytail@ponytail": false,
+    "brag@brag": true
+  },
+  "extraKnownMarketplaces": {
+    "headroom-marketplace": {
+      "source": {
+        "source": "github",
+        "repo": "chopratejas/headroom"
+      }
+    },
+    "ponytail": {
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail"
+      }
+    },
+    "brag": {
+      "source": {
+        "source": "github",
+        "repo": "latent-spaces/brag"
+      }
+    }
+  },
+  "effortLevel": "medium",
+  "awaySummaryEnabled": false,
   "tui": "fullscreen",
   "voice": {
     "enabled": false,
     "mode": "hold"
+  },
+  "skipDangerousModePermissionPrompt": true,
+  "remoteControlAtStartup": true,
+  "agentPushNotifEnabled": true,
+  "skipAutoPermissionPrompt": true,
+  "autoMode": {
+    "environment": [
+      "### Org-wide",
+      "**Organization**: None configured",
+      "**Cloud provider(s)**: None configured",
+      "**Repository visibility**: PUBLIC — Shuunen/recipes (github.com:Shuunen/recipes.git); any push there is publishing",
+      "**Internal sharing / snippet hosting**: None configured — treat public paste/gist services as outside the trust boundary",
+      "**Secrets management**: None configured",
+      "**Default / protected branches**: Default branch is master; no rulesets and no protected branches listed via gh (public repo — treat master as unprotected)",
+      "**CI/CD deploy targets**: None configured",
+      "**Network posture**: None configured",
+      "**Host containment**: None configured — assume Claude Code runs on an ordinary developer machine or CI runner with open internet",
+      "**Source control**: The trusted repo (Shuunen/recipes) and its origin remote only (no additional orgs configured)",
+      "**Trusted internal domains**: None configured",
+      "**Trusted cloud buckets**: None configured",
+      "**Key internal services**: None configured",
+      "**Internal package registry**: None configured",
+      "**Sensitive data locations & audiences**: any file or store holding personal data, confidential business data, credentials, regulated data, or similarly sensitive material; preserve exact handles when known and share only with audiences cleared at the [named+specifics] bar",
+      "**Data retention / declassification**: None configured",
+      "**Sensitive remote targets**: any namespace, host, or container whose name carries prod or production as a whole word or name segment",
+      "**Protected deployment namespaces / environments**: None configured — fall back to the Sensitive remote targets heuristic",
+      "**Protected IaC scopes**: IAM, RBAC, networking, quota, and node-pool resources; anything whose name or tag carries prod or production as a whole word or name segment",
+      "### User-specific",
+      "**Primary use of Claude Code**: software development (personal project — French recipes app, React/TypeScript/Vite)",
+      "**Trusted repo**: /home/rominou/Projects/github/recipes (origin: github.com:Shuunen/recipes.git) — PUBLIC, so only this repo's own work belongs here; confidential/secret material is never cleared into it regardless of visibility",
+      "**Org-specific CLIs**: None configured"
+    ]
   },
   "voiceEnabled": false
 }
