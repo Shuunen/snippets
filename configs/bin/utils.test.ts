@@ -1,4 +1,4 @@
-import { clean, filename, normalizePathWithSlash, removeLinesAfter, removeLinesMatching, useUnixCarriageReturn } from './utils.node.js'
+import { clean, filename, normalizePathWithSlash, removeLinesAfter, removeLinesMatching, useUnixCarriageReturn } from './utils.node'
 
 const content = `
 ; How many days between every update check? (0=no checks)

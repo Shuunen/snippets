@@ -2,7 +2,8 @@
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { writeFile } from 'node:fs/promises'
 import path from 'node:path'
-import { clean, logger, useUnixCarriageReturn } from './utils.node.js'
+import type { Config, File, FileDetails } from './types'
+import { clean, logger, useUnixCarriageReturn } from './utils.node'
 
 const currentFolderPath = import.meta.dirname
 const changesFolderPath = path.join(currentFolderPath, '..', 'changes')
@@ -15,8 +16,7 @@ logger.info(`Using home directory : ${home}`)
 logger.info(`Using app data directory : ${appData}`)
 logger.info(`Detected platform : ${isWindows ? 'Windows' : 'Linux'}, process.platform is "${process.platform}"`)
 
-/** @type {import('./types.js').Config[]} */
-const configs = [
+const configs: Config[] = [
   { source: `${home}/.bash_aliases` },
   { renameTo: 'vscode-keybindings.json', source: `${appData}/Code/User/keybindings.json` },
   { renameTo: 'vscode-settings.json', source: `${appData}/Code/User/settings.json` },
@@ -43,7 +43,7 @@ const configs = [
   // { source: `${home}/repo-checker.config.js` },
 ]
 
-const windowsConfigs = [
+const windowsConfigs: Config[] = [
   { renameTo: '.bashrc-windows', source: `${home}/.bashrc` },
   {
     removeLinesAfter: /\[History\]/u,
@@ -59,7 +59,7 @@ const windowsConfigs = [
   },
 ]
 
-const linuxConfigs = [
+const linuxConfigs: Config[] = [
   { renameTo: '.bashrc-linux', source: `${home}/.bashrc` },
   { source: `${home}/.config/autostart/xbox-controller-driver.desktop` },
   { renameTo: 'ulauncher-scripts.json', source: `${home}/.config/ulauncher/scripts.json` },
@@ -88,10 +88,10 @@ const currentFolder = import.meta.dirname
 
 /**
  * Transform a file path to a FileDetails object
- * @param {string} filepath the file path
- * @returns {import('./types.js').FileDetails} the file details
+ * @param filepath the file path
+ * @returns the file details
  */
-function getDetails(filepath) {
+function getDetails(filepath: string): FileDetails {
   const isExisting = existsSync(filepath)
   const content = isExisting ? readFileSync(filepath, 'utf8') : ''
   const updatedContent = content.includes('\r') && !filepath.includes('.qbtheme') ? useUnixCarriageReturn(content) : content // qbtheme files does not like \n
@@ -102,20 +102,21 @@ function getDetails(filepath) {
 
 /**
  * Get the filename from the config
- * @param {import('./types.js').Config} config the config
+ * @param config the config
  * @returns the filename
  */
-function getFilename({ renameTo, source }) {
+function getFilename(config: Config): string {
+  const { renameTo, source } = config
   return renameTo ?? path.basename(source)
 }
 
 /**
  * Check if the source and destination files content are equals
- * @param {import('./types.js').File} file the file to be checked
- * @param {import('./types.js').Config} config the config
+ * @param file the file to be checked
+ * @param config the config
  * @returns true if the files are equals
  */
-function isEquals(file, config) {
+function isEquals(file: File, config: Config): boolean {
   const { destination, source } = file
   const { removeLinesAfter, removeLinesMatching } = config
   const filename = getFilename(config)
@@ -129,12 +130,11 @@ function isEquals(file, config) {
 
 export const backupPath = path.join(currentFolder, '..', 'files')
 
-/** @type {import('./types.js').File[]} */
-export const files = configs.map(config => {
+export const files: File[] = configs.map(config => {
   const filename = getFilename(config)
   const source = getDetails(config.source)
   const destination = getDetails(path.join(backupPath, filename))
-  const /** @type {import('./types.js').File} */ file = { areEquals: false, destination, source }
+  const file: File = { areEquals: false, destination, source }
   file.areEquals = isEquals(file, config)
   if (config.removeLinesMatching) file.removeLinesMatching = config.removeLinesMatching
   if (config.removeLinesAfter) file.removeLinesAfter = config.removeLinesAfter
