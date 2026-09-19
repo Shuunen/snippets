@@ -1,52 +1,8 @@
-import { diffLines } from 'diff'
 import { invariant, isNil } from 'es-toolkit'
+import type { Block, Side } from './merge-blocks.node'
 import type { NamedAction } from './merge.options'
 
-export type Block = {
-  /** raw text on the backup/destination side (empty if the block only exists on the live side) */ destText: string
-  /** raw text on the live/source side (empty if the block only exists on the backup side) */ sourceText: string
-  /** block kind */ type: 'common' | 'conflict'
-}
-
-export type Side = 'dest' | 'source'
-
-/**
- * Turn two file contents into a list of common and conflicting blocks
- * @param destContent the backup (destination) file content
- * @param sourceContent the live (source) file content
- * @returns the ordered list of blocks
- */
-export function computeBlocks(destContent: string, sourceContent: string): Block[] {
-  const changes = diffLines(destContent, sourceContent)
-  const blocks: Block[] = []
-  for (let index = 0; index < changes.length; index += 1) {
-    const change = changes[index]
-    if (!change) continue
-    if (!change.added && !change.removed) {
-      blocks.push({ destText: change.value, sourceText: change.value, type: 'common' })
-      continue
-    }
-    if (change.removed) {
-      const next = changes[index + 1]
-      const hasPairedAddition = next?.added ?? false
-      blocks.push({ destText: change.value, sourceText: hasPairedAddition ? next.value : '', type: 'conflict' })
-      if (hasPairedAddition) index += 1
-      continue
-    }
-    // an "added" block not paired with a preceding "removed" one : only on the live side
-    blocks.push({ destText: '', sourceText: change.value, type: 'conflict' })
-  }
-  return blocks
-}
-
-/**
- * Split a block's raw text into display lines, dropping the trailing empty line the diff library adds
- * @param text the raw block text
- * @returns the display lines
- */
-export function linesOf(text: string): string[] {
-  return text.split('\n').filter((line, index, lines) => index < lines.length - 1 || line !== '')
-}
+export { applyChoices, computeBlocks, linesOf, type Block, type MergedOutput, type Side } from './merge-blocks.node'
 
 /**
  * Hard-wrap a list of lines to a fixed width, so none of them ever overflow a terminal column
@@ -75,27 +31,6 @@ export function wrapLines(lines: string[], width: number): string[] {
 export function truncateLine(text: string, width: number, ellipsis = '…'): string {
   if (text.length <= width || width <= 0) return text.slice(0, Math.max(0, width))
   return `${text.slice(0, Math.max(0, width - ellipsis.length))}${ellipsis}`
-}
-
-/**
- * Apply the user choices to the blocks and produce the final merged content
- * @param blocks the blocks, in order
- * @param choices one choice per conflicting block, in order
- * @returns the merged content, ready to be written to both files
- */
-export function applyChoices(blocks: Block[], choices: Side[]): string {
-  let choiceIndex = 0
-  let output = ''
-  for (const block of blocks) {
-    if (block.type === 'common') {
-      output += block.destText
-      continue
-    }
-    const choice = choices[choiceIndex] ?? 'dest'
-    choiceIndex += 1
-    output += choice === 'dest' ? block.destText : block.sourceText
-  }
-  return output
 }
 
 export type BlockChangeKind = 'addition' | 'modification' | 'removal'

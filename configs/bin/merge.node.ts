@@ -8,7 +8,7 @@ import { applyChoices, classifyBlockKey, computeBlocks, matchAction, stepBlockSt
 import { renderBlock, type FileContext } from './merge-render.node'
 import { externalTools as externalToolCandidates, retryActions } from './merge.options'
 import type { File } from './types'
-import { clean, logger } from './utils.node'
+import { logger } from './utils.node'
 
 const finderCommand = process.platform === 'win32' ? 'where' : 'which'
 
@@ -104,15 +104,15 @@ function handOffToExternalTool(file: File): 'external' | 'skipped' {
  */
 async function runOneAttempt(fileContext: FileTask): Promise<'abort' | 'external' | 'resolved' | 'skipped'> {
   const { file } = fileContext
-  const blocks = computeBlocks(file.destination.content, file.source.content)
-  const conflictBlocks = blocks.filter(block => block.type === 'conflict')
+  const blocks = computeBlocks(file.destination.content, file.source.content, file.removeLinesAfter, file.removeLinesMatching, file.removeBlocksMatching)
+  const conflictBlocks = blocks.filter(block => block.type === 'conflict' && !block.isNoise)
   const contextWithBlocks = { ...fileContext, blocks }
   const outcome = conflictBlocks.length > 0 ? await resolveConflictBlocks(contextWithBlocks, conflictBlocks) : []
   if (outcome === 'abort' || outcome === 'skip-file') return outcome === 'abort' ? 'abort' : 'skipped'
   if (outcome === 'external') return handOffToExternalTool(file)
-  const merged = applyChoices(blocks, outcome)
-  await writeFile(file.destination.filepath, merged)
-  await writeFile(file.source.filepath, merged)
+  const { destOutput, sourceOutput } = applyChoices(blocks, outcome)
+  await writeFile(file.destination.filepath, destOutput)
+  await writeFile(file.source.filepath, sourceOutput)
   return 'resolved'
 }
 
@@ -130,7 +130,8 @@ export async function resolveFile(file: File, fileIndex: number, fileTotal: numb
     if (outcome === 'abort' || outcome === 'skipped') return outcome
     const destContent = readFileSync(file.destination.filepath, 'utf8')
     const sourceContent = readFileSync(file.source.filepath, 'utf8')
-    const stillDifferent = clean(destContent, file.removeLinesAfter, file.removeLinesMatching) !== clean(sourceContent, file.removeLinesAfter, file.removeLinesMatching)
+    const remainingBlocks = computeBlocks(destContent, sourceContent, file.removeLinesAfter, file.removeLinesMatching, file.removeBlocksMatching)
+    const stillDifferent = remainingBlocks.some(block => block.type === 'conflict' && !block.isNoise)
     if (!stillDifferent) {
       logger.info(`✓ ${file.destination.filepath} is now in sync`)
       return 'resolved'

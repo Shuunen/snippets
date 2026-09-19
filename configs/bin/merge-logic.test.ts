@@ -33,19 +33,102 @@ describe('merge logic', () => {
     expect(linesOf(conflicts[0]?.sourceText ?? '')).toStrictEqual(['b'])
   })
 
-  it('applyChoices keeps dest lines when choosing dest', () => {
-    const blocks = computeBlocks('a\nb\nc', 'a\nB\nc')
-    expect(applyChoices(blocks, ['dest'])).toBe('a\nb\nc')
+  it('computeBlocks flags a conflict as noise when every line matches removeLinesMatching on both sides', () => {
+    const blocks = computeBlocks('a\nLastUpdateCheck=1\nc', 'a\nLastUpdateCheck=2\nc', undefined, [/^LastUpdateCheck=/u])
+    const conflicts = blocks.filter(block => block.type === 'conflict')
+    expect(conflicts).toHaveLength(1)
+    expect(conflicts[0]?.isNoise).toBe(true)
   })
 
-  it('applyChoices keeps source lines when choosing source', () => {
+  it('computeBlocks does not flag a conflict as noise when only one side matches removeLinesMatching', () => {
+    const blocks = computeBlocks('a\nLastUpdateCheck=1\nc', 'a\nsomethingElse=2\nc', undefined, [/^LastUpdateCheck=/u])
+    const conflicts = blocks.filter(block => block.type === 'conflict')
+    expect(conflicts).toHaveLength(1)
+    expect(conflicts[0]?.isNoise).toBe(false)
+  })
+
+  it('computeBlocks flags a pure addition as noise when the added line matches removeLinesMatching', () => {
+    const blocks = computeBlocks('a\nc', 'a\nLastUpdateCheck=1\nc', undefined, [/^LastUpdateCheck=/u])
+    const conflicts = blocks.filter(block => block.type === 'conflict')
+    expect(conflicts).toHaveLength(1)
+    expect(conflicts[0]?.isNoise).toBe(true)
+  })
+
+  it('computeBlocks flags a conflict as noise when it falls after a removeLinesAfter cutoff on both sides', () => {
+    const blocks = computeBlocks('a\n[History]\nx=1', 'a\n[History]\nx=2', /^\[History\]/u)
+    const conflicts = blocks.filter(block => block.type === 'conflict')
+    expect(conflicts).toHaveLength(1)
+    expect(conflicts[0]?.isNoise).toBe(true)
+  })
+
+  it('computeBlocks does not flag a conflict as noise when it falls before a removeLinesAfter cutoff', () => {
+    const blocks = computeBlocks('a\nb\n[History]', 'a\nB\n[History]', /^\[History\]/u)
+    const conflicts = blocks.filter(block => block.type === 'conflict')
+    expect(conflicts).toHaveLength(1)
+    expect(conflicts[0]?.isNoise).toBe(false)
+  })
+
+  it('computeBlocks carves a noise line out of a multi-line addition instead of hiding the whole thing', () => {
+    const blocks = computeBlocks('[AddNewTorrentDialog]\nEnabled=true', '[AddNewTorrentDialog]\nAttached=false\nDialogSize=@Size(1506 769)\nEnabled=true', undefined, [/@Size/u])
+    const conflicts = blocks.filter(block => block.type === 'conflict')
+    expect(conflicts).toHaveLength(2)
+    expect(linesOf(conflicts[0]?.sourceText ?? '')).toStrictEqual(['Attached=false'])
+    expect(conflicts[0]?.isNoise).toBe(false)
+    expect(linesOf(conflicts[1]?.sourceText ?? '')).toStrictEqual(['DialogSize=@Size(1506 769)'])
+    expect(conflicts[1]?.isNoise).toBe(true)
+  })
+
+  it('applyChoices keeps dest lines on both sides when choosing dest', () => {
     const blocks = computeBlocks('a\nb\nc', 'a\nB\nc')
-    expect(applyChoices(blocks, ['source'])).toBe('a\nB\nc')
+    expect(applyChoices(blocks, ['dest'])).toStrictEqual({ destOutput: 'a\nb\nc', sourceOutput: 'a\nb\nc' })
+  })
+
+  it('applyChoices keeps source lines on both sides when choosing source', () => {
+    const blocks = computeBlocks('a\nb\nc', 'a\nB\nc')
+    expect(applyChoices(blocks, ['source'])).toStrictEqual({ destOutput: 'a\nB\nc', sourceOutput: 'a\nB\nc' })
   })
 
   it('applyChoices defaults to dest when a choice is missing', () => {
     const blocks = computeBlocks('a\nb\nc', 'a\nB\nc')
-    expect(applyChoices(blocks, [])).toBe('a\nb\nc')
+    expect(applyChoices(blocks, [])).toStrictEqual({ destOutput: 'a\nb\nc', sourceOutput: 'a\nb\nc' })
+  })
+
+  it('computeBlocks flags a conflict as noise when its text matches a removeBlocksMatching pattern', () => {
+    const blocks = computeBlocks('[AddNewTorrentDialog]\nEnabled=true', '[TorrentCreator]\nEnabled=true\n[AddNewTorrentDialog]\nEnabled=true', undefined, undefined, [/\[TorrentCreator\]/u])
+    const conflicts = blocks.filter(block => block.type === 'conflict')
+    expect(conflicts).toHaveLength(1)
+    expect(conflicts[0]?.isNoise).toBe(true)
+  })
+
+  it('computeBlocks keeps a whole matching addition as one noise block, even when only part of it matches removeLinesMatching', () => {
+    const dest = '[TorrentAdditionDlg]\nsave_path_history=~/Downloads\n'
+    const source = `${dest}[TorrentCreator]\nComments=\nSize=@Size(592 731)\nSource=\nStartSeeding=true\n`
+    const blocks = computeBlocks(dest, source, undefined, [/@Size/u], [/\[TorrentCreator\]/u])
+    const conflicts = blocks.filter(block => block.type === 'conflict')
+    expect(conflicts).toHaveLength(1)
+    expect(conflicts[0]?.isNoise).toBe(true)
+    expect(conflicts[0]?.sourceText).toContain('StartSeeding=true')
+  })
+
+  it('computeBlocks excludes a change to a setting inside an existing, untouched section that matches removeBlocksMatching', () => {
+    const dest = '[Preferences]\nEnabled=true\n[AddNewTorrentDialog]\nEnabled=false\n[General]\nLocale=en\n'
+    const source = '[Preferences]\nEnabled=true\n[AddNewTorrentDialog]\nEnabled=true\n[General]\nLocale=en\n'
+    const blocks = computeBlocks(dest, source, undefined, undefined, [/Dialog\]/u])
+    const conflicts = blocks.filter(block => block.type === 'conflict')
+    expect(conflicts).toHaveLength(1)
+    expect(conflicts[0]?.isNoise).toBe(true)
+  })
+
+  it('computeBlocks does not flag a conflict as noise when no removeBlocksMatching pattern matches', () => {
+    const blocks = computeBlocks('a\nc', 'a\nb\nc', undefined, undefined, [/\[TorrentCreator\]/u])
+    const conflicts = blocks.filter(block => block.type === 'conflict')
+    expect(conflicts).toHaveLength(1)
+    expect(conflicts[0]?.isNoise).toBe(false)
+  })
+
+  it('applyChoices leaves a noise block untouched on each side, without consuming a choice', () => {
+    const blocks = computeBlocks('a\nLastUpdateCheck=1\nc', 'a\nLastUpdateCheck=2\nc', undefined, [/^LastUpdateCheck=/u])
+    expect(applyChoices(blocks, [])).toStrictEqual({ destOutput: 'a\nLastUpdateCheck=1\nc', sourceOutput: 'a\nLastUpdateCheck=2\nc' })
   })
 
   it('classifyBlockChange detects a pure addition', () => {

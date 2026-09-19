@@ -25,7 +25,8 @@ const configs: Config[] = [
   { source: `${appData}/kupfer/kupfer.cfg` },
   { source: `${appData}/mpv/mpv.conf` },
   {
-    removeLinesMatching: [/@Size/, /(?<qt>Qt6|qt5)/, /(?<setting>Cookies|CurrentTab|geometry|LastViewedPage|Sizes|Width)=/],
+    removeBlocksMatching: [/(?<block>TorrentCreator|Dialog)\]/u],
+    removeLinesMatching: [/@Size/, /(?<qt>Qt6|qt5)/, /(?<setting>Cookies|CurrentTab|FileLogger\\Path|geometry|LastDir|LastViewedPage|SavePathHistory|Sizes|Width)=/],
     source: `${appData}/qBittorrent/qBittorrent.conf`,
   },
   { source: `${home}/.gitconfig-anatec` },
@@ -138,5 +139,6 @@ export const files: File[] = configs.map(config => {
   file.areEquals = isEquals(file, config)
   if (config.removeLinesMatching) file.removeLinesMatching = config.removeLinesMatching
   if (config.removeLinesAfter) file.removeLinesAfter = config.removeLinesAfter
+  if (config.removeBlocksMatching) file.removeBlocksMatching = config.removeBlocksMatching
   return file
 })

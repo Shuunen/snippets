@@ -9,12 +9,14 @@ export type FileDetails = {
 export type File = {
   /** true if the source and destination files are the same */ areEquals: boolean
   /** the destination file details */ destination: FileDetails
+  /** a list of regex : a conflicting block matching any of them is excluded from the merge */ removeBlocksMatching?: RegExp[]
   /** a regex to remove lines after */ removeLinesAfter?: RegExp
   /** a list of regex to remove lines matching */ removeLinesMatching?: RegExp[]
   /** the source file details */ source: FileDetails
 }
 
 export type Config = {
+  /** a list of regex : a conflicting block matching any of them is excluded from the merge */ removeBlocksMatching?: RegExp[]
   /** a regex to remove lines after */ removeLinesAfter?: RegExp
   /** a list of regex to remove lines matching */ removeLinesMatching?: RegExp[]
   /** the destination file path in this repo */ renameTo?: string
