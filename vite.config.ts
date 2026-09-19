@@ -8,7 +8,7 @@ export default defineConfig({
       provider: 'v8' as const,
     },
     globals: true,
-    include: ['src/**/*.test.{ts,js}'],
+    include: ['**/*.test.{ts,js}'],
     reporters: ['dot'],
     silent: true,
   },
