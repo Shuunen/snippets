@@ -1,4 +1,5 @@
 import { contextAround, pickContext } from './merge-context.node'
+import { resolveDisplaySpans, type CharSpan } from './merge-diff.node'
 import { printHints } from './merge-hints.node'
 /* v8 ignore start */
 import { classifyBlockChange, guessLanguage, linesOf, resolveBlockPreview, resolvePendingKind, truncateLine, wrapLines, type Block, type BlockChangeKind, type Side } from './merge-logic.node'
@@ -202,10 +203,17 @@ function computeConflictLines(file: File, block: Block, options: { pending: Side
   const language = guessLanguage(file.destination.filepath)
   const gutter = gutterFor(block, pending)
   const preview = resolveBlockPreview(block, pending)
+  const kind = pending ? resolvePendingKind(block, pending) : classifyBlockChange(block)
+  const showsBothSides = kind === 'modification' && !preview.destDeleted && !preview.sourceDeleted
+  const { destSpans, sourceSpans }: { destSpans: CharSpan[]; sourceSpans: CharSpan[] } = showsBothSides ? resolveDisplaySpans(block, pending) : { destSpans: [], sourceSpans: [] }
   const destWrapWidth = Math.max(1, widths.leftWidth - gutterWidth)
-  const destBodyLines = linesOf(preview.destText).flatMap(line => prepareConflictLine(line, { deleted: preview.destDeleted, language, width: destWrapWidth, wrapEnabled }))
+  const destBodyLines = linesOf(preview.destText).flatMap((line, lineIndex) =>
+    prepareConflictLine(line, { changeSpans: destSpans.filter(span => span.line === lineIndex), deleted: preview.destDeleted, language, width: destWrapWidth, wrapEnabled }),
+  )
   const sourceWrapWidth = Math.max(1, widths.rightWidth - gutterWidth)
-  const sourceBodyLines = linesOf(preview.sourceText).flatMap(line => prepareConflictLine(line, { deleted: preview.sourceDeleted, language, width: sourceWrapWidth, wrapEnabled }))
+  const sourceBodyLines = linesOf(preview.sourceText).flatMap((line, lineIndex) =>
+    prepareConflictLine(line, { changeSpans: sourceSpans.filter(span => span.line === lineIndex), deleted: preview.sourceDeleted, language, width: sourceWrapWidth, wrapEnabled }),
+  )
   const rowCount = Math.max(destBodyLines.length, sourceBodyLines.length, 1)
   // always emit `rowCount` rows on both sides, even past the end of a shorter (or empty) body,
   // so a gutter marker on an otherwise-empty side (e.g. red for a removal) still has a row to sit on

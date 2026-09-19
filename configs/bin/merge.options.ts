@@ -78,6 +78,16 @@ export const selectionBackground = {
 }
 
 /**
+ * A saturated truecolor background used to wash the exact characters that differ between the two
+ * sides of a modified line, so a one-word change doesn't get lost in the subtle whole-block wash
+ * above. Deliberately brighter than `selectionBackground`.
+ */
+export const changeHighlightBackground = {
+  end: '[49m',
+  start: '[48;2;60;100;235m',
+}
+
+/**
  * Layout numbers that shape the merge UI : column widths, how much terminal chrome to reserve
  * when budgeting context lines, and spacing.
  */
