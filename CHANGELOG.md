@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.0] - 2026-09-20
+
+### Added
+
+- `pnpm cs` now opens a full-screen terminal merge UI (à la Meld) for any config file that's out of sync on both sides: side-by-side boxes with syntax highlighting, block-by-block navigation and left/right selection, live color-coded diff gutters, text wrapping, and a fallback to an external tool (meld, kdiff3, diffuse, bcompare, araxis merge) when you'd rather use one
+
+### Changed
+
+- `configs/bin/*` rewritten from JS to TypeScript, split into small focused modules (sync, merge)
+- Config sync writes are now crash-safe: the merge UI and CRLF-fix pass write through a temp-file-then-rename instead of truncating in place, and the sync CLI now exits non-zero on a failed run instead of silently reporting success
+
 ## [0.2.0] - 2026-08-16
 
 ### Added

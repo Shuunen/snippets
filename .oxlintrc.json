@@ -10,6 +10,7 @@
     "suspicious": "warn"
   },
   "globals": {
+    "AbortController": "readonly",
     "Buffer": "readonly",
     "clearInterval": "readonly",
     "clearTimeout": "readonly",
@@ -33,7 +34,7 @@
   "ignorePatterns": [".git", "*.d.ts", "coverage", "dist", "node_modules", "out-tsc", "test-output"],
   "overrides": [
     {
-      "files": ["src/**/*.cli.js", "src/**/*.cli.ts", "configs/**/*.js"],
+      "files": ["**/*.cli.js", "**/*.cli.ts", "**/*.node.js", "**/*.node.ts", "configs/bin/**/*.ts"],
       "rules": {
         "no-nodejs-modules": "off",
         "require-hook": "off"
