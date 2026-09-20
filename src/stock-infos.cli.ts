@@ -1,9 +1,9 @@
-import { blue, Logger, nbThird } from 'shuutils'
+import { blue, createInMemoryDriver, Logger, nbThird } from 'shuutils'
 
 // cd into the folder and use me like :
 // bun ~/Projects/github/snippets/src/stock-infos.cli.ts GOOG
 
-export const logger = new Logger({ willOutputToMemory: true })
+export const logger = new Logger({ storage: createInMemoryDriver() })
 
 function getStockInfos(stock: string) {
   logger.info(`Getting stock infos for ${blue(stock)}`)

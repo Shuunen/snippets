@@ -1,10 +1,10 @@
 import { readdirSync, renameSync, statSync, unlinkSync } from 'node:fs'
 import path from 'node:path'
-import { blue, green, Logger, red, yellow } from 'shuutils'
+import { blue, createInMemoryDriver, green, Logger, red, yellow } from 'shuutils'
 
 // cd into the folder and use me like : bun ~/Projects/github/snippets/src/clean-ytdl.cli.ts
 
-export const logger = new Logger({ willOutputToMemory: true })
+export const logger = new Logger({ storage: createInMemoryDriver() })
 export const currentFolder = process.cwd()
 export const options = { dry: false } // set dry to false to actually rename files
 export const count = {
@@ -166,13 +166,14 @@ export function showReport() {
 /**
  * Start the check
  */
-export function start() {
+export async function start() {
   logger.info('Clean YouTube downloaded files')
   const files = getFiles()
   checkFiles(files)
   logger.info(`Found ${files.length} files to check`)
   showReport()
-  const nbWarnings = logger.inMemoryLogs.filter(log => log.includes('warn')).length
+  const logs = await logger.getLogs()
+  const nbWarnings = logs.filter(log => log.includes('warn')).length
   if (nbWarnings === 0) logger.success('No warning found ( ͡° ͜ʖ ͡°)')
   else logger.warn(`${nbWarnings} warnings found ಠ_ಠ`)
   logger.success('Clean is done')
@@ -180,4 +181,4 @@ export function start() {
 
 // avoid running this script if it's imported for testing
 /* v8 ignore if */
-if (process.argv[1]?.includes('clean-ytdl.cli.ts')) start()
+if (process.argv[1]?.includes('clean-ytdl.cli.ts')) await start()

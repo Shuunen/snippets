@@ -2,7 +2,7 @@
 import { readdirSync, statSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 import { list } from '7zip-min'
-import { blue, green, Logger, nbPercentMax, nbThird, red, Result, yellow } from 'shuutils'
+import { blue, createInMemoryDriver, green, Logger, nbPercentMax, nbThird, red, Result, yellow } from 'shuutils'
 
 // Use me like : node ~/Projects/github/snippets/src/check-apps.cli.js "/d/Apps/"
 
@@ -13,7 +13,7 @@ import { blue, green, Logger, nbPercentMax, nbThird, red, Result, yellow } from 
 const parameters = process.argv
 const minSimilarity = 0.68 // 68% similarity is the minimum to consider two names as similar
 const expectedNbParameters = 2
-const logger = new Logger({ willOutputToMemory: true })
+const logger = new Logger({ storage: createInMemoryDriver() })
 if (parameters.length <= expectedNbParameters) logger.info(String.raw`Targeting current folder, you can also specify a specific path, ex : node src/check-screens.cli.js "U:\Screens\"`)
 const appsPath = path.normalize(parameters[expectedNbParameters] ?? process.cwd())
 const colors = [red, green, blue, yellow]
@@ -246,7 +246,7 @@ async function start() {
   const files = getFiles()
   const groups = getGroups(files)
   await checkGroups(groups)
-  const logs = logger.inMemoryLogs
+  const logs = await logger.getLogs()
   const nbWarnings = logs.filter(log => log.includes('warn')).length
   if (nbWarnings === 0) logger.success('No warning found ( ͡° ͜ʖ ͡°)')
   else logger.warn(`${nbWarnings} warnings found ಠ_ಠ`)

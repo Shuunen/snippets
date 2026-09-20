@@ -116,7 +116,7 @@ const {
 const { ExifDateTime } = await import('exiftool-vendored')
 
 describe('check-souvenirs.cli', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     mockRead.mockResolvedValue({})
     mockWrite.mockResolvedValue(undefined)
     mockRewriteAllTags.mockResolvedValue(undefined)
@@ -134,7 +134,7 @@ describe('check-souvenirs.cli', () => {
     count.skipped = 0
     count.specialCharsFixes = 0
     count.warnings = 0
-    logger.inMemoryLogs = [] // clear in-memory logs before each test
+    await logger.clearLogs() // clear in-memory logs before each test
     logger.options.willOutputToConsole = false
     resetMkvToolCache()
   })
@@ -471,7 +471,7 @@ describe('check-souvenirs.cli', () => {
   it('setFileDate E should handle unsupported file type', async () => {
     const exifDate = new ExifDateTime(2006, 8, 15, 12, 30, 45, 0)
     await setFileDate('test.mp4', exifDate)
-    const logs = logger.inMemoryLogs
+    const logs = await logger.getLogs()
     expect(logs.some(log => log.includes('Cannot set date for unsupported file type'))).toBe(true)
   })
 
@@ -705,61 +705,61 @@ describe('check-souvenirs.cli', () => {
     expect(count.scanned).toBe(2)
   })
 
-  it('showReport A should display report with no issues', () => {
+  it('showReport A should display report with no issues', async () => {
     count.scanned = 10
     count.dateFixes = 5
     count.errors = 0
     count.warnings = 0
-    showReport()
-    const logs = logger.inMemoryLogs
+    await showReport()
+    const logs = await logger.getLogs()
     expect(logs.some(log => log.includes('0 errors'))).toBe(true)
   })
 
-  it('showReport B should display report with errors', () => {
+  it('showReport B should display report with errors', async () => {
     count.scanned = 10
     count.dateFixes = 5
     logger.error('Test error')
-    showReport()
+    await showReport()
     expect(count.errors).toBe(1)
-    const logs = logger.inMemoryLogs
+    const logs = await logger.getLogs()
     expect(logs.some(log => log.includes('Some issues were found'))).toBe(true)
   })
 
-  it('showReport C should display report with warnings', () => {
+  it('showReport C should display report with warnings', async () => {
     count.scanned = 10
     count.dateFixes = 5
     logger.warn('Test warning')
-    showReport()
+    await showReport()
     expect(count.warnings).toBe(1)
-    const logs = logger.inMemoryLogs
+    const logs = await logger.getLogs()
     expect(logs.some(log => log.includes('Some issues were found'))).toBe(true)
   })
 
-  it('showReport D should display report with conversions and special chars fixes', () => {
+  it('showReport D should display report with conversions and special chars fixes', async () => {
     count.scanned = 10
     count.dateFixes = 5
     count.conversions = 2
     count.specialCharsFixes = 3
     count.errors = 0
     count.warnings = 0
-    showReport()
-    const logs = logger.inMemoryLogs
+    await showReport()
+    const logs = await logger.getLogs()
     expect(logs.some(log => log.includes('Nice no issues found'))).toBe(true)
   })
 
-  it('showReport E should display report with zero scanned files', () => {
+  it('showReport E should display report with zero scanned files', async () => {
     count.scanned = 0
     count.dateFixes = 0
     count.conversions = 0
     count.specialCharsFixes = 0
     count.errors = 0
     count.warnings = 0
-    showReport()
-    const logs = logger.inMemoryLogs
+    await showReport()
+    const logs = await logger.getLogs()
     expect(logs.some(log => log.includes('Nice no issues found'))).toBe(true)
   })
 
-  it('showReport F should display report with skipped files', () => {
+  it('showReport F should display report with skipped files', async () => {
     count.scanned = 10
     count.skipped = 3
     count.dateFixes = 0
@@ -767,8 +767,8 @@ describe('check-souvenirs.cli', () => {
     count.specialCharsFixes = 0
     count.errors = 0
     count.warnings = 0
-    showReport()
-    const logs = logger.inMemoryLogs
+    await showReport()
+    const logs = await logger.getLogs()
     expect(logs.some(log => log.includes('3') && log.includes('files skipped'))).toBe(true)
   })
 
@@ -777,7 +777,7 @@ describe('check-souvenirs.cli', () => {
     mockRead.mockResolvedValue({})
     await start()
     expect(count.scanned).toBe(1)
-    const logs = logger.inMemoryLogs
+    const logs = await logger.getLogs()
     expect(logs.some(log => log.includes('Check Souvenirs is done'))).toBe(true)
   })
 
@@ -827,14 +827,14 @@ describe('check-souvenirs.cli', () => {
     mockRead.mockResolvedValue({})
     await checkPngTransparency(String.raw`D:\Souvenirs\test.png`)
     expect(mockRead).toHaveBeenCalled()
-    const logs = logger.inMemoryLogs
+    const logs = await logger.getLogs()
     expect(logs.some(log => log.includes('No ColorType tag found'))).toBe(true)
   })
 
   it('checkPngTransparency C should warn about RGB PNG without transparency', async () => {
     mockRead.mockResolvedValue({ ColorType: 'RGB' })
     await checkPngTransparency(String.raw`D:\Souvenirs\test.png`)
-    const logs = logger.inMemoryLogs
+    const logs = await logger.getLogs()
     expect(logs.some(log => log.includes('PNG file without transparency detected'))).toBe(true)
     expect(mockSharp).toHaveBeenCalledWith(String.raw`D:\Souvenirs\test.png`)
     expect(mockSharpJpeg).toHaveBeenCalledWith({ quality: 90 })
@@ -845,14 +845,14 @@ describe('check-souvenirs.cli', () => {
   it('checkPngTransparency D should not warn about PNG with RGBA ColorType', async () => {
     mockRead.mockResolvedValue({ ColorType: 'RGBA' })
     await checkPngTransparency(String.raw`D:\Souvenirs\test.png`)
-    const logs = logger.inMemoryLogs
+    const logs = await logger.getLogs()
     expect(logs.some(log => log.includes('PNG file without transparency'))).toBe(false)
   })
 
-  it('cleanFilePath A should warn about special characters in the path', () => {
+  it('cleanFilePath A should warn about special characters in the path', async () => {
     const inputPath = '/Souvenirs/2006/2006-00_Super test@@@!folder/pic.png'
     cleanFilePath(inputPath)
-    const logs = logger.inMemoryLogs
+    const logs = await logger.getLogs()
     expect(logs.some(log => log.includes('contains forbidden characters'))).toBe(true)
   })
 
@@ -920,18 +920,18 @@ describe('check-souvenirs.cli', () => {
     expect(mockSpawnSync).toHaveBeenCalledWith('mkvpropedit.exe', ['--version'], { encoding: 'utf8' })
   })
 
-  it('isMkvToolAvailable B should handle non-Error exceptions', () => {
+  it('isMkvToolAvailable B should handle non-Error exceptions', async () => {
     mockSpawnSync.mockReturnValueOnce({ error: 'string error', status: 1, stdout: '' })
     const result = isMkvToolAvailable()
     expect(result).toBe(false)
-    const logs = logger.inMemoryLogs
+    const logs = await logger.getLogs()
     expect(logs.some(log => log.includes('Version test failed') && log.includes('string error'))).toBe(true)
   })
 
-  it('setFileDateViaMkvTool A should handle tool not available', () => {
+  it('setFileDateViaMkvTool A should handle tool not available', async () => {
     mockSpawnSync.mockReturnValueOnce({ error: new Error('Command not found'), status: 1, stdout: '' })
     setFileDateViaMkvTool(String.raw`D:\Souvenirs\2006\video.mkv`, '2006-01-01')
-    const logs = logger.inMemoryLogs
+    const logs = await logger.getLogs()
     expect(logs.some(log => log.includes('Cannot set date because') && log.includes('tool is not available'))).toBe(true)
   })
 
@@ -955,21 +955,21 @@ describe('check-souvenirs.cli', () => {
     expect(count.dateFixes).toBe(1)
   })
 
-  it('setFileDateViaMkvTool C should handle non-zero exit status', () => {
+  it('setFileDateViaMkvTool C should handle non-zero exit status', async () => {
     mockSpawnSync.mockReturnValueOnce({ error: undefined, status: 0, stdout: 'mkvpropedit v1.0.0' })
     isMkvToolAvailable()
     mockSpawnSync.mockReturnValueOnce({ error: undefined, status: 1, stderr: 'File not found', stdout: '' })
     setFileDateViaMkvTool(String.raw`D:\Souvenirs\2006\video.mkv`, '2006-01-01')
-    const logs = logger.inMemoryLogs
+    const logs = await logger.getLogs()
     expect(logs.some(log => log.includes('Failed to set date, mkvpropedit exited with'))).toBe(true)
   })
 
-  it('setFileDateViaMkvTool D should handle spawnSync error', () => {
+  it('setFileDateViaMkvTool D should handle spawnSync error', async () => {
     mockSpawnSync.mockReturnValueOnce({ error: undefined, status: 0, stdout: 'mkvpropedit v1.0.0' })
     isMkvToolAvailable()
     mockSpawnSync.mockReturnValueOnce({ error: new Error('Spawn failed'), status: 1, stdout: '' })
     setFileDateViaMkvTool(String.raw`D:\Souvenirs\2006\video.mkv`, '2006-01-01')
-    const logs = logger.inMemoryLogs
+    const logs = await logger.getLogs()
     expect(logs.some(log => log.includes('Failed to set date for file') && log.includes('using mkvpropedit'))).toBe(true)
   })
 })

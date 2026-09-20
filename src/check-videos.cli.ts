@@ -107,10 +107,10 @@ const utils = {
     if (typeof output !== 'string') throw new Error('ffprobe output is not a string')
     if (!output.startsWith('{')) throw new Error(`ffprobe output should be JSON but got :${output}`)
     const result = parseJson<FfProbeOutput>(output)
-    if (result.error) throw new Error(`ffprobe output is not valid JSON : ${result.error}`)
+    if (!result.ok) throw new Error(`ffprobe output is not valid JSON : ${result.error}`)
     // logger.info(utils.prettyPrint(data))
     const media = result.value.format
-    const video = result.value.streams?.find((/** @type {{ codec_type: string; }} */ stream) => stream.codec_type === 'video') ?? { avg_frame_rate: '', codec_name: '', codec_type: '', color_transfer: '', duration: '', height: 0, width: 0 }
+    const video = result.value.streams?.find((stream: { codec_type: string }) => stream.codec_type === 'video') ?? { avg_frame_rate: '', codec_name: '', codec_type: '', color_transfer: '', duration: '', height: 0, width: 0 }
     const title = utils.cleanTitle(media?.tags?.title)
     const extension = path.extname(filepath).slice(1)
     const filename = title.length > 0 ? `${title}.${extension}` : ''

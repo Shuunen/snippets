@@ -5,7 +5,7 @@ import path from 'node:path'
 import { Presets, SingleBar } from 'cli-progress'
 import { ExifDateTime, ExifTool, type Maybe } from 'exiftool-vendored'
 import sharp from 'sharp'
-import { blue, functionReturningVoid, green, Logger, nbThird, Result, red, yellow } from 'shuutils'
+import { blue, createInMemoryDriver, functionReturningVoid, green, Logger, nbThird, Result, red, yellow } from 'shuutils'
 import glob from 'tiny-glob'
 
 // use me like :
@@ -17,7 +17,7 @@ await using exif = new ExifTool()
 const { argv } = process
 const expectedNbParameters = 2
 export const currentFolder = process.cwd()
-export const logger = new Logger({ willOutputToMemory: true })
+export const logger = new Logger({ storage: createInMemoryDriver() })
 /* v8 ignore next */
 if (argv.length <= expectedNbParameters) logger.info('Targeting current folder, you can also specify a specific path, ex : check-souvenirs.cli.ts "D:\\Souvenirs\\" \n')
 const photosPath = path.normalize(argv[expectedNbParameters] ?? currentFolder)
@@ -469,8 +469,8 @@ export async function checkFiles(files: string[]) {
 /**
  * Show the final report of operations
  */
-export function showReport() {
-  const logs = logger.inMemoryLogs
+export async function showReport() {
+  const logs = await logger.getLogs()
   for (const log of logs)
     if (log.includes('error')) count.errors += 1
     else if (log.includes('warn')) count.warnings += 1
@@ -493,7 +493,7 @@ export async function start() {
   logger.info('Check Souvenirs started ✅')
   const files = await getFiles()
   await checkFiles(files)
-  showReport()
+  await showReport()
   logger.success('Check Souvenirs is done')
 }
 
