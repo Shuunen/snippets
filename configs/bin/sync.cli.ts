@@ -1,4 +1,5 @@
 /* v8 ignore start */
+import { readFileSync } from 'node:fs'
 import { green, red, yellow } from 'shuutils'
 import { backupPath, files } from './files.node'
 import { resolveFile } from './merge.node'
@@ -44,19 +45,25 @@ async function sync(file: File): Promise<number> {
 /**
  * Interactively merge every out-of-sync file, one at a time, using the terminal merge UI
  * @param outOfSyncPaths the source filepaths that still need merging
+ * @returns true if at least one repo file (destination) ended up with different content than before merging
  */
-async function mergeOutOfSyncFiles(outOfSyncPaths: string[]) {
+async function mergeOutOfSyncFiles(outOfSyncPaths: string[]): Promise<boolean> {
   const outOfSyncFiles = files.filter(file => outOfSyncPaths.includes(file.source.filepath))
+  let hasRepoChanges = false
   for (const [index, file] of outOfSyncFiles.entries()) {
+    const originalDestinationContent = file.destination.content
     // eslint-disable-next-line no-await-in-loop
     const outcome = await resolveFile(file, index + 1, outOfSyncFiles.length)
-    if (outcome === 'resolved') report.success.push(`sync done : ${file.source.filepath}`)
-    else if (outcome === 'skipped') report.warnings.push(`merge skipped, still out of sync : ${file.source.filepath}`)
+    if (outcome === 'resolved') {
+      report.success.push(`sync done : ${file.source.filepath}`)
+      if (readFileSync(file.destination.filepath, 'utf8') !== originalDestinationContent) hasRepoChanges = true
+    } else if (outcome === 'skipped') report.warnings.push(`merge skipped, still out of sync : ${file.source.filepath}`)
     else {
       report.warnings.push(`merge aborted by user, ${outOfSyncFiles.length - index} file(s) left untouched`)
       break
     }
   }
+  return hasRepoChanges
 }
 
 /**
@@ -66,13 +73,15 @@ async function start() {
   await Promise.all(files.map(file => sync(file)))
   const outOfSyncPaths = report.suggestions
   report.suggestions = []
-  if (!isReport && !isDryRun && outOfSyncPaths.length > 0) await mergeOutOfSyncFiles(outOfSyncPaths)
+  const didMerge = !isReport && !isDryRun && outOfSyncPaths.length > 0
+  const hasRepoChanges = didMerge && (await mergeOutOfSyncFiles(outOfSyncPaths))
   for (const error of report.errors) logger.error(red(error))
   for (const warning of report.warnings) logger.warn(yellow(warning))
   if (isDebug) for (const info of report.infos) logger.info(info)
   if (isDebug) for (const success of report.success) logger.info(green(success))
   if (outOfSyncPaths.length > 0 && (isReport || isDryRun)) logger.info('TODO :\n=====\n1. review changes on this repo if any\n2. run these to compare backup & local files :\n', outOfSyncPaths.join('\n '))
-  else if (!isReport && !isDryRun && outOfSyncPaths.length > 0) logger.info(green('Merge session done, review the changes in this repo, then commit & push manually :)\n'))
+  else if (didMerge && hasRepoChanges) logger.info(green('Merge session done, review the changes in this repo, then commit & push manually :)\n'))
+  else if (didMerge) logger.info(green('Merge session done, no changes to review in this repo :)\n'))
   else logger.info(green('Sync done, no actions required :)\n'))
 }
 
