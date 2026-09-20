@@ -5,12 +5,12 @@ import { checkFile, checkFiles, cleanFileName, count, currentFolder, deleteFile,
 vi.mock('node:fs')
 
 describe('clean-ytdl', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     resetCount()
     logger.options.willOutputToConsole = false // disable console output for tests
     logger.options.willLogTime = false // disable time logging for tests
     logger.options.willLogDelay = false // disable delay logging for tests
-    logger.inMemoryLogs = [] // clear in-memory logs before each test
+    await logger.clearLogs() // clear in-memory logs before each test
     options.dry = false // set dry mode to false, the default state
     vi.clearAllMocks()
   })
@@ -72,38 +72,39 @@ describe('clean-ytdl', () => {
     expect(fileExists('/path/to/directory')).toMatchInlineSnapshot(`false`)
   })
 
-  it('deleteFile A should delete file when not in dry mode', () => {
+  it('deleteFile A should delete file when not in dry mode', async () => {
     expect(options.dry).toMatchInlineSnapshot(`false`) // Verify dry mode is off
     deleteFile('/path/to/file.mp4', 'test reason')
     expect(fs.unlinkSync).toHaveBeenCalledWith('/path/to/file.mp4')
     expect(count.deleted).toMatchInlineSnapshot(`1`)
-    const logs = logger.inMemoryLogs
+    const logs = await logger.getLogs()
     expect(logs.some(log => log.includes('Deleted'))).toMatchInlineSnapshot(`true`)
   })
 
-  it('deleteFile B should not delete file when in dry mode', () => {
+  it('deleteFile B should not delete file when in dry mode', async () => {
     options.dry = true // Enable dry mode
     deleteFile('/path/to/file.mp4', 'test reason')
     expect(fs.unlinkSync).not.toHaveBeenCalled()
     expect(count.deleted).toMatchInlineSnapshot(`1`)
-    expect(logger.inMemoryLogs.some(log => log.includes('Should delete'))).toMatchInlineSnapshot(`true`)
+    const logs = await logger.getLogs()
+    expect(logs.some(log => log.includes('Should delete'))).toMatchInlineSnapshot(`true`)
   })
 
-  it('renameFile A should rename file when not in dry mode', () => {
+  it('renameFile A should rename file when not in dry mode', async () => {
     expect(options.dry).toMatchInlineSnapshot(`false`) // Verify dry mode is off
     renameFile('/old/path.mp4', '/new/path.mp4')
     expect(fs.renameSync).toHaveBeenCalledWith('/old/path.mp4', '/new/path.mp4')
     expect(count.renamed).toMatchInlineSnapshot(`1`)
-    const logs = logger.inMemoryLogs
+    const logs = await logger.getLogs()
     expect(logs[0]).toMatchInlineSnapshot(`" info Renamed file : path.mp4 to path.mp4"`)
   })
 
-  it('renameFile B should not rename file when in dry mode', () => {
+  it('renameFile B should not rename file when in dry mode', async () => {
     options.dry = true // Enable dry mode
     renameFile('/old/path.mp4', '/new/path.mp4')
     expect(fs.renameSync).not.toHaveBeenCalled()
     expect(count.renamed).toMatchInlineSnapshot(`1`)
-    const logs = logger.inMemoryLogs
+    const logs = await logger.getLogs()
     expect(logs.some(log => log.includes('Should rename'))).toMatchInlineSnapshot(`true`)
   })
 
@@ -156,7 +157,7 @@ describe('clean-ytdl', () => {
     expect(count.skipped).toMatchInlineSnapshot(`0`)
   })
 
-  it('getFiles A should return list of files from current directory', () => {
+  it('getFiles A should return list of files from current directory', async () => {
     const mockFiles = ['file1.mp4', 'file2.srt', 'file3.txt']
     vi.mocked(fs.readdirSync).mockReturnValue(mockFiles as never)
     const result = getFiles()
@@ -168,33 +169,33 @@ describe('clean-ytdl', () => {
           "file3.txt",
         ]
       `)
-    const logs = logger.inMemoryLogs
+    const logs = await logger.getLogs()
     expect(logs.some(log => log.trim().includes('info Found 3 files'))).toBe(true)
   })
 
-  it('getFiles B should log scanning message', () => {
+  it('getFiles B should log scanning message', async () => {
     vi.mocked(fs.readdirSync).mockReturnValue(['file.mp4'] as never)
     getFiles()
-    const logs = logger.inMemoryLogs
+    const logs = await logger.getLogs()
     expect(logs[1]).toMatchInlineSnapshot(`" info Found 1 files"`)
   })
 
-  it('showReport A should show count of all operations', () => {
+  it('showReport A should show count of all operations', async () => {
     count.deleted = 5
     count.renamed = 3
     count.skipped = 2
     showReport()
-    const logs = logger.inMemoryLogs
+    const logs = await logger.getLogs()
     expect(logs.join(',').trim()).toMatchInlineSnapshot(`"info 5 files deleted, info 3 files renamed, info 2 files skipped (no changes needed)"`)
   })
 
-  it('showReport B should show count with dry mode messaging', () => {
+  it('showReport B should show count with dry mode messaging', async () => {
     options.dry = true // Enable dry mode
     count.deleted = 5
     count.renamed = 3
     count.skipped = 2
     showReport()
-    const logs = logger.inMemoryLogs
+    const logs = await logger.getLogs()
     expect(logs.join(',').trim()).toMatchInlineSnapshot(`"info 5 files should be deleted, info 3 files should be renamed, info 2 files skipped (no changes needed)"`)
   })
 
@@ -208,10 +209,10 @@ describe('clean-ytdl', () => {
     expect(count.skipped).toMatchInlineSnapshot(`0`)
   })
 
-  it('start A should execute complete workflow without warnings', () => {
+  it('start A should execute complete workflow without warnings', async () => {
     vi.mocked(fs.readdirSync).mockReturnValue(['test.mp4'] as never)
-    start()
-    const logs = logger.inMemoryLogs
+    await start()
+    const logs = await logger.getLogs()
     expect(logs.slice(2)).toMatchInlineSnapshot(`
         [
           " info Found 1 files",
@@ -225,11 +226,11 @@ describe('clean-ytdl', () => {
       `)
   })
 
-  it('start B should detect warnings in logs', () => {
+  it('start B should detect warnings in logs', async () => {
     vi.mocked(fs.readdirSync).mockReturnValue(['test.mp4'] as never)
     logger.warn('Test warning')
-    start()
-    const logs = logger.inMemoryLogs
+    await start()
+    const logs = await logger.getLogs()
     expect(logs.pop()?.trim()).toMatchInlineSnapshot(`"good Clean is done"`)
   })
 
