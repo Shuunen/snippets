@@ -4,12 +4,15 @@
   "bugs": "https://github.com/Shuunen/snippets/issues",
   "dependencies": {
     "7zip-min": "^3.0.1",
+    "cli-highlight": "^2.1.11",
     "cli-progress": "^3.12.0",
     "clipboardy": "^5.3.2",
     "cors": "^2.8.6",
+    "diff": "^9.0.0",
     "es-toolkit": "^1.52.0",
     "exiftool-vendored": "^37.2.0",
-    "sharp": "^0.35.4"
+    "sharp": "^0.35.4",
+    "wrap-ansi": "^10.0.1"
   },
   "description": "My personal snippets",
   "devDependencies": {
@@ -26,7 +29,7 @@
     "oxlint-tsgolint": "^7.0.2001",
     "shuutils": "~10.6.0",
     "tiny-glob": "^0.2.9",
-    "turbo": "^2.10.12",
+    "turbo": "^2.11.2",
     "typescript": "~7.0.2",
     "vite": "^8.2.2",
     "vitest": "^4.1.11"
@@ -48,7 +51,7 @@
     "build": "turbo run build:tsc && echo build completed successfully || (echo Please fix build errors and run pnpm run build to check for remaining build issues && exit 1)",
     "build:tsc": "tsc -b && echo build:tsc completed successfully || (echo Please fix type errors and run pnpm run build:tsc to check for remaining type issues && exit 1)",
     "check": "turbo run --output-logs=errors-only lint:types lint:format lint:issues lint:snippets build:tsc test:unit test:shell && echo check completed successfully",
-    "config:sync": "bun configs/bin/sync.cli.js",
+    "config:sync": "bun configs/bin/sync.cli.ts",
     "cs": "bun config:sync",
     "lint": "turbo run lint:types lint:format lint:issues && echo lint completed successfully",
     "lint:format": "oxfmt --check && echo lint:format completed successfully || (echo Please run pnpm run lint:format:fix to automatically fix formatting issues && exit 1)",
@@ -65,5 +68,5 @@
     "up:deps": "pnpm update --latest && echo up:deps completed successfully"
   },
   "type": "module",
-  "version": "0.2.0"
+  "version": "0.3.0"
 }

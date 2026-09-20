@@ -6,9 +6,12 @@ export default defineConfig({
     coverage: {
       exclude: ['**/*.types.ts', 'src/bin/lint.rules.ts'],
       provider: 'v8' as const,
+      thresholds: {
+        100: true,
+      },
     },
     globals: true,
-    include: ['src/**/*.test.{ts,js}'],
+    include: ['**/*.test.{ts,js}'],
     reporters: ['dot'],
     silent: true,
   },

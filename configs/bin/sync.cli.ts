@@ -1,89 +1,116 @@
 /* v8 ignore start */
-import { gray, green, red, yellow } from 'shuutils'
-import { backupPath, files } from './files.node'
-import { resolveFile } from './merge.node'
-import type { File, Report } from './types'
-import { copy, filename, logger, normalizePathWithSlash } from './utils.node'
+import { readFileSync } from 'node:fs'
+import { dim, green, red, yellow } from 'shuutils'
+import { logger } from './core/logger'
+import type { Report, SyncFile } from './core/types'
+import { clearLastRender } from './merge/screen'
+import { createMergeSession, resolveFile } from './merge/session'
+import { detectPlatform, getConfigs } from './sync/catalog'
+import { backupPath, loadFiles } from './sync/files'
+import { copy, filename, normalizePathWithSlash } from './sync/paths'
+import { createReport, summarize } from './sync/report'
 
-const isDryRun = process.argv.includes('--dry')
-const isSetup = process.argv.includes('--setup')
-const isDebug = process.argv.includes('--debug')
-const isReport = process.argv.includes('--report')
+const flags = {
+  isDebug: process.argv.includes('--debug'),
+  isDryRun: process.argv.includes('--dry'),
+  isReport: process.argv.includes('--report'),
+  isSetup: process.argv.includes('--setup'),
+}
+/** a --report or --dry run only looks : it never writes to either side */
+const isPreview = flags.isReport || flags.isDryRun
+
 const relativeBackupPath = normalizePathWithSlash(backupPath)
   .replace(normalizePathWithSlash(process.env.PWD ?? '').replace('/c/', 'C:/'), '')
   .slice(1)
 
-const report: Report = { errors: [], infos: [], success: [], suggestions: [], warnings: [] }
+const report = createReport()
 
 /**
- * Synchronize a file
+ * Bring one file in sync when it can be done without asking : create a missing side, or note that
+ * both sides already agree. A file differing on both sides is only suggested for merging
  * @param file the file to synchronize
- * @returns the number of things you have to do in Life
  */
-async function sync(file: File): Promise<number> {
-  process.stdout.write('.')
-  const { areEquals, destination, source } = file
-  if (!source.isExisting) {
-    if (!isSetup) return report.infos.push(`source file does not exists : ${source.filepath}`)
-    if (isDryRun) return report.infos.push(`would copy ${filename(destination.filepath)} to ${source.filepath}`)
-    const isSuccess = await copy(destination.filepath, source.filepath)
-    if (isSuccess) return report.success.push(`file setup : ${source.filepath}`)
-    return report.errors.push(`failed at copying : ${destination.filepath}`)
+async function sync(file: SyncFile): Promise<void> {
+  const { areEquals, sides } = file
+  if (!sides.local.isExisting) {
+    if (!flags.isSetup) report.infos.push(`local file does not exists : ${sides.local.filepath}`)
+    else if (flags.isDryRun) report.infos.push(`would copy ${filename(sides.repo.filepath)} to ${sides.local.filepath}`)
+    else if (await copy(sides.repo.filepath, sides.local.filepath)) report.success.push(`file setup : ${sides.local.filepath}`)
+    else report.errors.push(`failed at copying : ${sides.repo.filepath}`)
+    return
   }
-  if (!destination.isExisting) {
-    if (isDryRun) return report.infos.push(`would copy ${source.filepath} to ${destination.filepath}`)
-    const isSuccess = await copy(source.filepath, destination.filepath)
-    if (isSuccess) return report.success.push(`sync done : ${source.filepath}`)
-    return report.errors.push(`failed at copying : ${source.filepath}`)
+  if (!sides.repo.isExisting) {
+    if (flags.isDryRun) report.infos.push(`would copy ${sides.local.filepath} to ${sides.repo.filepath}`)
+    else if (await copy(sides.local.filepath, sides.repo.filepath)) report.success.push(`sync done : ${sides.local.filepath}`)
+    else report.errors.push(`failed at copying : ${sides.local.filepath}`)
+    return
   }
-  if (areEquals) return report.success.push(`sync is up to date : ${source.filepath}`)
-  report.infos.push(`file should be sync manually : ${source.filepath}`)
-  if (isReport || isDryRun) return report.suggestions.push(`merge ${relativeBackupPath}/${filename(destination.filepath)} ${normalizePathWithSlash(source.filepath, true)}`)
-  return report.suggestions.push(source.filepath)
+  if (areEquals) {
+    report.success.push(`sync is up to date : ${sides.local.filepath}`)
+    return
+  }
+  report.infos.push(`file should be sync manually : ${sides.local.filepath}`)
+  if (isPreview) report.suggestions.push(`merge ${relativeBackupPath}/${filename(sides.repo.filepath)} ${normalizePathWithSlash(sides.local.filepath, true)}`)
+  else report.suggestions.push(sides.local.filepath)
 }
 
 /**
  * Interactively merge every out-of-sync file, one at a time, using the terminal merge UI
- * @param outOfSyncPaths the source filepaths that still need merging
+ * @param outOfSyncFiles the files that still need merging
+ * @returns true if at least one repo file ended up with different content than before merging
  */
-async function mergeOutOfSyncFiles(outOfSyncPaths: string[]) {
-  const outOfSyncFiles = files.filter(file => outOfSyncPaths.includes(file.source.filepath))
+async function mergeOutOfSyncFiles(outOfSyncFiles: SyncFile[]): Promise<boolean> {
+  const session = createMergeSession()
+  let hasRepoChanges = false
   for (const [index, file] of outOfSyncFiles.entries()) {
+    const contentBefore = file.sides.repo.content
     // eslint-disable-next-line no-await-in-loop
-    const outcome = await resolveFile(file, index + 1, outOfSyncFiles.length)
-    if (outcome === 'resolved') report.success.push(`sync done : ${file.source.filepath}`)
-    else if (outcome === 'skipped') report.warnings.push(`merge skipped, still out of sync : ${file.source.filepath}`)
+    const outcome = await resolveFile({ file, fileIndex: index + 1, fileTotal: outOfSyncFiles.length }, session)
+    if (outcome === 'resolved') {
+      report.success.push(`sync done : ${file.sides.local.filepath}`)
+      if (readFileSync(file.sides.repo.filepath, 'utf8') !== contentBefore) hasRepoChanges = true
+    } else if (outcome === 'skipped') report.warnings.push(`merge skipped, still out of sync : ${file.sides.local.filepath}`)
     else {
       report.warnings.push(`merge aborted by user, ${outOfSyncFiles.length - index} file(s) left untouched`)
       break
     }
   }
+  return hasRepoChanges
+}
+
+/**
+ * Print everything the run gathered, quietest first
+ * @param gathered the run's report
+ */
+function printReport(gathered: Report): void {
+  for (const error of gathered.errors) logger.error(red(error))
+  for (const warning of gathered.warnings) logger.warn(yellow(warning))
+  if (!flags.isDebug) return
+  for (const info of gathered.infos) logger.info(info)
+  for (const success of gathered.success) logger.info(green(success))
 }
 
 /**
  * Start the sync process
  */
 async function start() {
-  process.stdout.write('\nSyncing')
+  const platform = detectPlatform()
+  logger.info(`Using home directory ${dim(platform.home)}`)
+  logger.info(`Using app data directory ${dim(platform.appData)}`)
+  logger.info(`Detected platform ${dim(platform.isWindows ? 'windows' : 'linux')}`)
+  const files = await loadFiles(getConfigs(platform), { canFixCarriageReturn: !isPreview })
   await Promise.all(files.map(file => sync(file)))
   const outOfSyncPaths = report.suggestions
   report.suggestions = []
-  if (!isReport && !isDryRun && outOfSyncPaths.length > 0) await mergeOutOfSyncFiles(outOfSyncPaths)
-  for (const error of report.errors) logger.error(red(error))
-  for (const warning of report.warnings) logger.warn(yellow(warning))
-  if (isDebug) for (const info of report.infos) logger.info(info)
-  if (isDebug) for (const success of report.success) logger.info(green(success))
-  if (outOfSyncPaths.length > 0 && (isReport || isDryRun))
-    logger.info(
-      '\n TODO :\n=====\n1. review changes on this repo if any\n2. run these to compare backup & local files :\n\n',
-      outOfSyncPaths.join('\n '),
-      '\n',
-      gray('tip : you can check the configs/changes folder to see the cleaned changes'),
-    )
-  else if (!isReport && !isDryRun && outOfSyncPaths.length > 0) logger.info(green('\n\nMerge session done, review the changes in this repo, then commit & push manually :)'))
-  else logger.info(green('\n\nSync done, no actions required :)'))
+  const didMerge = !isPreview && outOfSyncPaths.length > 0
+  const outOfSyncFiles = files.filter(file => outOfSyncPaths.includes(file.sides.local.filepath))
+  const hasRepoChanges = didMerge && (await mergeOutOfSyncFiles(outOfSyncFiles))
+  if (didMerge) clearLastRender()
+  printReport(report)
+  logger.info(...summarize({ didMerge, hasRepoChanges, isPreview, outOfSyncPaths }))
 }
 
-await start().catch(error => {
+await start().catch((error: unknown) => {
   logger.error(error)
+  process.exitCode = 1
 })
