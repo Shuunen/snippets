@@ -56,4 +56,16 @@ describe('merge context', () => {
     expect(pickContext(['a1'], ['b1'], 0)).toStrictEqual({ after: [], before: [] })
     expect(pickContext(['a1'], ['b1'], -5)).toStrictEqual({ after: [], before: [] })
   })
+
+  it('pickContext gives before the leftover budget when after runs out first', () => {
+    expect(pickContext(['a1', 'a2', 'a3', 'a4', 'a5'], ['b1'], 6)).toStrictEqual({ after: ['b1'], before: ['a1', 'a2', 'a3', 'a4', 'a5'] })
+  })
+
+  it('contextAround treats a missing destText defensively as an empty line, both walking through it and previewing it', () => {
+    const conflict: Block = { destText: 'x', sourceText: 'X', type: 'conflict' }
+    const commonWithoutDestText = { sourceText: 'a\n', type: 'common' } as unknown as Block
+    const conflictWithoutDestText = { sourceText: 'Y', type: 'conflict' } as unknown as Block
+    const blocks: Block[] = [conflictWithoutDestText, commonWithoutDestText, conflict, commonWithoutDestText, conflictWithoutDestText]
+    expect(contextAround(blocks, conflict)).toStrictEqual({ after: [], afterPreview: undefined, before: [], beforePreview: undefined })
+  })
 })

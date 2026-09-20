@@ -1,4 +1,5 @@
 import { diffLines, type Change } from 'diff'
+import { invariant } from 'es-toolkit'
 import { buildSectionLookup, computeNoiseCutoffs, computeRuns, isNoiseLine, splitKeepingNewlines, type NoiseCutoffs } from './merge-noise.node'
 
 export type Block = {
@@ -25,7 +26,12 @@ type Cursor = { destLine: number; sourceLine: number }
 // oxlint-disable-next-line max-params
 function buildOneSidedBlocks(text: string, startLine: number, cutoffIndex: number, removeLinesMatching: RegExp[] | undefined, side: Side): Block[] {
   const lines = splitKeepingNewlines(text)
-  const runs = computeRuns(lines.length, index => isNoiseLine({ cutoffIndex, line: lines[index] ?? '', lineIndex: startLine + index, removeLinesMatching }))
+  const lineAt = (index: number): string => {
+    const line = lines[index]
+    invariant(line !== undefined, 'line should be defined, index is within lines.length bounds')
+    return line
+  }
+  const runs = computeRuns(lines.length, index => isNoiseLine({ cutoffIndex, line: lineAt(index), lineIndex: startLine + index, removeLinesMatching }))
   return runs.map(run => {
     const runText = lines.slice(run.start, run.start + run.length).join('')
     return side === 'dest' ? { destText: runText, isNoise: run.isNoise, sourceText: '', type: 'conflict' } : { destText: '', isNoise: run.isNoise, sourceText: runText, type: 'conflict' }
@@ -68,9 +74,19 @@ function buildModificationBlocks(destText: string, sourceText: string, cursor: C
       isNoiseWholeSide({ cutoffIndex: cutoffs.sourceCutoff, lines: sourceLines, removeLinesMatching, startLine: sourceStart })
     return [{ destText, isNoise, sourceText, type: 'conflict' }]
   }
+  const destLineAt = (index: number): string => {
+    const line = destLines[index]
+    invariant(line !== undefined, 'destLine should be defined, index is within destLines.length bounds')
+    return line
+  }
+  const sourceLineAt = (index: number): string => {
+    const line = sourceLines[index]
+    invariant(line !== undefined, 'sourceLine should be defined, destLines and sourceLines have equal length here')
+    return line
+  }
   const runs = computeRuns(destLines.length, index => {
-    const destLine = destLines[index] ?? ''
-    const sourceLine = sourceLines[index] ?? ''
+    const destLine = destLineAt(index)
+    const sourceLine = sourceLineAt(index)
     // a line differing from its pair only by trailing whitespace (typically a missing/extra final newline)
     // shows no visible change on screen, so treat it as noise the same as a fully ignorable line
     if (destLine.trimEnd() === sourceLine.trimEnd()) return true
@@ -120,8 +136,10 @@ function pushCommonBlock(change: Change, context: BuildContext): void {
 function matchesRemoveBlocks(context: BuildContext): boolean {
   const { cursor, destSections, removeBlocksMatching, sourceSections } = context
   if (!removeBlocksMatching) return false
-  const destSection = destSections[cursor.destLine] ?? ''
-  const sourceSection = sourceSections[cursor.sourceLine] ?? ''
+  const destSection = destSections[cursor.destLine]
+  invariant(destSection !== undefined, 'destSection should be defined, cursor.destLine stays within destSections bounds')
+  const sourceSection = sourceSections[cursor.sourceLine]
+  invariant(sourceSection !== undefined, 'sourceSection should be defined, cursor.sourceLine stays within sourceSections bounds')
   return removeBlocksMatching.some(regex => regex.test(destSection) || regex.test(sourceSection))
 }
 
@@ -191,7 +209,7 @@ export function computeBlocks(destContent: string, sourceContent: string, remove
   }
   for (let index = 0; index < changes.length; index += 1) {
     const change = changes[index]
-    if (!change) continue
+    invariant(change, 'change should be defined, index is within changes.length bounds')
     if (!change.added && !change.removed) {
       pushCommonBlock(change, context)
       continue

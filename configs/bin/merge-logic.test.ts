@@ -1,7 +1,25 @@
 import { invariant } from 'es-toolkit'
-import { applyChoices, classifyBlockChange, classifyBlockKey, computeBlocks, guessLanguage, linesOf, matchAction, stepBlockState, truncateLine, type BlockNavState, wouldOverwrite, wrapLines } from './merge-logic.node'
+import type { Block } from './merge-blocks.node'
+import {
+  applyChoices,
+  classifyBlockChange,
+  classifyBlockKey,
+  computeBlocks,
+  guessLanguage,
+  linesOf,
+  matchAction,
+  resolveBlockPreview,
+  resolvePendingKind,
+  stepBlockState,
+  truncateLine,
+  type BlockNavState,
+  wouldOverwrite,
+  wrapLines,
+} from './merge-logic.node'
 
 const freshState = (): BlockNavState => ({ choices: [undefined, undefined, undefined], currentIndex: 0, pending: undefined })
+
+const makeBlock = (destText: string, sourceText: string): Block => ({ destText, sourceText, type: 'conflict' })
 
 describe('merge logic', () => {
   it('computeBlocks finds no conflict on identical content', () => {
@@ -78,6 +96,22 @@ describe('merge logic', () => {
     expect(conflicts[1]?.isNoise).toBe(true)
   })
 
+  it('computeBlocks keeps a differing-line-count modification as one block when it is not noise', () => {
+    const blocks = computeBlocks('a\nb\nc', 'a\nB\nC\nc')
+    const conflicts = blocks.filter(block => block.type === 'conflict')
+    expect(conflicts).toHaveLength(1)
+    expect(linesOf(conflicts[0]?.destText ?? '')).toStrictEqual(['b'])
+    expect(linesOf(conflicts[0]?.sourceText ?? '')).toStrictEqual(['B', 'C'])
+    expect(conflicts[0]?.isNoise).toBe(false)
+  })
+
+  it('computeBlocks flags a differing-line-count modification as noise when every line on both sides is ignorable', () => {
+    const blocks = computeBlocks('a\nLastUpdateCheck=1\nc', 'a\nLastUpdateCheck=2\nExtra=1\nc', undefined, [/^(?<key>LastUpdateCheck=|Extra=)/u])
+    const conflicts = blocks.filter(block => block.type === 'conflict')
+    expect(conflicts).toHaveLength(1)
+    expect(conflicts[0]?.isNoise).toBe(true)
+  })
+
   it('applyChoices keeps dest lines on both sides when choosing dest', () => {
     const blocks = computeBlocks('a\nb\nc', 'a\nB\nc')
     expect(applyChoices(blocks, ['dest'])).toStrictEqual({ destOutput: 'a\nb\nc', sourceOutput: 'a\nb\nc' })
@@ -108,6 +142,23 @@ describe('merge logic', () => {
     expect(conflicts).toHaveLength(1)
     expect(conflicts[0]?.isNoise).toBe(true)
     expect(conflicts[0]?.sourceText).toContain('StartSeeding=true')
+  })
+
+  it('computeBlocks keeps a whole matching removal as one noise block on the dest side', () => {
+    const source = '[TorrentAdditionDlg]\nsave_path_history=~/Downloads\n'
+    const dest = `${source}[TorrentCreator]\nComments=\nSize=@Size(592 731)\nSource=\nStartSeeding=true\n`
+    const blocks = computeBlocks(dest, source, undefined, [/@Size/u], [/\[TorrentCreator\]/u])
+    const conflicts = blocks.filter(block => block.type === 'conflict')
+    expect(conflicts).toHaveLength(1)
+    expect(conflicts[0]?.isNoise).toBe(true)
+    expect(conflicts[0]?.destText).toContain('StartSeeding=true')
+  })
+
+  it('computeBlocks treats a modification differing only by trailing whitespace as noise, with no filters needed', () => {
+    const blocks = computeBlocks('a\nb \nc', 'a\nb\nc')
+    const conflicts = blocks.filter(block => block.type === 'conflict')
+    expect(conflicts).toHaveLength(1)
+    expect(conflicts[0]?.isNoise).toBe(true)
   })
 
   it('computeBlocks excludes a change to a setting inside an existing, untouched section that matches removeBlocksMatching', () => {
@@ -216,6 +267,10 @@ describe('merge logic', () => {
     expect(matchAction(retryActions, { name: 'q' })).toBe('abort')
   })
 
+  it('matchAction returns undefined for a key with no name', () => {
+    expect(matchAction(retryActions, {})).toBeUndefined()
+  })
+
   it('wrapLines leaves short lines untouched', () => {
     expect(wrapLines(['abc'], 10)).toStrictEqual(['abc'])
   })
@@ -313,5 +368,49 @@ describe('merge logic', () => {
   it('wouldOverwrite is false when nothing points to that side', () => {
     expect(wouldOverwrite({ choices: [undefined, undefined], currentIndex: 0, pending: undefined }, 'dest')).toBe(false)
     expect(wouldOverwrite({ choices: [undefined, undefined], currentIndex: 0, pending: undefined }, 'source')).toBe(false)
+  })
+
+  it('resolvePendingKind detects an addition when dest wins over an empty source', () => {
+    expect(resolvePendingKind(makeBlock('b', ''), 'dest')).toBe('addition')
+  })
+
+  it('resolvePendingKind detects a removal when dest wins with an empty text', () => {
+    expect(resolvePendingKind(makeBlock('', 'b'), 'dest')).toBe('removal')
+  })
+
+  it('resolvePendingKind detects a modification when dest wins over non-empty source', () => {
+    expect(resolvePendingKind(makeBlock('b', 'B'), 'dest')).toBe('modification')
+  })
+
+  it('resolvePendingKind detects an addition when source wins over an empty dest', () => {
+    expect(resolvePendingKind(makeBlock('', 'b'), 'source')).toBe('addition')
+  })
+
+  it('resolvePendingKind detects a removal when source wins with an empty text', () => {
+    expect(resolvePendingKind(makeBlock('b', ''), 'source')).toBe('removal')
+  })
+
+  it('resolvePendingKind detects a modification when source wins over non-empty dest', () => {
+    expect(resolvePendingKind(makeBlock('b', 'B'), 'source')).toBe('modification')
+  })
+
+  it('resolveBlockPreview shows each side its own text when nothing is pending', () => {
+    expect(resolveBlockPreview(makeBlock('b', 'B'), undefined)).toStrictEqual({ destDeleted: false, destText: 'b', sourceDeleted: false, sourceText: 'B' })
+  })
+
+  it('resolveBlockPreview previews the incoming source text on dest when dest is overwritten by a modification', () => {
+    expect(resolveBlockPreview(makeBlock('b', 'B'), 'source')).toStrictEqual({ destDeleted: false, destText: 'B', sourceDeleted: false, sourceText: 'B' })
+  })
+
+  it('resolveBlockPreview previews the incoming dest text on source when source is overwritten by a modification', () => {
+    expect(resolveBlockPreview(makeBlock('b', 'B'), 'dest')).toStrictEqual({ destDeleted: false, destText: 'b', sourceDeleted: false, sourceText: 'b' })
+  })
+
+  it('resolveBlockPreview keeps and flags the dest text as deleted when choosing source would erase it', () => {
+    expect(resolveBlockPreview(makeBlock('b', ''), 'source')).toStrictEqual({ destDeleted: true, destText: 'b', sourceDeleted: false, sourceText: '' })
+  })
+
+  it('resolveBlockPreview keeps and flags the source text as deleted when choosing dest would erase it', () => {
+    expect(resolveBlockPreview(makeBlock('', 'b'), 'dest')).toStrictEqual({ destDeleted: false, destText: '', sourceDeleted: true, sourceText: 'b' })
   })
 })
