@@ -17,11 +17,17 @@ When a file exists on both sides but differs, `pnpm cs` opens a terminal merge U
 backup and live files are each shown in their own bordered box, titled with their own path
 (à la Meld), side by side with a gap between them, with syntax highlighting and surrounding
 file context (as much as fits the terminal, live-adjusted on resize). The currently selected
-block is washed with a subtle blue background on both sides, and its gutter is colored by
-what kind of change it is: green when a line was added on the live side, red when a line was
-removed from it, yellow when a line exists on both sides but changed. The box that's about to
+block is washed with a subtle blue background on both sides, and each of its rows gets its own
+gutter bar and gap arrow, colored by what happens to that row rather than by what the block is
+as a whole: green where a line is gained, red where one is lost, yellow where one is swapped for
+another. So a change that replaces two lines with one shows a yellow row followed by a red one.
+Before a side is chosen, rows are judged against the backup, reporting what the live file did to
+them; once a side is chosen, they are judged against what the overwritten side is about to
+become, reporting what confirming would do. The box that's about to
 be overwritten previews the incoming content and its title gets a `(modified)` marker,
-highlighted blue, as soon as a side is chosen:
+highlighted blue, as soon as a side is chosen. Any line that choice would drop stays on screen,
+struck through in red instead of silently vanishing — whether the chosen side wipes the other
+out entirely or merely shrinks it (say two lines replaced by one):
 
 - `←` move the current block to the left box (the live file wins, overwriting the backup's) —
   recorded immediately, it sticks even if you navigate away without pressing Enter
@@ -43,3 +49,42 @@ Once every block is resolved, the merged result is written to **both** the backu
 you — review the changes in this repo and commit/push manually.
 
 See `configs/TODO.md` for further Meld-inspired ideas not built yet.
+
+## Code layout
+
+The two sides of every comparison are called **repo** (the backup in `configs/files/...`, drawn on
+the left) and **local** (the live file on this machine, drawn on the right). Anything held once per
+side is keyed by that name rather than duplicated, so `block.text[side]` and `widths[side]` replace
+a pile of `dest`/`source` pairs.
+
+```
+configs/bin/
+  sync.cli.ts     entry point : flags, orchestration, final report
+  types.ts        Side, SyncFile, Config, NoiseFilters, Report
+  utils.ts        at() and homeDir(), shared by both folders
+  logger.ts
+  merge/          everything the interactive merge does
+    blocks.ts       two file contents -> common + conflicting blocks, and back again
+    noise.ts        which lines are ignorable, and how they group into runs
+    context.ts      the unchanged lines shown around a conflict
+    char-diff.ts    which exact characters differ, for the brighter wash
+    navigation.ts   block cursor state machine + keypress mapping
+    options.ts      glyphs, colors, layout numbers, hints
+    text.ts         ansi-aware wrapping, truncating, highlighting, padding
+    render.ts       buildPanel() : the whole frame as string[]
+    hints.ts        the footer keybinding rows
+    status.ts       the per-pane status footer
+    screen.ts       draws a frame in one write, erases exactly what it drew
+    keypress.ts     raw stdin, keypress/resize race
+    session.ts      per-file merge loop, retries, external tool hand-off
+  sync/           reading configs off disk and reporting on them
+    catalog.ts      the list of files to back up, per platform
+    files.ts        reads both sides, works out what is already in sync
+    paths.ts        path helpers and copying
+    report.ts       the report buckets and the closing message
+```
+
+Rendering is pure : `buildPanel()` returns the frame as an array of strings and `screen.draw()`
+writes it in one go, so the whole panel is unit-testable and can never appear half-drawn. Every
+module above is covered by tests except the six that genuinely touch stdin, stdout, or the
+filesystem (`screen`, `keypress`, `session`, `files`, `catalog`, `sync.cli`).

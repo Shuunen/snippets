@@ -1,7 +1,10 @@
 import { diffWordsWithSpace } from 'diff'
-import type { Block, Side } from './merge-blocks.node'
+import type { BySide, Side } from '../types'
+import type { Block } from './blocks'
 
 export type CharSpan = { end: number; line: number; start: number }
+
+type Cursor = { column: number; line: number }
 
 /**
  * Walk one diff chunk's text, splitting it on line breaks and, while inside a chunk that's unique
@@ -11,12 +14,15 @@ export type CharSpan = { end: number; line: number; start: number }
  * @param options the span list to append to (mutated in place), the current line/column position
  * on this side (mutated in place), and whether this chunk is unique to this side (vs. common to both)
  */
-function advanceCursor(text: string, options: { cursor: { column: number; line: number }; isUniqueToSide: boolean; spans: CharSpan[] }): void {
+function advanceCursor(text: string, options: { cursor: Cursor; isUniqueToSide: boolean; spans: CharSpan[] }): void {
   const { cursor, isUniqueToSide, spans } = options
   let spanStart = isUniqueToSide ? cursor.column : -1
+  const pushSpan = () => {
+    if (spanStart !== -1 && cursor.column > spanStart) spans.push({ end: cursor.column, line: cursor.line, start: spanStart })
+  }
   for (const char of text) {
     if (char === '\n') {
-      if (spanStart !== -1 && cursor.column > spanStart) spans.push({ end: cursor.column, line: cursor.line, start: spanStart })
+      pushSpan()
       cursor.line += 1
       cursor.column = 0
       spanStart = isUniqueToSide ? 0 : -1
@@ -24,30 +30,28 @@ function advanceCursor(text: string, options: { cursor: { column: number; line: 
     }
     cursor.column += 1
   }
-  if (spanStart !== -1 && cursor.column > spanStart) spans.push({ end: cursor.column, line: cursor.line, start: spanStart })
+  pushSpan()
 }
 
 /**
  * Compute, for each side of a modified block, exactly which characters differ from the other
  * side — as per-line `[start, end)` offsets — so the UI can wash just those characters with a
  * brighter background instead of leaving the whole line looking equally "changed"
- * @param destText the destination side's text
- * @param sourceText the source side's text
+ * @param text each side's raw text
  * @returns each side's changed-character spans, grouped by line index
  */
-export function computeCharDiffSpans(destText: string, sourceText: string): { destSpans: CharSpan[]; sourceSpans: CharSpan[] } {
-  const destSpans: CharSpan[] = []
-  const sourceSpans: CharSpan[] = []
-  const destCursor = { column: 0, line: 0 }
-  const sourceCursor = { column: 0, line: 0 }
-  for (const part of diffWordsWithSpace(destText, sourceText))
-    if (part.added) advanceCursor(part.value, { cursor: sourceCursor, isUniqueToSide: true, spans: sourceSpans })
-    else if (part.removed) advanceCursor(part.value, { cursor: destCursor, isUniqueToSide: true, spans: destSpans })
+export function computeCharDiffSpans(text: BySide<string>): BySide<CharSpan[]> {
+  const spans: BySide<CharSpan[]> = { local: [], repo: [] }
+  const cursors: BySide<Cursor> = { local: { column: 0, line: 0 }, repo: { column: 0, line: 0 } }
+  const advance = (side: Side, value: string, isUniqueToSide: boolean) => advanceCursor(value, { cursor: cursors[side], isUniqueToSide, spans: spans[side] })
+  for (const part of diffWordsWithSpace(text.repo, text.local))
+    if (part.added) advance('local', part.value, true)
+    else if (part.removed) advance('repo', part.value, true)
     else {
-      advanceCursor(part.value, { cursor: destCursor, isUniqueToSide: false, spans: destSpans })
-      advanceCursor(part.value, { cursor: sourceCursor, isUniqueToSide: false, spans: sourceSpans })
+      advance('repo', part.value, false)
+      advance('local', part.value, false)
     }
-  return { destSpans, sourceSpans }
+  return spans
 }
 
 /**
@@ -61,9 +65,8 @@ export function computeCharDiffSpans(destText: string, sourceText: string): { de
  * @param pending the side currently chosen to win, if any
  * @returns each side's changed-character spans to display
  */
-export function resolveDisplaySpans(block: Block, pending: Side | undefined): { destSpans: CharSpan[]; sourceSpans: CharSpan[] } {
-  const { destSpans, sourceSpans } = computeCharDiffSpans(block.destText, block.sourceText)
-  if (!pending) return { destSpans, sourceSpans }
-  const winningSpans = pending === 'dest' ? destSpans : sourceSpans
-  return { destSpans: winningSpans, sourceSpans: winningSpans }
+export function resolveDisplaySpans(block: Block, pending: Side | undefined): BySide<CharSpan[]> {
+  const spans = computeCharDiffSpans(block.text)
+  if (!pending) return spans
+  return { local: spans[pending], repo: spans[pending] }
 }

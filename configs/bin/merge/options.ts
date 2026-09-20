@@ -1,5 +1,8 @@
-/* v8 ignore start */
 import { blue, bold, cyan, dim, gray, green, italic, red, strikeThrough, yellow } from 'shuutils'
+import type { BySide } from '../types'
+
+/** the inner content width of each side's box, borders excluded */
+export type ColumnWidths = BySide<number>
 
 /**
  * Every glyph the interactive merge UI draws, in one place. Change one here to change it
@@ -108,6 +111,9 @@ export const layout = {
   /** space reserved around a box title for its leading dash and padding spaces */
   titleSideCharsWidth: 4,
 }
+
+/** the blank space drawn between the two boxes, where the direction arrow appears */
+export const gap = ' '.repeat(layout.gapWidth)
 
 /** appended to a box's title once a choice in this session would overwrite it */
 export const modifiedSuffix = ' (modified)'

@@ -34,7 +34,7 @@
   "ignorePatterns": [".git", "*.d.ts", "coverage", "dist", "node_modules", "out-tsc", "test-output"],
   "overrides": [
     {
-      "files": ["**/*.cli.js", "**/*.cli.ts", "**/*.node.js", "**/*.node.ts"],
+      "files": ["**/*.cli.js", "**/*.cli.ts", "**/*.node.js", "**/*.node.ts", "configs/bin/**/*.ts"],
       "rules": {
         "no-nodejs-modules": "off",
         "require-hook": "off"

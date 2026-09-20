@@ -1,17 +1,17 @@
 import { copyFileSync } from 'node:fs'
 import { mkdir } from 'node:fs/promises'
 import path from 'node:path'
-import { Logger, Result } from 'shuutils'
+import { Result } from 'shuutils'
+import { logger } from '../logger'
+import { homeDir } from '../utils'
 
 const regexes = {
   carriageReturn: /\r\n/gu,
   filename: /[/\\](?<name>[\w.-]+)$/u,
 }
 
-export const logger = new Logger()
-
 /**
- * Get the filename from a filepath
+ * Get the filename from a filepath, whichever slash style it uses
  * @param filepath the filepath to get the filename from
  * @returns the filename
  * @example filename('C:\\Users\\me\\file.txt') // 'file.txt'
@@ -36,28 +36,22 @@ export function useUnixCarriageReturn(content: string): string {
  * @param home the home directory path
  * @returns the normalized path
  */
-/* v8 ignore next */
-export function normalizePathWithSlash(filepath: string, shouldUseTilde = false, home = process.env.HOME ?? ''): string {
-  let outPath = path.normalize(filepath).replaceAll('\\', '/')
-  if (shouldUseTilde) outPath = outPath.replace(normalizePathWithSlash(home), '~')
-  return outPath
+export function normalizePathWithSlash(filepath: string, shouldUseTilde = false, home = homeDir()): string {
+  const outPath = path.normalize(filepath).replaceAll('\\', '/')
+  return shouldUseTilde ? outPath.replace(normalizePathWithSlash(home), '~') : outPath
 }
 
 /**
- * Copy a file
+ * Copy a file, creating the destination folder if needed
  * @param source the source file
- * @param destination the destination file
- * @returns some bool result; i don't know im in the train to Paris
+ * @param destination the destination file, created or overwritten
+ * @returns true if the copy succeeded
  */
 /* v8 ignore next */
 export async function copy(source: string, destination: string): Promise<boolean> {
-  // destination will be created or overwritten by default.
-  const destinationFolder = destination.replace(filename(destination), '')
-  await mkdir(destinationFolder, { recursive: true })
+  await mkdir(path.dirname(destination), { recursive: true })
   const result = Result.trySafe(() => copyFileSync(source, destination))
-  if (!result.ok) {
-    logger.error(result.error)
-    return false
-  }
-  return true
+  if (result.ok) return true
+  logger.error(result.error)
+  return false
 }

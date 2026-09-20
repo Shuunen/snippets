@@ -1,8 +1,8 @@
-/* v8 ignore start */
 import { highlight } from 'cli-highlight'
 import wrapAnsi from 'wrap-ansi'
-import type { CharSpan } from './merge-diff.node'
-import { changeHighlightBackground, colors, glyphs } from './merge.options'
+import { at } from '../utils'
+import type { CharSpan } from './char-diff'
+import { changeHighlightBackground, colors, glyphs } from './options'
 
 const ansiEscapePattern = /\[[0-9;]*m/uy
 
@@ -99,6 +99,68 @@ export function padVisible(text: string, width: number): string {
 }
 
 /**
+ * Hard-wrap a list of plain-text lines to a fixed width, so none of them ever overflow a terminal
+ * column and trigger the terminal's own line-wrapping (which misaligns a side-by-side layout)
+ * @param lines the lines to wrap
+ * @param width the max visible width of a wrapped chunk
+ * @returns the wrapped lines, each at most `width` characters long
+ */
+export function wrapLines(lines: string[], width: number): string[] {
+  if (width <= 0) return lines
+  return lines.flatMap(line => {
+    if (line.length <= width) return [line]
+    const chunks: string[] = []
+    for (let start = 0; start < line.length; start += width) chunks.push(line.slice(start, start + width))
+    return chunks
+  })
+}
+
+/**
+ * Truncate a plain-text line to a width, marking the cut with an ellipsis, for a non-wrapping display mode
+ * @param text the line to truncate
+ * @param width the max visible width
+ * @returns the truncated line
+ */
+export function truncateLine(text: string, width: number): string {
+  if (text.length <= width || width <= 0) return text.slice(0, Math.max(0, width))
+  return `${text.slice(0, Math.max(0, width - glyphs.ellipsis.length))}${glyphs.ellipsis}`
+}
+
+/**
+ * Fit a list of plain-text lines to a width, wrapping them across rows or truncating each to one row
+ * @param lines the lines to fit
+ * @param width the max visible width
+ * @param wrapEnabled whether wrapping is currently on
+ * @returns the fitted lines
+ */
+export function fitLines(lines: string[], width: number, wrapEnabled: boolean): string[] {
+  return wrapEnabled ? wrapLines(lines, width) : lines.map(line => truncateLine(line, width))
+}
+
+const languageByExtension: Record<string, string> = {
+  '.bash_aliases': 'bash',
+  '.bashrc': 'bash',
+  '.desktop': 'ini',
+  '.gitconfig': 'ini',
+  '.json': 'json',
+  '.md': 'markdown',
+  '.profile': 'bash',
+  '.sh': 'bash',
+  '.toml': 'ini',
+  '.yml': 'yaml',
+}
+
+/**
+ * Guess a cli-highlight language from a filepath
+ * @param filepath the filepath to guess the language from
+ * @returns the language, or undefined if unknown
+ */
+export function guessLanguage(filepath: string): string | undefined {
+  const match = Object.keys(languageByExtension).find(extension => filepath.endsWith(extension))
+  return match ? languageByExtension[match] : undefined
+}
+
+/**
  * Syntax-highlight a snippet of text, falling back to the raw text on any error
  * @param text the text to highlight
  * @param language the cli-highlight language
@@ -114,63 +176,30 @@ function highlightSafe(text: string, language: string | undefined): string {
 }
 
 /**
- * Highlight a whole logical line first (so the highlighter sees full context, not a mid-token
- * fragment), then hard-wrap the already-colored result, letting wrap-ansi carry styles across
- * the wrapped physical rows so colors never break or bleed at the wrap point.
- * @param line the raw logical line to highlight and wrap
- * @param width the max visible width of a wrapped row
- * @param options the cli-highlight language, and any changed-character spans to wash
- * @returns the highlighted, wrapped physical rows
+ * Hard-wrap an already-styled line, letting wrap-ansi carry its styles across the wrapped physical
+ * rows so colors never break or bleed at the wrap point
+ * @param styled the already-styled line
+ * @param width the max visible width of a row
+ * @returns the wrapped physical rows
  */
-export function highlightAndWrap(line: string, width: number, options: { changeSpans?: CharSpan[]; language: string | undefined }): string[] {
-  const { changeSpans = [], language } = options
-  const highlighted = highlightSafe(line, language)
-  const washed = washSpans(highlighted, changeSpans, changeHighlightBackground)
-  if (width <= 0) return [washed]
-  return wrapAnsi(washed, width, { hard: true, trim: false, wordWrap: false }).split('\n')
-}
-
-/**
- * Highlight a logical line and collapse it to a single row, truncated with an ellipsis if it
- * doesn't fit, for the non-wrapping display mode. Wraps to `width - 1` first so the cut always
- * falls on a safe, ANSI-aware boundary, then appends a plain ellipsis character.
- * @param line the raw logical line to highlight and truncate
- * @param width the max visible width of the row
- * @param options the cli-highlight language, and any changed-character spans to wash
- * @returns the highlighted, single-row, truncated line
- */
-function highlightAndTruncate(line: string, width: number, options: { changeSpans?: CharSpan[]; language: string | undefined }): string {
-  const fullRows = highlightAndWrap(line, width, options)
-  if (fullRows.length <= 1) return fullRows[0] ?? ''
-  const truncatedRows = highlightAndWrap(line, Math.max(1, width - 1), options)
-  return `${truncatedRows[0] ?? ''}${glyphs.ellipsis}`
-}
-
-/**
- * Style a whole logical line as about-to-be-deleted first, then hard-wrap the already-styled
- * result, letting wrap-ansi carry the style across the wrapped physical rows.
- * @param line the raw logical line to style and wrap
- * @param width the max visible width of a wrapped row
- * @returns the styled, wrapped physical rows
- */
-export function styleDeletedAndWrap(line: string, width: number): string[] {
-  const styled = line ? colors.deletedContent(line) : line
+function wrapStyled(styled: string, width: number): string[] {
   if (width <= 0) return [styled]
   return wrapAnsi(styled, width, { hard: true, trim: false, wordWrap: false }).split('\n')
 }
 
 /**
- * Style a logical line as about-to-be-deleted and collapse it to a single row, truncated with an
- * ellipsis if it doesn't fit, for the non-wrapping display mode
- * @param line the raw logical line to style and truncate
- * @param width the max visible width of the row
- * @returns the styled, single-row, truncated line
+ * Lay an already-styled line out as rows : either every wrapped row, or a single row truncated with
+ * an ellipsis. Truncating wraps to `width - 1` first so the cut always falls on a safe, ANSI-aware
+ * boundary, then appends a plain ellipsis character.
+ * @param styled the already-styled line
+ * @param width the max visible width of a row
+ * @param wrapEnabled whether wrapping is currently on
+ * @returns the resulting row(s)
  */
-function styleDeletedAndTruncate(line: string, width: number): string {
-  const fullRows = styleDeletedAndWrap(line, width)
-  if (fullRows.length <= 1) return fullRows[0] ?? ''
-  const truncatedRows = styleDeletedAndWrap(line, Math.max(1, width - 1))
-  return `${truncatedRows[0] ?? ''}${glyphs.ellipsis}`
+function toRows(styled: string, width: number, wrapEnabled: boolean): string[] {
+  const rows = wrapStyled(styled, width)
+  if (wrapEnabled || rows.length <= 1) return rows
+  return [`${at(wrapStyled(styled, Math.max(1, width - 1)), 0)}${glyphs.ellipsis}`]
 }
 
 /**
@@ -182,8 +211,8 @@ function styleDeletedAndTruncate(line: string, width: number): string {
  * @param options the line's target width, language, wrap mode, whether it's about to be deleted, and any changed-character spans to wash
  * @returns the resulting row(s)
  */
-export function prepareConflictLine(line: string, options: { changeSpans?: CharSpan[]; deleted?: boolean; language: string | undefined; width: number; wrapEnabled: boolean }): string[] {
-  const { changeSpans = [], deleted, language, width, wrapEnabled } = options
-  if (deleted) return wrapEnabled ? styleDeletedAndWrap(line, width) : [styleDeletedAndTruncate(line, width)]
-  return wrapEnabled ? highlightAndWrap(line, width, { changeSpans, language }) : [highlightAndTruncate(line, width, { changeSpans, language })]
+export function prepareConflictLine(line: string, options: { changeSpans?: CharSpan[]; deleted?: boolean; language?: string; width: number; wrapEnabled: boolean }): string[] {
+  const { changeSpans = [], deleted = false, language, width, wrapEnabled } = options
+  if (deleted) return toRows(line ? colors.deletedContent(line) : line, width, wrapEnabled)
+  return toRows(washSpans(highlightSafe(line, language), changeSpans, changeHighlightBackground), width, wrapEnabled)
 }

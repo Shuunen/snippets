@@ -2,7 +2,6 @@
 
 Ideas for the `configs` sync/merge tool, inspired by Meld, not built yet.
 
-- **Per-pane status footer** — encoding / filetype / line count under each pane, echoing Meld's bottom
-  status bar. Cosmetic, cheap, low priority.
+- _(nothing pending — the per-pane status footer shipped in 48e89a9)_
 
 Do the /ship skill

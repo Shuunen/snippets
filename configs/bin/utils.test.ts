@@ -1,78 +1,25 @@
-import { filename, normalizePathWithSlash, useUnixCarriageReturn } from './utils.node'
+import { at, homeDir } from './utils'
 
-describe('config utils', () => {
-  const winHome = 'C:/Users/Johnny'
-  const winPath = 'C:/Users/Johnny/Projects/github/snippets/tests'
-
-  it('normalizePathWithSlash A', () => {
-    expect(normalizePathWithSlash(winPath, undefined, winHome)).toBe('C:/Users/Johnny/Projects/github/snippets/tests')
+describe('utils', () => {
+  it('at reads an in-bounds slot', () => {
+    expect(at(['a', 'b'], 1)).toBe('b')
   })
 
-  it('normalizePathWithSlash B', () => {
-    expect(normalizePathWithSlash(winPath, undefined, winHome)).toBe('C:/Users/Johnny/Projects/github/snippets/tests')
+  it('at fails loudly rather than yielding undefined out of bounds', () => {
+    expect(() => at(['a'], 3)).toThrow('index 3 should be within the 1 available items')
   })
 
-  it('normalizePathWithSlash C', () => {
-    expect(normalizePathWithSlash(winPath, true, winHome)).toBe('~/Projects/github/snippets/tests')
+  it('homeDir reports the home directory from the environment', () => {
+    expect(homeDir()).toBe(process.env.HOME)
   })
 
-  it('normalizePathWithSlash D', () => {
-    expect(normalizePathWithSlash(winPath, true, winHome)).toBe('~/Projects/github/snippets/tests')
-  })
-
-  it('normalizePathWithSlash E', () => {
-    expect(normalizePathWithSlash(winPath, true, winHome)).toBe('~/Projects/github/snippets/tests')
-  })
-
-  it('normalizePathWithSlash F', () => {
-    expect(normalizePathWithSlash(winPath, true, winHome)).toBe('~/Projects/github/snippets/tests')
-  })
-
-  it('normalizePathWithSlash G', () => {
-    expect(normalizePathWithSlash(winPath)).toBe('C:/Users/Johnny/Projects/github/snippets/tests')
-  })
-
-  it('normalizePathWithSlash H', () => {
-    expect(normalizePathWithSlash(winPath)).toBe('C:/Users/Johnny/Projects/github/snippets/tests')
-  })
-
-  it('normalizePathWithSlash I', () => {
-    expect(normalizePathWithSlash(winPath)).toBe('C:/Users/Johnny/Projects/github/snippets/tests')
-  })
-
-  it('normalizePathWithSlash J', () => {
-    expect(normalizePathWithSlash(winPath, true)).toBe('C:/Users/Johnny/Projects/github/snippets/tests')
-  })
-
-  it('filename A', () => {
-    expect(filename(winPath)).toBe('tests')
-  })
-
-  it('filename B', () => {
-    expect(filename(String.raw`C:\Users\me\file.txt`)).toBe('file.txt')
-  })
-
-  it('filename C', () => {
-    expect(filename('file.txt')).toBe('')
-  })
-
-  it('filename D', () => {
-    expect(filename('file')).toBe('')
-  })
-
-  it('useUnixCarriageReturn A', () => {
-    expect(useUnixCarriageReturn('a\nb\nc')).toMatchInlineSnapshot(`
-    "a
-    b
-    c"
-  `)
-  })
-
-  it('useUnixCarriageReturn B', () => {
-    expect(useUnixCarriageReturn('a\r\nb\nc')).toMatchInlineSnapshot(`
-    "a
-    b
-    c"
-  `)
+  it('homeDir falls back to an empty string when the environment does not say', () => {
+    const previous = process.env.HOME
+    delete process.env.HOME
+    try {
+      expect(homeDir()).toBe('')
+    } finally {
+      process.env.HOME = previous
+    }
   })
 })

@@ -1,6 +1,6 @@
-/* v8 ignore start */
-import { padVisible, stripAnsi } from './merge-text.node'
-import { colors, getSecondaryHints, glyphs, layout, primaryHints, type Hint } from './merge.options'
+import { at } from '../utils'
+import { colors, getSecondaryHints, glyphs, type Hint, layout, primaryHints } from './options'
+import { padVisible, stripAnsi } from './text'
 
 const { minHintGap } = layout
 
@@ -21,7 +21,7 @@ function formatHint(hint: Hint): string {
  * @param totalWidth the width to span
  * @returns the spaced-out line
  */
-function spaceBetween(parts: string[], totalWidth: number): string {
+export function spaceBetween(parts: string[], totalWidth: number): string {
   const gapCount = parts.length - 1
   if (gapCount <= 0) return parts.join('')
   const contentWidth = parts.reduce((sum, part) => sum + stripAnsi(part).length, 0)
@@ -37,8 +37,7 @@ function spaceBetween(parts: string[], totalWidth: number): string {
  * @returns each column's width
  */
 function computeHintColumnWidths(rows: Hint[][]): number[] {
-  const rowCount = rows[0]?.length ?? 0
-  return Array.from({ length: rowCount }, (_unused, column) => Math.max(...rows.map(row => stripAnsi(formatHint(row[column])).length)))
+  return Array.from({ length: at(rows, 0).length }, (_unused, column) => Math.max(...rows.map(row => stripAnsi(formatHint(at(row, column))).length)))
 }
 
 /**
@@ -49,20 +48,21 @@ function computeHintColumnWidths(rows: Hint[][]): number[] {
  * @returns the rendered row
  */
 function renderHintRow(row: Hint[], columnWidths: number[], totalWidth: number): string {
-  const cells = row.map((hint, index) => padVisible(formatHint(hint), columnWidths[index] ?? 0))
-  return spaceBetween(cells, totalWidth)
+  return spaceBetween(
+    row.map((hint, index) => padVisible(formatHint(hint), at(columnWidths, index))),
+    totalWidth,
+  )
 }
 
 /**
- * Print the two rows of keybinding hints, column-aligned and spaced across a given total width,
+ * Build the two rows of keybinding hints, column-aligned and spaced across a given total width,
  * under a thin divider
  * @param totalWidth the width to span
  * @param wrapEnabled whether wrapping is currently on
+ * @returns the divider and the two hint rows
  */
-export function printHints(totalWidth: number, wrapEnabled: boolean) {
-  const secondaryHints = getSecondaryHints(wrapEnabled)
-  const hintColumnWidths = computeHintColumnWidths([primaryHints, secondaryHints])
-  console.log(colors.divider(glyphs.boxHorizontal.repeat(totalWidth)))
-  console.log(renderHintRow(primaryHints, hintColumnWidths, totalWidth))
-  console.log(renderHintRow(secondaryHints, hintColumnWidths, totalWidth))
+export function buildHints(totalWidth: number, wrapEnabled: boolean): string[] {
+  const rows = [primaryHints, getSecondaryHints(wrapEnabled)]
+  const columnWidths = computeHintColumnWidths(rows)
+  return [colors.divider(glyphs.boxHorizontal.repeat(totalWidth)), ...rows.map(row => renderHintRow(row, columnWidths, totalWidth))]
 }

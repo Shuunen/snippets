@@ -2,7 +2,7 @@
 import { once } from 'node:events'
 import { emitKeypressEvents } from 'node:readline'
 import { invariant } from 'es-toolkit'
-import type { ParsedKey } from './merge-logic.node'
+import type { ParsedKey } from './navigation'
 
 export type KeypressEvent = { key: ParsedKey; kind: 'keypress' }
 

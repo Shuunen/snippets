@@ -1,3 +1,5 @@
+import type { BySide, NoiseFilters } from '../types'
+
 /**
  * Split text into its lines, each keeping its own trailing newline (except possibly the very
  * last one), so joining the pieces back together with `''` always reconstructs the exact
@@ -29,6 +31,16 @@ export function computeRuns(length: number, isNoiseAt: (index: number) => boolea
 }
 
 /**
+ * Join back the slice of lines a run covers
+ * @param lines the lines the run indexes into
+ * @param run the run to extract
+ * @returns the run's raw text
+ */
+export function joinRun(lines: string[], run: Run): string {
+  return lines.slice(run.start, run.start + run.length).join('')
+}
+
+/**
  * Find the 0-based line index in content where a removeLinesAfter cutoff regex first matches
  * @param content the content to search
  * @param regex the cutoff regex, if any
@@ -39,17 +51,17 @@ function findCutoffLineIndex(content: string, regex: RegExp | undefined): number
   return content.split('\n').findIndex(line => regex.test(line))
 }
 
-export type NoiseCutoffs = { destCutoff: number; sourceCutoff: number }
+/** each side's removeLinesAfter cutoff line index, or -1 when that side has none */
+export type NoiseCutoffs = BySide<number>
 
 /**
  * Precompute each side's removeLinesAfter cutoff line index once per file, so per-line noise checks don't recompute it
- * @param destContent the backup (destination) file content
- * @param sourceContent the live (source) file content
+ * @param contents each side's file content
  * @param removeLinesAfter a regex marking the point after which lines are ignored
  * @returns each side's cutoff line index
  */
-export function computeNoiseCutoffs(destContent: string, sourceContent: string, removeLinesAfter: RegExp | undefined): NoiseCutoffs {
-  return { destCutoff: findCutoffLineIndex(destContent, removeLinesAfter), sourceCutoff: findCutoffLineIndex(sourceContent, removeLinesAfter) }
+export function computeNoiseCutoffs(contents: BySide<string>, removeLinesAfter: RegExp | undefined): NoiseCutoffs {
+  return { local: findCutoffLineIndex(contents.local, removeLinesAfter), repo: findCutoffLineIndex(contents.repo, removeLinesAfter) }
 }
 
 /**
@@ -70,7 +82,7 @@ export function buildSectionLookup(content: string): string[] {
   return lookup
 }
 
-export type NoiseLineOptions = { cutoffIndex: number; line: string; lineIndex: number; removeLinesMatching: RegExp[] | undefined }
+export type NoiseLineOptions = { cutoffIndex: number; filters: NoiseFilters; line: string; lineIndex: number }
 
 /**
  * Whether a single line is safe to auto-resolve : blank, past the removeLinesAfter cutoff line, or matching a removeLinesMatching pattern
@@ -78,9 +90,20 @@ export type NoiseLineOptions = { cutoffIndex: number; line: string; lineIndex: n
  * @returns true if this line is ignorable
  */
 export function isNoiseLine(options: NoiseLineOptions): boolean {
-  const { cutoffIndex, line, lineIndex, removeLinesMatching } = options
+  const { cutoffIndex, filters, line, lineIndex } = options
   if (line.trim() === '') return true
   if (cutoffIndex !== -1 && lineIndex >= cutoffIndex) return true
-  if (!removeLinesMatching) return false
-  return removeLinesMatching.some(regex => regex.test(line))
+  return filters.removeLinesMatching?.some(regex => regex.test(line)) ?? false
+}
+
+export type NoiseWholeSideOptions = { cutoffIndex: number; filters: NoiseFilters; lines: string[]; startLine: number }
+
+/**
+ * Whether every line of a side's text is noise, given where it starts
+ * @param options the side's lines and their position/filters
+ * @returns true if every line is noise (vacuously true when there are no lines)
+ */
+export function isNoiseWholeSide(options: NoiseWholeSideOptions): boolean {
+  const { cutoffIndex, filters, lines, startLine } = options
+  return lines.every((line, index) => isNoiseLine({ cutoffIndex, filters, line, lineIndex: startLine + index }))
 }

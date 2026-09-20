@@ -1,4 +1,4 @@
-import { buildSectionLookup, computeNoiseCutoffs, computeRuns, isNoiseLine, splitKeepingNewlines } from './merge-noise.node'
+import { buildSectionLookup, computeNoiseCutoffs, computeRuns, isNoiseLine, isNoiseWholeSide, joinRun, splitKeepingNewlines } from './noise'
 
 describe('merge noise', () => {
   it('splitKeepingNewlines keeps each line with its trailing newline, except possibly the last', () => {
@@ -26,12 +26,16 @@ describe('merge noise', () => {
     ])
   })
 
+  it('joinRun reassembles the exact text a run covers', () => {
+    expect(joinRun(['a\n', 'b\n', 'c'], { isNoise: false, length: 2, start: 1 })).toBe('b\nc')
+  })
+
   it('computeNoiseCutoffs finds each side cutoff line index independently', () => {
-    expect(computeNoiseCutoffs('a\n[History]\nb', 'a\nb\n[History]', /^\[History\]/u)).toStrictEqual({ destCutoff: 1, sourceCutoff: 2 })
+    expect(computeNoiseCutoffs({ local: 'a\nb\n[History]', repo: 'a\n[History]\nb' }, /^\[History\]/u)).toStrictEqual({ local: 2, repo: 1 })
   })
 
   it('computeNoiseCutoffs returns -1 for both sides when there is no cutoff regex', () => {
-    expect(computeNoiseCutoffs('a', 'b', undefined)).toStrictEqual({ destCutoff: -1, sourceCutoff: -1 })
+    expect(computeNoiseCutoffs({ local: 'b', repo: 'a' }, undefined)).toStrictEqual({ local: -1, repo: -1 })
   })
 
   it('buildSectionLookup tracks the enclosing header for every line', () => {
@@ -39,18 +43,24 @@ describe('merge noise', () => {
   })
 
   it('isNoiseLine treats a blank line as noise regardless of cutoff or filters', () => {
-    expect(isNoiseLine({ cutoffIndex: -1, line: '   ', lineIndex: 0, removeLinesMatching: undefined })).toBe(true)
+    expect(isNoiseLine({ cutoffIndex: -1, filters: {}, line: '   ', lineIndex: 0 })).toBe(true)
   })
 
   it('isNoiseLine treats a line past the cutoff as noise', () => {
-    expect(isNoiseLine({ cutoffIndex: 2, line: 'x', lineIndex: 2, removeLinesMatching: undefined })).toBe(true)
+    expect(isNoiseLine({ cutoffIndex: 2, filters: {}, line: 'x', lineIndex: 2 })).toBe(true)
   })
 
   it('isNoiseLine treats a line matching removeLinesMatching as noise', () => {
-    expect(isNoiseLine({ cutoffIndex: -1, line: 'LastUpdateCheck=1', lineIndex: 0, removeLinesMatching: [/^LastUpdateCheck=/u] })).toBe(true)
+    expect(isNoiseLine({ cutoffIndex: -1, filters: { removeLinesMatching: [/^LastUpdateCheck=/u] }, line: 'LastUpdateCheck=1', lineIndex: 0 })).toBe(true)
   })
 
   it('isNoiseLine treats a real, unfiltered line as not noise', () => {
-    expect(isNoiseLine({ cutoffIndex: -1, line: 'x', lineIndex: 0, removeLinesMatching: undefined })).toBe(false)
+    expect(isNoiseLine({ cutoffIndex: -1, filters: {}, line: 'x', lineIndex: 0 })).toBe(false)
+  })
+
+  it('isNoiseWholeSide is true only when every line is ignorable, and vacuously true with no lines', () => {
+    expect(isNoiseWholeSide({ cutoffIndex: -1, filters: {}, lines: [], startLine: 0 })).toBe(true)
+    expect(isNoiseWholeSide({ cutoffIndex: -1, filters: {}, lines: ['  ', ''], startLine: 0 })).toBe(true)
+    expect(isNoiseWholeSide({ cutoffIndex: -1, filters: {}, lines: ['  ', 'x'], startLine: 0 })).toBe(false)
   })
 })

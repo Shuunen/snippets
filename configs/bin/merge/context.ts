@@ -1,4 +1,4 @@
-import { linesOf, type Block } from './merge-logic.node'
+import { type Block, linesOf } from './blocks'
 
 export type ContextAroundResult = {
   after: string[]
@@ -7,6 +7,29 @@ export type ContextAroundResult = {
   before: string[]
   /** the previous conflict block's current text, once the true common context runs out, for a dimmed preview */
   beforePreview: string[] | undefined
+}
+
+type Walk = { lines: string[]; preview: string[] | undefined }
+
+/**
+ * Walk outward from a conflict block in one direction through every consecutive common block,
+ * collecting their lines, then surface the conflict block that stopped the walk as a preview
+ * @param blocks the full ordered list of blocks for the file
+ * @param from the index to start walking from
+ * @param step +1 to walk forward, -1 to walk backward
+ * @returns the common lines gathered (in file order), plus the stopping block's lines if there is one
+ */
+function walkContext(blocks: Block[], from: number, step: number): Walk {
+  const lines: string[] = []
+  let cursor = from
+  while (blocks[cursor]?.type === 'common') {
+    const blockLines = linesOf(blocks[cursor]?.text.repo ?? '')
+    if (step > 0) lines.push(...blockLines)
+    else lines.unshift(...blockLines)
+    cursor += step
+  }
+  const previewLines = linesOf(blocks[cursor]?.text.repo ?? '')
+  return { lines, preview: previewLines.length > 0 ? previewLines : undefined }
 }
 
 /**
@@ -22,15 +45,9 @@ export type ContextAroundResult = {
  */
 export function contextAround(blocks: Block[], conflictBlock: Block): ContextAroundResult {
   const index = blocks.indexOf(conflictBlock)
-  const before: string[] = []
-  let beforeCursor = index - 1
-  for (; beforeCursor >= 0 && blocks[beforeCursor]?.type === 'common'; beforeCursor -= 1) before.unshift(...linesOf(blocks[beforeCursor]?.destText ?? ''))
-  const beforePreviewLines = beforeCursor >= 0 ? linesOf(blocks[beforeCursor]?.destText ?? '') : []
-  const after: string[] = []
-  let afterCursor = index + 1
-  for (; afterCursor < blocks.length && blocks[afterCursor]?.type === 'common'; afterCursor += 1) after.push(...linesOf(blocks[afterCursor]?.destText ?? ''))
-  const afterPreviewLines = afterCursor < blocks.length ? linesOf(blocks[afterCursor]?.destText ?? '') : []
-  return { after, afterPreview: afterPreviewLines.length > 0 ? afterPreviewLines : undefined, before, beforePreview: beforePreviewLines.length > 0 ? beforePreviewLines : undefined }
+  const backward = walkContext(blocks, index - 1, -1)
+  const forward = walkContext(blocks, index + 1, 1)
+  return { after: forward.lines, afterPreview: forward.preview, before: backward.lines, beforePreview: backward.preview }
 }
 
 const budgetSplit = 2
