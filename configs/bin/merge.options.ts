@@ -92,8 +92,8 @@ export const changeHighlightBackground = {
  * when budgeting context lines, and spacing.
  */
 export const layout = {
-  /** rows always reserved outside the boxes : file/block line, blank, box top/bottom, blank, divider, 2 hint rows */
-  chromeRowCount: 8,
+  /** rows always reserved outside the boxes : file/block line, blank, box top/bottom, status footer, blank, divider, 2 hint rows */
+  chromeRowCount: 9,
   fallbackTerminalRows: 30,
   fallbackTerminalWidth: 100,
   /** width of the space between the two boxes, where the direction arrow appears */

@@ -4,6 +4,7 @@ export type FileDetails = {
   /** the file content */ content: string
   /** the file path */ filepath: string
   /** whether the file exists */ isExisting: boolean
+  /** when the file was last modified on disk, undefined if it doesn't exist */ modifiedAt?: Date
 }
 
 export type File = {

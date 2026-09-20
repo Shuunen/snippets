@@ -1,5 +1,5 @@
 /* v8 ignore start */
-import { existsSync, readFileSync } from 'node:fs'
+import { existsSync, readFileSync, statSync } from 'node:fs'
 import { writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { dim } from 'shuutils'
@@ -97,7 +97,8 @@ function getDetails(filepath: string): FileDetails {
   const updatedContent = content.includes('\r') && !filepath.includes('.qbtheme') ? useUnixCarriageReturn(content) : content // qbtheme files does not like \n
   const isContentEquals = content === updatedContent
   if (!isContentEquals) void writeFile(filepath, updatedContent)
-  return { content: updatedContent, filepath, isExisting }
+  const modifiedAt = isExisting ? statSync(filepath).mtime : undefined
+  return { content: updatedContent, filepath, isExisting, modifiedAt }
 }
 
 /**

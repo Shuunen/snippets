@@ -3,6 +3,7 @@ import { resolveDisplaySpans, type CharSpan } from './merge-diff.node'
 import { printHints } from './merge-hints.node'
 /* v8 ignore start */
 import { classifyBlockChange, guessLanguage, linesOf, resolveBlockPreview, resolvePendingKind, truncateLine, wrapLines, type Block, type BlockChangeKind, type Side } from './merge-logic.node'
+import { printBoxFooter } from './merge-status.node'
 import { padVisible, prepareConflictLine } from './merge-text.node'
 import { colors, glyphs, layout, modifiedSuffix, selectionBackground } from './merge.options'
 import type { File } from './types'
@@ -90,15 +91,6 @@ function boxTopLine(title: string, contentWidth: number, state: { isHighlighted:
   const dashesAfter = Math.max(1, contentWidth - 1 - label.length)
   const line = `${glyphs.boxTopLeft}${glyphs.boxHorizontal}${label}${glyphs.boxHorizontal.repeat(dashesAfter)}${glyphs.boxTopRight}`
   return isHighlighted ? colors.selectedSide(line) : line
-}
-
-/**
- * Build a box's bottom border
- * @param contentWidth the box's inner content width
- * @returns the bottom border line
- */
-function boxBottomLine(contentWidth: number): string {
-  return `${glyphs.boxBottomLeft}${glyphs.boxHorizontal.repeat(contentWidth)}${glyphs.boxBottomRight}`
 }
 
 /**
@@ -261,14 +253,6 @@ function printBoxTop(file: File, widths: ColumnWidths, state: { destModified: bo
 }
 
 /**
- * Print the two boxes' bottom borders
- * @param widths the boxes' content widths
- */
-function printBoxBottom(widths: ColumnWidths) {
-  console.log(`${boxBottomLine(widths.leftWidth)}${gap}${boxBottomLine(widths.rightWidth)}`)
-}
-
-/**
  * Render one conflicting block to the terminal, with as much surrounding context as fits
  * @param fileContext the file being merged
  * @param blockContext the block being resolved
@@ -290,8 +274,7 @@ export function renderBlock(fileContext: FileContext, blockContext: BlockContext
   for (let index = 0; index < rowCount; index += 1) printBoxRow({ gapContent, isSelected: true, left: destLines[index] ?? '', right: sourceLines[index] ?? '', widths })
   printContextLines(after, widths)
   printPreviewLines(afterPreview, widths)
-  printBoxBottom(widths)
-  console.log('')
+  printBoxFooter(file, widths)
   const totalWidth = widths.leftWidth + widths.rightWidth + perBoxBorderWidth * columnCount + gap.length
   printHints(totalWidth, wrapEnabled)
 }
