@@ -2,6 +2,7 @@
 import { readFileSync } from 'node:fs'
 import { green, red, yellow } from 'shuutils'
 import { backupPath, files } from './files.node'
+import { clearLastRender } from './merge-screen.node'
 import { resolveFile } from './merge.node'
 import type { File, Report } from './types'
 import { copy, filename, logger, normalizePathWithSlash } from './utils.node'
@@ -75,6 +76,7 @@ async function start() {
   report.suggestions = []
   const didMerge = !isReport && !isDryRun && outOfSyncPaths.length > 0
   const hasRepoChanges = didMerge && (await mergeOutOfSyncFiles(outOfSyncPaths))
+  if (didMerge) clearLastRender()
   for (const error of report.errors) logger.error(red(error))
   for (const warning of report.warnings) logger.warn(yellow(warning))
   if (isDebug) for (const info of report.infos) logger.info(info)

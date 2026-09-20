@@ -6,6 +6,7 @@ import { writeFile } from 'node:fs/promises'
 import { waitForKeypressOrResize, withRawKeypresses } from './merge-keypress.node'
 import { applyChoices, classifyBlockKey, computeBlocks, matchAction, stepBlockState, wouldOverwrite, type Block, type BlockNavState, type ParsedKey, type Side } from './merge-logic.node'
 import { renderBlock, type FileContext } from './merge-render.node'
+import { clearLastRender } from './merge-screen.node'
 import { externalTools as externalToolCandidates, retryActions } from './merge.options'
 import type { File } from './types'
 import { logger } from './utils.node'
@@ -87,6 +88,7 @@ function waitForRetryChoice(question: string): Promise<string> {
  */
 function handOffToExternalTool(file: File): 'external' | 'skipped' {
   const tool = findExternalTool()
+  clearLastRender()
   console.clear()
   if (!tool) {
     logger.warn(`no external merge tool found on this machine (looked for: ${externalToolCandidates.join(', ')})`)
@@ -133,6 +135,9 @@ export async function resolveFile(file: File, fileIndex: number, fileTotal: numb
     const remainingBlocks = computeBlocks(destContent, sourceContent, file.removeLinesAfter, file.removeLinesMatching, file.removeBlocksMatching)
     const stillDifferent = remainingBlocks.some(block => block.type === 'conflict' && !block.isNoise)
     if (!stillDifferent) {
+      // wipe the last panel as soon as it's no longer needed, so it doesn't linger over the next
+      // file's panel or the final summary while still keeping every log line printed around it
+      clearLastRender()
       logger.info(`✓ ${file.destination.filepath} is now in sync`)
       return 'resolved'
     }

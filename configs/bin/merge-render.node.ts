@@ -3,6 +3,7 @@ import { resolveDisplaySpans, type CharSpan } from './merge-diff.node'
 import { printHints } from './merge-hints.node'
 /* v8 ignore start */
 import { classifyBlockChange, guessLanguage, linesOf, resolveBlockPreview, resolvePendingKind, truncateLine, wrapLines, type Block, type BlockChangeKind, type Side } from './merge-logic.node'
+import { clearLastRender, withLineCounting } from './merge-screen.node'
 import { printBoxFooter } from './merge-status.node'
 import { padVisible, prepareConflictLine } from './merge-text.node'
 import { colors, glyphs, layout, modifiedSuffix, selectionBackground } from './merge.options'
@@ -260,21 +261,23 @@ function printBoxTop(file: File, widths: ColumnWidths, state: { destModified: bo
 export function renderBlock(fileContext: FileContext, blockContext: BlockContext) {
   const { blocks, file, fileIndex, fileTotal } = fileContext
   const { block, blockIndex, blockTotal, destModified, pending, sourceModified, wrapEnabled } = blockContext
-  console.clear()
-  const widths = computeColumnWidths(process.stdout.columns ?? fallbackTerminalWidth)
-  const { destLines, rowCount, sourceLines } = computeConflictLines(file, block, { pending, widths, wrapEnabled })
-  const terminalRows = process.stdout.rows ?? fallbackTerminalRows
-  const { after, afterPreview, before, beforePreview } = computeShownContext({ block, blocks, conflictRowCount: rowCount, terminalRows, widths, wrapEnabled })
-  logger.info(`file ${fileIndex}/${fileTotal}    block ${blockIndex}/${blockTotal}`)
-  console.log('')
-  printBoxTop(file, widths, { destModified, pending, sourceModified })
-  printPreviewLines(beforePreview, widths)
-  printContextLines(before, widths)
-  const gapContent = gapMarker(pending, block)
-  for (let index = 0; index < rowCount; index += 1) printBoxRow({ gapContent, isSelected: true, left: destLines[index] ?? '', right: sourceLines[index] ?? '', widths })
-  printContextLines(after, widths)
-  printPreviewLines(afterPreview, widths)
-  printBoxFooter(file, widths)
-  const totalWidth = widths.leftWidth + widths.rightWidth + perBoxBorderWidth * columnCount + gap.length
-  printHints(totalWidth, wrapEnabled)
+  clearLastRender()
+  withLineCounting(() => {
+    const widths = computeColumnWidths(process.stdout.columns ?? fallbackTerminalWidth)
+    const { destLines, rowCount, sourceLines } = computeConflictLines(file, block, { pending, widths, wrapEnabled })
+    const terminalRows = process.stdout.rows ?? fallbackTerminalRows
+    const { after, afterPreview, before, beforePreview } = computeShownContext({ block, blocks, conflictRowCount: rowCount, terminalRows, widths, wrapEnabled })
+    logger.info(`file ${fileIndex}/${fileTotal}    block ${blockIndex}/${blockTotal}`)
+    console.log('')
+    printBoxTop(file, widths, { destModified, pending, sourceModified })
+    printPreviewLines(beforePreview, widths)
+    printContextLines(before, widths)
+    const gapContent = gapMarker(pending, block)
+    for (let index = 0; index < rowCount; index += 1) printBoxRow({ gapContent, isSelected: true, left: destLines[index] ?? '', right: sourceLines[index] ?? '', widths })
+    printContextLines(after, widths)
+    printPreviewLines(afterPreview, widths)
+    printBoxFooter(file, widths)
+    const totalWidth = widths.leftWidth + widths.rightWidth + perBoxBorderWidth * columnCount + gap.length
+    printHints(totalWidth, wrapEnabled)
+  })
 }
