@@ -1,4 +1,4 @@
-import { diffChars } from 'diff'
+import { diffWordsWithSpace } from 'diff'
 import type { Block, Side } from './merge-blocks.node'
 
 export type CharSpan = { end: number; line: number; start: number }
@@ -40,7 +40,7 @@ export function computeCharDiffSpans(destText: string, sourceText: string): { de
   const sourceSpans: CharSpan[] = []
   const destCursor = { column: 0, line: 0 }
   const sourceCursor = { column: 0, line: 0 }
-  for (const part of diffChars(destText, sourceText))
+  for (const part of diffWordsWithSpace(destText, sourceText))
     if (part.added) advanceCursor(part.value, { cursor: sourceCursor, isUniqueToSide: true, spans: sourceSpans })
     else if (part.removed) advanceCursor(part.value, { cursor: destCursor, isUniqueToSide: true, spans: destSpans })
     else {
