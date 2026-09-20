@@ -1,20 +1,19 @@
 /* v8 ignore start */
-import { existsSync, readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 import { writeFile } from 'node:fs/promises'
 import path from 'node:path'
+import { dim } from 'shuutils'
+import { computeBlocks } from './merge-logic.node'
 import type { Config, File, FileDetails } from './types'
-import { clean, logger, useUnixCarriageReturn } from './utils.node'
-
-const currentFolderPath = import.meta.dirname
-const changesFolderPath = path.join(currentFolderPath, '..', 'changes')
+import { logger, useUnixCarriageReturn } from './utils.node'
 
 const home = process.env.HOME ?? ''
 const appData = process.env.APPDATA ?? (process.platform === 'darwin' ? `${home}Library/Preferences` : `${home}/.config`)
 const isWindows = process.env.APPDATA === appData
 // const prgFiles = 'C:/Program Files'
-logger.info(`Using home directory : ${home}`)
-logger.info(`Using app data directory : ${appData}`)
-logger.info(`Detected platform : ${isWindows ? 'Windows' : 'Linux'}, process.platform is "${process.platform}"`)
+logger.info(`Using home directory ${dim(home)}`)
+logger.info(`Using app data directory ${dim(appData)}`)
+logger.info(`Detected platform ${dim(isWindows ? 'windows' : 'linux')}`)
 
 const configs: Config[] = [
   { source: `${home}/.bash_aliases` },
@@ -119,14 +118,9 @@ function getFilename(config: Config): string {
  */
 function isEquals(file: File, config: Config): boolean {
   const { destination, source } = file
-  const { removeLinesAfter, removeLinesMatching } = config
-  const filename = getFilename(config)
-  const areEquals = clean(source.content, removeLinesAfter, removeLinesMatching) === clean(destination.content, removeLinesAfter, removeLinesMatching)
-  if (!areEquals) {
-    writeFileSync(path.join(changesFolderPath, `${filename}-source.log`), clean(source.content, removeLinesAfter, removeLinesMatching, false))
-    writeFileSync(path.join(changesFolderPath, `${filename}-destination.log`), clean(destination.content, removeLinesAfter, removeLinesMatching, false))
-  }
-  return areEquals
+  const { removeBlocksMatching, removeLinesAfter, removeLinesMatching } = config
+  const blocks = computeBlocks(destination.content, source.content, removeLinesAfter, removeLinesMatching, removeBlocksMatching)
+  return !blocks.some(block => block.type === 'conflict' && !block.isNoise)
 }
 
 export const backupPath = path.join(currentFolder, '..', 'files')

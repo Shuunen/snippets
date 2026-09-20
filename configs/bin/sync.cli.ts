@@ -1,5 +1,5 @@
 /* v8 ignore start */
-import { gray, green, red, yellow } from 'shuutils'
+import { green, red, yellow } from 'shuutils'
 import { backupPath, files } from './files.node'
 import { resolveFile } from './merge.node'
 import type { File, Report } from './types'
@@ -21,7 +21,6 @@ const report: Report = { errors: [], infos: [], success: [], suggestions: [], wa
  * @returns the number of things you have to do in Life
  */
 async function sync(file: File): Promise<number> {
-  process.stdout.write('.')
   const { areEquals, destination, source } = file
   if (!source.isExisting) {
     if (!isSetup) return report.infos.push(`source file does not exists : ${source.filepath}`)
@@ -64,7 +63,6 @@ async function mergeOutOfSyncFiles(outOfSyncPaths: string[]) {
  * Start the sync process
  */
 async function start() {
-  process.stdout.write('\nSyncing')
   await Promise.all(files.map(file => sync(file)))
   const outOfSyncPaths = report.suggestions
   report.suggestions = []
@@ -73,15 +71,9 @@ async function start() {
   for (const warning of report.warnings) logger.warn(yellow(warning))
   if (isDebug) for (const info of report.infos) logger.info(info)
   if (isDebug) for (const success of report.success) logger.info(green(success))
-  if (outOfSyncPaths.length > 0 && (isReport || isDryRun))
-    logger.info(
-      '\n TODO :\n=====\n1. review changes on this repo if any\n2. run these to compare backup & local files :\n\n',
-      outOfSyncPaths.join('\n '),
-      '\n',
-      gray('tip : you can check the configs/changes folder to see the cleaned changes'),
-    )
-  else if (!isReport && !isDryRun && outOfSyncPaths.length > 0) logger.info(green('\n\nMerge session done, review the changes in this repo, then commit & push manually :)\n'))
-  else logger.info(green('\n\nSync done, no actions required :)'))
+  if (outOfSyncPaths.length > 0 && (isReport || isDryRun)) logger.info('TODO :\n=====\n1. review changes on this repo if any\n2. run these to compare backup & local files :\n', outOfSyncPaths.join('\n '))
+  else if (!isReport && !isDryRun && outOfSyncPaths.length > 0) logger.info(green('Merge session done, review the changes in this repo, then commit & push manually :)\n'))
+  else logger.info(green('Sync done, no actions required :)\n'))
 }
 
 await start().catch(error => {

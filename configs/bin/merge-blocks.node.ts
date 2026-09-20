@@ -68,12 +68,17 @@ function buildModificationBlocks(destText: string, sourceText: string, cursor: C
       isNoiseWholeSide({ cutoffIndex: cutoffs.sourceCutoff, lines: sourceLines, removeLinesMatching, startLine: sourceStart })
     return [{ destText, isNoise, sourceText, type: 'conflict' }]
   }
-  const runs = computeRuns(
-    destLines.length,
-    index =>
-      isNoiseLine({ cutoffIndex: cutoffs.destCutoff, line: destLines[index] ?? '', lineIndex: destStart + index, removeLinesMatching }) &&
-      isNoiseLine({ cutoffIndex: cutoffs.sourceCutoff, line: sourceLines[index] ?? '', lineIndex: sourceStart + index, removeLinesMatching }),
-  )
+  const runs = computeRuns(destLines.length, index => {
+    const destLine = destLines[index] ?? ''
+    const sourceLine = sourceLines[index] ?? ''
+    // a line differing from its pair only by trailing whitespace (typically a missing/extra final newline)
+    // shows no visible change on screen, so treat it as noise the same as a fully ignorable line
+    if (destLine.trimEnd() === sourceLine.trimEnd()) return true
+    return (
+      isNoiseLine({ cutoffIndex: cutoffs.destCutoff, line: destLine, lineIndex: destStart + index, removeLinesMatching }) &&
+      isNoiseLine({ cutoffIndex: cutoffs.sourceCutoff, line: sourceLine, lineIndex: sourceStart + index, removeLinesMatching })
+    )
+  })
   return runs.map(run => ({
     destText: destLines.slice(run.start, run.start + run.length).join(''),
     isNoise: run.isNoise,
