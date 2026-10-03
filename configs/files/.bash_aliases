@@ -56,6 +56,7 @@ alias pt='$(pkgm) run test'
 alias ptw='$(pkgm) test:watch'
 alias ptu='$(pkgm) test:update'
 alias pl='$(pkgm) lint'
+alias pf='$(pkgm) lint:format:fix'
 # alias ps='$(pkgm) start' # interfere with native ps bin
 alias pi='$(pkgm) install'
 alias pb='$(pkgm) run build'

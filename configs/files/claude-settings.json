@@ -9,6 +9,7 @@
   "permissions": {
     "defaultMode": "auto"
   },
+  "model": "sonnet",
   "hooks": {
     "PreToolUse": [
       {
@@ -51,7 +52,8 @@
     "convex@claude-plugins-official": true,
     "headroom@headroom-marketplace": false,
     "ponytail@ponytail": false,
-    "brag@brag": true
+    "brag@brag": true,
+    "cc-plugin-you-should-know@builtin": true
   },
   "extraKnownMarketplaces": {
     "headroom-marketplace": {
