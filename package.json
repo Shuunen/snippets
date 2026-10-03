@@ -41,7 +41,7 @@
   ],
   "license": "GPL-3.0",
   "name": "@shuunen/snippets",
-  "packageManager": "pnpm@12.5.1",
+  "packageManager": "pnpm@12.8.1",
   "private": true,
   "repository": {
     "type": "git",
