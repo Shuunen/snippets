@@ -77,6 +77,36 @@ function setProxy() {
   export FTP_PROXY="${ftp_proxy}"
 }
 
+strata() {
+  local url="http://127.0.0.1:8080"
+  local model="${STRATA_MODEL:-swift-1.5-iq3_xxs}"
+  local ctx="${STRATA_CTX:-65536}"   # must match Strata's --context
+
+  if ! curl -fsS -m 2 -o /dev/null "$url"; then
+    echo "Strata doesn't answer on $url, start it first (~/Apps/Strata/setup.sh)." >&2
+    return 1
+  fi
+
+  env -u ANTHROPIC_API_KEY \
+    ANTHROPIC_BASE_URL="$url" \
+    ANTHROPIC_AUTH_TOKEN="local" \
+    ANTHROPIC_MODEL="$model" \
+    ANTHROPIC_DEFAULT_HAIKU_MODEL="$model" \
+    ANTHROPIC_DEFAULT_SONNET_MODEL="$model" \
+    ANTHROPIC_DEFAULT_OPUS_MODEL="$model" \
+    CLAUDE_CODE_SUBAGENT_MODEL="$model" \
+    CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC=1 \
+    API_FORCE_IDLE_TIMEOUT=0 \
+    CLAUDE_CODE_MAX_CONTEXT_TOKENS="$ctx" \
+    CLAUDE_CODE_MAX_OUTPUT_TOKENS=8192 \
+    CLAUDE_AUTOCOMPACT_PCT_OVERRIDE=70 \
+    CLAUDE_CODE_EFFORT_LEVEL=low \
+    CLAUDE_CODE_SIMPLE_SYSTEM_PROMPT=1 \
+    CLAUDE_CODE_FILE_READ_MAX_OUTPUT_TOKENS=8000 \
+    BASH_MAX_OUTPUT_LENGTH=12000 \
+    claude "$@"
+}
+
 if ! [[ "$PATH" =~ .npm-global/bin ]] && [ -d "$HOME/.npm-global/bin" ]; then PATH="$PATH:$HOME/.npm-global/bin"; elif [ -d "$HOME/.npm-global" ]; then PATH="$PATH:$HOME/.npm-global"; fi
 if ! [[ "$PATH" =~ .local/share/applications ]] && [ -d "$HOME/.local/share/applications" ]; then PATH="$PATH:$HOME/.local/share/applications"; fi
 if ! [[ "$PATH" =~ snippets/src ]] && [ -d "$HOME/Projects/github/snippets/src" ]; then PATH="$PATH:$HOME/Projects/github/snippets/src"; fi
