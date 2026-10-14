@@ -31,6 +31,29 @@ export function computeRuns(length: number, isNoiseAt: (index: number) => boolea
 }
 
 /**
+ * Fold every noise run made only of blank lines and sandwiched between two real runs into them, so
+ * the blank lines separating paragraphs of a single real change (e.g. inside a newly added function)
+ * don't chop it into several blocks. Leading/trailing blank runs, and runs holding actual filtered
+ * noise, are left alone
+ * @param runs the ordered runs, as computed by computeRuns
+ * @param isBlankAt tells whether a given index is a blank line
+ * @returns the ordered runs, inner blank gaps merged into their real neighbors
+ */
+export function absorbInnerBlankRuns(runs: Run[], isBlankAt: (index: number) => boolean): Run[] {
+  const merged: Run[] = []
+  for (const [position, run] of runs.entries()) {
+    const previous = merged.at(-1)
+    const next = runs[position + 1]
+    const isBetweenRealRuns = previous !== undefined && !previous.isNoise && next !== undefined && !next.isNoise
+    const isBlankOnly = Array.from({ length: run.length }, (_unused, offset) => run.start + offset).every(index => isBlankAt(index))
+    const isInnerBlankGap = run.isNoise && isBetweenRealRuns && isBlankOnly
+    if (previous && (isInnerBlankGap || previous.isNoise === run.isNoise)) previous.length += run.length
+    else merged.push({ ...run })
+  }
+  return merged
+}
+
+/**
  * Join back the slice of lines a run covers
  * @param lines the lines the run indexes into
  * @param run the run to extract

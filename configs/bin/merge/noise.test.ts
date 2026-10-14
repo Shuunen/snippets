@@ -1,4 +1,11 @@
-import { buildSectionLookup, computeNoiseCutoffs, computeRuns, isNoiseLine, isNoiseWholeSide, joinRun, splitKeepingNewlines } from './noise'
+import { absorbInnerBlankRuns, buildSectionLookup, computeNoiseCutoffs, computeRuns, isNoiseLine, isNoiseWholeSide, joinRun, splitKeepingNewlines } from './noise'
+import { at } from './text'
+
+const runsOf = (lines: string[]) =>
+  absorbInnerBlankRuns(
+    computeRuns(lines.length, index => at(lines, index) !== 'real'),
+    index => at(lines, index) === '',
+  )
 
 describe('merge noise', () => {
   it('splitKeepingNewlines keeps each line with its trailing newline, except possibly the last', () => {
@@ -24,6 +31,34 @@ describe('merge noise', () => {
       { isNoise: false, length: 1, start: 1 },
       { isNoise: true, length: 1, start: 2 },
     ])
+  })
+
+  it('absorbInnerBlankRuns folds blank gaps between real runs into a single real run', () => {
+    expect(runsOf(['real', '', 'real', '', 'real'])).toStrictEqual([{ isNoise: false, length: 5, start: 0 }])
+  })
+
+  it('absorbInnerBlankRuns leaves leading and trailing blank runs apart', () => {
+    expect(runsOf(['', 'real', 'real', ''])).toStrictEqual([
+      { isNoise: true, length: 1, start: 0 },
+      { isNoise: false, length: 2, start: 1 },
+      { isNoise: true, length: 1, start: 3 },
+    ])
+  })
+
+  it('absorbInnerBlankRuns leaves an inner noise run holding a filtered line apart', () => {
+    expect(runsOf(['real', '', 'noise', 'real'])).toStrictEqual([
+      { isNoise: false, length: 1, start: 0 },
+      { isNoise: true, length: 2, start: 1 },
+      { isNoise: false, length: 1, start: 3 },
+    ])
+  })
+
+  it('absorbInnerBlankRuns keeps a run made only of blank lines as noise', () => {
+    expect(runsOf(['', '', ''])).toStrictEqual([{ isNoise: true, length: 3, start: 0 }])
+  })
+
+  it('absorbInnerBlankRuns returns no run for no run', () => {
+    expect(absorbInnerBlankRuns([], () => true)).toStrictEqual([])
   })
 
   it('joinRun reassembles the exact text a run covers', () => {

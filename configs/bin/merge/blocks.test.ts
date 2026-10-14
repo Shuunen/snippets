@@ -71,6 +71,74 @@ describe('merge blocks', () => {
     expect(conflicts[1]?.isNoise).toBe(true)
   })
 
+  it('computeBlocks keeps an added function with inner blank lines as a single block', () => {
+    const conflicts = conflictsOf(computeBlocks(contents('a\n\nz\n', 'a\n\nfn() {\n  one\n\n  two\n\n  three\n}\n\nz\n')))
+    expect(conflicts).toHaveLength(1)
+    expect(linesOf(conflicts[0]?.text.local ?? '')).toStrictEqual(['fn() {', '  one', '', '  two', '', '  three', '}'])
+  })
+
+  it('computeBlocks still carves a blank gap out when it borders filtered noise', () => {
+    const conflicts = conflictsIn(computeBlocks(contents('a\nz', 'a\nreal\n\n@Size(1)\nz'), { removeLinesMatching: [/@Size/u] }))
+    expect(conflicts.map(conflict => conflict.isNoise)).toStrictEqual([false, true])
+    expect(linesOf(conflicts[0]?.text.local ?? '')).toStrictEqual(['real'])
+  })
+
+  it('computeBlocks keeps a removed function with inner blank lines as a single block', () => {
+    const local = 'alias ls="ls --color"\n'
+    const conflicts = conflictsIn(computeBlocks(contents(`${local}fn() {\n  one\n\n  two\n}\n`, local)))
+    expect(conflicts).toHaveLength(1)
+    expect(linesOf(conflicts[0]?.text.repo ?? '')).toStrictEqual(['fn() {', '  one', '', '  two', '}'])
+    expect(conflicts[0]?.isNoise).toBe(false)
+  })
+
+  it('computeBlocks keeps a same-line-count modification with an inner blank pair as a single block', () => {
+    const conflicts = conflictsIn(computeBlocks(contents('a\nb\n \nc\nz\n', 'a\nB\n\nC\nz\n')))
+    expect(conflicts).toHaveLength(1)
+    expect(linesOf(conflicts[0]?.text.repo ?? '')).toStrictEqual(['b', ' ', 'c'])
+    expect(linesOf(conflicts[0]?.text.local ?? '')).toStrictEqual(['B', '', 'C'])
+    expect(conflicts[0]?.isNoise).toBe(false)
+  })
+
+  it('computeBlocks keeps changes separated by an unchanged blank line as separate blocks', () => {
+    const conflicts = conflictsOf(computeBlocks(contents('a\nb\n\nc\nz\n', 'a\nB\n\nC\nz\n')))
+    expect(conflicts).toHaveLength(2)
+    expect(linesOf(conflicts[0]?.text.local ?? '')).toStrictEqual(['B'])
+    expect(linesOf(conflicts[1]?.text.local ?? '')).toStrictEqual(['C'])
+  })
+
+  it('computeBlocks still carves a filtered noise line out of the middle of an addition', () => {
+    const conflicts = conflictsIn(computeBlocks(contents('a\n', 'a\nx=1\n@Size(1)\ny=2\n'), { removeLinesMatching: [/@Size/u] }))
+    expect(conflicts.map(conflict => conflict.isNoise)).toStrictEqual([false, true, false])
+    expect(linesOf(conflicts[1]?.text.local ?? '')).toStrictEqual(['@Size(1)'])
+  })
+
+  it('computeBlocks still carves a pattern-noise line out of a blank-separated addition', () => {
+    const conflicts = conflictsIn(computeBlocks(contents('a\n', 'a\nAttached=false\n\nDialogSize=@Size(1506 769)\n'), { removeLinesMatching: [/@Size/u] }))
+    expect(conflicts).toHaveLength(2)
+    expect(linesOf(conflicts[0]?.text.local ?? '')).toStrictEqual(['Attached=false'])
+    expect(conflicts[0]?.isNoise).toBe(false)
+    expect(linesOf(conflicts[1]?.text.local ?? '')).toStrictEqual(['', 'DialogSize=@Size(1506 769)'])
+    expect(conflicts[1]?.isNoise).toBe(true)
+  })
+
+  it('computeBlocks keeps a whitespace-only line difference auto-resolved between two real changes', () => {
+    const conflicts = conflictsIn(computeBlocks(contents('a\nb\nkeep \nc\nz\n', 'a\nB\nkeep\nC\nz\n')))
+    expect(conflicts.map(conflict => conflict.isNoise)).toStrictEqual([false, true, false])
+  })
+
+  it('computeBlocks auto-resolves an addition made only of blank lines as noise', () => {
+    const conflicts = conflictsIn(computeBlocks(contents('a\nc\n', 'a\n\n\nc\n')))
+    expect(conflicts).toHaveLength(1)
+    expect(conflicts[0]?.isNoise).toBe(true)
+  })
+
+  it('computeBlocks keeps a modification pair whose blank side faces a real line as a real block', () => {
+    const conflicts = conflictsIn(computeBlocks(contents('a\nb=\nc\n', 'a\n\nc\n')))
+    expect(conflicts).toHaveLength(1)
+    expect(linesOf(conflicts[0]?.text.local ?? '')).toStrictEqual([''])
+    expect(conflicts[0]?.isNoise).toBe(false)
+  })
+
   it('computeBlocks keeps a differing-line-count modification as one block when it is not noise', () => {
     const conflicts = conflictsIn(computeBlocks(contents('a\nb\nc', 'a\nB\nC\nc')))
     expect(conflicts).toHaveLength(1)

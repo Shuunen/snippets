@@ -1,6 +1,6 @@
 import { diffLines, type Change } from 'diff'
 import { type BySide, type NoiseFilters, type Side, sides } from '../core/types'
-import { buildSectionLookup, computeNoiseCutoffs, computeRuns, isNoiseLine, isNoiseWholeSide, joinRun, type NoiseCutoffs, splitKeepingNewlines } from './noise'
+import { absorbInnerBlankRuns, buildSectionLookup, computeNoiseCutoffs, computeRuns, isNoiseLine, isNoiseWholeSide, joinRun, type NoiseCutoffs, splitKeepingNewlines } from './noise'
 import { at } from './text'
 
 export type Block = {
@@ -23,14 +23,17 @@ type OneSidedOptions = { cutoffIndex: number; filters: NoiseFilters; side: Side;
 
 /**
  * Split a one-sided (pure addition or pure removal) diff chunk into one block per contiguous run
- * of same-noise-status lines, so a noise line sitting next to a real one doesn't hide it
+ * of same-noise-status lines, so a noise line sitting next to a real one doesn't hide it. Blank lines
+ * sitting between two real runs are folded into them, so an added function with blank lines between
+ * its statements stays one block
  * @param options the chunk's text, the side it's on, and where it starts among that side's lines
  * @returns the resulting blocks, in order
  */
 function buildOneSidedBlocks(options: OneSidedOptions): Block[] {
   const { cutoffIndex, filters, side, startLine, text } = options
   const lines = splitKeepingNewlines(text)
-  const runs = computeRuns(lines.length, index => isNoiseLine({ cutoffIndex, filters, line: at(lines, index), lineIndex: startLine + index }))
+  const noiseRuns = computeRuns(lines.length, index => isNoiseLine({ cutoffIndex, filters, line: at(lines, index), lineIndex: startLine + index }))
+  const runs = absorbInnerBlankRuns(noiseRuns, index => at(lines, index).trim() === '')
   return runs.map(run => ({ isNoise: run.isNoise, text: textOnSide(side, joinRun(lines, run)), type: 'conflict' }))
 }
 
@@ -39,7 +42,8 @@ type ModificationOptions = { cutoffs: NoiseCutoffs; filters: NoiseFilters; start
 /**
  * Split a removed+added (modification) diff chunk pair into blocks. When both sides have the same
  * number of lines, each line pair is checked independently and grouped into runs, so a noise line
- * pair doesn't force a real change next to it into the same block. Otherwise (line counts differ,
+ * pair doesn't force a real change next to it into the same block, while blank pairs between two real
+ * runs are folded into them (same as in a one-sided chunk). Otherwise (line counts differ,
  * so there's no clean line-by-line correspondence) the whole pair stays one block
  * @param options each side's text, where it starts, and the noise filters to judge it by
  * @returns the resulting blocks, in order
@@ -51,13 +55,14 @@ function buildModificationBlocks(options: ModificationOptions): Block[] {
     const isNoise = sides.every(side => isNoiseWholeSide({ cutoffIndex: cutoffs[side], filters, lines: lines[side], startLine: startLines[side] }))
     return [{ isNoise, text, type: 'conflict' }]
   }
-  const runs = computeRuns(lines.repo.length, index => {
+  const noiseRuns = computeRuns(lines.repo.length, index => {
     const pair: BySide<string> = { local: at(lines.local, index), repo: at(lines.repo, index) }
     // a line differing from its pair only by trailing whitespace (typically a missing/extra final newline)
     // shows no visible change on screen, so treat it as noise the same as a fully ignorable line
     if (pair.local.trimEnd() === pair.repo.trimEnd()) return true
     return sides.every(side => isNoiseLine({ cutoffIndex: cutoffs[side], filters, line: pair[side], lineIndex: startLines[side] + index }))
   })
+  const runs = absorbInnerBlankRuns(noiseRuns, index => sides.every(side => at(lines[side], index).trim() === ''))
   return runs.map(run => ({ isNoise: run.isNoise, text: { local: joinRun(lines.local, run), repo: joinRun(lines.repo, run) }, type: 'conflict' }))
 }
 
@@ -131,7 +136,9 @@ function pushOneSidedBlock(change: Change, side: Side, context: BuildContext): v
  * Otherwise, when removeLinesAfter and/or removeLinesMatching are given (mirroring a config's own
  * noise filters), a conflicting block gets flagged `isNoise` once every line on both sides is
  * ignorable by them, so it can be auto-resolved instead of asked about — checked line by line, so
- * a single noise line inside an otherwise real change gets carved out into its own block
+ * a single noise line inside an otherwise real change gets carved out into its own block, whereas
+ * blank lines inside a real change stay part of it. Changes separated by an unchanged blank line
+ * stay separate blocks, so each one can still be decided on its own
  * @param contents each side's file content
  * @param filters the noise filters to judge changes by
  * @returns the ordered list of blocks
