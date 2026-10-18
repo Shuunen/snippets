@@ -7,6 +7,7 @@
     "pr": ""
   },
   "permissions": {
+    "allow": ["mcp__claude-in-chrome__tabs_context_mcp", "ClaudeInChromeDomain(localhost:5173)"],
     "defaultMode": "auto"
   },
   "model": "sonnet",
@@ -37,7 +38,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "$HOME/.claude/skills/gstack/hosts/claude/hooks/timeline-stop-hook",
+            "command": "/home/rominou/.claude/skills/gstack/hosts/claude/hooks/timeline-stop-hook",
             "timeout": 5
           }
         ]

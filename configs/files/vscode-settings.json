@@ -473,7 +473,7 @@
   ],
   "css.format.enable": false,
   "css.validate": false,
-  "diffEditor.ignoreTrimWhitespace": false,
+  "diffEditor.ignoreTrimWhitespace": true,
   "diffEditor.renderSideBySide": true,
   "editor.accessibilitySupport": "off",
   "editor.codeActionsOnSave": {
