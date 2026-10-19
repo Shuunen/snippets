@@ -14,7 +14,10 @@ export const logger = new Logger({ willOutputToConsole: process.env.NODE_ENV !==
  * @example replaceAndCheck('Hello world !', /world/gu, 'there') // 'Hello there !'
  */
 export function replaceAndCheck(string, regex, replacement) {
-  const replaced = string.replace(regex, `$<before>${replacement}$<after>`)
+  const replaced = string.replace(regex, (...args) => {
+    const { after, before } = /** @type {{ after: string, before: string }} */ (args.at(-1))
+    return `${before}${replacement}${after}`
+  })
   if (replaced === string) logger.error(`Could not replace ${String(regex)} with ${replacement}`)
   return replaced
 }
@@ -27,8 +30,18 @@ export function replaceAndCheck(string, regex, replacement) {
  * @returns The replaced string
  */
 export function replaceAndCheckById(string, id, replacement) {
-  const regex = new RegExp(`(?<before>id="${id}"[^>]+>)(?<content>[^<]+)(?<after></)`, 'gu')
-  return replaceAndCheck(string, regex, replacement)
+  const regex = new RegExp(`(?<before>id="${id}"[^>]*>)(?<content>[^<]+)(?<after></)`, 'gu')
+  return replaceAndCheck(string, regex, escapeXml(replacement))
+}
+
+/**
+ * Escape the characters that are not allowed in XML text content
+ * @param {string} text The text to escape
+ * @returns The escaped text
+ * @example escapeXml('Tom & Jerry') // 'Tom &amp; Jerry'
+ */
+export function escapeXml(text) {
+  return text.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;')
 }
 
 /**

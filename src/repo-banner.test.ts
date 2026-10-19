@@ -1,5 +1,5 @@
 import { svgMockA } from './repo-banner.mock'
-import { extractData, logger, replaceAndCheck, replaceAndCheckById, safeRead } from './repo-banner.utils'
+import { escapeXml, extractData, logger, replaceAndCheck, replaceAndCheckById, safeRead } from './repo-banner.utils'
 
 describe('repo-banner', () => {
   beforeAll(() => {
@@ -20,6 +20,14 @@ describe('repo-banner', () => {
 
   it('replaceAndCheckById A', () => {
     expect(replaceAndCheckById(svgMockA, 'projectName', 'My project name')).toMatchSnapshot()
+  })
+
+  it('replaceAndCheckById B escapes xml and keeps special replacement patterns', () => {
+    expect(replaceAndCheckById('<text id="projectDescription">x</text>', 'projectDescription', 'a & b <c> $&')).toBe('<text id="projectDescription">a &amp; b &lt;c&gt; $&amp;</text>')
+  })
+
+  it('escapeXml A', () => {
+    expect(escapeXml('Tom & Jerry')).toBe('Tom &amp; Jerry')
   })
 
   it('safeRead A non-existing file', () => {
