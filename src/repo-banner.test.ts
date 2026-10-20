@@ -46,7 +46,7 @@ describe('repo-banner', () => {
     expect(extractData()).toMatchInlineSnapshot(`
     {
       "color": "#54143A",
-      "description": "My personal snippets",
+      "description": "My personal configs, snippets and manuals",
       "name": "snippets",
       "scope": "Shuunen",
     }
