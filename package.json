@@ -14,7 +14,7 @@
     "sharp": "^0.35.5",
     "wrap-ansi": "^10.0.2"
   },
-  "description": "My personal snippets",
+  "description": "My personal configs, snippets and manuals",
   "devDependencies": {
     "@types/cli-progress": "^3.11.6",
     "@types/cors": "^2.8.19",
