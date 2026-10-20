@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.3.1] - 2026-10-20
+
+### Changed
+
+- Dependencies updated: `exiftool-vendored` 38 → 39, `oxfmt` 0.71 → 0.73, `oxlint` 1.86 → 1.88, `vitest` 5.0.3 → 5.0.5, `turbo`, `vite`, `bun` and other patch bumps
+- `packageManager` bumped to pnpm 12.14.0
+
 ## [0.3.0] - 2026-09-20
 
 ### Added
