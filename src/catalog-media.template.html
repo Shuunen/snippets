@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Media Library</title>
+    <style>
+      :root {
+        --bg: #14161a;
+        --card: #1d2026;
+        --line: #2b2f37;
+        --text: #e6e8ec;
+        --dim: #98a0ad;
+        --accent: #f5b83d;
+        --ok: #3ecf8e;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font:
+          15px/1.45 system-ui,
+          -apple-system,
+          'Segoe UI',
+          Roboto,
+          sans-serif;
+      }
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 5;
+        background: var(--bg);
+        border-bottom: 1px solid var(--line);
+      }
+      .bar,
+      .generated {
+        max-width: 1400px;
+        margin: 0 auto;
+        padding: 0 16px;
+      }
+      .bar {
+        padding-block: 10px;
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        flex-wrap: wrap;
+      }
+      .generated {
+        margin-top: 12px;
+        color: var(--dim);
+        font-size: 13px;
+      }
+      .tabs {
+        display: flex;
+        gap: 4px;
+      }
+      .tabs button,
+      .btn {
+        background: var(--card);
+        color: var(--text);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 7px 14px;
+        font: inherit;
+        cursor: pointer;
+      }
+      .tabs button.on {
+        background: var(--accent);
+        color: #111;
+        border-color: var(--accent);
+        font-weight: 600;
+      }
+      input[type='search'] {
+        flex: 1;
+        min-width: 140px;
+        background: var(--card);
+        color: var(--text);
+        border: 1px solid var(--line);
+        border-radius: 6px;
+        padding: 8px 12px;
+        font: inherit;
+      }
+      .layout {
+        display: flex;
+        align-items: flex-start;
+        gap: 16px;
+        padding: 16px;
+        max-width: 1400px;
+        margin: 0 auto;
+      }
+      main {
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+      .card {
+        display: flex;
+        gap: 16px;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        padding: 12px;
+      }
+      .card.sel {
+        border-color: var(--ok);
+        box-shadow: 0 0 0 1px var(--ok) inset;
+      }
+      .poster {
+        flex: none;
+        width: 170px;
+        aspect-ratio: 2/3;
+        border-radius: 6px;
+        background: #2a2e36;
+        object-fit: cover;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--dim);
+        font-size: 12px;
+        text-align: center;
+        padding: 6px;
+      }
+      .body {
+        flex: 1;
+        min-width: 0;
+      }
+      .title {
+        margin: 0 0 2px;
+        font-size: 18px;
+      }
+      .title small {
+        color: var(--dim);
+        font-weight: 400;
+      }
+      .meta {
+        color: var(--dim);
+        font-size: 13px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 4px 14px;
+        margin-bottom: 6px;
+      }
+      .q {
+        background: var(--accent);
+        color: #111;
+        font-weight: 700;
+        font-size: 12px;
+        border-radius: 4px;
+        padding: 0 6px;
+      }
+      .rating {
+        color: var(--accent);
+        font-weight: 600;
+      }
+      .row {
+        font-size: 13px;
+        color: var(--dim);
+      }
+      .row b {
+        color: var(--text);
+        font-weight: 500;
+      }
+      .plot {
+        margin: 8px 0 0;
+        font-size: 14px;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .add {
+        margin-top: 8px;
+      }
+      .card.sel .add {
+        background: var(--ok);
+        color: #111;
+        border-color: var(--ok);
+        font-weight: 600;
+      }
+      aside {
+        flex: none;
+        width: 300px;
+        position: sticky;
+        top: 64px;
+        max-height: calc(100vh - 80px);
+        display: flex;
+        flex-direction: column;
+        background: var(--card);
+        border: 1px solid var(--line);
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      aside h2 {
+        margin: 0;
+        padding: 12px 14px;
+        font-size: 16px;
+        border-bottom: 1px solid var(--line);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      #selbody {
+        overflow: auto;
+        padding: 4px 14px;
+      }
+      #selbody h3 {
+        margin: 12px 0 4px;
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
+        color: var(--dim);
+      }
+      #selbody ul {
+        margin: 0;
+        padding-left: 20px;
+      }
+      #selbody li {
+        margin: 3px 0;
+      }
+      #selbody li button {
+        background: none;
+        border: 0;
+        color: var(--dim);
+        cursor: pointer;
+        margin-left: 6px;
+        font-size: 14px;
+      }
+      #selbody li button:hover {
+        color: #ff6b6b;
+      }
+      .empty {
+        color: var(--dim);
+        padding: 12px 0;
+      }
+      .actions {
+        display: flex;
+        gap: 8px;
+        padding: 12px 14px;
+        border-top: 1px solid var(--line);
+      }
+      .actions .btn {
+        flex: 1;
+      }
+      .btn.primary {
+        background: var(--accent);
+        color: #111;
+        border-color: var(--accent);
+        font-weight: 600;
+      }
+      #fab {
+        display: none;
+      }
+      @media (max-width: 860px) {
+        .layout {
+          display: block;
+          padding: 12px;
+        }
+        .bar,
+        .generated {
+          padding-inline: 12px;
+        }
+        aside {
+          position: fixed;
+          left: 0;
+          right: 0;
+          bottom: 0;
+          top: auto;
+          width: auto;
+          max-height: 70vh;
+          border-radius: 12px 12px 0 0;
+          transform: translateY(calc(100% - 0px));
+          transition: transform 0.2s;
+          z-index: 10;
+          display: flex;
+        }
+        aside.open {
+          transform: none;
+        }
+        #fab {
+          display: block;
+          position: fixed;
+          right: 14px;
+          bottom: 14px;
+          z-index: 9;
+          background: var(--accent);
+          color: #111;
+          border: 0;
+          border-radius: 999px;
+          padding: 12px 18px;
+          font: inherit;
+          font-weight: 700;
+          box-shadow: 0 4px 14px #0008;
+        }
+        .poster {
+          width: 110px;
+        }
+        main {
+          padding-bottom: 70px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="bar">
+        <div class="tabs">
+          <button id="tab-m" class="on">Movies <span id="cm"></span></button><button id="tab-t">TV shows <span id="ct"></span></button>
+        </div>
+        <input type="search" id="q" placeholder="Search title, genre, director…" autocomplete="off" />
+      </div>
+    </header>
+    <p class="generated" id="generated"></p>
+    <div class="layout">
+      <main id="list"></main>
+      <aside id="panel">
+        <h2>My selection <span id="count"></span></h2>
+        <div id="selbody"></div>
+        <div class="actions"><button class="btn primary" id="copy">Copy list</button><button class="btn" id="clear">Clear</button></div>
+      </aside>
+    </div>
+    <button id="fab">Selection (<span id="fabn">0</span>)</button>
+    <script>
+      const DATA = __DATA__
+      document.querySelector('#generated').textContent = `Catalog generated on ${new Date(DATA.generated).toLocaleString(undefined, { dateStyle: 'long', timeStyle: 'short' })}`
+      const $ = s => document.querySelector(s)
+      const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c])
+      const kinds = { m: { label: 'Movies', items: DATA.movies }, t: { label: 'TV shows', items: DATA.shows } }
+      for (const k in kinds)
+        kinds[k].items.forEach((d, i) => {
+          d.k = k
+          d.id = k + ':' + d.name + '|' + (d.date || '')
+          d.hay = [d.name, d.genre, d.directors, d.plot].join(' ').toLowerCase()
+        })
+      for (const k in kinds) kinds[k].items.sort((a, b) => a.name.localeCompare(b.name, undefined, { sensitivity: 'base', numeric: true }))
+      $('#cm').textContent = DATA.movies.length
+      $('#ct').textContent = DATA.shows.length
+      let sel = {},
+        tab = 'm'
+      try {
+        sel = JSON.parse(localStorage.getItem('mediaSel') || '{}')
+      } catch (e) {}
+      const save = () => {
+        try {
+          localStorage.setItem('mediaSel', JSON.stringify(sel))
+        } catch (e) {}
+      }
+      const label = d => d.name + (d.date ? ' (' + (d.date.match(/\d{4}/) || [''])[0] + ')' : '')
+      function card(d) {
+        const row = (t, v) => (v ? `<div class="row">${t}: <b>${esc(v)}</b></div>` : '')
+        const img = d.img ? `<img class="poster" loading="lazy" alt="" src="data:image/avif;base64,${d.img}">` : `<div class="poster">${esc(d.name)}</div>`
+        const meta = [
+          d.quality && `<span class="q">${esc(d.quality)}</span>`,
+          d.date && esc(d.date.replace(/^\d+ \w+ /, '')),
+          d.seasons && d.seasons + ' seasons',
+          d.eps && d.eps + ' episodes',
+          d.rating && d.rating != '0.0' && `<span class="rating">★ ${esc(d.rating)}</span>`,
+        ]
+          .filter(Boolean)
+          .join('</span><span>')
+        return `<article class="card${sel[d.id] ? ' sel' : ''}" data-id="${esc(d.id)}">${img}<div class="body"><h3 class="title">${esc(d.name)}</h3><div class="meta"><span>${meta}</span></div>${row('Genre', d.genre)}${row('Director', d.directors)}${d.plot ? `<p class="plot">${esc(d.plot)}</p>` : ''}<br><button class="btn add">${sel[d.id] ? '✓ Selected' : '+ Add to selection'}</button></div></article>`
+      }
+      function render() {
+        const q = $('#q').value.trim().toLowerCase()
+        const items = kinds[tab].items.filter(d => !q || q.split(/\s+/).every(w => d.hay.includes(w)))
+        $('#list').innerHTML = items.map(card).join('') || '<p class="empty">No result.</p>'
+        $('#tab-m').classList.toggle('on', tab == 'm')
+        $('#tab-t').classList.toggle('on', tab == 't')
+      }
+      const byId = {}
+      for (const k in kinds) kinds[k].items.forEach(d => (byId[d.id] = d))
+      function groups() {
+        return Object.keys(kinds)
+          .map(k => ({ k, label: kinds[k].label, items: kinds[k].items.filter(d => sel[d.id]) }))
+          .filter(g => g.items.length)
+      }
+      function renderSel() {
+        const g = groups(),
+          n = g.reduce((a, x) => a + x.items.length, 0)
+        $('#count').textContent = n ? `(${n})` : ''
+        $('#fabn').textContent = n
+        $('#selbody').innerHTML = n
+          ? g.map(x => `<h3>${x.label}</h3><ul>${x.items.map(d => `<li>${esc(label(d))}<button data-rm="${esc(d.id)}" title="Remove">✕</button></li>`).join('')}</ul>`).join('')
+          : '<p class="empty">Nothing selected yet. Add movies and TV shows, then copy the list and send it.</p>'
+      }
+      function toggle(id) {
+        sel[id] ? delete sel[id] : (sel[id] = 1)
+        save()
+        renderSel()
+        const c = document.querySelector(`.card[data-id="${CSS.escape(id)}"]`)
+        if (c) {
+          c.classList.toggle('sel', !!sel[id])
+          c.querySelector('.add').textContent = sel[id] ? '✓ Selected' : '+ Add to selection'
+        }
+      }
+      $('#list').addEventListener('click', e => {
+        const c = e.target.closest('.card')
+        if (!c) return
+        if (e.target.closest('.add')) toggle(c.dataset.id)
+      })
+      $('#selbody').addEventListener('click', e => {
+        const b = e.target.closest('[data-rm]')
+        if (b) toggle(b.dataset.rm)
+      })
+      $('#tab-m').onclick = () => {
+        tab = 'm'
+        render()
+      }
+      $('#tab-t').onclick = () => {
+        tab = 't'
+        render()
+      }
+      let t
+      $('#q').addEventListener('input', () => {
+        clearTimeout(t)
+        t = setTimeout(render, 120)
+      })
+      $('#clear').onclick = () => {
+        if (!Object.keys(sel).length || !confirm('Clear the whole selection?')) return
+        sel = {}
+        save()
+        renderSel()
+        render()
+      }
+      $('#copy').onclick = async () => {
+        const txt = groups()
+          .map(g => g.label + ':\n' + g.items.map(d => '- ' + label(d)).join('\n'))
+          .join('\n\n')
+        if (!txt) return
+        try {
+          await navigator.clipboard.writeText(txt)
+        } catch (e) {
+          const a = document.createElement('textarea')
+          a.value = txt
+          document.body.append(a)
+          a.select()
+          document.execCommand('copy')
+          a.remove()
+        }
+        const b = $('#copy')
+        b.textContent = 'Copied ✓'
+        setTimeout(() => (b.textContent = 'Copy list'), 1500)
+      }
+      $('#fab').onclick = () => $('#panel').classList.toggle('open')
+      $('#panel h2').onclick = () => $('#panel').classList.remove('open')
+      render()
+      renderSel()
+    </script>
+  </body>
+</html>
