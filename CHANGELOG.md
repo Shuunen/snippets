@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.0] - 2026-10-23
+
+### Added
+
+- `catalog-media` scans your movie and tv show folders (local paths or `smb://` shares) and builds one `catalog-media.html` page with posters, ratings and the best resolution found for each title
+- When a title lives in several folders, the copy with the best quality is the one listed
+- Posters and video resolutions are cached between runs, `--no-cache` forces a fresh scan
+
 ## [0.3.1] - 2026-10-20
 
 ### Changed

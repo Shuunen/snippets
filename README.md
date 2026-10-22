@@ -26,6 +26,17 @@ It will generate a `<project-name>-banner.svg` file that you can use in your REA
 
 ![demo](docs/banner.svg)
 
+### Catalog Media
+
+Scan your movie and tv show folders and build a single `catalog-media.html` page, with posters, ratings and the best resolution found for each title.
+
+```bash
+cp src/catalog-media.env.example src/catalog-media.env # then list your folders
+bun path/to/snippets/src/catalog-media.cli.ts
+```
+
+When a title is in several folders, the copy with the best quality wins. Posters and video resolutions are cached in `src/.cache/catalog-media`, add `--no-cache` to ignore it. Needs `ffprobe` to read resolutions that are not in the file name.
+
 ## Development
 
 ```bash
