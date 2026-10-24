@@ -4,7 +4,7 @@ const regexH1 = /^#\s+.+$/gm
 const regexCodeBlock = /^```[\s\S]*?^```[ \t]*$/gmu
 
 function stripCodeBlocks(content: string): string {
-  return content.replace(regexCodeBlock, '')
+  return content.replaceAll(regexCodeBlock, '')
 }
 
 export type Rule = {
