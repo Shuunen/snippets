@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.4.1] - 2026-10-24
+
+### Changed
+
+- Dependencies updated: `shuutils` 11 → 12, `oxfmt` 0.73 → 0.74, `oxlint` 1.88 → 1.89, `turbo`, `vite`, `bun` and other patch bumps
+- `packageManager` bumped to pnpm 12.15.0, `.nvmrc` to Node 24.22.1
+- Code adjusted for new oxlint rules `prefer-string-raw` and `prefer-string-replace-all`
+
 ## [0.4.0] - 2026-10-23
 
 ### Added
