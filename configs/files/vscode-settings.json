@@ -524,8 +524,10 @@
     "https://raw.githubusercontent.com/devcontainers/spec/": true,
     "https://raw.githubusercontent.com/microsoft/vscode/": true,
     "https://schemastore.azurewebsites.net/": true,
+    "https://spec.openapis.org/": true,
     "https://turborepo.dev": true,
     "https://ui.shadcn.com": true,
+    "https://unpkg.com": true,
     "https://www.schemastore.org/": true
   },
   "markdown.extension.toc.levels": "1..3",
@@ -576,5 +578,6 @@
   "totalTypeScript.hideBasicTips": true,
   "window.commandCenter": false,
   "workbench.colorTheme": "Dark+",
-  "xstate.nestTypegenFiles": false
+  "xstate.nestTypegenFiles": false,
+  "claudeCode.hideOnboarding": true
 }

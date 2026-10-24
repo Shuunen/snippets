@@ -21,8 +21,9 @@ green**, with every judgement call surfaced to the user rather than silently mad
 
 - **Never commit, push, open a PR, merge, or close a PR without an explicit green light.**
   Edit files, report, stop, wait.
-- **One question at a time.** ELI10 paragraph, numbered premade answers with a marked
-  recommendation, plus an explicit free-text option. Wait for the answer before the next.
+- **Every question goes through the `interview` skill.** Invoke it (Skill tool) before
+  asking anything — lint rules, branch reuse, merge, squash-or-keep, closing PRs. It owns
+  the format: one question at a time, numbered answers with a recommendation, free-text option.
 - **Never blind-`--fix`.** Linter autofix can change semantics (sorted object keys,
   stripped assertions, rewritten matchers). Always read the diff before keeping it.
 - **Never disable a lint rule on your own** — that is what the rule interview is for.
@@ -101,7 +102,7 @@ When a linter major lands, its preset enables new rules automatically. Find the 
 **actually produce findings** in this codebase — rules that fire zero times need no
 decision, just a mention in the report.
 
-For each firing rule, one question at a time:
+For each firing rule, interview the user (via the `interview` skill) with these answers:
 
 1. Keep it on and fix the codebase.
 2. Set it to `off` globally in the lint config.

@@ -41,7 +41,8 @@
             "command": "/home/rominou/.claude/skills/gstack/hosts/claude/hooks/timeline-stop-hook",
             "timeout": 5
           }
-        ]
+        ],
+        "_gstack_source": "gstack-timeline-stop"
       }
     ]
   },
@@ -54,7 +55,8 @@
     "headroom@headroom-marketplace": false,
     "ponytail@ponytail": false,
     "brag@brag": true,
-    "cc-plugin-you-should-know@builtin": true
+    "cc-plugin-you-should-know@builtin": false,
+    "cc-plugin-telemetry@builtin": false
   },
   "extraKnownMarketplaces": {
     "headroom-marketplace": {
