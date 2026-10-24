@@ -146,27 +146,27 @@ describe('check-souvenirs.cli', () => {
   const dateFromPathTests = [
     {
       description: 'A regular case with year and month',
-      input: 'D:\\Souvenirs\\2006\\2006-08_House Foobar\\P1000068.jpg',
+      input: String.raw`D:\Souvenirs\2006\2006-08_House Foobar\P1000068.jpg`,
       output: { month: '08', year: '2006' },
     },
     {
       description: 'B regular case with only year',
-      input: 'D:\\Souvenirs\\2006\\Me puissance 10.jpg',
+      input: String.raw`D:\Souvenirs\2006\Me puissance 10.jpg`,
       output: { month: undefined, year: '2006' },
     },
     {
       description: 'C regular case with 00 month',
-      input: 'D:\\Souvenirs\\2006\\2006-00_Term Mont-topaz-photo-lighting-face-upscale-2x.jpeg',
+      input: String.raw`D:\Souvenirs\2006\2006-00_Term Mont-topaz-photo-lighting-face-upscale-2x.jpeg`,
       output: { month: undefined, year: '2006' },
     },
     {
       description: 'D irregular case with no year or month',
-      input: 'D:\\Souvenirs\\Miscellaneous\\random-file.png',
+      input: String.raw`D:\Souvenirs\Miscellaneous\random-file.png`,
       output: { month: undefined, year: undefined },
     },
     {
       description: 'E date in path and different one in file name',
-      input: 'D:\\Souvenirs\\2016\\2016-10_Sydney\\Darling Harbour and around\\2016-11-01 14-21-22_513809296_-Acer.jpg',
+      input: String.raw`D:\Souvenirs\2016\2016-10_Sydney\Darling Harbour and around\2016-11-01 14-21-22_513809296_-Acer.jpg`,
       output: { month: '10', year: '2016' },
     },
   ]
