@@ -162,7 +162,9 @@ make_alpha_png() {
   run_script
   [ "$status" -eq 0 ]
   [ -f "$work/logo.png" ]
-  [ "$(identify_field '%A' "$work/logo.png")" = "True" ]
+  alpha="$(identify_field '%A' "$work/logo.png")"
+  # ImageMagick 6 prints True, ImageMagick 7 prints Blend
+  [ "$alpha" = "True" ] || [ "$alpha" = "Blend" ]
 }
 
 @test "a BMP becomes a JPEG and the original file is removed" {
