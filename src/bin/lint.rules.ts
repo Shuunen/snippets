@@ -31,7 +31,7 @@ export function hasNoTodos(content: string): boolean {
 }
 
 export function isKebabCaseFilename(filePath: string): boolean {
-  const baseName = filePath.split('/').at(-1)?.replace('.md', '') ?? ''
+  const baseName = filePath.split(/[/\\]/u).at(-1)?.replace('.md', '') ?? ''
   return /^[a-z0-9]+(?:-[a-z0-9]+)*$/u.test(baseName)
 }
 

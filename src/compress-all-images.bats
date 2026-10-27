@@ -12,7 +12,7 @@ setup_file() {
     export IM_CONVERT="magick"
     export IM_IDENTIFY="magick identify"
     export IM_COMPARE="magick compare"
-  elif command -v convert &>/dev/null; then
+  elif command -v convert &>/dev/null && convert -version 2>/dev/null | grep -q ImageMagick; then
     export IM_CONVERT="convert"
     export IM_IDENTIFY="identify"
     export IM_COMPARE="compare"
