@@ -117,5 +117,6 @@
       "**Org-specific CLIs**: None configured"
     ]
   },
-  "voiceEnabled": false
+  "voiceEnabled": false,
+  "theme": "dark"
 }
