@@ -2,6 +2,6 @@
   "$schema": "https://unpkg.com/knip@6/schema.json",
   "entry": ["src/**/*.{js,ts}", "configs/bin/**/*.ts"],
   "project": ["src/**/*.{js,ts}", "configs/**/*.ts"],
-  "ignoreBinaries": ["bats", "mkvpropedit.exe"],
+  "ignoreBinaries": ["bats", "mkvpropedit.exe", "udevadm"],
   "ignoreDependencies": ["bats", "express", "node-dash-button", "mifare-classic", "node-notifier", "osmosis"]
 }
