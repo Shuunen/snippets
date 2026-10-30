@@ -31,7 +31,7 @@ It will generate a `<project-name>-banner.svg` file that you can use in your REA
 Scan your movie and tv show folders and build a single `catalog-media.html` page, with posters, ratings and the best resolution found for each title.
 
 ```bash
-cp src/catalog-media.env.example src/catalog-media.env # then list your folders
+# create src/catalog-media.env, see the example in the header of src/catalog-media.cli.ts
 bun path/to/snippets/src/catalog-media.cli.ts
 ```
 

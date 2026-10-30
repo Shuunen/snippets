@@ -1,9 +1,8 @@
 import { sleep } from 'shuutils'
-import { emptyRatingNfo, movieNfo, showNfo, template } from './catalog-media.mock'
-import { formatQualities, parseProbe, qualityFromName, qualityFromSize, sortQualities } from './catalog-media.quality'
-import type { CatalogEntry } from './catalog-media.types'
 import {
+  type CatalogEntry,
   countEpisodes,
+  formatQualities,
   isIgnoredName,
   isVideoFile,
   keepBestCopies,
@@ -12,13 +11,43 @@ import {
   normalizeTitle,
   parseEnv,
   parseNfo,
+  parseProbe,
   parseTitle,
+  qualityFromName,
+  qualityFromSize,
   renderCatalog,
   resolveDir,
   sampleEvenly,
+  sortQualities,
   toCatalogItem,
   tvPosterNames,
-} from './catalog-media.utils'
+} from './catalog-media.cli'
+
+export const movieNfo = `<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<movie>
+  <title>Atonement &amp; more</title>
+  <year>2007</year>
+  <ratings>
+    <rating default="false" max="10" name="themoviedb"><value>7.6</value><votes>4882</votes></rating>
+    <rating default="true" max="10" name="imdb"><value>7.8</value><votes>334814</votes></rating>
+  </ratings>
+  <plot>A young girl &#233;&#x74;&lt;3&gt; &quot;lies&quot; &apos;a lot&apos;.</plot>
+  <genre>Drama</genre>
+  <genre>Romance</genre>
+  <director>Joe Wright</director>
+  <director/>
+</movie>`
+
+export const showNfo = `<tvshow>
+  <title>Firefly</title>
+  <year>2002</year>
+  <ratings><rating default="false" max="10" name="themoviedb"><value>8.4</value></rating></ratings>
+  <genre>Sci-Fi</genre>
+</tvshow>`
+
+export const emptyRatingNfo = '<movie><title>Unrated</title><ratings><rating default="true"><value>0.0</value></rating></ratings></movie>'
+
+export const template = '<html><script>const DATA=__DATA__</script></html>'
 
 const entry = (key: string, qualities: number[], title = key): CatalogEntry => ({ directors: [], genres: [], key, qualities, title })
 
