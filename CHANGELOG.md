@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.5.0] - 2026-10-30
+
+### Added
+
+- `bench-drive` benchmarks a drive or USB key and shows sequential and random read/write speeds, sustained write speed (size of the fast write cache), and small files rate, without touching existing data: a temporary 1 GB file is written, read back with a content check, then deleted
+- Pick the drive interactively or pass a folder to benchmark the drive hosting it, drives with too little free space or no writable folder are not selectable
+- Warns when a USB 3 drive runs in a slower USB 2 mode
+- Results can be copied as a tab-separated row ready to paste in the drives spreadsheet, with brand, model, serial, size, OS and filesystem detected automatically on Linux and Windows
+
 ## [0.4.1] - 2026-10-24
 
 ### Changed
