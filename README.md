@@ -37,6 +37,17 @@ bun path/to/snippets/src/catalog-media.cli.ts
 
 When a title is in several folders, the copy with the best quality wins. Posters and video resolutions are cached in `src/.cache/catalog-media`, add `--no-cache` to ignore it. Needs `ffprobe` to read resolutions that are not in the file name.
 
+### Bench Drive
+
+Benchmark a drive or a USB key : sequential and random read/write speeds, sustained write speed (size of the fast write cache) and small files rate. Existing data is never touched, a temporary 1 GB file is written, read back with a content check, then deleted.
+
+```bash
+bun path/to/snippets/src/bench-drive.cli.ts               # pick a drive interactively
+bun path/to/snippets/src/bench-drive.cli.ts /media/my-key # benchmark the drive hosting this folder
+```
+
+At the end, a tab-separated row can be copied to paste in your drives spreadsheet. Needs `udevadm` on Linux to detect the drive brand, model and serial.
+
 ## Development
 
 ```bash
