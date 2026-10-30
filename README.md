@@ -48,6 +48,19 @@ bun path/to/snippets/src/bench-drive.cli.ts /media/my-key # benchmark the drive 
 
 At the end, a tab-separated row can be copied to paste in your drives spreadsheet. Needs `udevadm` on Linux to detect the drive brand, model and serial.
 
+### Net Scan
+
+Scan every active network of your machine (wifi, ethernet...) and list the living devices with their IP, response time, MAC address and name, like SoftPerfect Network Scanner does. The names you give to devices are stored in a text file, one device per line : `MAC=name (vendor)`.
+
+```bash
+bun path/to/snippets/src/net-scan.cli.ts                 # scan continuously, notify when a device appears, use ./net-scan.txt
+bun path/to/snippets/src/net-scan.cli.ts my-devices.txt  # use another storage file
+bun path/to/snippets/src/net-scan.cli.ts --once          # scan once, print the report and leave
+bun path/to/snippets/src/net-scan.cli.ts --help          # show the options
+```
+
+Keys : `↑` `↓` select a device, `↵` rename it, `l` turns the live mode on or off, `h` shows or hides the hints column (names, open services...), `n` shows or hides the network column, `q` quits. Works on Linux and Windows, needs `notify-send` on Linux for the desktop notifications.
+
 ## Development
 
 ```bash
