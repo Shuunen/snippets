@@ -16,6 +16,7 @@ import {
   compareByIp,
   config,
   describeAppeared,
+  displayWidth,
   ellipsize,
   classifyDevice,
   formatProgress,
@@ -74,6 +75,8 @@ function tracked(ip: string, mac: string, online = true): TrackedDevice {
 }
 
 const labelOf = (item: FoundDevice) => `label ${item.ip}`
+
+const emojiLabel = (item: FoundDevice) => (item.ip === '192.168.1.1' ? '📷 Camera' : 'Router')
 
 const longLabel = (item: FoundDevice) => `${item.ip} a very long name that cannot fit (Vendor Inc.)`
 
@@ -469,6 +472,10 @@ describe('net-scan tracking', () => {
     expect(buildHints(device('192.168.1.2', mac1), { label: 'label' })).toBe('-')
   })
 
+  it('buildHints D compares the names without the case', () => {
+    expect(buildHints({ ...device('192.168.1.2', mac1), names: { mdns: 'livebox' } }, { label: 'LIVEBOX (Acme Corp)', vendor: 'ACME CORP' })).toBe('-')
+  })
+
   it('buildHints B concatenates the vendor, names, open ports and tracking missing from the table', () => {
     const found = { ...device('192.168.1.2', 'DAA119000000'), appearedLater: true, missed: 2, names: { dns: 'phone.lan', mdns: 'Phone' }, ports: { open: ['ssh', 'https'] } }
     expect(buildHints(found, { label: 'Phone (Acme)', vendor: 'Acme Corp' })).toBe('vendor: Acme Corp | dns: phone.lan | open: ssh, https | random mac | missed: 2 | appeared later')
@@ -741,6 +748,51 @@ describe('net-scan report', () => {
     expect(ellipsize('abcdef', 0)).toBe('')
   })
 
+  it('displayWidth A counts two columns for emoji and wide characters', () => {
+    expect(displayWidth('abc')).toBe(3)
+    expect(displayWidth('📷 cam')).toBe(6)
+    expect(displayWidth('日本')).toBe(4)
+    expect(displayWidth('e\u0301')).toBe(1)
+    expect(displayWidth('')).toBe(0)
+  })
+
+  it('ellipsize B never cuts a wide character in two and keeps the width', () => {
+    expect(ellipsize('📷📷📷📷', 5)).toBe('📷📷…')
+    expect(displayWidth(ellipsize('日本語のテキスト', 7))).toBeLessThanOrEqual(7)
+    expect(ellipsize('📷📷', 4)).toBe('📷📷')
+  })
+
+  it('formatTable F lines up the hints when a name has wide characters', () => {
+    const lines = formatTable({ devices: [tracked('192.168.1.1', '001122334455'), tracked('192.168.1.2', '001122334466')], isKnown, labelOf: emojiLabel, showHints: true, ui: {} })
+    const [first, second] = [lines[2], lines[3]].map(line => stripVTControlCharacters(line ?? ''))
+    invariant(first && second, 'rows should exist')
+    expect(displayWidth(first)).toBe(displayWidth(second))
+  })
+
+  it('formatTable G shows only the rows fitting the terminal height, around the selected device', () => {
+    const devices = Array.from({ length: 30 }, (_unused, index) => tracked(`192.168.1.${index + 1}`, `AA00000000${String(index).padStart(2, '0')}`))
+    const top = formatTable({ devices, height: 20, isKnown, labelOf, ui: {} })
+    expect(top).toHaveLength(2 + 10)
+    expect(top[2]).toContain('192.168.1.1 ')
+    const middle = formatTable({ devices, height: 20, isKnown, labelOf, ui: { selectedMac: 'AA0000000015' } })
+    expect(middle.some(line => line.includes('192.168.1.16 '))).toBe(true)
+    expect(middle).toHaveLength(2 + 10)
+    const bottom = formatTable({ devices, height: 20, isKnown, labelOf, ui: { selectedMac: 'AA0000000029' } })
+    expect(bottom.at(-1)).toContain('192.168.1.30')
+    expect(formatTable({ devices, isKnown, labelOf, ui: {} })).toHaveLength(2 + 30)
+  })
+
+  it('formatReport H tells how many devices are hidden and never exceeds the terminal height', () => {
+    const devices = Array.from({ length: 30 }, (_unused, index) => tracked(`192.168.1.${index + 1}`, `AA00000000${String(index).padStart(2, '0')}`))
+    const lines = formatReport({ devices, height: 20, isKnown, labelOf, ui: { selectedMac: 'AA0000000015' } })
+    expect(lines.length).toBeLessThan(20)
+    const hint = stripVTControlCharacters(lines.at(-4) ?? '')
+    expect(hint).toContain('↑ ')
+    expect(hint).toContain('↓ ')
+    const all = formatReport({ devices: devices.slice(0, 3), height: 20, isKnown, labelOf, ui: {} })
+    expect(all.at(-4)).toBe('')
+  })
+
   it('formatTable D shortens the name with an ellipsis instead of overflowing the terminal width', () => {
     const lines = formatTable({ devices: [tracked('192.168.1.1', mac1)], isKnown, labelOf: longLabel, ui: {}, width: 60 })
     const row = stripVTControlCharacters(lines[2] ?? '')
@@ -761,6 +813,16 @@ describe('net-scan report', () => {
     const editing = formatTable({ devices: [tracked('192.168.1.1', mac1)], isKnown, labelOf, ui: { edit: { cursor: 60, text }, selectedMac: mac1 }, width: 60 })
     expect(stripVTControlCharacters(editing[2] ?? '')).toContain('…xx')
     expect(stripVTControlCharacters(editing[2] ?? '').endsWith('|')).toBe(true)
+  })
+
+  it('formatTable H cuts the end of a long name being edited when the cursor is near the start, and keeps what follows a cursor in the middle', () => {
+    const text = `${'a'.repeat(30)}${'b'.repeat(30)}`
+    const edit = (cursor: number) => stripVTControlCharacters(formatTable({ devices: [tracked('192.168.1.1', mac1)], isKnown, labelOf, ui: { edit: { cursor, text }, selectedMac: mac1 }, width: 60 })[2] ?? '')
+    expect(edit(2).endsWith('…')).toBe(true)
+    expect(edit(2)).toContain('aa|aaa')
+    const middle = edit(30)
+    expect(middle).toContain('…aaaaaaaaaaaa|bbbbbb')
+    expect(middle.endsWith('b')).toBe(true)
   })
 
   it('formatTable A gives the header then a row per device', () => {

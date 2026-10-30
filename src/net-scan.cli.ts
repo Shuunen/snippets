@@ -10,7 +10,7 @@ import { homedir, hostname, type NetworkInterfaceInfo, networkInterfaces } from 
 import path from 'node:path'
 import { performance } from 'node:perf_hooks'
 import { emitKeypressEvents } from 'node:readline'
-import { promisify } from 'node:util'
+import { parseArgs, promisify } from 'node:util'
 import { invariant, kebabCase } from 'es-toolkit'
 import { bold, dim, green, Logger, sleep, yellow } from 'shuutils'
 
@@ -19,7 +19,8 @@ import { bold, dim, green, Logger, sleep, yellow } from 'shuutils'
 // use me like :
 //  bun ~/Projects/github/snippets/src/net-scan.cli.ts                 # scan continuously, notify when a device appears, use ./net-scan.txt
 //  bun ~/Projects/github/snippets/src/net-scan.cli.ts my-devices.txt  # use another storage file
-//  bun ~/Projects/github/snippets/src/net-scan.cli.ts --once          # scan once then show the report
+//  bun ~/Projects/github/snippets/src/net-scan.cli.ts --once          # scan once, print the report and leave
+//  bun ~/Projects/github/snippets/src/net-scan.cli.ts --help          # show the options
 //  bun ~/Projects/github/snippets/src/net-scan.cli.ts --hints         # start with the hints column shown, h toggles it
 //  bun ~/Projects/github/snippets/src/net-scan.cli.ts --network       # start with the network column shown, n toggles it
 // keys : up / down to select a device, enter to rename it, enter to save, escape to cancel, l to turn the live mode on or off, h to show or hide the hints, n to show or hide the network, q to quit
@@ -80,6 +81,8 @@ export type Progress = { label: string; ratio?: number }
 /** what the keys and the report need to know about the devices */
 export type View = {
   devices: readonly TrackedDevice[]
+  /** terminal height in rows, every row is shown if unknown */
+  height?: number
   isKnown: (device: FoundDevice) => boolean
   isLive?: boolean
   labelOf: (device: FoundDevice) => string
@@ -174,6 +177,12 @@ const columnGap = '  '
 const selectionMarkerLength = 2
 /** the name column is never shrunk below this width, even in a narrow terminal */
 const minNameLength = 12
+/** the cursor of a long name being edited leaves this share of the width to what follows it */
+const cursorTailShare = 3
+const wideWidth = 2
+const middleDivisor = 2
+/** lines of the report around the rows : title, headers, progress, legend, the blanks and the last line break */
+const reportChromeLines = 10
 
 /**
  * Remove control characters and ANSI escapes, trim and cap the length of a text coming from the network or a file
@@ -602,9 +611,10 @@ export function bestName(names: FoundDevice['names']) {
  */
 export function buildHints(device: FoundDevice & { appearedLater?: boolean; missed?: number }, context: { label: string; vendor?: string }) {
   const { ports } = device
-  const names = Object.entries(device.names ?? {}).flatMap(([source, name]) => (name === undefined || context.label.includes(name) ? [] : [`${source}: ${name}`]))
+  const label = context.label.toLowerCase()
+  const names = Object.entries(device.names ?? {}).flatMap(([source, name]) => (name === undefined || label.includes(name.toLowerCase()) ? [] : [`${source}: ${name}`]))
   const hints = [
-    context.vendor === undefined || context.label.includes(context.vendor) ? '' : `vendor: ${context.vendor}`,
+    context.vendor === undefined || label.includes(context.vendor.toLowerCase()) ? '' : `vendor: ${context.vendor}`,
     ...names,
     ports === undefined || ports.open.length === 0 ? '' : `open: ${ports.open.join(', ')}`,
     isLocallyAdministered(device.mac) ? 'random mac' : '',
@@ -789,6 +799,56 @@ function cellsOf(view: View, device: TrackedDevice) {
   }
 }
 
+const segmenter = new Intl.Segmenter()
+
+/** emoji and the East Asian wide characters take two columns in a terminal */
+const wideRegex = /\p{Emoji_Presentation}|\uFE0F|[\u1100-\u115F\u2E80-\uA4CF\uAC00-\uD7A3\uF900-\uFAFF\uFE30-\uFE6F\uFF00-\uFF60\uFFE0-\uFFE6]/u
+
+/**
+ * Split a text in the characters a user sees, so an emoji or an accented letter is never cut in two
+ * @param text the text
+ * @returns the characters
+ */
+function splitGraphemes(text: string) {
+  return [...segmenter.segment(text)].map(item => item.segment)
+}
+
+/**
+ * Measure the columns a text takes in a terminal
+ * @param text the text
+ * @returns the width, an emoji counts for 2
+ */
+export function displayWidth(text: string) {
+  return splitGraphemes(text).reduce((total, grapheme) => total + (wideRegex.test(grapheme) ? wideWidth : 1), 0)
+}
+
+/**
+ * Take the first characters that fit a width
+ * @param graphemes the characters
+ * @param max the width available
+ * @returns the characters taken
+ */
+function takeWidth(graphemes: readonly string[], max: number) {
+  const taken: string[] = []
+  let used = 0
+  for (const grapheme of graphemes) {
+    used += displayWidth(grapheme)
+    if (used > max) break
+    taken.push(grapheme)
+  }
+  return taken
+}
+
+/**
+ * Pad a text with spaces on the right up to a width, wide characters included
+ * @param text the text
+ * @param width the width wanted
+ * @returns the padded text
+ */
+function padEndDisplay(text: string, width: number) {
+  return `${text}${' '.repeat(Math.max(width - displayWidth(text), 0))}`
+}
+
 /**
  * Shorten a text with an ellipsis so it fits a width
  * @param text the text
@@ -796,21 +856,27 @@ function cellsOf(view: View, device: TrackedDevice) {
  * @returns the text, ending with … if it was cut
  */
 export function ellipsize(text: string, max: number) {
-  if (text.length <= max) return text
-  return max <= 1 ? '…'.slice(0, Math.max(max, 0)) : `${text.slice(0, max - 1)}…`
+  if (displayWidth(text) <= max) return text
+  return max <= 0 ? '' : `${takeWidth(splitGraphemes(text), max - 1).join('')}…`
 }
 
 /**
  * Shorten the name being edited so the cursor stays visible, the start is cut when the cursor is far in the text
- * @param text the text with its cursor mark
- * @param cursor the cursor position in the text
+ * @param before the text before the cursor
+ * @param after the text after the cursor
  * @param max the width available
- * @returns the text, with … where it was cut
+ * @returns the text with its cursor mark, with … where it was cut
  */
-function ellipsizeAroundCursor(text: string, cursor: number, max: number) {
-  const start = Math.min(Math.max(cursor + 1 - (max - 1), 0), text.length - (max - 1))
-  if (start <= 0 || max <= 1) return ellipsize(text, max)
-  return `…${text.slice(start, start + max - 1)}`
+function ellipsizeAroundCursor(before: string, after: string, max: number) {
+  const marked = `${before}|${after}`
+  if (displayWidth(marked) <= max) return marked
+  if (displayWidth(`${before}|`) <= max - 1) return ellipsize(marked, max)
+  // a share of the width keeps showing what follows the cursor
+  const rightWidth = Math.min(displayWidth(after), Math.floor(max / cursorTailShare))
+  const left = takeWidth(splitGraphemes(`${before}|`).toReversed(), max - 1 - rightWidth)
+    .toReversed()
+    .join('')
+  return `…${left}${takeWidth(splitGraphemes(after), rightWidth).join('')}`
 }
 
 /**
@@ -824,8 +890,10 @@ function columnWidths(view: View): ColumnWidths {
   const ip = Math.max('ip'.length, ...cells.map(cell => cell.ip.length))
   const network = Math.max('network'.length, ...view.devices.map(device => device.interfaceNames.join('+').length))
   const response = Math.max('response'.length, ...cells.map(cell => cell.response.length))
-  const widestName = Math.max('name'.length, ...view.devices.map(device => view.labelOf(device).length))
-  const widestHints = Math.max('hints'.length, ...cells.map(cell => cell.hints?.length ?? 0))
+  // the name being edited can be longer than the stored one
+  const editing = view.ui.edit === undefined ? [] : [displayWidth(view.ui.edit.text) + 1]
+  const widestName = Math.max('name'.length, ...editing, ...view.devices.map(device => displayWidth(view.labelOf(device))))
+  const widestHints = Math.max('hints'.length, ...cells.map(cell => displayWidth(cell.hints ?? '')))
   const before = [ip, response, macLength, ...(view.showNetwork === true ? [network] : [])]
   // every column before the name is followed by a gap
   const room = (view.width ?? Number.POSITIVE_INFINITY) - selectionMarkerLength - before.reduce((total, width) => total + width + columnGap.length, 0)
@@ -846,7 +914,7 @@ function joinCells(prefix: string, cells: { hints?: string; ip: string; mac: str
     cells.response.padStart(widths.response),
     cells.mac.padEnd(macLength),
     ...(cells.network === undefined ? [] : [cells.network.padEnd(widths.network)]),
-    cells.hints === undefined ? ellipsize(cells.name, widths.name) : ellipsize(cells.name, widths.name).padEnd(widths.name),
+    cells.hints === undefined ? ellipsize(cells.name, widths.name) : padEndDisplay(ellipsize(cells.name, widths.name), widths.name),
     ...(cells.hints === undefined ? [] : [ellipsize(cells.hints, widths.hints)]),
   ].join(columnGap)
 }
@@ -861,7 +929,7 @@ function joinCells(prefix: string, cells: { hints?: string; ip: string; mac: str
 function formatRow(view: View, device: TrackedDevice, widths: ColumnWidths) {
   const { ui } = view
   const isSelected = device.mac === ui.selectedMac
-  const label = isSelected && ui.edit !== undefined ? ellipsizeAroundCursor(`${ui.edit.text.slice(0, ui.edit.cursor)}|${ui.edit.text.slice(ui.edit.cursor)}`, ui.edit.cursor, widths.name) : view.labelOf(device)
+  const label = isSelected && ui.edit !== undefined ? ellipsizeAroundCursor(ui.edit.text.slice(0, ui.edit.cursor), ui.edit.text.slice(ui.edit.cursor), widths.name) : view.labelOf(device)
   const row = joinCells(isSelected ? '> ' : '  ', { ...cellsOf(view, device), mac: device.mac, name: label }, widths)
   const kind = classifyDevice(view, device)
   // an offline device stays dimmed, but an unknown one keeps its yellow
@@ -946,13 +1014,42 @@ export function formatSummary(view: View) {
 }
 
 /**
+ * Pick the rows that fit the terminal height, the selected device stays in the middle of them
+ * @param view the devices and the ui
+ * @returns the range of the devices to show
+ */
+function visibleRows(view: View) {
+  const count = view.devices.length
+  const room = view.height === undefined ? count : Math.max(view.height - reportChromeLines, 1)
+  if (room >= count) return { end: count, start: 0 }
+  const selected = Math.max(
+    view.devices.findIndex(device => device.mac === view.ui.selectedMac),
+    0,
+  )
+  const start = Math.min(Math.max(selected - Math.floor(room / middleDivisor), 0), count - room)
+  return { end: start + room, start }
+}
+
+/**
+ * Tell how many devices are hidden above and below the rows shown
+ * @param view the devices and the ui
+ * @returns the line, empty if every device is shown
+ */
+function formatScrollHint(view: View) {
+  const { end, start } = visibleRows(view)
+  const hints = [start > 0 ? `↑ ${start} more` : '', end < view.devices.length ? `↓ ${view.devices.length - end} more` : ''].filter(hint => hint !== '')
+  return hints.length === 0 ? '' : dim(`  ${hints.join('  ')}`)
+}
+
+/**
  * Format the table of the devices
  * @param view the devices and the ui
  * @returns the header, a blank line, then a row per device
  */
 export function formatTable(view: View) {
   const widths = columnWidths(view)
-  return [dim(formatHeader(view, widths)), '', ...view.devices.map(device => formatRow(view, device, widths))]
+  const { end, start } = visibleRows(view)
+  return [dim(formatHeader(view, widths)), '', ...view.devices.slice(start, end).map(device => formatRow(view, device, widths))]
 }
 
 /**
@@ -962,7 +1059,7 @@ export function formatTable(view: View) {
  */
 export function formatReport(view: View) {
   const progress = formatProgress(view.progress)
-  return ['', `  ${formatSummary(view)}`, '', ...formatTable(view), '', progress === '' ? '' : `  ${progress}`, '', spreadLegend(legendItems(view), view.width ?? defaultWidth)]
+  return ['', `  ${formatSummary(view)}`, '', ...formatTable(view), formatScrollHint(view), progress === '' ? '' : `  ${progress}`, '', spreadLegend(legendItems(view), view.width ?? defaultWidth)]
 }
 
 /* v8 ignore start */
@@ -979,6 +1076,17 @@ type SoundPlayer = { args: string[]; command: string }
 
 /** leave the alternate screen, which gives the previous terminal content back, and show the cursor */
 const restoreTerminal = '\u001B[?1049l\u001B[?25h'
+
+const usage = `Scan the networks of this machine and list the living devices.
+
+usage : net-scan.cli.ts [file] [options]
+  file         where the names are stored, net-scan.txt by default
+  --once       scan once, print the report and leave
+  --hints      start with the hints column shown, h toggles it
+  --network    start with the network column shown, n toggles it
+  -h, --help   show this help
+
+keys : up / down select, enter rename, l live mode, h hints, n network, q quit`
 
 const soundFile = '/usr/share/sounds/freedesktop/stereo/message.oga'
 
@@ -1225,14 +1333,19 @@ async function collectMdnsNames(hosts: readonly string[]) {
  * @param names the mDNS and NetBIOS names by IP
  * @param names.mdns the mDNS names
  * @param names.netbios the NetBIOS names
+ * @param previous the device as tracked by the previous sweeps, its reverse DNS name is kept instead of asking again
  * @returns the names by source, empty if nothing answered
  */
-async function findNames(device: FoundDevice, names: { mdns: ReadonlyMap<string, string>; netbios: ReadonlyMap<string, string> }) {
+async function findNames(device: FoundDevice, names: { mdns: ReadonlyMap<string, string>; netbios: ReadonlyMap<string, string> }, previous: TrackedDevice | undefined) {
   const found: NonNullable<FoundDevice['names']> = {}
   const mdns = names.mdns.get(device.ip)
   const netbios = names.netbios.get(device.ip)
-  const reverse = await withTimeout(dns.reverse(device.ip), dnsWaitMs)
-  const reverseName = reverse?.[0] === undefined ? '' : sanitizeText(reverse[0].replace(/\.$/u, ''))
+  // the reverse DNS name rarely changes, so only a device seen for the first time is asked
+  let reverseName = previous?.names?.dns ?? ''
+  if (previous === undefined) {
+    const reverse = await withTimeout(dns.reverse(device.ip), dnsWaitMs)
+    if (reverse?.[0] !== undefined) reverseName = sanitizeText(reverse[0].replace(/\.$/u, ''))
+  }
   if (mdns !== undefined) found.mdns = mdns
   if (netbios !== undefined) found.netbios = netbios
   if (reverseName !== '') found.dns = reverseName
@@ -1281,7 +1394,7 @@ async function sweep(targets: readonly ScanTarget[], known: ReadonlyMap<string, 
   const mdnsNames = await collectMdnsNames(devices.filter(device => device.name === undefined).map(device => device.ip))
   await runLimited(devices, identifyConcurrency, async device => {
     const [names, responseMs, ports] = await Promise.all([
-      device.names ?? findNames(device, { mdns: mdnsNames, netbios: netbiosNames }),
+      device.names ?? findNames(device, { mdns: mdnsNames, netbios: netbiosNames }, known.get(device.mac)),
       measureResponse(device.ip),
       known.get(device.mac)?.ports === undefined ? scanPorts(device.ip) : undefined,
     ])
@@ -1322,6 +1435,7 @@ type Session = {
 function viewOf(session: Session): View {
   return {
     devices: [...session.devices.values()].toSorted(compareByIp),
+    height: session.interactive ? process.stdout.rows : undefined,
     isKnown: device => session.labels.has(device.mac),
     isLive: session.isLive,
     labelOf: device => session.labels.get(device.mac) ?? buildLabel(device.name, lookupVendor(session.vendors, device.mac)),
@@ -1491,14 +1605,23 @@ function listenToKeys(session: Session) {
  * Start the cli
  */
 async function main() {
+  const { positionals, values } = parseArgs({
+    allowPositionals: true,
+    args: process.argv.slice(firstArgumentIndex),
+    options: { help: { short: 'h', type: 'boolean' }, hints: { type: 'boolean' }, network: { type: 'boolean' }, once: { type: 'boolean' } },
+  })
+  if (values.help === true) {
+    process.stdout.write(`${usage}\n`)
+    return
+  }
+  const file = path.resolve(positionals[0] ?? 'net-scan.txt')
   if (process.platform !== 'linux' && !isWindows) throw new Error(`Unsupported platform "${process.platform}", only Linux and Windows are supported`)
-  const arguments_ = process.argv.slice(firstArgumentIndex)
-  const file = path.resolve(arguments_.find(item => !item.startsWith('--')) ?? 'net-scan.txt')
   const targets = pickTargets(networkInterfaces())
   if (targets.length === 0) throw new Error('No active network found')
   const backedUp = !ensureStore(file)
-  const interactive = process.stdin.isTTY && process.stdout.isTTY
-  const isLive = interactive && !arguments_.includes('--once')
+  // --once prints the report and leaves, even in a terminal
+  const interactive = process.stdin.isTTY && process.stdout.isTTY && values.once !== true
+  const isLive = interactive
   const session: Session = {
     backedUp,
     devices: new Map(),
@@ -1508,8 +1631,8 @@ async function main() {
     isOver: false,
     isSweeping: false,
     labels: readLabels(readFileSync(file, 'utf8')),
-    showHints: arguments_.includes('--hints'),
-    showNetwork: arguments_.includes('--network'),
+    showHints: values.hints === true,
+    showNetwork: values.network === true,
     sweeps: 0,
     targets,
     ui: {},
