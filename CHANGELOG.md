@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.6.1] - 2026-10-30
+
+### Changed
+
+- Dependencies updated: `es-toolkit` 1.52 → 1.53, `exiftool-vendored` 39.0 → 39.1, `knip` 6.42 → 6.44, `oxfmt` 0.74 → 0.75, `oxlint` 1.89 → 1.90, `@types/node` 26.6.6
+- `packageManager` bumped to pnpm 12.16.1, `.nvmrc` and CI to Node 26 (new LTS)
+- TypeScript target and lib of the Node config bumped to ES2025
+
 ## [0.6.0] - 2026-10-30
 
 ### Added
