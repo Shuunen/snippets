@@ -3,7 +3,7 @@ import { type NetworkInterfaceInfo, tmpdir } from 'node:os'
 import path from 'node:path'
 import { stripVTControlCharacters } from 'node:util'
 import { invariant } from 'es-toolkit'
-import { dim, yellow } from 'shuutils'
+import { bold, dim, yellow } from 'shuutils'
 import {
   applySweep,
   buildDnsQuery,
@@ -20,6 +20,7 @@ import {
   ellipsize,
   classifyDevice,
   formatProgress,
+  formatMac,
   formatResponseTime,
   ensureStore,
   formatReport,
@@ -817,12 +818,36 @@ describe('net-scan report', () => {
 
   it('formatTable H cuts the end of a long name being edited when the cursor is near the start, and keeps what follows a cursor in the middle', () => {
     const text = `${'a'.repeat(30)}${'b'.repeat(30)}`
-    const edit = (cursor: number) => stripVTControlCharacters(formatTable({ devices: [tracked('192.168.1.1', mac1)], isKnown, labelOf, ui: { edit: { cursor, text }, selectedMac: mac1 }, width: 60 })[2] ?? '')
+    const edit = (cursor: number) => stripVTControlCharacters(formatTable({ devices: [tracked('192.168.1.1', mac1)], isKnown, labelOf, ui: { edit: { cursor, text }, selectedMac: mac1 }, width: 65 })[2] ?? '')
     expect(edit(2).endsWith('…')).toBe(true)
     expect(edit(2)).toContain('aa|aaa')
     const middle = edit(30)
     expect(middle).toContain('…aaaaaaaaaaaa|bbbbbb')
     expect(middle.endsWith('b')).toBe(true)
+  })
+
+  it('formatMac A puts colons between the bytes', () => {
+    expect(formatMac('380525323227')).toBe('38:05:25:32:32:27')
+    expect(formatMac('')).toBe('')
+  })
+
+  it('formatTable I shows the mac address with colons and keeps the columns aligned', () => {
+    const lines = formatTable({ devices: [tracked('192.168.1.1', '380525323227')], isKnown, labelOf, ui: {} })
+    expect(stripVTControlCharacters(lines[2] ?? '')).toContain('38:05:25:32:32:27')
+    expect(stripVTControlCharacters(lines[0] ?? '').indexOf('name')).toBe(stripVTControlCharacters(lines[2] ?? '').indexOf('label'))
+  })
+
+  it('formatTable J dims the colons of the mac address without losing the bold or the dim of the row', () => {
+    const [boldOpen = ''] = bold('x').split('x')
+    const [dimOpen = '', dimClose = ''] = dim('x').split('x')
+    const dimColon = `${dimOpen}:${dimClose}`
+    const plain = formatTable({ devices: [tracked('192.168.1.1', '380525323227')], isKnown, labelOf, ui: {} })[2] ?? ''
+    expect(plain).toContain(`38${dimColon}05${dimColon}25`)
+    const selected = formatTable({ devices: [tracked('192.168.1.1', '380525323227')], isKnown, labelOf, ui: { selectedMac: '380525323227' } })[2] ?? ''
+    expect(selected).toContain(`${dimColon}${boldOpen}05`)
+    const offline = formatTable({ devices: [tracked('192.168.1.1', '380525323227', false)], isKnown, labelOf, ui: {} })[2] ?? ''
+    expect(offline).toContain(`${dimColon}${dimOpen}05`)
+    expect(stripVTControlCharacters(offline)).toContain('38:05:25:32:32:27')
   })
 
   it('formatTable A gives the header then a row per device', () => {

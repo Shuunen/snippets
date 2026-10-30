@@ -118,6 +118,10 @@ export const config = {
 
 const unknown = '???'
 const macLength = 12
+/** a MAC address shown with its colons, like 38:05:25:32:32:27 */
+const macDisplayLength = 17
+/** stands for a colon of the MAC address until the row is painted, private use so it never comes from the network */
+const colonMarker = '\uE000'
 const ouiLength = 6
 const ipBits = 32
 const byteRange = 256
@@ -204,6 +208,15 @@ export function sanitizeText(text: string) {
 export function normalizeMac(raw: string) {
   const mac = raw.replaceAll(/[\s.:-]/gu, '').toUpperCase()
   return mac.length === macLength && /^[\dA-F]+$/u.test(mac) ? mac : undefined
+}
+
+/**
+ * Show a MAC address with colons between the bytes
+ * @param mac the normalized MAC address
+ * @returns the address like 38:05:25:32:32:27
+ */
+export function formatMac(mac: string) {
+  return (mac.match(/.{1,2}/gu) ?? []).join(':')
 }
 
 /**
@@ -799,6 +812,10 @@ function cellsOf(view: View, device: TrackedDevice) {
   }
 }
 
+const [boldOpen = ''] = bold('x').split('x')
+
+const [dimOpen = '', dimClose = ''] = dim('x').split('x')
+
 const segmenter = new Intl.Segmenter()
 
 /** emoji and the East Asian wide characters take two columns in a terminal */
@@ -894,7 +911,7 @@ function columnWidths(view: View): ColumnWidths {
   const editing = view.ui.edit === undefined ? [] : [displayWidth(view.ui.edit.text) + 1]
   const widestName = Math.max('name'.length, ...editing, ...view.devices.map(device => displayWidth(view.labelOf(device))))
   const widestHints = Math.max('hints'.length, ...cells.map(cell => displayWidth(cell.hints ?? '')))
-  const before = [ip, response, macLength, ...(view.showNetwork === true ? [network] : [])]
+  const before = [ip, response, macDisplayLength, ...(view.showNetwork === true ? [network] : [])]
   // every column before the name is followed by a gap
   const room = (view.width ?? Number.POSITIVE_INFINITY) - selectionMarkerLength - before.reduce((total, width) => total + width + columnGap.length, 0)
   const name = view.showHints === true ? Math.min(widestName, Math.max(minNameLength, room - columnGap.length - widestHints)) : Math.min(widestName, Math.max(minNameLength, room))
@@ -912,7 +929,7 @@ function joinCells(prefix: string, cells: { hints?: string; ip: string; mac: str
   return [
     `${prefix}${cells.ip.padEnd(widths.ip)}`,
     cells.response.padStart(widths.response),
-    cells.mac.padEnd(macLength),
+    cells.mac.padEnd(macDisplayLength),
     ...(cells.network === undefined ? [] : [cells.network.padEnd(widths.network)]),
     cells.hints === undefined ? ellipsize(cells.name, widths.name) : padEndDisplay(ellipsize(cells.name, widths.name), widths.name),
     ...(cells.hints === undefined ? [] : [ellipsize(cells.hints, widths.hints)]),
@@ -930,13 +947,38 @@ function formatRow(view: View, device: TrackedDevice, widths: ColumnWidths) {
   const { ui } = view
   const isSelected = device.mac === ui.selectedMac
   const label = isSelected && ui.edit !== undefined ? ellipsizeAroundCursor(ui.edit.text.slice(0, ui.edit.cursor), ui.edit.text.slice(ui.edit.cursor), widths.name) : view.labelOf(device)
-  const row = joinCells(isSelected ? '> ' : '  ', { ...cellsOf(view, device), mac: device.mac, name: label }, widths)
+  // the colons are marked here and dimmed once the row is painted, because the end of a dim also ends a bold
+  const row = joinCells(isSelected ? '> ' : '  ', { ...cellsOf(view, device), mac: formatMac(device.mac).replaceAll(':', colonMarker), name: label }, widths)
   const kind = classifyDevice(view, device)
   // an offline device stays dimmed, but an unknown one keeps its yellow
-  if (!device.present) return kind === 'unknown' ? yellow(dim(row)) : dim(row)
+  const painted = device.present ? paintPresentRow(row, kind, isSelected) : paintOfflineRow(row, kind)
+  let restyle = ''
+  if (!device.present) restyle = dimOpen
+  else if (isSelected) restyle = boldOpen
+  return painted.replaceAll(colonMarker, `${dimOpen}:${dimClose}${restyle}`)
+}
+
+/**
+ * Paint the row of a device that answered the last sweep
+ * @param row the row
+ * @param kind known, new or unknown
+ * @param isSelected true if the row is the selected one
+ * @returns the colored row
+ */
+function paintPresentRow(row: string, kind: string, isSelected: boolean) {
   const text = isSelected ? bold(row) : row
   if (kind === 'unknown') return yellow(text)
   return kind === 'new' ? green(text) : text
+}
+
+/**
+ * Paint the row of a device that did not answer the last sweep
+ * @param row the row
+ * @param kind known, new or unknown
+ * @returns the dimmed row, yellow if the device is unknown
+ */
+function paintOfflineRow(row: string, kind: string) {
+  return kind === 'unknown' ? yellow(dim(row)) : dim(row)
 }
 
 /**
