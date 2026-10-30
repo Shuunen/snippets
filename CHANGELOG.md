@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.6.0] - 2026-10-30
+
+### Added
+
+- `net-scan` scans every active network of the machine (wifi, ethernet...) and lists the living devices with their IP, response time and MAC address, like SoftPerfect Network Scanner does
+- Names come from mDNS, NetBIOS and reverse DNS, the vendor from the IEEE MAC database, and the names you give to devices are stored in a text file (`MAC=name`) that is backed up before the first save
+- Live mode scans again every 30 seconds and shows a desktop notification and a sound when a new device appears, `l` turns it on or off, `--once` prints the report and leaves
+- Select a device with the arrow keys and press enter to rename it, new devices are shown in green and unknown ones in yellow
+- Optional `hints` (`h`) and `network` (`n`) columns show everything else known about a device: other names, vendor, open services, random MAC address and tracking, `--hints` and `--network` start with them shown
+- The table fits the terminal: names end with an ellipsis, the rows scroll around the selected device with a count of the hidden ones, and emoji and wide characters are measured correctly
+- Arguments are checked, `--help` shows the usage and the keys
+
 ## [0.5.0] - 2026-10-30
 
 ### Added
