@@ -35,6 +35,7 @@ import {
   lookupVendor,
   normalizeMac,
   parseArpA,
+  parseDefaultGateways,
   parseIpNeigh,
   parseMdnsAnswer,
   parseNbstatAnswer,
@@ -314,6 +315,11 @@ describe('net-scan networks', () => {
       { ip: '192.168.1.1', mac: mac1 },
       { ip: '192.168.1.5', mac: mac2 },
     ])
+  })
+
+  it('parseDefaultGateways A reads the gateway of each default route', () => {
+    const output = ['default via 192.168.1.1 dev eth0 proto dhcp src 192.168.1.99 metric 100', 'default via 10.0.0.1 dev wlan0', '192.168.1.0/24 dev eth0 proto kernel scope link', 'default dev tun0'].join('\n')
+    expect(parseDefaultGateways(output)).toStrictEqual(['192.168.1.1', '10.0.0.1'])
   })
 
   it('parseProcNetArp A reads complete entries only', () => {

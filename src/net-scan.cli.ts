@@ -415,6 +415,18 @@ export function parseIpNeigh(output: string) {
 }
 
 /**
+ * Read the output of "ip -4 route show default"
+ * @param output the command output
+ * @returns the gateway addresses, they know the DHCP names of the devices while the system resolver often does not
+ */
+export function parseDefaultGateways(output: string) {
+  return output.split('\n').flatMap(line => {
+    const gateway = /^default via (?<ip>\d+\.\d+\.\d+\.\d+)/u.exec(line)?.groups?.ip
+    return gateway === undefined ? [] : [gateway]
+  })
+}
+
+/**
  * Read the content of /proc/net/arp
  * @param content the file content
  * @returns the neighbors having a complete entry
@@ -1238,6 +1250,42 @@ async function readNeighbors() {
 }
 
 /**
+ * Read the gateways of this machine, undefined on Windows where the system resolver is used alone
+ * @returns the gateway addresses
+ */
+async function readGateways() {
+  if (isWindows) return []
+  return parseDefaultGateways((await run('ip', ['-4', 'route', 'show', 'default'])) ?? '')
+}
+
+/**
+ * Ask the reverse DNS name of an address to the system resolver and to every gateway, the box knows the names given by DHCP
+ * @param ip the device address
+ * @param gateways the gateway addresses
+ * @returns the first name found, undefined if nobody knows it
+ */
+async function reverseLookup(ip: string, gateways: readonly string[]) {
+  const asks = [
+    dns.reverse(ip),
+    ...gateways.map(gateway => {
+      const resolver = new dns.Resolver({ timeout: dnsWaitMs, tries: 1 })
+      resolver.setServers([gateway])
+      return resolver.reverse(ip)
+    }),
+  ]
+  const names = asks.map(async lookup => {
+    const [name] = (await withTimeout(lookup, dnsWaitMs)) ?? []
+    invariant(name !== undefined, 'no name')
+    return name
+  })
+  try {
+    return await Promise.any(names)
+  } catch {
+    return undefined
+  }
+}
+
+/**
  * Time a TCP connection attempt : a device answers either by accepting or by refusing the connection
  * @param ip the device address
  * @param port the TCP port
@@ -1375,18 +1423,19 @@ async function collectMdnsNames(hosts: readonly string[]) {
  * @param names the mDNS and NetBIOS names by IP
  * @param names.mdns the mDNS names
  * @param names.netbios the NetBIOS names
+ * @param names.gateways the gateways asked for the reverse DNS name
  * @param previous the device as tracked by the previous sweeps, its reverse DNS name is kept instead of asking again
  * @returns the names by source, empty if nothing answered
  */
-async function findNames(device: FoundDevice, names: { mdns: ReadonlyMap<string, string>; netbios: ReadonlyMap<string, string> }, previous: TrackedDevice | undefined) {
+async function findNames(device: FoundDevice, names: { gateways: readonly string[]; mdns: ReadonlyMap<string, string>; netbios: ReadonlyMap<string, string> }, previous: TrackedDevice | undefined) {
   const found: NonNullable<FoundDevice['names']> = {}
   const mdns = names.mdns.get(device.ip)
   const netbios = names.netbios.get(device.ip)
   // the reverse DNS name rarely changes, so only a device seen for the first time is asked
   let reverseName = previous?.names?.dns ?? ''
   if (previous === undefined) {
-    const reverse = await withTimeout(dns.reverse(device.ip), dnsWaitMs)
-    if (reverse?.[0] !== undefined) reverseName = sanitizeText(reverse[0].replace(/\.$/u, ''))
+    const reverse = await reverseLookup(device.ip, names.gateways)
+    if (reverse !== undefined) reverseName = sanitizeText(reverse.replace(/\.$/u, ''))
   }
   if (mdns !== undefined) found.mdns = mdns
   if (netbios !== undefined) found.netbios = netbios
@@ -1434,9 +1483,10 @@ async function sweep(targets: readonly ScanTarget[], known: ReadonlyMap<string, 
   const total = devices.length
   report({ label: `identifying ${total} devices`, ratio: sweepSteps.listed })
   const mdnsNames = await collectMdnsNames(devices.filter(device => device.name === undefined).map(device => device.ip))
+  const gateways = await readGateways()
   await runLimited(devices, identifyConcurrency, async device => {
     const [names, responseMs, ports] = await Promise.all([
-      device.names ?? findNames(device, { mdns: mdnsNames, netbios: netbiosNames }, known.get(device.mac)),
+      device.names ?? findNames(device, { gateways, mdns: mdnsNames, netbios: netbiosNames }, known.get(device.mac)),
       measureResponse(device.ip),
       known.get(device.mac)?.ports === undefined ? scanPorts(device.ip) : undefined,
     ])

@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.6.2] - 2026-11-01
+
+### Fixed
+
+- net-scan: the reverse DNS name is also asked to the default gateway, so the DHCP names known by the router (like a phone on a randomized MAC) are found when the system resolver ignores the router
+
 ## [0.6.1] - 2026-10-30
 
 ### Changed
