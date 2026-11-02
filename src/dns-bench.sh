@@ -17,19 +17,27 @@ BOLD='\033[1m'
 NC='\033[0m' # No Color
 
 # DNS test servers
+# ["CleanBrowsing"]="185.228.168.168" # no free tier
+# ["DNS0.eu"]="193.110.81.0" # closed
 declare -A DNS_SERVERS=(
-  ["Cloudflare"]="1.1.1.1"
-  ["Google"]="8.8.8.8"
-  ["Quad9"]="9.9.9.9"
-  ["OpenDNS"]="208.67.222.222"
-  ["AdGuard"]="94.140.14.14"
-  ["CleanBrowsing"]="185.228.168.168"
+  ["AdGuard"]="94.140.14.14" # 94.140.15.15, 2a10:50c0::ad1:ff, 2a10:50c0::ad2:ff
+  ["Cloudflare"]="1.1.1.1" # 2606:4700:4700::1111, 2606:4700:4700::1001
   ["Comodo"]="8.26.56.26"
-  ["Level3"]="4.2.2.2"
-  ["ControlD"]="76.76.2.0"
+  ["ControlD"]="76.76.2.0" # 76.76.10.0, 2606:1a40::, 2606:1a40:1::
   ["DNS.SB"]="185.222.222.222"
+  ["DNS4EU"]="86.54.11.100"
+  ["FDN"]="80.67.169.12" # 80.67.169.40, 2001:910:800::12, 2001:910:800::40
+  ["Google"]="8.8.8.8" # 8.8.4.4, 2001:4860:4860::8888, 2001:4860:4860::8844
+  ["Level3"]="4.2.2.2"
   ["NextDNS"]="45.90.28.96"
+  ["OpenDNS"]="208.67.222.222" # 2620:119:35::35, 2620:119:53::53
+  ["Quad9"]="9.9.9.9" # 149.112.112, 2620:fe::fe, 2620:fe::9
 )
+# in linux go to network settings and check the DNS servers, or run `nmcli dev show | grep DNS` to get the list of DNS servers.
+# use this for IPV4 DNS4EU, Comodo, Cloudflare, Google
+# 86.54.11.100, 8.26.56.26, 1.1.1.1, 8.8.8.8
+# use this for IPV4 DNS4EU, DNS4EU, Cloudflare, Google
+# 2a13:1001::86:54:11:100,2a13:1001::86:54:11:200,2606:4700:4700::1111,2001:4860:4860::8888
 
 # Test domains - popular websites
 TEST_DOMAINS=(
@@ -43,6 +51,7 @@ TEST_DOMAINS=(
   "github.com"
   "1337x.to"
   "c411.org"
+  "yggreborn.org"
 )
 
 TESTS_PER_DOMAIN=3

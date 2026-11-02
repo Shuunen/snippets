@@ -1,10 +1,10 @@
 #!/usr/bin/env bun
 // cSpell:disable
 
+import { execFileSync } from 'node:child_process'
 import fs from 'node:fs'
 import path from 'node:path'
 import { cac } from 'cac'
-import glob from 'tiny-glob'
 import { ruleApplies, rules } from './lint.rules'
 
 function lintFile(filePath: string): string[] {
@@ -34,18 +34,20 @@ function lintFile(filePath: string): string[] {
   return issues
 }
 
-async function getTargetFiles(target: string): Promise<string[]> {
-  if (target.length === 0) throw new Error('missing target argument')
-  const matches = await glob(target, { filesOnly: true })
-  return matches.map(match => path.resolve(process.cwd(), match))
+function getTargetFiles(): string[] {
+  const output = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z'], { encoding: 'utf8' })
+  return output
+    .split('\0')
+    .filter(file => file.length > 0 && fs.existsSync(file))
+    .map(file => path.resolve(process.cwd(), file))
 }
 
-async function main() {
+function main() {
   const cli = cac('lint')
-  cli.usage('[options]').option('--target <glob>', 'the files to lint, ex : --target=src/**/*.cli.ts').help()
+  cli.usage('').help()
   const { options } = cli.parse()
   if (options.help === true) return
-  const files = await getTargetFiles(String(options.target ?? ''))
+  const files = getTargetFiles()
   let foundIssues = false
   for (const filePath of files) {
     const issues = lintFile(filePath)
@@ -58,4 +60,4 @@ async function main() {
   console.log('All custom rules passed successfully!')
 }
 
-await main()
+main()

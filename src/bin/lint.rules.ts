@@ -12,7 +12,7 @@ const executableMode = 0o755
 const octalBase = 8
 
 export type Rule = {
-  appliesTo?: (filePath: string) => boolean
+  appliesTo: (filePath: string) => boolean
   check: (content: string, filePath?: string, mode?: number) => boolean
   error: string
   fixer?: (content: string, filePath: string) => string
@@ -46,11 +46,19 @@ function normalizeContent(content: string): string {
 }
 
 export function ruleApplies(rule: Rule, filePath: string): boolean {
-  return rule.appliesTo === undefined ? filePath.endsWith('.md') : rule.appliesTo(filePath)
+  return rule.appliesTo(filePath)
+}
+
+export function isManualFile(filePath: string): boolean {
+  return /(?:^|[/\\])manuals[/\\].+\.md$/u.test(filePath)
 }
 
 export function isCliFile(filePath: string): boolean {
   return /\.cli\.(?:js|ts)$/u.test(filePath)
+}
+
+export function isShellFile(filePath: string): boolean {
+  return filePath.endsWith('.sh')
 }
 
 export function hasShebang(content: string): boolean {
@@ -78,21 +86,25 @@ function addShebang(content: string): string {
 
 export const rules: Rule[] = [
   {
+    appliesTo: isManualFile,
     check: (content: string) => hasOneH1(content),
     error: 'must contain exactly one first-level title (#)',
     name: 'single H1',
   },
   {
+    appliesTo: isManualFile,
     check: (content: string) => hasContent(content),
     error: 'must have content beyond the title',
     name: 'has content',
   },
   {
+    appliesTo: isManualFile,
     check: (content: string) => hasNoTodos(content),
     error: 'contains TODO, TBD, or placeholder text — please complete or remove',
     name: 'no todos',
   },
   {
+    appliesTo: isManualFile,
     check: (_content: string, filePath = '') => isKebabCaseFilename(filePath),
     error: 'filename must be lowercase kebab-case (e.g. my-manual.md)',
     fixer: (content: string) => normalizeContent(content),
@@ -117,5 +129,12 @@ export const rules: Rule[] = [
     check: (content: string) => hasNoProcessArgv(content),
     error: 'cli must not read process.argv, parse the arguments with cac instead (https://github.com/cacjs/cac)',
     name: 'cli arguments',
+  },
+  {
+    appliesTo: isShellFile,
+    check: (_content: string, _filePath = '', mode = 0) => isExecutable(mode),
+    error: 'shell script must be executable (chmod +x)',
+    modeFixer: (mode: number) => (isExecutable(mode) ? mode : executableMode),
+    name: 'sh executable',
   },
 ]
