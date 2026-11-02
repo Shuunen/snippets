@@ -10,7 +10,8 @@ import { homedir, hostname, type NetworkInterfaceInfo, networkInterfaces } from 
 import path from 'node:path'
 import { performance } from 'node:perf_hooks'
 import { emitKeypressEvents } from 'node:readline'
-import { parseArgs, promisify } from 'node:util'
+import { promisify } from 'node:util'
+import { cac } from 'cac'
 import { invariant, kebabCase } from 'es-toolkit'
 import { bold, dim, green, Logger, sleep, yellow } from 'shuutils'
 
@@ -130,7 +131,6 @@ const virtualInterfaceRegex = /^(?:docker|veth|br-|virbr|tun|tap|tailscale|zt|wg
 const keyEscape = '\u001B'
 const byteBase = 2
 const firstByteLength = 2
-const firstArgumentIndex = 2
 const ipOctets = 4
 const pointerSize = 2
 const maxDnsJumps = 16
@@ -1131,17 +1131,6 @@ type SoundPlayer = { args: string[]; command: string }
 /** leave the alternate screen, which gives the previous terminal content back, and show the cursor */
 const restoreTerminal = '\u001B[?1049l\u001B[?25h'
 
-const usage = `Scan the networks of this machine and list the living devices.
-
-usage : net-scan.cli.ts [file] [options]
-  file         where the names are stored, net-scan.txt by default
-  --once       scan once, print the report and leave
-  --hints      start with the hints column shown, h toggles it
-  --network    start with the network column shown, n toggles it
-  -h, --help   show this help
-
-keys : up / down select, enter rename, l live mode, h hints, n network, q quit`
-
 const soundFile = '/usr/share/sounds/freedesktop/stereo/message.oga'
 
 const soundPlayers: SoundPlayer[] = [
@@ -1694,25 +1683,36 @@ function listenToKeys(session: Session) {
 }
 
 /**
+ * Read the command line, cac prints the help itself
+ * @returns the positional arguments and the options
+ */
+function parseArguments() {
+  const cli = cac('net-scan')
+  cli.usage('[file]')
+  cli.option('--once', 'scan once, print the report and leave')
+  cli.option('--hints', 'start with the hints column shown, h toggles it')
+  cli.option('--network', 'start with the network column shown, n toggles it')
+  cli.help(sections => [
+    { body: 'Scan the networks of this machine and list the living devices, the names are stored in [file], net-scan.txt by default', title: 'net-scan' },
+    ...sections.slice(1),
+    { body: 'up / down select, enter rename, l live mode, h hints, n network, q quit', title: 'Keys' },
+  ])
+  return cli.parse()
+}
+
+/**
  * Start the cli
  */
 async function main() {
-  const { positionals, values } = parseArgs({
-    allowPositionals: true,
-    args: process.argv.slice(firstArgumentIndex),
-    options: { help: { short: 'h', type: 'boolean' }, hints: { type: 'boolean' }, network: { type: 'boolean' }, once: { type: 'boolean' } },
-  })
-  if (values.help === true) {
-    process.stdout.write(`${usage}\n`)
-    return
-  }
-  const file = path.resolve(positionals[0] ?? 'net-scan.txt')
+  const { args, options } = parseArguments()
+  if (options.help === true) return
+  const file = path.resolve(args[0] ?? 'net-scan.txt')
   if (process.platform !== 'linux' && !isWindows) throw new Error(`Unsupported platform "${process.platform}", only Linux and Windows are supported`)
   const targets = pickTargets(networkInterfaces())
   if (targets.length === 0) throw new Error('No active network found')
   const backedUp = !ensureStore(file)
   // --once prints the report and leaves, even in a terminal
-  const interactive = process.stdin.isTTY && process.stdout.isTTY && values.once !== true
+  const interactive = process.stdin.isTTY && process.stdout.isTTY && options.once !== true
   const isLive = interactive
   const session: Session = {
     backedUp,
@@ -1723,8 +1723,8 @@ async function main() {
     isOver: false,
     isSweeping: false,
     labels: readLabels(readFileSync(file, 'utf8')),
-    showHints: values.hints === true,
-    showNetwork: values.network === true,
+    showHints: options.hints === true,
+    showNetwork: options.network === true,
     sweeps: 0,
     targets,
     ui: {},

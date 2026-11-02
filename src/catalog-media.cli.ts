@@ -5,6 +5,7 @@ import { createHash } from 'node:crypto'
 import { mkdir, readdir, readFile, stat, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { promisify } from 'node:util'
+import { cac } from 'cac'
 import { invariant } from 'es-toolkit'
 import sharp from 'sharp'
 import { Logger } from 'shuutils'
@@ -378,7 +379,19 @@ export function renderCatalog(template: string, catalog: { generated: Date; movi
 
 const execFileAsync = promisify(execFile)
 const logger = new Logger()
-const noCache = process.argv.includes('--no-cache')
+/**
+ * Read the command line, cac prints the help itself
+ * @returns whether the help was asked and whether the cache is ignored
+ */
+function parseArguments() {
+  const cli = cac('catalog-media')
+  cli.usage('[options]')
+  cli.option('--no-cache', 'ignore the cache of posters and video resolutions, kept in src/.cache/catalog-media').help()
+  const { options } = cli.parse()
+  return { isHelp: options.help === true, noCache: options.cache === false }
+}
+
+const { isHelp, noCache } = parseArguments()
 const envPath = path.join(import.meta.dirname, 'catalog-media.env')
 const templatePath = path.join(import.meta.dirname, 'catalog-media.template.html')
 const cacheDir = path.join(import.meta.dirname, '.cache', 'catalog-media')
@@ -556,4 +569,4 @@ async function start() {
   logger.info(`Done, ${outputPath} is ${(html.length / nbBytesInMb).toFixed(1)} MB`)
 }
 
-if (import.meta.main) await start()
+if (import.meta.main && !isHelp) await start()

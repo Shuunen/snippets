@@ -5,7 +5,8 @@ import { execSync } from 'node:child_process'
 import { promises as fs } from 'node:fs'
 import path from 'node:path'
 import { createInterface } from 'node:readline'
-import { green, Logger, nbFourth, nbPixelSm, nbSecondsInMinute, nbThird, Result, sleep } from 'shuutils'
+import { cac } from 'cac'
+import { green, Logger, nbPixelSm, nbSecondsInMinute, Result, sleep } from 'shuutils'
 import { getFfmpegCommand, getScreenshotFilename, parseUserInput, parseVideoMetadata } from './take-screenshot.utils.js'
 
 // usage :
@@ -20,6 +21,9 @@ const currentFolder = import.meta.dirname
 const logFile = path.join(currentFolder, 'take-screenshot.log')
 const lastInputFile = path.join(currentFolder, 'take-screenshot-last-input.txt')
 const logger = new Logger()
+const cli = cac('take-screenshot')
+cli.usage('<video> [mmss]').help()
+const { args, options } = cli.parse()
 
 /**
  * Emit a beep sound
@@ -105,7 +109,7 @@ function getTask(totalSeconds, metadata) {
  * @returns {Promise<Task[]>} an array of tasks to take screenshots at the specified times
  */
 async function getTasks(input) {
-  const videoPath = process.argv[nbThird]
+  const [videoPath] = args
   if (videoPath === undefined) throw new Error('no video path')
   const videoName = path.basename(videoPath)
   const meta = await getVideoMetadata(videoPath)
@@ -136,12 +140,13 @@ async function takeScreenAt(input) {
  * Initialize the take screenshot process
  */
 async function init() {
+  if (options.help === true) return
   logger.info('Take screenshot is starting !')
   await logClear()
   await logAdd('Take screenshot starts @', new Date().toISOString())
-  if (process.argv[nbThird] === undefined) throw new Error('missing videoPath')
-  if (process.argv[nbFourth]) {
-    await takeScreenAt(process.argv[nbFourth])
+  if (args[0] === undefined) throw new Error('missing videoPath')
+  if (args[1]) {
+    await takeScreenAt(args[1])
     await beep()
     return
   }

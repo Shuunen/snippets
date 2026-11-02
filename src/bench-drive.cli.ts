@@ -8,6 +8,7 @@ import { homedir, release, tmpdir } from 'node:os'
 import path from 'node:path'
 import { performance } from 'node:perf_hooks'
 import { createInterface, emitKeypressEvents } from 'node:readline'
+import { cac } from 'cac'
 import clipboard from 'clipboardy'
 import { invariant } from 'es-toolkit'
 import { blue, bold, cyan, dim, green, Logger, nbMsInSecond, nbPercentMax, red, sleep } from 'shuutils'
@@ -1228,7 +1229,6 @@ const showCursor = '\u001B[?25h'
  * @returns the ANSI sequence
  */
 const cursorUp = (nbLines: number) => `\u001B[${nbLines}A`
-const firstArgumentIndex = 2
 /** run ids are stored as unsigned 32 bits integers */
 const nbUint32Values = 4_294_967_296
 /** sysfs block sizes are always counted in 512 bytes sectors */
@@ -1757,16 +1757,37 @@ function abortBenchmark() {
 }
 
 /**
+ * Read the command line, cac prints the help itself
+ * @returns the optional folder to benchmark and whether the help was asked
+ */
+function parseArguments() {
+  const cli = cac('bench-drive')
+  cli.usage('[folder]').help()
+  const { args, options } = cli.parse()
+  return { folderArgument: args.at(0), isHelp: options.help === true }
+}
+
+/**
+ * Get the drive to benchmark, from the given folder or by asking
+ * @param folderArgument the optional folder hosted by the drive
+ * @returns the drive
+ */
+function pickDrive(folderArgument: string | undefined) {
+  const drives = sortSelectableFirst(listDrives())
+  if (drives.length === 0) throw new Error('No drive found')
+  return folderArgument === undefined ? askDrive(drives) : driveFromFolder(folderArgument, drives)
+}
+
+/**
  * Start the cli
  */
 async function start() {
+  const { folderArgument, isHelp } = parseArguments()
+  if (isHelp) return
   logger.info('Drive benchmark : sequential and random reads & writes, existing data is never touched')
   if (process.platform !== 'linux' && !isWindows) throw new Error(`Unsupported platform "${process.platform}", only Linux and Windows are supported`)
   if (process.versions.bun === undefined) throw new Error('This cli needs Bun to bypass the OS cache, run it with : bun src/bench-drive.cli.ts')
-  const drives = sortSelectableFirst(listDrives())
-  if (drives.length === 0) throw new Error('No drive found')
-  const folderArgument = process.argv.at(firstArgumentIndex)
-  const drive = folderArgument === undefined ? await askDrive(drives) : driveFromFolder(folderArgument, drives)
+  const drive = await pickDrive(folderArgument)
   const linkWarning = isWindows ? undefined : linuxUsbLinkWarning(drive)
   if (linkWarning !== undefined) {
     logger.warn(linkWarning)

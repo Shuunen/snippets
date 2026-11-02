@@ -3,6 +3,7 @@
 import { appendFileSync, readFileSync, writeFileSync } from 'node:fs'
 import { request as _request } from 'node:https'
 import path from 'node:path'
+import { cac } from 'cac'
 import { nbFourth, nbThird } from 'shuutils'
 
 const data = {
@@ -32,6 +33,9 @@ const options = {
 const currentFolder = import.meta.dirname
 const logFile = path.join(currentFolder, 'lol-practice-5v5.log')
 let logCount = 0
+const cli = cac('lol-practice-5v5')
+cli.usage('<lockfile> [lobby-name]').help()
+const { args, options: flags } = cli.parse()
 
 /**
  * Clear the log file
@@ -79,7 +83,7 @@ function doRequest() {
  * Read the lockfile to get the port and authorization header
  */
 function readLock() {
-  const lockPath = process.argv[nbThird]
+  const [lockPath] = args
   if (lockPath === undefined) throw new Error('missing lockfile path, use me like : \n\n lol-practice-5v5.js "D:\\Games\\Riot Games\\League of Legends\\lockfile" "My game lobby name"')
   logAdd(`Summoner lockfile located at : ${lockPath}`)
   if (!lockPath.includes('lockfile')) throw new Error(String.raw`lockfile path invalid, should looks like "D:\Games\Riot Games\League of Legends\lockfile"`)
@@ -99,7 +103,7 @@ function readLock() {
  * Handle the custom game lobby name
  */
 function handleCustomName() {
-  const customName = process.argv[nbFourth]
+  const [, customName] = args
   if (customName !== undefined) data.customGameLobby.lobbyName = customName
 }
 
@@ -107,6 +111,7 @@ function handleCustomName() {
  * Initialize the lol-practice-5v5 process
  */
 function init() {
+  if (flags.help === true) return
   logClear()
   logAdd('LoL Practice 5v5 maker starts @', String(new Date()))
   logAdd('Checking process.env.NODE_TLS_REJECT_UNAUTHORIZED status', process.env.NODE_TLS_REJECT_UNAUTHORIZED === '0' ? 'OK, disabled as expected' : 'KO, not disabled, this script should not work without it')

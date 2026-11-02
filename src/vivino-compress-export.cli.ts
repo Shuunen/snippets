@@ -2,6 +2,7 @@
 /* v8 ignore start */
 import { promises as fs } from 'node:fs'
 import path from 'node:path'
+import { cac } from 'cac'
 import { Logger, nbPercentMax } from 'shuutils'
 import { compressCsv } from './vivino-compress-export.utils.js'
 
@@ -30,11 +31,14 @@ async function logAdd(...stuff: Date[] | string[]) {
  * Initialize the Vivino compress process
  */
 async function init() {
+  const cli = cac('vivino-compress-export')
+  cli.usage('<full_wine_list.csv>').help()
+  const { args, options } = cli.parse()
+  if (options.help === true) return
   logger.info('Vivino Compress, will compress your Vivino full_wine_list.csv export file from 170kB to 17kB in seconds')
   await logClear()
   await logAdd('Vivino compress starts @', new Date().toISOString())
-  // oxlint-disable-next-line no-unreadable-array-destructuring
-  const [, , fileName = ''] = process.argv
+  const fileName = args.at(0) ?? ''
   if (!fileName) throw new Error('missing full_wine_list.csv file path')
   const input = await fs.readFile(fileName, 'utf8')
   const output = compressCsv(input)

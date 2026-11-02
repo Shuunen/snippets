@@ -3,10 +3,9 @@
 
 import fs from 'node:fs'
 import path from 'node:path'
+import { cac } from 'cac'
 import glob from 'tiny-glob'
 import { ruleApplies, rules } from './lint.rules'
-
-const argvStart = 2 // skip node binary + script path
 
 function lintFile(filePath: string): string[] {
   let content = fs.readFileSync(filePath, 'utf8')
@@ -35,20 +34,18 @@ function lintFile(filePath: string): string[] {
   return issues
 }
 
-async function getTargetFiles(argv: string[]): Promise<string[]> {
-  const args: Record<string, string> = {}
-  for (const arg of argv.slice(argvStart)) {
-    const [key = '', value = ''] = arg.replace('--', '').split('=')
-    if (key.length > 0) args[key] = value
-  }
-  const { target = '' } = args
+async function getTargetFiles(target: string): Promise<string[]> {
   if (target.length === 0) throw new Error('missing target argument')
   const matches = await glob(target, { filesOnly: true })
   return matches.map(match => path.resolve(process.cwd(), match))
 }
 
-async function main(argv: string[]) {
-  const files = await getTargetFiles(argv)
+async function main() {
+  const cli = cac('lint')
+  cli.usage('[options]').option('--target <glob>', 'the files to lint, ex : --target=src/**/*.cli.ts').help()
+  const { options } = cli.parse()
+  if (options.help === true) return
+  const files = await getTargetFiles(String(options.target ?? ''))
   let foundIssues = false
   for (const filePath of files) {
     const issues = lintFile(filePath)
@@ -61,4 +58,4 @@ async function main(argv: string[]) {
   console.log('All custom rules passed successfully!')
 }
 
-await main(process.argv)
+await main()

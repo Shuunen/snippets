@@ -2,6 +2,7 @@
 /* v8 ignore start */
 import { readFileSync, statSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
+import { cac } from 'cac'
 import clipboardy from 'clipboardy'
 import { Logger, nbMsInSecond, nbPixelSm, sleep, stringSum } from 'shuutils'
 import { cleanTrackers } from './clean-trackers.utils.js'
@@ -13,9 +14,17 @@ import { cleanTrackers } from './clean-trackers.utils.js'
 
 // you can also use --watch to keep the script running and clean the clipboard each time it changes
 
-const willWatch = process.argv.includes('--watch')
-const isVerbose = process.argv.includes('--verbose')
-const willCheckFile = process.argv.includes('--file')
+const cli = cac('clean-trackers')
+cli.usage('[options]')
+cli.option('--watch', 'keep running and clean the clipboard each time it changes')
+cli.option('--verbose', 'show the debug logs')
+cli.option('--file', 'read the file input instead of the clipboard')
+cli.help()
+const { options } = cli.parse()
+if (options.help === true) process.exit(0)
+const willWatch = options.watch === true
+const isVerbose = options.verbose === true
+const willCheckFile = options.file === true
 const fileInput = path.join(import.meta.dirname, 'clean-trackers.input.txt')
 const logger = new Logger({ minimumLevel: isVerbose ? '1-debug' : '3-info' })
 let lastSum = 0

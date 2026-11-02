@@ -1,6 +1,7 @@
 #!/usr/bin/env bun
 /* v8 ignore start */
 import { readFileSync } from 'node:fs'
+import { cac } from 'cac'
 import { dim, green, red, yellow } from 'shuutils'
 import { logger } from './core/logger'
 import type { Report, SyncFile } from './core/types'
@@ -11,12 +12,26 @@ import { backupPath, loadFiles } from './sync/files'
 import { copy, filename, normalizePathWithSlash } from './sync/paths'
 import { createReport, summarize } from './sync/report'
 
-const flags = {
-  isDebug: process.argv.includes('--debug'),
-  isDryRun: process.argv.includes('--dry'),
-  isReport: process.argv.includes('--report'),
-  isSetup: process.argv.includes('--setup'),
+/**
+ * Read the command line, cac prints the help itself
+ * @returns the flags and whether the help was asked
+ */
+function parseArguments() {
+  const cli = cac('sync')
+  cli.usage('[options]')
+  cli.option('--debug', 'show the debug logs')
+  cli.option('--dry', 'only look, never write to either side')
+  cli.option('--report', 'only look, never write to either side')
+  cli.option('--setup', 'copy the missing local files from the repo')
+  cli.help()
+  const { options } = cli.parse()
+  return {
+    flags: { isDebug: options.debug === true, isDryRun: options.dry === true, isReport: options.report === true, isSetup: options.setup === true },
+    isHelp: options.help === true,
+  }
 }
+
+const { flags, isHelp } = parseArguments()
 /** a --report or --dry run only looks : it never writes to either side */
 const isPreview = flags.isReport || flags.isDryRun
 
@@ -111,7 +126,8 @@ async function start() {
   logger.info(...summarize({ didMerge, hasRepoChanges, isPreview, outOfSyncPaths }))
 }
 
-await start().catch((error: unknown) => {
-  logger.error(error)
-  process.exitCode = 1
-})
+if (!isHelp)
+  await start().catch((error: unknown) => {
+    logger.error(error)
+    process.exitCode = 1
+  })

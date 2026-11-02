@@ -2,9 +2,12 @@
 /* v8 ignore start */
 import { lstatSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
+import { cac } from 'cac'
 
 const spaces = 2
-const expectedNbParameters = 2
+const cli = cac('format-json')
+cli.usage('<file or folder>').help()
+const { args, options } = cli.parse()
 
 /**
  * @param {string} filePath the filepath
@@ -33,14 +36,15 @@ function getFiles(folderPath) {
  * @returns {string} the path
  */
 function getPath() {
-  if (process.argv.length <= expectedNbParameters) throw new Error(String.raw`this script need a path as argument like : format-json.js my-file.json or format-json.js "C:\My Folder\"`)
-  return path.normalize(process.argv[expectedNbParameters] ?? '')
+  if (args.length === 0) throw new Error(String.raw`this script need a path as argument like : format-json.js my-file.json or format-json.js "C:\My Folder\"`)
+  return path.normalize(args[0] ?? '')
 }
 
 /**
  * Start the format JSON process
  */
 function start() {
+  if (options.help === true) return
   const folderPath = getPath()
   const files = getFiles(folderPath)
   for (const file of files) formatFile(file)

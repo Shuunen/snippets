@@ -169,6 +169,9 @@ importers:
       7zip-min:
         specifier: ^3.0.1
         version: 3.0.1
+      cac:
+        specifier: ^7.1.0
+        version: 7.1.0
       cli-highlight:
         specifier: ^2.1.11
         version: 2.1.11
@@ -1435,6 +1438,10 @@ packages:
     cpu: [arm64, x64]
     os: [darwin, linux, android, freebsd, win32]
     hasBin: true
+
+  cac@7.1.0:
+    resolution: {integrity: sha512-LMDU/U2yA4IPIY8KT0NsNPWEYZvAMkbgyspxJ6btJaYV+WMDOHAZCmB0lsTObiHaRS1V/ztKAl7+TSkTqXyeoA==}
+    engines: {node: '>=20.19.0'}
 
   chai@6.3.0:
     resolution: {integrity: sha512-XWAtwJ6OHO+tj0EKCs0Y2UamnyOxseZWltU4x2U2wh8g4AigdjwvtUjvLP2tqkA/avxHEtzxNaqGq/YGNwckKg==}
@@ -2936,6 +2943,8 @@ snapshots:
       '@oven/bun-linux-x64-musl': 1.4.4
       '@oven/bun-windows-aarch64': 1.4.4
       '@oven/bun-windows-x64': 1.4.4
+
+  cac@7.1.0: {}
 
   chai@6.3.0: {}
 

@@ -1,7 +1,8 @@
 #!/usr/bin/env bun
 /* v8 ignore start */
 import { readFile } from 'node:fs/promises'
-import { blue, gray, Logger, nbPercentMax, nbThird, yellow } from 'shuutils'
+import { cac } from 'cac'
+import { blue, gray, Logger, nbPercentMax, yellow } from 'shuutils'
 import { HtmlReporter } from './html-reporter.js'
 
 const /** @type {Record<string, string>} */ explanations = {
@@ -51,4 +52,7 @@ async function startReport(input = '') {
   showReport(stats)
 }
 
-if (process.argv[nbThird] !== undefined) await startReport(process.argv[nbThird])
+const cli = cac('html-report')
+cli.usage('<file or html>').help()
+const { args, options } = cli.parse()
+if (options.help !== true && args[0] !== undefined) await startReport(args[0])

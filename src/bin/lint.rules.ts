@@ -61,6 +61,15 @@ export function isExecutable(mode: number): boolean {
   return /[1357]{3}$/u.test(mode.toString(octalBase))
 }
 
+/**
+ * Tell if the content avoids process.argv, process.argv[1] stays allowed as it only tells if the cli is the entry point
+ * @param content the file content
+ * @returns true when process.argv is not read
+ */
+export function hasNoProcessArgv(content: string): boolean {
+  return !/process\.argv(?!\[1\])/u.test(content)
+}
+
 function addShebang(content: string): string {
   if (hasShebang(content)) return content
   const withoutShebang = content.startsWith('#!') ? content.slice(content.indexOf('\n') + 1) : content
@@ -102,5 +111,11 @@ export const rules: Rule[] = [
     error: 'cli must be executable (chmod +x)',
     modeFixer: (mode: number) => (isExecutable(mode) ? mode : executableMode),
     name: 'cli executable',
+  },
+  {
+    appliesTo: isCliFile,
+    check: (content: string) => hasNoProcessArgv(content),
+    error: 'cli must not read process.argv, parse the arguments with cac instead (https://github.com/cacjs/cac)',
+    name: 'cli arguments',
   },
 ]

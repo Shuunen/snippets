@@ -3,6 +3,7 @@
 // oxlint-disable no-magic-numbers, class-methods-use-this
 import { readdir, stat } from 'node:fs/promises'
 import path from 'node:path'
+import { cac } from 'cac'
 import { Logger } from 'shuutils'
 
 const maxResults = 10
@@ -17,6 +18,7 @@ class CheckDuplicates {
     this.elements = []
     this.detected = {}
     this.target = ''
+    this.isHelp = false
     this.nbElements = 0
     /**
      * @type {{ [key: string]: string }}
@@ -24,8 +26,12 @@ class CheckDuplicates {
     this.results = {}
   }
   args() {
-    if (process.argv.length < 4) throw new Error(String.raw`this script need a path as argument like : find-duplicates.js "U:\Movies\"`)
-    this.target = path.normalize(process.argv[3] || '')
+    const cli = cac('find-duplicates')
+    cli.usage('<folder>').help()
+    const { args, options } = cli.parse()
+    this.isHelp = options.help === true
+    if (!this.isHelp && args.length === 0) throw new Error(String.raw`this script need a path as argument like : find-duplicates.js "U:\Movies\"`)
+    this.target = path.normalize(args[0] || '')
   }
   ellipsis(string = '', length = 40) {
     return string.length > length ? `${string.slice(0, Math.max(0, length - 3))}...` : string
@@ -43,6 +49,7 @@ class CheckDuplicates {
   async start() {
     logger.info('\nCheck duplicates is starting !')
     this.args()
+    if (this.isHelp) return
     await this.find()
     await this.check()
     this.report()

@@ -2,16 +2,19 @@
 /* v8 ignore start */
 import { readdirSync, renameSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
+import { cac } from 'cac'
 import { blue, ellipsis, green, isTestEnvironment, Logger, red, slugify, yellow } from 'shuutils'
 
 // Use me like : node ~/Projects/github/snippets/src/check-screens.cli.js "/u/Screens/"
 
-const parameters = process.argv
-const expectedNbParameters = 2
+const cli = cac('check-screens')
+cli.usage('[folder]').option('--first', 'show the first file found').help()
+const { args, options } = cli.parse()
+if (options.help === true) process.exit(0)
 const logger = new Logger()
-if (parameters.length <= expectedNbParameters) logger.info('Targeting current folder, you can also specify a specific path, ex : node src/check-screens.cli.js "U:\\Screens\\" \n')
-const screensPath = path.normalize(parameters[expectedNbParameters] ?? process.cwd())
-const shouldShowFirst = parameters.includes('--first')
+if (args.length === 0) logger.info('Targeting current folder, you can also specify a specific path, ex : node src/check-screens.cli.js "U:\\Screens\\" \n')
+const screensPath = path.normalize(args[0] ?? process.cwd())
+const shouldShowFirst = options.first === true
 const regex = {
   image: /\.(?:jpg|png)$/u,
   letterBracket: /(?<letter>[a-zA-Z0-9])(?<bracket>\[|\()/gu,

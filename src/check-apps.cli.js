@@ -3,6 +3,7 @@
 import { readdirSync, statSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
 import { list } from '7zip-min'
+import { cac } from 'cac'
 import { blue, createInMemoryDriver, green, Logger, nbPercentMax, nbThird, red, Result, yellow } from 'shuutils'
 
 // Use me like : node ~/Projects/github/snippets/src/check-apps.cli.js "/d/Apps/"
@@ -11,19 +12,21 @@ import { blue, createInMemoryDriver, green, Logger, nbPercentMax, nbThird, red, 
  * @typedef {Record<string, string[]>} Groups
  */
 
-const parameters = process.argv
+const cli = cac('check-apps')
+cli.usage('[folder]').option('--check', 'also read the content of the archives').help()
+const { args, options } = cli.parse()
+if (options.help === true) process.exit(0)
 const minSimilarity = 0.68 // 68% similarity is the minimum to consider two names as similar
-const expectedNbParameters = 2
 const logger = new Logger({ storage: createInMemoryDriver() })
-if (parameters.length <= expectedNbParameters) logger.info(String.raw`Targeting current folder, you can also specify a specific path, ex : node src/check-screens.cli.js "U:\Screens\"`)
-const appsPath = path.normalize(parameters[expectedNbParameters] ?? process.cwd())
+if (args.length === 0) logger.info(String.raw`Targeting current folder, you can also specify a specific path, ex : node src/check-screens.cli.js "U:\Screens\"`)
+const appsPath = path.normalize(args[0] ?? process.cwd())
 const colors = [red, green, blue, yellow]
 let colorIndex = 0
 const currentFolder = import.meta.dirname
 const nbSpaces = 2
 const archivesExtensions = new Set(['7z', 'exe', 'rar', 'zip'])
 const readableExtensions = new Set(['7z', 'zip'])
-const checkArchives = parameters.includes('--check')
+const checkArchives = options.check === true
 
 /**
  * Calculate the similarity between two strings
