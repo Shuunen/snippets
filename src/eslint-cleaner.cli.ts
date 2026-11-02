@@ -1,3 +1,4 @@
+#!/usr/bin/env bun
 /* v8 ignore start */
 import { readFile, writeFile } from 'node:fs/promises'
 import { Logger } from 'shuutils'

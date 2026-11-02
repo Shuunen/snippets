@@ -1,3 +1,4 @@
+#!/usr/bin/env bun
 import { readdirSync, renameSync, statSync, unlinkSync } from 'node:fs'
 import path from 'node:path'
 import { blue, createInMemoryDriver, green, Logger, red, yellow } from 'shuutils'

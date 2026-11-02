@@ -1,3 +1,4 @@
+#!/usr/bin/env bun
 /* v8 ignore start */
 // oxlint-disable no-await-in-loop
 import { execSync } from 'node:child_process'

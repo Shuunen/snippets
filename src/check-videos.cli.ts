@@ -1,3 +1,4 @@
+#!/usr/bin/env bun
 /* v8 ignore start */
 // oxlint-disable avoid-new, max-lines, no-eval, require-returns, no-magic-numbers, require-param-description
 import { exec } from 'node:child_process'

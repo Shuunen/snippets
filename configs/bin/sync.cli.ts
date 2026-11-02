@@ -1,3 +1,4 @@
+#!/usr/bin/env bun
 /* v8 ignore start */
 import { readFileSync } from 'node:fs'
 import { dim, green, red, yellow } from 'shuutils'

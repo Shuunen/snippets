@@ -1,3 +1,4 @@
+#!/usr/bin/env bun
 /* v8 ignore start */
 import clipboard from 'clipboardy'
 import { isolateLines, linesToList } from './isolate-lines.utils.js' // js extension is required here

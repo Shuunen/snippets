@@ -1,3 +1,4 @@
+#!/usr/bin/env bun
 // oxlint-disable promise/no-nesting, promise/prefer-await-to-then, max-lines
 import { spawnSync } from 'node:child_process'
 import { rename, unlink } from 'node:fs/promises'

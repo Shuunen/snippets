@@ -7,10 +7,16 @@ function stripCodeBlocks(content: string): string {
   return content.replaceAll(regexCodeBlock, '')
 }
 
+const shebang = '#!/usr/bin/env bun'
+const executableMode = 0o755
+const octalBase = 8
+
 export type Rule = {
-  check: (content: string, filePath?: string) => boolean
+  appliesTo?: (filePath: string) => boolean
+  check: (content: string, filePath?: string, mode?: number) => boolean
   error: string
   fixer?: (content: string, filePath: string) => string
+  modeFixer?: (mode: number) => number
   name: string
 }
 
@@ -39,6 +45,28 @@ function normalizeContent(content: string): string {
   return `${content.replaceAll('\r\n', '\n').replaceAll(/\n+$/g, '')}\n`
 }
 
+export function ruleApplies(rule: Rule, filePath: string): boolean {
+  return rule.appliesTo === undefined ? filePath.endsWith('.md') : rule.appliesTo(filePath)
+}
+
+export function isCliFile(filePath: string): boolean {
+  return /\.cli\.(?:js|ts)$/u.test(filePath)
+}
+
+export function hasShebang(content: string): boolean {
+  return content.split('\n')[0]?.trimEnd() === shebang
+}
+
+export function isExecutable(mode: number): boolean {
+  return /[1357]{3}$/u.test(mode.toString(octalBase))
+}
+
+function addShebang(content: string): string {
+  if (hasShebang(content)) return content
+  const withoutShebang = content.startsWith('#!') ? content.slice(content.indexOf('\n') + 1) : content
+  return `${shebang}\n${withoutShebang}`
+}
+
 export const rules: Rule[] = [
   {
     check: (content: string) => hasOneH1(content),
@@ -60,5 +88,19 @@ export const rules: Rule[] = [
     error: 'filename must be lowercase kebab-case (e.g. my-manual.md)',
     fixer: (content: string) => normalizeContent(content),
     name: 'kebab-case filename',
+  },
+  {
+    appliesTo: isCliFile,
+    check: (content: string) => hasShebang(content),
+    error: `cli must start with ${shebang}`,
+    fixer: addShebang,
+    name: 'cli shebang',
+  },
+  {
+    appliesTo: isCliFile,
+    check: (_content: string, _filePath = '', mode = 0) => isExecutable(mode),
+    error: 'cli must be executable (chmod +x)',
+    modeFixer: (mode: number) => (isExecutable(mode) ? mode : executableMode),
+    name: 'cli executable',
   },
 ]

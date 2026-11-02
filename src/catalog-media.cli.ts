@@ -1,3 +1,4 @@
+#!/usr/bin/env bun
 /* oxlint-disable max-lines */
 import { execFile } from 'node:child_process'
 import { createHash } from 'node:crypto'

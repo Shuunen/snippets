@@ -1,3 +1,4 @@
+#!/usr/bin/env bun
 /* v8 ignore start */
 import { promises as fs } from 'node:fs'
 import path from 'node:path'

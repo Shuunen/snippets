@@ -1,3 +1,4 @@
+#!/usr/bin/env bun
 import { blue, createInMemoryDriver, Logger, nbThird } from 'shuutils'
 
 // cd into the folder and use me like :

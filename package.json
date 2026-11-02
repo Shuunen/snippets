@@ -58,7 +58,7 @@
     "lint:issues": "oxlint --type-aware --deny-warnings --report-unused-disable-directives && echo lint:issues completed successfully || (echo Please run pnpm run lint:issues:fix to automatically fix linting issues && exit 1)",
     "lint:issues:fix": "oxlint --fix --fix-suggestions --fix-dangerously --type-aware --deny-warnings --report-unused-disable-directives && echo lint:issues:fix completed successfully || (echo Please run pnpm run lint:issues to check for remaining linting issues && exit 1)",
     "lint:knip": "knip && echo lint:knip success",
-    "lint:snippets": "bun src/bin/lint.cli.ts --target=manuals/**/*.md && echo lint:snippets completed successfully || (echo Please fix snippet issues && exit 1)",
+    "lint:snippets": "bun src/bin/lint.cli.ts --target=manuals/**/*.md && bun src/bin/lint.cli.ts --target=src/**/*.cli.{js,ts} && bun src/bin/lint.cli.ts --target={configs,src}/bin/*.cli.ts && echo lint:snippets completed successfully || (echo Please fix snippet issues && exit 1)",
     "lint:types": "tsc -p tsconfig.app.json && tsc -p tsconfig.node.json && echo lint:types completed successfully || (echo Please fix type errors and run pnpm run lint:types to check for remaining type issues && exit 1)",
     "test": "turbo run test:unit && echo test success",
     "test:shell": "bats src/*.bats && echo test:shell completed successfully || (echo Please fix shell test errors and run pnpm run test:shell to check for remaining test issues && exit 1)",

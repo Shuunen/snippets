@@ -1,3 +1,4 @@
+#!/usr/bin/env bun
 /* v8 ignore start */
 // oxlint-disable no-magic-numbers, class-methods-use-this
 import { readdir, stat } from 'node:fs/promises'

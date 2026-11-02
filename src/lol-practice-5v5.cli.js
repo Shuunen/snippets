@@ -1,3 +1,4 @@
+#!/usr/bin/env bun
 /* v8 ignore start */
 import { appendFileSync, readFileSync, writeFileSync } from 'node:fs'
 import { request as _request } from 'node:https'

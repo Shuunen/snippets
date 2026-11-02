@@ -1,3 +1,4 @@
+#!/usr/bin/env bun
 // oxlint-disable max-lines
 import { execFileSync } from 'node:child_process'
 import { randomFillSync, randomInt } from 'node:crypto'

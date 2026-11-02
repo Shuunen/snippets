@@ -1,17 +1,20 @@
+#!/usr/bin/env bun
 // cSpell:disable
 
 import fs from 'node:fs'
 import path from 'node:path'
 import glob from 'tiny-glob'
-import { rules } from './lint.rules'
+import { ruleApplies, rules } from './lint.rules'
 
 const argvStart = 2 // skip node binary + script path
 
 function lintFile(filePath: string): string[] {
   let content = fs.readFileSync(filePath, 'utf8')
   let changed = false
+  let { mode } = fs.statSync(filePath)
   const issues: string[] = []
   for (const rule of rules) {
+    if (!ruleApplies(rule, filePath)) continue
     if (rule.fixer !== undefined) {
       const fixedContent = rule.fixer(content, filePath)
       if (fixedContent !== content) {
@@ -19,7 +22,14 @@ function lintFile(filePath: string): string[] {
         changed = true
       }
     }
-    if (!rule.check(content, filePath)) issues.push(`(${rule.name}) ${rule.error}`)
+    if (rule.modeFixer !== undefined) {
+      const fixedMode = rule.modeFixer(mode)
+      if (fixedMode !== mode) {
+        fs.chmodSync(filePath, fixedMode)
+        mode = fixedMode
+      }
+    }
+    if (!rule.check(content, filePath, mode)) issues.push(`(${rule.name}) ${rule.error}`)
   }
   if (changed) fs.writeFileSync(filePath, content, 'utf8')
   return issues
@@ -34,7 +44,7 @@ async function getTargetFiles(argv: string[]): Promise<string[]> {
   const { target = '' } = args
   if (target.length === 0) throw new Error('missing target argument')
   const matches = await glob(target, { filesOnly: true })
-  return matches.map(match => path.resolve(process.cwd(), match)).filter(match => match.endsWith('.md'))
+  return matches.map(match => path.resolve(process.cwd(), match))
 }
 
 async function main(argv: string[]) {

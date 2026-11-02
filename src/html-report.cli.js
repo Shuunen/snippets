@@ -1,3 +1,4 @@
+#!/usr/bin/env bun
 /* v8 ignore start */
 import { readFile } from 'node:fs/promises'
 import { blue, gray, Logger, nbPercentMax, nbThird, yellow } from 'shuutils'

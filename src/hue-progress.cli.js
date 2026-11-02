@@ -1,3 +1,4 @@
+#!/usr/bin/env bun
 /* v8 ignore start */
 // oxlint-disable no-bitwise, no-magic-numbers, max-lines-per-function
 import { createHash } from 'node:crypto'

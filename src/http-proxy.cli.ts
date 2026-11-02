@@ -1,3 +1,4 @@
+#!/usr/bin/env bun
 import cors from 'cors'
 import express, { type Request, type Response } from 'express'
 import { Logger, nbSpacesIndent, Result } from 'shuutils'

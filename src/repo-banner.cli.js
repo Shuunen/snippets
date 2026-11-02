@@ -1,3 +1,4 @@
+#!/usr/bin/env bun
 /* v8 ignore start */
 import { readFileSync, writeFileSync } from 'node:fs'
 import path from 'node:path'
