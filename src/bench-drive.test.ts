@@ -40,6 +40,10 @@ import {
   shuffledPositions,
   smallFileSizes,
   type SmallFilesOps,
+  classifyDriveType,
+  pickVendor,
+  refineDriveType,
+  sortSelectableFirst,
   splitBrandModel,
   spreadsheetRow,
   stampBlock,
@@ -464,6 +468,43 @@ describe('bench-drive', () => {
     expect(decodeUdevValue(String.raw`DataTraveler\x203.0\x20\x20`)).toBe('DataTraveler 3.0')
   })
 
+  it('classifyDriveType uses the model name on USB, where the bridge hides the real media', () => {
+    const usb = { isNvme: false, isRemovable: false, isRotational: true, isUsb: true }
+    expect(classifyDriveType({ ...usb, name: 'Kingston DataTraveler Max' })).toBe('Portable SSD')
+    expect(classifyDriveType({ ...usb, name: 'SanDisk SDCZ80 Extreme' })).toBe('Flash Key')
+    expect(classifyDriveType({ ...usb, name: 'SanDisk SDCZ74 3.2 Gen 1' })).toBe('Flash Key')
+    expect(classifyDriveType({ ...usb, name: 'EFFE 7E20 Portable SSD' })).toBe('Portable SSD')
+    expect(classifyDriveType({ ...usb, name: 'WD My Passport 25E2' })).toBe('Portable HDD')
+  })
+
+  it('classifyDriveType uses the flags for internal drives', () => {
+    const internal = { isNvme: false, isRemovable: false, isRotational: false, isUsb: false, name: '' }
+    expect(classifyDriveType({ ...internal, isNvme: true })).toBe('NVMe SSD')
+    expect(classifyDriveType(internal)).toBe('SATA SSD')
+    expect(classifyDriveType({ ...internal, isRotational: true })).toBe('HDD')
+    expect(classifyDriveType({ ...internal, isRemovable: true })).toBe('Flash Key')
+  })
+
+  it('refineDriveType upgrades a flash key that keeps its speed to a portable SSD', () => {
+    expect(refineDriveType('Flash Key', { ...report, sustained: { cacheBytes: undefined, speed: 620, testedBytes: 1_073_741_824 } })).toBe('Portable SSD')
+    expect(refineDriveType('Flash Key', report)).toBe('Flash Key')
+    expect(refineDriveType('HDD', { ...report, sustained: { cacheBytes: undefined, speed: 620, testedBytes: 1_073_741_824 } })).toBe('HDD')
+  })
+
+  it('pickVendor falls back to the USB vendor when the vendor is missing or generic', () => {
+    expect(pickVendor('', 'Kingston')).toBe('Kingston')
+    expect(pickVendor('USB', 'SanDisk')).toBe('SanDisk')
+    expect(pickVendor('Samsung', 'Other')).toBe('Samsung')
+    expect(pickVendor('ATA', '')).toBe('ATA')
+  })
+
+  it('sortSelectableFirst puts the drives that cannot be benchmarked at the bottom', () => {
+    const readOnly: Drive = { ...drive, mountPoint: '/ro', testFolder: undefined }
+    const full: Drive = { ...drive, freeBytes: 0, mountPoint: '/full' }
+    const second: Drive = { ...drive, mountPoint: '/second' }
+    expect(sortSelectableFirst([readOnly, drive, full, second]).map(item => item.mountPoint)).toStrictEqual(['/media/key', '/second', '/ro', '/full'])
+  })
+
   it('splitBrandModel uses the vendor as brand', () => {
     expect(splitBrandModel('Kingston', 'DataTraveler 3.0')).toStrictEqual({ brand: 'Kingston', model: 'DataTraveler 3.0' })
     expect(splitBrandModel('Kingston', 'Kingston DataTraveler 3.0 USB Device')).toStrictEqual({ brand: 'Kingston', model: 'DataTraveler 3.0' })
@@ -498,13 +539,13 @@ describe('bench-drive', () => {
   })
 
   it('spreadsheetRow builds a tab separated row from column C to V', () => {
-    const identity: DriveIdentity = { brand: 'Kingston', fileSystem: 'exfat', linkSpeed: 5000, model: 'DataTraveler 3.0', serial: '1C1B0D6A8ADFE8B1491A001C', sizeBytes: 62_008_590_336, type: 'Key', version: 3.2 }
+    const identity: DriveIdentity = { brand: 'Kingston', fileSystem: 'exfat', linkSpeed: 5000, model: 'DataTraveler 3.0', serial: '1C1B0D6A8ADFE8B1491A001C', sizeBytes: 62_008_590_336, type: 'Flash Key', version: 3.2 }
     const cells = spreadsheetRow(identity, 'Linux Mint 22', report).split('\t')
-    expect(cells).toStrictEqual(['Key', 'Kingston', 'DataTraveler 3.0', '3,2', '1C1B0D6A8ADFE8B1491A001C', '64', 'Linux Mint 22', 'exFat', '21,70', '224,34', '0,07', '4,68', '5000', 'OK', '55,80', '0,83', '0,21', '3,12', '86', '412'])
+    expect(cells).toStrictEqual(['Flash Key', 'Kingston', 'DataTraveler 3.0', '3,2', '1C1B0D6A8ADFE8B1491A001C', '64', 'Linux Mint 22', 'exFat', '21,70', '224,34', '0,07', '4,68', '5000', 'OK', '55,80', '0,83', '0,21', '3,12', '86', '412'])
   })
 
   it('spreadsheetRow leaves unknown cells empty', () => {
-    const identity: DriveIdentity = { brand: 'WD_BLACK', fileSystem: 'ext4', linkSpeed: undefined, model: 'SN850X', serial: '', sizeBytes: 4_000_787_030_016, type: 'Drive', version: undefined }
+    const identity: DriveIdentity = { brand: 'WD_BLACK', fileSystem: 'ext4', linkSpeed: undefined, model: 'SN850X', serial: '', sizeBytes: 4_000_787_030_016, type: 'NVMe SSD', version: undefined }
     const cells = spreadsheetRow(identity, 'Windows 11', { ...report, dataErrors: 2, results: [], sustained: { cacheBytes: undefined, speed: 1500, testedBytes: 1_073_741_824 } }).split('\t')
     expect(cells).toHaveLength(20)
     expect(cells.at(3)).toBe('')

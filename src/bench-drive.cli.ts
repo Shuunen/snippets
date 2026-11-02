@@ -216,6 +216,15 @@ export function isSelectableDrive(drive: Drive) {
 }
 
 /**
+ * Put the drives that cannot be benchmarked after the others, keeping the original order inside each group
+ * @param drives the listed drives
+ * @returns the sorted drives
+ */
+export function sortSelectableFirst(drives: readonly Drive[]) {
+  return [...drives.filter(drive => isSelectableDrive(drive)), ...drives.filter(drive => !isSelectableDrive(drive))]
+}
+
+/**
  * Move the selection to the next selectable drive in a direction, wrapping around the list
  * @param drives the listed drives
  * @param current the current index, -1 to start before the first drive
@@ -323,6 +332,56 @@ export function formatReportDetails(report: BenchReport) {
   return lines.map(([name = '', value = '']) => `${name.padEnd(nameWidth)} ${value}`)
 }
 
+export type DriveType = 'Drive' | 'Flash Key' | 'HDD' | 'NVMe SSD' | 'Portable HDD' | 'Portable SSD' | 'SATA SSD'
+
+export type DriveTypeInput = {
+  /** the drive is plugged on USB */
+  isUsb: boolean
+  /** the drive is an NVMe one */
+  isNvme: boolean
+  /** the drive reports spinning platters, not reliable behind a USB bridge */
+  isRotational: boolean
+  /** the drive reports being removable, not reliable behind a USB bridge */
+  isRemovable: boolean
+  /** the drive brand and model */
+  name: string
+}
+
+/** words of the model telling a USB drive is an SSD, like "Extreme Portable SSD" or "DataTraveler Max" */
+const usbSsdPattern = /\b(?:ssd|portable|t[579]|x[56]|nvme|datatraveler max)\b/iu
+/** words of the model telling a USB drive is an HDD, like "My Passport" or "Elements" */
+const usbHddPattern = /\b(?:hdd|passport|elements|expansion|backup plus|basics|touro)\b/iu
+
+/**
+ * Tell the kind of device : the USB bridges hide the real media, so on USB the model name is used instead of the flags
+ * @param input the drive flags and name
+ * @returns the type, Drive if unknown
+ * @example classifyDriveType({ isNvme: false, isRemovable: false, isRotational: true, isUsb: true, name: 'SanDisk Extreme SSD' }) // 'Portable SSD'
+ */
+export function classifyDriveType(input: DriveTypeInput): DriveType {
+  if (input.isUsb) {
+    if (usbHddPattern.test(input.name)) return 'Portable HDD'
+    if (usbSsdPattern.test(input.name)) return 'Portable SSD'
+    return 'Flash Key'
+  }
+  if (input.isNvme) return 'NVMe SSD'
+  if (input.isRemovable) return 'Flash Key'
+  return input.isRotational ? 'HDD' : 'SATA SSD'
+}
+
+/** sustained write speed in MB/s above which a USB drive is an SSD : flash keys collapse once their cache is full */
+const portableSsdMinSustainedSpeed = 250
+
+/**
+ * Upgrade a USB flash key to a portable SSD when it keeps a high write speed after its cache is full, as most names give no hint
+ * @param type the type found from the drive name and flags
+ * @param report the benchmark report
+ * @returns the refined type
+ */
+export function refineDriveType(type: DriveType, report: BenchReport): DriveType {
+  return type === 'Flash Key' && report.sustained.speed >= portableSsdMinSustainedSpeed ? 'Portable SSD' : type
+}
+
 export type DriveIdentity = {
   brand: string
   /** raw filesystem type, like "exfat" on Linux or "exFAT" on Windows */
@@ -330,8 +389,8 @@ export type DriveIdentity = {
   model: string
   serial: string
   sizeBytes: number
-  /** Key for removable drives like USB keys, Drive for the others */
-  type: 'Drive' | 'Key'
+  /** kind of device, see classifyDriveType */
+  type: DriveType
   /** negotiated USB link speed in Mb/s, like 480 or 5000, undefined if unknown or not USB */
   linkSpeed: number | undefined
   /** USB version like 3.2, or PCIe generation for NVMe drives, undefined if unknown */
@@ -417,6 +476,16 @@ export function parseUdevProperties(output: string) {
  */
 export function decodeUdevValue(value: string) {
   return value.replaceAll(/\\x(?<code>[\da-f]{2})/giu, (_match, code: string) => String.fromCodePoint(Number.parseInt(code, hexBase))).trim()
+}
+
+/**
+ * Pick the vendor to use, the USB one when the regular one is missing or generic like "ATA" or "USB"
+ * @param vendor the vendor reported by the drive
+ * @param usbVendor the vendor reported by the USB device, empty if not on USB
+ * @returns the vendor
+ */
+export function pickVendor(vendor: string, usbVendor: string) {
+  return genericVendors.has(vendor.toUpperCase()) && !genericVendors.has(usbVendor.toUpperCase()) ? usbVendor : vendor
 }
 
 /**
@@ -1599,15 +1668,22 @@ function linuxIdentity(drive: Drive): DriveIdentity {
   const disk = physicalDisk(drive.device)
   const properties = parseUdevProperties(execFileSync('udevadm', ['info', '--query=property', `--name=/dev/${disk}`], { encoding: 'utf8' }))
   const property = (key: string) => decodeUdevValue(properties.get(key) ?? '')
-  const { brand, model } = splitBrandModel(property('ID_VENDOR_ENC'), property('ID_MODEL_ENC') || property('ID_MODEL'))
+  const { brand, model } = splitBrandModel(pickVendor(property('ID_VENDOR_ENC'), property('ID_USB_VENDOR_ENC')), property('ID_MODEL_ENC') || property('ID_MODEL'))
   let version: number | undefined = undefined
   let linkSpeed: number | undefined = undefined
-  if (property('ID_BUS') === 'usb') {
+  const isUsb = usbDeviceFolder(disk) !== undefined
+  if (isUsb) {
     version = linuxUsbVersion(disk)
     linkSpeed = linuxUsbLinkSpeed(disk)
   } else if (disk.startsWith('nvme')) version = pcieGeneration(readSysFile(`/sys/block/${disk}/device/device/current_link_speed`))
   const sizeBytes = Number(readSysFile(`/sys/block/${disk}/size`)) * linuxSectorSize
-  const type = readSysFile(`/sys/block/${disk}/removable`) === '1' ? 'Key' : 'Drive'
+  const type = classifyDriveType({
+    isNvme: disk.startsWith('nvme'),
+    isRemovable: readSysFile(`/sys/block/${disk}/removable`) === '1',
+    isRotational: readSysFile(`/sys/block/${disk}/queue/rotational`) === '1',
+    isUsb,
+    name: `${brand} ${model}`,
+  })
   return { brand, fileSystem: drive.fsType, linkSpeed, model, serial: property('ID_SERIAL_SHORT'), sizeBytes, type, version }
 }
 
@@ -1621,11 +1697,21 @@ function windowsIdentity(drive: Drive): DriveIdentity {
   const script = `$disk = Get-Partition -DriveLetter ${letter} | Get-Disk
 $volume = Get-Volume -DriveLetter ${letter}
 $logical = Get-CimInstance Win32_LogicalDisk -Filter "DeviceID='${letter}:'"
-[pscustomobject]@{ driveType = $logical.DriveType; fileSystem = [string]$volume.FileSystemType; manufacturer = [string]$disk.Manufacturer; model = [string]$disk.FriendlyName; serial = [string]$disk.SerialNumber; size = $disk.Size } | ConvertTo-Json -Compress`
+$physical = Get-PhysicalDisk -DeviceNumber $disk.Number
+[pscustomobject]@{ busType = [string]$disk.BusType; driveType = $logical.DriveType; mediaType = [string]$physical.MediaType; fileSystem = [string]$volume.FileSystemType; manufacturer = [string]$disk.Manufacturer; model = [string]$disk.FriendlyName; serial = [string]$disk.SerialNumber; size = $disk.Size } | ConvertTo-Json -Compress`
   const output = execFileSync('powershell', ['-NoProfile', '-Command', script], { encoding: 'utf8' })
-  const data = JSON.parse(output) as { driveType: number; fileSystem: string; manufacturer: string; model: string; serial: string; size: number }
+  const data = JSON.parse(output) as { busType: string; driveType: number; mediaType: string; fileSystem: string; manufacturer: string; model: string; serial: string; size: number }
   const { brand, model } = splitBrandModel(data.manufacturer.trim(), data.model)
-  return { brand, fileSystem: data.fileSystem, linkSpeed: undefined, model, serial: data.serial.trim(), sizeBytes: data.size, type: data.driveType === windowsRemovableDriveType ? 'Key' : 'Drive', version: undefined }
+  return {
+    brand,
+    fileSystem: data.fileSystem,
+    linkSpeed: undefined,
+    model,
+    serial: data.serial.trim(),
+    sizeBytes: data.size,
+    type: classifyDriveType({ isNvme: data.busType === 'NVMe', isRemovable: data.driveType === windowsRemovableDriveType, isRotational: data.mediaType === 'HDD', isUsb: data.busType === 'USB', name: `${brand} ${model}` }),
+    version: undefined,
+  }
 }
 
 /**
@@ -1655,7 +1741,8 @@ async function askYesNo(question: string, isYesByDefault = true) {
  */
 async function offerSpreadsheetCopy(drive: Drive, report: BenchReport) {
   if (!(await askYesNo('Copy the results to the clipboard, to paste them in the spreadsheet column C ?'))) return
-  const identity = isWindows ? windowsIdentity(drive) : linuxIdentity(drive)
+  const detected = isWindows ? windowsIdentity(drive) : linuxIdentity(drive)
+  const identity = { ...detected, type: refineDriveType(detected.type, report) }
   const osName = isWindows ? windowsName(release()) : linuxName(readSysFile('/etc/os-release'))
   const row = spreadsheetRow(identity, osName, report)
   await clipboard.write(row)
@@ -1676,7 +1763,7 @@ async function start() {
   logger.info('Drive benchmark : sequential and random reads & writes, existing data is never touched')
   if (process.platform !== 'linux' && !isWindows) throw new Error(`Unsupported platform "${process.platform}", only Linux and Windows are supported`)
   if (process.versions.bun === undefined) throw new Error('This cli needs Bun to bypass the OS cache, run it with : bun src/bench-drive.cli.ts')
-  const drives = listDrives()
+  const drives = sortSelectableFirst(listDrives())
   if (drives.length === 0) throw new Error('No drive found')
   const folderArgument = process.argv.at(firstArgumentIndex)
   const drive = folderArgument === undefined ? await askDrive(drives) : driveFromFolder(folderArgument, drives)
