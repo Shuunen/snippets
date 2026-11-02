@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.6.3] - 2026-11-02
+
+### Changed
+
+- bench-drive: the drive type (NVMe SSD, SATA SSD, HDD, Portable SSD, Flash Key...) is classified and shown, usable drives are listed first and a USB flash key is upgraded to a portable SSD when its sustained write speed stays high
+- bench-drive: the selected drive is highlighted with bright colors and the prompt is spaced
+
 ## [0.6.2] - 2026-11-01
 
 ### Fixed
