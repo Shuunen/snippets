@@ -1220,14 +1220,16 @@ function listDrives() {
  * Describe a drive in the selection list
  * @param drive the drive
  * @param marker shown before the drive, like the selection arrow or the drive number
+ * @param highlighted true to render the drive in bright colors, as the selected one
  * @returns the description line
  */
-function describeDrive(drive: Drive, marker: string) {
+function describeDrive(drive: Drive, marker: string, highlighted = false) {
   const details = `${drive.device} ${drive.fsType}`.trim()
   const space = `${formatBytes(drive.freeBytes)} free / ${formatBytes(drive.totalBytes)}`
   let issue = ''
   if (drive.testFolder === undefined) issue = red(' (not writable)')
   else if (!hasEnoughSpace(drive.freeBytes)) issue = red(' (not enough free space)')
+  if (highlighted) return `  ${marker} ${bold(blue(drive.mountPoint))} [${details}] ${bold(space)}${issue}`
   return `  ${marker} ${blue(drive.mountPoint)} ${dim(`[${details}]`)} ${space}${issue}`
 }
 
@@ -1239,7 +1241,10 @@ function describeDrive(drive: Drive, marker: string) {
  */
 function renderDriveList(drives: readonly Drive[], selected: number) {
   return drives.map((drive, index) => {
-    if (index === selected) return describeDrive(drive, cyan(bold('❯')))
+    if (index === selected) {
+      const arrow = cyan(bold('❯'))
+      return describeDrive(drive, arrow, true)
+    }
     const line = describeDrive(drive, ' ')
     return isSelectableDrive(drive) ? line : dim(line)
   })
@@ -1253,7 +1258,7 @@ function renderDriveList(drives: readonly Drive[], selected: number) {
 async function pickDriveWithArrows(drives: readonly Drive[]) {
   let selected = moveSelection(drives, -1, 1)
   if (selected === -1) throw new Error('No drive can be benchmarked : none is writable with enough free space')
-  process.stdout.write(`Select the drive to benchmark ${dim('(↑/↓ then Enter, Esc to quit)')}\n${hideCursor}`)
+  process.stdout.write(`\n  Select the drive to benchmark ${dim('(↑/↓ then Enter, Esc to quit)')}\n${hideCursor}`)
   process.stdout.write(`${renderDriveList(drives, selected).join('\n')}\n`)
   emitKeypressEvents(process.stdin)
   process.stdin.setRawMode(true)
