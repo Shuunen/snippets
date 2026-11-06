@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [0.7.0] - 2026-11-02
+
+### Added
+
+- md-dit: a native GTK4 markdown viewer for Linux (no webview), with syntax highlighting, tables, a table of contents sidebar, live reload and inline images, only http, https and mailto links are opened
+
+### Changed
+
+- readme: removed the Code Climate maintainability badge
+
 ## [0.6.3] - 2026-11-02
 
 ### Changed
