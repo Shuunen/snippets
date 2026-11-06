@@ -1,0 +1,22 @@
+[package]
+name = "md-dit-gtk"
+version = "0.1.0"
+edition = "2021"
+description = "Instant markdown viewer for Linux, native GTK4"
+
+[dependencies]
+gtk = { package = "gtk4", version = "0.11", features = ["v4_12"] }
+adw = { package = "libadwaita", version = "0.9" }
+pulldown-cmark = { version = "0.13", default-features = false }
+syntect = { version = "5.3.0", default-features = false, features = ["default-fancy"] }
+ureq = "3"
+
+[build-dependencies]
+winresource = "0.1"
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 16
+panic = "abort"
+strip = true

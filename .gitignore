@@ -25,3 +25,4 @@ sample.*
 take-screenshot-last-input.txt
 test-results
 tsconfig.tsbuildinfo
+src/md-dit/target
