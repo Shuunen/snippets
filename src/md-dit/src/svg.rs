@@ -19,7 +19,8 @@ pub fn inline_foreign_objects(svg: &str) -> Option<String> {
         let tag = &after[..=tag_end];
         let (inner, consumed) = if tag.ends_with("/>") {
             ("", tag_end + 1)
-        } else if let Some(close) = after.find(CLOSE) {
+        } else if let Some(offset) = after[tag_end + 1..].find(CLOSE) {
+            let close = tag_end + 1 + offset;
             (&after[tag_end + 1..close], close + CLOSE.len())
         } else {
             out.push_str(after);
@@ -195,6 +196,15 @@ mod tests {
     #[test]
     fn leaves_a_plain_svg_alone() {
         assert!(inline_foreign_objects("<svg viewBox=\"0 0 10 10\"><path/></svg>").is_none());
+    }
+
+    #[test]
+    fn survives_a_closing_tag_hidden_in_an_attribute() {
+        let svg = "<svg viewBox=\"0 0 10 10\"><foreignObject a=\"</foreignObject>\" width=\"10\">x</foreignObject></svg>";
+        assert!(inline_foreign_objects(svg).is_some());
+        assert!(
+            inline_foreign_objects("<svg><foreignObject a=\"</foreignObject>\"></svg>").is_some()
+        );
     }
 
     #[test]

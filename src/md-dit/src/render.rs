@@ -487,6 +487,18 @@ impl Renderer {
             .map(|(_, _, url)| url.clone())
     }
 
+    /// the end marks of the links wrapping the text `start..end`, a badge is an image inside a link
+    pub fn link_ends_around(&self, start: i32, end: i32) -> Vec<gtk::TextMark> {
+        self.links
+            .iter()
+            .filter(|(link_start, link_end, _)| {
+                self.buffer.iter_at_mark(link_start).offset() <= start
+                    && self.buffer.iter_at_mark(link_end).offset() == end
+            })
+            .map(|(_, link_end, _)| link_end.clone())
+            .collect()
+    }
+
     /// highlights the link at `offset` and clears the previous one, `None` clears everything
     pub fn hover_link(&self, offset: Option<i32>) {
         let range = offset.and_then(|offset| {
