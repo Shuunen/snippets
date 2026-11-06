@@ -1,6 +1,5 @@
 # Snippets
 
-[![Code Climate maintainability](https://img.shields.io/codeclimate/maintainability/Shuunen/snippets?style=flat)](https://codeclimate.com/github/Shuunen/snippets)
 [![GitHub license](https://img.shields.io/github/license/shuunen/snippets.svg?color=informational)](https://github.com/Shuunen/snippets/blob/master/LICENSE)
 [![Visitors](https://hits.sh/github.com/Shuunen/snippets.svg?label=visitors&color=informational)](https://hits.sh/github.com/Shuunen/snippets/)
 
