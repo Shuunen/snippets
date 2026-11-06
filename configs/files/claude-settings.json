@@ -7,7 +7,28 @@
     "pr": ""
   },
   "permissions": {
-    "allow": ["mcp__claude-in-chrome__tabs_context_mcp", "ClaudeInChromeDomain(localhost:5173)"],
+    "allow": [
+      "mcp__claude-in-chrome__tabs_context_mcp",
+      "ClaudeInChromeDomain(localhost:4200)",
+      "ClaudeInChromeDomain(localhost:5101)",
+      "ClaudeInChromeDomain(localhost:5103)",
+      "ClaudeInChromeDomain(localhost:5104)",
+      "ClaudeInChromeDomain(localhost:5105)",
+      "ClaudeInChromeDomain(localhost:5106)",
+      "ClaudeInChromeDomain(localhost:5108)",
+      "ClaudeInChromeDomain(localhost:5109)",
+      "ClaudeInChromeDomain(localhost:5111)",
+      "ClaudeInChromeDomain(localhost:5173)",
+      "ClaudeInChromeDomain(localhost:5177)",
+      "ClaudeInChromeDomain(localhost:5190)",
+      "ClaudeInChromeDomain(localhost:5199)",
+      "ClaudeInChromeDomain(localhost:5273)",
+      "ClaudeInChromeDomain(localhost:8085)",
+      "ClaudeInChromeDomain(www.amazon.fr)",
+      "mcp__claude-in-chrome__browser_batch",
+      "mcp__claude-in-chrome__tabs_create_mcp",
+      "ClaudeInChromeDomain(iconscout.com)"
+    ],
     "defaultMode": "auto"
   },
   "model": "sonnet",
@@ -41,8 +62,7 @@
             "command": "/home/rominou/.claude/skills/gstack/hosts/claude/hooks/timeline-stop-hook",
             "timeout": 5
           }
-        ],
-        "_gstack_source": "gstack-timeline-stop"
+        ]
       }
     ]
   },
@@ -56,7 +76,8 @@
     "ponytail@ponytail": false,
     "brag@brag": true,
     "cc-plugin-you-should-know@builtin": false,
-    "cc-plugin-telemetry@builtin": false
+    "cc-plugin-telemetry@builtin": false,
+    "i-have-adhd@i-have-adhd": true
   },
   "extraKnownMarketplaces": {
     "headroom-marketplace": {
@@ -75,6 +96,12 @@
       "source": {
         "source": "github",
         "repo": "latent-spaces/brag"
+      }
+    },
+    "i-have-adhd": {
+      "source": {
+        "source": "github",
+        "repo": "ayghri/i-have-adhd"
       }
     }
   },
@@ -117,6 +144,5 @@
       "**Org-specific CLIs**: None configured"
     ]
   },
-  "voiceEnabled": false,
-  "theme": "dark"
+  "voiceEnabled": false
 }
