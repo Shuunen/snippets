@@ -1,0 +1,10 @@
+[Desktop Entry]
+Type=Application
+Name=md-dit (GTK)
+GenericName=Markdown viewer
+Comment=Instant markdown viewer, native GTK4
+Exec=md-dit-gtk %f
+Icon=md-dit-gtk
+Terminal=false
+Categories=Utility;TextTools;Viewer;
+MimeType=text/markdown;text/x-markdown;
