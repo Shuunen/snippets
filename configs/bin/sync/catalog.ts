@@ -59,6 +59,7 @@ function sharedConfigs(platform: Platform): Config[] {
     { local: `${home}/.claude/statusline-command.sh`, renameTo: 'claude-status-line.sh' },
     { local: `${home}/.claude/skills/interview/SKILL.md`, renameTo: 'claude-skill-interview.md' },
     { local: `${home}/.claude/skills/update-project/SKILL.md`, renameTo: 'claude-skill-update-project.md' },
+    { local: `${home}/.claude/skills/fix-projects/SKILL.md`, renameTo: 'claude-skill-fix-projects.md' },
     { local: `${home}/.config/autostart/xbox-controller-driver.desktop`, renameTo: 'autostart-xbox.desktop' },
     // { local: `${home}/repo-checker.config.js` },
   ]
