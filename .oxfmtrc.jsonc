@@ -4,9 +4,7 @@
   "bracketSameLine": false,
   "bracketSpacing": true,
   "endOfLine": "lf",
-  "ignorePatterns": [
-    "**/__snapshots__/**"
-  ],
+  "ignorePatterns": ["**/__snapshots__/**"],
   "objectWrap": "preserve",
   "printWidth": 240,
   "quoteProps": "as-needed",
