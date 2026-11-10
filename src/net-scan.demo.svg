@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 460" width="900" height="460" role="img" aria-label="Snippets demo: net-scan lists the devices of your network, a new one triggers a notification">
+<title>Snippets demo: net-scan lists the devices of your network, a new one triggers a notification</title>
+<style>
+text{font-family:system-ui,-apple-system,'Segoe UI',sans-serif}
+.m{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;white-space:pre}
+
+@keyframes k0{0%,4%{opacity:0}4.8%,96%{opacity:1}98%,100%{opacity:0}}.k0{animation:k0 14s infinite ease-in-out both}
+@keyframes k1{0%,8%{opacity:0}8.8%,96%{opacity:1}98%,100%{opacity:0}}.k1{animation:k1 14s infinite ease-in-out both}
+@keyframes k2{0%,14%{opacity:0}14.8%,96%{opacity:1}98%,100%{opacity:0}}.k2{animation:k2 14s infinite ease-in-out both}
+@keyframes k3{0%,20%{opacity:0}20.8%,96%{opacity:1}98%,100%{opacity:0}}.k3{animation:k3 14s infinite ease-in-out both}
+@keyframes k4{0%,26%{opacity:0}26.8%,96%{opacity:1}98%,100%{opacity:0}}.k4{animation:k4 14s infinite ease-in-out both}
+@keyframes k5{0%,52%{opacity:0}52.8%,96%{opacity:1}98%,100%{opacity:0}}.k5{animation:k5 14s infinite ease-in-out both}
+@keyframes k6{0%,36%{opacity:0}36.8%,78%{opacity:1}78.8%,100%{opacity:0}}.k6{animation:k6 14s infinite ease-in-out both}
+@keyframes k7{0%,52%{opacity:0;transform:translateY(10px)}53.2%,90%{opacity:1;transform:translateY(0)}92%,100%{opacity:0;transform:translateY(10px)}}.k7{animation:k7 14s infinite ease-in-out both}
+</style>
+<rect width="900" height="460" rx="16" fill="#0f172a"/>
+<circle cx="30" cy="30" r="6" fill="#ef4444"/>
+<circle cx="50" cy="30" r="6" fill="#f59e0b"/>
+<circle cx="70" cy="30" r="6" fill="#22c55e"/>
+<text x="30" y="70" class="m" fill="#e2e8f0" font-size="14">$ bun src/net-scan.cli.ts</text>
+<g class="k0" ><text x="30" y="100" class="m" fill="#64748b" font-size="14">IP              ms    MAC                NAME</text></g>
+<g class="k1" ><text x="30" y="130" class="m" fill="#e2e8f0" font-size="14">192.168.1.1     1     a4:2b:b0:11:22:33  box (Freebox)</text></g>
+<g class="k2" ><text x="30" y="160" class="m" fill="#e2e8f0" font-size="14">192.168.1.12    4     3c:22:fb:aa:bb:cc  laptop (Apple)</text></g>
+<g class="k3" ><text x="30" y="190" class="m" fill="#e2e8f0" font-size="14">192.168.1.23    9     f0:18:98:44:55:66  phone (Samsung)</text></g>
+<g class="k4" ><text x="30" y="220" class="m" fill="#e2e8f0" font-size="14">192.168.1.31    12    b8:27:eb:77:88:99  raspberry (Pi)</text></g>
+<g class="k5" ><text x="30" y="250" class="m" fill="#fbbf24" font-size="14">192.168.1.57    6     dc:a6:32:de:ad:01  ? unknown device</text></g>
+<g class="k6" ><rect x="24" y="142" width="520" height="26" rx="4" fill="#1e293b"/></g>
+<g class="k6" ><text x="30" y="160" class="m" fill="#38bdf8" font-size="14">192.168.1.12     4     3c:22:fb:aa:bb:cc  laptop (Apple)</text></g>
+<text x="30" y="420" class="m" fill="#64748b" font-size="13">↑↓ select   ↵ rename   l live   h hints   n network   q quit</text>
+<g class="k7" ><rect x="580" y="70" width="290" height="70" rx="12" fill="#1e293b" stroke="#334155"/><text x="600" y="100" fill="#f8fafc" font-size="14" font-weight="600">🔔 New device on the network</text><text x="600" y="124" fill="#94a3b8" font-size="13">192.168.1.57 · dc:a6:32:de:ad:01</text></g>
+</svg>

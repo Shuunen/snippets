@@ -58,6 +58,8 @@ bun path/to/snippets/src/net-scan.cli.ts --once          # scan once, print the 
 bun path/to/snippets/src/net-scan.cli.ts --help          # show the options
 ```
 
+![demo](src/net-scan.demo.svg)
+
 Keys : `↑` `↓` select a device, `↵` rename it, `l` turns the live mode on or off, `h` shows or hides the hints column (names, open services...), `n` shows or hides the network column, `q` quits. Works on Linux and Windows, needs `notify-send` on Linux for the desktop notifications.
 
 ## Development
