@@ -33,6 +33,10 @@
     "WebSocket": "readonly"
   },
   "ignorePatterns": [".git", "*.d.ts", "coverage", "dist", "node_modules", "out-tsc", "test-output"],
+  "options": {
+    "typeAware": true,
+    "typeCheck": true
+  },
   "overrides": [
     {
       "files": ["**/*.cli.js", "**/*.cli.ts", "**/*.node.js", "**/*.node.ts", "configs/bin/**/*.ts"],

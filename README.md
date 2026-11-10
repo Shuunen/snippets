@@ -79,6 +79,7 @@ Linting and formatting use [oxlint](https://oxc.rs/docs/guide/usage/linter) + [o
 - [Github](https://github.com) : for all their great work year after year, pushing OSS forward
 - [Knip](https://github.com/webpro/knip) : super tool to find & fix problems
 - [Oxc](https://oxc.rs) : a lovely super-fast collection of JavaScript tools written in Rust
+- [Repo-checker](https://github.com/Shuunen/repo-checker) : eslint cover /src code and this tool the rest ^^
 - [Shields.io](https://shields.io) : nice looking badges to be proud of
 - [Shuutils](https://github.com/Shuunen/shuutils) : collection of pure JS utils
 - [Svg Omg](https://jakearchibald.github.io/svgomg/) : the great king of svg file size reduction
