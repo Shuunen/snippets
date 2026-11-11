@@ -54,7 +54,7 @@
     "check": "turbo run --output-logs=errors-only lint:install lint:types lint:knip lint:format lint:issues lint:snippets build:tsc test:unit test:shell lint:repo && echo check completed successfully",
     "config:sync": "bun configs/bin/sync.cli.ts",
     "cs": "bun config:sync",
-    "lint": "turbo run lint:install lint:types lint:knip lint:format lint:issues lint:repo && echo lint completed successfully",
+    "lint": "turbo run lint:install lint:types lint:knip lint:format lint:issues lint:repo lint:snippets && echo lint completed successfully",
     "lint:format": "oxfmt --check && echo lint:format completed successfully || (echo Please run pnpm run lint:format:fix to automatically fix formatting issues && exit 1)",
     "lint:format:fix": "oxfmt --write && echo lint:format:fix completed successfully || (echo Please run pnpm run lint:format to check for remaining formatting issues && exit 1)",
     "lint:install": "pnpm install && echo lint:install completed successfully",
