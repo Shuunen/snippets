@@ -62,7 +62,8 @@
             "command": "/home/rominou/.claude/skills/gstack/hosts/claude/hooks/timeline-stop-hook",
             "timeout": 5
           }
-        ]
+        ],
+        "_gstack_source": "gstack-timeline-stop"
       }
     ]
   },
