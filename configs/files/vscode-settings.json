@@ -580,5 +580,9 @@
   "totalTypeScript.hideBasicTips": true,
   "window.commandCenter": false,
   "workbench.colorTheme": "Dark+",
+  "workbench.editorAssociations": {
+    "*.copilotmd": "vscode.markdown.preview.editor",
+    "*.md": "vscode.markdown.preview.editor"
+  },
   "xstate.nestTypegenFiles": false
 }
