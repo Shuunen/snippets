@@ -26,7 +26,7 @@ Why this matters: a fix run over dirty clones or deleted branches can silently d
 ## Workflow
 
 1. **Preflight.** `gh auth status` must pass. In repo-checker run `git pull --ff-only` and, if `dist/` is stale or missing, `pnpm run build`; otherwise use `bun src/cli.ts`. Note which projects are dirty (see above).
-2. **Fix pass.** `cd ~/Projects/github/repo-checker && bun src/cli.ts --target=$HOME/Projects/github --fix --nitpick`, saving the output to the scratchpad. `--fix` edits files and commits nothing. Read the report: lines are `project  check-id  message` under error / warning / info headings. Then rerun without `--fix` to get what remains.
+2. **Fix pass.** `cd ~/Projects/github/repo-checker && bun src/cli.ts --target=$HOME/Projects/github --fix`, without `--nitpick` (nitpick checks are never fixed or reported, skip them), saving the output to the scratchpad. `--fix` edits files and commits nothing. Read the report: lines are `project  check-id  message` under error / warning / info headings. Then rerun without `--fix` to get what remains.
 3. **Plan.** Group the remaining findings by check id, then by project. Decide per group:
    - **Batch by rule** when the same mechanical fix applies to 2+ projects (bump a dependency to the same version, add the same config key or script). Do one project first, verify it, then replay the same change on the others. One consistent change set is easier to review and cheaper.
    - **Project by project** when the fix needs reading that project's code, or a batched fix broke something (failing `pnpm check`). Use one subagent per project, because repos do not interfere.
