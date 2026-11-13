@@ -27,7 +27,8 @@
       "ClaudeInChromeDomain(www.amazon.fr)",
       "mcp__claude-in-chrome__browser_batch",
       "mcp__claude-in-chrome__tabs_create_mcp",
-      "ClaudeInChromeDomain(iconscout.com)"
+      "ClaudeInChromeDomain(iconscout.com)",
+      "Bash(rtk grep *)"
     ],
     "defaultMode": "auto"
   },
@@ -62,8 +63,7 @@
             "command": "/home/rominou/.claude/skills/gstack/hosts/claude/hooks/timeline-stop-hook",
             "timeout": 5
           }
-        ],
-        "_gstack_source": "gstack-timeline-stop"
+        ]
       }
     ]
   },
