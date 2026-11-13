@@ -8,6 +8,7 @@ All notable changes to this project will be documented in this file.
 
 - vscode settings backup: markdown files open in the preview editor
 - claude skill fix-projects: applies its fixes on top of projects that already have uncommitted changes, treats runner or network CI failures as infra (one rerun, then reported), replaces `/verify` with `pnpm check`, leaves the repo-checker docs uncommitted when it is not on its default branch, and writes conventional commits with a changelog entry
+- Stop ignoring the `.github` folder in git
 
 ## [0.7.0] - 2026-11-02
 

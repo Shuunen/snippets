@@ -5,7 +5,6 @@
 .eslintcache
 .fallow-baselines/
 .fallow/
-.github/
 .gstack/
 .turbo/
 *.bak
