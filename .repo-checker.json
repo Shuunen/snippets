@@ -1,3 +1,4 @@
 {
+  "$schema": "./node_modules/repo-check/schema.json",
   "webUrl": "https://github.com/Shuunen/snippets"
 }
