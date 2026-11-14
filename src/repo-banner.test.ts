@@ -44,13 +44,13 @@ describe('repo-banner', () => {
 
   it('extractData A current folder', () => {
     expect(extractData()).toMatchInlineSnapshot(`
-    {
-      "color": "#54143A",
-      "description": "My personal configs, snippets and manuals",
-      "name": "snippets",
-      "scope": "Shuunen",
-    }
-  `)
+      {
+        "color": "#330c24",
+        "description": "My personal configs, snippets and manuals",
+        "name": "snippets",
+        "scope": "Shuunen",
+      }
+    `)
   })
 
   it('extractData B another folder', () => {

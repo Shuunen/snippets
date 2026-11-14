@@ -77,8 +77,17 @@
     "yeelight"
   ],
   "workbench.colorCustomizations": {
-    "activityBar.background": "#54143A",
-    "titleBar.activeBackground": "#751C51",
-    "titleBar.activeForeground": "#FEFCFD"
+    "activityBar.background": "#330c24",
+    "activityBar.foreground": "#f9fafb",
+    "activityBarBadge.background": "#751c51",
+    "activityBarBadge.foreground": "#f9fafb",
+    "statusBar.background": "#330c24",
+    "statusBar.foreground": "#f9fafbcc",
+    "statusBar.inactiveBackground": "#210817",
+    "tab.activeBorderTop": "#751c51",
+    "titleBar.activeBackground": "#751c51",
+    "titleBar.activeForeground": "#f9fafb",
+    "titleBar.inactiveBackground": "#330c24",
+    "titleBar.inactiveForeground": "#f9fafbaa"
   }
 }
