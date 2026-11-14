@@ -350,6 +350,7 @@ Nice app to keep in mind :
 - [Breaktimer](https://breaktimer.app/) : break reminder & eye care
 - [BleachBit](https://flathub.org/en/apps/org.bleachbit.BleachBit) : system cleaner
 - [Czkawka](https://github.com/qarmin/czkawka/releases/) : duplicate finder & cleaner
+- [Coucou](https://github.com/Louis-CFM/coucou) : ai companion
 - [Digikam](https://www.digikam.org/) : photo collection manager
 - [Electorrent](https://github.com/tympanix/Electorrent) : remote torrent gui
 - [Espanso](https://espanso.org/) : great cross platform text expander [deb](https://github.com/espanso/espanso/releases/download/v2.3.0/espanso-debian-x11-amd64.deb)
