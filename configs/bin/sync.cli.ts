@@ -80,7 +80,7 @@ async function mergeOutOfSyncFiles(outOfSyncFiles: SyncFile[]): Promise<boolean>
   let hasRepoChanges = false
   for (const [index, file] of outOfSyncFiles.entries()) {
     const contentBefore = file.sides.repo.content
-    // eslint-disable-next-line no-await-in-loop
+    // oxlint-disable-next-line no-await-in-loop
     const outcome = await resolveFile({ file, fileIndex: index + 1, fileTotal: outOfSyncFiles.length }, session)
     if (outcome === 'resolved') {
       report.success.push(`sync done : ${file.sides.local.filepath}`)

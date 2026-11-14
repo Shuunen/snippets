@@ -2,7 +2,6 @@
 .claude/
 .DS_Store
 .env
-.eslintcache
 .fallow-baselines/
 .fallow/
 .gstack/
