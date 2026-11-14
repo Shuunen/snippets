@@ -14,6 +14,8 @@ All notable changes to this project will be documented in this file.
 - Stop ignoring the `.github` folder in git
 - Format the CI workflow
 - Drop the redundant `run_install` option from the CI
+- Drop the eslint leftovers: the ignored cache file, the recommended extension and a lint directive in the sync CLI
+- Stop reporting the compressed size of the files at build time
 
 ## [0.7.0] - 2026-11-02
 
