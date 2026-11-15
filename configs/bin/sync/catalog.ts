@@ -103,10 +103,13 @@ function linuxConfigs(platform: Platform): Config[] {
     { local: `${home}/.config/autostart/xbox-controller-driver.desktop` },
     { local: `${home}/.config/ulauncher/scripts.json`, renameTo: 'ulauncher-scripts.json' },
     ...desktopFiles.map(name => ({ local: `${applications}/${name}.desktop` })),
+    // the PWA id differs per machine, repo-check-launch writes these lines itself
+    { local: `${applications}/repo-check.desktop`, removeLinesMatching: [/^(?:Icon|StartupWMClass)=/u] },
     { local: `${home}/.local/share/kio/servicemenus/take-screenshot.desktop` },
     { local: `${home}/.config/xfce4/helpers.rc`, renameTo: 'xfce4-helpers.rc' },
     { local: `${home}/.config/Thunar/uca.xml`, renameTo: 'thunar-user-actions.xml' },
     { local: `${home}/.local/bin/copy-path`, renameTo: 'thunar-copy-path.sh' },
+    { local: `${home}/.local/bin/repo-check-launch`, renameTo: 'repo-check-launch.sh' },
     // { local: `${home}/.local/share/nautilus/scripts/Shrink all pdf` },
     // { local: `${home}/.local/share/nautilus/scripts/Take screenshot` },
     { local: `${home}/.config/espanso/config/default.yml`, renameTo: 'espanso-config.yml' },

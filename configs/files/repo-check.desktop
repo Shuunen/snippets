@@ -1,0 +1,8 @@
+[Desktop Entry]
+Version=1.0
+Type=Application
+Terminal=false
+Name=repo-check
+Comment=Start the repo-check dashboard and open its window
+Exec=/home/rominou/.local/bin/repo-check-launch
+Categories=Development;
