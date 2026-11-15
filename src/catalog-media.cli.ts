@@ -422,10 +422,9 @@ async function probeQuality(video: string) {
   let size = noCache ? undefined : probes[key]
   if (size === undefined) {
     const args = ['-v', 'error', '-select_streams', 'v:0', '-show_entries', 'stream=width,height', '-of', 'csv=p=0', video]
-    const output = await execFileAsync('ffprobe', args, { timeout: probeTimeoutMs }).then(
-      ({ stdout }) => stdout,
-      () => '',
-    )
+    const output = await execFileAsync('ffprobe', args, { timeout: probeTimeoutMs })
+      .then(({ stdout }) => stdout)
+      .catch(() => '')
     const parsed = parseProbe(output)
     size = parsed ? [parsed.width, parsed.height] : 0
     probes[key] = size

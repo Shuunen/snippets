@@ -105,7 +105,7 @@ const utils = {
    */
   getVideoMetadata: async (filepath: string) => {
     const output = await utils.shellCommand(`ffprobe -show_format -show_streams -print_format json -v quiet -i "${filepath}" `)
-    if (typeof output !== 'string') throw new Error('ffprobe output is not a string')
+    if (typeof output !== 'string') throw new TypeError('ffprobe output is not a string')
     if (!output.startsWith('{')) throw new Error(`ffprobe output should be JSON but got :${output}`)
     const result = parseJson<FfProbeOutput>(output)
     if (!result.ok) throw new Error(`ffprobe output is not valid JSON : ${result.error}`)

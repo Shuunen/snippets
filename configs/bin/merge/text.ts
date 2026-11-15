@@ -17,7 +17,9 @@ export function at<Item>(items: Item[], index: number): Item {
   return item
 }
 
-const ansiEscapePattern = /\[[0-9;]*m/uy
+const escapeCodePoint = 27
+const escapeChar = String.fromCodePoint(escapeCodePoint)
+const ansiEscapePattern = new RegExp(`${escapeChar}\\[[0-9;]*m`, 'uy')
 
 type WashToken = { isEscape: boolean; value: string }
 
