@@ -43,6 +43,15 @@
             "command": "$HOME/.local/bin/rtk hook claude"
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/home/rominou/.local/share/coucou/bin/coucou-hook' PreToolUse",
+            "timeout": 10
+          }
+        ]
       }
     ],
     "SessionStart": [
@@ -51,6 +60,15 @@
           {
             "type": "command",
             "command": "$HOME/.gstack/ship-no-pr-override.sh"
+          }
+        ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/home/rominou/.local/share/coucou/bin/coucou-hook' SessionStart",
+            "timeout": 10
           }
         ]
       }
@@ -64,12 +82,120 @@
             "timeout": 5
           }
         ]
+      },
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/home/rominou/.local/share/coucou/bin/coucou-hook' Stop",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "SessionEnd": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/home/rominou/.local/share/coucou/bin/coucou-hook' SessionEnd",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "UserPromptSubmit": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/home/rominou/.local/share/coucou/bin/coucou-hook' UserPromptSubmit",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/home/rominou/.local/share/coucou/bin/coucou-hook' PostToolUse",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PostToolUseFailure": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/home/rominou/.local/share/coucou/bin/coucou-hook' PostToolUseFailure",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "PermissionRequest": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/home/rominou/.local/share/coucou/bin/coucou-hook' PermissionRequest",
+            "timeout": 120
+          }
+        ]
+      }
+    ],
+    "Notification": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/home/rominou/.local/share/coucou/bin/coucou-hook' Notification",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "StopFailure": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/home/rominou/.local/share/coucou/bin/coucou-hook' StopFailure",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "SubagentStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/home/rominou/.local/share/coucou/bin/coucou-hook' SubagentStart",
+            "timeout": 10
+          }
+        ]
+      }
+    ],
+    "SubagentStop": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "'/home/rominou/.local/share/coucou/bin/coucou-hook' SubagentStop",
+            "timeout": 10
+          }
+        ]
       }
     ]
   },
   "statusLine": {
     "type": "command",
-    "command": "bash $HOME/.claude/statusline-command.sh"
+    "command": "'/home/rominou/.local/share/coucou/bin/coucou-hook' --statusline"
   },
   "enabledPlugins": {
     "convex@claude-plugins-official": true,
