@@ -581,8 +581,8 @@
   "window.commandCenter": false,
   "workbench.colorTheme": "Dark+",
   "workbench.editorAssociations": {
-    "*.copilotmd": "vscode.markdown.preview.editor",
-    "*.md": "vscode.markdown.preview.editor"
+    "*.copilotmd": "vscode.markdown.editor",
+    "*.md": "vscode.markdown.editor"
   },
   "xstate.nestTypegenFiles": false
 }
