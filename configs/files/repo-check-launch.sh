@@ -37,6 +37,13 @@ if [ -n "$app_id" ] && [ -f "$entry" ] && ! grep -q "^StartupWMClass=crx_$app_id
   update-desktop-database "$HOME/.local/share/applications" 2>/dev/null
 fi
 
+# hide the entry Chrome wrote for the PWA, it opens the window without starting the server. Chrome can rewrite it, so this runs every time
+chrome_entry="$HOME/.local/share/applications/chrome-$app_id-Default.desktop"
+if [ -n "$app_id" ] && [ -f "$chrome_entry" ] && ! grep -q '^NoDisplay=true$' "$chrome_entry"; then
+  echo 'NoDisplay=true' >>"$chrome_entry"
+  update-desktop-database "$HOME/.local/share/applications" 2>/dev/null
+fi
+
 if [ -z "$app_id" ]; then
   # no installed PWA: an app window on the address still works
   exec /opt/google/chrome/google-chrome --app="$url"
