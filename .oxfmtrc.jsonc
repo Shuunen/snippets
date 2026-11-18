@@ -4,7 +4,7 @@
   "bracketSameLine": false,
   "bracketSpacing": true,
   "endOfLine": "lf",
-  "ignorePatterns": ["**/__snapshots__/**"],
+  "ignorePatterns": ["**/__snapshots__/**", "configs/files/claude-skill-stuff-finder-add-item.md"],
   "objectWrap": "preserve",
   "printWidth": 240,
   "quoteProps": "as-needed",
