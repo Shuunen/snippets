@@ -60,6 +60,7 @@ function sharedConfigs(platform: Platform): Config[] {
     { local: `${home}/.claude/skills/interview/SKILL.md`, renameTo: 'claude-skill-interview.md' },
     { local: `${home}/.claude/skills/update-project/SKILL.md`, renameTo: 'claude-skill-update-project.md' },
     { local: `${home}/.claude/skills/fix-projects/SKILL.md`, renameTo: 'claude-skill-fix-projects.md' },
+    { local: `${home}/.claude/skills/stuff-finder-add-item/SKILL.md`, renameTo: 'claude-skill-stuff-finder-add-item.md' },
     { local: `${home}/.config/autostart/xbox-controller-driver.desktop`, renameTo: 'autostart-xbox.desktop' },
     // { local: `${home}/repo-checker.config.js` },
   ]
