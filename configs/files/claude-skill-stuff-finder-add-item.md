@@ -135,14 +135,9 @@ Box labels are fixed and must match exactly, e.g. `F (périphériques)`, `G (bri
 
 The app keeps the form in local storage under `stuff-finder-draft-new` and restores and validates it when `/item/add` opens. One JS call replaces eight field fills (faster and no form-state race: filling fields back to back with `form_input` and no pause leaves values that look filled but are empty in the state). In batch 3, in the stuff-finder tab:
 
-1. `javascript_tool`, writing the draft (all keys required; use `''` for empty values, `false` for `isPrinted`):
-
-```js
-localStorage.setItem('stuff-finder-draft-new',JSON.stringify({name:'…',brand:'…',price:'12',details:'…',reference:'…',status:'bought',photo:'https://m.media-amazon.com/images/I/<image>._AC_SL800_.jpg',box:'G (brico & sport)',drawer:'2',barcode:'',isPrinted:false,id:''})); 'ok'
-```
-
+1. `javascript_tool`, writing the draft (all keys required; use `''` for empty values, `false` for `isPrinted`): `localStorage.setItem('stuff-finder-draft-new',JSON.stringify({name:'…',brand:'…',price:'12',details:'…',reference:'…',status:'bought',photo:'https://m.media-amazon.com/images/I/<image>._AC_SL800_.jpg',box:'G (brico & sport)',drawer:'2',barcode:'',isPrinted:false,id:''})); 'ok'`
 2. `navigate` to `https://stuff-finder.netlify.app/item/add`.
-2. `javascript_tool` verify (step 4), then `computer` `screenshot` with `scale: 0.4`.
+3. `javascript_tool` verify (step 4), then `computer` `screenshot` with `scale: 0.4`.
 
 Field rules the form enforces (write values that pass first time):
 

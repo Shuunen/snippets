@@ -28,7 +28,15 @@
       "mcp__claude-in-chrome__browser_batch",
       "mcp__claude-in-chrome__tabs_create_mcp",
       "ClaudeInChromeDomain(iconscout.com)",
-      "Bash(rtk grep *)"
+      "Bash(rtk grep *)",
+      "ClaudeInChromeDomain(lemon.seedhost.eu)",
+      "mcp__claude-in-chrome__javascript_tool",
+      "ClaudeInChromeDomain(www.yggreborn.org)",
+      "ClaudeInChromeDomain(1337x.to)",
+      "ClaudeInChromeDomain(rutracker.org)",
+      "ClaudeInChromeDomain(localhost:5110)",
+      "ClaudeInChromeDomain(stuff-finder.netlify.app)",
+      "ClaudeInChromeDomain(www.temu.com)"
     ],
     "defaultMode": "auto"
   },
@@ -204,7 +212,8 @@
     "brag@brag": true,
     "cc-plugin-you-should-know@builtin": false,
     "cc-plugin-telemetry@builtin": false,
-    "i-have-adhd@i-have-adhd": true
+    "i-have-adhd@i-have-adhd": true,
+    "curl-md@curl-md": true
   },
   "extraKnownMarketplaces": {
     "headroom-marketplace": {
@@ -229,6 +238,12 @@
       "source": {
         "source": "github",
         "repo": "ayghri/i-have-adhd"
+      }
+    },
+    "curl-md": {
+      "source": {
+        "source": "github",
+        "repo": "wevm/curl.md"
       }
     }
   },
