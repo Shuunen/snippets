@@ -254,7 +254,7 @@ Install these deb :
 - [Stretchly](https://github.com/hovancik/stretchly/releases)
 
 ```bash
-sudo apt install -y neofetch btop tldr git aria2 nano curl -y
+sudo apt install -y neofetch btop git aria2 nano curl -y
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.40.4/install.sh | bash
 bash # reload shell to be able to invoke nvm
 nvm install --lts
@@ -302,21 +302,27 @@ Copy ssh keys then in a **bash terminal** :
 sudo chmod 700 ~/.ssh/ -R # remove 'sudo' on windows
 # mkdir ~/.npm-global # if not using nvm
 # npm config set prefix '~/.npm-global' # if not using nvm
-npm i pnpm bun -g
+npm i pnpm bun tldr -g
 mkdir ~/Projects/github -p
 cd ~/Projects/github
-git clone git@github.com:Shuunen/c-est-donne.git
 git clone git@github.com:Shuunen/flood-it.git
 git clone git@github.com:Shuunen/folio.git
 git clone git@github.com:Shuunen/ging.git
 git clone git@github.com:Shuunen/goals.git
+git clone git@github.com:Shuunen/image-compare.git
+git clone git@github.com:Shuunen/invest.git
 git clone git@github.com:Shuunen/jozzo.git
+git clone git@github.com:Shuunen/logo-tester.git
 git clone git@github.com:Shuunen/recipes.git
 git clone git@github.com:Shuunen/regex-converter.git
-git clone git@github.com:Shuunen/snippets.git
+git clone git@github.com:Shuunen/repo-checker.git
+git clone git@github.com:Shuunen/rock-solid.git
 git clone git@github.com:Shuunen/shuutils.git
+git clone git@github.com:Shuunen/snippets.git
 git clone git@github.com:Shuunen/stuff-finder.git
+git clone git@github.com:Shuunen/ts-result-comparison.git
 git clone git@github.com:Shuunen/user-scripts.git
+git clone git@github.com:Shuunen/validation-lib-comparison.git
 git clone git@github.com:Shuunen/what-now.git
 find . -maxdepth 1 -type d \( ! -name . \) -exec bash -c "cd '{}' && git checkout master && git pull && pnpm i" \;
 cd ~/Projects/github/snippets
