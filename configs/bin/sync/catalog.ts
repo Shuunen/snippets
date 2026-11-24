@@ -35,6 +35,7 @@ function sharedConfigs(platform: Platform): Config[] {
   const { appData, home } = platform
   return [
     { local: `${home}/.bash_aliases` },
+    { local: `${home}/.aria2/aria2.conf` },
     { local: `${appData}/Code/User/keybindings.json`, renameTo: 'vscode-keybindings.json' },
     { local: `${appData}/Code/User/settings.json`, renameTo: 'vscode-settings.json' },
     // { local: `${appData}/HandBrake/presets.json`, renameTo: 'handbrake-presets.json' },
